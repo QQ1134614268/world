@@ -5,9 +5,8 @@ When I saw it, I understood what it meant.
 	python3.7
 	windows
 项目介绍:
+    pass
 
-python manage.py runserver 0.0.0.0:8000  
- 
 人:  想要的和得到的
     怎么会使自己更有利  
 	主动推动别人完成
@@ -41,6 +40,7 @@ python manage.py runserver 0.0.0.0:8000
     验证码
     swagger
     -------------------
+	接口文档
     脚本
     第三方登录和支付宝支付的集成
     本地调试远程服务器代码技巧
@@ -113,10 +113,11 @@ python manage.py runserver 0.0.0.0:8000
 
 T test 多线程 异步
 
-django-admin startproject XX
-python manage.py startapp XX
-
-https://blog.csdn.net/Jamin2018/article/details/78907997
-
+    
+自动锁定文件
+ctrl +r
+ecplise
+格式化
+自动导入
 
 
