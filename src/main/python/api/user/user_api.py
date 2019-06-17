@@ -5,15 +5,13 @@ from flask import Blueprint, Response
 from flask import jsonify, make_response, request, json
 
 from db.db import db
-from vo.user import  UserVO
+from vo.user import UserVO
+import jwt
+import jwt
+import time
+import utity
 
 user = Blueprint("user", __name__, url_prefix='/user')
-import jwt
-
-
-@user.route('/show')
-def show():
-    return 'user_show'
 
 
 @user.route('/register', methods=['POST'])
@@ -26,10 +24,10 @@ def register(request):  # 用户注册
     data = request.get_json()
     username = data.get('username', '')
     password = data.get('password', '')
-    email = data.get('email', '')
-    user = UserVO(email=email, username=username, password=UserVO.set_password(UserVO, password))
+    user = UserVO(username=username, password=UserVO.set_password(password))
     if db.session.query_property({"username": username}):
-        pass
+        return user.query.save()
+
 
 def login(request):
     """ todo
@@ -39,12 +37,15 @@ def login(request):
     data = request.get_json()
     username = data.get('username', '')
     password = data.get('password', '')
-    email = data.get('email', '')
-    vo = UserVO(email=email, username=username, password=UserVO.set_password(UserVO, password))
-    UserVO
-    if user is not None   :
-        pass
-
+    user = UserVO(username=username, password=UserVO.set_password(UserVO, password))
+    if user is not None:
+        payload = {
+            "username": user.username,
+            "userid": user.id,
+            "timestamp": int(time.time()),
+            # "exp": 1448333419,
+        }
+        return jwt.encode(payload, 'secret', algorithm='HS256')
 
 # @require_GET
 # def logout(request):

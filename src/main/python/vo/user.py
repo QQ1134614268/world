@@ -6,13 +6,14 @@ from db.db import db
 #创建User模型
 class UserVO(db.Model):
     __tablename__ = 'user' #起表名
-    id = db.Column(db.Integer,primary_key=True) #主键
+    id = db.Column(db.Integer,primary_key=True,comment="主键") #  TODO 注释
     username = db.Column(db.String(12),index=True)
     password = db.Column(db.String(128),default='123456')
     birthday = db.Column(db.Date)
     sex = db.Column(db.Boolean,default=True)
     email = db.Column(db.String(60),default='793390457@qq.com')
     icon = db.Column(db.String(70),default='default.jpg')
+
 
     phone=db.Column(db.String(11))
     active = db.Column(db.Boolean, default=True)
@@ -25,7 +26,8 @@ class UserVO(db.Model):
         self.username = username
         self.password = password
         self.email = email
-
+    def set_password(self,password):
+        return password
     def __str__(self):
         return "Users(id='%s')" % self.id
 
