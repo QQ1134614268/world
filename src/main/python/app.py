@@ -1,7 +1,5 @@
 from flask import Flask, request
 
-from api import hello_api
-
 app = Flask(__name__)
 
 
@@ -27,8 +25,20 @@ def before_request():  # log   异常捕捉 TODO
 def hello_world():
     return 'Hello World!'
 
+from api.user.user_api import user
+from api.hello_api import hello
 
-app.register_blueprint(hello_api, url_prefix='/admin')  # 其他模块路由
+app.register_blueprint(hello)  # 其他模块路由
+app.register_blueprint(user)  # 其他模块路由
+
+# from flask_restplus import Api
+# program = Flask(__name__, static_url_path='', static_folder='../uploads')
+# api = Api(program, doc=False)
+# CORS(program, supports_credentials=True)
+#
+# # api with doc string
+# api.add_namespace(station)
+
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080, debug=True, threaded=True)
+    app.run(host='0.0.0.0', port=8888, debug=True, threaded=True)

@@ -10,7 +10,7 @@ import jwt
 import jwt
 import time
 import utity
-
+from config import jwt_config
 user = Blueprint("user", __name__, url_prefix='/user')
 
 
@@ -45,7 +45,7 @@ def login(request):
             "timestamp": int(time.time()),
             # "exp": 1448333419,
         }
-        return jwt.encode(payload, 'secret', algorithm='HS256')
+        return jwt_config.get_token(payload)
 
 # @require_GET
 # def logout(request):
