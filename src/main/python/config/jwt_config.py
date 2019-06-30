@@ -2,8 +2,9 @@
 @author:huangran
 """
 import jwt
+from flask import request
 
-secret = 'secret'  #配置文件
+secret = 'secret'  # 配置文件
 
 
 def get_token(payload):
@@ -12,6 +13,11 @@ def get_token(payload):
 
 def get_payload(token):
     return jwt.decode(token, secret, algorithms=['HS256'])
+
+
+def get_current_username():
+    token = request.headers.get("token")
+    return get_payload(token)["username"]
 
 
 def check_token(token):

@@ -1,49 +1,51 @@
+# -*- coding: utf-8 -*-
 """
-@author:huangran
+# @Time    : 2019/6/30 21:29
+# @Author  : huangran
 """
-import os
 import logging
-import json
 from logging.handlers import RotatingFileHandler
 
-class Log:
 
-    @staticmethod
-    def get_log(path="logging.json", default_level=logging.INFO):
-        if os.path.exists(path):
-            with open(path, "r") as f:
-                config = json.load(f)
-                logging.config.dictConfig(config)
-        else:
-            logging.basicConfig(level=default_level)
-        return logging.getLogger()
-    @staticmethod
-    def get_log2(path="log.txt"):
-        logger=logging.getLogger()
-        formatter = logging.Formatter('%(asctime)s -%(levelname)s -%(filename)s %(lineno)d -  %(message)s')
-        logger.setLevel(level=logging.INFO)
-        # 定义一个RotatingFileHandler，最多备份3个日志文件，每个日志文件最大1K
-        file_handler = RotatingFileHandler(path, maxBytes=1 * 1024, backupCount=3)
-        file_handler.setLevel(logging.INFO)
-        file_handler.setFormatter(formatter)
+def crate():
+    # formatter = '[%(asctime)s][%(filename)s] -- %(message)s'  # 日志格式
+    # formatter_str = logging.Formatter('%(asctime)s -%(levelname)s -%(filename)s %(lineno)d -  %(message)s')
+    formatter_str = '%(asctime)s -%(levelname)s -%(filename)s %(lineno)d -  %(message)s'  # 日志格式
+    formatter = logging.Formatter(formatter_str)
 
-        console_handler = logging.StreamHandler()
-        console_handler.setLevel(logging.INFO)
-        console_handler.setFormatter(formatter)
+    logger = logging.getLogger(__name__)
+    logger.setLevel(level=logging.INFO)
+    # 定义一个RotatingFileHandler，最多备份3个日志文件，每个日志文件最大1K
+    rHandler = RotatingFileHandler("log3.txt", maxBytes=1 * 1024, backupCount=3)
+    rHandler.setLevel(logging.INFO)
+    rHandler.setFormatter(formatter)
 
-        logger.addHandler(file_handler)
-        logger.addHandler(console_handler)
-        return logger
+    console = logging.StreamHandler()
+    console.setLevel(logging.INFO)
+    console.setFormatter(formatter)
 
-    @staticmethod
-    def info(content):
-        Log.get_log2().info(content)
+    logger.addHandler(rHandler)
+    logger.addHandler(console)
 
-    @staticmethod
-    def err(position, title, content):
-        logging.ERROR()
-        pass
+    return logger
 
-    @staticmethod
-    def info_args(position, title, content):
-        pass
+
+logger = crate()
+
+
+def info(message):
+    logger.info(message)
+
+
+def error(message):
+    logger.error(message)
+
+
+def warning(message):
+    logger.warning(message)
+
+
+if __name__ == '__main__':
+    info("Start print log")
+    error("Do something")
+    warning("Something maybe fail.")
