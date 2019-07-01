@@ -47,24 +47,24 @@ class AnnouncementVO(db.Model):
 
 
 class MessageVO(db.Model):
-    __tablename__ = 'announcement'  # 起表名
+    __tablename__ = 'message'  # 起表名
     id = db.Column(db.Integer, primary_key=True, comment="主键")
     content = db.Column(db.String(150), default='123456')
     createTime = db.Column(db.DateTime)
     images = db.Column(db.String(70), default='default.jpg')
 
 
-class InnerVO(db.Model):
-    id = db.Column(db.Integer, primary_key=True, comment="主键")
-    inner = db.Column(db.String(150), default='123456')
-
-
-class ComplexVO(db.Model):
-    __tablename__ = 'complex'  # 起表名
-    id = db.Column(db.Integer, primary_key=True, comment="主键")
-    content = db.Column(db.String(150), default='123456')
-    createTime = db.Column(db.DateTime)
-    images = db.Column(db.String(70), default='default.jpg')
+# class InnerVO(db.Model):
+#     id = db.Column(db.Integer, primary_key=True, comment="主键")
+#     inner = db.Column(db.String(150), default='123456')
+#
+#
+# class ComplexVO(db.Model):
+#     __tablename__ = 'complex'  # 起表名
+#     id = db.Column(db.Integer, primary_key=True, comment="主键")
+#     content = db.Column(db.String(150), default='123456')
+#     createTime = db.Column(db.DateTime)
+#     images = db.Column(db.String(70), default='default.jpg')
 
 
 class RecordVO(db.Model):
