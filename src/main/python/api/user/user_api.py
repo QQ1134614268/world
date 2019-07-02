@@ -6,8 +6,8 @@ from flask import jsonify, make_response, request, json
 from db.db import db
 from vo.user import UserVO
 import time
-from config import jwt_config, res
-
+from config import jwt_config
+from config import res
 user_api = Blueprint("user", __name__, url_prefix='/user')
 
 
