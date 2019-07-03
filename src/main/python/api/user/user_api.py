@@ -1,3 +1,4 @@
+# -- coding:UTF-8 --
 """
 @author:huangran
 """
@@ -8,6 +9,7 @@ from vo.user import UserVO
 import time
 from config import jwt_config
 from config import res
+
 user_api = Blueprint("user", __name__, url_prefix='/user')
 
 
