@@ -18,7 +18,7 @@ def crate():
     logger.setLevel(level=logging.INFO)
     # 定义一个RotatingFileHandler，最多备份3个日志文件，每个日志文件最大1K
     # rHandler = RotatingFileHandler("log3.txt", maxBytes=1 * 1024, backupCount=3)
-    rHandler = ConcurrentRotatingFileHandler("log3.txt", maxBytes=1 * 1024, backupCount=3)
+    rHandler = ConcurrentRotatingFileHandler("../../../data/log/log.txt", maxBytes=1 * 1024, backupCount=3,encoding="utf_8")
     rHandler.setLevel(logging.INFO)
     rHandler.setFormatter(formatter)
 
@@ -36,7 +36,8 @@ logger = crate()
 
 
 def info(message):
-    logger.info(message)
+    logger.info({"message:":message})
+    # logger.info(message)
 
 
 def error(message):
@@ -48,6 +49,6 @@ def warning(message):
 
 
 if __name__ == '__main__':
-    info("Start print log")
+    info({"a":1})
     error("Do something")
     warning("Something maybe fail.")

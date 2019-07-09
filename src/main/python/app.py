@@ -20,18 +20,20 @@ db.init_app(app)
 @app.before_request
 def before_request():  # log   异常捕捉 TODO
     allow = []
-    url = request.url
-    if url in allow:
+    path = request.path
+
+    if path in allow:
         pass
     else:
         # return  "请登录"
         pass
     ip = request.remote_addr
-    # username = jwt_config.get_current_username()
-    # log.info("username" + username + ";url: " + url + ";ip: " + ip)
-    log.info("username:" + "w&g" + "; url: " + "/" + "; ip: " + "127.0.0.1")
+    username = jwt_config.get_current_username()
+    userid = jwt_config.get_current_username()
+    log.info({"user": {"username": username, "userid": userid}, "path": path, "ip": ip, "action": "登录"})
 
-# @app.after_request
+
+# @app.after_request  todo
 # def after_request():
 #     from flask import Response
 #     data = Response.get_data()
@@ -39,7 +41,7 @@ def before_request():  # log   异常捕捉 TODO
 #     pass
 
 
-# @app.errorhandler(Exception)
+# @app.errorhandler(Exception) todo
 # def flask_global_exception_handler(e):
 #     # 判断异常是不是APIException
 #     if isinstance(e, WorldException):
@@ -64,11 +66,6 @@ app.register_blueprint(hello_api)  # 其他模块路由
 app.register_blueprint(user_api)  # 其他模块路由
 app.register_blueprint(sys_api)  # 其他模块路由
 app.register_blueprint(speech_api)  # 其他模块路由
-
-
-@app.route("/")
-def hello():
-    return "hello"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8888, debug=True, threaded=True)
