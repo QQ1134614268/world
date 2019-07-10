@@ -37,15 +37,14 @@ logger = crate()
 
 def info(message):
     logger.info({"message:":message})
-    # logger.info(message)
 
 
 def error(message):
-    logger.error(message)
+    logger.error({"message:":message})
 
 
 def warning(message):
-    logger.warning(message)
+    logger.warning({"message:":message})
 
 
 if __name__ == '__main__':

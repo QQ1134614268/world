@@ -7,8 +7,9 @@ from api.hilltop.speech_api import speech_api
 from db.db import db
 from config import log
 from config import jwt_config
-from config.exception import WorldException
-from werkzeug.exceptions import HTTPException
+import traceback
+import re
+from config import mail
 
 app = Flask(__name__)
 
@@ -18,54 +19,58 @@ db.init_app(app)
 
 
 @app.before_request
-def before_request():  # log   异常捕捉 TODO
-    allow = []
+def before_request():  # 登录过滤,正则匹配,日志记录,IP分析
+    allow = [".*"]
     path = request.path
-
-    if path in allow:
-        pass
+    for i in allow:
+        if re.match(i, path):
+            ip = request.remote_addr
+            username = jwt_config.get_current_username()
+            userid = jwt_config.get_current_username()
+            log.info({"user": {"username": username, "userid": userid}, "path": path, "ip": ip, "action": "before_request"})
+            break
     else:
-        # return  "请登录"
-        pass
-    ip = request.remote_addr
-    username = jwt_config.get_current_username()
-    userid = jwt_config.get_current_username()
-    log.info({"user": {"username": username, "userid": userid}, "path": path, "ip": ip, "action": "登录"})
+        return "请登录"
 
 
-# @app.after_request  todo
+# @app.after_request  todo  所有数据都转成  格式
 # def after_request():
 #     from flask import Response
 #     data = Response.get_data()
 #     print(type(data), data)
 #     pass
 
-
-# @app.errorhandler(Exception) todo
-# def flask_global_exception_handler(e):
-#     # 判断异常是不是APIException
-#     if isinstance(e, WorldException):
-#         return e
-#     # 判断异常是不是HTTPException
-#     elif isinstance(e, HTTPException):
-#         error = WorldException()
-#         error.code = e.code
-#         error.message = e.description
-#         return error
-#     # 异常肯定是Exception
-#     else:
-#         from flask import current_app
-#         # 如果是调试模式,则返回e的具体异常信息。否则返回json格式的ServerException对象！
-#         if current_app.config["DEBUG"]:
-#             return e
-#         else:
-#             return WorldException()
+SERVER_MAIL='1134614268@qq.com'
 
 
-app.register_blueprint(hello_api)  # 其他模块路由
-app.register_blueprint(user_api)  # 其他模块路由
-app.register_blueprint(sys_api)  # 其他模块路由
-app.register_blueprint(speech_api)  # 其他模块路由
+@app.errorhandler(Exception)
+def flask_global_exception_handler(e):
+    if app.config["DEBUG"]:
+        # traceback.print_exc()  str(e)  repr(e)  e.message
+        # 控制台打印异常栈信息,便于开发调试
+        traceback.print_exc()
+        # 日志记录异常信息
+        message = traceback.format_exc()
+        log.error(message)
+        # 邮件服务 发送异常通知邮件  邮件模板
+        mail.send_email(message,SERVER_MAIL)
+        return message
+    else:
+        traceback.print_exc()  # str(e)  repr(e)  e.message
+        # 控制台打印异常栈信息,便于开发调试
+        traceback.print_exc()
+        # 日志记录异常信息
+        message = traceback.format_exc()
+        log.error(message)
+        # 邮件服务 发送异常通知邮件  邮件模板
+        mail.send_email(message, SERVER_MAIL)
+        return "server error"
+
+
+app.register_blueprint(hello_api)
+app.register_blueprint(user_api)
+app.register_blueprint(sys_api)
+app.register_blueprint(speech_api)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8888, debug=True, threaded=True)
