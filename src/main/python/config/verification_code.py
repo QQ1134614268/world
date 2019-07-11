@@ -5,7 +5,7 @@ from PIL import Image, ImageDraw, ImageFont
 from django.utils.six import BytesIO
 
 
-def verify_code(request):
+def verify_code():
     # 引入随机函数模块
     import random
     # 定义变量，用于画面的背景色、宽、高
@@ -40,10 +40,10 @@ def verify_code(request):
     # 释放画笔
     del draw
     # 存入session，用于做进一步验证
-    request.session['verifycode'] = rand_str
     # 内存文件操作
     buf = BytesIO()
     # 将图片保存在内存中，文件类型为png
     im.save(buf, 'png')
     # 将内存中的图片数据返回给客户端，MIME类型为图片png
-    return HttpResponse(buf.getvalue(), 'image/png')
+    buf.getvalue()
+    return buf.getvalue(),rand_str

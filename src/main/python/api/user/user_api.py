@@ -9,6 +9,7 @@ from vo.user import UserVO
 import time
 from config import jwt_config
 from config import res
+from config import verification_code
 
 user_api = Blueprint("user", __name__, url_prefix='/user')
 
@@ -64,3 +65,9 @@ def get_user():
 
 def get_auth():
     pass
+
+
+def verify_code():
+    # todo
+    im,code=verification_code.verify_code()
+    return make_response(jsonify(res.success("账号密码不匹配")))
