@@ -2,8 +2,7 @@
 """
 @author:huangran
 """
-from flask import Blueprint, session
-from flask import jsonify, make_response, request
+from flask import Blueprint, session, jsonify, make_response, request
 from db.db import db
 from vo.user import UserVO
 import time
@@ -35,11 +34,11 @@ def register():  # 用户注册
     return jsonify(res.success("注册成功"))
 
 
-@user_api.route('/verify_code', methods=['GET'])
-def verify_code():
+@user_api.route('/get_verify_code', methods=['GET'])
+def get_verify_code():
     from io import BytesIO
     file_io = BytesIO()
-    code, image = verification_code.verify_code_image()
+    code, image = verification_code.get_verify_code()
     image.save(file_io, 'jpeg')
     response = make_response(file_io.getvalue())
     response.headers['Content-Type'] = 'image/gif'
@@ -84,6 +83,3 @@ def get_user():
 
 def get_auth():
     pass
-
-
-

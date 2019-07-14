@@ -2,45 +2,60 @@
 """
 @author:huangran
 """
-
-from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import random
+import string
+from PIL import Image, ImageFont, ImageDraw, ImageFilter
 
 
-# 随机码 默认长度=1
-def random_code(lenght=4):
-    code = ''
-    for char in range(lenght):
-        code += chr(random.randint(65, 90))
-    return code
+def rndColor():
+    """
+    随机颜色
+    :return:
+    """
+    return random.randint(32, 127), random.randint(32, 127), random.randint(32, 127)
 
 
-# 随机颜色 默认颜色范围【1，255】
-def random_color(s=1, e=255):
-    return random.randint(s, e), random.randint(s, e), random.randint(s, e)
+def gene_text():
+    """
+       生成4位验证码
+       :return:
+       """
+    return ''.join(random.sample(string.ascii_letters + string.digits, 4))
 
 
-# 生成验证码图片
-# length 验证码长度
-# width 图片宽度
-# height 图片高度
-# 返回验证码和图片
-def verify_code_image(length=4, width=160, height=40):
-    # 创建Image对象
-    image = Image.new('RGB', (width, height), (255, 255, 255))
-    # 创建Font对象
-    font = ImageFont.load_default()
-    # 创建Draw对象
-    draw = ImageDraw.Draw(image)
-    # 随机颜色填充每个像素
-    for x in range(width):
-        for y in range(height):
-            draw.point((x, y), fill=random_color(64, 255))
-    # 验证码
-    code = random_code(length)
-    # 随机颜色验证码写到图片上
-    for t in range(length):
-        draw.text((40 * t + 5, 5), code[t], font=font, fill=random_color(32, 127))
-    # 模糊滤镜
-    image = image.filter(ImageFilter.BLUR)
-    return code, image
+def draw_lines(draw, num, width, height):
+    """
+           划线
+           :return:
+           """
+    for num in range(num):
+        x1 = random.randint(0, width / 2)
+        y1 = random.randint(0, height / 2)
+        x2 = random.randint(0, width)
+        y2 = random.randint(height / 2, height)
+        draw.line(((x1, y1), (x2, y2)), fill='black', width=1)
+
+
+def get_verify_code():
+    """
+           生成验证码图形
+           :return:
+           """
+    code = gene_text()
+    # 图片大小120×50
+    width, height = 120, 50
+    # 新图片对象
+    im = Image.new('RGB', (width, height), 'white')
+    # 字体
+    font = ImageFont.truetype('app/static/arial.ttf', 40)
+    # draw对象
+    draw = ImageDraw.Draw(im)
+    # 绘制字符串
+    for item in range(4):
+        draw.text((5 + random.randint(-3, 3) + 23 * item, 5 + random.randint(-3, 3)),
+                  text=code[item], fill=rndColor(), font=font)
+    # 划线
+    draw_lines(draw, 2, width, height)
+    # 高斯模糊
+    im = im.filter(ImageFilter.GaussianBlur(radius=1.5))
+    return code, im

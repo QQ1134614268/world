@@ -2,8 +2,7 @@
 """
 @author:huangran
 """
-from flask import Blueprint, Response
-from flask import jsonify, make_response, request, json
+from flask import Blueprint, jsonify, make_response, request, json
 from config import res
 from db.db import db
 from vo.user import AnnouncementVO, MessageVO
@@ -35,6 +34,12 @@ def add_announcement():
 @sys_api.route('/getAnnouncement', methods=['GET'])
 def get_announcement():
     message_list = list(AnnouncementVO.query.order_by(AnnouncementVO.createTime).all())
+    #  todo bug : return list
+    message_list = [obj.__dict__ for obj in message_list]
+    print(message_list)
+    # list_0 = [lambda  x : x .__dict__ for x in range(5)]
+    # json_str = json.dumps(message_list, default=lambda obj: obj.__dict__)
+    # print(json_str)
     return make_response(jsonify(res.success(message_list)))
 
 
