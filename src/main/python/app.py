@@ -10,12 +10,21 @@ from config import jwt_config
 import traceback
 import re
 from config import mail
+from os import path
+
+APP_DIR = path.abspath(__file__)
+PROJECT_DIR = path.dirname(path.dirname(path.dirname(path.dirname(APP_DIR))))
+DATA_DIR = PROJECT_DIR + "/data"
+RESOURCE_DIR = PROJECT_DIR + "/src/main/resource"
+PARENT_DIR = path.dirname(PROJECT_DIR)
 
 app = Flask(__name__)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:123456@127.0.0.1:3306/world?charset=utf8"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
+app.config["SECRET_KEY"] = "session_key_world"
+# app.config["PERMANENT_SESSION_LIFETIME"] = 60  # 设置session失效时间
 
 
 @app.before_request
@@ -23,11 +32,14 @@ def before_request():  # 登录过滤,正则匹配,日志记录,IP分析
     allow = [".*"]
     path = request.path
     for i in allow:
+        if path == "/favicon.ico":
+            return "favicon.ico"
         if re.match(i, path):
             ip = request.remote_addr
             username = jwt_config.get_current_username()
             userid = jwt_config.get_current_username()
-            log.info({"user": {"username": username, "userid": userid}, "path": path, "ip": ip, "action": "before_request"})
+            log.info(
+                {"user": {"username": username, "userid": userid}, "path": path, "ip": ip, "action": "before_request"})
             break
     else:
         return "请登录"
@@ -40,7 +52,7 @@ def before_request():  # 登录过滤,正则匹配,日志记录,IP分析
 #     print(type(data), data)
 #     pass
 
-SERVER_MAIL='1134614268@qq.com'
+SERVER_MAIL = '1134614268@qq.com'
 
 
 @app.errorhandler(Exception)
@@ -53,7 +65,7 @@ def flask_global_exception_handler(e):
         message = traceback.format_exc()
         log.error(message)
         # 邮件服务 发送异常通知邮件  邮件模板
-        mail.send_email(message,SERVER_MAIL)
+        mail.send_email(message, SERVER_MAIL)
         return message
     else:
         traceback.print_exc()  # str(e)  repr(e)  e.message

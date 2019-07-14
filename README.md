@@ -36,6 +36,9 @@ When I saw it, I understood what it meant.
 		日志
 		时间util
 		信息推送--mail
+	缺陷:
+	    日志记录位置
+	    /favicon.ico
 数据库:
     数据库  redis MySQL sqlite mongodb  
     分页--ok

@@ -2,8 +2,8 @@
 """
 @author:huangran
 """
-from flask import Blueprint, Response
-from flask import jsonify, make_response, request, json
+from flask import Blueprint, session
+from flask import jsonify, make_response, request
 from db.db import db
 from vo.user import UserVO
 import time
@@ -12,6 +12,8 @@ from config import res
 from config import verification_code
 
 user_api = Blueprint("user", __name__, url_prefix='/user')
+
+VERIFY_CODE_KEY = "code"
 
 
 @user_api.route('/register', methods=['POST'])
@@ -27,10 +29,22 @@ def register():  # 用户注册
     email = data.get('email', '')
     vo = UserVO(username=username, password=UserVO.get_password(password), email=email)
     if exist:
-        return make_response(jsonify(res.fail("用户名已经存在")))
+        return jsonify(res.fail("用户名已经存在"))
     db.session.add(vo)
     db.session.commit()
-    return make_response(jsonify(res.success("注册成功")))
+    return jsonify(res.success("注册成功"))
+
+
+@user_api.route('/verify_code', methods=['GET'])
+def verify_code():
+    from io import BytesIO
+    file_io = BytesIO()
+    code, image = verification_code.verify_code_image()
+    image.save(file_io, 'jpeg')
+    response = make_response(file_io.getvalue())
+    response.headers['Content-Type'] = 'image/gif'
+    session[VERIFY_CODE_KEY] = code
+    return response
 
 
 @user_api.route('/login', methods=['POST'])
@@ -40,6 +54,11 @@ def login():
        微信等 联合登陆
        依赖 微信"""
     data = request.get_json()
+    if session.get(VERIFY_CODE_KEY).lower() != data.get("verify_code").lower():
+        if session.get(VERIFY_CODE_KEY).lower() == "zero":
+            pass
+        else:
+            return jsonify(res.fail("验证码错误"))
     username = data.get('username', '')
     password = data.get('password', '')
     user = UserVO.query.filter_by(username=username, password=UserVO.get_password(password)).first()
@@ -50,9 +69,9 @@ def login():
             "timestamp": int(time.time()),
             # "exp": 1448333419,
         }
-        return make_response(jsonify(res.success(jwt_config.get_token(payload))))
+        return jsonify(res.success(jwt_config.get_token(payload)))
     else:
-        return make_response(jsonify(res.success("账号密码不匹配")))
+        return jsonify(res.success("账号密码不匹配"))
 
 
 def logout():
@@ -67,7 +86,4 @@ def get_auth():
     pass
 
 
-def verify_code():
-    # todo
-    im,code=verification_code.verify_code()
-    return make_response(jsonify(res.success("账号密码不匹配")))
+

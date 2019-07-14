@@ -9,7 +9,7 @@ from db.db import db
 # 创建User模型
 class UserVO(db.Model):
     __tablename__ = 'user'  # 起表名
-    id = db.Column(db.Integer, primary_key=True, comment="主键")  # TODO 注释
+    id = db.Column(db.Integer,autoincrement=True,  primary_key=True, comment="主键")  # TODO 注释
     username = db.Column(db.String(12), index=True)
     password = db.Column(db.String(128), default='123456')
     birthday = db.Column(db.Date)
@@ -40,16 +40,17 @@ class UserVO(db.Model):
 
 class AnnouncementVO(db.Model):
     __tablename__ = 'announcement'  # 起表名
-    id = db.Column(db.Integer, primary_key=True, comment="主键")
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True, comment="主键")
+    userid= db.Column(db.Integer, index=True)
     title = db.Column(db.String(128), index=True)
     content = db.Column(db.String(150), default='123456')
     createTime = db.Column(db.DateTime)
-    images = db.Column(db.String(70), default='default.jpg')
+    images = db.Column(db.String(70), default='/')
 
 
 class MessageVO(db.Model):
     __tablename__ = 'message'  # 起表名
-    id = db.Column(db.Integer, primary_key=True, comment="主键")
+    id = db.Column(db.Integer,autoincrement=True,  primary_key=True, comment="主键")
     content = db.Column(db.String(150), default='123456')
     createTime = db.Column(db.DateTime)
     images = db.Column(db.String(70), default='default.jpg')
@@ -70,7 +71,7 @@ class MessageVO(db.Model):
 
 class RecordVO(db.Model):
     __tablename__ = 'record'  # 起表名
-    id = db.Column(db.Integer, primary_key=True, comment="主键")
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True, comment="主键")
     content = db.Column(db.String(150), default='123456')
     images = db.Column(db.String(70), default='default.jpg')
     video = db.Column(db.BLOB(70), default='default.jpg')
@@ -79,6 +80,22 @@ class RecordVO(db.Model):
 
 class CommentVO(db.Model):
     __tablename__ = 'comment'  # 起表名
-    id = db.Column(db.Integer, primary_key=True, comment="主键")
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True, comment="主键")
     content = db.Column(db.String(150), default='123456')
     createTime = db.Column(db.DateTime)
+
+
+class TestVO:
+    id = 0
+    content = 1
+
+
+import json
+if __name__ == '__main__':
+
+    u = TestVO()
+    u.content = 1
+    u2 = TestVO()
+    u2.content = 1
+    u.id = u2
+    print(json.dumps(u, default=lambda obj: obj.__dict__))

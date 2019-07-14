@@ -1,49 +1,46 @@
+# coding=utf-8
 """
 @author:huangran
 """
-from PIL import Image, ImageDraw, ImageFont
-from django.utils.six import BytesIO
+
+from PIL import Image, ImageDraw, ImageFont, ImageFilter
+import random
 
 
-def verify_code():
-    # 引入随机函数模块
-    import random
-    # 定义变量，用于画面的背景色、宽、高
-    bgcolor = (random.randrange(20, 100), random.randrange(
-        20, 100), 255)
-    width = 100
-    height = 25
-    # 创建画面对象
-    im = Image.new('RGB', (width, height), bgcolor)
-    # 创建画笔对象
-    draw = ImageDraw.Draw(im)
-    # 调用画笔的point()函数绘制噪点
-    for i in range(0, 100):
-        xy = (random.randrange(0, width), random.randrange(0, height))
-        fill = (random.randrange(0, 255), 255, random.randrange(0, 255))
-        draw.point(xy, fill=fill)
-    # 定义验证码的备选值
-    str1 = 'ABCD123EFGHIJK456LMNOPQRS789TUVWXYZ0'
-    # 随机选取4个值作为验证码
-    rand_str = ''
-    for i in range(0, 4):
-        rand_str += str1[random.randrange(0, len(str1))]
-    # 构造字体对象，ubuntu的字体路径为“/usr/share/fonts/truetype/freefont”
-    font = ImageFont.truetype('FreeMono.ttf', 23)
-    # 构造字体颜色
-    fontcolor = (255, random.randrange(0, 255), random.randrange(0, 255))
-    # 绘制4个字
-    draw.text((5, 2), rand_str[0], font=font, fill=fontcolor)
-    draw.text((25, 2), rand_str[1], font=font, fill=fontcolor)
-    draw.text((50, 2), rand_str[2], font=font, fill=fontcolor)
-    draw.text((75, 2), rand_str[3], font=font, fill=fontcolor)
-    # 释放画笔
-    del draw
-    # 存入session，用于做进一步验证
-    # 内存文件操作
-    buf = BytesIO()
-    # 将图片保存在内存中，文件类型为png
-    im.save(buf, 'png')
-    # 将内存中的图片数据返回给客户端，MIME类型为图片png
-    buf.getvalue()
-    return buf.getvalue(),rand_str
+# 随机码 默认长度=1
+def random_code(lenght=4):
+    code = ''
+    for char in range(lenght):
+        code += chr(random.randint(65, 90))
+    return code
+
+
+# 随机颜色 默认颜色范围【1，255】
+def random_color(s=1, e=255):
+    return random.randint(s, e), random.randint(s, e), random.randint(s, e)
+
+
+# 生成验证码图片
+# length 验证码长度
+# width 图片宽度
+# height 图片高度
+# 返回验证码和图片
+def verify_code_image(length=4, width=160, height=40):
+    # 创建Image对象
+    image = Image.new('RGB', (width, height), (255, 255, 255))
+    # 创建Font对象
+    font = ImageFont.load_default()
+    # 创建Draw对象
+    draw = ImageDraw.Draw(image)
+    # 随机颜色填充每个像素
+    for x in range(width):
+        for y in range(height):
+            draw.point((x, y), fill=random_color(64, 255))
+    # 验证码
+    code = random_code(length)
+    # 随机颜色验证码写到图片上
+    for t in range(length):
+        draw.text((40 * t + 5, 5), code[t], font=font, fill=random_color(32, 127))
+    # 模糊滤镜
+    image = image.filter(ImageFilter.BLUR)
+    return code, image

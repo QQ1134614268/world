@@ -5,11 +5,18 @@
 from email.header import Header
 from email.mime.text import MIMEText
 import smtplib
-from config import log
+from config.log import logger as log
 import traceback
 
 
 def send_email(mail_content, mail_to, subject="master,your mail"):
+    from app import app
+    if app.config["DEBUG"]:
+        log.info("DEBUG模式  mail不在实际发送")
+        return
+    else:
+        log.info("进入DEBUG模式失败  mail发送")
+        return
     # mail_to 抄送
     MAIL_HOST = "smtp.qq.com"  # 设置服务器
     MAIL_SENDER = "1134614268@qq.com"  # 用户名
@@ -38,7 +45,7 @@ def send_email(mail_content, mail_to, subject="master,your mail"):
 
     try:
         smtpObj = smtplib.SMTP_SSL(MAIL_HOST, 465)
-        smtpObj.set_debuglevel(1)
+        # smtpObj.set_debuglevel(1)
         smtpObj.login(MAIL_SENDER, MAIL_PASS)
         smtpObj.sendmail(MAIL_SENDER, mail_to, message.as_string())
         log.info("邮件发送成功")

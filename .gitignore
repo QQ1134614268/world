@@ -33,3 +33,5 @@ __pycache__
 /nbdist/
 /.nb-gradle/
 
+data/log/
+
