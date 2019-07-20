@@ -38,8 +38,10 @@ When I saw it, I understood what it meant.
 		时间util
 		信息推送--mail
 	缺陷:
+	    日志聚合 elk  https://www.jianshu.com/p/bcf0445a1b8f
 	    日志记录位置
 	    /favicon.ico
+	    数量就是多,限制查询结果,自行处理数据,或者根据某个人专门集成数据,对13亿人,
 数据库:
     数据库  redis MySQL sqlite mongodb  
     分页--ok

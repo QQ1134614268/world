@@ -51,20 +51,6 @@ def download_excel():
                      mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
 
 
-@hello_api.route('/download_txt', methods=['GET'])
-def download_txt():
-    from app import RESOURCE_DIR
-    with open(RESOURCE_DIR + "/txt_download_test.txt", "rb") as f:  # todo f.readlines() hit
-        mem = io.BytesIO()
-        mem.write(f)
-        # data = f.read()
-    file_name = "txt下载测试.xlsx"  # todo excel 和压缩文件
-    from flask import send_file
-    res = make_response(send_file(mem, attachment_filename=file_name.encode().decode('utf_8'), mimetype='text/plain'))
-    # res.headers["Content-Disposition"] = "attachment; filename={}".format(file_name.encode().decode('utf_8'))
-    return res
-
-
 @hello_api.route('/test_download')
 def test_download():
     import csv
@@ -120,3 +106,85 @@ def test_download():
 #         file_io_value, mimetype="application/octet-stream",
 #         headers={"Content-Disposition": "attachment;filename={0}".format(file_name)}
 #     )
+
+# # 辅助函数
+# from flask import url_for
+#
+#
+# def replace_id_to_uri(task):
+#     return dict(uri=url_for('get_task', task_id=task.id, _external=True),
+#                 title=task.title,
+#                 description=task.description,
+#                 done=task.done)
+#
+#
+# # 查询全部
+# @app.route('/todo/api/v1.0/tasks/', methods=['GET'])
+# def get_tasks():
+#     tasks = Todo.query.all()
+#     return jsonify({'tasks': list(map(replace_id_to_uri, tasks))})
+#
+#
+# # 查询一个
+# from flask import abort
+#
+#
+# @app.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['GET'])
+# def get_task(task_id):
+#     task = Todo.query.filter_by(id=task_id).first()
+#     if task is None:
+#         abort(404)
+#
+#     return jsonify({'task': replace_id_to_uri(task)})
+# # 添加
+# from flask import request
+#
+#
+# @app.route('/todo/api/v1.0/tasks/', methods=['POST'])
+# def create_task():
+#     # 没有数据，或者数据缺少 title 项，返回 400，表示请求无效
+#     if not request.json or not 'title' in request.json:
+#         abort(400)
+#
+#     task = Todo(request.json['title'], request.json.get('description', ""), False)
+#
+#     db.session.add(task)
+#     db.session.commit()
+#     return jsonify({'task': replace_id_to_uri(task)}), 201
+#
+#
+# # 更新
+# @app.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['PUT'])
+# def update_task(task_id):
+#     task = Todo.query.filter_by(id=task_id).first()
+#     if task is None:
+#         abort(404)
+#
+#     if not request.json:
+#         abort(400)
+#     if 'title' in request.json and type(request.json['title']) != unicode:
+#         abort(400)
+#     if 'description' in request.json and type(request.json['description']) is not unicode:
+#         abort(400)
+#     if 'done' in request.json and type(request.json['done']) is not bool:
+#         abort(400)
+#
+#     task['title'] = request.json.get('title', task['title'])
+#     task['description'] = request.json.get('description', task['description'])
+#     task['done'] = request.json.get('done', task['done'])
+#
+#     # db.session.update(task)
+#     db.session.commit()
+#     return jsonify({'task': replace_id_to_uri(task)})
+#
+#
+# # 删除
+# @app.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['DELETE'])
+# def delete_task(task_id):
+#     task = Todo.query.filter_by(id=task_id).first()
+#     if task is None:
+#         abort(404)
+#
+#     db.session.delete(task)
+#     db.session.commit()
+#     return jsonify({'result': True})
