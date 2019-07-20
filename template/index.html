@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form enctype='application/json' method="post">
+    <label>任务标题：</label>
+    <input type="text" name="title"></br>
+    <label>任务描述：</label>
+    <input type="texteara" name="description"></br>
+    <button type="submit">添加任务</button>
+</form>
+
+<!-- 任务列表 -->
+<ol id="container"></ol>
+
+<script>
+var container = document.getElementById('container');
+
+// 辅助函数：将一条任务(task)，放入form的下方容器的尾部
+var add_child = function (task) {
+    var li = document.createElement("li");
+    li.innerText = task["title"] + "  " + task["description"];
+    container.appendChild(li);
+};
+
+// 辅助函数：FormData转化为json
+var convert_FormData_to_json = function (formData) {
+    var objData = {};
+    for (var entry of formData.entries()){
+        objData[entry[0]] = entry[1];
+    }
+    return JSON.stringify(objData);
+};
+
+// 最初，ajax取全部任务，放入form的下方容器
+window.onload = function () {
+    var xhr = new XMLHttpRequest();
+
+    xhr.open('GET', '/todo/api/v1.0/tasks/');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send();
+
+    xhr.addEventListener('loadend', function() {
+        if(xhr.status == 200){
+            var res = JSON.parse(xhr.responseText);
+            //console.log(res);
+            res["tasks"].map(add_child)
+        }
+    }, false);
+};
+</script>
+
+
+<script>
+var formobj = document.querySelector('form');
+//var formobj = document.getElementByTag('form');
+
+formobj.addEventListener('submit', function(event){
+    event.preventDefault();
+    var xhr2 = new XMLHttpRequest();
+
+    xhr2.open('POST', '/todo/api/v1.0/tasks/');
+    xhr2.setRequestHeader('Content-Type', 'application/json');
+    xhr2.send(convert_FormData_to_json(new FormData(formobj)));// 发送json数据！
+
+    xhr2.addEventListener('loadend', function() {
+        if(xhr2.status == 201){ // 201，去看app.py！！
+            var res2 = JSON.parse(xhr2.responseText);
+            [res2["task"]].map(add_child); // 这里也用map，没别的目的，只想与前面的形式一致
+        }
+    }, false);
+}, false);
+</script>
+</body>
+</html>
