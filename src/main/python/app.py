@@ -11,6 +11,7 @@ import traceback
 import re
 from config import mail
 from os import path
+from flasgger import Swagger, swag_from
 
 APP_DIR = path.abspath(__file__)
 PROJECT_DIR = path.dirname(path.dirname(path.dirname(path.dirname(APP_DIR))))
@@ -19,6 +20,9 @@ RESOURCE_DIR = PROJECT_DIR + "/src/main/resource"
 PARENT_DIR = path.dirname(PROJECT_DIR)
 
 app = Flask(__name__)
+
+Swagger(app)
+
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:123456@127.0.0.1:3306/world?charset=utf8"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False

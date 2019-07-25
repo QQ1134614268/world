@@ -3,7 +3,7 @@
 # @Time    : 2019/6/30 23:13
 # @Author  : huangran
 """
-from flask import Blueprint, jsonify, make_response, request
+from flask import Blueprint, jsonify, make_response, request, send_file
 from config import res
 from db.db import db
 from vo.user import RecordVO, CommentVO
@@ -38,6 +38,7 @@ def add_comment():
 def get_record_all():
     # 获取所有日志加评论
     message_list = RecordVO.query.order_by(RecordVO.createTime).all()
+    print(message_list)
     return make_response(jsonify(res.success(message_list)))
 
 
@@ -46,8 +47,6 @@ def get_record():
     # 获取日志
     message_list = RecordVO.query.order_by(RecordVO.createTime).all()
     return make_response(jsonify(res.success(message_list)))
-
-from flask import make_response, send_file
 
 
 @speech_api.route('/export_speech', methods=['GET'])

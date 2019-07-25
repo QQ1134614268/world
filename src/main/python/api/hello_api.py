@@ -18,6 +18,42 @@ hello_api = Blueprint("hello", __name__, url_prefix='/hello')
 # response
 @hello_api.route('/hello', methods=["GET"])
 def hello():
+    """
+    This is the language awesomeness API
+    Call this api passing a language name and get back its features
+    ---
+    tags:
+      - hello
+    parameters:
+      - name: language
+        in: path
+        type: string
+        required: true
+        description: The language name
+      - name: size
+        in: query
+        type: integer
+        description: size of awesomeness
+    responses:
+      500:
+        description: Error The language is not awesome!
+      200:
+        description: A language with its awesomeness
+        schema:
+          id: awesome
+          properties:
+            language:
+              type: string
+              description: The language name
+              default: Lua
+            features:
+              type: array
+              description: The awesomeness list
+              items:
+                type: string
+              default: ["perfect", "simple", "lovely"]
+
+    """
     log.info("hello")
     return make_response(jsonify(res.success("hello world!")), 200)
 

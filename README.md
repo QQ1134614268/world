@@ -7,7 +7,7 @@ When I saw it, I understood what it meant.
 		加密--简单加密,安全加密
 		0-1-N 
 		util 字符串 
-		用户--权限
+		用户--权限 -- 用户可见页面权限,接口权限,数据权限
 		操作日志
 		http--json
 		重构--代码复用- 硬编码 ---- 接口对接, val 与 key  传唯一标识,不是id,也不是翻译后的字段
