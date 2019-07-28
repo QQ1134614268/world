@@ -48,9 +48,3 @@ def get_record():
     message_list = RecordVO.query.order_by(RecordVO.createTime).all()
     return make_response(jsonify(res.success(message_list)))
 
-
-@speech_api.route('/export_speech', methods=['GET'])
-def excel():
-    response = make_response(send_file("E:\\python\\world\\src\main\\resource\\Book1.xlsx"))
-    response.headers["Content-Disposition"] = "attachment; filename=myfiles.xls;"
-    return response

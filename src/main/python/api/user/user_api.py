@@ -16,11 +16,34 @@ VERIFY_CODE_KEY = "code"
 
 
 @user_api.route('/register', methods=['POST'])
-def register():  # 用户注册
+def register():
     """
-        管理员添加新用户: add user
-        :return:
-        """
+    This is the language awesomeness API
+    用户注册
+    ---
+    tags:
+      - user
+    parameters:
+      - name: username
+        in: query
+        type:
+        required: true
+        description: 用户名
+      - name: password
+        in: query
+        type: string
+        required: true
+        description: 密码
+      - name: email
+        in: query
+        type: email
+        description: 邮箱
+    responses:
+      500:
+        description: server error
+      200:
+        description: success
+    """
     data = request.get_json()
     username = data.get('username', '')
     exist = UserVO.query.filter_by(username=username).first()
@@ -48,10 +71,37 @@ def get_verify_code():
 
 @user_api.route('/login', methods=['POST'])
 def login():
-    """ todo
-    用户名 密码  手机号/邮箱/身份证
-       微信等 联合登陆
-       依赖 微信"""
+    """
+    This is the language awesomeness API
+    用户登录
+    ---
+    tags:
+      - user
+    parameters:
+      - name: username
+        in: query
+        type:
+        required: true
+        description: 用户名
+      - name: password
+        in: query
+        type: string
+        required: true
+        description: 密码
+      - name: email
+        in: query
+        type: email
+        description: 邮箱
+    responses:
+      500:
+        description: server error
+      200:
+        description: success
+    """
+    # """ todo
+    # 用户名 密码  手机号/邮箱/身份证
+    #    微信等 联合登陆
+    #    依赖 微信"""
     data = request.get_json()
     if session.get(VERIFY_CODE_KEY).lower() != data.get("verify_code").lower():
         if session.get(VERIFY_CODE_KEY).lower() == "zero":

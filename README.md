@@ -17,7 +17,7 @@ When I saw it, I understood what it meant.
 		excel,csv
 		多配置文件源   读取文件配置
 		微服务 定时
-		集群 kafka 缓存 redis 数据库  大量服务和数据,巅峰数据 -- 数据清洗,所有数据指明链接,叉树
+		集群 kafka 缓存 redis 数据库 定时任务 调度系统 大量服务和数据,巅峰数据 -- 数据清洗,所有数据指明链接,叉树
 		WebSocket
 		测试 fakeruser切换用户
 		接口文档 swagger
@@ -29,6 +29,8 @@ When I saw it, I understood what it meant.
 		调整接口  修改功能  模块属性  入口位置   清单列表 功能名称  示意 版本  下线
 		代码生成
 		信息推送--短信 系统内推 工单  电话  微信等消息
+		分布式--上传下载文件,定时任务 同步
+		数据库到代码实体类映射
 	已完成:
 		res
 		exception
