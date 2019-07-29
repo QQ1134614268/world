@@ -105,9 +105,8 @@ def test_download_zip():
     result_csv = pandas_data.to_csv(encoding="utf_8_sig", index=False, mode="rw+")
     # io.StringIO io.BytesIO
     byte_io = io.BytesIO()
-    file = zipfile.ZipInfo("告警.csv")
     with zipfile.ZipFile(byte_io, mode='w') as zipf:
-        zipf.writestr(file, result_csv)
+        zipf.writestr("告警.csv".encode(encoding="utf_8").decode(encoding="utf_8"), result_csv)
     byte_io.seek(0)
     return send_file(byte_io, mimetype='application/octet-stream', as_attachment=True,
                      attachment_filename="告警.zip")
