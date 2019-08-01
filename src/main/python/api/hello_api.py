@@ -12,6 +12,7 @@ from config import file_config
 import pandas
 from io import BytesIO
 from flask import Response
+import datetime
 
 hello_api = Blueprint("hello", __name__, url_prefix='/hello')
 
@@ -22,21 +23,11 @@ hello_api = Blueprint("hello", __name__, url_prefix='/hello')
 @hello_api.route('/hello', methods=["GET"])
 def hello():
     """
-    This is the language awesomeness API
-    Call this api passing a language name and get back its features
+    This is test API
+    测试联通性
     ---
     tags:
       - hello
-    parameters:
-      - name: language
-        in: path
-        type: string
-        required: true
-        description: The language name
-      - name: size
-        in: query
-        type: integer
-        description: size of awesomeness
     responses:
       500:
         description: server error
@@ -49,21 +40,46 @@ def hello():
 
 @hello_api.route('/sleep', methods=["GET"])
 def sleep():
-    start = date_utity.get_defalut_time_str()
-    time.sleep(30)
-    end = date_utity.get_defalut_time_str()
-    return make_response(jsonify(res.success('thread test;I slept from ' + start + " to " + end)), 200)
+    """
+    This is test API
+    sleep 测试单线程
+    ---
+    tags:
+      - hello
+    responses:
+      500:
+        description: server error
+      200:
+        description: success
+    """
+    start = datetime.datetime.utcnow()
+    end = start + datetime.timedelta(seconds=30)
+    while datetime.datetime.utcnow() < end:
+        pass
+    return make_response(jsonify(res.success('thread test;I slept from ' + str(start) + " to " + str(end))), 200)
 
 
 @hello_api.route('/exception', methods=["GET"])
 def exception():
+    """
+    This is test API
+    exception 测试异常
+    ---
+    tags:
+      - hello
+    responses:
+      500:
+        description: server error
+      200:
+        description: success
+    """
     result = 1 / 0
     return make_response(jsonify(res.success(result)), 200)
 
 
 @hello_api.route('/download_excel', methods=['GET'])
 def download_excel():
-    from app import RESOURCE_DIR  # todo 放头部报错
+    from app import RESOURCE_DIR  # todo 放头部报错  因为 循环引入
     byte_array_buffer = file_config.read_into_buffer(RESOURCE_DIR + "/excel_download_test.xlsx")
     # with open(RESOURCE_DIR + "/excel_download_test.xlsx", "rb") as f:  # todo f.readlines() hit
     #     data = f.read()
