@@ -35,7 +35,7 @@ def add_announcement():
        in: query
        type: file
        description: size of awesomeness
-       """
+     """
     title = request.form.get('title')
     content = request.form.get('content')
     image = request.files['image']

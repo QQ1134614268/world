@@ -106,6 +106,18 @@ def test_download_buffer():
 
 @hello_api.route('/test_download_zip')
 def test_download_zip():
+    """
+     This is test API
+     下载zip文件
+     ---
+     tags:
+       - hello
+     responses:
+       500:
+         description: server error
+       200:
+         description: success
+     """
     import zipfile
 
     data = [{"name": 1, "age": 1, }, {"name": 1, "age": 1, }, {"name": 1, "age": 1, "sex": 2}, ]
@@ -130,6 +142,18 @@ def test_download_zip():
 
 @hello_api.route('/test_download_pandas')
 def test_download_pandas():
+    """
+     This is test API
+     pandas 导出csv
+     ---
+     tags:
+       - hello
+     responses:
+       500:
+         description: server error
+       200:
+         description: success
+     """
     data = [{"name": 1, "age": 1, }, {"name": 1, "age": 1, }, {"name": 1, "age": 1, "sex": 2}, ]
     translate = {
         "name": "姓名",

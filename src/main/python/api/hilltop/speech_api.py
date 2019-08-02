@@ -14,6 +14,32 @@ speech_api = Blueprint("speech", __name__, url_prefix='/speech')
 # 添加日志
 @speech_api.route('/add_record', methods=['POST'])
 def add_record():
+    """
+    言论
+    添加言论
+    ---
+    tags:
+     - speech_api
+    parameters:
+     - name: content
+       in: path
+       type: string
+       required: true
+       description: content
+     - name: images
+       in: query
+       type: file
+       description: a image
+     - name: video
+       in: query
+       type: file
+       description: video
+    responses:
+      500:
+        description: Error The language is not awesome!
+      200:
+        description: A language with its awesomeness
+     """
     data = request.get_json()
     content =data.get('content')
     images = data.get('images')
@@ -26,6 +52,24 @@ def add_record():
 
 @speech_api.route('/add_comment', methods=['POST'])
 def add_comment():
+    """
+    言论
+    添加评论
+    ---
+    tags:
+     - speech_api
+    parameters:
+     - name: content
+       in: path
+       type: string
+       required: true
+       description: content
+    responses:
+      500:
+        description: Error The language is not awesome!
+      200:
+        description: A language with its awesomeness
+     """
     data = request.get_json()
     content = data.get('content')
     vo = CommentVO(content=content)
@@ -36,15 +80,37 @@ def add_comment():
 
 @speech_api.route('/get_record_all', methods=['GET'])
 def get_record_all():
+    """
+    言论
+    获取所有言论
+    ---
+    tags:
+     - speech_api
+    responses:
+      500:
+        description: Error The language is not awesome!
+      200:
+        description: A language with its awesomeness
+     """
     # 获取所有日志加评论
     message_list = RecordVO.query.order_by(RecordVO.createTime).all()
-    print(message_list)
     return make_response(jsonify(res.success(message_list)))
 
 
 @speech_api.route('/get_record', methods=['GET'])
 def get_record():
-    # 获取日志
+    """
+    言论
+    获取所有言论
+    ---
+    tags:
+     - speech_api
+    responses:
+      500:
+        description: Error The language is not awesome!
+      200:
+        description: A language with its awesomeness
+    """
     message_list = RecordVO.query.order_by(RecordVO.createTime).all()
     return make_response(jsonify(res.success(message_list)))
 
