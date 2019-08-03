@@ -3,7 +3,7 @@
 # @Time    : 2019/6/30 23:13
 # @Author  : huangran
 """
-from flask import Blueprint, jsonify, make_response, request, send_file
+from flask import Blueprint, jsonify, make_response, request
 from config import res
 from db.db import db
 from vo.user import RecordVO, CommentVO

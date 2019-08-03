@@ -87,6 +87,10 @@ app.register_blueprint(hello_api)
 app.register_blueprint(user_api)
 app.register_blueprint(sys_api)
 app.register_blueprint(speech_api)
+from api.organization.organization_api import organization_api
+app.register_blueprint(organization_api)
+from api.area.area_api import area_api
+app.register_blueprint(area_api)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8888, debug=True, threaded=True)
