@@ -3,11 +3,11 @@
 # @Time    : 2019/8/3 9:35
 # @Author  : huangran
 """
-from flask import Blueprint, jsonify, make_response, request, send_file
+from flask import Blueprint, jsonify, make_response, request
 from config import res
 from db.db import db
-from vo.user import RecordVO, CommentVO
-from .OrganizationVO import OrganizationVO
+from api.organization.OrganizationVO import OrganizationVO
+from flask_restful import fields, marshal_with, marshal
 
 organization_api = Blueprint("organization_api", __name__, url_prefix='/organization_api')
 
@@ -45,7 +45,7 @@ def add_origin():
     full_name = "/" + name + "/"
     # todo
     full_path = "/" + code + "/"
-    vo = OrganizationVO(name=name, code=code,level=level, full_name=full_name, full_path=full_path)
+    vo = OrganizationVO(name=name, code=code, level=level, full_name=full_name, full_path=full_path)
     db.session.add(vo)
     db.session.commit()
     return make_response(jsonify(res.success("操作成功")))
@@ -81,15 +81,15 @@ def add_children_organization():
      """
     # 同级不重复
     data = request.get_json()
-    parent_id = data.get('parent_id')
+    vo_id = data.get('id')
     name = data.get('name')
     code = data.get('code')
-    parent_vo = OrganizationVO.query.filter_by(id=parent_id)
+    parent_vo = OrganizationVO.query.filter_by(id=vo_id)
     full_name = parent_vo["full_name"] + name + "/"
     # todo
     full_path = parent_vo["full_path"] + code + "/"
     level = parent_vo["level"] + 1
-    vo = OrganizationVO(name=name, level=level, full_name=full_name, full_path=full_path)
+    vo = OrganizationVO(name=name, parent_id=vo_id, level=level, full_name=full_name, full_path=full_path)
     db.session.add(vo)
     db.session.commit()
     return make_response(jsonify(res.success("操作成功")))
@@ -113,10 +113,6 @@ def update_organization():
        in: query
        type: file
        description: code
-     - name: parent_id
-       in: query
-       type: file
-       description: parent_id
      - name: id
        in: query
        type: file
@@ -129,18 +125,13 @@ def update_organization():
      """
     # 同级不重复
     data = request.get_json()
-    parent_id = data.get('parent_id')
     vo_id = data.get('id')
-    parent_vo = OrganizationVO.query.filter_by(id=parent_id)
-    # UserVO.query.filter_by(username=username, password=UserVO.get_password(password)).first()
     name = data.get('name')
     code = data.get('code')
     vo = OrganizationVO.query.filter_by(id=vo_id)
-    full_name = parent_vo["full_name"] + name + "/"
-    # todo
-    full_path = parent_vo["full_path"] + code + "/"
-    level = parent_vo["level"] + 1
-    vo = OrganizationVO(name=name, level=level, full_name=full_name, full_path=full_path)
+    index = vo["full_name"].rfind("/")
+    full_name = vo["full_name"][0:index] + "/" + name + "/"
+    vo = OrganizationVO(name=name, full_name=full_name, code=code)
     db.session.add(vo)
     db.session.commit()
     return make_response(jsonify(res.success("操作成功")))
@@ -168,6 +159,71 @@ def delete_organization():
     # 同级不重复
     data = request.get_json()
     vo_id = data.get('id')
+    obj = OrganizationVO(id=vo_id)
+    db.session.delete(obj)
+    db.session.commit()
     return make_response(jsonify(res.success("操作成功")))
 
 
+@organization_api.route('/get_child_organization', methods=['POST'])
+def get_child_organization():
+    """
+    组织
+    添加子级组织
+    ---
+    tags:
+     - organization_api
+    parameters:
+     - name: id
+       in: query
+       type: file
+       description: 要查的组织id
+    responses:
+      500:
+        description: Error The language is not awesome!
+      200:
+        description: A language with its awesomeness
+     """
+    # 同级不重复
+    data = request.get_json()
+    vo_id = data.get('id')
+    parent_vo_list = OrganizationVO.query.filter_by(parent_id=vo_id)
+    todo_fields = {
+        'id': fields.Integer,
+        'userid': fields.Integer,
+        'content': fields.String,
+        'images': fields.String
+    }
+    data_list = [marshal(parent_vo_list, todo_fields) for i in parent_vo_list]
+    return jsonify(res.success(data_list))
+
+
+@organization_api.route('/move_organization', methods=['POST'])
+def move_organization():
+    """
+    组织
+    移动组织
+    ---
+    tags:
+     - organization_api
+    parameters:
+     - name: id
+       in: query
+       type: int
+       description: 要移动的组织id
+     - name: parent_id
+       in: query
+       type: int
+       description: 要移动到的组织id
+    responses:
+      500:
+        description: Error The language is not awesome!
+      200:
+        description: A language with its awesomeness
+     """
+    # 同级不重复
+    data = request.get_json()
+    vo_id = data.get('id')
+    parent_id = data.get('parent_id')
+    # todo
+    return make_response(jsonify(res.success("操作成功")))
