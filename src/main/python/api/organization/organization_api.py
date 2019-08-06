@@ -161,7 +161,7 @@ def delete_organization():
     return make_response(jsonify(res.success("操作成功")))
 
 
-@organization_api.route('/get_child_organization', methods=['POST'])
+@organization_api.route('/get_child_organization', methods=['GET'])
 def get_child_organization():
     """
     获取子级组织
@@ -180,8 +180,7 @@ def get_child_organization():
         description: A language with its awesomeness
      """
     # 同级不重复
-    data = request.get_json()
-    vo_id = data.get('id')
+    vo_id = request.args.get('id')
     parent_vo_list = OrganizationVO.query.filter_by(parent_id=vo_id)
     todo_fields = {
         'id': fields.Integer,

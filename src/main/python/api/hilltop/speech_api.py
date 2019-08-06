@@ -107,6 +107,8 @@ def get_record():
       200:
         description: A language with its awesomeness
     """
-    message_list = RecordVO.query.order_by(RecordVO.createTime).all()
+    user_id = request.args.get('user_id')
+
+    message_list = RecordVO.query.order_by(user_id=user_id).all()
     return make_response(jsonify(res.success(message_list)))
 

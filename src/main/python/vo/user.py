@@ -72,6 +72,7 @@ class MessageVO(db.Model):
 class RecordVO(db.Model):
     __tablename__ = 'record'  # 起表名
     id = db.Column(db.Integer, autoincrement=True, primary_key=True, comment="主键")
+    user_id=db.Column(db.Integer)
     content = db.Column(db.String(150), default='123456')
     images = db.Column(db.String(70), default='default.jpg')
     video = db.Column(db.BLOB(70), default='default.jpg')

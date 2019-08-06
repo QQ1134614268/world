@@ -27,9 +27,9 @@ migrate = Migrate(app, db)
 manager.add_command('db', MigrateCommand)
 
 
-# D:/dev/python3.7/python.exe manage.py db init
+# D:/dev/python3.7/python.exe   manage.py db init
 # D:/dev/python3.7/python.exe manage.py db migrate
-# D:/dev/python3.7/python.exe E:/python/world/src/main/python/vo/user.py db upgrade
+# D:/dev/python3.7/python.exe manage.py db upgrade
 if __name__ == '__main__':
     manager.run()
 
