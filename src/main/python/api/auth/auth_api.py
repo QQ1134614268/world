@@ -7,7 +7,6 @@
 from flask import Blueprint, jsonify, make_response, request, send_file
 from config import res
 from db.db import db
-from .AreaVO import AreaVO
 
 auth_api = Blueprint("auth_api", __name__, url_prefix='/auth_api')
 
@@ -40,11 +39,11 @@ def add_auth():
       200:
         description: A language with its awesomeness
      """
-    data = request.get_json()
-    # 同级不重复
-    name = data.get('name')
-    level = 0
-    vo = AreaVO(name=name, level=level, video=1)
-    db.session.add(vo)
-    db.session.commit()
+    # data = request.get_json()
+    # # 同级不重复
+    # name = data.get('name')
+    # level = 0
+    # vo = AreaVO(name=name, level=level, video=1)
+    # db.session.add(vo)
+    # db.session.commit()
     return make_response(jsonify(res.success("操作成功")))
