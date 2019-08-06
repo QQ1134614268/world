@@ -17,7 +17,6 @@ organization_api = Blueprint("organization_api", __name__, url_prefix='/organiza
 @organization_api.route('/add_origin', methods=['POST'])
 def add_origin():
     """
-    组织
     添加起源
     ---
     tags:
@@ -54,7 +53,6 @@ def add_origin():
 @organization_api.route('/add_children_organization', methods=['POST'])
 def add_children_organization():
     """
-    组织
     添加子级组织
     ---
     tags:
@@ -98,8 +96,7 @@ def add_children_organization():
 @organization_api.route('/update_organization', methods=['POST'])
 def update_organization():
     """
-    组织
-    添加子级组织
+    修改级组织
     ---
     tags:
      - organization_api
@@ -111,11 +108,11 @@ def update_organization():
        description: name
      - name: code
        in: query
-       type: file
+       type: string
        description: code
      - name: id
        in: query
-       type: file
+       type: int
        description: id
     responses:
       500:
@@ -140,7 +137,6 @@ def update_organization():
 @organization_api.route('/delete_organization', methods=['POST'])
 def delete_organization():
     """
-    组织
     添加子级组织
     ---
     tags:
@@ -148,7 +144,7 @@ def delete_organization():
     parameters:
      - name: id
        in: query
-       type: file
+       type: int
        description: id
     responses:
       500:
@@ -168,8 +164,7 @@ def delete_organization():
 @organization_api.route('/get_child_organization', methods=['POST'])
 def get_child_organization():
     """
-    组织
-    添加子级组织
+    获取子级组织
     ---
     tags:
      - organization_api
@@ -201,7 +196,6 @@ def get_child_organization():
 @organization_api.route('/move_organization', methods=['POST'])
 def move_organization():
     """
-    组织
     移动组织
     ---
     tags:

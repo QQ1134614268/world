@@ -15,7 +15,6 @@ area_api = Blueprint("area_api", __name__, url_prefix='/area_api')
 @area_api.route('/add_origin', methods=['POST'])
 def add_origin():
     """
-    地区
     添加起源
     ---
     tags:

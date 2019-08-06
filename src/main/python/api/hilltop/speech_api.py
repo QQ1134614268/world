@@ -15,7 +15,6 @@ speech_api = Blueprint("speech", __name__, url_prefix='/speech')
 @speech_api.route('/add_record', methods=['POST'])
 def add_record():
     """
-    言论
     添加言论
     ---
     tags:
@@ -53,7 +52,6 @@ def add_record():
 @speech_api.route('/add_comment', methods=['POST'])
 def add_comment():
     """
-    言论
     添加评论
     ---
     tags:
@@ -81,7 +79,6 @@ def add_comment():
 @speech_api.route('/get_record_all', methods=['GET'])
 def get_record_all():
     """
-    言论
     获取所有言论
     ---
     tags:
@@ -100,7 +97,6 @@ def get_record_all():
 @speech_api.route('/get_record', methods=['GET'])
 def get_record():
     """
-    言论
     获取所有言论
     ---
     tags:

@@ -16,7 +16,6 @@ sys_api = Blueprint("sys", __name__, url_prefix='/sys')
 @sys_api.route('/add_announcement', methods=['POST'])
 def add_announcement():
     """
-    公告栏
     添加公告
     ---
     tags:
@@ -56,7 +55,6 @@ def add_announcement():
 @sys_api.route('/get_announcement_list', methods=['GET'])
 def get_announcement_list():
     """
-    公告栏
     获取历史公告列表
     ---
     tags:
@@ -92,7 +90,6 @@ def get_announcement_list():
 @sys_api.route('/get_announcement_by_id', methods=['GET'])
 def get_announcement_by_id():
     """
-    公告栏
     获取历史公告
     ---
     tags:

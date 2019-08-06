@@ -18,7 +18,6 @@ VERIFY_CODE_KEY = "code"
 @user_api.route('/register', methods=['POST'])
 def register():
     """
-    This is the language awesomeness API
     用户注册
     ---
     tags:
@@ -72,7 +71,6 @@ def get_verify_code():
 @user_api.route('/login', methods=['POST'])
 def login():
     """
-    This is the language awesomeness API
     用户登录
     ---
     tags:
