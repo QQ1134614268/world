@@ -116,6 +116,25 @@ def get_announcement_by_id():
 # 意见栏
 @sys_api.route('/add_suggest', methods=['POST'])
 def add_suggest():
+    """
+   添加反馈
+   ---
+   tags:
+     - sys
+   parameters:
+    - name: content
+      type: int
+      required: true
+      description: 公告的id
+    - name: images
+      type: file
+      description: 公告的id
+   responses:
+     500:
+       description: Error The language is not awesome!
+     200:
+       description: A language with its awesomeness
+   """
     data = request.get_json()
     content = data.get('content')
     images = data.get('images')
@@ -128,5 +147,24 @@ def add_suggest():
 # 公告栏
 @sys_api.route('/get_suggest', methods=['GET'])
 def get_suggest():
+    """
+   获取反馈
+   ---
+   tags:
+     - sys
+   parameters:
+    - name: content
+      type: int
+      required: true
+      description: 公告的id
+    - name: images
+      type: file
+      description: 公告的id
+   responses:
+     500:
+       description: Error The language is not awesome!
+     200:
+       description: A language with its awesomeness
+   """
     message_list = MessageVO.query.order_by(MessageVO.createTime).all()
     return make_response(jsonify(res.success(message_list)))

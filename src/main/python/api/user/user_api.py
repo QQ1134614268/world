@@ -58,6 +58,17 @@ def register():
 
 @user_api.route('/get_verify_code', methods=['GET'])
 def get_verify_code():
+    """
+    获取验证码
+    ---
+    tags:
+      - user
+    responses:
+      500:
+        description: server error
+      200:
+        description: success
+    """
     from io import BytesIO
     file_io = BytesIO()
     code, image = verification_code.get_verify_code()
