@@ -20,17 +20,14 @@ def add_origin():
     tags:
      - area_api
     parameters:
-     - name: content
-       in: path
+     - name: name
        type: string
        required: true
        description: content
      - name: images
-       in: query
        type: file
        description: a image
      - name: video
-       in: query
        type: file
        description: video
     responses:
@@ -39,9 +36,9 @@ def add_origin():
       200:
         description: A language with its awesomeness
      """
-    data = request.get_json()
-    # 同级不重复
-    name = data.get('name')
+    name = request.form.get('name')
+    image = request.files['image']
+    video = request.files['video']
     level = 0
     vo = AreaVO(name=name, level=level, video=1)
     db.session.add(vo)

@@ -24,17 +24,17 @@ def register():
       - user
     parameters:
       - name: username
-        in: query
-        type:
+        in: body
+        type: string
         required: true
         description: 用户名
       - name: password
-        in: query
+        in: body
         type: string
         required: true
         description: 密码
       - name: email
-        in: query
+        in: body
         type: email
         description: 邮箱
     responses:
