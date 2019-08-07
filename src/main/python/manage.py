@@ -32,4 +32,3 @@ manager.add_command('db', MigrateCommand)
 # D:/dev/python3.7/python.exe manage.py db upgrade
 if __name__ == '__main__':
     manager.run()
-

@@ -22,6 +22,8 @@ def register():
     ---
     tags:
       - user
+    consumes: ["multipart/form-data","application/json"]
+    produces: ["application/json"]
     parameters:
       - name: username
         in: body
@@ -35,8 +37,12 @@ def register():
         description: 密码
       - name: email
         in: body
-        type: email
+        type: string
         description: 邮箱
+      - name: icon
+        in: body
+        type: file
+        description: icon
     responses:
       500:
         description: server error
@@ -48,7 +54,8 @@ def register():
     exist = UserVO.query.filter_by(username=username).first()
     password = data.get('password', '')
     email = data.get('email', '')
-    vo = UserVO(username=username, password=UserVO.get_password(password), email=email)
+    icon = data.get('icon', '')
+    vo = UserVO(username=username, password=UserVO.get_password(password), email=email,icon=icon)
     if exist:
         return jsonify(res.fail("用户名已经存在"))
     db.session.add(vo)

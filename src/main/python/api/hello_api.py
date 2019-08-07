@@ -215,5 +215,151 @@ class JsonUtils:
         print(utils.obj2jsonStr(obj))
 
 
+from flask import request,abort
+
+
+@hello_api.route('/rectextbyurl', methods=['POST'])
+def rec_text_byurl():
+    """
+    传入json数据
+    ---
+    tags:
+      - hello_api
+    parameters:
+      - in: body
+        name: body
+        description: body sample {"name":"the url of the image","id":1}
+        required: true
+        schema:
+            type: string
+    responses:
+       500:
+         description: server error
+       200:
+         description: success
+    """
+    data = request.get_json()
+    print(data["name"])
+    print(data["id"])
+
+    return jsonify(data)
+
+
+@hello_api.route('/rectext', methods=['POST'])
+def rec_text():
+    """
+    上传文件流
+    ---
+    tags:
+      - hello_api
+    consumes: [
+          "multipart/form-data"
+        ]
+    parameters:
+      - in: formData
+        name: file
+        type: file
+        required: true
+        description: upload a image file
+    """
+    if "file" not in request.files:
+        abort(400)
+    filebytes = request.files["file"]
+
+
+    return "1"
+
+@hello_api.route('/test', methods=['POST'])
+def test():
+    """
+    上传多个文件，以及其他form参数
+    ---
+    tags:
+      - hello_api
+    consumes: ["multipart/form-data"]
+    produces: ["application/json"]
+    parameters:
+      - in: formData
+        name: file
+        type: file
+        required: true
+        description: upload a image file
+      - in: formData
+        name: file1
+        type: file
+        required: false
+        description: upload a image file11
+      - in: formData
+        name: body
+        description: body sample {"imgurl":"the url of the image"}
+        required: true
+        type: string
+    """
+    if 'file' not in request.files:
+        print("no file")
+        abort(400)
+    # bb = request.files.to_dict()
+    filebytes = request.files["file"]
+    print(filebytes.filename)
+    aa = request.form["body"]
+    print(aa)
+    return aa
+
+
+@hello_api.route('/api/<string:language>/', methods=['GET'])
+def index(language):
+    """
+    This is the language awesomeness API
+    Call this api passing a language name and get back its features
+    ---
+    tags:
+      - hello_api
+    parameters:
+      - name: language
+        in: path
+        type: string
+        required: true
+        description: The language name
+      - name: size
+        in: query
+        type: integer
+        description: size of awesomeness
+    responses:
+      500:
+        description: Error The language is not awesome!
+      200:
+        description: A language with its awesomeness
+        schema:
+          id: awesome
+          properties:
+            language:
+              type: string
+              description: The language name
+              default: Lua
+            features:
+              type: array
+              description: The awesomeness list
+              items:
+                type: string
+              default: ["perfect", "simple", "lovely"]
+
+    """
+
+    language = language.lower().strip()
+    features = [
+        "awesome", "great", "dynamic",
+        "simple", "powerful", "amazing",
+        "perfect", "beauty", "lovely"
+    ]
+    size = int(request.args.get('size', 1))
+    if language in ['php', 'vb', 'visualbasic', 'actionscript']:
+        return "An error occurred, invalid language for awesomeness", 500
+    import random
+    return jsonify(
+        language=language,
+        features=random.sample(features, size)
+    )
+
+
 if __name__ == '__main__':
     JsonUtils().__test__()

@@ -36,3 +36,4 @@ __pycache__
 data/log/
 data/
 
+/src/main/python/migrations
