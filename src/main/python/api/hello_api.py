@@ -16,6 +16,7 @@ import datetime
 
 hello_api = Blueprint("hello", __name__, url_prefix='/hello')
 
+
 # jsonify不仅会将内容转换为json，而且也会修改Content-Type为application/json。
 # send_file
 # make_response
@@ -215,7 +216,7 @@ class JsonUtils:
         print(utils.obj2jsonStr(obj))
 
 
-from flask import request,abort
+from flask import request, abort
 
 
 @hello_api.route('/rectextbyurl', methods=['POST'])
@@ -266,8 +267,8 @@ def rec_text():
         abort(400)
     filebytes = request.files["file"]
 
-
     return "1"
+
 
 @hello_api.route('/test', methods=['POST'])
 def test():
@@ -359,6 +360,175 @@ def index(language):
         language=language,
         features=random.sample(features, size)
     )
+
+
+@hello_api.route('/post_json', methods=['POST'])
+def post_json():
+    """
+    Example endpoint return a list of colors by palette
+    This is using docstring for specifications
+    ---
+    tags:
+      - a
+    parameters:
+      - name: palette
+        in: path
+        type: string
+        enum: ['all', 'rgb', 'cmyk']
+        required: true
+        default: all
+        description: Which palette to filter?
+    operationId: get_colors
+    consumes:
+      - application/json
+    produces:
+      - application/json
+    security:
+      colors_auth:
+        - 'write:colors'
+        - 'read:colors'
+    schemes: ['http', 'https']
+    deprecated: false
+    externalDocs:
+      description: Project repository
+      url: http://github.com/rochacbruno/flasgger
+    definitions:
+      Palette:
+        type: object
+        properties:
+          palette_name:
+            type: array
+            items:
+              $ref: '#/definitions/Color'
+      Color:
+        type: string
+    responses:
+      200:
+        description: A list of colors (may be filtered by palette)
+        schema:
+          $ref: '#/definitions/Palette'
+        examples:
+          rgb: ['red', 'green', 'blue']
+    """
+    return
+
+
+@hello_api.route('/post_json_ee', methods=['POST'])
+def post_json_ee():
+    """
+    Film creation endpoint
+    ---
+    tags:
+      - a
+    summary: Creates a new Film
+    consumes:
+      - application/json
+    produces:
+      - application/json
+    parameters:
+      - in: body
+        name: body
+        description:
+          Film object that needs to be persisted to the database
+        required: true
+        schema:
+          $ref: '#/definitions/Film'
+    responses:
+      200:
+        description: Successful operation
+      400:
+        description: Invalid input
+    """
+    return
+
+
+@hello_api.route('/post_json_e', methods=['POST'])
+def post_json_e():
+    """
+    Film creation endpoint
+    ---
+    tags:
+      - a
+    summary: Creates a new Film
+    consumes:
+      - application/json
+    produces:
+      - application/json
+    parameters:
+      - in: body
+        name: body
+        description:
+          Film object that needs to be persisted to the database
+        required: true
+        schema:
+          $ref: '#/definitions/Film'
+    responses:
+      200:
+        description: Successful operation
+      400:
+        description: Invalid input
+    """
+    return
+
+
+@hello_api.route('/post_json_f', methods=['POST'])
+def post_json_f():
+    """
+    Film creation endpoint
+    ---
+    tags:
+      - a
+    summary: Creates a new Film
+    consumes:
+      - application/json
+    produces:
+      - application/json
+    parameters:
+      - in: body
+        name: body
+        description:
+          Film object that needs to be persisted to the database
+        required: true
+        schema:
+          id: Film
+          required:
+            - title
+            - director
+            - distributor
+            - release_date
+            - running_time
+          properties:
+            title:
+              description: Film's title
+              type: string
+              example: Interstellar
+            director:
+              description: Films's director
+              type: string
+              example: Christopher Nolan
+            distributor:
+              description: Films's distributor
+              type: string
+              example: Warner Bros. Pictures
+            release_date:
+              description: Films's release date
+              type: string
+              example: October 26, 2014
+            running_time:
+              description: Films's running time
+              type: string
+              example: 169 minutes
+            running_time2:
+              description: Films's running time
+              type: string
+              example: 169 minutes
+    responses:
+      200:
+        description: Successful operation
+      400:
+        description: Invalid input
+    """
+    return
 
 
 if __name__ == '__main__':

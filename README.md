@@ -12,15 +12,11 @@ When I saw it, I understood what it meant.
 		http--json
 		重构--代码复用- 硬编码 ---- 接口对接, val 与 key  传唯一标识,不是id,也不是翻译后的字段
 		异步  生产消费
-		base基类
-		验证码
-		excel,csv
 		多配置文件源   读取文件配置
 		微服务 定时
 		集群 kafka 缓存 redis 数据库 定时任务 调度系统 大量服务和数据,巅峰数据 -- 数据清洗,所有数据指明链接,叉树
 		WebSocket
 		测试 fakeruser切换用户
-		接口文档 swagger
 		脚本
 		第三方登录和支付宝支付的集成
 		本地调试远程服务器代码技巧
@@ -32,13 +28,17 @@ When I saw it, I understood what it meant.
 		分布式--上传下载文件,定时任务 同步
 		数据库到代码实体类映射
 	已完成:
+		base基类
 		res
 		exception
 		拦截器
 		jwt
+		验证码
 		日志
 		时间util
+		excel,csv
 		信息推送--mail
+		接口文档 swagger
 	缺陷:
 	    日志聚合 elk  https://www.jianshu.com/p/bcf0445a1b8f
 	    日志记录位置
