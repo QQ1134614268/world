@@ -22,19 +22,29 @@ def add_origin():
     tags:
      - organization_api
     parameters:
-     - name: name
-       in: path
-       type: string
-       required: true
-       description: name
-     - name: code
-       in: query
-       type: file
+      - in: body
+        name: body
+        description:
+          Film object that needs to be persisted to the database
+        required: true
+        schema:
+          required:
+            - name
+            - code
+          properties:
+            name:
+              description: 组织名
+              type: string
+              example: Interstellar
+            code:
+              description: 唯一标识
+              type: string
+              example: Christopher Nolan
     responses:
-      500:
-        description: Error The language is not awesome!
       200:
-        description: A language with its awesomeness
+        description: Successful operation
+      400:
+        description: Invalid input
      """
     # 同级不重复
     data = request.get_json()

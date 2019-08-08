@@ -15,7 +15,7 @@ class UserVO(db.Model):
     birthday = db.Column(db.Date)
     sex = db.Column(db.Boolean, default=True)
     email = db.Column(db.String(60), default='793390457@qq.com')
-    icon = db.Column(db.String(70), default='default.jpg')
+    icon = db.Column(db.BLOB(300), default=b'default.jpg')
 
     phone = db.Column(db.String(11))
     active = db.Column(db.Boolean, default=True)
@@ -25,10 +25,10 @@ class UserVO(db.Model):
     def __str__(self):
         return self.username
 
-    def __init__(self, username, password, email):
-        self.username = username
-        self.password = password
-        self.email = email
+    # def __init__(self, username, password, email):
+    #     self.username = username
+    #     self.password = password
+    #     self.email = email
 
     @staticmethod
     def get_password(password):
@@ -75,7 +75,7 @@ class RecordVO(db.Model):
     user_id=db.Column(db.Integer)
     content = db.Column(db.String(150), default='123456')
     images = db.Column(db.String(70), default='default.jpg')
-    video = db.Column(db.BLOB(70), default='default.jpg')
+    video = db.Column(db.String(70), default='default.jpg')
     createTime = db.Column(db.DateTime)
 
 

@@ -13,10 +13,10 @@ class OrganizationVO(db.Model):
     parent_id = db.Column(db.Integer)
     name = db.Column(db.String(150), default='123456')
     level = db.Column(db.String(70), default='default.jpg')
-    full_name = db.Column(db.BLOB(70), default='default.jpg')
-    full_path = db.Column(db.BLOB(70), default='default.jpg')
+    full_name = db.Column(db.String(70), default='default.jpg')
+    full_path = db.Column(db.String(70), default='default.jpg')
     code = db.Column(db.String(150), default='123456')
-    leader = db.Column(db.INT, default='default.jpg')
+    leader = db.Column(db.INT, default=1)
     createTime = db.Column(db.DateTime)
 
 
@@ -25,6 +25,6 @@ class OrganizationMemberRelationVO(db.Model):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True, comment="主键")
     name = db.Column(db.String(150), default='123456')
     level = db.Column(db.String(70), default='default.jpg')
-    full_name = db.Column(db.BLOB(70), default='default.jpg')
-    full_path = db.Column(db.BLOB(70), default='default.jpg')
+    full_name = db.Column(db.String(70), default='default.jpg')
+    full_path = db.Column(db.String(70), default='default.jpg')
     createTime = db.Column(db.DateTime)

@@ -12,9 +12,9 @@ from app import app
 # db = SQLAlchemy()
 # 导入需要迁移的数据库模型
 from db.db import db
-# from vo.user import UserVO, AnnouncementVO, RecordVO, MessageVO, CommentVO
-# from api.area.AreaVO import AreaVO, AreaMemberRelationVO
-# from api.organization.OrganizationVO import OrganizationVO,OrganizationMemberRelationVO
+from vo.user import UserVO, AnnouncementVO, RecordVO, MessageVO, CommentVO
+from api.area.AreaVO import AreaVO, AreaMemberRelationVO
+from api.organization.OrganizationVO import OrganizationVO,OrganizationMemberRelationVO
 
 
 # 让python支持命令行工作

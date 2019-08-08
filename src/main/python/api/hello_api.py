@@ -442,35 +442,6 @@ def post_json_ee():
     return
 
 
-@hello_api.route('/post_json_e', methods=['POST'])
-def post_json_e():
-    """
-    Film creation endpoint
-    ---
-    tags:
-      - a
-    summary: Creates a new Film
-    consumes:
-      - application/json
-    produces:
-      - application/json
-    parameters:
-      - in: body
-        name: body
-        description:
-          Film object that needs to be persisted to the database
-        required: true
-        schema:
-          $ref: '#/definitions/Film'
-    responses:
-      200:
-        description: Successful operation
-      400:
-        description: Invalid input
-    """
-    return
-
-
 @hello_api.route('/post_json_f', methods=['POST'])
 def post_json_f():
     """
