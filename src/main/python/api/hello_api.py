@@ -2,7 +2,7 @@
 """
 @author:huangran
 """
-from utity import date_utity
+from util import DateUtils
 from config import log
 from flask import Blueprint, send_file, jsonify, make_response
 import time
@@ -28,7 +28,7 @@ def hello():
     测试联通性
     ---
     tags:
-      - hello
+        - hello_api
     responses:
       500:
         description: server error
@@ -46,7 +46,7 @@ def sleep():
     sleep 测试单线程
     ---
     tags:
-      - hello
+        - hello_api
     responses:
       500:
         description: server error
@@ -67,7 +67,7 @@ def exception():
     exception 测试异常
     ---
     tags:
-      - hello
+        - hello_api
     responses:
       500:
         description: server error
@@ -112,7 +112,7 @@ def test_download_zip():
      下载zip文件
      ---
      tags:
-       - hello
+        - hello_api
      responses:
        500:
          description: server error
@@ -148,7 +148,7 @@ def test_download_pandas():
      pandas 导出csv
      ---
      tags:
-       - hello
+        - hello_api
      responses:
        500:
          description: server error
@@ -369,7 +369,7 @@ def post_json():
     This is using docstring for specifications
     ---
     tags:
-      - a
+        - hello_api
     parameters:
       - name: palette
         in: path
@@ -413,13 +413,13 @@ def post_json():
     return
 
 
-@hello_api.route('/post_json_ee', methods=['POST'])
-def post_json_ee():
+@hello_api.route('/post_json2', methods=['POST'])
+def post_json2():
     """
     Film creation endpoint
     ---
     tags:
-      - a
+        - hello_api
     summary: Creates a new Film
     consumes:
       - application/json
@@ -442,13 +442,13 @@ def post_json_ee():
     return
 
 
-@hello_api.route('/post_json_f', methods=['POST'])
-def post_json_f():
+@hello_api.route('/post_json3', methods=['POST'])
+def post_json3():
     """
     Film creation endpoint
     ---
     tags:
-      - a
+        - hello_api
     summary: Creates a new Film
     consumes:
       - application/json
@@ -498,6 +498,28 @@ def post_json_f():
         description: Successful operation
       400:
         description: Invalid input
+    """
+    return
+
+
+@hello_api.route('/post_formData', methods=['POST'])
+def post_formData():
+    """
+    Test Endpoint
+    ---
+    tags:
+        - hello_api
+    parameters:
+        -   name: data
+            in: formData
+            required: True
+            type: string
+            description: data to send
+    responses:
+        200:
+            description: data received successfully
+        404:
+            description: data not found in request form
     """
     return
 

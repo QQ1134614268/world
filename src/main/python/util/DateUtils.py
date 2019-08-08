@@ -1,8 +1,8 @@
 """
 @author:huangran
 """
-import time
 import datetime
+import time
 
 # time.time()
 # time.localtime()
@@ -23,7 +23,7 @@ def utc_to_local():
     return timenow
 
 
-def get_utc():
+def get_utc_now():
     return datetime.datetime.utcnow()
 
 

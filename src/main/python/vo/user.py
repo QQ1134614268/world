@@ -9,7 +9,7 @@ from db.db import db
 # 创建User模型
 class UserVO(db.Model):
     __tablename__ = 'user'  # 起表名
-    id = db.Column(db.Integer,autoincrement=True,  primary_key=True, comment="主键")  # TODO 注释
+    id = db.Column(db.Integer, autoincrement=True,  primary_key=True, comment="主键")  # TODO 注释
     username = db.Column(db.String(12), index=True)
     password = db.Column(db.String(128), default='123456')
     birthday = db.Column(db.Date)
