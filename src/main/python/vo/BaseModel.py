@@ -3,12 +3,11 @@
 # @Time    : 2019/8/6 18:50
 # @Author  : huangran
 """
-from sqlalchemy import Column, String, Integer, Text, DateTime, ForeignKey
+from sqlalchemy import Column, String, Integer, DateTime
+
 from db.db import db
 from util.DateUtils import get_utc_now
-from sqlalchemy import Sequence
-from sqlalchemy import Table      # 使用Table专门生成第三方表模型
-from sqlalchemy.orm import relationship
+
 
 class BaseTable(db.Model):
     __abstract__ = True  # 加了该属性后生成表的时候不会生成该表
@@ -17,13 +16,11 @@ class BaseTable(db.Model):
     status = Column(Integer)
 
 
-class UserTest(BaseTable):
-    __tablename__ = 'user_test'
-    id = Column(Integer, Sequence('user_id_seq'), primary_key=True)
+class ProjectConfig(BaseTable):
+    __tablename__ = 'project_config'
     name = Column(String(50))
     fullname = Column(String(50))
     nickname = Column(String(50))
-
 
 # 第三方表--附属部门
 

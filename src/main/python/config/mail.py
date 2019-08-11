@@ -5,8 +5,9 @@
 from email.header import Header
 from email.mime.text import MIMEText
 import smtplib
-from config.log import logger as log
 import traceback
+
+from config.log import logger as log
 
 
 def send_email(mail_content, mail_to, subject="master,your mail"):

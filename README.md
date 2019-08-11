@@ -24,6 +24,8 @@ When I saw it, I understood what it meant.
 		测试 fakeruser切换用户
 		深度学习  语音
 		调整接口  修改功能  模块属性  入口位置   清单列表 功能名称  示意 版本  下线
+		跨域
+		总路由
 		代码生成
 	已完成:
 		base基类
@@ -43,6 +45,9 @@ When I saw it, I understood what it meant.
 	    日志记录位置
 	    /favicon.ico
 	    数量就是多,限制查询结果,自行处理数据,或者根据某个人专门集成数据,对13亿人,
+	    地区分表,常量,冗余,人加群,人存表or单独表
+	    mysql配置与编码
+	    swagger get in: query path, post:body formData
 数据库:
     数据库  redis MySQL sqlite mongodb  
     分页--ok

@@ -1,6 +1,7 @@
-from blog.models import User
 from django.shortcuts import HttpResponse  # 导入HttpResponse模块
 import xlrd
+
+from blog.models import User
 
 
 def importExcel(request):

@@ -7,6 +7,7 @@ from werkzeug.exceptions import HTTPException
 
 
 class WorldException(Exception):
+
     def __init__(self, code, message):
         self.code = code
         self.message = message

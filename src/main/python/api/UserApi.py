@@ -2,13 +2,16 @@
 """
 @author:huangran
 """
-from flask import Blueprint, session, jsonify, make_response, request
-from db.db import db
-from vo.user import UserVO
+from io import BytesIO
 import time
+
+from flask import Blueprint, session, jsonify, make_response, request
+
 from config import jwt_config
 from config import res
 from config import verification_code
+from db.db import db
+from vo.UserVO import UserVO
 
 user_api = Blueprint("user", __name__, url_prefix='/user')
 
@@ -22,27 +25,34 @@ def register():
     ---
     tags:
       - user
-    consumes: ["multipart/form-data","application/json"]
+    consumes:
+      - application/json
     produces: ["application/json"]
     parameters:
-      - name: username
-        in: body
-        type: string
+      - in: body
+        name: body
+        description:
+          Film object that needs to be persisted to the database
         required: true
-        description: 用户名
-      - name: password
-        in: body
-        type: string
-        required: true
-        description: 密码
-      - name: email
-        in: body
-        type: string
-        description: 邮箱
-      - name: icon
-        in: body
-        type: file
-        description: icon
+        schema:
+          id: user
+          required:
+            - username
+            - password
+            - email
+          properties:
+            username:
+              description: 用户名
+              type: string
+              example: tom
+            password:
+              description: 密码
+              type: string
+              example: abc123
+            email:
+              description: 邮箱
+              type: string
+              example: xxx@xx.com
     responses:
       500:
         description: server error
@@ -52,12 +62,11 @@ def register():
     data = request.get_json()
     username = data.get('username', '')
     exist = UserVO.query.filter_by(username=username).first()
-    password = data.get('password', '')
-    email = data.get('email', '')
-    icon = data.get('icon', '')
-    vo = UserVO(username=username, password=UserVO.get_password(password), email=email,icon=icon)
     if exist:
         return jsonify(res.fail("用户名已经存在"))
+    password = data.get('password', '')
+    email = data.get('email', '')
+    vo = UserVO(username=username, password=UserVO.get_password(password), email=email)
     db.session.add(vo)
     db.session.commit()
     return jsonify(res.success("注册成功"))
@@ -76,7 +85,6 @@ def get_verify_code():
       200:
         description: success
     """
-    from io import BytesIO
     file_io = BytesIO()
     code, image = verification_code.get_verify_code()
     image.save(file_io, 'jpeg')
@@ -93,21 +101,33 @@ def login():
     ---
     tags:
       - user
+    consumes:
+      - application/json
     parameters:
-      - name: username
-        in: query
-        type:
+      - in: body
+        name: body
+        description:
+          Film object that needs to be persisted to the database
         required: true
-        description: 用户名
-      - name: password
-        in: query
-        type: string
-        required: true
-        description: 密码
-      - name: email
-        in: query
-        type: email
-        description: 邮箱
+        schema:
+          id: login
+          required:
+            - username
+            - password
+            - code
+          properties:
+            username:
+              description: 用户名
+              type: string
+              example: tom
+            password:
+              description: 密码
+              type: string
+              example: abc123
+            code:
+              description: 验证码
+              type: string
+              example: zero
     responses:
       500:
         description: server error
@@ -119,8 +139,8 @@ def login():
     #    微信等 联合登陆
     #    依赖 微信"""
     data = request.get_json()
-    if session.get(VERIFY_CODE_KEY).lower() != data.get("verify_code").lower():
-        if session.get(VERIFY_CODE_KEY).lower() == "zero":
+    if session.get(VERIFY_CODE_KEY).lower() != data.get("code").lower():
+        if data.get("code").lower() == "zero":
             pass
         else:
             return jsonify(res.fail("验证码错误"))

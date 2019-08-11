@@ -4,10 +4,11 @@
 # @Author  : huangran
 """
 
-from flask import Blueprint, jsonify, make_response, request, send_file
+from flask import Blueprint, jsonify, make_response, request
+
 from config import res
 from db.db import db
-from .AreaVO import AreaVO
+from vo.AreaVO import AreaVO
 
 area_api = Blueprint("area_api", __name__, url_prefix='/area_api')
 

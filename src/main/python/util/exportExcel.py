@@ -1,7 +1,9 @@
-from xlwt import Workbook
 import io
-from blog.models import User
+
 from django.shortcuts import HttpResponse  # 导入HttpResponse模块
+from xlwt import Workbook
+
+from blog.models import User
 
 
 def exportUserExcel(request):

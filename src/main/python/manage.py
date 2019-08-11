@@ -5,18 +5,18 @@
 """
 # !/usr/bin/env python
 # https://www.cnblogs.com/caicairui/p/7821586.html
-from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
-# 主文件中导入app初始化manage
+from flask_script import Manager
+
+from vo.AreaVO import AreaVO, AreaMemberRelationVO
+from vo.OrganizationVO import OrganizationVO, OrganizationMemberRelationVO
 from app import app
+from db.db import db
+from vo.UserVO import UserVO, AnnouncementVO, RecordVO, MessageVO, CommentVO
+
+# 主文件中导入app初始化manage
 # db = SQLAlchemy()
 # 导入需要迁移的数据库模型
-from db.db import db
-from vo.user import UserVO, AnnouncementVO, RecordVO, MessageVO, CommentVO
-from api.area.AreaVO import AreaVO, AreaMemberRelationVO
-from api.organization.OrganizationVO import OrganizationVO,OrganizationMemberRelationVO
-
-
 # 让python支持命令行工作
 manager = Manager(app)
 
@@ -25,7 +25,6 @@ migrate = Migrate(app, db)
 
 # 添加迁移脚本的命令到manager中
 manager.add_command('db', MigrateCommand)
-
 
 # D:/dev/python3.7/python.exe   manage.py db init
 # D:/dev/python3.7/python.exe manage.py db migrate
