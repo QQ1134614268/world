@@ -195,8 +195,9 @@ def get_child_organization():
     parameters:
      - name: id
        in: query
-       type: file
+       type: integer
        description: 要查的组织id
+       example: 1
     responses:
       500:
         description: Error The language is not awesome!

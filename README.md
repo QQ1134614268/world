@@ -9,7 +9,6 @@ When I saw it, I understood what it meant.
 		信息推送--短信 系统内推 工单  电话  微信等消息
 		分布式--上传下载文件,定时任务 同步
 		第三方登录和支付宝支付的集成
-		序列化
 	    QQ群与用户,朋友圈分组可见,http打洞,时间可见,三范式分表,(名与id,设备上监控点与设备id)
 	    完全控制--定义一个对象,用户可以添加属性,添加计算规则(,hc编制,告警屏蔽)
 		mongo mysql orm 
@@ -40,6 +39,7 @@ When I saw it, I understood what it meant.
 		信息推送--mail
 		接口文档 swagger
 		数据库到代码实体类映射
+		序列化   dict
 	缺陷:
 	    日志聚合 elk  https://www.jianshu.com/p/bcf0445a1b8f
 	    日志记录位置
