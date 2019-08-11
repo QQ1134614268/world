@@ -4,6 +4,7 @@
 """
 import random
 import string
+
 from PIL import Image, ImageFont, ImageDraw, ImageFilter
 
 

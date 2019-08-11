@@ -4,7 +4,8 @@
 # @Author  : huangran
 """
 from flask import Blueprint, jsonify, make_response, request
-from flask_restful import fields, marshal, marshal_with
+from flask_restful import fields, marshal
+
 from config import res
 from db.db import db
 from vo.UserVO import RecordVO, CommentVO
@@ -65,7 +66,7 @@ def add_record():
         image = ""
     try:
         video = request.files('video')
-    except :
+    except:
         video = ""
     user_id = request.form.get('user_id')
     vo = RecordVO(user_id=user_id, content=content, image=image, video=video)

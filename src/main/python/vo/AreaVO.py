@@ -3,7 +3,7 @@
 # @Time    : 2019/8/3 16:05
 # @Author  : huangran
 """
-from sqlalchemy import Column, String, Integer, DateTime
+from sqlalchemy import Column, String, Integer
 
 from vo.BaseModel import BaseTable
 

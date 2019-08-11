@@ -2,8 +2,8 @@
 """
 @author:huangran
 """
-from io import BytesIO
 import time
+from io import BytesIO
 
 from flask import Blueprint, session, jsonify, make_response, request
 

@@ -2,10 +2,10 @@
 """
 @author:huangran
 """
-from email.header import Header
-from email.mime.text import MIMEText
 import smtplib
 import traceback
+from email.header import Header
+from email.mime.text import MIMEText
 
 from config.log import logger as log
 

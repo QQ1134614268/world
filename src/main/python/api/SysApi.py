@@ -2,11 +2,11 @@
 """
 @author:huangran
 """
-import time
 import random
+import time
 
 from flask import Blueprint, jsonify, make_response, request
-from flask_restful import fields, marshal, marshal_with
+from flask_restful import fields, marshal
 
 from config import res, jwt_config
 from db.db import db

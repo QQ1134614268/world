@@ -93,7 +93,7 @@ def add_children_organization():
     parent_vo = OrganizationVO.query.filter_by(id=parent_id).first()
     # parent_vo
     full_path_code = parent_vo.full_path_code + code + "/"
-    full_name = parent_vo.full_name+ name + "/"
+    full_name = parent_vo.full_name + name + "/"
     full_path_id = parent_vo.full_path_id + code + "/"
     level = parent_vo.level + 1
     vo = OrganizationVO(name=name, parent_id=parent_id, level=level, full_name=full_name, full_path_code=full_path_code,

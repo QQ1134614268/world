@@ -1,17 +1,17 @@
 # encoding: utf-8
-from os import path
 import re
 import traceback
+from os import path
 
 from flasgger import Swagger
 from flask import Flask, request
 
-from api.ProjectApi import world_project_api
 from api.AreaApi import area_api
 from api.AuthApi import auth_api
 from api.HelloApi import hello_api
-from api.SpeechApi import speech_api
 from api.OrganizationApi import organization_api
+from api.ProjectApi import world_project_api
+from api.SpeechApi import speech_api
 from api.SysApi import sys_api
 from api.UserApi import user_api
 from config import jwt_config
@@ -33,6 +33,8 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:123456@127.0.0.1:3
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 app.config["SECRET_KEY"] = "session_key_world"
+
+
 # app.config["PERMANENT_SESSION_LIFETIME"] = 60  # 设置session失效时间
 
 
@@ -49,10 +51,12 @@ def before_request():  # 登录过滤,正则匹配,日志记录,IP分析
             username = jwt_config.get_current_username()
             userid = jwt_config.get_current_username()
             log.info(
-                {"user": {"username": username, "userid": userid}, "url_path": url_path, "ip": ip, "action": "before_request"})
+                {"user": {"username": username, "userid": userid}, "url_path": url_path, "ip": ip,
+                 "action": "before_request"})
             break
     else:
         return "请登录"
+
 
 # @app.after_request  todo  所有数据都转成  格式
 # def after_request():

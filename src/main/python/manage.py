@@ -8,11 +8,8 @@
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
 
-from vo.AreaVO import AreaVO, AreaMemberRelationVO
-from vo.OrganizationVO import OrganizationVO, OrganizationMemberRelationVO
 from app import app
 from db.db import db
-from vo.UserVO import UserVO, AnnouncementVO, RecordVO, MessageVO, CommentVO
 
 # 主文件中导入app初始化manage
 # db = SQLAlchemy()

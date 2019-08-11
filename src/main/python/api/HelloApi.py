@@ -3,14 +3,14 @@
 @author:huangran
 """
 import datetime
-from io import BytesIO
 import json
 import zipfile
+from io import BytesIO
 
+import pandas
 from flask import Blueprint, send_file, jsonify, make_response
 from flask import Response
-from flask import request, abort
-import pandas
+from flask import request
 
 from config import file_config
 from config import log

@@ -3,10 +3,9 @@
 # @Time    : 2019/8/3 9:33
 # @Author  : huangran
 """
-from flask import Blueprint, jsonify, make_response, request, send_file
+from flask import Blueprint, jsonify, make_response
 
 from config import res
-from db.db import db
 
 auth_api = Blueprint("auth_api", __name__, url_prefix='/auth_api')
 
