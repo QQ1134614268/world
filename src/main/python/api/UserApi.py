@@ -32,7 +32,7 @@ def register():
       - in: body
         name: body
         description:
-          Film object that needs to be persisted to the database
+          用户注册
         required: true
         schema:
           id: user
@@ -107,7 +107,7 @@ def login():
       - in: body
         name: body
         description:
-          Film object that needs to be persisted to the database
+          用户登录
         required: true
         schema:
           id: login

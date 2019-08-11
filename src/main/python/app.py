@@ -12,7 +12,7 @@ from api.AuthApi import auth_api
 from api.HelloApi import hello_api
 from api.SpeechApi import speech_api
 from api.OrganizationApi import organization_api
-from api.SysSpi import sys_api
+from api.SysApi import sys_api
 from api.UserApi import user_api
 from config import jwt_config
 from config import log

@@ -217,7 +217,7 @@ class JsonUtils:
 @hello_api.route('/post_json', methods=['POST'])
 def post_json():
     """
-    Film creation endpoint
+    post_json
     ---
     tags:
         - hello_api
@@ -277,7 +277,7 @@ def post_json():
 @hello_api.route('/post_json2', methods=['POST'])
 def post_json2():
     """
-    Film creation endpoint
+    post_json2测试
     ---
     tags:
         - hello_api
@@ -306,7 +306,7 @@ def post_json2():
 @hello_api.route('/post_json3', methods=['POST'])
 def post_json3():
     """
-    Example endpoint return a list of colors by palette
+    post_json3测试
     This is using docstring for specifications
     ---
     tags:
