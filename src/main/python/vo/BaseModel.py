@@ -3,7 +3,7 @@
 # @Time    : 2019/8/6 18:50
 # @Author  : huangran
 """
-from sqlalchemy import Column, String, Integer, DateTime, ForeignKey
+from sqlalchemy import Column, String, Integer, DateTime, ForeignKey,Sequence
 from sqlalchemy.orm import relationship  # 创建关系
 
 from db.db import db
@@ -26,10 +26,10 @@ class ProjectConfig(BaseTable):
 
 class EnumConfig(BaseTable):
     __tablename__ = 'enum_config'
-    name = Column(String(50))
-    identity = Column(String(50))
+    name = Column(String(50), nullable=False, index=True)
+    identity = Column(String(50), unique=True)
     value = Column(String(50))
-    sort = Column(Integer)
+    sort = Column(Integer, Sequence('sort_seq'))
     note = Column(String(50))
 
 
