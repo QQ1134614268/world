@@ -3,7 +3,6 @@
 @author:huangran
 """
 import datetime
-import json
 import zipfile
 from io import BytesIO
 
@@ -169,49 +168,6 @@ def test_download_pandas():
     filename = "attachment;filename=" + filename
     # send_file(file, mimetype='application/octet-stream', as_attachment=True,  attachment_filename="告警.zip")
     return Response(result_csv, mimetype="text/csv;charset=utf-8", headers={"Content-disposition": filename})
-
-
-class User():
-    id = None
-    city_name = ""
-
-
-class JsonUtils:
-
-    def json2obj(self, jsonObj, obj):
-        keys = jsonObj.keys()
-        for key in keys:
-            if hasattr(obj, key):
-                setattr(obj, key, jsonObj[key])
-        return obj
-
-    def jsonStr2obj(self, jsonstr, obj):
-        objdict = json.loads(jsonstr)
-        return self.json2obj(objdict, obj)
-
-    def jsonobj2Str(self, jsonobj):
-        jsonstr = json.dumps(jsonobj, ensure_ascii=False)
-        return jsonstr
-
-    def obj2json(self, city):
-        dict = city.__dict__
-        if "_sa_instance_state" in dict:
-            del dict["_sa_instance_state"]
-        return dict
-
-    def obj2jsonStr(self, city):
-        obj_json = self.obj2json(city)
-        jsonstr = json.dumps(obj_json, ensure_ascii=False)
-        return jsonstr
-
-    def __test__(self):
-        cityjson = {
-            "city_name": "%s你好",
-            "id": "1212",
-        }
-        utils = JsonUtils()
-        obj = utils.json2obj(cityjson, User())
-        print(utils.obj2jsonStr(obj))
 
 
 @hello_api.route('/post_json', methods=['POST'])
@@ -391,6 +347,10 @@ def post_formData():
     code = request.form["code"]
     return jsonify({"name": name, "code": code, "file_name1": file1.filename, "file_name2": file2.filename, })
 
+# # 在会话的基础上执行sql语句
+# session.execute('update addresses set user_id = 1 where id = 2')
+# session.commit()
+# # 使用映射类成员变量的数据
+# session.query(Address).filter(Address.id ==2).update({"user_id":1})
 
-if __name__ == '__main__':
-    JsonUtils().__test__()
+# todo  inner complex 测试组合数据库类

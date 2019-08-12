@@ -9,8 +9,7 @@ from vo.BaseModel import BaseTable
 
 
 class OrganizationVO(BaseTable):
-    __tablename__ = 'organization'  # 起表名
-    # todo parent_id 与 OrganizationVO
+    __tablename__ = 'organization'
     parent_id = Column(Integer)
     name = Column(String(150), default='123456')
     level = Column(Integer, default=1)
@@ -22,7 +21,7 @@ class OrganizationVO(BaseTable):
 
 
 class OrganizationMemberRelationVO(BaseTable):
-    __tablename__ = 'organization_member_relation'  # 起表名
+    __tablename__ = 'organization_member_relation'
     name = Column(String(150), default='123456')
     level = Column(String(70), default='default.jpg')
     full_name = Column(String(70), default='default.jpg')
