@@ -24,6 +24,15 @@ class ProjectConfig(BaseTable):
     nickname = Column(String(50))
 
 
+class EnumConfig(BaseTable):
+    __tablename__ = 'enum_config'
+    name = Column(String(50))
+    identity = Column(String(50))
+    value = Column(String(50))
+    sort = Column(Integer)
+    note = Column(String(50))
+
+
 class InnerVO(BaseTable):
     __tablename__ = 'inner'
     inner = Column(String(150), default='123456')
