@@ -13,7 +13,6 @@ from vo.OrganizationVO import OrganizationVO
 
 organization_api = Blueprint("organization_api", __name__, url_prefix='/organization_api')
 
-# todo 创建起源 , 创建子级组织  ,,前端or后端创建子级full_name,level变量?
 organization_fields = {
     'id': fields.Integer,
     'parent_id': fields.Integer,
@@ -147,11 +146,21 @@ def update_organization():
     name = data.get('name')
     code = data.get('code')
     vo = OrganizationVO.query.filter_by(id=vo_id)
-    index = vo.full_name.rfind("/")
-    full_name = vo.full_name[0:index] + "/" + name + "/"
-    #  todo 子级组织都要修改 ??? 正则表达事
-    vo = OrganizationVO(name=name, full_name=full_name, code=code)
-    db.session.add(vo)
+    full_name = vo.full_name
+    name_index = vo.full_name.rfind(1, "/")
+    full_name_new = vo.full_name[0:name_index] + "/" + name + "/"
+
+    full_path_code = vo.full_path_code
+    code_index = vo.full_path_code.rfind(1, "/")
+    full_path_code_new = vo.full_path_code[0:code_index] + "/" + code + "/"
+    # # 在会话的基础上执行sql语句
+    # session.execute('update addresses set user_id = 1 where id = 2')
+    # session.commit()
+    # # 使用映射类成员变量的数据
+    # session.query(Address).filter(Address.id ==2).update({"user_id":1})
+    sql = 'UPDATE organization SET full_name = REPLACE(full_name,%s,%s),full_path_code=REPLACE(full_path_code,%s,%s) WHERE full_name like %s ' % (
+    full_name, full_name_new, full_path_code, full_path_code_new, full_name)
+    db.session.execute(sql)
     db.session.commit()
     return make_response(jsonify(res.success("操作成功")))
 
@@ -177,10 +186,12 @@ def delete_organization():
     # 同级不重复
     data = request.get_json()
     vo_id = data.get('id')
-    #  todo 子级组织都要删除 ??? 正则表达事
-
-    obj = OrganizationVO(id=vo_id)
-    db.session.delete(obj)
+    # variablelists = Variable.query.filter_by(env_id=env_id).all()
+    # for var in variablelists:
+    #     db.session.delete(var)
+    # db.session.commit()
+    sql = "DELETE FROM organization where full_path_id like %s" %("%"+vo_id+"%")
+    db.session.execute(sql)
     db.session.commit()
     return make_response(jsonify(res.success("操作成功")))
 
@@ -232,10 +243,17 @@ def move_organization():
       200:
         description: A language with its awesomeness
      """
-    # 同级不重复
     data = request.get_json()
-
-    # todo 修改父级子级关系 冗余数据 full 都要修改
     vo_id = data.get('id')
     parent_id = data.get('parent_id')
+    vo = OrganizationVO.query.filter_by(id=vo_id)
+    parent_vo = OrganizationVO.query.filter_by(id=parent_id)
+    full_name = vo.full_name
+    full_name_new = parent_vo.full_name
+    full_path_code = vo.full_path_code
+    full_path_code_new = parent_vo.full_path_code
+    sql = 'UPDATE organization SET full_name = REPLACE(full_name,%s,%s), full_path_code = REPLACE(full_path_code, %s, %s) WHERE full_name like %s' % (
+    full_name, full_name_new, full_path_code, full_path_code_new, full_name)
+    db.session.execute(sql)
+    db.session.commit()
     return make_response(jsonify(res.success("操作成功")))

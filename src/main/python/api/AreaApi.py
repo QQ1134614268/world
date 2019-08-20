@@ -44,4 +44,4 @@ def add_origin():
     vo = AreaVO(name=name, level=level, video=1)
     db.session.add(vo)
     db.session.commit()
-    return make_response(jsonify(res.success("操作成功")))
+    return jsonify(res.success("操作成功"))

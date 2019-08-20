@@ -85,7 +85,7 @@ def download_excel():
     byte_array_buffer = file_config.read_into_buffer(RESOURCE_DIR + "/excel_download_test.xlsx")
     # with open(RESOURCE_DIR + "/excel_download_test.xlsx", "rb") as f:  # todo f.readlines() hit
     #     data = f.read()
-    file_name = "excel下载测试.xlsx"  # todo excel 和压缩文件
+    file_name = "excel下载测试.xlsx"
     return send_file(byte_array_buffer, as_attachment=True,
                      attachment_filename=file_name.encode(encoding='utf_8', errors="ignore").decode('utf_8'),
                      mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')

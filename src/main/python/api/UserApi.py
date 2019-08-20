@@ -134,10 +134,6 @@ def login():
       200:
         description: success
     """
-    # """ todo
-    # 用户名 密码  手机号/邮箱/身份证
-    #    微信等 联合登陆
-    #    依赖 微信"""
     data = request.get_json()
     if session.get(VERIFY_CODE_KEY).lower() != data.get("code").lower():
         if data.get("code").lower() == "zero":

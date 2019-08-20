@@ -10,16 +10,16 @@ from config import res
 from db.db import db
 from vo.AreaVO import AreaVO
 
-area_api = Blueprint("area_api", __name__, url_prefix='/area_api')
+area_table_api = Blueprint("area_table_api", __name__, url_prefix='/area_table_api')
 
 
-@area_api.route('/add_origin', methods=['POST'])
+@area_table_api.route('/area_table_api', methods=['POST'])
 def add_origin():
     """
     添加起源
     ---
     tags:
-     - area_api
+     - area_table_api
     parameters:
      - name: name
        type: string

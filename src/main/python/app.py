@@ -5,8 +5,10 @@ from os import path
 
 from flasgger import Swagger
 from flask import Flask, request
+from flask_cors import CORS
 
 from api.AreaApi import area_api
+from api.AreaTableApi import area_table_api
 from api.AuthApi import auth_api
 from api.HelloApi import hello_api
 from api.OrganizationApi import organization_api
@@ -26,7 +28,9 @@ RESOURCE_DIR = PROJECT_DIR + "/src/main/resource"
 PARENT_DIR = path.dirname(PROJECT_DIR)
 
 app = Flask(__name__)
-
+# 跨域
+CORS(app, supports_credentials=True)
+# swagger
 Swagger(app)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:123456@127.0.0.1:3306/world?charset=utf8"
@@ -101,6 +105,7 @@ app.register_blueprint(organization_api)
 app.register_blueprint(area_api)
 app.register_blueprint(auth_api)
 app.register_blueprint(world_project_api)
+app.register_blueprint(area_table_api)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8888, debug=True, threaded=True)
