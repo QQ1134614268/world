@@ -39,7 +39,6 @@ def add_auth():
         description: A language with its awesomeness
      """
     # data = request.get_json()
-    # # 同级不重复
     # name = data.get('name')
     # level = 0
     # vo = AreaVO(name=name, level=level, video=1)

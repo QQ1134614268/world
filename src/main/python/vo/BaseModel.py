@@ -43,4 +43,4 @@ class ComplexVO(BaseTable):
     content = Column(String(150), default='123456')
     images = Column(String(70), default='default.jpg')
     inner_id = Column(Integer, ForeignKey("inner.id", ondelete='CASCADE'))
-    inner_name = relationship("inner", backref="inner_of_complex")
+    inner_name = relationship("InnerVO", backref="inner_of_complex")
