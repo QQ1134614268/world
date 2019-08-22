@@ -4,7 +4,7 @@
 # @Author  : huangran
 """
 
-from flask import Blueprint, jsonify, make_response, request
+from flask import Blueprint, jsonify, request
 
 from config import res
 from db.db import db

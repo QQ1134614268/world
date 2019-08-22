@@ -30,7 +30,6 @@ When I saw it, I understood what it meant.
 	    完全控制--定义一个对象,用户可以添加属性,添加计算规则(,hc编制,告警屏蔽)
 		mongo mysql orm 
 		分类实践--枚举,父子,交叉,高低维度, 状态值 	数字转二进制,每一位上的数据代表一种状态 1 11 111 1111
-		加密--简单加密,安全加密
 		0-1-N 
 		util 字符串 
 		用户--权限 -- 用户可见页面权限,接口权限,数据权限
@@ -40,10 +39,10 @@ When I saw it, I understood what it meant.
 		测试 fakeruser切换用户
 		深度学习  语音
 		调整接口  修改功能  模块属性  入口位置   清单列表 功能名称  示意 版本  下线
-		跨域
-		总路由
 		代码生成
 	已完成:
+		总路由
+		跨域
 		base基类
 		res
 		exception
@@ -57,6 +56,7 @@ When I saw it, I understood what it meant.
 		接口文档 swagger
 		数据库到代码实体类映射
 		序列化   dict
+		加密--简单加密,安全加密
 	缺陷:
 	    日志聚合 elk  https://www.jianshu.com/p/bcf0445a1b8f
 	    日志记录位置

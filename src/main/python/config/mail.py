@@ -7,7 +7,7 @@ import traceback
 from email.header import Header
 from email.mime.text import MIMEText
 
-from config.log import logger as log
+from util.LogUtil import logger as log
 
 
 def send_email(mail_content, mail_to, subject="master,your mail"):

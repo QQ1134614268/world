@@ -17,9 +17,9 @@ from api.SpeechApi import speech_api
 from api.SysApi import sys_api
 from api.UserApi import user_api
 from config import jwt_config
-from config import log
 from config import mail
 from db.db import db
+from util.LogUtil import logger
 
 APP_DIR = path.abspath(__file__)
 PROJECT_DIR = path.dirname(path.dirname(path.dirname(path.dirname(APP_DIR))))
@@ -46,7 +46,6 @@ app.config["SECRET_KEY"] = "session_key_world"
 def before_request():  # 登录过滤,正则匹配,日志记录,IP分析
     allow = [".*"]
     url_path = request.path
-    print(request.full_path)
     for i in allow:
         if url_path == "/favicon.ico":
             return "favicon.ico"
@@ -54,7 +53,7 @@ def before_request():  # 登录过滤,正则匹配,日志记录,IP分析
             ip = request.remote_addr
             username = jwt_config.get_current_username()
             userid = jwt_config.get_current_username()
-            log.info(
+            logger.info(
                 {"user": {"username": username, "userid": userid}, "url_path": url_path, "ip": ip,
                  "action": "before_request"})
             break
@@ -81,7 +80,7 @@ def flask_global_exception_handler(e):
         traceback.print_exc()
         # 日志记录异常信息
         message = traceback.format_exc()
-        log.error(message)
+        logger.error(message)
         # 邮件服务 发送异常通知邮件  邮件模板
         mail.send_email(message, SERVER_MAIL)
         return message
@@ -91,7 +90,7 @@ def flask_global_exception_handler(e):
         traceback.print_exc()
         # 日志记录异常信息
         message = traceback.format_exc()
-        log.error(message)
+        logger.error(message)
         # 邮件服务 发送异常通知邮件  邮件模板
         mail.send_email(message, SERVER_MAIL)
         return "server error"
@@ -109,3 +108,4 @@ app.register_blueprint(area_table_api)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8888, debug=True, threaded=True)
+

@@ -12,10 +12,10 @@ from flask import Response
 from flask import request
 
 from config import file_config
-from config import log
+from util.LogUtil import logger
 from config import res
 
-hello_api = Blueprint("hello", __name__, url_prefix='/hello')
+hello_api = Blueprint("hello", __name__, url_prefix='/hello_api')
 
 
 # jsonify不仅会将内容转换为json，而且也会修改Content-Type为application/json。
@@ -36,7 +36,9 @@ def hello():
       200:
         description: success
     """
-    log.info("hello")
+    from app import app
+    logger.info(app.config["DEBUG"])
+
     return make_response(jsonify(res.success("hello world!")), 200)
 
 
