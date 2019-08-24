@@ -153,7 +153,7 @@ def update_organization():
         full_name, full_name_new, full_path_code, full_path_code_new, full_name)
     db.session.execute(sql)
     db.session.commit()
-    return make_response(jsonify(res.success("操作成功")))
+    return jsonify(res.success("操作成功"))
 
 
 @organization_api.route('/move_organization', methods=['POST'])
@@ -201,12 +201,12 @@ def move_organization():
     full_path_id = vo.full_path_id
     full_path_id_new = parent_vo.full_path_id
     db.session.query(OrganizationVO).filter(OrganizationVO.id == vo_id).update({"parent_id": parent_id})
-    sql = 'UPDATE organization SET full_path_id = REPLACE(full_path_id,"%s","%s"),full_name = REPLACE(full_name,"%s","%s"), full_path_code = REPLACE(full_path_code, "%s", "%s") WHERE full_name like "%s"' % (
+    sql = 'UPDATE organization SET full_path_id = REPLACE(full_path_id,"%s","%s"),full_name = REPLACE(full_name,"%s","%s"),full_path_code = REPLACE(full_path_code, "%s", "%s") WHERE full_name like "%s"' % (
     full_path_id, full_path_id_new,
     full_name, full_name_new, full_path_code, full_path_code_new, full_name)
     db.session.execute(sql)
     db.session.commit()
-    return make_response(jsonify(res.success("操作成功")))
+    return jsonify(res.success("操作成功"))
 
 
 @organization_api.route('/delete_organization', methods=['POST'])
@@ -242,7 +242,7 @@ def delete_organization():
     print(sql)
     db.session.execute(sql)
     db.session.commit()
-    return make_response(jsonify(res.success("操作成功")))
+    return jsonify(res.success("操作成功"))
 
 
 @organization_api.route('/get_child_organization', methods=['GET'])

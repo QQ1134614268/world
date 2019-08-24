@@ -7,6 +7,7 @@ from flasgger import Swagger
 from flask import Flask, request
 from flask_cors import CORS
 
+from api.AliPayApi import ali_pay_api
 from api.AreaApi import area_api
 from api.AreaTableApi import area_table_api
 from api.AuthApi import auth_api
@@ -105,7 +106,7 @@ app.register_blueprint(area_api)
 app.register_blueprint(auth_api)
 app.register_blueprint(world_project_api)
 app.register_blueprint(area_table_api)
+app.register_blueprint(ali_pay_api)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8888, debug=True, threaded=True)
-
