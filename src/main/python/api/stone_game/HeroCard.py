@@ -9,6 +9,7 @@ class Hero:
         self.healthPoint = 30  # 血量
         self.attack = 0  # 攻击力
         self.defence = 0  # 护甲
+        self.magicPoint = 0  # 魔力值
 
     def skill(self):
         pass
@@ -32,10 +33,16 @@ class Hero:
 
 
 class PriestHero(Hero):
+    def __init__(self):
+        super().__init__()
+
     def skill(self):
         self.healthPoint += 2
 
 
 class MagesHero(Hero):
+    def __init__(self):
+        super().__init__()
+
     def skill(self):
         self.attack = 1

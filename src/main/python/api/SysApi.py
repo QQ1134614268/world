@@ -8,7 +8,8 @@ import time
 from flask import Blueprint, jsonify, make_response, request
 from flask_restful import fields, marshal
 
-from config import res, jwt_config
+from config import res
+from service import UserService
 from db.db import db
 from vo.UserVO import AnnouncementVO, MessageVO
 
@@ -64,7 +65,7 @@ def add_announcement():
     # todo 路径表达式与平台
     image_path = PROJECT_DIR + '/data/upload/images/' + time_str + "-" + image.filename
     image.save(image_path)  # 保存文件到指定路径
-    user_id = jwt_config.get_current_userid()
+    user_id = UserService.get_current_userid()
     vo = AnnouncementVO(userid=user_id, title=title, content=content, images=image_path)
     db.session.add(vo)
     db.session.commit()

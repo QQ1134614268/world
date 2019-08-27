@@ -5,7 +5,8 @@
 """
 from flask import Blueprint, jsonify, make_response, request
 
-from config import res, jwt_config
+from config import res
+from service import UserService
 from db.db import db
 from vo.AuthVO import AuthVO
 
@@ -53,7 +54,7 @@ def add_auth():
     path = data.get('path')
     user_id = data.get('user_id')
     # 检查当前用户权限  组织,地区,授予权限,特殊权限,子级权限
-    current_user_id = jwt_config.get_current_userid()
+    current_user_id = UserService.get_current_userid()
     vo = AuthVO(user_id=user_id, path=path)
     db.session.add(vo)
     db.session.commit()

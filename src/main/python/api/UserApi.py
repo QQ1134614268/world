@@ -7,7 +7,7 @@ from io import BytesIO
 
 from flask import Blueprint, session, jsonify, make_response, request
 
-from config import jwt_config
+from service import UserService
 from config import res
 from config import verification_code
 from db.db import db
@@ -150,7 +150,7 @@ def login():
             "timestamp": int(time.time()),
             # "exp": 1448333419,
         }
-        return jsonify(res.success(jwt_config.get_token(payload)))
+        return jsonify(res.success(UserService.get_token(payload)))
     else:
         return jsonify(res.success("账号密码不匹配"))
 

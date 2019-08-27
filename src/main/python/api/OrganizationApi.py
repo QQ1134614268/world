@@ -6,7 +6,7 @@
 from flask import Blueprint, jsonify, make_response, request
 from flask_restful import fields, marshal
 
-from config import jwt_config
+from service import UserService
 from config import res
 from db.db import db
 from vo.OrganizationVO import OrganizationVO
@@ -38,7 +38,7 @@ def get_origin_organization():
       200:
         description: A language with its awesomeness
      """
-    user_id = jwt_config.get_current_userid()
+    user_id = UserService.get_current_userid()
     # auth 组织权限 user_id
     # 组织下有组织,和人员,,类 文件和文件夹
     vo = OrganizationVO.query.filter_by(id=1).first()

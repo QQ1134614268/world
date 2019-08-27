@@ -17,9 +17,11 @@ from api.ProjectApi import world_project_api
 from api.SpeechApi import speech_api
 from api.SysApi import sys_api
 from api.UserApi import user_api
-from config import jwt_config
+from api.stone_game.StoneGameApi import stone_game_api
+from api.my_cloud_space.CloudSpaceApi import cloud_space_api
 from config import mail
 from db.db import db
+from service import UserService
 from util.LogUtil import logger
 
 APP_DIR = path.abspath(__file__)
@@ -52,8 +54,8 @@ def before_request():  # 登录过滤,正则匹配,日志记录,IP分析
             return "favicon.ico"
         if re.match(i, url_path):
             ip = request.remote_addr
-            username = jwt_config.get_current_username()
-            userid = jwt_config.get_current_username()
+            username = UserService.get_current_username()
+            userid = UserService.get_current_username()
             logger.info(
                 {"user": {"username": username, "userid": userid}, "url_path": url_path, "ip": ip,
                  "action": "before_request"})
@@ -107,6 +109,8 @@ app.register_blueprint(auth_api)
 app.register_blueprint(world_project_api)
 app.register_blueprint(area_table_api)
 app.register_blueprint(ali_pay_api)
+app.register_blueprint(cloud_space_api)
+app.register_blueprint(stone_game_api)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8888, debug=True, threaded=True)

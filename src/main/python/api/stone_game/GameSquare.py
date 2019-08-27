@@ -5,19 +5,20 @@
 import random
 
 from .Card import *
-from .HeroCard import MagesHero
+from .HeroCard import MagesHero, PriestHero
+
+cardDepository = [SpaceCard(), LittleRabbitCard(), LittleAppleCard(), H_2_2_3_Card(), H_2_3_2_Card(),
+                  H_2_2_3_Card(), H_3_3_4_Card(), H_3_4_3_Card(), H_4_4_5_Card(), H_4_5_4_Card(),
+                  H_5_5_5_Card(), H_5_5_6_Card(), ]
 
 
-class BlueRole:
-    def __init__(self):
+class Role:
+    def __init__(self, hero=MagesHero(), cardDepository=cardDepository):
         self.magicPoint = 0
-        self.hero = MagesHero()
+        self.hero = hero
         self.handDepository = []
-        self.sleepCardList = []
         self.activeCardList = []
-        self.cardDepository = [SpaceCard(), LittleRabbitCard(), LittleAppleCard(), H_2_2_3_Card(), H_2_3_2_Card(),
-                               H_2_2_3_Card(), H_3_3_4_Card(), H_3_4_3_Card(), H_4_4_5_Card(), H_4_5_4_Card(),
-                               H_5_5_5_Card(), H_5_5_6_Card(), ]
+        self.cardDepository = cardDepository
         self.cardDepository = random.shuffle(self.cardDepository)
         self.isOver = True
 
@@ -31,51 +32,25 @@ class BlueRole:
         self.sleepCardList.append(card)
 
 
-class RedRole:
-    def __init__(self):  # hero cardDepository
-        self.magicPoint = 0
-        self.hero = MagesHero()
-        self.handDepository = []
-        self.sleepCardList = []
-        self.activeCardList = []
-        self.cardDepository = [SpaceCard(), LittleRabbitCard(), LittleAppleCard(), H_2_2_3_Card(), H_2_3_2_Card(),
-                               H_2_2_3_Card(), H_3_3_4_Card(), H_3_4_3_Card(), H_4_4_5_Card(), H_4_5_4_Card(),
-                               H_5_5_5_Card(), H_5_5_6_Card(), ]
-        self.cardDepository = random.shuffle(self.cardDepository)
-        self.isOver = True
-
-    def getCard(self):
-        if self.cardDepository:
-            card = self.cardDepository.pop(0)
-            self.handDepository.append(card)
-
-    def showCard(self, index):
-        if self.cardDepository:
-            card = self.cardDepository.pop(0)
-            self.handDepository.append(card)
-
-
 class Game:
 
     def __init__(self):
-        self.blueHero = BlueRole()
-        self.redRole = RedRole()
+        self.redRole = Role(PriestHero(), cardDepository)  # 红色方先手
+        self.blueHero = Role(MagesHero(), cardDepository)
         self.turn = True
 
-    def gameStart(self):
-        #  todo 循环回合
-        while True:
-            # turn
-            if self.turn:
+    def gameStart(self, first_index, last_index):
+        while not self.gameOver():
+
+            while self.turn:
+                # 红色方
+
                 break
-            if self.turn:
+            while self.turn:
                 break
-            if self.gameTurn():
-                self.turn = not self.turn
 
     def gameTurn(self):
-        # todo
-        return True
+        self.turn = not self.turn
 
     def gameOver(self):
         if self.blueHero.hero.heroDie():
@@ -83,6 +58,7 @@ class Game:
 
         if self.redRole.hero.heroDie():
             return "A_hero winner"
+        return False
 
     def attackCard(self, start_card_list, start_card, bear_card, bear_card_list):
         start_card.bearAttack(bear_card.attack)
