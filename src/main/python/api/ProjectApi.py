@@ -35,4 +35,4 @@ def project_init():
         db.session.commit()
         message += "组织初始化成功;"
 
-    return make_response(jsonify(res.success(message)))
+    return jsonify(res.success(message))

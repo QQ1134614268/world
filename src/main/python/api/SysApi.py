@@ -69,7 +69,7 @@ def add_announcement():
     vo = AnnouncementVO(userid=user_id, title=title, content=content, images=image_path)
     db.session.add(vo)
     db.session.commit()
-    return make_response(jsonify(res.success("操作成功")))
+    return jsonify(res.success("操作成功"))
 
 
 @sys_api.route('/get_announcement_list', methods=['GET'])
@@ -156,7 +156,7 @@ def add_suggest():
     vo = MessageVO(announcement_id=announcement_id, content=content, image=image)
     db.session.add(vo)
     db.session.commit()
-    return make_response(jsonify(res.success("操作成功")))
+    return jsonify(res.success("操作成功"))
 
 
 @sys_api.route('/get_suggest', methods=['GET'])
@@ -181,4 +181,4 @@ def get_suggest():
    """
     announcement_id = request.args.get("id")
     message_list = MessageVO.query.filter_by(id=announcement_id).order_by(MessageVO.createTime).all()
-    return make_response(jsonify(res.success(message_list)))
+    return jsonify(res.success(message_list))

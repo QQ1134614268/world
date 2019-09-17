@@ -39,7 +39,7 @@ def hello():
     from app import app
     logger.info(app.config["DEBUG"])
 
-    return make_response(jsonify(res.success("hello world!")), 200)
+    return jsonify(res.success("hello world!"))
 
 
 @hello_api.route('/sleep', methods=["GET"])
@@ -60,7 +60,7 @@ def sleep():
     end = start + datetime.timedelta(seconds=30)
     while datetime.datetime.utcnow() < end:
         pass
-    return make_response(jsonify(res.success('thread test;I slept from ' + str(start) + " to " + str(end))), 200)
+    return jsonify(res.success('thread test;I slept from ' + str(start) + " to " + str(end)))
 
 
 @hello_api.route('/exception', methods=["GET"])
@@ -78,7 +78,7 @@ def exception():
         description: success
     """
     result = 1 / 0
-    return make_response(jsonify(res.success(result)), 200)
+    return jsonify(res.success(result))
 
 
 @hello_api.route('/download_excel', methods=['GET'])

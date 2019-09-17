@@ -9,6 +9,8 @@ from sqlalchemy.orm import relationship  # 创建关系
 from db.db import db
 from util.DateUtils import get_utc_now
 
+# gmt_modify = Column(TIMESTAMP(True), nullable=False, server_default=func.now(), onupdate=func.now())
+
 
 class BaseTable(db.Model):
     __abstract__ = True  # 加了该属性后生成表的时候不会生成该表

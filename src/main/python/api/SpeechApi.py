@@ -72,7 +72,7 @@ def add_record():
     vo = RecordVO(user_id=user_id, content=content, image=image, video=video)
     db.session.add(vo)
     db.session.commit()
-    return make_response(jsonify(res.success("操作成功")))
+    return jsonify(res.success("操作成功"))
 
 
 @speech_api.route('/add_comment', methods=['POST'])
@@ -114,7 +114,7 @@ def add_comment():
     vo = CommentVO(record_id=record_id, content=content)
     db.session.add(vo)
     db.session.commit()
-    return make_response(jsonify(res.success("操作成功")))
+    return jsonify(res.success("操作成功"))
 
 
 @speech_api.route('/get_record_all', methods=['GET'])
@@ -140,7 +140,7 @@ def get_record_all():
     user_id = request.args.get("id")
     message_list = RecordVO.query.filter_by(user_id=user_id).order_by(RecordVO.createTime).all()
     message_list = [marshal(vo, record_fields) for vo in message_list]
-    return make_response(jsonify(res.success(message_list)))
+    return jsonify(res.success(message_list))
 
 
 @speech_api.route('/get_record_by_id', methods=['GET'])
@@ -165,4 +165,4 @@ def get_record():
     record_id = request.args.get('id')
     message_list = CommentVO.query.filter_by(record_id=record_id).order_by(CommentVO.createTime).all()
     message_list = [marshal(vo, comment_fields) for vo in message_list]
-    return make_response(jsonify(res.success(message_list)))
+    return jsonify(res.success(message_list))

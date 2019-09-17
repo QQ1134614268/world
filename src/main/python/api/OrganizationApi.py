@@ -24,7 +24,7 @@ organization_fields = {
     'leader': fields.Integer,
 }
 
-
+# todo 组织不控制权限,,,  查询时候权限控制, 提供权限控制接口??
 @organization_api.route('/get_origin_organization', methods=['GET'])
 def get_origin_organization():
     """
@@ -96,7 +96,7 @@ def add_children_organization():
     db.session.flush()
     vo.full_path_id = parent_vo.full_path_id + str(vo.id) + "/"
     db.session.commit()
-    return make_response(jsonify(res.success("操作成功")))
+    return jsonify(res.success("操作成功"))
 
 
 @organization_api.route('/update_organization', methods=['POST'])

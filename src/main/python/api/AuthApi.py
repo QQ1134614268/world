@@ -58,4 +58,4 @@ def add_auth():
     vo = AuthVO(user_id=user_id, path=path)
     db.session.add(vo)
     db.session.commit()
-    return make_response(jsonify(res.success("操作成功")))
+    return jsonify(res.success("操作成功"))
