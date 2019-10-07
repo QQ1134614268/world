@@ -17,8 +17,8 @@ from api.ProjectApi import world_project_api
 from api.SpeechApi import speech_api
 from api.SysApi import sys_api
 from api.UserApi import user_api
-from api.stone_game.StoneGameApi import stone_game_api
 from api.my_cloud_space.CloudSpaceApi import cloud_space_api
+from api.stone_game.StoneGameApi import stone_game_api
 from config import mail
 from db.db import db
 from service import UserService

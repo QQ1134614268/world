@@ -60,7 +60,7 @@ def add_children_message():
     content = data.get('content')
     # sort = data.get('sort')
     user_id = UserService.get_current_userid()
-    vo = XmindLikeVO(content=content, parent_id=parent_id, user_id=user_id,sort=sort)
+    vo = XmindLikeVO(content=content, parent_id=parent_id, user_id=user_id, sort=sort)
     db.session.add(vo)
     db.session.commit()
     return jsonify(res.success("操作成功"))

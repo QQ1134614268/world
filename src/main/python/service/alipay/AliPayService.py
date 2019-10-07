@@ -27,7 +27,7 @@ class AliPay():
 
         self.app_private_key_path = Config.PRI_KEY_PATH  # 应用私钥
         self.app_private_key = None
-        with open(self.app_private_key_path,mode="r",encoding="utf_8") as fp:
+        with open(self.app_private_key_path, mode="r", encoding="utf_8") as fp:
             self.app_private_key = RSA.importKey(fp.read())
 
         self.alipay_public_key_path = Config.PUB_KEY_PATH  # 支付宝公钥
@@ -65,7 +65,7 @@ class AliPay():
         # 排序后的字符串
         unsigned_items = [(k, v) for k, v in data.items()]
         unsigned_string = "&".join("{0}={1}".format(k, v) for k, v in unsigned_items)
-        unsigned_string=unsigned_string.encode("utf-8")
+        unsigned_string = unsigned_string.encode("utf-8")
         # 开始计算签名
         key = self.app_private_key
         signer = PKCS1_v1_5.new(key)

@@ -3,15 +3,14 @@
 # @Time    : 2019/9/19 15:48
 """
 # coding=utf-8
-import sys
 import json
-
-from urllib.request import urlopen
-from urllib.request import Request
 from urllib.error import URLError
-from urllib.parse import urlencode
 from urllib.parse import quote_plus
-IS_PY3=True
+from urllib.parse import urlencode
+from urllib.request import Request
+from urllib.request import urlopen
+
+IS_PY3 = True
 API_KEY = '4E1BG9lTnlSeIf1NQFlrSq6h'
 SECRET_KEY = '544ca4657ba8002e3dea3ac2f5fdd241'
 

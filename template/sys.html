@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="data:;base64,=">
+    <link href="data:;base64,=" rel="icon">
     <title>Title</title>
 </head>
-<form enctype="multipart/form-data" action="http://127.0.0.1:8888/sys/addAnnouncement" method="post">
-    标题:<input title="标题" name="title">
-    内容:<input title="内容" name="content">
-    图片:<input type="file" title="图片" name="image">
+<form action="http://127.0.0.1:8888/sys/addAnnouncement" enctype="multipart/form-data" method="post">
+    标题:<input name="title" title="标题">
+    内容:<input name="content" title="内容">
+    图片:<input name="image" title="图片" type="file">
     <input type="submit" value="Submit"/>
 </form>
 

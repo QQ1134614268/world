@@ -12,8 +12,8 @@ from flask import Response
 from flask import request
 
 from config import file_config
-from util.LogUtil import logger
 from config import res
+from util.LogUtil import logger
 
 hello_api = Blueprint("hello", __name__, url_prefix='/hello_api')
 

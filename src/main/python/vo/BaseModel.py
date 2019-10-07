@@ -3,11 +3,12 @@
 # @Time    : 2019/8/6 18:50
 # @Author  : huangran
 """
-from sqlalchemy import Column, String, Integer, DateTime, ForeignKey,Sequence
+from sqlalchemy import Column, String, Integer, DateTime, ForeignKey, Sequence
 from sqlalchemy.orm import relationship  # 创建关系
 
 from db.db import db
 from util.DateUtils import get_utc_now
+
 
 # gmt_modify = Column(TIMESTAMP(True), nullable=False, server_default=func.now(), onupdate=func.now())
 

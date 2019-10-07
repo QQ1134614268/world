@@ -3,14 +3,15 @@
 # @Time    : 2019/8/3 9:33
 # @Author  : huangran
 """
-from flask import Blueprint, jsonify, make_response, request
+from flask import Blueprint, jsonify, request
 
 from config import res
-from service import UserService
 from db.db import db
+from service import UserService
 from vo.AuthVO import AuthVO
 
 auth_api = Blueprint("auth_api", __name__, url_prefix='/auth_api')
+
 
 # 权限视图,组织,地区等
 # 特殊权限视图

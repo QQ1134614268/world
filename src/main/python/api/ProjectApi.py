@@ -2,7 +2,7 @@
 """
 # @Time    : 2019/8/11 22:16
 """
-from flask import Blueprint, make_response, jsonify
+from flask import Blueprint, jsonify
 
 from config import res
 from db.db import db

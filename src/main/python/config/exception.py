@@ -8,7 +8,7 @@ from werkzeug.exceptions import HTTPException
 
 class WorldException(Exception):
 
-    def __init__(self, message="Exception", code=0 ):
+    def __init__(self, message="Exception", code=0):
         self.code = code
         self.message = message
 
@@ -36,6 +36,6 @@ class APIException(HTTPException):
 
 
 if __name__ == '__main__':
-    e = WorldException("err",1 )
+    e = WorldException("err", 1)
     print(e)
     print(e.code)

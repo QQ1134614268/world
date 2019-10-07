@@ -4,6 +4,7 @@
 """
 import json
 
+
 class User():
     id = None
     city_name = ""

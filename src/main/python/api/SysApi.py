@@ -5,12 +5,12 @@
 import random
 import time
 
-from flask import Blueprint, jsonify, make_response, request
+from flask import Blueprint, jsonify, request
 from flask_restful import fields, marshal
 
 from config import res
-from service import UserService
 from db.db import db
+from service import UserService
 from vo.UserVO import AnnouncementVO, MessageVO
 
 sys_api = Blueprint("sys", __name__, url_prefix='/sys')

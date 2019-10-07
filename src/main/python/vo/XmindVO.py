@@ -3,7 +3,7 @@
 # @Time    : 2019/8/31 23:13
 """
 
-from sqlalchemy import Column, String, Integer, Date, Boolean, BLOB,Text
+from sqlalchemy import Column, Integer, Text
 
 from vo.BaseModel import BaseTable
 
@@ -14,4 +14,4 @@ class XmindLikeVO(BaseTable):
     parent_id = Column(Integer)
     user_id = Column(Integer)
     content = Column(Text, default='')
-    sort=Column(Integer)
+    sort = Column(Integer)

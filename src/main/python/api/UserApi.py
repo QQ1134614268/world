@@ -7,10 +7,10 @@ from io import BytesIO
 
 from flask import Blueprint, session, jsonify, make_response, request
 
-from service import UserService
 from config import res
 from config import verification_code
 from db.db import db
+from service import UserService
 from vo.UserVO import UserVO
 
 user_api = Blueprint("user", __name__, url_prefix='/user')

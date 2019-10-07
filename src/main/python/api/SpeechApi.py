@@ -3,7 +3,7 @@
 # @Time    : 2019/6/30 23:13
 # @Author  : huangran
 """
-from flask import Blueprint, jsonify, make_response, request
+from flask import Blueprint, jsonify, request
 from flask_restful import fields, marshal
 
 from config import res

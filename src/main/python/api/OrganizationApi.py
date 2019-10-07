@@ -3,12 +3,12 @@
 # @Time    : 2019/8/3 9:35
 # @Author  : huangran
 """
-from flask import Blueprint, jsonify, make_response, request
+from flask import Blueprint, jsonify, request
 from flask_restful import fields, marshal
 
-from service import UserService
 from config import res
 from db.db import db
+from service import UserService
 from vo.OrganizationVO import OrganizationVO
 
 organization_api = Blueprint("organization_api", __name__, url_prefix='/organization_api')
@@ -23,6 +23,7 @@ organization_fields = {
     'full_path_id': fields.String,
     'leader': fields.Integer,
 }
+
 
 # todo 组织不控制权限,,,  查询时候权限控制, 提供权限控制接口??
 @organization_api.route('/get_origin_organization', methods=['GET'])
@@ -202,8 +203,8 @@ def move_organization():
     full_path_id_new = parent_vo.full_path_id
     db.session.query(OrganizationVO).filter(OrganizationVO.id == vo_id).update({"parent_id": parent_id})
     sql = 'UPDATE organization SET full_path_id = REPLACE(full_path_id,"%s","%s"),full_name = REPLACE(full_name,"%s","%s"),full_path_code = REPLACE(full_path_code, "%s", "%s") WHERE full_name like "%s"' % (
-    full_path_id, full_path_id_new,
-    full_name, full_name_new, full_path_code, full_path_code_new, full_name)
+        full_path_id, full_path_id_new,
+        full_name, full_name_new, full_path_code, full_path_code_new, full_name)
     db.session.execute(sql)
     db.session.commit()
     return jsonify(res.success("操作成功"))
