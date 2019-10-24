@@ -23,6 +23,8 @@ from config import mail
 from db.db import db
 from service import UserService
 from util.LogUtil import logger
+from gevent.pywsgi import WSGIServer
+from geventwebsocket.handler import WebSocketHandler
 
 APP_DIR = path.abspath(__file__)
 PROJECT_DIR = path.dirname(path.dirname(path.dirname(path.dirname(APP_DIR))))
@@ -113,4 +115,8 @@ app.register_blueprint(cloud_space_api)
 app.register_blueprint(stone_game_api)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8888, debug=True, threaded=True)
+    # app.run(host='0.0.0.0', port=80, debug=True, threaded=True)
+
+    http_server = WSGIServer(('0.0.0.0', 80), app, handler_class=WebSocketHandler)  # 找对象
+    http_server.serve_forever()  # 对象的属性
+

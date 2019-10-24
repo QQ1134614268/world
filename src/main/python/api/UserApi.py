@@ -135,6 +135,8 @@ def login():
         description: success
     """
     data = request.get_json()
+
+
     if session.get(VERIFY_CODE_KEY).lower() != data.get("code").lower():
         if data.get("code").lower() == "zero":
             pass
@@ -144,6 +146,9 @@ def login():
     password = data.get('password', '')
     user = UserVO.query.filter_by(username=username, password=UserVO.get_password(password)).first()
     if user:
+        # 添加websocket
+        add_user_socket(username)
+
         payload = {
             "username": user.username,
             "userid": user.id,
@@ -165,3 +170,13 @@ def get_user():
 
 def get_auth():
     pass
+
+def add_user_socket(username):
+    user_socket = request.environ.get('wsgi.websocket')  # type:WebSocket  #相当于连接的那把伞，成功连接后意味着可以进行通信了
+    ## type:WebSocket ：作用，使定义的user_socket拥有很多属性
+    if user_socket:
+        from api.glob_var import user_socket_dict
+        user_socket_dict[username] = user_socket  # 将用户登录时对信息存储,为了下次找到发送的对象
+
+
+
