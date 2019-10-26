@@ -4,12 +4,13 @@
 """
 import os
 import random
-import time
 
+import time
 from flask import Blueprint, send_file, jsonify, make_response, request
 
 from config import res
 from db.db import db
+from global_variable import UPLOAD_FILE_PATH
 from service import UserService
 from vo.CloudSpaceVO import UserCloudSpaceVO
 
@@ -58,8 +59,7 @@ def file_upload():
     user_id = UserService.get_current_userid()
     vo = UserCloudSpaceVO.query.filter_by(file_name=file1.filename, user_id=user_id).first()
     time_str = time.strftime('%Y%m%d_%H%M%S_') + str(random.randint(1000, 9999))
-    from app import PROJECT_DIR
-    file_path = PROJECT_DIR + '/data/upload/cloud_space/' + time_str + "-" + file1.filename
+    file_path = UPLOAD_FILE_PATH + '/cloud_space/' + time_str + "-" + file1.filename
     file1.save(file_path)  # 保存文件到指定路径
     if vo:
         os.remove(vo.file_path)

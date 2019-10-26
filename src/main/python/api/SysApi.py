@@ -12,7 +12,7 @@ from config import res
 from db.db import db
 from service import UserService
 from vo.UserVO import AnnouncementVO, MessageVO
-
+from global_variable import  UPLOAD_FILE_PATH
 sys_api = Blueprint("sys", __name__, url_prefix='/sys')
 
 announcement_fields = {
@@ -61,9 +61,7 @@ def add_announcement():
     content = request.form.get('content')
     image = request.files['image']
     time_str = time.strftime('%Y%m%d_%H%M%S_') + str(random.randint(1000, 9999))
-    from app import PROJECT_DIR
-    # todo 路径表达式与平台
-    image_path = PROJECT_DIR + '/data/upload/images/' + time_str + "-" + image.filename
+    image_path = UPLOAD_FILE_PATH + '/images/' + time_str + "-" + image.filename
     image.save(image_path)  # 保存文件到指定路径
     user_id = UserService.get_current_userid()
     vo = AnnouncementVO(userid=user_id, title=title, content=content, images=image_path)

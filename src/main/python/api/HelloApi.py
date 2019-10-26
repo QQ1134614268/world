@@ -13,6 +13,7 @@ from flask import request
 
 from config import file_config
 from config import res
+from global_variable import RESOURCE_DIR
 from util.LogUtil import logger
 
 hello_api = Blueprint("hello", __name__, url_prefix='/hello_api')
@@ -83,7 +84,6 @@ def exception():
 
 @hello_api.route('/download_excel', methods=['GET'])
 def download_excel():
-    from app import RESOURCE_DIR  # todo 放头部报错  因为 循环引入
     byte_array_buffer = file_config.read_into_buffer(RESOURCE_DIR + "/excel_download_test.xlsx")
     # with open(RESOURCE_DIR + "/excel_download_test.xlsx", "rb") as f:  # todo f.readlines() hit
     #     data = f.read()

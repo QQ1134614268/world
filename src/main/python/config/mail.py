@@ -8,21 +8,10 @@ from email.header import Header
 from email.mime.text import MIMEText
 
 from util.LogUtil import logger as log
+from global_variable import SERVER_MAIL,SERVER_MAIL_HOST,SERVER_MAIL_PASS
 
 
 def send_email(mail_content, mail_to, subject="master,your mail"):
-    from app import app
-    if app.config["DEBUG"]:
-        log.info("DEBUG模式  mail不在实际发送")
-        return
-    else:
-        log.info("进入DEBUG模式失败  mail发送")
-        return
-    # mail_to 抄送
-    MAIL_HOST = "smtp.qq.com"  # 设置服务器
-    MAIL_SENDER = "1134614268@qq.com"  # 用户名
-    MAIL_PASS = "ragrmyytlnsuibih"  # 口令
-
     message = MIMEText(mail_content, 'plain', 'utf-8')
     message['Subject'] = Header(subject, 'utf-8')
     message['From'] = Header("明宇致和", 'utf-8')
@@ -45,10 +34,10 @@ def send_email(mail_content, mail_to, subject="master,your mail"):
     #         message.attach(mime)
 
     try:
-        smtpObj = smtplib.SMTP_SSL(MAIL_HOST, 465)
+        smtpObj = smtplib.SMTP_SSL(SERVER_MAIL_HOST, 465)
         # smtpObj.set_debuglevel(1)
-        smtpObj.login(MAIL_SENDER, MAIL_PASS)
-        smtpObj.sendmail(MAIL_SENDER, mail_to, message.as_string())
+        smtpObj.login(SERVER_MAIL, SERVER_MAIL_PASS)
+        smtpObj.sendmail(SERVER_MAIL, mail_to, message.as_string())
         log.info("邮件发送成功")
     except smtplib.SMTPException as e:
         traceback.print_exc()

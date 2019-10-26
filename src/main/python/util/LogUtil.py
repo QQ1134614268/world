@@ -4,8 +4,11 @@
 # @Author  : huangran
 """
 import logging
+import os
 
 from concurrent_log_handler import ConcurrentRotatingFileHandler
+
+from global_variable import LOG_PATH
 
 
 def crate():
@@ -18,7 +21,9 @@ def crate():
     logger.setLevel(level=logging.INFO)
     # 定义一个RotatingFileHandler，最多备份3个日志文件，每个日志文件最大1K
     # rHandler = RotatingFileHandler("log3.txt", maxBytes=1 * 1024, backupCount=3)
-    rHandler = ConcurrentRotatingFileHandler("../../../data/log/log.txt", maxBytes=1 * 1024 * 1024, backupCount=3,
+    log_filename = os.path.join(LOG_PATH, "log.txt")
+
+    rHandler = ConcurrentRotatingFileHandler(log_filename, maxBytes=1 * 1024 * 1024, backupCount=3,
                                              encoding="utf_8")
     rHandler.setLevel(logging.INFO)
     rHandler.setFormatter(formatter)
