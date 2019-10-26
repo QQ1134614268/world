@@ -40,20 +40,7 @@ def crate():
 
 logger = crate()
 
-
-def info(message):
-    logger.info({"message:": message})
-
-
-def error(message):
-    logger.error({"message:": message})
-
-
-def warning(message):
-    logger.warning({"message:": message})
-
-
 if __name__ == '__main__':
-    info({"a": 1})
-    error("Do something")
-    warning("Something maybe fail.")
+    logger.info({"a": 1})
+    logger.error("Do something")
+    logger.warning("Something maybe fail.")
