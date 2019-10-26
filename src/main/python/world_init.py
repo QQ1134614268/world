@@ -5,11 +5,11 @@ from global_variable import LOG_PATH, UPLOAD_FILE_PATH
 from vo.OrganizationVO import OrganizationVO
 
 
-def init_all():
+def init_dir():
     if not os.path.exists(LOG_PATH):
-        os.mkdir(LOG_PATH)
+        os.makedirs(LOG_PATH)
     if not os.path.exists(UPLOAD_FILE_PATH):
-        os.mkdir(UPLOAD_FILE_PATH)
+        os.makedirs(UPLOAD_FILE_PATH)
 
 
 def init_db():

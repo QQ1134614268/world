@@ -5,8 +5,6 @@ import traceback
 from flasgger import Swagger
 from flask import Flask, request
 from flask_cors import CORS
-from gevent.pywsgi import WSGIServer
-from geventwebsocket.handler import WebSocketHandler
 
 from api.AliPayApi import ali_pay_api
 from api.AreaApi import area_api
@@ -24,7 +22,7 @@ from db.db import db
 from global_variable import MAIL_TO
 from service import UserService
 from util.LogUtil import logger
-from world_init import init_all
+from world_init import init_dir
 
 app = Flask(__name__)
 # 跨域
@@ -105,11 +103,10 @@ app.register_blueprint(cloud_space_api)
 app.register_blueprint(stone_game_api)
 
 if __name__ == '__main__':
-    print(888)
-    init_all()
-    app.run(host='0.0.0.0', port=80, debug=True, threaded=True)
-    print(888)
+    init_dir()
+    # app.run(host='0.0.0.0', port=80, debug=True, threaded=True)
 
-    # http_server = WSGIServer(('0.0.0.0', 80), app, handler_class=WebSocketHandler)  # 找对象
-    # http_server.serve_forever()  # 对象的属性
-
+    from gevent.pywsgi import WSGIServer
+    from geventwebsocket.handler import WebSocketHandler
+    http_server = WSGIServer(('0.0.0.0', 80), app, handler_class=WebSocketHandler)  # 找对象
+    http_server.serve_forever()  # 对象的属性
