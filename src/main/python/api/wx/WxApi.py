@@ -25,7 +25,7 @@ def pay_for_product():
     添加起源
     ---
     tags:
-     - ali_pay_api
+     - wx_api
     parameters:
       - in: body
         name: body
