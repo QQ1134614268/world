@@ -12,7 +12,7 @@ ali_pay_api = Blueprint("ali_pay_api", __name__, url_prefix='/ali_pay_api')
 
 
 # todo 增加商品表,订单表,然后购买
-@ali_pay_api.route('/pay_for_product', methods=['POST', "GET"])
+@ali_pay_api.route('/pay_for_product', methods=['POST'])
 def pay_for_product():
     """
     添加起源
