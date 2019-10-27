@@ -33,8 +33,9 @@ Swagger(app)
 SQLALCHEMY_DATABASE_URI = '{}+{}://{}:{}@{}:{}/{}?charset=utf8'.format(DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT,
                                                                        DBNAME) + "?charset=utf8"
 app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
-db.init_app(app)
 app.config["SECRET_KEY"] = "session_key_world"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
+db.init_app(app)
 
 
 # app.config["PERMANENT_SESSION_LIFETIME"] = 60  # 设置session失效时间
@@ -67,6 +68,13 @@ def before_request():  # 登录过滤,正则匹配,日志记录,IP分析
 #     pass
 
 
+@app.errorhandler(404)  # 当发生404错误时，会被该路由匹配
+def handle_404_error(err_msg):
+    """自定义的异常处理函数"""
+    # 这个函数的返回值就是前端用户看到的最终结果 (404错误页面)
+    return u"server error：%s" % err_msg
+
+
 @app.errorhandler(Exception)
 def flask_global_exception_handler(e):
     if app.config["DEBUG"]:
@@ -89,6 +97,15 @@ def flask_global_exception_handler(e):
         # 邮件服务 发送异常通知邮件  邮件模板
         mail.send_email(message, MAIL_TO)
         return "server error"
+
+
+@app.route('/', methods=['GET'])
+def welcome():
+    txt = """
+    welcome to world!
+    you can see B-tree for the api : /apidocs
+    """
+    return txt
 
 
 app.register_blueprint(hello_api)
