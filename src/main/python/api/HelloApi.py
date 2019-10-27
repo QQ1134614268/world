@@ -37,6 +37,7 @@ def init():
     init_db()
     return jsonify(res.success("init success!"))
 
+
 # jsonify不仅会将内容转换为json，而且也会修改Content-Type为application/json。
 # send_file
 # make_response

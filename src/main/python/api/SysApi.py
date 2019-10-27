@@ -3,16 +3,17 @@
 @author:huangran
 """
 import random
-import time
 
+import time
 from flask import Blueprint, jsonify, request
 from flask_restful import fields, marshal
 
 from config import res
 from db.db import db
+from global_variable import UPLOAD_FILE_PATH
 from service import UserService
 from vo.UserVO import AnnouncementVO, MessageVO
-from global_variable import  UPLOAD_FILE_PATH
+
 sys_api = Blueprint("sys", __name__, url_prefix='/sys')
 
 announcement_fields = {

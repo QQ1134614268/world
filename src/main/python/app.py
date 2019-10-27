@@ -108,5 +108,6 @@ if __name__ == '__main__':
 
     from gevent.pywsgi import WSGIServer
     from geventwebsocket.handler import WebSocketHandler
+
     http_server = WSGIServer(('0.0.0.0', 80), app, handler_class=WebSocketHandler)  # 找对象
     http_server.serve_forever()  # 对象的属性

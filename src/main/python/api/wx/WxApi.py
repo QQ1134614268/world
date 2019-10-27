@@ -1,10 +1,8 @@
 # 类似微信  --  在线消息 ,离线消息
 
-from flask import Blueprint, jsonify, request, redirect
+from flask import Blueprint, redirect
 
-from config import res
 from service.alipay import AliPayService
-from geventwebsocket.websocket import WebSocket
 
 wx_api = Blueprint("wx_api", __name__, url_prefix='/wx_api')
 
@@ -12,9 +10,8 @@ user_dict = {}  # 空字典,用来存放用户名和发送消息
 
 
 # # 发送在线消息
-@wx_api.route('/send_message', methods=['POST' ])
+@wx_api.route('/send_message', methods=['POST'])
 def pay_for_product():
-
     return
 
 
@@ -67,7 +64,5 @@ def pay_for_product():
     pay_url = "https://openapi.alipaydev.com/gateway.do?{}".format(query_params)
     result = redirect(pay_url)
     return result
-
-
 
 #

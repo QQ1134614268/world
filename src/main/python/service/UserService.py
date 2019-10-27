@@ -2,9 +2,8 @@
 """
 @author:huangran
 """
-import time
-
 import jwt
+import time
 from flask import request
 
 secret = 'secret'  # 配置文件
