@@ -18,8 +18,16 @@ MODE = get_parser_args_mode()
 
 def get_config_values(section, option):
     config = configparser.ConfigParser()
-    config.read(RESOURCE_DIR + "/config.ini", encoding="utf-8")
+    config.read(get_config_file_path(), encoding="utf-8")
     return config.get(section=section, option=option)
+
+
+def get_config_file_path():
+    if MODE:
+        file_path = RESOURCE_DIR + "/config-{}.ini".format(MODE)
+    else:
+        file_path = RESOURCE_DIR + "/config.ini"
+    return file_path
 
 
 LOG_PATH = get_config_values("world", "LOG_PATH")
@@ -30,3 +38,11 @@ SERVER_MAIL_HOST = get_config_values("world", "SERVER_MAIL_HOST")
 SERVER_MAIL_PASS = get_config_values("world", "SERVER_MAIL_PASS")
 APPID = get_config_values("world", "APPID")
 ALI_PAY_AES_KEY = get_config_values("world", "ALI_PAY_AES_KEY")
+
+DIALCT = get_config_values("mysql", "DIALCT")
+DRIVER = get_config_values("mysql", "DRIVER")
+USERNAME = get_config_values("mysql", "USERNAME")
+PASSWORD = get_config_values("mysql", "PASSWORD")
+HOST = get_config_values("mysql", "HOST")
+PORT = get_config_values("mysql", "PORT")
+DBNAME = get_config_values("mysql", "DBNAME")

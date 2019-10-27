@@ -36,5 +36,5 @@ __pycache__
 data/log/
 data/
 
-/src/main/python/migrations
-/venv/*
+src/main/python/migrations
+venv/*

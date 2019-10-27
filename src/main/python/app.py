@@ -19,7 +19,7 @@ from api.my_cloud_space.CloudSpaceApi import cloud_space_api
 from api.stone_game.StoneGameApi import stone_game_api
 from config import mail
 from db.db import db
-from global_variable import MAIL_TO
+from global_variable import MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME
 from service import UserService
 from util.LogUtil import logger
 from world_init import init_dir
@@ -30,8 +30,9 @@ CORS(app, supports_credentials=True)
 # swagger
 Swagger(app)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:123456@127.0.0.1:3306/world?charset=utf8"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+SQLALCHEMY_DATABASE_URI = '{}+{}://{}:{}@{}:{}/{}?charset=utf8'.format(DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT,
+                                                                       DBNAME) + "?charset=utf8"
+app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
 db.init_app(app)
 app.config["SECRET_KEY"] = "session_key_world"
 
