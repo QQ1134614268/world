@@ -12,3 +12,4 @@ pandas==0.25.2
 Pillow==6.2.1
 PyJWT==1.7.1
 pycryptodome==3.9.0
+PyMySql==0.9.3
