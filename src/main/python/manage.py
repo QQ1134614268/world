@@ -23,8 +23,8 @@ migrate = Migrate(app, db)
 # 添加迁移脚本的命令到manager中
 manager.add_command('db', MigrateCommand)
 
-# D:/dev/python3.7/python.exe   manage.py db init
-# D:/dev/python3.7/python.exe manage.py db migrate
-# D:/dev/python3.7/python.exe manage.py db upgrade
+# D:/dev/python3.7/python3 manage.py db init
+# D:/dev/python3.7/python3 manage.py db migrate
+# D:/dev/python3.7/python3 manage.py db upgrade
 if __name__ == '__main__':
     manager.run()
