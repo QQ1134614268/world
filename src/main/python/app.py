@@ -19,7 +19,7 @@ from api.my_cloud_space.CloudSpaceApi import cloud_space_api
 from api.stone_game.StoneGameApi import stone_game_api
 from config import mail
 from db.db import db
-from global_variable import MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME
+from global_variable import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME
 from service import UserService
 from util.LogUtil import logger
 from world_init import init_dir
@@ -35,6 +35,7 @@ SQLALCHEMY_DATABASE_URI = '{}+{}://{}:{}@{}:{}/{}?charset=utf8'.format(DIALCT, D
 app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
 app.config["SECRET_KEY"] = "session_key_world"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
+app.config["DEBUG"] = DEBUG
 db.init_app(app)
 
 
@@ -72,31 +73,21 @@ def before_request():  # 登录过滤,正则匹配,日志记录,IP分析
 def handle_404_error(err_msg):
     """自定义的异常处理函数"""
     # 这个函数的返回值就是前端用户看到的最终结果 (404错误页面)
+    logger.error(str(err_msg))
     return u"server error：%s" % err_msg
 
 
 @app.errorhandler(Exception)
 def flask_global_exception_handler(e):
+    # traceback.print_exc()  # str(e)  repr(e)  e.message
+    message = traceback.format_exc()
+    logger.error(message)  # 日志输出到控制台和日志文件
+    # 邮件服务 发送异常通知邮件  邮件模板
+    mail.send_email(message, MAIL_TO)
     if app.config["DEBUG"]:
-        # traceback.print_exc()  str(e)  repr(e)  e.message
-        # 控制台打印异常栈信息,便于开发调试
-        traceback.print_exc()
-        # 日志记录异常信息
-        message = traceback.format_exc()
-        logger.error(message)
-        # 邮件服务 发送异常通知邮件  邮件模板
-        mail.send_email(message, MAIL_TO)
         return message
     else:
-        traceback.print_exc()  # str(e)  repr(e)  e.message
-        # 控制台打印异常栈信息,便于开发调试
-        traceback.print_exc()
-        # 日志记录异常信息
-        message = traceback.format_exc()
-        logger.error(message)
-        # 邮件服务 发送异常通知邮件  邮件模板
-        mail.send_email(message, MAIL_TO)
-        return "server error"
+        return "server error: "+str(e)+"; please contact your administrator "
 
 
 @app.route('/', methods=['GET'])
@@ -127,5 +118,5 @@ if __name__ == '__main__':
     from gevent.pywsgi import WSGIServer
     from geventwebsocket.handler import WebSocketHandler
 
-    http_server = WSGIServer(('0.0.0.0', 80), app, handler_class=WebSocketHandler)  # 找对象
+    http_server = WSGIServer(('0.0.0.0', 80,), app, handler_class=WebSocketHandler,)  # 找对象
     http_server.serve_forever()  # 对象的属性
