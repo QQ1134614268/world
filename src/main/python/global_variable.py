@@ -6,28 +6,34 @@ ROOT_DIR = path.abspath(__file__)
 RESOURCE_DIR = path.dirname(path.dirname(ROOT_DIR)) + "/resource"
 
 
-def get_parser_args_mode():
-    parser = argparse.ArgumentParser(description='manual to this script')
-    parser.add_argument('--mode', type=str, default=None)
-    args = parser.parse_args()
-    return args.mode
+# def get_config_file_path():
+#     parser = argparse.ArgumentParser(description='manual to this script')
+#     parser.add_argument('--mode', type=str, default=None)
+#     args = parser.parse_args()
+#     if args.mode:
+#         file_path = RESOURCE_DIR + "/config-{}.ini".format(args.mode)
+#     else:
+#         file_path = RESOURCE_DIR + "/config.ini"
+#     return file_path
 
 
-MODE = get_parser_args_mode()
+def get_config_file_path():
+    # parser = argparse.ArgumentParser(description='manual to this script')
+    # parser.add_argument('--mode', type=str, default=None)
+    # args = parser.parse_args()
+    # if args.mode:
+    #     file_path = RESOURCE_DIR + "/config-{}.ini".format(args.mode)
+    # else:
+    #     file_path = RESOURCE_DIR + "/config.ini"
+    # return file_path
+    # todo 参数与python manage.py db upgrade 产生冲突,,why?????
+    return RESOURCE_DIR + "/config.ini"
 
 
 def get_config_values(section, option):
     config = configparser.ConfigParser()
     config.read(get_config_file_path(), encoding="utf-8")
     return config.get(section=section, option=option)
-
-
-def get_config_file_path():
-    if MODE:
-        file_path = RESOURCE_DIR + "/config-{}.ini".format(MODE)
-    else:
-        file_path = RESOURCE_DIR + "/config.ini"
-    return file_path
 
 
 LOG_PATH = get_config_values("world", "LOG_PATH")
