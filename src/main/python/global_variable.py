@@ -27,6 +27,8 @@ def get_config_file_path():
     #     file_path = RESOURCE_DIR + "/config.ini"
     # return file_path
     # todo 参数与python manage.py db upgrade 产生冲突,,why?????
+    #      python manage.py db upgrade 命令中的命令  怎么实现的?
+
     return RESOURCE_DIR + "/config.ini"
 
 
