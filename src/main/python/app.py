@@ -53,8 +53,9 @@ def before_request():  # 登录过滤,正则匹配,日志记录,IP分析
             ip = request.remote_addr
             username = UserService.get_current_username()
             userid = UserService.get_current_username()
+            user_agent=request.headers.get('User-Agent')
             logger.info(
-                {"user": {"username": username, "userid": userid}, "url_path": url_path, "ip": ip,
+                {"user": {"username": username, "userid": userid}, "url_path": url_path, "ip": ip, "User-Agent":user_agent,
                  "action": "before_request"})
             break
     else:
@@ -73,7 +74,9 @@ def before_request():  # 登录过滤,正则匹配,日志记录,IP分析
 def handle_404_error(err_msg):
     """自定义的异常处理函数"""
     # 这个函数的返回值就是前端用户看到的最终结果 (404错误页面)
-    logger.error(str(err_msg))
+    url_path = request.path
+    userid = UserService.get_current_username()
+    logger.error({"404": {"userid": userid, "url_path": url_path, "err_msg": str(err_msg)}})
     return u"server error：%s" % err_msg
 
 
