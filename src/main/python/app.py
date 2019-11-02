@@ -19,7 +19,7 @@ from api.my_cloud_space.CloudSpaceApi import cloud_space_api
 from api.stone_game.StoneGameApi import stone_game_api
 from config import mail
 from db.db import db
-from global_variable import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME
+from global_variable import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME, version
 from service import UserService
 from util.LogUtil import logger
 from world_init import init_dir
@@ -31,7 +31,7 @@ CORS(app, supports_credentials=True)
 Swagger(app)
 
 SQLALCHEMY_DATABASE_URI = '{}+{}://{}:{}@{}:{}/{}?charset=utf8'.format(DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT,
-                                                                       DBNAME) + "?charset=utf8"
+                                                                       DBNAME)
 app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
 app.config["SECRET_KEY"] = "session_key_world"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
@@ -98,7 +98,8 @@ def welcome():
     txt = """
     welcome to world!
     you can see B-tree for the api : /apidocs
-    """
+    version: %s 
+    """ % version
     return txt
 
 

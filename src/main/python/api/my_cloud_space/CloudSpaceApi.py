@@ -59,7 +59,7 @@ def file_upload():
     user_id = UserService.get_current_userid()
     vo = UserCloudSpaceVO.query.filter_by(file_name=file1.filename, user_id=user_id).first()
     time_str = time.strftime('%Y%m%d_%H%M%S_') + str(random.randint(1000, 9999))
-    file_path = UPLOAD_FILE_PATH + '/cloud_space/' + time_str + "-" + file1.filename
+    file_path = UPLOAD_FILE_PATH + '/' + time_str + "-" + file1.filename
     file1.save(file_path)  # 保存文件到指定路径
     if vo:
         os.remove(vo.file_path)

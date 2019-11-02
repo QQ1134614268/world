@@ -47,6 +47,7 @@ SERVER_MAIL_PASS = get_config_values("world", "SERVER_MAIL_PASS")
 APPID = get_config_values("world", "APPID")
 ALI_PAY_AES_KEY = get_config_values("world", "ALI_PAY_AES_KEY")
 DEBUG = get_config_values("world", "DEBUG")
+version = get_config_values("world", "version")
 
 DIALCT = get_config_values("mysql", "DIALCT")
 DRIVER = get_config_values("mysql", "DRIVER")
