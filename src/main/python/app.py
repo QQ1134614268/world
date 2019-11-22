@@ -119,6 +119,7 @@ app.register_blueprint(stone_game_api)
 if __name__ == '__main__':
     init_dir()
     # app.run(host='0.0.0.0', port=80, debug=True, threaded=True)
+
     from gevent.pywsgi import WSGIServer
     from geventwebsocket.handler import WebSocketHandler
 
