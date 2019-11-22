@@ -1,10 +1,10 @@
 
-from sqlalchemy import Column, String, Integer
+from sqlalchemy import Column, Integer, Float
 
 from vo.BaseModel import BaseTable
 
 
 class WalletVO(BaseTable):
     __tablename__ = 'wallet_t'
-    userId = Column(String(70), default='default.jpg')
-    amount = Column(Integer, default=0)
+    userId = Column(Integer)
+    amount = Column(Float, default=0)

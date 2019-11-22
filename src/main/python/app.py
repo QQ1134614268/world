@@ -35,6 +35,7 @@ SQLALCHEMY_DATABASE_URI = '{}+{}://{}:{}@{}:{}/{}?charset=utf8'.format(DIALCT, D
 app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
 app.config["SECRET_KEY"] = "session_key_world"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
+app.config["SQLALCHEMY_ECHO"] = DEBUG
 app.config["DEBUG"] = DEBUG
 db.init_app(app)
 
