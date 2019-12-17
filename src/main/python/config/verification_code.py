@@ -2,10 +2,13 @@
 """
 @author:huangran
 """
+import os
 import random
 import string
 
 from PIL import Image, ImageFont, ImageDraw, ImageFilter
+
+from global_variable import RESOURCE_DIR
 
 
 def rndColor():
@@ -48,8 +51,13 @@ def get_verify_code():
     # 新图片对象
     im = Image.new('RGB', (width, height), 'white')
     # 字体
-    font = None  # ImageFont.truetype('apddp/static/arial.ttf', 40)
+    # ImageFont.truetype  font:先按照路径找,然后去平台下字体库中找,区分大小写,,windows下文件名通过属性查看字体文件名
+    font = ImageFont.truetype(os.path.join(RESOURCE_DIR, "arial.ttf"), size=40, encoding='utf-8')
+
+    # font = ImageFont.load_default()
+    print(font)
     # draw对象
+
     draw = ImageDraw.Draw(im)
     # 绘制字符串
     for item in range(4):
