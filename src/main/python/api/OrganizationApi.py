@@ -39,7 +39,7 @@ def get_origin_organization():
       200:
         description: A language with its awesomeness
      """
-    user_id = UserService.get_current_userid()
+    user_id = UserService.get_id_by_token()
     # auth 组织权限 user_id
     # 组织下有组织,和人员,,类 文件和文件夹
     vo = OrganizationVO.query.filter_by(id=1).first()

@@ -55,7 +55,7 @@ def add_auth():
     path = data.get('path')
     user_id = data.get('user_id')
     # 检查当前用户权限  组织,地区,授予权限,特殊权限,子级权限
-    current_user_id = UserService.get_current_userid()
+    current_user_id = UserService.get_id_by_token()
     vo = AuthVO(user_id=user_id, path=path)
     db.session.add(vo)
     db.session.commit()

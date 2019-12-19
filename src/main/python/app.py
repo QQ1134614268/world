@@ -2,6 +2,7 @@
 import re
 import traceback
 
+from config import res
 from flasgger import Swagger
 from flask import Flask, request
 from flask_cors import CORS
@@ -14,9 +15,11 @@ from api.HelloApi import hello_api
 from api.OrganizationApi import organization_api
 from api.SpeechApi import speech_api
 from api.SysApi import sys_api
-from api.UserApi import user_api
+from api.member.MemberApi import member_api
+from api.member.StoreApi import store_api
 from api.my_cloud_space.CloudSpaceApi import cloud_space_api
 from api.stone_game.StoneGameApi import stone_game_api
+from api.user.UserApi import user_api
 from config import mail
 from db.db import db
 from global_variable import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME, version
@@ -53,8 +56,8 @@ def before_request():  # 登录过滤,正则匹配,日志记录,IP分析
             return "favicon.ico"
         if re.match(i, url_path):
             ip = request.remote_addr
-            username = UserService.get_current_username()
-            userid = UserService.get_current_username()
+            username = UserService.get_name_by_token()
+            userid = UserService.get_name_by_token()
             user_agent=request.headers.get('User-Agent')
             logger.info(
                 {"user": {"username": username, "userid": userid}, "url_path": url_path, "ip": ip, "User-Agent":user_agent,
@@ -77,7 +80,7 @@ def handle_404_error(err_msg):
     """自定义的异常处理函数"""
     # 这个函数的返回值就是前端用户看到的最终结果 (404错误页面)
     url_path = request.path
-    userid = UserService.get_current_username()
+    userid = UserService.get_name_by_token()
     logger.error({"404": {"userid": userid, "url_path": url_path, "err_msg": str(err_msg)}})
     return u"server error：%s" % err_msg
 
@@ -90,9 +93,9 @@ def flask_global_exception_handler(e):
     # 邮件服务 发送异常通知邮件  邮件模板
     mail.send_email(message, MAIL_TO)
     if app.config["DEBUG"]:
-        return message
+        return res.fail(message)
     else:
-        return "server error: "+str(e)+"; please contact your administrator "
+        return res.fail("server error: "+str(e)+"; please contact your administrator ")
 
 
 @app.route('/', methods=['GET'])
@@ -103,7 +106,6 @@ def welcome():
     version: %s 
     """ % version
     return txt
-
 
 app.register_blueprint(hello_api)
 app.register_blueprint(user_api)
@@ -117,12 +119,15 @@ app.register_blueprint(ali_pay_api)
 app.register_blueprint(cloud_space_api)
 app.register_blueprint(stone_game_api)
 
+app.register_blueprint(store_api)
+app.register_blueprint(member_api)
+
 if __name__ == '__main__':
     init_dir()
-    # app.run(host='0.0.0.0', port=80, debug=True, threaded=True)
+    app.run(host='0.0.0.0', port=80, debug=True, threaded=True)
 
-    from gevent.pywsgi import WSGIServer
-    from geventwebsocket.handler import WebSocketHandler
-
-    http_server = WSGIServer(('0.0.0.0', 80,), app, handler_class=WebSocketHandler,)  # 找对象
-    http_server.serve_forever()  # 对象的属性
+    # from gevent.pywsgi import WSGIServer
+    # from geventwebsocket.handler import WebSocketHandler
+    #
+    # http_server = WSGIServer(('0.0.0.0', 80,), app, handler_class=WebSocketHandler,)  # 找对象
+    # http_server.serve_forever()  # 对象的属性

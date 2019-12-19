@@ -40,6 +40,15 @@ class SHA256Util:
     def enc_bytes(text):
         return hashlib.md5(text.encode(encoding='UTF-8')).hexdigest()
 
+    def sha256_salt(key, value):
+        """
+        sha256加密
+        return:加密结果转成16进制字符串形式，并大写
+        """
+        hsobj = hashlib.sha256(key.encode("utf-8"))
+        hsobj.update(value.encode("utf-8"))
+        return hsobj.hexdigest()
+
 
 class AESUtil:
     def __int__(self):

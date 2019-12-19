@@ -64,7 +64,7 @@ def add_announcement():
     time_str = time.strftime('%Y%m%d_%H%M%S_') + str(random.randint(1000, 9999))
     image_path = UPLOAD_FILE_PATH + '/images/' + time_str + "-" + image.filename
     image.save(image_path)  # 保存文件到指定路径
-    user_id = UserService.get_current_userid()
+    user_id = UserService.get_id_by_token()
     vo = AnnouncementVO(userid=user_id, title=title, content=content, images=image_path)
     db.session.add(vo)
     db.session.commit()

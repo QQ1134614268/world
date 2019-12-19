@@ -46,7 +46,7 @@ def pay_for_product():
     # 查询数据库,获取金额,主题
     money = 100
     subject = "糖果"
-    user_id = UserService.get_current_userid()
+    user_id = UserService.get_id_by_token()
 
     alipay = AliPayService.AliPay()
 

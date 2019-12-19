@@ -2,41 +2,24 @@
 """
 @author:huangran
 """
-import jwt
 import time
 from flask import request
 
-secret = 'secret'  # 配置文件
+from util.TokenUtil import get_payload, get_token
 
 
-def get_token(payload):
-    return str(jwt.encode(payload, secret, algorithm='HS256'), "utf_8")
-
-
-def get_payload(jwt_token):
-    return jwt.decode(bytes(jwt_token, "utf_8"), secret, algorithms=['HS256'])
-
-
-def get_payload_form_request():
-    jwt_token = request.headers.get("token")
-    return jwt.decode(bytes(jwt_token, "utf_8"), secret, algorithms=['HS256'])
-
-
-def get_current_username():
+def get_name_by_token():
     jwt_token = request.headers.get("token")
     if not jwt_token:
-        temp_user = {"username": "w&g", "userid": 1, "timestamp": int(time.time())}
-        jwt_token = get_token(temp_user)
-    return get_payload(jwt_token)["username"]  # dict的缺点,直接取值,且需要明白之前存的数据
+        jwt_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoidyZnIiwiaWQiOjEsInRpbWVzdGFtcCI6MTU3Njc2Mzk3MH0.dnXajP3v7vetcGnTE-cQAnmYgpqHzxLuwuAVv2XZYF4"
+    return get_payload(jwt_token)["name"]  # dict的缺点,直接取值,且需要明白之前存的数据
 
 
-def get_current_userid():
+def get_id_by_token():
     jwt_token = request.headers.get("token")
-    # todo 临时的id
     if not jwt_token:
-        temp_user = {"username": "w&g", "userid": 1, "timestamp": int(time.time())}
-        jwt_token = get_token(temp_user)
-    return get_payload(jwt_token)["userid"]
+        jwt_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoidyZnIiwiaWQiOjEsInRpbWVzdGFtcCI6MTU3Njc2Mzk3MH0.dnXajP3v7vetcGnTE-cQAnmYgpqHzxLuwuAVv2XZYF4"
+    return get_payload(jwt_token)["id"]
 
 
 def check_token(jwt_token):
@@ -68,6 +51,6 @@ if __name__ == '__main__':
     # base64.decode()
     # base64.encode()
 
-    temp_user = {"username": "w&g", "userid": 1, "timestamp": int(time.time())}
+    temp_user = {"name": "w&g", "id": 1, "timestamp": int(time.time())}
     str_token = get_token(temp_user)
     print()

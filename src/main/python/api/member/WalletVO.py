@@ -1,4 +1,3 @@
-
 from sqlalchemy import Column, Integer, Float
 
 from vo.BaseModel import BaseTable

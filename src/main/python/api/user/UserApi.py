@@ -11,6 +11,7 @@ from config import res
 from config import verification_code
 from db.db import db
 from service import UserService
+from util import PasswordUtil
 from vo.UserVO import UserVO
 
 user_api = Blueprint("user", __name__, url_prefix='/user')
@@ -143,14 +144,14 @@ def login():
             return jsonify(res.fail("验证码错误"))
     username = data.get('username', '')
     password = data.get('password', '')
-    user = UserVO.query.filter_by(username=username, password=UserVO.get_password(password)).first()
+    user = UserVO.query.filter_by(username=username, password=PasswordUtil.get_sha256_salt_password(password)).first()
     if user:
         # 添加websocket
         add_user_socket(username)
 
         payload = {
-            "username": user.username,
-            "userid": user.id,
+            "name": user.username,
+            "id": user.id,
             "timestamp": int(time.time()),
             # "exp": 1448333419,
         }

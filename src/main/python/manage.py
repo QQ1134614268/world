@@ -23,6 +23,8 @@ migrate = Migrate(app, db)
 # 添加迁移脚本的命令到manager中
 manager.add_command('db', MigrateCommand)
 
+# 建表类导入到这里或者 在app中有引用
+# from vo import XX
 # D:/dev/python3.7/python.exe   manage.py db init
 # D:/dev/python3.7/python.exe manage.py db migrate
 # D:/dev/python3.7/python.exe manage.py db upgrade

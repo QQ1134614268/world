@@ -7,7 +7,7 @@ from sqlalchemy import Column, String, Integer
 from vo.BaseModel import BaseTable
 
 
-class AuthVO(BaseTable):
-    __tablename__ = 'auth'
+class AuthVO2(BaseTable):
+    __tablename__ = 'auth2'
     user_id = Column(Integer)
     path = Column(String(150), default='/')

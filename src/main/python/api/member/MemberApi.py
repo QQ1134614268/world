@@ -3,18 +3,24 @@ from io import BytesIO
 import time
 from flask import Blueprint, session, jsonify, make_response, request
 
+from api.member.StoreVO import StoreVO
+from api.member.UserVO import MemberUserVO
 from config import res
+from config import verification_code
 from db.db import db
 from service import UserService
-from vo.UserVO import UserVO
-from api.member.WalletVO import WalletVO
+from util import PasswordUtil
+
 member_api = Blueprint("member_api", __name__, url_prefix='/member_api')
 
+# todo 注册验证手机号  手机号登录
+VERIFY_CODE_KEY = "code"
 
-@member_api.route('/consume', methods=['POST'])
-def consume():
+
+@member_api.route('/register_store', methods=['POST'])
+def register_store():
     """
-    消费
+    用户注册
     ---
     tags:
       - member_api
@@ -28,24 +34,24 @@ def consume():
           用户注册
         required: true
         schema:
-          id: user
+          id: member_user
           required:
-            - username
+            - phone
             - password
-            - email
+            - store_name
           properties:
-            username:
-              description: 用户名
+            store_name:
+              description: 商户名
               type: string
-              example: tom
+              example: 三千烦恼丝
+            phone:
+              description: 手机号
+              type: string
+              example: 18829040560
             password:
               description: 密码
               type: string
               example: abc123
-            email:
-              description: 邮箱
-              type: string
-              example: xxx@xx.com
     responses:
       500:
         description: server error
@@ -53,40 +59,68 @@ def consume():
         description: success
     """
     data = request.get_json()
-    user_id = UserService.get_current_userid()
-    amount = data.get('amount', '')
-    wallet_id = data.get('wallet_id')
-
-    vo = WalletVO.query.filter_by(id=wallet_id).first() # todo  id=  id是内置的,修改这个
-
-    vo = UserVO(username=username, password=UserVO.get_password(password), email=email)
+    phone = data.get('phone', '')
+    store_name = data.get('store_name', '')
+    password = data.get('password', '')
+    if not phone:
+        return jsonify(res.fail("手机号不能为空"))
+    if not store_name:
+        return jsonify(res.fail("商户名不能为空"))
+    if not password:
+        return jsonify(res.fail("密码不能为空"))
+    exist = StoreVO.query.filter_by(phone=phone).first()
+    if exist:
+        # db.session.query(MemberUserVO).filter(MemberUserVO.phone == phone).update({"password": password})
+        return jsonify(res.fail("用户已经存在"))
+    vo = StoreVO(store_name=store_name, phone=phone, password=StoreVO.get_password(password))
     db.session.add(vo)
     db.session.commit()
     return jsonify(res.success("注册成功"))
 
 
-@member_api.route('/invest', methods=['POST'])
-def invest():
+@member_api.route('/get_verify_code', methods=['GET'])
+def get_verify_code():
     """
-    充值
+    获取验证码
+    ---
+    tags:
+      - member_api
+    responses:
+      500:
+        description: server error
+      200:
+        description: success
+    """
+    file_io = BytesIO()
+    code, image = verification_code.get_verify_code()
+    image.save(file_io, 'jpeg')
+    response = make_response(file_io.getvalue())
+    response.headers['Content-Type'] = 'image/gif'
+    session[VERIFY_CODE_KEY] = code
+    return response
+
+
+@member_api.route('/login', methods=['POST'])
+def login():
+    """
+    用户登录
     ---
     tags:
       - member_api
     consumes:
       - application/json
-    produces: ["application/json"]
     parameters:
       - in: body
         name: body
         description:
-          用户注册
+          用户登录
         required: true
         schema:
-          id: user
+          id: login
           required:
             - username
             - password
-            - email
+            - code
           properties:
             username:
               description: 用户名
@@ -96,10 +130,10 @@ def invest():
               description: 密码
               type: string
               example: abc123
-            email:
-              description: 邮箱
+            code:
+              description: 验证码
               type: string
-              example: xxx@xx.com
+              example: zero
     responses:
       500:
         description: server error
@@ -107,15 +141,22 @@ def invest():
         description: success
     """
     data = request.get_json()
-    user_id = UserService.get_current_userid()
-    amount = data.get('amount', '')
-    wallet_id = data.get('wallet_id')
 
-    vo = WalletVO.query.filter_by(id=wallet_id).first() # todo  id=  id是内置的,修改这个
-
-    vo = UserVO(username=username, password=UserVO.get_password(password), email=email)
-    db.session.add(vo)
-    db.session.commit()
-    return jsonify(res.success("注册成功"))
-
-# 充值
+    if session.get(VERIFY_CODE_KEY).lower() != data.get("code").lower():
+        if data.get("code").lower() == "zero":
+            pass
+        else:
+            return jsonify(res.fail("验证码错误"))
+    name = data.get('name', '')
+    password = data.get('password', '')
+    user = MemberUserVO.query.filter_by(name=name, password=PasswordUtil.get_sha256_salt_password(password)).first()
+    payload = {
+        "name": user.name,
+        "id": user.id,
+        "timestamp": int(time.time()),
+        # "exp": 1448333419,
+    }
+    if user:
+        return jsonify(res.success(UserService.get_token(payload)))
+    else:
+        return jsonify(res.success("账号密码不匹配"))
