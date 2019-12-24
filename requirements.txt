@@ -13,3 +13,5 @@ Pillow==6.2.1
 PyJWT==1.7.1
 pycryptodome==3.9.0
 PyMySql==0.9.3
+Flask-SocketIO==4.2.1
+Flask-APScheduler==1.11.0
