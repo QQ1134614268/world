@@ -117,34 +117,34 @@ def get_announcement_by_id():
 @sys_api.route('/add_suggest', methods=['POST'])
 def add_suggest():
     """
-   添加反馈
-   ---
-   tags:
-     - sys
-   parameters:
-      - in: formData
-        name: content
-        type: string
-        required: true
-        description: 建议内容
-        example: 建议...
-      - in: formData
-        name: image
-        type: file
-        required: false
-        description: 配图
-      - name: id
-        type: integer
-        in: formData
-        required: true
-        description: 公告的id
-        example: 1
-   responses:
-      500:
-        description: server err
-      200:
-        description: success
-   """
+    添加反馈
+    ---
+    tags:
+      - sys
+    parameters:
+       - in: formData
+         name: content
+         type: string
+         required: true
+         description: 建议内容
+         example: 建议...
+       - in: formData
+         name: image
+         type: file
+         required: false
+         description: 配图
+       - name: id
+         type: integer
+         in: formData
+         required: true
+         description: 公告的id
+         example: 1
+    responses:
+       500:
+         description: server err
+       200:
+         description: success
+    """
     announcement_id = request.form.get("id")
     content = request.form.get('content')
     # todo file单独传输
@@ -161,23 +161,23 @@ def add_suggest():
 @sys_api.route('/get_suggest', methods=['GET'])
 def get_suggest():
     """
-   获取反馈
-   ---
-   tags:
-     - sys
-   parameters:
-    - name: announcement
-      type: integer
-      in: query
-      required: true
-      description: 公告的id
-      example: 1
-   responses:
+    获取反馈
+    ---
+    tags:
+      - sys
+    parameters:
+      - name: announcement
+        type: integer
+        in: query
+        required: true
+        description: 公告的id
+        example: 1
+    responses:
       500:
         description: server err
       200:
-        description: success
-   """
+         description: success
+    """
     announcement_id = request.args.get("id")
     message_list = MessageVO.query.filter_by(id=announcement_id).order_by(MessageVO.createTime).all()
     return jsonify(res.success(message_list))

@@ -42,9 +42,9 @@ def draw_lines(draw, num, width, height):
 
 def get_verify_code():
     """
-           生成验证码图形
-           :return:
-           """
+       生成验证码图形
+       :return:
+       """
     code = gene_text()
     # 图片大小120×50
     width, height = 120, 50
@@ -53,11 +53,6 @@ def get_verify_code():
     # 字体
     # ImageFont.truetype  font:先按照路径找,然后去平台下字体库中找,区分大小写,,windows下文件名通过属性查看字体文件名
     font = ImageFont.truetype(os.path.join(RESOURCE_DIR, "arial.ttf"), size=40, encoding='utf-8')
-
-    # font = ImageFont.load_default()
-    print(font)
-    # draw对象
-
     draw = ImageDraw.Draw(im)
     # 绘制字符串
     for item in range(4):

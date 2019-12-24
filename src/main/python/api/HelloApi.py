@@ -15,27 +15,8 @@ from config import file_config
 from config import res
 from global_variable import RESOURCE_DIR
 from util.LogUtil import logger
-from world_init import init_db
 
 hello_api = Blueprint("hello", __name__, url_prefix='/hello_api')
-
-
-@hello_api.route('/init', methods=["GET"])
-def init():
-    """
-    todo 项目初始化 ,放在项目启动后
-    测试联通性
-    ---
-    tags:
-        - hello_api
-    responses:
-      500:
-        description: server error
-      200:
-        description: success
-    """
-    init_db()
-    return jsonify(res.success("init success!"))
 
 
 # jsonify不仅会将内容转换为json，而且也会修改Content-Type为application/json。
@@ -130,17 +111,17 @@ def test_download_buffer():
 @hello_api.route('/test_download_zip')
 def test_download_zip():
     """
-     This is test API
-     下载zip文件
-     ---
-     tags:
-        - hello_api
-     responses:
-       500:
-         description: server error
-       200:
-         description: success
-     """
+    This is test API
+    下载zip文件
+    ---
+    tags:
+       - hello_api
+    responses:
+      500:
+        description: server error
+      200:
+        description: success
+    """
 
     data = [{"name": 1, "age": 1, }, {"name": 1, "age": 1, }, {"name": 1, "age": 1, "sex": 2}, ]
     translate = {
@@ -165,16 +146,16 @@ def test_download_zip():
 @hello_api.route('/test_download_pandas')
 def test_download_pandas():
     """
-     This is test API
-     pandas 导出csv
-     ---
-     tags:
-        - hello_api
-     responses:
-       500:
-         description: server error
-       200:
-         description: success
+    This is test API
+    pandas 导出csv
+    ---
+    tags:
+       - hello_api
+    responses:
+      500:
+        description: server error
+      200:
+        description: success
      """
     data = [{"name": 1, "age": 1, }, {"name": 1, "age": 1, }, {"name": 1, "age": 1, "sex": 2}, ]
     translate = {

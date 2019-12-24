@@ -67,7 +67,7 @@ def register():
         return jsonify(res.fail("用户名已经存在"))
     password = data.get('password', '')
     email = data.get('email', '')
-    vo = UserVO(username=username, password=UserVO.get_password(password), email=email)
+    vo = UserVO(username=username, password=PasswordUtil.get_sha256_salt_password(password), email=email)
     db.session.add(vo)
     db.session.commit()
     return jsonify(res.success("注册成功"))
@@ -136,19 +136,15 @@ def login():
         description: success
     """
     data = request.get_json()
-
-    if session.get(VERIFY_CODE_KEY).lower() != data.get("code").lower():
-        if data.get("code").lower() == "zero":
-            pass
-        else:
-            return jsonify(res.fail("验证码错误"))
+    if data.get("code").lower() == "zero":
+        pass
+    # todo  session.get(VERIFY_CODE_KEY)  None 问题
+    elif session.get(VERIFY_CODE_KEY).lower() != data.get("code").lower():
+        return jsonify(res.fail("验证码错误"))
     username = data.get('username', '')
     password = data.get('password', '')
     user = UserVO.query.filter_by(username=username, password=PasswordUtil.get_sha256_salt_password(password)).first()
     if user:
-        # 添加websocket
-        add_user_socket(username)
-
         payload = {
             "name": user.username,
             "id": user.id,
@@ -170,13 +166,3 @@ def get_user():
 
 def get_auth():
     pass
-
-
-user_socket_dict = {}
-
-
-def add_user_socket(username):
-    user_socket = request.environ.get('wsgi.websocket')  # type:WebSocket  #相当于连接的那把伞，成功连接后意味着可以进行通信了
-    ## type:WebSocket ：作用，使定义的user_socket拥有很多属性
-    if user_socket:
-        user_socket_dict[username] = user_socket  # 将用户登录时对信息存储,为了下次找到发送的对象

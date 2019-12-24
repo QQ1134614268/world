@@ -13,7 +13,7 @@ def success(data):
 
 def fail(message):
     return {
-        "code": 1,
+        "code": 2,
         "data": "",
         "message": message
     }

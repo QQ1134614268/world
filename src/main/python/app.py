@@ -1,10 +1,12 @@
 # encoding: utf-8
+import os
 import re
 import traceback
 
-from config import res
 from flasgger import Swagger
 from flask import Flask, request
+from flask import render_template
+from flask_apscheduler import APScheduler
 from flask_cors import CORS
 
 from api.AliPayApi import ali_pay_api
@@ -20,14 +22,30 @@ from api.member.StoreApi import store_api
 from api.my_cloud_space.CloudSpaceApi import cloud_space_api
 from api.stone_game.StoneGameApi import stone_game_api
 from api.user.UserApi import user_api
+from api.wb.WbApi import wb_api
+from api.wx.WxApi import wx_api
 from config import mail
+from config import res
+from config.socket import socketio
 from db.db import db
-from global_variable import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME, version
+from global_variable import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME, version, \
+    RESOURCE_DIR
 from service import UserService
 from util.LogUtil import logger
-from world_init import init_dir
+app = Flask(__name__, template_folder=os.path.join(RESOURCE_DIR, "template"))
 
-app = Flask(__name__)
+# from flask_cache import Cache
+# config = {
+#   'CACHE_TYPE': 'redis',
+#   'CACHE_REDIS_HOST': '127.0.0.1', # redis ip
+#   'CACHE_REDIS_PORT': 6379,  # port
+#   'CACHE_REDIS_DB': '1',   # 使用的redis db
+#   'CACHE_REDIS_PASSWORD': ''
+# }
+# cache = Cache(app=app,config=config,with_jinja2_ext=False)
+
+
+
 # 跨域
 CORS(app, supports_credentials=True)
 # swagger
@@ -42,6 +60,9 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 app.config["SQLALCHEMY_ECHO"] = DEBUG
 app.config["DEBUG"] = DEBUG
 db.init_app(app)
+socketio.init_app(app)
+
+# 人-时间-效率=注册APScheduler
 
 
 # app.config["PERMANENT_SESSION_LIFETIME"] = 60  # 设置session失效时间
@@ -107,6 +128,12 @@ def welcome():
     """ % version
     return txt
 
+
+@app.route('/socket', methods=['GET'])
+def socket():
+    return render_template('web_socket.html')
+
+
 app.register_blueprint(hello_api)
 app.register_blueprint(user_api)
 app.register_blueprint(sys_api)
@@ -120,14 +147,19 @@ app.register_blueprint(cloud_space_api)
 app.register_blueprint(stone_game_api)
 
 app.register_blueprint(store_api)
+app.register_blueprint(wx_api)
 app.register_blueprint(member_api)
+app.register_blueprint(wb_api)
+from api.scheduler.SchedulerApi import scheduler_api
+app.register_blueprint(scheduler_api)
 
 if __name__ == '__main__':
-    init_dir()
+    from api.scheduler.APScheduler import scheduler,Config
+    app.config.from_object(Config)
+    scheduler.init_app(app)
+    scheduler.start()
     app.run(host='0.0.0.0', port=80, debug=True, threaded=True)
 
-    # from gevent.pywsgi import WSGIServer
-    # from geventwebsocket.handler import WebSocketHandler
-    #
-    # http_server = WSGIServer(('0.0.0.0', 80,), app, handler_class=WebSocketHandler,)  # 找对象
-    # http_server.serve_forever()  # 对象的属性
+    # socketio.run(app,debug=True,host='0.0.0.0',port=5000)
+
+    # socketio.run(app, host='0.0.0.0', port=80)

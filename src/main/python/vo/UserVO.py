@@ -21,20 +21,6 @@ class UserVO(BaseTable):
     phone = Column(String(11))
     active = Column(Boolean, default=True)
 
-    # sign ....
-
-    def __str__(self):
-        return self.username
-
-    # def __init__(self, username, password, email):
-    #     self.username = username
-    #     self.password = password
-    #     self.email = email
-
-    @staticmethod
-    def get_password(password):
-        return password
-
     def __str__(self):
         return "Users(id='%s')" % self.id
 
