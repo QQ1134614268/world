@@ -154,7 +154,7 @@ from api.scheduler.SchedulerApi import scheduler_api
 app.register_blueprint(scheduler_api)
 
 if __name__ == '__main__':
-    from api.scheduler.APScheduler import scheduler,Config
+    from api.scheduler.APScheduler import scheduler, Config
     app.config.from_object(Config)
     scheduler.init_app(app)
     scheduler.start()

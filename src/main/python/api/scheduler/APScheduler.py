@@ -1,5 +1,3 @@
-import datetime
-
 from flask_apscheduler import APScheduler
 
 from api.scheduler.SchedulerFunc import init, data
@@ -7,7 +5,8 @@ from api.scheduler.SchedulerFunc import init_db
 
 scheduler = APScheduler()
 scheduler.add_job('init', init)
-scheduler.add_job("init_db", init_db )
+scheduler.add_job("init_db", init_db)
+
 
 # now = datetime.datetime.now()
 # time_dely = now + datetime.timedelta(seconds=10)
@@ -25,4 +24,3 @@ class Config(object):  # 创建配置，用类
             'hours': 24,
         }
     ]
-

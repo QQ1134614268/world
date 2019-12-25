@@ -12,6 +12,7 @@ pandas==0.25.2
 Pillow==6.2.1
 PyJWT==1.7.1
 pycryptodome==3.9.0
-PyMySql==0.9.3
+mysql-connector-python==8.0.18
 Flask-SocketIO==4.2.1
 Flask-APScheduler==1.11.0
+eventlet=0.25.1
