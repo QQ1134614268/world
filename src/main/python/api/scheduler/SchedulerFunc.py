@@ -2,6 +2,7 @@ import json
 import os
 
 from global_variable import LOG_PATH, UPLOAD_FILE_PATH
+from util.LogUtil import logger
 from vo.OrganizationVO import OrganizationVO
 
 
@@ -36,6 +37,7 @@ def task1(a, b):
 
 
 def data():
+    logger.info("定时  添加数据 ")
     from app import app
     url = "/wb_api/add_blog"
     data = {
@@ -46,4 +48,5 @@ def data():
                                           "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoicm9vdCIsImlkIjoxLCJ0aW1lc3RhbXAiOjE1NzcxMTc1NDJ9.-FKeKaMO9RIyAramv5HgGHAxxVfOEIiBSvpcSLfRp_w"})
     json_data = response.data
     json_dict = json.loads(json_data)
-    print(json_dict['code'])
+    message = "定时  添加数据 over" if json_dict['code'] else "定时  添加数据失败"
+    logger.info(message)
