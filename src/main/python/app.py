@@ -45,7 +45,6 @@ app = Flask(__name__, template_folder=os.path.join(RESOURCE_DIR, "template"))
 # cache = Cache(app=app,config=config,with_jinja2_ext=False)
 
 
-
 # 跨域
 CORS(app, supports_credentials=True)
 # swagger
