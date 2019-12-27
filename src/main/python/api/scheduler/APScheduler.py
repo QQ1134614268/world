@@ -6,6 +6,7 @@ from api.scheduler.SchedulerFunc import init_db
 scheduler = APScheduler()
 scheduler.add_job('init', init)
 scheduler.add_job("init_db", init_db)
+scheduler.add_job("init_db", init_db)
 
 
 # now = datetime.datetime.now()
@@ -20,7 +21,8 @@ class Config(object):  # 创建配置，用类
             'id': 'data',
             'func': data,  # 方法名
             'args': (),  # 入参
-            'trigger': 'interval',  # interval表示循环任务
-            'hours': 24,
+            'trigger': 'cron',  # interval表示循环任务
+            'hours': "22",
+            'minute': "20"
         }
     ]
