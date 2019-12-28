@@ -6,7 +6,6 @@ import traceback
 from flasgger import Swagger
 from flask import Flask, request
 from flask import render_template
-from flask_apscheduler import APScheduler
 from flask_cors import CORS
 
 from api.AliPayApi import ali_pay_api
@@ -32,6 +31,10 @@ from global_variable import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, 
     RESOURCE_DIR
 from service import UserService
 from util.LogUtil import logger
+
+# WSGIServer导入的就是gevent.pywsgi中的类
+# from gevent.pywsgi import WSGIServer
+
 app = Flask(__name__, template_folder=os.path.join(RESOURCE_DIR, "template"))
 
 # from flask_cache import Cache

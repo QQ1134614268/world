@@ -3,11 +3,11 @@
 # @Time    : 2019/8/6 18:50
 # @Author  : huangran
 """
-from sqlalchemy import Column, String, Integer, DateTime, ForeignKey, Sequence
-from sqlalchemy.orm import relationship  # 创建关系
+import datetime
+
+from sqlalchemy import Column, String, BIGINT, Integer, DateTime, Sequence
 
 from db.db import db
-from util.DateUtils import get_utc_now
 
 
 # gmt_modify = Column(TIMESTAMP(True), nullable=False, server_default=func.now(), onupdate=func.now())
@@ -15,9 +15,8 @@ from util.DateUtils import get_utc_now
 
 class BaseTable(db.Model):
     __abstract__ = True  # 加了该属性后生成表的时候不会生成该表
-    id = Column(Integer, primary_key=True, autoincrement=True, comment="主键")
-    create_time = Column(DateTime, default=get_utc_now())
-    status = Column(Integer)
+    id = Column(BIGINT, primary_key=True, autoincrement=True, comment="主键")
+    create_time = Column(DateTime, default=datetime.datetime.now)
 
 
 class ProjectConfig(BaseTable):
@@ -34,16 +33,3 @@ class EnumConfig(BaseTable):
     value = Column(String(50))
     sort = Column(Integer, Sequence('sort_seq'))
     note = Column(String(50))
-
-
-class InnerVO(BaseTable):
-    __tablename__ = 'inner'
-    inner = Column(String(150), default='123456')
-
-
-class ComplexVO(BaseTable):
-    __tablename__ = 'complex'
-    content = Column(String(150), default='123456')
-    images = Column(String(70), default='default.jpg')
-    inner_id = Column(Integer, ForeignKey("inner.id", ondelete='CASCADE'))
-    inner_name = relationship("InnerVO", backref="inner_of_complex")

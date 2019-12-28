@@ -48,5 +48,5 @@ def data():
                                           "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoicm9vdCIsImlkIjoxLCJ0aW1lc3RhbXAiOjE1NzcxMTc1NDJ9.-FKeKaMO9RIyAramv5HgGHAxxVfOEIiBSvpcSLfRp_w"})
     json_data = response.data
     json_dict = json.loads(json_data)
-    message = "定时  添加数据 over" if json_dict['code'] else "定时  添加数据失败"
+    message = "定时  添加数据 over" if json_dict['code'] == 1 else "定时  添加数据失败"
     logger.info(message)

@@ -355,4 +355,38 @@ def post_formData():
 # # 使用映射类成员变量的数据
 # session.query(Address).filter(Address.id ==2).update({"user_id":1})
 
-# todo  inner complex 测试组合数据库类
+from service import HelloService
+@hello_api.route('/test_vo_1_n', methods=["GET"])
+def test_vo_1_n():
+    """
+    This is test API
+    测试flask_sqlalchemy 一对多脚本
+    ---
+    tags:
+        - hello_api
+    responses:
+      500:
+        description: server error
+      200:
+        description: success
+    """
+    HelloService.test_vo_1_n()
+    return jsonify(res.success("测试flask_sqlalchemy 一对多脚本"))
+
+
+@hello_api.route('/test_vo_n_n', methods=["GET"])
+def test_vo_n_n():
+    """
+    This is test API
+    测试flask_sqlalchemy 多对多脚本
+    ---
+    tags:
+        - hello_api
+    responses:
+      500:
+        description: server error
+      200:
+        description: success
+    """
+    HelloService.test_vo_n_n()
+    return jsonify(res.success("测试flask_sqlalchemy 一对多脚本"))

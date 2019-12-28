@@ -1,0 +1,39 @@
+<body>
+<p><input type="text" id="nick">
+    <button onclick="login()">登陆聊天室</button>
+</p>
+发送给：<input type="text" id="to_user">消息：<input type="text" id="send_str">
+<button id="send_btn" onclick="send()">发送消息</button>
+<p>
+<div id="chat_list">
+
+</div>
+</p>
+</body>
+<script type="application/javascript">
+    var ws = null;
+    function login() {
+        var nick = document.getElementById("nick").value;
+        ws = new WebSocket("ws://127.0.0.1:80/websocket/" + nick);
+        ws.onmessage = function (messageEvent) {
+            console.log(messageEvent.data);
+            var ptag = document.createElement("p");
+
+            var message = JSON.parse(messageEvent.data);
+
+            ptag.innerText = message.from_user + " : " + message.message;
+            document.getElementById("chat_list").appendChild(ptag);
+        };
+    }
+
+    function send() {
+        var message = document.getElementById("send_str").value;
+        var send_str = {
+            from_user: document.getElementById("nick").value,
+            to_user: document.getElementById("to_user").value,
+            message: message
+        };
+        var json_send_str = JSON.stringify(send_str);
+        ws.send(json_send_str);
+    }
+</script>
