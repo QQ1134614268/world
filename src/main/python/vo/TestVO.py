@@ -37,8 +37,8 @@ class Test_Child_N_N_VO(BaseTable):
     name = Column(String(64), nullable=False, index=True)
     full_name = Column(String(64))
 
-# 多对多
-association_table = Table('association', BaseTable.metadata,
-                          Column('left_id', Integer, ForeignKey('test_parent_n_n_t.id')),
-                          Column('right_id', Integer, ForeignKey('test_child_n_n_t.id')))
 
+# 多对多
+association_table = Table('association_n_n', BaseTable.metadata,
+                          Column('test_parent_n_n_t_id', Integer, ForeignKey('test_parent_n_n_t.id')),
+                          Column('test_child_n_n_t_id', Integer, ForeignKey('test_child_n_n_t.id')))
