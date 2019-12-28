@@ -15,7 +15,7 @@ from db.db import db
 
 class BaseTable(db.Model):
     __abstract__ = True  # 加了该属性后生成表的时候不会生成该表
-    id = Column(BIGINT, primary_key=True, autoincrement=True, comment="主键")
+    id = Column(Integer, primary_key=True, autoincrement=True, comment="主键")
     create_time = Column(DateTime, default=datetime.datetime.now)
 
 

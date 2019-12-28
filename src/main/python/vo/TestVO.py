@@ -10,7 +10,7 @@ class Test_Parent_1_to_N_VO(BaseTable):
     __tablename__ = 'test_parent_1_to_n_t'
     name = Column(String(64), nullable=False)
     full_name = Column(String(64))
-    children = relationship("Test_Child_1_to_N_VO", backref="test_parent_1_to_n_t")
+    children = relationship("Test_Child_1_to_N_VO", backref="test_pare")
     # 默认返回的是列表，collection_class=set 加他返回的是集合，
     # collection_class=attribute_mapped_collection('name') 返回的是name 字典 值从属性中取
     # collection_class=mapped_collection(lambda children: children.name.lower() 这个可以自定义值
@@ -25,20 +25,20 @@ class Test_Child_1_to_N_VO(BaseTable):  # 多
     # 在子表类中通过 foreign key (外键)引用父表的参考字段
 
 
-# 多对多
-association_table = Table('association', BaseTable.metadata,
-                          Column('left_id', Integer, ForeignKey('left.id')),
-                          Column('right_id', Integer, ForeignKey('right.id')))
-
-
 class Test_Parent_N_N_VO(BaseTable):
     __tablename__ = 'left'
     name = Column(String(64), nullable=False, index=True)
     full_name = Column(String(64))
-    children = relationship("Test_Child_N_N_VO", secondary=lambda: association_table, backref="parents")
+    # children = relationship("Test_Child_N_N_VO", secondary=lambda: association_table, backref="parents")
 
 
 class Test_Child_N_N_VO(BaseTable):
     __tablename__ = 'right'
     name = Column(String(64), nullable=False, index=True)
     full_name = Column(String(64))
+
+# 多对多
+# association_table = Table('association', BaseTable.metadata,
+#                           Column('left_id', Integer, ForeignKey('left.id')),
+#                           Column('right_id', Integer, ForeignKey('right.id')))
+
