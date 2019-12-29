@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 """
 # @Time    : 2019/8/3 9:33
-# @Author  : huangran
+
 """
 from flask import Blueprint, jsonify, request
 
-from config import res
+from util import ResUtil
 from db.db import db
 from service import UserService
 from vo.AuthVO import AuthVO
@@ -59,4 +59,4 @@ def add_auth():
     vo = AuthVO(user_id=user_id, path=path)
     db.session.add(vo)
     db.session.commit()
-    return jsonify(res.success("操作成功"))
+    return jsonify(ResUtil.success("操作成功"))

@@ -4,9 +4,10 @@ import re
 import traceback
 
 from flasgger import Swagger
-from flask import Flask, request
-from flask import render_template
+from flask import Flask, render_template, request
 from flask_cors import CORS
+from geventwebsocket.handler import WebSocketHandler  # 提供WS（websocket）协议处理
+from geventwebsocket.server import WSGIServer  # websocket服务承载
 
 from api.AliPayApi import ali_pay_api
 from api.AreaApi import area_api
@@ -19,17 +20,18 @@ from api.SysApi import sys_api
 from api.member.MemberApi import member_api
 from api.member.StoreApi import store_api
 from api.my_cloud_space.CloudSpaceApi import cloud_space_api
+from api.scheduler.SchedulerApi import scheduler_api
 from api.stone_game.StoneGameApi import stone_game_api
 from api.user.UserApi import user_api
 from api.wb.WbApi import wb_api
+from api.wx.SocketApi import socket_api
 from api.wx.WxApi import wx_api
-from config import mail
-from config import res
-from config.socket import socketio
+from api.wx.socket import socketio
 from db.db import db
 from global_variable import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME, version, \
     RESOURCE_DIR
 from service import UserService
+from util import ResUtil, MailUtil
 from util.LogUtil import logger
 
 # WSGIServer导入的就是gevent.pywsgi中的类
@@ -114,11 +116,11 @@ def flask_global_exception_handler(e):
     message = traceback.format_exc()
     logger.error(message)  # 日志输出到控制台和日志文件
     # 邮件服务 发送异常通知邮件  邮件模板
-    mail.send_email(message, MAIL_TO)
+    MailUtil.send_email(message, MAIL_TO)
     if app.config["DEBUG"]:
-        return res.fail(message)
+        return ResUtil.fail(message)
     else:
-        return res.fail("server error: "+str(e)+"; please contact your administrator ")
+        return ResUtil.fail("server error: " + str(e) + "; please contact your administrator ")
 
 
 @app.route('/', methods=['GET'])
@@ -147,12 +149,11 @@ app.register_blueprint(area_table_api)
 app.register_blueprint(ali_pay_api)
 app.register_blueprint(cloud_space_api)
 app.register_blueprint(stone_game_api)
-
 app.register_blueprint(store_api)
 app.register_blueprint(wx_api)
+app.register_blueprint(socket_api)
 app.register_blueprint(member_api)
 app.register_blueprint(wb_api)
-from api.scheduler.SchedulerApi import scheduler_api
 app.register_blueprint(scheduler_api)
 
 if __name__ == '__main__':
@@ -160,8 +161,10 @@ if __name__ == '__main__':
     app.config.from_object(Config)
     scheduler.init_app(app)
     scheduler.start()
-    app.run(host='0.0.0.0', port=80, debug=True, threaded=True)
+    # app.run(host='0.0.0.0', port=80, debug=True, threaded=True)
 
+    http_server = WSGIServer(('0.0.0.0', 80), application=app, handler_class=WebSocketHandler)
+    http_server.serve_forever()
     # socketio.run(app,debug=True,host='0.0.0.0',port=5000)
 
     # socketio.run(app, host='0.0.0.0', port=80)

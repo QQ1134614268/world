@@ -1,6 +1,6 @@
 from flask import jsonify
 
-from config import res
+from util import ResUtil
 from db.db import db
 
 
@@ -12,11 +12,11 @@ def consume_money(userId, money):
     amount = cursor.first()["amount"]
     if money > amount:
         db.session.commit();
-        return jsonify(res.fail("余额不足"))
+        return jsonify(ResUtil.fail("余额不足"))
     db.session.execute("update wallet_t set amount = amount - :money where userId = :userId",
                        params={"userId": userId, "money": money})
     db.session.commit();
-    return jsonify(res.success("操作成功"))
+    return jsonify(ResUtil.success("操作成功"))
 
 
 # update
@@ -38,4 +38,4 @@ def add_money(userId, money):
     db.session.execute("update wallet_t set amount = amount + :money where userId = :userId",
                        params={"userId": userId, "money": money})
     db.session.commit();
-    return jsonify(res.success("操作成功"))
+    return jsonify(ResUtil.success("操作成功"))

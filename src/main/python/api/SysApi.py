@@ -1,14 +1,11 @@
 # encoding: utf-8
-"""
-@author:huangran
-"""
 import random
 
 import time
 from flask import Blueprint, jsonify, request
 from flask_restful import fields, marshal
 
-from config import res
+from util import ResUtil
 from db.db import db
 from global_variable import UPLOAD_FILE_PATH
 from service import UserService
@@ -68,7 +65,7 @@ def add_announcement():
     vo = AnnouncementVO(userid=user_id, title=title, content=content, images=image_path)
     db.session.add(vo)
     db.session.commit()
-    return jsonify(res.success("操作成功"))
+    return jsonify(ResUtil.success("操作成功"))
 
 
 @sys_api.route('/get_announcement_list', methods=['GET'])
@@ -86,7 +83,7 @@ def get_announcement_list():
     """
     message_list = list(AnnouncementVO.query.order_by(AnnouncementVO.createTime).all())
     message_list = [marshal(vo, announcement_fields) for vo in message_list]
-    return jsonify(res.success(message_list))
+    return jsonify(ResUtil.success(message_list))
 
 
 @sys_api.route('/get_announcement_by_id', methods=['GET'])
@@ -111,7 +108,7 @@ def get_announcement_by_id():
     """
     announcement_id = request.args.get('id')
     vo = AnnouncementVO.query.filter_by(id=announcement_id).first()
-    return jsonify(res.success(marshal(vo, announcement_fields)))
+    return jsonify(ResUtil.success(marshal(vo, announcement_fields)))
 
 
 @sys_api.route('/add_suggest', methods=['POST'])
@@ -155,7 +152,7 @@ def add_suggest():
     vo = MessageVO(announcement_id=announcement_id, content=content, image=image)
     db.session.add(vo)
     db.session.commit()
-    return jsonify(res.success("操作成功"))
+    return jsonify(ResUtil.success("操作成功"))
 
 
 @sys_api.route('/get_suggest', methods=['GET'])
@@ -180,4 +177,4 @@ def get_suggest():
     """
     announcement_id = request.args.get("id")
     message_list = MessageVO.query.filter_by(id=announcement_id).order_by(MessageVO.createTime).all()
-    return jsonify(res.success(message_list))
+    return jsonify(ResUtil.success(message_list))

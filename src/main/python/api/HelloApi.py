@@ -1,7 +1,4 @@
 # encoding: utf-8
-"""
-@author:huangran
-"""
 import datetime
 import zipfile
 from io import BytesIO
@@ -11,8 +8,7 @@ from flask import Blueprint, send_file, jsonify, make_response
 from flask import Response
 from flask import request
 
-from config import file_config
-from config import res
+from util import ResUtil, FileConfig
 from global_variable import RESOURCE_DIR
 from util.LogUtil import logger
 
@@ -40,7 +36,7 @@ def hello():
     from app import app
     logger.info(app.config["DEBUG"])
 
-    return jsonify(res.success("hello world!"))
+    return jsonify(ResUtil.success("hello world!"))
 
 
 @hello_api.route('/sleep', methods=["GET"])
@@ -61,7 +57,7 @@ def sleep():
     end = start + datetime.timedelta(seconds=30)
     while datetime.datetime.utcnow() < end:
         pass
-    return jsonify(res.success('thread test;I slept from ' + str(start) + " to " + str(end)))
+    return jsonify(ResUtil.success('thread test;I slept from ' + str(start) + " to " + str(end)))
 
 
 @hello_api.route('/exception', methods=["GET"])
@@ -79,12 +75,12 @@ def exception():
         description: success
     """
     result = 1 / 0
-    return jsonify(res.success(result))
+    return jsonify(ResUtil.success(result))
 
 
 @hello_api.route('/download_excel', methods=['GET'])
 def download_excel():
-    byte_array_buffer = file_config.read_into_buffer(RESOURCE_DIR + "/excel_download_test.xlsx")
+    byte_array_buffer = FileConfig.read_into_buffer(RESOURCE_DIR + "/excel_download_test.xlsx")
     # with open(RESOURCE_DIR + "/excel_download_test.xlsx", "rb") as f:  # todo f.readlines() hit
     #     data = f.read()
     file_name = "excel下载测试.xlsx"
@@ -371,7 +367,7 @@ def test_vo_1_n():
         description: success
     """
     HelloService.test_vo_1_n()
-    return jsonify(res.success("测试flask_sqlalchemy 一对多脚本"))
+    return jsonify(ResUtil.success("测试flask_sqlalchemy 一对多脚本"))
 
 
 @hello_api.route('/test_vo_n_n', methods=["GET"])
@@ -389,4 +385,4 @@ def test_vo_n_n():
         description: success
     """
     HelloService.test_vo_n_n()
-    return jsonify(res.success("测试flask_sqlalchemy 一对多脚本"))
+    return jsonify(ResUtil.success("测试flask_sqlalchemy 一对多脚本"))

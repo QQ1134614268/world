@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 # @Time    : 2019/8/3 16:05
-# @Author  : huangran
+
 """
 from sqlalchemy import Column, String, Integer
 

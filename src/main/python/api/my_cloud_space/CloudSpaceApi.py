@@ -1,14 +1,11 @@
 # -- coding:UTF-8 --
-"""
-@author:huangran
-"""
 import os
 import random
 
 import time
 from flask import Blueprint, send_file, jsonify, make_response, request
 
-from config import res
+from util import ResUtil
 from db.db import db
 from global_variable import UPLOAD_FILE_PATH
 from service import UserService
@@ -33,7 +30,7 @@ def get_filename_list():
     user_id = UserService.get_id_by_token()
     vo_list = UserCloudSpaceVO.query.filter(UserCloudSpaceVO.user_id == user_id).all()
     name_list = [vo.file_name for vo in vo_list]
-    return jsonify(res.success(name_list))
+    return jsonify(ResUtil.success(name_list))
 
 
 @cloud_space_api.route('/file_upload', methods=['POST'])
@@ -70,7 +67,7 @@ def file_upload():
         vo = UserCloudSpaceVO(user_id=user_id, file_name=file1.filename, file_path=file_path)
         db.session.add(vo)
         db.session.commit()
-    return jsonify(res.success("success"))
+    return jsonify(ResUtil.success("success"))
 
 
 @cloud_space_api.route('/file_download', methods=['GET'])
@@ -136,4 +133,4 @@ def delete_file():
     os.remove(vo.file_path)
     db.session.delete(vo)
     db.session.commit()
-    return jsonify(res.success("success"))
+    return jsonify(ResUtil.success("success"))

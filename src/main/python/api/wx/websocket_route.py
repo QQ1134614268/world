@@ -11,7 +11,7 @@ def login(json_data):
     # }}
     pass
 from util.LogUtil import  logger
-from api.wb.gloable_v import user_id_socket
+from api.wx.gloable_v import user_id_socket
 def chat(json_data):
     # 确定消息发送成功 or发送失败判-类似sessionid 是否是好友关系 是否在线 心跳维护
     to_id = json_data["to_id"] # 单聊or群聊

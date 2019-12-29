@@ -7,7 +7,6 @@ Flask-RESTful==0.3.7
 Flask-Script==2.0.6
 Flask-SQLAlchemy==2.4.1
 gevent-websocket==0.10.1
-kafka-python==1.4.7
 pandas==0.25.2
 Pillow==6.2.1
 PyJWT==1.7.1

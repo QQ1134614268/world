@@ -1,17 +1,12 @@
 # -- coding:UTF-8 --
-"""
-@author:huangran
-"""
 from io import BytesIO
 
 import time
 from flask import Blueprint, session, jsonify, make_response, request
 
-from config import res
-from config import verification_code
 from db.db import db
 from service import UserService
-from util import PasswordUtil
+from util import PasswordUtil, ResUtil, VerificationCodeUtil
 from vo.UserVO import UserVO
 
 user_api = Blueprint("user", __name__, url_prefix='/user')
@@ -64,13 +59,13 @@ def register():
     username = data.get('username', '')
     exist = UserVO.query.filter_by(username=username).first()
     if exist:
-        return jsonify(res.fail("用户名已经存在"))
+        return jsonify(ResUtil.fail("用户名已经存在"))
     password = data.get('password', '')
     email = data.get('email', '')
     vo = UserVO(username=username, password=PasswordUtil.get_sha256_salt_password(password), email=email)
     db.session.add(vo)
     db.session.commit()
-    return jsonify(res.success("注册成功"))
+    return jsonify(ResUtil.success("注册成功"))
 
 
 @user_api.route('/get_verify_code', methods=['GET'])
@@ -87,7 +82,7 @@ def get_verify_code():
         description: success
     """
     file_io = BytesIO()
-    code, image = verification_code.get_verify_code()
+    code, image = VerificationCodeUtil.get_verify_code()
     image.save(file_io, 'jpeg')
     response = make_response(file_io.getvalue())
     response.headers['Content-Type'] = 'image/gif'
@@ -140,7 +135,7 @@ def login():
         pass
     # todo  session.get(VERIFY_CODE_KEY)  None 问题
     elif session.get(VERIFY_CODE_KEY).lower() != data.get("code").lower():
-        return jsonify(res.fail("验证码错误"))
+        return jsonify(ResUtil.fail("验证码错误"))
     username = data.get('username', '')
     password = data.get('password', '')
     user = UserVO.query.filter_by(username=username, password=PasswordUtil.get_sha256_salt_password(password)).first()
@@ -151,9 +146,9 @@ def login():
             "timestamp": int(time.time()),
             # "exp": 1448333419,
         }
-        return jsonify(res.success(UserService.get_token(payload)))
+        return jsonify(ResUtil.success(UserService.get_token(payload)))
     else:
-        return jsonify(res.success("账号密码不匹配"))
+        return jsonify(ResUtil.success("账号密码不匹配"))
 
 
 def logout():

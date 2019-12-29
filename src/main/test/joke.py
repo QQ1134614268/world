@@ -1,6 +1,6 @@
-import urllib.request
-import urllib.parse
 import re
+import urllib.parse
+import urllib.request
 
 rule_joke = re.compile('<span id=\"text110\">([\w\W]*?)</span>')
 rule_url = re.compile('<a href=\"(.*?)\"target=\"_blank\" >')

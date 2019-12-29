@@ -9,7 +9,7 @@ from urllib.parse import urlencode
 from urllib.request import Request
 from urllib.request import urlopen
 
-from config.exception import WorldException
+from util.exception import WorldException
 
 API_KEY = '4E1BG9lTnlSeIf1NQFlrSq6h'
 SECRET_KEY = '544ca4657ba8002e3dea3ac2f5fdd241'

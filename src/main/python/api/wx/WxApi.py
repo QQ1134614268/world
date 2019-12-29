@@ -1,10 +1,11 @@
 from flask import Blueprint
+
+from api.wx.socket import socketio
 from flask_socketio import send, emit
+from flask_socketio import join_room, leave_room
+
 
 wx_api = Blueprint("wx_api", __name__, url_prefix='/wx_api')
-
-#
-from config.socket import socketio
 
 
 # 监听消息
@@ -112,7 +113,6 @@ def handle_json(json):
 # def message(message):
 #     print(' message: ' + message['data'])
 
-from flask_socketio import join_room, leave_room
 
 
 @socketio.on('join')

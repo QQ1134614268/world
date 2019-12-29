@@ -1,8 +1,4 @@
 # -- coding:UTF-8 --
-"""
-@author:huangran
-"""
-
 from sqlalchemy import Column, String, Integer, Date, Boolean, BLOB
 
 from vo.BaseModel import BaseTable

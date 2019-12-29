@@ -1,7 +1,4 @@
 # -- coding:UTF-8 --
-"""
-@author:huangran
-"""
 from flask import Blueprint
 
 from api.scheduler.APScheduler import scheduler

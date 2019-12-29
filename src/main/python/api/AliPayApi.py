@@ -5,7 +5,7 @@
 
 from flask import Blueprint, jsonify, request, redirect
 
-from config import res
+from util import ResUtil
 from service.alipay import AliPayService
 
 ali_pay_api = Blueprint("ali_pay_api", __name__, url_prefix='/ali_pay_api')
@@ -81,9 +81,9 @@ def update_order():
         # 1. 获取订单号
         out_trade_no = post_dict.get('out_trade_no')
         # 2. 根据订单号将数据库中的数据进行更新
-        return jsonify(res.success("操作成功"))
+        return jsonify(ResUtil.success("操作成功"))
     else:
-        return jsonify(res.success("fail"))
+        return jsonify(ResUtil.success("fail"))
 
 
 @ali_pay_api.route('/add_origin', methods=['POST'])
@@ -101,5 +101,5 @@ def pay_result(request):
     status = alipay.verify(params, sign)
 
     if status:
-        return jsonify(res.success("支付成功"))
-    return jsonify(res.success("支付失败"))
+        return jsonify(ResUtil.success("支付成功"))
+    return jsonify(ResUtil.success("支付失败"))

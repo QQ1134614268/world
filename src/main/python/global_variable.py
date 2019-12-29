@@ -3,7 +3,6 @@ from os import path
 
 ROOT_DIR = path.abspath(__file__)
 RESOURCE_DIR = path.join(path.dirname(path.dirname(ROOT_DIR)), "resource")
-
 # def get_config_file_path():
 #     parser = argparse.ArgumentParser(description='manual to this script')
 #     parser.add_argument('--mode', type=str, default=None)

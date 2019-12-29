@@ -1,7 +1,4 @@
 # -- coding:UTF-8 --
-"""
-@author:huangran
-"""
 from flask import request, json
 from werkzeug.exceptions import HTTPException
 

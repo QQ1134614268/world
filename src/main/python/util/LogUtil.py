@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 # @Time    : 2019/6/30 21:29
-# @Author  : huangran
+
 """
 import logging
 import os

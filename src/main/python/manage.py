@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 # @Time    : 2019/8/3 16:42
-# @Author  : huangran
+
 """
-# !/usr/bin/env python
-# https://www.cnblogs.com/caicairui/p/7821586.html
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
 

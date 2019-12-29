@@ -1,8 +1,3 @@
-"""
-@author:huangran
-"""
-
-
 def success(data):
     return {
         "code": 1,

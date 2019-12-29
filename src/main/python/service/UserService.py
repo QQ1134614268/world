@@ -1,7 +1,4 @@
 # -- coding:UTF-8 --
-"""
-@author:huangran
-"""
 import time
 from flask import request
 

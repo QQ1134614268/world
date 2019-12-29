@@ -6,7 +6,7 @@
 from flask import Blueprint, jsonify, request
 from flask_restful import fields, marshal
 
-from config import res
+from util import ResUtil
 from db.db import db
 from service import UserService
 from vo.XmindVO import XmindLikeVO
@@ -63,7 +63,7 @@ def add_children_message():
     vo = XmindLikeVO(content=content, parent_id=parent_id, user_id=user_id)
     db.session.add(vo)
     db.session.commit()
-    return jsonify(res.success("操作成功"))
+    return jsonify(ResUtil.success("操作成功"))
 
 
 @x_mind_like_api.route('/update_content', methods=['POST'])
@@ -104,7 +104,7 @@ def update_content():
     content = data.get('content')
     XmindLikeVO.filter(XmindLikeVO.id == vo_id).update({"content": content})
     db.session.commit()
-    return jsonify(res.success("操作成功"))
+    return jsonify(ResUtil.success("操作成功"))
 
 
 @x_mind_like_api.route('/move_content', methods=['POST'])
@@ -144,7 +144,7 @@ def move_content():
     parent_id = data.get('parent_id')
     XmindLikeVO.filter(XmindLikeVO.id == vo_id).update({"parent_id": parent_id})
     db.session.commit()
-    return jsonify(res.success("操作成功"))
+    return jsonify(ResUtil.success("操作成功"))
 
 
 @x_mind_like_api.route('/delete_content', methods=['POST'])
@@ -179,7 +179,7 @@ def delete_content():
     sql = 'DELETE FROM _content where full_path_id like "%s"' % ("%" + str(vo_id) + "%")
     db.session.execute(sql)
     db.session.commit()
-    return jsonify(res.success("操作成功"))
+    return jsonify(ResUtil.success("操作成功"))
 
 
 @x_mind_like_api.route('/get_child_content', methods=['GET'])
@@ -204,7 +204,7 @@ def get_child_content():
     vo_id = request.args.get('id')
     vo = XmindLikeVO.query.filter_by(parent_id=vo_id)
     data_list = [marshal(i, _content_fields) for i in parent_vo_list]
-    return jsonify(res.success(data_list))
+    return jsonify(ResUtil.success(data_list))
 
 
 @x_mind_like_api.route('/get_content_all', methods=['GET'])

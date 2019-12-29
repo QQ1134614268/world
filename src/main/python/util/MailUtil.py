@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-@author:huangran
-"""
 import smtplib
 import traceback
 from email.header import Header

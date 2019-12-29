@@ -3,7 +3,7 @@ from flask import Blueprint, jsonify, request
 from api.member import WalletService
 from api.member.UserVO import MemberUserVO
 from api.member.WalletVO import WalletVO
-from config import res
+from util import ResUtil
 from db.db import db
 from service import UserService
 
@@ -50,12 +50,12 @@ def add_member():
     phone = data.get('phone', '')
     store_id = UserService.get_id_by_token()
     if not phone:
-        return jsonify(res.fail("手机号不能为空"))
+        return jsonify(ResUtil.fail("手机号不能为空"))
     password = data.get('password', '')
     exist = MemberUserVO.query.filter_by(phone=phone).first()
     if exist:
         # db.session.query(MemberUserVO).filter(MemberUserVO.phone == phone).update({"password": password})
-        return jsonify(res.fail("用户名已经存在"))
+        return jsonify(ResUtil.fail("用户名已经存在"))
     vo = MemberUserVO(store_id=store_id, phone=phone, password=MemberUserVO.get_password(password))
     db.session.add(vo)
     db.session.commit()
@@ -63,7 +63,7 @@ def add_member():
     vo = WalletVO(userId=vo.id)
     db.session.add(vo)
     db.session.commit()
-    return jsonify(res.success("添加vip成功"))
+    return jsonify(ResUtil.success("添加vip成功"))
 
 
 @store_api.route('/consume', methods=['POST'])
@@ -106,10 +106,10 @@ def consume():
     amount = data.get('amount')
     phone = data.get('phone')
     if not amount:
-        return jsonify(res.fail("消费金额不能为空"))
+        return jsonify(ResUtil.fail("消费金额不能为空"))
     vo = MemberUserVO.query.filter_by(phone=phone).first()
     if not vo:
-        return jsonify(res.fail("该会员不存在"))
+        return jsonify(ResUtil.fail("该会员不存在"))
     return WalletService.consume_money(vo.id, amount)
 
 
@@ -153,8 +153,8 @@ def invest():
     amount = data.get('amount')
     phone = data.get('phone')
     if not amount:
-        return jsonify(res.fail("充值金额不能为空"))
+        return jsonify(ResUtil.fail("充值金额不能为空"))
     vo = MemberUserVO.query.filter_by(phone=phone).first()
     if not vo:
-        return jsonify(res.fail("该会员不存在"))
+        return jsonify(ResUtil.fail("该会员不存在"))
     return WalletService.consume_money(vo.id, amount)
