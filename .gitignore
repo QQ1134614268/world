@@ -1,22 +1,3 @@
-/target/
-.mvn/wrapper
-.settings
-.project
-.classpath
-mvnw
-mvnw.cmd
-
-.pydevproject
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
- 
 ### IntelliJ IDEA ###
 .idea
 *.iws
@@ -33,8 +14,8 @@ __pycache__
 /nbdist/
 /.nb-gradle/
 
-data/log/
+log/
 data/
 
-src/main/python/migrations
+src/migrations
 venv/*

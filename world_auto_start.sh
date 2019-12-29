@@ -1,1 +1,1 @@
-nohup python3 /app/world/src/main/python/app.py &
+nohup python3 /app/world/src/app.py &
