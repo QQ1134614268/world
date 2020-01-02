@@ -4,7 +4,7 @@ import re
 import traceback
 
 from flasgger import Swagger
-from flask import Flask, render_template, request
+from flask import Flask, request
 from flask_cors import CORS
 from geventwebsocket.handler import WebSocketHandler  # 提供WS（websocket）协议处理
 from geventwebsocket.server import WSGIServer  # websocket服务承载
@@ -25,30 +25,16 @@ from api.stone_game.StoneGameApi import stone_game_api
 from api.user.UserApi import user_api
 from api.wb.WbApi import wb_api
 from api.wx.SocketApi import socket_api
-from api.wx.WxApi import wx_api
-from api.wx.socket import socketio
 from db.db import db
 from global_variable import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME, version, \
     RESOURCE_DIR
 from service import UserService
-from util import ResUtil
 from util import MailUtil
+from util import ResUtil
 from util.LogUtil import logger
 
-# WSGIServer导入的就是gevent.pywsgi中的类
-# from gevent.pywsgi import WSGIServer
 
 app = Flask(__name__, template_folder=os.path.join(RESOURCE_DIR, "template"))
-
-# from flask_cache import Cache
-# config = {
-#   'CACHE_TYPE': 'redis',
-#   'CACHE_REDIS_HOST': '127.0.0.1', # redis ip
-#   'CACHE_REDIS_PORT': 6379,  # port
-#   'CACHE_REDIS_DB': '1',   # 使用的redis db
-#   'CACHE_REDIS_PASSWORD': ''
-# }
-# cache = Cache(app=app,config=config,with_jinja2_ext=False)
 
 
 # 跨域
@@ -65,7 +51,6 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 app.config["SQLALCHEMY_ECHO"] = DEBUG
 app.config["DEBUG"] = DEBUG
 db.init_app(app)
-socketio.init_app(app)
 
 # 人-时间-效率=注册APScheduler
 
@@ -134,11 +119,6 @@ def welcome():
     return txt
 
 
-@app.route('/socket', methods=['GET'])
-def socket():
-    return render_template('web_socket.html')
-
-
 app.register_blueprint(hello_api)
 app.register_blueprint(user_api)
 app.register_blueprint(sys_api)
@@ -151,7 +131,6 @@ app.register_blueprint(ali_pay_api)
 app.register_blueprint(cloud_space_api)
 app.register_blueprint(stone_game_api)
 app.register_blueprint(store_api)
-app.register_blueprint(wx_api)
 app.register_blueprint(socket_api)
 app.register_blueprint(member_api)
 app.register_blueprint(wb_api)
@@ -166,6 +145,5 @@ if __name__ == '__main__':
 
     http_server = WSGIServer(('0.0.0.0', 80), application=app, handler_class=WebSocketHandler)
     http_server.serve_forever()
-    # socketio.run(app,debug=True,host='0.0.0.0',port=5000)
 
-    # socketio.run(app, host='0.0.0.0', port=80)
+    # socketio.run(app,debug=True,host='0.0.0.0',port=80)

@@ -1,28 +1,32 @@
 import json
 
+from api.wx.gloable_v import user_id_socket
+
 
 # 字符串转函数  https://www.jb51.net/article/120311.htm
 # 创建集合 字符串 找对应函数  类似注册路由
 
+
 def login(json_data):
+    pass
     # {func:"/user/login", #登录
     # args:{
     # id:111
     # }}
-    pass
-from util.LogUtil import  logger
-from api.wx.gloable_v import user_id_socket
 def chat(json_data):
     # 确定消息发送成功 or发送失败判-类似sessionid 是否是好友关系 是否在线 心跳维护
-    to_id = json_data["to_id"] # 单聊or群聊
-
-    msg = json_data["messsage"]
+    from_user = json_data["id"]
+    to_id = json_data["to_id"]  # 单聊or群聊
+    message = json_data["message"]
     socket=user_id_socket[to_id]
-    socket.send(msg)
-    response_str=socket.recive()
-    if response_str:#确定消息发送成功
-        # or发送失败判 - 类似sessionid
-        logger.debug("接收返回消息"+response_str)
+    socket.send(json.dumps({
+        "from_user": from_user,
+        "message": message,
+    }))
+    # response_str = socket.receive()
+    # if response_str:#确定消息发送成功
+    #     # or发送失败判 - 类似sessionid
+    #     logger.debug("接收返回消息"+response_str)
 
 
 def upload_file(json_data):
@@ -54,6 +58,9 @@ func_route_dic = {
 
 
 def func_handler(data):
-    data_json = json.dump(data)
-    route, data = data_json["route"], data_json["data"]
-    func_route_dic[route](data)
+    if data:
+        data_json = json.loads(data)
+        route, data = data_json["route"], data_json["data"]
+        func_route_dic[route](data)
+    else:
+        print("data is null")

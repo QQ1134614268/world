@@ -12,9 +12,7 @@
             namespace = "/wechat";
             var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
             socket.emit("message", {"data": "zhangsan"});
-            console.log(9999)
             socket.emit("message", {"data": "666"});
-            console.log(233333)
             socket.emit("message_response", {"data": "666"});
             socket.emit("json", JSON.stringify({"data": "666"}));
             socket.emit("json", 1);
