@@ -20,6 +20,7 @@ from api.SysApi import sys_api
 from api.member.MemberApi import member_api
 from api.member.StoreApi import store_api
 from api.my_cloud_space.CloudSpaceApi import cloud_space_api
+from api.scheduler.APScheduler import scheduler
 from api.scheduler.SchedulerApi import scheduler_api
 from api.stone_game.StoneGameApi import stone_game_api
 from api.user.UserApi import user_api
@@ -33,9 +34,9 @@ from util import MailUtil
 from util import ResUtil
 from util.LogUtil import logger
 
-
 app = Flask(__name__, template_folder=os.path.join(RESOURCE_DIR, "template"))
-
+# from config.config import Config
+# app.config.from_object(Config)
 
 # 跨域
 CORS(app, supports_credentials=True)
@@ -51,6 +52,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 app.config["SQLALCHEMY_ECHO"] = DEBUG
 app.config["DEBUG"] = DEBUG
 db.init_app(app)
+
 
 # 人-时间-效率=注册APScheduler
 
@@ -69,9 +71,10 @@ def before_request():  # 登录过滤,正则匹配,日志记录,IP分析
             ip = request.remote_addr
             username = UserService.get_name_by_token()
             userid = UserService.get_name_by_token()
-            user_agent=request.headers.get('User-Agent')
+            user_agent = request.headers.get('User-Agent')
             logger.info(
-                {"user": {"username": username, "userid": userid}, "url_path": url_path, "ip": ip, "User-Agent":user_agent,
+                {"user": {"username": username, "userid": userid}, "url_path": url_path, "ip": ip,
+                 "User-Agent": user_agent,
                  "action": "before_request"})
             break
     else:
@@ -137,8 +140,6 @@ app.register_blueprint(wb_api)
 app.register_blueprint(scheduler_api)
 
 if __name__ == '__main__':
-    from api.scheduler.APScheduler import scheduler, Config
-    app.config.from_object(Config)
     scheduler.init_app(app)
     scheduler.start()
     # app.run(host='0.0.0.0', port=80, debug=True, threaded=True)

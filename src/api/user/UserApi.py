@@ -67,7 +67,8 @@ def register():
     db.session.add(vo)
     db.session.commit()
     return jsonify(ResUtil.success("注册成功"))
-
+if __name__ == '__main__':
+    UserVO.query.filter_by(username="111")
 
 @user_api.route('/get_verify_code', methods=['GET'])
 def get_verify_code():

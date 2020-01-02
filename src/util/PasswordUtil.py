@@ -6,9 +6,9 @@ def get_password(password):
 
 
 def get_sha256_salt_password(password, salt="zero"):
-    return EncryptUtil.SHA256Util.sha256_salt(password, salt)
+    return EncryptUtil.SHA256Util.sha256_salt(salt, password)
 
 
 if __name__ == '__main__':
-    data_str = get_sha256_salt_password("123456")
+    data_str = get_sha256_salt_password("369")
     print(data_str)

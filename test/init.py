@@ -5,7 +5,7 @@
 import json
 import unittest
 
-from app import app
+from src.app import app
 from test.BuildData import create_data
 
 
@@ -25,6 +25,7 @@ class InitTest(unittest.TestCase):
         response = app.test_client().post(url, data=json.dumps(data), content_type='application/json')
 
         json_data = response.data
+        print(json_data)
         json_dict = json.loads(json_data)
         self.assertEqual(json_dict['code'], 1, '有异常')
 
@@ -65,5 +66,7 @@ class InitTest(unittest.TestCase):
         json_data = response.data
         json_dict = json.loads(json_data)
         self.assertEqual(json_dict['code'], 1, '有异常')
+
+
 if __name__ == '__main__':
     unittest.main()

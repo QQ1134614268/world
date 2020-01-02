@@ -5,7 +5,7 @@
 import json
 import unittest
 
-from app import app
+from src.app import app
 from test.BuildData import create_data
 
 

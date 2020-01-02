@@ -31,19 +31,14 @@ class Base64Util:
 
 
 class SHA256Util:
-    # print(hashlib.md5(b'123').hexdigest())
-    # print(hashlib.md5('你好'.encode(encoding='UTF-8')).hexdigest())
-    # print(hashlib.md5('你好'.encode(encoding='GBK')).hexdigest())
-    #
-    # print(hashlib.sha256('你好'.encode(encoding='UTF-8')).hexdigest())
+    """
+        哈希加密使用sha256
+    """
     @staticmethod
-    def enc_bytes(text):
-        return hashlib.md5(text.encode(encoding='UTF-8')).hexdigest()
-
     def sha256_salt(key, value):
         """
         sha256加密
-        return:加密结果转成16进制字符串形式，并大写
+        return:加密结果转成16进制字符串形式
         """
         hsobj = hashlib.sha256(key.encode("utf-8"))
         hsobj.update(value.encode("utf-8"))
@@ -196,3 +191,9 @@ class RsaUtil:
         except (ValueError, TypeError):
             ret = False
         return ret
+
+
+if __name__ == '__main__':
+    data = SHA256Util.sha256_salt("11", "2")
+    print(data)
+    SHA256Util.enc_bytes()

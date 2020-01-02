@@ -17,5 +17,4 @@ __pycache__
 log/
 data/
 
-src/migrations
 venv/*
