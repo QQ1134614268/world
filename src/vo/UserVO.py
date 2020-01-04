@@ -12,7 +12,7 @@ class UserVO(BaseTable):
     birthday = Column(Date)
     sex = Column(Boolean, default=True)
     email = Column(String(60), default='793390457@qq.com')
-    icon = Column(BLOB(300), default=b'default.jpg')
+    icon = Column(BLOB(300))
 
     phone = Column(String(11))
     active = Column(Boolean, default=True)
