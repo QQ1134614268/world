@@ -1,1 +1,1 @@
-nohup python3 /app/world/src/app.py &
+nohup python3.7 /app/world/src/app.py &
