@@ -3,7 +3,6 @@ git pull
 nohup pip3.7 install -r requirements.txt  &
 
 cd /app/world/src
-python3.7 manage.py db migrate
 python3.7 manage.py db upgrade
 
 # 启动服务
