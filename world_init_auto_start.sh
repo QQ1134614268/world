@@ -7,7 +7,7 @@ git clone  https://gitee.com/biaozhun/world.git
 cd /app/world
 pip3.7 install -r requirements.txt
 
-# 同步数据库表结构
+# 同步数据库表结构 TODO 创建数据库
 cd /app/world/src
 python3.7 manage.py db upgrade
 

@@ -43,8 +43,7 @@ CORS(app, supports_credentials=True)
 # swagger
 Swagger(app)
 
-SQLALCHEMY_DATABASE_URI = '{}+{}://{}:{}@{}:{}/{}'.format(DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT,
-                                                                       DBNAME)
+SQLALCHEMY_DATABASE_URI = '{}+{}://{}:{}@{}:{}/{}'.format(DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME)
 app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
 app.config["SECRET_KEY"] = "session_key_world"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
