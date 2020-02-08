@@ -5,13 +5,48 @@ import random
 import time
 from flask import Blueprint, send_file, jsonify, make_response, request
 
-from util import ResUtil
 from db.db import db
 from global_variable import UPLOAD_FILE_PATH
 from service import UserService
+from util import ResUtil
 from vo.CloudSpaceVO import UserCloudSpaceVO
 
 cloud_space_api = Blueprint("cloud_space_api", __name__, url_prefix='/cloud_space_api')
+
+
+@cloud_space_api.route('/init', methods=['GET'])
+def init():
+    user_id = UserService.get_id_by_token()
+    os.makedirs(os.path.join(UPLOAD_FILE_PATH, str(user_id)))
+    return jsonify(ResUtil.success("cloud_space init success"))
+
+
+@cloud_space_api.route('/create_dir', methods=['POST'])
+def create_dir():
+    data = request.get_json()
+    name = data.get('name')
+    user_id = UserService.get_id_by_token()
+    os.makedirs(os.path.join(UPLOAD_FILE_PATH, str(user_id)), name)
+    return jsonify(ResUtil.success("操作成功"))
+
+
+@cloud_space_api.route('/get_filename_list_v2', methods=['POST'])
+def get_filename_list_v2():
+    data = request.get_json()
+    name = data.get('name')
+    file_dir = getDirName(name)
+    ret = getFiles(file_dir)
+    return jsonify(ResUtil.success(ret))
+
+
+def getDirName(file_dir):
+    user_id = UserService.get_id_by_token()
+    return os.path.join(UPLOAD_FILE_PATH, str(user_id), file_dir)
+
+
+def getFiles(file_dir):
+    root, dirs, files = os.walk(file_dir).__next__()
+    return {"dir": dirs, "file": files}
 
 
 @cloud_space_api.route('/get_filename_list', methods=['GET'])

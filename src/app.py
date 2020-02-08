@@ -17,6 +17,7 @@ from api.HelloApi import hello_api
 from api.OrganizationApi import organization_api
 from api.SpeechApi import speech_api
 from api.SysApi import sys_api
+from api.customize.CustomizeApi import customize_api
 from api.member.MemberApi import member_api
 from api.member.StoreApi import store_api
 from api.my_cloud_space.CloudSpaceApi import cloud_space_api
@@ -135,6 +136,7 @@ app.register_blueprint(stone_game_api)
 app.register_blueprint(store_api)
 app.register_blueprint(socket_api)
 app.register_blueprint(member_api)
+app.register_blueprint(customize_api)
 app.register_blueprint(wb_api)
 app.register_blueprint(scheduler_api)
 
