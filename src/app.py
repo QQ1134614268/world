@@ -9,28 +9,30 @@ from flask_cors import CORS
 from geventwebsocket.handler import WebSocketHandler  # 提供WS（websocket）协议处理
 from geventwebsocket.server import WSGIServer  # websocket服务承载
 
-from api.AliPayApi import ali_pay_api
-from api.AreaApi import area_api
-from api.AreaTableApi import area_table_api
-from api.AuthApi import auth_api
 from api.HelloApi import hello_api
-from api.OrganizationApi import organization_api
-from api.SpeechApi import speech_api
-from api.SysApi import sys_api
+from api.apply.member.MemberApi import member_api
+from api.apply.member.StoreApi import store_api
+from api.apply.stone_game.StoneGameApi import stone_game_api
 from api.customize.CustomizeApi import customize_api
-from api.member.MemberApi import member_api
-from api.member.StoreApi import store_api
+from api.message.Speech.SpeechApi import speech_api
+from api.message.message_api import message_api
+from api.message.wb.WbApi import wb_api
+from api.message.wx.SocketApi import socket_api
 from api.my_cloud_space.CloudSpaceApi import cloud_space_api
+from api.my_cloud_space.file.file_api import fileApi
+from api.root.AreaApi import area_api
+from api.root.AreaTableApi import area_table_api
+from api.root.OrganizationApi import organization_api
 from api.scheduler.APScheduler import scheduler
 from api.scheduler.SchedulerApi import scheduler_api
-from api.stone_game.StoneGameApi import stone_game_api
+from api.sys.SysApi import sys_api
+from api.user import UserService
+from api.user.AuthApi import auth_api
 from api.user.UserApi import user_api
-from api.wb.WbApi import wb_api
-from api.wx.SocketApi import socket_api
+from api.wallet.AliPayApi import ali_pay_api
 from db.db import db
 from global_variable import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME, version, \
     RESOURCE_DIR
-from service import UserService
 from util import MailUtil
 from util import ResUtil
 from util.LogUtil import logger
@@ -48,7 +50,6 @@ SQLALCHEMY_DATABASE_URI = '{}+{}://{}:{}@{}:{}/{}'.format(DIALCT, DRIVER, USERNA
 app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
 app.config["SECRET_KEY"] = "session_key_world"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
-# {None: 0, False: 0, True: 20, 'debug': 10} True: 所有err, DEBUG=所有sql语句  todo
 app.config["SQLALCHEMY_ECHO"] = DEBUG
 app.config["DEBUG"] = DEBUG
 db.init_app(app)
@@ -139,6 +140,8 @@ app.register_blueprint(member_api)
 app.register_blueprint(customize_api)
 app.register_blueprint(wb_api)
 app.register_blueprint(scheduler_api)
+app.register_blueprint(fileApi)
+app.register_blueprint(message_api)
 
 if __name__ == '__main__':
     scheduler.init_app(app)

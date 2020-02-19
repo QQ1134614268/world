@@ -8,18 +8,27 @@ from vo.BaseModel import BaseTable
 class UserVO(BaseTable):
     __tablename__ = 'user'
     username = Column(String(12), index=True)
-    password = Column(String(128), default='123456')
-    birthday = Column(Date)
-    sex = Column(Boolean, default=True)
-    email = Column(String(60), default='793390457@qq.com')
-    icon = Column(BLOB(300))
-
+    password = Column(String(128))
+    userType = Column(Integer, default=1)
     phone = Column(String(11))
-    active = Column(Boolean, default=True)
-
     def __str__(self):
         return "Users(id='%s')" % self.id
 
+
+class UserInfoVO(BaseTable):
+    __tablename__ = 'user'
+    userId = Column(Integer, ForeignKey="user.id", index=True)
+    birthday = Column(Date)
+    sex = Column(Boolean, default=True)
+    email = Column(String(60))
+    icon = Column(BLOB(300))
+    weChatId = Column(String(60))
+    idCard = Column(String(60))
+    home = Column(String(60))
+    motto = Column(String(60))
+
+    def __str__(self):
+        return "Users(id='%s')" % self.id
 
 class AnnouncementVO(BaseTable):
     __tablename__ = 'announcement'

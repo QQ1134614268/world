@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 
 from db.mongodb import db
-from service import UserService
+from api.user import UserService
 from util import ResUtil
 
 customize_api = Blueprint("customize_api", __name__, url_prefix='/customize_api')

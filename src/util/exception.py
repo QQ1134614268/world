@@ -2,12 +2,16 @@
 from flask import request, json
 from werkzeug.exceptions import HTTPException
 
+from api.user.UserService import get_id_by_token
+from util.LogUtil import logger
+
 
 class WorldException(Exception):
 
     def __init__(self, message="Exception", code=0):
         self.code = code
         self.message = message
+        logger.error(str(get_id_by_token) + " url: " + request.path)
 
     def __str__(self):
         return "code: %(code)d      message: %(message)s " % {'code': self.code, 'message': self.message}

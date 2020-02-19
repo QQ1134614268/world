@@ -32,11 +32,3 @@ def get_timestamp():
 
 def get_timestamp_():
     return int(round(time.time() * 1000))
-
-
-def get_datetime():
-    # TODO
-    import datetime
-    "2018-09-21 02:10:31"
-    st = "2018-09-21 02:10:31"
-    start_time = datetime.datetime.strptime(st, "%Y-%m-%d %H:%M:%S")

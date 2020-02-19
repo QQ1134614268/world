@@ -5,7 +5,7 @@ import time
 from flask import Blueprint, session, jsonify, make_response, request
 
 from db.db import db
-from service import UserService
+from api.user import UserService
 from util import PasswordUtil, ResUtil
 from util import VerificationCodeUtil
 from vo.UserVO import UserVO
@@ -67,8 +67,7 @@ def register():
     db.session.add(vo)
     db.session.commit()
     return jsonify(ResUtil.success("注册成功"))
-if __name__ == '__main__':
-    UserVO.query.filter_by(username="111")
+
 
 @user_api.route('/get_verify_code', methods=['GET'])
 def get_verify_code():
