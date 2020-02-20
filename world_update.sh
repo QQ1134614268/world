@@ -1,5 +1,5 @@
 git --git-dir /app/world/.git pull
-nohup pip3.7 install -r requirements.txt  &
+nohup pip3.7 install -r /app/world/requirements.txt  &
 cd /app/world/src/
 python3.7 /app/world/src/manage.py db upgrade
 cd
