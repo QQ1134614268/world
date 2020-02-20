@@ -144,6 +144,7 @@ app.register_blueprint(fileApi)
 app.register_blueprint(message_api)
 
 if __name__ == '__main__':
+
     scheduler.init_app(app)
     scheduler.start()
     # app.run(host='0.0.0.0', port=80, debug=True, threaded=True)
