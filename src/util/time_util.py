@@ -1,6 +1,6 @@
 import datetime
 
-default_time_str = '%Y_%m_%d_%H:%M:%S.%f'
+default_time_str = '%Y_%m_%d__%H_%M_%S.%f'
 
 
 def getTimeStr():

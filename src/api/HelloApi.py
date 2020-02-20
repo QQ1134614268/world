@@ -2,6 +2,7 @@
 import datetime
 import zipfile
 from io import BytesIO
+from service import HelloService
 
 import pandas
 from flask import Blueprint, send_file, jsonify, make_response
@@ -339,11 +340,17 @@ def post_formData():
         description: code
         required: true
         type: string
+    responses:
+      500:
+        description: server error
+      200:
+        description: success
     """
     file1 = request.files["file_name1"]
     file2 = request.files["file_name2"]
     name = request.form["name"]
     code = request.form["code"]
+    print({"name": name, "code": code, "file_name1": file1.filename, "file_name2": file2.filename, })
     return jsonify({"name": name, "code": code, "file_name1": file1.filename, "file_name2": file2.filename, })
 
 # # 在会话的基础上执行sql语句
@@ -352,7 +359,7 @@ def post_formData():
 # # 使用映射类成员变量的数据
 # session.query(Address).filter(Address.id ==2).update({"user_id":1})
 
-from service import HelloService
+
 @hello_api.route('/test_vo_1_n', methods=["GET"])
 def test_vo_1_n():
     """

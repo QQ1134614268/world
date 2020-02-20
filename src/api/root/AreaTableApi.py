@@ -38,8 +38,6 @@ def add_origin():
         description: A language with its awesomeness
      """
     name = request.form.get('name')
-    image = request.files['image']
-    video = request.files['video']
     level = 0
     vo = AreaVO(name=name, level=level, video=1)
     db.session.add(vo)

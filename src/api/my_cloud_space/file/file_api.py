@@ -1,7 +1,7 @@
 import datetime
 import os
 
-from flask import Blueprint, send_file, jsonify, make_response
+from flask import Blueprint, send_file, jsonify
 from flask import request
 
 from global_variable import UPLOAD_FILE_PATH
@@ -17,7 +17,12 @@ fileApi = Blueprint("fileApi", __name__, url_prefix='/fileApi')
 def fileUpload():
     file1 = request.files["file"]
     time_str = getTimeStr()
-    file_path = UPLOAD_FILE_PATH + '/' + "upload-" + time_str + "-" + file1.filename
+    if file1.filename.endswith("\""):
+        # todo postman上传文件,文件名会多一个 引号,swagger不会产生这种问题
+        filename = file1.filename[:-1]
+    else:
+        filename = file1.filename
+    file_path = UPLOAD_FILE_PATH + '/' + "upload-" + time_str + "-" + filename
     file1.save(file_path)
     return jsonify(ResUtil.success(file_path))
 
@@ -25,9 +30,9 @@ def fileUpload():
 @fileApi.route('/fileDownload', methods=['GET'])
 def fileDownload():
     path = request.args.get("path")
-    response = make_response(send_file(path))
-    response.headers["Content-Disposition"] = "application/octet-stream"
-    return response
+    return send_file(path, as_attachment=False,
+                     attachment_filename=path.split('/')[-1].encode(encoding='utf_8', errors="ignore").decode('utf_8'),
+                     mimetype='image/jpeg')
 
 
 def clear_file():
