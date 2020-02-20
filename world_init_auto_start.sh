@@ -1,15 +1,10 @@
 # 下载代码
-cd /
-mkdir app
-cd /app
-git clone  https://gitee.com/biaozhun/world.git
+mkdir /app
+git clone  https://gitee.com/biaozhun/world.git /app
 
-cd /app/world
-pip3.7 install -r requirements.txt
+pip3.7 install -r /app/world/requirements.txt
 
-# 同步数据库表结构 TODO 创建数据库
-cd /app/world/src
-python3.7 manage.py db upgrade
+python3.7 /app/world/src/manage.py db upgrade
 
 # 启动服务
 nohup python3.7 /app/world/src/app.py &

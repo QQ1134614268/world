@@ -18,5 +18,5 @@ class AreaVO(BaseTable):
 class AreaMemberRelationVO(BaseTable):
     __tablename__ = 'area_member_relation'
     id = Column(Integer, autoincrement=True, primary_key=True, comment="主键")
-    areaId = Column(String(150), default='123456')
-    userId = Column(String(70), default='default.jpg')
+    areaId = Column(String(150) )
+    userId = Column(String(70))
