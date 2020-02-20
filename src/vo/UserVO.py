@@ -1,5 +1,5 @@
 # -- coding:UTF-8 --
-from sqlalchemy import Column, String, Integer, Date, Boolean, BLOB
+from sqlalchemy import Column, String, Integer, Date, Boolean, BLOB,ForeignKey
 
 from vo.BaseModel import BaseTable
 
@@ -11,13 +11,14 @@ class UserVO(BaseTable):
     password = Column(String(128))
     userType = Column(Integer, default=1)
     phone = Column(String(11))
+
     def __str__(self):
         return "Users(id='%s')" % self.id
 
 
 class UserInfoVO(BaseTable):
-    __tablename__ = 'user'
-    userId = Column(Integer, ForeignKey="user.id", index=True)
+    __tablename__ = 'user_info'
+    userId = Column(Integer, ForeignKey("user.id"), index=True)
     birthday = Column(Date)
     sex = Column(Boolean, default=True)
     email = Column(String(60))

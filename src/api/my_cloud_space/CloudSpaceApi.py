@@ -11,7 +11,7 @@ from api.user import UserService
 from util import ResUtil
 from vo.CloudSpaceVO import UserCloudSpaceVO
 
-cloud_space_api = Blueprint("fileApi", __name__, url_prefix='/fileApi')
+cloud_space_api = Blueprint("cloud_space_api", __name__, url_prefix='/cloud_space_api')
 
 
 @cloud_space_api.route('/init', methods=['GET'])
@@ -55,7 +55,7 @@ def get_filename_list():
     获取文件列表
     ---
     tags:
-      - fileApi
+      - cloud_space_api
     responses:
       500:
         description: server err
@@ -74,7 +74,7 @@ def file_upload():
     上传一个文件
     ---
     tags:
-      - fileApi
+      - cloud_space_api
     parameters:
       - in: formData
         name: file
@@ -111,7 +111,7 @@ def file_download():
     下载一个文件
     ---
     tags:
-      - fileApi
+      - cloud_space_api
     parameters:
      - name: filename
        type: string
@@ -140,7 +140,7 @@ def delete_file():
     删除一个文件
     ---
     tags:
-      - fileApi
+      - cloud_space_api
     parameters:
       - in: body
         name: body

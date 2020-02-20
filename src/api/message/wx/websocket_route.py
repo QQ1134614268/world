@@ -30,11 +30,6 @@ def chat(json_data):
 
 
 def upload_file(json_data):
-    # {func:/fileApi/upload_file, #发文件
-    # args:{
-    # to_id:1 ,
-    # file: bbb
-    # }}
     pass
 
 

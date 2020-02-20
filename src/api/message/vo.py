@@ -11,6 +11,6 @@ class PersonSpeech(BaseTable):
 
 
 class Comment(BaseTable):
-    __tablename__ = 'person_speech_t'
+    __tablename__ = 'message_comment_t'
     personSpeechId = Column(Integer,ForeignKey('person_speech_t.id'))
     content = Column(String(256))
