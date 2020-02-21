@@ -1,7 +1,3 @@
-"""
-@author:huangran
-"""
-
 import json
 import unittest
 
@@ -32,8 +28,7 @@ class UserApiTest(unittest.TestCase):
         url = "/user/get_verify_code"
         response = app.test_client().get(url, data={})
         json_data = response.data
-        # json_dict = json.loads(json_data)
-        # self.assertEqual(json_dict['code'], 1, '有异常')
+        self.assertNotEqual(json_data, None, '有异常')
 
     def test_login(self):
         url = "/user/login"

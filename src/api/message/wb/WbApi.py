@@ -42,13 +42,8 @@ def add_blog():
     """
     data = request.get_json()
     content = data.get('content', '')
-    # todo
-    # up_file = request.files['file']
-    # file_uuid = get_file_name_by_uuid
-    # file_path = UPLOAD_FILE_PATH + '/blog/' + file_uuid + "-" + up_file.filename
-    # up_file.save(file_path)  # 保存文件到指定路径
     user_id = UserService.get_id_by_token()
-    vo = BlogVO(content=content, user_id=user_id, up_files="")
+    vo = BlogVO(content=content, user_id=user_id)
     db.session.add(vo)
     db.session.commit()
     return jsonify(ResUtil.success("发表成功"))

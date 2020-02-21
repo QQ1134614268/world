@@ -9,7 +9,6 @@ class BlogVO(BaseTable):
     user_id = Column(Integer)
     content = Column(String(256))
     up_files = Column(String(1024))
-    # todo   backref='b_c'
     comments = db.relationship('BlogCommentVO', backref='b_c', lazy='dynamic')
 
 

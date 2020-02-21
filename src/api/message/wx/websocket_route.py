@@ -13,12 +13,14 @@ def login(json_data):
     # args:{
     # id:111
     # }}
+
+
 def chat(json_data):
     # 确定消息发送成功 or发送失败判-类似sessionid 是否是好友关系 是否在线 心跳维护
     from_user = json_data["id"]
     to_id = json_data["to_id"]  # 单聊or群聊
     message = json_data["message"]
-    socket=user_id_socket[to_id]
+    socket = user_id_socket[to_id]
     socket.send(json.dumps({
         "from_user": from_user,
         "message": message,
@@ -43,7 +45,6 @@ def update_user_info(json_data):
     pass
 
 
-# 添加注解 todo
 func_route_dic = {
     "/user/login": login,
     "/user/chat": chat,

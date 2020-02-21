@@ -14,5 +14,3 @@ def socket(userId):
         data = client_socket.receive()
         print("------------", data)
         websocket_route.func_handler(data)
-    # client_socket.send("login success")
-    print("+++++++++++++++++++++++++++++++++++++")

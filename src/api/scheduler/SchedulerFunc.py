@@ -25,6 +25,7 @@ def init_db():
             db.session.commit()
         print("init_db over")
 
+
 def init():
     print("init")
     init_dir()
@@ -37,8 +38,8 @@ def task1(a, b):
 
 
 def data():
-    logger.info("定时  添加数据 ")
     from app import app
+    logger.info("定时  添加数据 ")
     url = "/wb_api/add_blog"
     data = {
         "content": "天气晴",

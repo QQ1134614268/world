@@ -9,8 +9,9 @@ class UserVO(BaseTable):
     __tablename__ = 'user'
     username = Column(String(12), index=True)
     password = Column(String(128))
-    userType = Column(Integer, default=1)
     phone = Column(String(11))
+    email = Column(String(60))
+    userType = Column(Integer, default=1)
 
     def __str__(self):
         return "Users(id='%s')" % self.id

@@ -2,16 +2,16 @@
 import datetime
 import zipfile
 from io import BytesIO
-from service import HelloService
 
 import pandas
 from flask import Blueprint, send_file, jsonify, make_response
 from flask import Response
 from flask import request
 
-from util import ResUtil
-from util import FileConfig
 from global_variable import RESOURCE_DIR
+from service import HelloService
+from util import FileConfig
+from util import ResUtil
 from util.LogUtil import logger
 
 hello_api = Blueprint("hello", __name__, url_prefix='/hello_api')

@@ -1,7 +1,3 @@
-"""
-@author:huangran
-"""
-
 import json
 import unittest
 
@@ -30,6 +26,7 @@ class HelloTest(unittest.TestCase):
     #     json_dict = json.loads(json_data)
     #     self.assertIn('errcode', json_dict, '数据格式返回错误')
     #     self.assertEqual(json_dict['errcode'], -1, '状态码返回错误')
+
 
 if __name__ == '__main__':
     unittest.main()

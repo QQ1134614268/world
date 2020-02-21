@@ -1,6 +1,3 @@
-"""
-@author:huangran
-"""
 import json
 import unittest
 
