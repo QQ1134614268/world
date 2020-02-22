@@ -3,6 +3,7 @@
 import json
 
 import requests
+
 # 1.  Get请求
 res = requests.get("http://httpbin.org/get")
 print(res.text)  # 自动按默认utf-8解码

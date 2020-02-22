@@ -1,9 +1,13 @@
 # -- coding:UTF-8 --
 import time
 from flask import request
+from flask_restful import fields, marshal
 
+from api.user.vo import Attention
+from db.db import db
 from util.TokenUtil import get_payload, get_token
 from vo.UserVO import UserVO
+
 
 def get_name_by_token():
     jwt_token = request.headers.get("token")
@@ -25,23 +29,20 @@ def check_token(jwt_token):
     return True
 
 
-from api.user.vo import Attention
-from db.db import db
-
-
-def addAttention(userId, group):
-    vo = Attention(user_id=userId, group=group)
-    db.session.add(vo)
-    db.session.commit()
-    return True
-
-
-from flask_restful import fields, marshal
-
 attentionFields = {
     'userId': fields.Integer,
     'group': fields.String,
 }
+
+
+def addAttention(userId, group):
+    vo = Attention.query.filter_by(userId=userId, group=group).first()
+    if vo:
+        return "已经添加关注"
+    vo = Attention(userId=userId, group=group)
+    db.session.add(vo)
+    db.session.commit()
+    return True
 
 
 def getAttentionList():
@@ -49,7 +50,7 @@ def getAttentionList():
 
     :rtype: list
     """
-    vo_list = Attention.query.filter(Attention.user_id == get_id_by_token()).all()
+    vo_list = Attention.query.filter(Attention.userId == get_id_by_token()).all()
     message_list = [marshal(vo, attentionFields) for vo in vo_list]
     return message_list
 
@@ -65,6 +66,7 @@ def deleteAttention(attentionId):
     db.session.delete(vo)
     db.session.commit()
     return True
+
 
 def getUserType():
     user = UserVO.query.filter_by(id=get_id_by_token()).first()

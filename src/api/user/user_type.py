@@ -9,3 +9,8 @@ class UserType(Enum):
     organization = 4
     group = 8
     strange = 16
+
+
+if __name__ == '__main__':
+    print(UserType.normal)
+    print(UserType.normal.value)

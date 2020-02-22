@@ -1,10 +1,20 @@
 # -*- coding:utf-8 -*-
-from .action import register
-from .data import wg, zero, ran, test
+import json
+
+from api.apply.robot.action import register
+from api.apply.robot.user_data import wg, zero, ran, test
 
 
 def register_init():
-    register(wg)
-    register(zero)
-    register(ran)
-    register(test)
+    res = register(wg)
+    print(json.loads(res.text))
+    res = register(zero)
+    print(json.loads(res.text))
+    res = register(ran)
+    print(json.loads(res.text))
+    res = register(test)
+    print(json.loads(res.text))
+
+
+if __name__ == '__main__':
+    register_init()

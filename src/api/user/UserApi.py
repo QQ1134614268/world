@@ -1,11 +1,13 @@
 # -- coding:UTF-8 --
+import json
 from io import BytesIO
 
 import time
 from flask import Blueprint, session, jsonify, make_response, request
+from flask_restful import fields, marshal
 
-from db.db import db
 from api.user import UserService
+from db.db import db
 from util import PasswordUtil, ResUtil
 from util import VerificationCodeUtil
 from vo.UserVO import UserVO
@@ -156,9 +158,66 @@ def logout():
     pass
 
 
-def get_user():
-    pass
+user_fields = {
+    'id': fields.Integer,
+    'username': fields.String,
+    'userType': fields.Integer,
+}
+
+
+@user_api.route('/getUserByName', methods=['GET'])
+def getUserByName():
+    username = request.args.get("username")
+    user = UserVO.query.filter_by(username=username).first()
+    return jsonify(ResUtil.success(marshal(user, user_fields)))
+
+
+@user_api.route('/getUserById', methods=['GET'])
+def getUserById():
+    userId = request.args.get("userId")
+    user = UserVO.query.filter_by(id=userId).first()
+    return jsonify(ResUtil.success(marshal(user, user_fields)))
+
+
+@user_api.route('/getUserByDict', methods=['GET'])
+def getUserByDict():
+    kw = request.args.get("kw")
+    data = json.loads(kw)
+    user = UserVO.query.filter_by(**data).first()
+    return jsonify(ResUtil.success(marshal(user, user_fields)))
 
 
 def get_auth():
     pass
+
+
+@user_api.route('/addAttention', methods=['POST'])
+def addAttention():
+    data = request.get_json()
+    userId = data.get('userId')
+    group = data.get('group')
+    UserService.addAttention(userId, group)
+    return jsonify(ResUtil.success("关注成功"))
+
+
+@user_api.route('/getAttentionList', methods=['GET'])
+def getAttentionList():
+    UserService.getAttentionList()
+    return jsonify(ResUtil.success("账号密码不匹配"))
+
+
+@user_api.route('/updateAttention', methods=['POST'])
+def updateAttention():
+    data = request.get_json()
+    userId = data.get('userId')
+    group = data.get('group')
+    UserService.updateAttention(userId, group)
+    return jsonify(ResUtil.success("账号密码不匹配"))
+
+
+@user_api.route('/deleteAttention', methods=['POST'])
+def deleteAttention():
+    data = request.get_json()
+    userId = data.get('userId')
+    UserService.deleteAttention(userId)
+    return jsonify(ResUtil.success("账号密码不匹配"))

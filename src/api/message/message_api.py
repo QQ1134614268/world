@@ -9,13 +9,13 @@ from db.db import db
 from util import ResUtil
 from util.exception import WorldException
 
-message_api = Blueprint("message", __name__, url_prefix='/message')
+message_api = Blueprint("message_api", __name__, url_prefix='/message_api')
 
 
 # 个人发表
 @message_api.route('/add_speech', methods=['POST'])
 def add_speech():
-    if not UserService.getUserType() == UserType.normal:
+    if not UserService.getUserType() == UserType.normal.value:
         raise WorldException
     data = request.get_json()
     content = data.get('content', '')
@@ -30,7 +30,7 @@ def add_speech():
 speechFields = {
     'id': fields.Integer,
     'content': fields.String,
-    'createTime': fields.datetime,
+    'create_time': fields.DateTime(dt_format='rfc822')
 }
 
 
@@ -39,7 +39,6 @@ def get_my_speech():
     userId = UserService.get_id_by_token()
     parent_vo_list = PersonSpeech.query.filter_by(userId=userId).all()
     data_list = [marshal(i, speechFields) for i in parent_vo_list]
-
     return jsonify(ResUtil.success(data_list))
 
 
@@ -75,12 +74,12 @@ def delete_speech():
 
 @message_api.route('/addAnnouncement', methods=['POST'])
 def addAnnouncement():
-    if UserService.getUserType() == UserType.normal:
+    if UserService.getUserType() == UserType.normal.value:
         raise WorldException
     data = request.get_json()
     content = data.get('content', '')
     userId = UserService.get_id_by_token()
-    vo = PersonSpeech(content=content, userId=userId, group=UserType.strange)
+    vo = PersonSpeech(content=content, userId=userId, group=UserType.strange.value)
     db.session.add(vo)
     db.session.commit()
     return jsonify(ResUtil.success(vo.id))
