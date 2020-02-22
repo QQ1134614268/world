@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 import requests
-
-host = "http://127.0.0.1"
+from global_variable import ROBOT_HOST
+host = ROBOT_HOST
 
 
 def register(data):

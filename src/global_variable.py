@@ -46,6 +46,7 @@ APPID = config.get("world", "APPID")
 ALI_PAY_AES_KEY = config.get("world", "ALI_PAY_AES_KEY")
 
 version = config.get("world", "version")
+ROBOT_HOST = config.get("world", "ROBOT_HOST")
 
 DIALCT = config.get("mysql", "DIALCT")
 DRIVER = config.get("mysql", "DRIVER")

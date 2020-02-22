@@ -13,7 +13,7 @@ from vo.XmindVO import XmindLikeVO
 
 x_mind_like_api = Blueprint("x_mind_like_api", __name__, url_prefix='/x_mind_like_api')
 
-organization_fields = {
+XmindLikeVO_fields = {
     'id': fields.Integer,
     'parent_id': fields.Integer,
     'name': fields.String,
