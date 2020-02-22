@@ -181,11 +181,14 @@ def getUserById():
 
 @user_api.route('/getUserByDict', methods=['GET'])
 def getUserByDict():
+    # todo  重要 多条件查询,类似mongo
     kw = request.args.get("kw")
+    # data={"xxx":"xxx"} 自行组装
     data = json.loads(kw)
+    print(data,type(data),data.get("id"))
     user = UserVO.query.filter_by(**data).first()
+    # todo user不存在 返回{"id": 0,"userType": 0, "username": null} 不好
     return jsonify(ResUtil.success(marshal(user, user_fields)))
-
 
 def get_auth():
     pass
