@@ -1,6 +1,0 @@
-[Uint]
-Description=world auto start 参考:  https://blog.csdn.net/tiantao2012/article/details/81121152 https://www.cnblogs.com/q149072205/p/11541693.html
-[Service]
-ExecStart=/bin/sh /app/world/world_auto_start.sh
-[Install]
-WantedBy=ssh.target
