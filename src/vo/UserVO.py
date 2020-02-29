@@ -32,6 +32,7 @@ class UserInfoVO(BaseTable):
     def __str__(self):
         return "Users(id='%s')" % self.id
 
+
 class AnnouncementVO(BaseTable):
     __tablename__ = 'announcement'
     userid = Column(Integer, index=True)

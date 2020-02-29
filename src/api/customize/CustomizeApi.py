@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 
-from db.mongodb import db
+from db.mongodb import mongoDB
 from api.user import UserService
 from util import ResUtil
 
@@ -30,14 +30,14 @@ def addModel():
     """
     data = request.get_json()
     data["userId"] = UserService.get_id_by_token()
-    collection = db.models
+    collection = mongoDB.models
     collection.insert_one(data)
     return jsonify(ResUtil.success("success"))
 
 
 @customize_api.route('/getModel', methods=['POST'])
 def getModel():
-    collection = db.models
+    collection = mongoDB.models
     res = list(collection.find({"userId": UserService.get_id_by_token()}))
     for i in res:
         i["_id"] = str(i["_id"])

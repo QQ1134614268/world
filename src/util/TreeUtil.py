@@ -31,6 +31,20 @@ def getTreeFromList(arr, p_name, c_name, root_val):
                 root_vo.child.append(vo)
 
 
+def getTreeFromList2(arr, path, c_name, root_val):
+    ziduan = "fullPath"
+    for i in range(len(arr) - 1):
+        arr[i].child=[]
+        if  arr[i].fullPath == arr[i + 1].fullPath:
+            pass
+        if not arr[i].fullPath == arr[i + 1].fullPath and arr[i + 1].fullPath.startswith(arr[i].fullPath):
+            arr[i].child.append(arr[i+1])
+
+        pass
+    for vo in arr:
+        pass
+
+
 if __name__ == '__main__':
     print()
     getList()

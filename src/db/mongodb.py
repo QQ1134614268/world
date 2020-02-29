@@ -9,12 +9,12 @@ def create_mongoDB():
     return db
 
 
-db = create_mongoDB()
+mongoDB = create_mongoDB()
 
 if __name__ == '__main__':
-    # collection = db.student
-    # collection = db["book"]
-    collection = db.book
+    # collection = mongoDB.student
+    # collection = mongoDB["book"]
+    collection = mongoDB.book
     collection.insert_one({"name": 5, "price": 2})
     # data = collection.find_one({"name":1})
     data = list(collection.find({}))
