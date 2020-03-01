@@ -20,7 +20,6 @@ from api.message.wb.WbApi import wb_api
 from api.message.wx.SocketApi import socket_api
 from api.my_cloud_space.CloudSpaceApi import cloud_space_api
 from api.my_cloud_space.file.file_api import fileApi
-from api.root.AreaTableApi import area_table_api
 from api.root.OrganizationApi import organization_api
 from api.scheduler.APScheduler import scheduler
 from api.scheduler.SchedulerApi import scheduler_api
@@ -128,7 +127,6 @@ app.register_blueprint(sys_api)
 app.register_blueprint(speech_api)
 app.register_blueprint(organization_api)
 app.register_blueprint(auth_api)
-app.register_blueprint(area_table_api)
 app.register_blueprint(ali_pay_api)
 app.register_blueprint(cloud_space_api)
 app.register_blueprint(stone_game_api)
