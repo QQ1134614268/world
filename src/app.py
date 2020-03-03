@@ -21,6 +21,7 @@ from api.message.wx.SocketApi import socket_api
 from api.my_cloud_space.CloudSpaceApi import cloud_space_api
 from api.my_cloud_space.file.file_api import fileApi
 from api.root.OrganizationApi import organization_api
+from api.root.btree_api import btree_api
 from api.scheduler.APScheduler import scheduler
 from api.scheduler.SchedulerApi import scheduler_api
 from api.sys.SysApi import sys_api
@@ -138,6 +139,8 @@ app.register_blueprint(wb_api)
 app.register_blueprint(scheduler_api)
 app.register_blueprint(fileApi)
 app.register_blueprint(message_api)
+app.register_blueprint(btree_api)
+
 
 if __name__ == '__main__':
 

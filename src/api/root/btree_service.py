@@ -8,7 +8,7 @@ from util import ResUtil
 btreeFields = {
     'id': fields.Integer,
     'fullPath': fields.String,
-    'value': fields.Integer,
+    'value': fields.String,
     'sort': fields.Integer,
 }
 

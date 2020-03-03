@@ -96,7 +96,7 @@ def download_excel_file():
     return response
 
 
-@hello_api.route('/test_download_buffer')
+@hello_api.route('/test_download_buffer', methods=['GET'])
 def test_download_buffer():
     buffer = BytesIO()
     buffer.write(b'jJust some letters.')
@@ -104,7 +104,7 @@ def test_download_buffer():
     return send_file(buffer, as_attachment=True, attachment_filename='a_file.txt', mimetype='text/csv')
 
 
-@hello_api.route('/test_download_zip')
+@hello_api.route('/test_download_zip', methods=['GET'])
 def test_download_zip():
     """
     This is test API
@@ -139,7 +139,7 @@ def test_download_zip():
                      attachment_filename="告警.zip")
 
 
-@hello_api.route('/test_download_pandas')
+@hello_api.route('/test_download_pandas', methods=['GET'])
 def test_download_pandas():
     """
     This is test API
@@ -175,7 +175,7 @@ def post_json():
     ---
     tags:
         - hello_api
-    summary: Creates a new Film
+    summary: Creates a new User
     consumes:
       - application/json
     produces:
@@ -184,128 +184,33 @@ def post_json():
       - in: body
         name: body
         description:
-          Film object that needs to be persisted to the database
+          User object that needs to be persisted to the database
         required: true
         schema:
-          id: Film
+          id: User
           required:
-            - title
-            - director
-            - distributor
-            - release_date
-            - running_time
+            - name
+            - age
           properties:
-            title:
-              description: Film's title
+            name:
+              description: User's name
               type: string
-              example: Interstellar
-            director:
-              description: Films's director
+              example: tom
+            age:
+              description: User's age
               type: string
-              example: Christopher Nolan
-            distributor:
-              description: Films's distributor
-              type: string
-              example: Warner Bros. Pictures
-            release_date:
-              description: Films's release date
-              type: string
-              example: October 26, 2014
-            running_time:
-              description: Films's running time
-              type: string
-              example: 169 minutes
-            running_time2:
-              description: Films's running time
-              type: string
-              example: 169 minutes
+              example: 11
     responses:
       200:
         description: Successful operation
       400:
         description: Invalid input
     """
-    return
-
-
-@hello_api.route('/post_json2', methods=['POST'])
-def post_json2():
-    """
-    post_json2测试
-    ---
-    tags:
-        - hello_api
-    summary: Creates a new Film
-    consumes:
-      - application/json
-    produces:
-      - application/json
-    parameters:
-      - in: body
-        name: body
-        description:
-          Film object that needs to be persisted to the database
-        required: true
-        schema:
-          $ref: '#/definitions/Film'
-    responses:
-      200:
-        description: Successful operation
-      400:
-        description: Invalid input
-    """
-    return
-
-
-@hello_api.route('/post_json3', methods=['POST'])
-def post_json3():
-    """
-    post_json3测试
-    This is using docstring for specifications
-    ---
-    tags:
-        - hello_api
-    parameters:
-      - name: palette
-        in: path
-        type: string
-        enum: ['all', 'rgb', 'cmyk']
-        required: true
-        default: all
-        description: Which palette to filter?
-    operationId: get_colors
-    consumes:
-      - application/json
-    produces:
-      - application/json
-    security:
-      colors_auth:
-        - 'write:colors'
-        - 'read:colors'
-    schemes: ['http', 'https']
-    deprecated: false
-    externalDocs:
-      description: Project repository
-      url: http://github.com/rochacbruno/flasgger
-    definitions:
-      Palette:
-        type: object
-        properties:
-          palette_name:
-            type: array
-            items:
-              $ref: '#/definitions/Color'
-      Color:
-        type: string
-    responses:
-      200:
-        description: A list of colors (may be filtered by palette)
-        schema:
-          $ref: '#/definitions/Palette'
-        examples:
-          rgb: ['red', 'green', 'blue']
-    """
-    return
+    data = request.get_json()
+    print(request.headers)
+    name = data.get("name", None)
+    age = data.get("age", None)
+    return jsonify(ResUtil.success({"name": name, "age": age}))
 
 
 @hello_api.route('/post_formData', methods=['POST'])
@@ -344,18 +249,10 @@ def post_formData():
       200:
         description: success
     """
-    file1 = request.files["file_name1"]
-    file2 = request.files["file_name2"]
     name = request.form["name"]
-    code = request.form["code"]
-    print({"name": name, "code": code, "file_name1": file1.filename, "file_name2": file2.filename, })
-    return jsonify({"name": name, "code": code, "file_name1": file1.filename, "file_name2": file2.filename, })
-
-# # 在会话的基础上执行sql语句
-# session.execute('update addresses set user_id = 1 where id = 2')
-# session.commit()
-# # 使用映射类成员变量的数据
-# session.query(Address).filter(Address.id ==2).update({"user_id":1})
+    file1 = request.files["file1"]
+    file2 = request.files["file2"]
+    return jsonify(ResUtil.success({"name": name, "file_name1": file1.filename, "file_name2": file2.filename, }))
 
 
 @hello_api.route('/test_vo_1_n', methods=["GET"])

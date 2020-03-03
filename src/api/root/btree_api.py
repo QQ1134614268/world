@@ -99,4 +99,6 @@ def getChildNodesById():
 @btree_api.route('/getAllNodes', methods=['GET'])
 def getAllNodes():
     fullPath = request.args.get("fullPath")
+    if not fullPath:
+        fullPath = '/'
     return getAllNodesService(fullPath)
