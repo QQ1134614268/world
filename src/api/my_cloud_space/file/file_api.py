@@ -8,7 +8,7 @@ from global_variable import UPLOAD_FILE_PATH
 from util import ResUtil
 from util.LogUtil import logger
 from util.time_util import getDatetimeByStr
-from util.time_util import getTimeStr
+from util.time_util import getUtcTimeStr
 
 fileApi = Blueprint("fileApi", __name__, url_prefix='/fileApi')
 
@@ -16,7 +16,7 @@ fileApi = Blueprint("fileApi", __name__, url_prefix='/fileApi')
 @fileApi.route('/fileUpload', methods=['POST'])
 def fileUpload():
     file1 = request.files["file"]
-    time_str = getTimeStr()
+    time_str = getUtcTimeStr()
     if file1.filename.endswith("\""):
         # todo postman上传文件,文件名会多一个 引号,swagger不会产生这种问题
         filename = file1.filename[:-1]

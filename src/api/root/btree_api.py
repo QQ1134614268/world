@@ -4,11 +4,10 @@
 """
 
 from flask import Blueprint, jsonify, request
+from sqlalchemy import desc
 
-from api.root.btree_service import getAllNodesService
-from api.root.btree_service import getChildNodesById
+from api.root import btree_service
 from api.root.vo import BTreeVO
-from api.user import UserService
 from db.db import db
 from util import ResUtil
 
@@ -37,15 +36,9 @@ btree_api = Blueprint("btree_api", __name__, url_prefix='/btree_api')
 @btree_api.route('/addNode', methods=['POST'])
 def addNode():
     data = request.get_json()
-    fullPath = data.get('fullPath')
-    # 根??
+    nodeId = data.get('id')
     value = data.get('value')
-    # sort = data.get('sort')
-    user_id = UserService.get_id_by_token()
-    vo = BTreeVO(value=value, user_id=user_id, fullPath=fullPath)
-    db.session.add(vo)
-    db.session.commit()
-    return jsonify(ResUtil.success("操作成功"))
+    return btree_service.addNode(nodeId, value)
 
 
 @btree_api.route('/updateNode', methods=['POST'])
@@ -71,29 +64,51 @@ def delNode():
     return jsonify(ResUtil.success("操作成功"))
 
 
-@btree_api.route('/moveNodes', methods=['POST'])
-def moveNodes():
+@btree_api.route('/moveNode', methods=['POST'])
+def moveNode():
     data = request.get_json()
     nodeId = data.get('id')
+    targetId = data.get('targetId')
+    dropType = data.get('dropType')
+    targetVO = BTreeVO.query.filter(BTreeVO.id == targetId).first()
     vo = BTreeVO.query.filter(BTreeVO.id == nodeId).first()
-
-    parentId = data.get('parentId')
-    parentVO = BTreeVO.query.filter(BTreeVO.id == parentId).first()
-    fullPath = parentVO.fullPath + str(parentVO.id)
-    # sql = 'UPDATE btree_t SET fullPath = REPLACE(fullPath,"%s","%s") WHERE fullPath like "%s" ' % (vo.fullPath,fullPath, vo.fullPath)
-    # db.session.execute(sql)
-    # db.session.commit()
-    # TODO 移动到顶级节点 禁止移动到子级节点
-    BTreeVO.query.filter(BTreeVO.fullPath.like(vo.fullPath)).repalce(BTreeVO.vo.fullPath, fullPath)
+    if dropType == "inner":
+        BTreeVO.query.filter(BTreeVO.fullPath == vo.fullPath, BTreeVO.sort > vo.sort).update(
+            {BTreeVO.sort: BTreeVO.sort - 1})
+        tempVO = BTreeVO.query.filter(BTreeVO.fullPath == targetVO.fullPath + str(targetVO.id) + "/").order_by(
+            desc(BTreeVO.sort)).first()
+        vo.sort = tempVO.sort + 1 if tempVO else 1
+    if dropType == "before":
+        BTreeVO.query.filter(BTreeVO.fullPath == vo.fullPath, BTreeVO.sort > vo.sort).update(
+            {BTreeVO.sort: BTreeVO.sort - 1})
+        vo.sort = targetVO.sort
+        BTreeVO.query.filter(BTreeVO.fullPath == targetVO.fullPath, BTreeVO.sort >= targetVO.sort).update(
+            {BTreeVO.sort: BTreeVO.sort + 1})
+    if dropType == "after":
+        BTreeVO.query.filter(BTreeVO.fullPath == vo.fullPath, BTreeVO.sort > vo.sort).update(
+            {BTreeVO.sort: BTreeVO.sort - 1})
+        vo.sort = targetVO.sort + 1
+        BTreeVO.query.filter(BTreeVO.fullPath == targetVO.fullPath, BTreeVO.sort > targetVO.sort).update(
+            {BTreeVO.sort: BTreeVO.sort + 1})
+    fullPath = targetVO.fullPath + str(targetVO.id) + "/" if dropType == "inner" else targetVO.fullPath
+    if fullPath != vo.fullPath:
+        sql = 'UPDATE btree_t SET fullPath = REPLACE(fullPath,"%s","%s") WHERE fullPath like "%s" ' % (
+            vo.fullPath, fullPath, vo.fullPath + str(vo.id) + "/" + "%")
+        db.session.execute(sql)
+        vo.fullPath = fullPath
     db.session.commit()
-    return getAllNodesService(fullPath)
+    # # TODO 移动到顶级节点 禁止移动到子级节点
+    # BTreeVO.query.filter(BTreeVO.fullPath.like(vo.fullPath)).update(
+    #     {BTreeVO.fullPath: str().replace(vo.fullPath, fullPath)})
+    # db.session.commit()
+    return btree_service.getAllNodesService(fullPath)
 
 
 @btree_api.route('/getChildNodesById', methods=['GET'])
 def getChildNodesById():
-    nodeId = request.args.get("nodeId")
+    nodeId = request.args.get("id")
     fullPath = request.args.get("fullPath")
-    return getChildNodesById(nodeId, fullPath)
+    return btree_service.getChildNodesById(nodeId, fullPath)
 
 # TODO 多个顶级节点
 @btree_api.route('/getAllNodes', methods=['GET'])
@@ -101,4 +116,4 @@ def getAllNodes():
     fullPath = request.args.get("fullPath")
     if not fullPath:
         fullPath = '/'
-    return getAllNodesService(fullPath)
+    return btree_service.getAllNodesService(fullPath)
