@@ -87,10 +87,10 @@ def update_order():
 
 
 @ali_pay_api.route('/add_origin', methods=['POST'])
-def pay_result(request):
+def pay_result():
     """
     支付完成后，跳转回的地址
-    :param request:
+    :param :
     :return:
     """
     params = request.GET.dict()
