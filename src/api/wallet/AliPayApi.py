@@ -42,7 +42,6 @@ def pay_for_product():
     # data = request.get_json()
     # 数据库有一条订单记录,未支付
     # out_trade_no = data.get('out_trade_no')
-    print(999)
     out_trade_no = "candy20190824_123"
     # 查询数据库,获取金额,主题
     money = 100

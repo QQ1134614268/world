@@ -49,7 +49,6 @@ def fetch_token():
         f = urlopen(req, timeout=5)
         result_str = f.read()
     except URLError as err:
-        print('token http response http code : ' + str(err.code))
         result_str = err.read()
     result_str = result_str.decode()
     result = json.loads(result_str)
@@ -80,7 +79,6 @@ def get_voice(text):
 
         has_error = ('content-type' not in headers.keys() or headers['content-type'].find('audio/') < 0)
     except URLError as err:
-        print('asr http response http code : ' + str(err.code))
         result_str = err.read()
         has_error = True
 

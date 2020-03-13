@@ -97,4 +97,3 @@ if __name__ == '__main__':
 
     temp_user = {"name": "w&g", "id": 1, "timestamp": int(time.time())}
     str_token = get_token(temp_user)
-    print()

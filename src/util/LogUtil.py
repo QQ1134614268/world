@@ -10,7 +10,7 @@ from global_variable import LOG_PATH
 from util import file_util
 
 
-def create_logger(file_path=LOG_PATH + "/log.txt"):
+def create_logger(file_path=LOG_PATH + "/log.json"):
     file_util.prepare_path(file_path)
 
     logger = logging.getLogger(__name__)
@@ -44,7 +44,7 @@ class JSONFormatter(logging.Formatter):
         if record.exc_info:
             extra['exc_info'] = self.formatException(record.exc_info)
         if self._fmt == 'pretty':
-            return json.dumps(extra, indent=1, ensure_ascii=False)
+            return json.dumps(extra, indent=2, ensure_ascii=False)
         else:
             return json.dumps(extra, ensure_ascii=False)
 

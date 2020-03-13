@@ -94,8 +94,8 @@ def handle_404_error(err_msg):
     """自定义的异常处理函数"""
     # 这个函数的返回值就是前端用户看到的最终结果 (404错误页面)
     url_path = request.path
-    userid = UserService.get_name_by_token()
-    logger.error({"404": {"userid": userid, "url_path": url_path, "err_msg": str(err_msg)}})
+    userId = UserService.get_name_by_token()
+    logger.error({"404": {"userId": userId, "url_path": url_path, "err_msg": str(err_msg)}})
     return u"server error：%s" % err_msg
 
 

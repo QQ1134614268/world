@@ -207,7 +207,6 @@ def post_json():
         description: Invalid input
     """
     data = request.get_json()
-    print(request.headers)
     name = data.get("name", None)
     age = data.get("age", None)
     return jsonify(ResUtil.success({"name": name, "age": age}))

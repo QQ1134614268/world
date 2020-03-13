@@ -25,4 +25,5 @@ class DirConstant(Enum):
     Sat = 6
 
 
-print(Month.Jan.value)
+if __name__ == '__main__':
+    print(Month.Jan.value)

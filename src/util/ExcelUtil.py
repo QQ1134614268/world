@@ -57,7 +57,6 @@ def importExcel(request):
     for i in range(1, nrows):
         user = User();
         rowValues = table.row_values(i)  # 一行的数据
-        print(type(rowValues[0]))
         user.name = rowValues[0]
         user.password = rowValues[1]
         user.phone = rowValues[2]

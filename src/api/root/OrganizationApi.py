@@ -240,7 +240,6 @@ def delete_organization():
     data = request.get_json()
     vo_id = data.get('id')
     sql = 'DELETE FROM organization where full_path_id like "%s"' % ("%" + str(vo_id) + "%")
-    print(sql)
     db.session.execute(sql)
     db.session.commit()
     return jsonify(ResUtil.success("操作成功"))
