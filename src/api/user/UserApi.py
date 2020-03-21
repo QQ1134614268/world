@@ -3,11 +3,12 @@ import json
 from io import BytesIO
 
 import time
-from flask import Blueprint, session, jsonify, make_response, request
+from flask import Blueprint, jsonify, make_response, request
 from flask_restful import fields, marshal
 
 from api.user import UserService
 from db.db import db
+from db.redis_db import redisDB
 from util import PasswordUtil, ResUtil
 from util import VerificationCodeUtil
 from vo.UserVO import UserVO
@@ -78,18 +79,28 @@ def get_verify_code():
     ---
     tags:
       - user
+    parameters:
+     - name: username
+       type: string
+       required: true
+       description: 用户名
+       in: query
+       example: root
     responses:
       500:
         description: server error
       200:
         description: success
     """
+    username = request.args.get("username")
+    if not username:
+        return jsonify(ResUtil.fail("参数不全"))
     file_io = BytesIO()
     code, image = VerificationCodeUtil.get_verify_code()
     image.save(file_io, 'jpeg')
     response = make_response(file_io.getvalue())
     response.headers['Content-Type'] = 'image/gif'
-    session[VERIFY_CODE_KEY] = code
+    redisDB.set("verify_code-" + username, code, ex=60)
     return response
 
 
@@ -134,22 +145,15 @@ def login():
         description: success
     """
     data = request.get_json()
-    if data.get("code").lower() == "zero":
-        pass
-    # todo  session.get(VERIFY_CODE_KEY)  None 问题
-    elif session.get(VERIFY_CODE_KEY).lower() != data.get("code").lower():
-        return jsonify(ResUtil.fail("验证码错误"))
     username = data.get('username', '')
     password = data.get('password', '')
+    if data.get("code").lower() == "zero":
+        pass
+    elif redisDB.get("verify_code-" + username).lower() != data.get("code").lower():
+        return jsonify(ResUtil.fail("验证码错误"))
     user = UserVO.query.filter_by(username=username, password=PasswordUtil.get_sha256_salt_password(password)).first()
     if user:
-        payload = {
-            "name": user.username,
-            "id": user.id,
-            "timestamp": int(time.time()),
-            # "exp": 1448333419,
-        }
-        return jsonify(ResUtil.success(UserService.get_token(payload)))
+        return jsonify(ResUtil.success(UserService.get_token(user.id,user.username,)))
     else:
         return jsonify(ResUtil.success("账号密码不匹配"))
 

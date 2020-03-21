@@ -45,8 +45,10 @@ SERVER_MAIL_PASS = config.get("world", "SERVER_MAIL_PASS")
 APPID = config.get("world", "APPID")
 ALI_PAY_AES_KEY = config.get("world", "ALI_PAY_AES_KEY")
 
-version = config.get("world", "version")
+VERSION = config.get("world", "VERSION")
 ROBOT_HOST = config.get("world", "ROBOT_HOST")
+
+SECRET = config.get("world", "SECRET")
 
 DIALCT = config.get("mysql", "DIALCT")
 DRIVER = config.get("mysql", "DRIVER")
@@ -55,3 +57,9 @@ PASSWORD = config.get("mysql", "PASSWORD")
 HOST = config.get("mysql", "HOST")
 PORT = config.get("mysql", "PORT")
 DBNAME = config.get("mysql", "DBNAME")
+
+MONGO_HOST = config.get("mongodb", "HOST")
+MONGO_PORT = config.get("mongodb", "PORT")
+
+REDIS_HOST = config.get("redis", "HOST")
+REDIS_PORT = config.get("redis", "PORT")

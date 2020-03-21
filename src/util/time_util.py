@@ -17,6 +17,10 @@ def utc_to_local():
     return datetime.datetime.utcnow() + datetime.timedelta(hours=8)
 
 
+def getLocalTimeStr():
+    return datetime.datetime.now().strftime(default_time_str)
+
+
 def get_utc_now():
     return datetime.datetime.utcnow()
 

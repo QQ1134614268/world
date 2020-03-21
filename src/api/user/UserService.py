@@ -1,5 +1,4 @@
 # -- coding:UTF-8 --
-import time
 from flask import request
 from flask_restful import fields, marshal
 
@@ -21,12 +20,6 @@ def get_id_by_token():
     if not jwt_token:
         jwt_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoidyZnIiwiaWQiOjEsInRpbWVzdGFtcCI6MTU3Njc2Mzk3MH0.dnXajP3v7vetcGnTE-cQAnmYgpqHzxLuwuAVv2XZYF4"
     return get_payload(jwt_token)["id"]
-
-
-def check_token(jwt_token):
-    payload = get_payload(jwt_token)
-    # 校验 token TODO
-    return True
 
 
 attentionFields = {
@@ -94,6 +87,4 @@ if __name__ == '__main__':
     # base64.decodestring()
     # base64.decode()
     # base64.encode()
-
-    temp_user = {"name": "w&g", "id": 1, "timestamp": int(time.time())}
-    str_token = get_token(temp_user)
+    pass

@@ -149,13 +149,7 @@ def login():
     name = data.get('name', '')
     password = data.get('password', '')
     user = MemberUserVO.query.filter_by(name=name, password=PasswordUtil.get_sha256_salt_password(password)).first()
-    payload = {
-        "name": user.name,
-        "id": user.id,
-        "timestamp": int(time.time()),
-        # "exp": 1448333419,
-    }
     if user:
-        return jsonify(ResUtil.success(UserService.get_token(payload)))
+        return jsonify(ResUtil.success(UserService.get_token( user.id, user.name )))
     else:
         return jsonify(ResUtil.success("账号密码不匹配"))

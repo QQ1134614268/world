@@ -1,4 +1,5 @@
 # encoding: utf-8
+import datetime
 import os
 import re
 import traceback
@@ -30,10 +31,12 @@ from api.user.AuthApi import auth_api
 from api.user.UserApi import user_api
 from api.wallet.AliPayApi import ali_pay_api
 from db.db import db
-from global_variable import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME, version, \
+from global_variable import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME, VERSION, \
     RESOURCE_DIR
 from util import MailUtil
 from util import ResUtil
+from util import TokenUtil
+from util import time_util
 from util.LogUtil import logger
 
 app = Flask(__name__, template_folder=os.path.join(RESOURCE_DIR, "template"))
@@ -71,11 +74,15 @@ def before_request():  # 登录过滤,正则匹配,日志记录,IP分析
             ip = request.remote_addr
             username = UserService.get_name_by_token()
             userid = UserService.get_name_by_token()
+            utc_time_str = TokenUtil.get_payload().get("utc_time_str")
+            utc_datetime = time_util.getDatetimeByStr(utc_time_str)
+            if utc_datetime + datetime.timedelta(hours=24) < time_util.get_utc_now():
+                # TODO 登录控制
+                pass
+                # return jsonify(ResUtil.success("请重新登录"))
             user_agent = request.headers.get('User-Agent')
-            logger.info(
-                {"user": {"username": username, "userid": userid}, "url_path": url_path, "ip": ip,
-                 "User-Agent": user_agent,
-                 "action": "before_request"})
+            logger.info({"user": {"username": username, "userid": userid}, "url_path": url_path, "ip": ip,
+                         "User-Agent": user_agent, "action": "before_request"})
             break
     else:
         return "请登录"
@@ -118,7 +125,7 @@ def welcome():
     welcome to world!
     you can see B-tree for the api : /apidocs
     version: %s 
-    """ % version
+    """ % VERSION
     return txt
 
 
