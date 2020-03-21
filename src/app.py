@@ -111,6 +111,7 @@ def flask_global_exception_handler(e):
     # traceback.print_exc()  # str(e)  repr(e)  e.message
     message = traceback.format_exc()
     logger.error(message)  # 日志输出到控制台和日志文件
+    traceback.print_exc()
     # 邮件服务 发送异常通知邮件  邮件模板
     MailUtil.send_email(message, MAIL_TO)
     if app.config["DEBUG"]:

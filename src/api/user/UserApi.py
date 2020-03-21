@@ -2,7 +2,6 @@
 import json
 from io import BytesIO
 
-import time
 from flask import Blueprint, jsonify, make_response, request
 from flask_restful import fields, marshal
 
@@ -147,15 +146,17 @@ def login():
     data = request.get_json()
     username = data.get('username', '')
     password = data.get('password', '')
-    if data.get("code").lower() == "zero":
-        pass
-    elif redisDB.get("verify_code-" + username).lower() != data.get("code").lower():
-        return jsonify(ResUtil.fail("验证码错误"))
-    user = UserVO.query.filter_by(username=username, password=PasswordUtil.get_sha256_salt_password(password)).first()
-    if user:
-        return jsonify(ResUtil.success(UserService.get_token(user.id,user.username,)))
+    code = data.get('code', '')
+    if code.lower() == "zero" or (
+            redisDB.get("verify_code-" + username) and redisDB.get("verify_code-" + username).lower() == code.lower()):
+        user = UserVO.query.filter_by(username=username,
+                                      password=PasswordUtil.get_sha256_salt_password(password)).first()
+        if user:
+            return jsonify(ResUtil.success(UserService.get_token(user.id, user.username, )))
+        else:
+            return jsonify(ResUtil.success("账号密码不匹配"))
     else:
-        return jsonify(ResUtil.success("账号密码不匹配"))
+        return jsonify(ResUtil.fail("验证码错误"))
 
 
 def logout():
