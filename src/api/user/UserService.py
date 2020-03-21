@@ -9,17 +9,11 @@ from vo.UserVO import UserVO
 
 
 def get_name_by_token():
-    jwt_token = request.headers.get("token")
-    if not jwt_token:
-        jwt_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoidyZnIiwiaWQiOjEsInRpbWVzdGFtcCI6MTU3Njc2Mzk3MH0.dnXajP3v7vetcGnTE-cQAnmYgpqHzxLuwuAVv2XZYF4"
-    return get_payload(jwt_token)["name"]  # dict的缺点,直接取值,且需要明白之前存的数据
+    return get_payload()["name"]  # dict的缺点,直接取值,且需要明白之前存的数据
 
 
 def get_id_by_token():
-    jwt_token = request.headers.get("token")
-    if not jwt_token:
-        jwt_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoidyZnIiwiaWQiOjEsInRpbWVzdGFtcCI6MTU3Njc2Mzk3MH0.dnXajP3v7vetcGnTE-cQAnmYgpqHzxLuwuAVv2XZYF4"
-    return get_payload(jwt_token)["id"]
+    return get_payload()["id"]
 
 
 attentionFields = {
