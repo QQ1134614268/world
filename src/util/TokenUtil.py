@@ -15,5 +15,5 @@ def get_token(userId, userName):
 def get_payload():
     jwt_token = request.headers.get("token")
     if not jwt_token:
-        jwt_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoidyZnIiwiaWQiOjEsInRpbWVzdGFtcCI6MTU3Njc2Mzk3MH0.dnXajP3v7vetcGnTE-cQAnmYgpqHzxLuwuAVv2XZYF4"
+        jwt_token = get_token(1, "wg")
     return jwt.decode(bytes(jwt_token, "utf_8"), SECRET, algorithms=['HS256'])
