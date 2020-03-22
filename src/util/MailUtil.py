@@ -6,8 +6,7 @@ from email.mime.text import MIMEText
 
 from global_variable import SERVER_MAIL, SERVER_MAIL_HOST, SERVER_MAIL_PASS
 from util.LogUtil import logger as log
-
-
+from util import socket_util
 def send_email(mail_content, mail_to, subject="master,your mail"):
     message = MIMEText(mail_content, 'plain', 'utf-8')
     message['Subject'] = Header(subject, 'utf-8')

@@ -36,6 +36,7 @@ from global_variable import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, 
 from util import MailUtil
 from util import ResUtil
 from util import TokenUtil
+from util import socket_util
 from util import time_util
 from util.LogUtil import logger
 
@@ -120,7 +121,7 @@ def flask_global_exception_handler(e):
     logger.error(message)  # 日志输出到控制台和日志文件
     traceback.print_exc()
     # 邮件服务 发送异常通知邮件  邮件模板
-    MailUtil.send_email(message, MAIL_TO)
+    MailUtil.send_email(message + "\r\n" + socket_util.get_host_ip(), MAIL_TO)
     if app.config["DEBUG"]:
         return ResUtil.fail(message)
     else:
