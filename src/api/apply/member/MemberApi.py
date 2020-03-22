@@ -10,7 +10,7 @@ from api.user import UserService
 from util import PasswordUtil, ResUtil
 from util import VerificationCodeUtil
 
-member_api = Blueprint("member_api", __name__, url_prefix='/member_api')
+member_api = Blueprint("member_api", __name__, url_prefix='/api/member_api')
 
 # todo 注册验证手机号  手机号登录
 VERIFY_CODE_KEY = "code"

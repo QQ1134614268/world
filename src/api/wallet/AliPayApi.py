@@ -8,7 +8,7 @@ from flask import Blueprint, jsonify, request, redirect
 from util import ResUtil
 from service.alipay import AliPayService
 
-ali_pay_api = Blueprint("ali_pay_api", __name__, url_prefix='/ali_pay_api')
+ali_pay_api = Blueprint("ali_pay_api", __name__, url_prefix='/api/ali_pay_api')
 
 
 # todo 增加商品表,订单表,然后购买

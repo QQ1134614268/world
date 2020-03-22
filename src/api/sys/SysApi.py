@@ -11,7 +11,7 @@ from global_variable import UPLOAD_FILE_PATH
 from api.user import UserService
 from vo.UserVO import AnnouncementVO, MessageVO
 
-sys_api = Blueprint("sys", __name__, url_prefix='/sys')
+sys_api = Blueprint("sys", __name__, url_prefix='/api/sys')
 
 announcement_fields = {
     'id': fields.Integer,

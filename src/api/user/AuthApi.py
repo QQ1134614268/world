@@ -10,7 +10,7 @@ from db.db import db
 from api.user import UserService
 from vo import AuthVO
 
-auth_api = Blueprint("auth_api", __name__, url_prefix='/auth_api')
+auth_api = Blueprint("auth_api", __name__, url_prefix='/api/auth_api')
 
 
 # 权限视图,组织,地区等

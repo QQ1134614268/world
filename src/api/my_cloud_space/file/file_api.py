@@ -10,7 +10,7 @@ from util.LogUtil import logger
 from util.time_util import getDatetimeByStr
 from util.time_util import getUtcTimeStr
 
-fileApi = Blueprint("fileApi", __name__, url_prefix='/fileApi')
+fileApi = Blueprint("fileApi", __name__, url_prefix='/api/fileApi')
 
 
 @fileApi.route('/fileUpload', methods=['POST'])

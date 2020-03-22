@@ -9,7 +9,7 @@ from db.db import db
 from util import ResUtil
 from util.exception import WorldException
 
-message_api = Blueprint("message_api", __name__, url_prefix='/message_api')
+message_api = Blueprint("message_api", __name__, url_prefix='/api/message_api')
 
 
 # 个人发表

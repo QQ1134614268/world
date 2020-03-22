@@ -4,7 +4,7 @@ from flask import Blueprint
 from api.scheduler.APScheduler import scheduler
 from api.scheduler.SchedulerFunc import task1
 
-scheduler_api = Blueprint("scheduler_api", __name__, url_prefix='/scheduler_api')
+scheduler_api = Blueprint("scheduler_api", __name__, url_prefix='/api/scheduler_api')
 
 
 @scheduler_api.route('/add_job', methods=['GET', 'POST'])

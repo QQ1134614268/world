@@ -10,7 +10,7 @@ from util import ResUtil
 from db.db import db
 from vo.UserVO import RecordVO, CommentVO
 
-speech_api = Blueprint("speech", __name__, url_prefix='/speech')
+speech_api = Blueprint("speech", __name__, url_prefix='/api/speech')
 record_fields = {
     'user_id': fields.Integer,
     'content': fields.String,

@@ -14,7 +14,7 @@ from util import FileConfig
 from util import ResUtil
 from util.LogUtil import logger
 
-hello_api = Blueprint("hello", __name__, url_prefix='/hello_api')
+hello_api = Blueprint("hello", __name__, url_prefix='/api/hello_api')
 
 
 # jsonify不仅会将内容转换为json，而且也会修改Content-Type为application/json。

@@ -6,7 +6,7 @@ from db.db import db
 from api.user import UserService
 from util import ResUtil
 
-wb_api = Blueprint("wb_api", __name__, url_prefix='/wb_api')
+wb_api = Blueprint("wb_api", __name__, url_prefix='/api/wb_api')
 
 
 @wb_api.route('/add_blog', methods=['POST'])

@@ -5,13 +5,13 @@ host = ROBOT_HOST
 
 
 def register(data):
-    url = '/user/register'
+    url = '/api/user/register'
     return requests.post(host + url, json=data)
     # return res.json()
 
 
 def login(data):
-    url = '/user/login'
+    url = '/api/user_api/login'
     return requests.post(host + url, json=data)
 
 
@@ -20,20 +20,20 @@ headers_default = {
 
 
 def addAttention(data, headers=headers_default):
-    url = '/user/addAttention'
+    url = '/api/user_api/addAttention'
     return requests.post(host + url, json=data, headers=headers)
 
 
 def getUserByName(data, headers=headers_default):
-    url = '/user/getUserByName'
+    url = '/api/user_api/getUserByName'
     return requests.get(host + url, params=data, headers=headers)
 
 
 def add_speech(data, headers=headers_default):
-    url = '/message_api/add_speech'
+    url = '/api/message_api/add_speech'
     return requests.post(host + url, json=data, headers=headers)
 
 
 def get_my_speech(headers=headers_default):
-    url = '/message_api/get_my_speech'
+    url = '/api/message_api/get_my_speech'
     return requests.get(host + url, headers=headers)

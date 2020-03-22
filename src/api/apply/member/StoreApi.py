@@ -6,7 +6,7 @@ from util import ResUtil
 from db.db import db
 from api.user import UserService
 
-store_api = Blueprint("store_api", __name__, url_prefix='/store_api')
+store_api = Blueprint("store_api", __name__, url_prefix='/api/store_api')
 
 
 @store_api.route('/add_member', methods=['POST'])

@@ -11,7 +11,7 @@ from api.user import UserService
 from util import ResUtil
 from vo.CloudSpaceVO import UserCloudSpaceVO
 
-cloud_space_api = Blueprint("cloud_space_api", __name__, url_prefix='/cloud_space_api')
+cloud_space_api = Blueprint("cloud_space_api", __name__, url_prefix='/api/cloud_space_api')
 
 
 @cloud_space_api.route('/init', methods=['GET'])

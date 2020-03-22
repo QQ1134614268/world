@@ -12,7 +12,7 @@ from util import PasswordUtil, ResUtil
 from util import VerificationCodeUtil
 from vo.UserVO import UserVO
 
-user_api = Blueprint("user", __name__, url_prefix='/user')
+user_api = Blueprint("user", __name__, url_prefix='/api/user_api')
 
 VERIFY_CODE_KEY = "code"
 
@@ -159,8 +159,9 @@ def login():
         return jsonify(ResUtil.fail("验证码错误"))
 
 
+@user_api.route('/logout', methods=['POST'])
 def logout():
-    pass
+    return jsonify(ResUtil.success("退出"))
 
 
 user_fields = {

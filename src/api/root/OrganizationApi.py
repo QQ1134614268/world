@@ -11,7 +11,7 @@ from db.db import db
 from api.user import UserService
 from vo.OrganizationVO import OrganizationVO
 
-organization_api = Blueprint("organization_api", __name__, url_prefix='/organization_api')
+organization_api = Blueprint("organization_api", __name__, url_prefix='/api/organization_api')
 
 organization_fields = {
     'id': fields.Integer,

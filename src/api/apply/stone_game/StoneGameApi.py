@@ -8,7 +8,7 @@ from api.user import UserService
 from service.alipay import AliPayService
 from .GameSquare import Game
 
-stone_game_api = Blueprint("stone_game_api", __name__, url_prefix='/stone_game_api')
+stone_game_api = Blueprint("stone_game_api", __name__, url_prefix='/api/stone_game_api')
 
 game = Game()
 

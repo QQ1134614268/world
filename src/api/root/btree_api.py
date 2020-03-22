@@ -11,7 +11,7 @@ from api.root.vo import BTreeVO
 from db.db import db
 from util import ResUtil
 
-btree_api = Blueprint("btree_api", __name__, url_prefix='/btree_api')
+btree_api = Blueprint("btree_api", __name__, url_prefix='/api/btree_api')
 
 
 # mongo: 有顺序,但是没有明显的数据结构  node  一个大的文档

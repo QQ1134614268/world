@@ -4,7 +4,7 @@ from db.mongodb import mongoDB
 from api.user import UserService
 from util import ResUtil
 
-customize_api = Blueprint("customize_api", __name__, url_prefix='/customize_api')
+customize_api = Blueprint("customize_api", __name__, url_prefix='/api/customize_api')
 
 
 @customize_api.route('/addModel', methods=['POST'])
