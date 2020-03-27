@@ -63,5 +63,5 @@ MONGO_PORT = config.get("mongodb", "PORT")
 
 REDIS_HOST = config.get("redis", "HOST")
 REDIS_PORT = config.get("redis", "PORT")
-REDIS_DB = config.get("redis", "REDIS_DB")
+REDIS_DB = config.get("redis", "DB")
 REDIS_PASSWORD = config.get("redis", "PASSWORD")
