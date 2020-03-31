@@ -5,7 +5,7 @@ host = ROBOT_HOST
 
 
 def register(data):
-    url = '/api/user/register'
+    url = '/api/user_api/register'
     return requests.post(host + url, json=data)
     # return res.json()
 
