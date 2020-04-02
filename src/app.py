@@ -88,7 +88,7 @@ def before_request():  # 登录过滤,正则匹配,日志记录,IP分析
                 try:
                     utc_datetime = time_util.getDatetimeByStr(utc_time_str)
                 except Exception:
-                    raise Exception
+                    return ResUtil.fail("请重新登录")
                 if utc_datetime + datetime.timedelta(days=1) < time_util.get_utc_now():
                     # # TODO 登录控制
                     # from flask import jsonify
@@ -111,7 +111,7 @@ def handle_404_error(err_msg):
     url_path = request.path
     userId = UserService.get_name_by_token()
     logger.error({"404": {"userId": userId, "url_path": url_path, "err_msg": str(err_msg)}})
-    return u"server error：%s" % err_msg
+    return ResUtil.fail(u"server error：%s" % err_msg)
 
 
 @app.errorhandler(Exception)
@@ -135,7 +135,7 @@ def welcome():
     you can see B-tree for the api : /apidocs
     version: %s 
     """ % VERSION
-    return txt
+    return ResUtil.success(txt)
 
 
 app.register_blueprint(hello_api)
