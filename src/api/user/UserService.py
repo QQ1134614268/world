@@ -1,10 +1,9 @@
 # -- coding:UTF-8 --
-from flask import request
 from flask_restful import fields, marshal
 
 from api.user.vo import Attention
 from db.db import db
-from util.TokenUtil import get_payload, get_token
+from util.TokenUtil import get_payload
 from vo.UserVO import UserVO
 
 

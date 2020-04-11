@@ -14,8 +14,6 @@ from vo.UserVO import UserVO
 
 user_api = Blueprint("user", __name__, url_prefix='/api/user_api')
 
-VERIFY_CODE_KEY = "code"
-
 
 @user_api.route('/register', methods=['POST'])
 def register():
@@ -48,10 +46,6 @@ def register():
               description: 密码
               type: string
               example: abc123
-            email:
-              description: 邮箱
-              type: string
-              example: xxx@xx.com
     responses:
       500:
         description: server error
@@ -64,8 +58,7 @@ def register():
     if exist:
         return jsonify(ResUtil.fail("用户名已经存在"))
     password = data.get('password', '')
-    email = data.get('email', '')
-    vo = UserVO(username=username, password=PasswordUtil.get_sha256_salt_password(password), email=email)
+    vo = UserVO(username=username, password=PasswordUtil.get_sha256_salt_password(password))
     db.session.add(vo)
     db.session.commit()
     return jsonify(ResUtil.success("注册成功"))
