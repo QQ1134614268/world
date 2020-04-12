@@ -1,8 +1,10 @@
 # -- coding:UTF-8 --
+from flask import jsonify
 from flask_restful import fields, marshal
 
 from api.user.vo import Attention
 from db.db import db
+from util import ResUtil
 from util.TokenUtil import get_payload
 from vo.UserVO import UserVO
 
@@ -22,13 +24,13 @@ attentionFields = {
 
 
 def addAttention(userId, group):
-    vo = Attention.query.filter_by(userId=userId, group=group).first()
-    if vo:
-        return "已经添加关注"
-    vo = Attention(userId=userId, group=group)
+    vo = Attention.query.filter_by(userId=userId).first()
+    if not vo:
+        return jsonify(ResUtil.fail("用户不存在"))
+    vo = Attention(userId=get_id_by_token(), attentionUserId=userId, group=group)
     db.session.add(vo)
     db.session.commit()
-    return True
+    return jsonify(ResUtil.success("关注成功"))
 
 
 def getAttentionList():

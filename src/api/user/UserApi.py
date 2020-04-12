@@ -187,6 +187,13 @@ def getUserByDict():
     # user不存在 返回{"id": 0,"userType": 0, "username": null} 不好
     return jsonify(ResUtil.success(marshal(user, user_fields)))
 
+
+@user_api.route('/getUserAll', methods=['GET'])
+def getUserAll():
+    user = list(UserVO.query.limit(10))
+    return jsonify(ResUtil.success(marshal(user, user_fields)))
+
+
 def get_auth():
     pass
 
@@ -196,14 +203,12 @@ def addAttention():
     data = request.get_json()
     userId = data.get('userId')
     group = data.get('group')
-    UserService.addAttention(userId, group)
-    return jsonify(ResUtil.success("关注成功"))
+    return UserService.addAttention(userId, group)
 
 
 @user_api.route('/getAttentionList', methods=['GET'])
 def getAttentionList():
-    UserService.getAttentionList()
-    return jsonify(ResUtil.success("账号密码不匹配"))
+    return jsonify(ResUtil.success(UserService.getAttentionList()))
 
 
 @user_api.route('/updateAttention', methods=['POST'])

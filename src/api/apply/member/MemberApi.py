@@ -1,13 +1,12 @@
 from io import BytesIO
 
-import time
 from flask import Blueprint, session, jsonify, make_response, request
 
 from api.apply.member import StoreVO
 from api.apply.member.UserVO import MemberUserVO
 from db.db import db
-from api.user import UserService
 from util import PasswordUtil, ResUtil
+from util import TokenUtil
 from util import VerificationCodeUtil
 
 member_api = Blueprint("member_api", __name__, url_prefix='/api/member_api')
@@ -150,6 +149,6 @@ def login():
     password = data.get('password', '')
     user = MemberUserVO.query.filter_by(name=name, password=PasswordUtil.get_sha256_salt_password(password)).first()
     if user:
-        return jsonify(ResUtil.success(UserService.get_token( user.id, user.name )))
+        return jsonify(ResUtil.success(TokenUtil.get_token(user.id, user.name)))
     else:
         return jsonify(ResUtil.success("账号密码不匹配"))

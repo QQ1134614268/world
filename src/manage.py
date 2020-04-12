@@ -23,8 +23,8 @@ manager.add_command('db', MigrateCommand)
 
 # 建表类导入到这里或者 在app中有引用
 # from vo import XX
-# D:/dev/python3.7/python.exe   manage.py db init
-# D:/dev/python3.7/python.exe manage.py db migrate
-# D:/dev/python3.7/python.exe manage.py db upgrade
+# E:/python/world/venv/Scripts/python.exe manage.py db init
+# E:/python/world/venv/Scripts/python.exe manage.py db migrate
+# E:/python/world/venv/Scripts/python.exe manage.py db upgrade
 if __name__ == '__main__':
     manager.run()
