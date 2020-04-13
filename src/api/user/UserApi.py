@@ -9,6 +9,7 @@ from api.user import UserService
 from db.db import db
 from db.redis_db import redisDB
 from util import PasswordUtil, ResUtil
+from util import TokenUtil
 from util import VerificationCodeUtil
 from vo.UserVO import UserVO
 
@@ -145,7 +146,7 @@ def login():
         user = UserVO.query.filter_by(username=username,
                                       password=PasswordUtil.get_sha256_salt_password(password)).first()
         if user:
-            return jsonify(ResUtil.success(UserService.get_token(user.id, user.username, )))
+            return jsonify(ResUtil.success(TokenUtil.get_token(user.id, user.username, )))
         else:
             return jsonify(ResUtil.success("账号密码不匹配"))
     else:
