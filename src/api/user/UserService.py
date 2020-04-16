@@ -18,15 +18,16 @@ def get_id_by_token():
 
 
 attentionFields = {
-    'userId': fields.Integer,
     'group': fields.String,
+    "username": fields.String(attribute="attentionUser.username"),
+    "attentionUserId": fields.String(attribute="attentionUser.id"),
 }
 
 
 def addAttention(userId, group):
-    vo = Attention.query.filter_by(userId=userId).first()
-    if not vo:
-        return jsonify(ResUtil.fail("用户不存在"))
+    vo = Attention.query.filter_by(attentionUserId=userId).first()
+    if vo:
+        return jsonify(ResUtil.fail("已经关注"))
     vo = Attention(userId=get_id_by_token(), attentionUserId=userId, group=group)
     db.session.add(vo)
     db.session.commit()
