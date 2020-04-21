@@ -137,8 +137,7 @@ def get_record_all():
         description: success
      """
     # 获取所有日志加评论
-    user_id = request.args.get("id")
-    message_list = RecordVO.query.filter_by(user_id=user_id).order_by(RecordVO.createTime).all()
+    message_list = RecordVO.query.order_by(RecordVO.create_time).limit(10)
     message_list = [marshal(vo, record_fields) for vo in message_list]
     return jsonify(ResUtil.success(message_list))
 
@@ -163,6 +162,6 @@ def get_record():
         description: A language with its awesomeness
     """
     record_id = request.args.get('id')
-    message_list = CommentVO.query.filter_by(record_id=record_id).order_by(CommentVO.createTime).all()
+    message_list = CommentVO.query.filter_by(record_id=record_id).order_by(CommentVO.create_time).all()
     message_list = [marshal(vo, comment_fields) for vo in message_list]
     return jsonify(ResUtil.success(message_list))

@@ -42,6 +42,13 @@ def get_my_speech():
     return jsonify(ResUtil.success(data_list))
 
 
+@message_api.route('/get_speech_all', methods=['GET'])
+def get_speech_all():
+    parent_vo_list = PersonSpeech.query.order_by(PersonSpeech.create_time.desc()).limit(20)
+    data_list = [marshal(i, speechFields) for i in parent_vo_list]
+    return jsonify(ResUtil.success(data_list))
+
+
 @message_api.route('/get_other_user_speech', methods=['GET'])
 def get_other_user_speech():
     # TODO 时间 所有好友 分组可视

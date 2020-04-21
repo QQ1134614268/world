@@ -81,7 +81,7 @@ def get_announcement_list():
       200:
         description: success
     """
-    message_list = list(AnnouncementVO.query.order_by(AnnouncementVO.createTime).all())
+    message_list = list(AnnouncementVO.query.order_by(AnnouncementVO.create_time).all())
     message_list = [marshal(vo, announcement_fields) for vo in message_list]
     return jsonify(ResUtil.success(message_list))
 
@@ -175,5 +175,5 @@ def get_suggest():
          description: success
     """
     announcement_id = request.args.get("id")
-    message_list = MessageVO.query.filter_by(id=announcement_id).order_by(MessageVO.createTime).all()
+    message_list = MessageVO.query.filter_by(id=announcement_id).order_by(MessageVO.create_time).all()
     return jsonify(ResUtil.success(message_list))
