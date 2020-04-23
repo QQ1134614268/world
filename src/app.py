@@ -7,6 +7,7 @@ import traceback
 from flasgger import Swagger
 from flask import Flask, request, make_response
 from flask_cors import CORS
+from flask_restful import Api
 from geventwebsocket.handler import WebSocketHandler  # 提供WS（websocket）协议处理
 from geventwebsocket.server import WSGIServer  # websocket服务承载
 
@@ -19,6 +20,7 @@ from api.message.Speech.SpeechApi import speech_api
 from api.message.message_api import message_api
 from api.message.wb.WbApi import wb_api
 from api.message.wx.SocketApi import socket_api
+from api.model.model_api import Model
 from api.my_cloud_space.CloudSpaceApi import cloud_space_api
 from api.my_cloud_space.file.file_api import fileApi
 from api.root.OrganizationApi import organization_api
@@ -40,10 +42,12 @@ from util import socket_util
 from util import time_util
 from util.LogUtil import logger
 
+app = Flask(__name__)
+
 app = Flask(__name__, template_folder=os.path.join(RESOURCE_DIR, "template"))
 # from config.config import Config
 # app.config.from_object(Config)
-
+api = Api(app)
 # 跨域
 CORS(app, supports_credentials=True)
 # swagger
@@ -155,6 +159,7 @@ app.register_blueprint(scheduler_api)
 app.register_blueprint(fileApi)
 app.register_blueprint(message_api)
 app.register_blueprint(btree_api)
+api.add_resource(Model, "/api/model")
 
 
 if __name__ == '__main__':

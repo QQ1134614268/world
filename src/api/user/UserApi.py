@@ -1,6 +1,5 @@
 # -- coding:UTF-8 --
 import json
-from io import BytesIO
 
 from flask import Blueprint, jsonify, make_response, request
 from flask_restful import fields, marshal
@@ -88,10 +87,8 @@ def get_verify_code():
     username = request.args.get("username")
     if not username:
         return jsonify(ResUtil.fail("参数不全"))
-    file_io = BytesIO()
-    code, image = VerificationCodeUtil.get_verify_code()
-    image.save(file_io, 'jpeg')
-    response = make_response(file_io.getvalue())
+    code, img_bytes = VerificationCodeUtil.get_verify_code()
+    response = make_response(img_bytes)
     response.headers['Content-Type'] = 'image/gif'
     redisDB.set("verify_code-" + username, code, ex=60)
     return response

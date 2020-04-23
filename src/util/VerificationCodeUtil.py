@@ -1,4 +1,5 @@
 # coding=utf-8
+import io
 import os
 import random
 import string
@@ -59,4 +60,11 @@ def get_verify_code():
     draw_lines(draw, 2, width, height)
     # 高斯模糊
     im = im.filter(ImageFilter.GaussianBlur(radius=1.5))
-    return code, im
+    # im = image.resize((100, 24))
+    # im.save(file_io, format="JPEG")
+    # import base64
+    # img_str = b"data:image/png;base64," + base64.b64encode(file_io.getvalue())
+    # return code, img_str
+    file_io = io.BytesIO()
+    im.save(file_io, 'jpeg')
+    return code, file_io.getvalue()

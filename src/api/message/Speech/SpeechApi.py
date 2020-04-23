@@ -29,7 +29,7 @@ def add_record():
     添加言论
     ---
     tags:
-     - message_api
+     - speech_api
     parameters:
       - in: formData
         name: user_id
@@ -81,7 +81,7 @@ def add_comment():
     添加评论
     ---
     tags:
-     - message_api
+     - speech_api
     parameters:
       - in: body
         name: body
@@ -123,7 +123,7 @@ def get_record_all():
     获取所有言论
     ---
     tags:
-     - message_api
+     - speech_api
     parameters:
       - in: query
         name: id
@@ -148,7 +148,7 @@ def get_record():
     获取所有言论
     ---
     tags:
-     - message_api
+     - speech_api
     parameters:
       - in: query
         name: id
