@@ -1,6 +1,7 @@
 import configparser
 from os import path
-
+  # todo
+  # 读取配置
 ROOT_DIR = path.abspath(__file__)
 RESOURCE_DIR = path.join(path.dirname(path.dirname(ROOT_DIR)), "resource")
 # def get_config_file_path():
