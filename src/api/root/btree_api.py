@@ -97,10 +97,6 @@ def moveNode():
         db.session.execute(sql)
         vo.fullPath = fullPath
     db.session.commit()
-    # # TODO 移动到顶级节点 禁止移动到子级节点
-    # BTreeVO.query.filter(BTreeVO.fullPath.like(vo.fullPath)).update(
-    #     {BTreeVO.fullPath: str().replace(vo.fullPath, fullPath)})
-    # db.session.commit()
     return btree_service.getAllNodesService(fullPath)
 
 

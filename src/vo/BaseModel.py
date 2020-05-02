@@ -10,13 +10,11 @@ from sqlalchemy import Column, String, Integer, DateTime, Sequence
 from db.db import db
 
 
-# gmt_modify = Column(TIMESTAMP(True), nullable=False, server_default=func.now(), onupdate=func.now())
-
-
 class BaseTable(db.Model):
     __abstract__ = True  # 加了该属性后生成表的时候不会生成该表
     id = Column(Integer, primary_key=True, autoincrement=True, comment="主键")
     create_time = Column(DateTime, default=datetime.datetime.now)
+    update_time = db.Column(db.DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
 
 
 class ProjectConfig(BaseTable):
