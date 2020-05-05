@@ -16,17 +16,18 @@ def login(data):
 
 
 headers_default = {
-        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoicm9vdCIsImlkIjoxLCJ0aW1lc3RhbXAiOjE1NzcxMTc1NDJ9.-FKeKaMO9RIyAramv5HgGHAxxVfOEIiBSvpcSLfRp_w"}
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1dGNfdGltZV9zdHIiOiIyMDIwXzA1XzA0XzA1XzEyXzAxXzc1MjQxOSIsImlkIjozMTU3LCJuYW1lIjoibnFJTGRYIn0.iUwljJxvmvBV6L6IlnqIzZnhuvz4KWFgYKjmuWung8A"}
 
 
 def addAttention(data, headers=headers_default):
     url = '/api/user_api/addAttention'
     return requests.post(host + url, json=data, headers=headers)
-
-
 def getUserByName(data, headers=headers_default):
     url = '/api/user_api/getUserByName'
-    return requests.get(host + url, params=data, headers=headers)
+    return requests.get("http://127.0.0.1" + url, params=data, headers=headers)
+
+if __name__ == '__main__':
+    getUserByName({"username": "wg"})
 
 
 def add_speech(data, headers=headers_default):
