@@ -166,9 +166,8 @@ if __name__ == '__main__':
 
     scheduler.init_app(app)
     scheduler.start()
-    # app.run(host='0.0.0.0', port=80, debug=True, threaded=True)
-
-    http_server = WSGIServer(('0.0.0.0', 80), application=app, handler_class=WebSocketHandler)
-    http_server.serve_forever()
+    app.run(host='0.0.0.0', port=80, debug=True, threaded=True)
+    # http_server = WSGIServer(('0.0.0.0', 80), application=app, handler_class=WebSocketHandler )
+    # http_server.serve_forever()
 
     # socketio.run(app,debug=True,host='0.0.0.0',port=80)

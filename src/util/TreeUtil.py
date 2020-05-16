@@ -11,3 +11,17 @@ def getTreeFromList(arr):
         else:
             map_dic[vo["fullPath"]]["children"].append(vo)
     return root
+
+
+def get_tree(arr):
+    root = []
+    map_dic = {}
+    for vo in arr:
+        vo["children"] = []
+        id_path = vo["path"] + str(vo["id"]) + "/"
+        map_dic[id_path] = vo
+        if vo["path"] not in map_dic:
+            root.append(vo)
+        else:
+            map_dic[vo["path"]]["children"].append(vo)
+    return root
