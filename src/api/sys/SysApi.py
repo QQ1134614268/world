@@ -85,10 +85,6 @@ def login():
               description: 密码
               type: string
               example: abc123
-            code:
-              description: 验证码
-              type: string
-              example: zero
     responses:
       500:
         description: server error
@@ -98,17 +94,12 @@ def login():
     data = request.get_json()
     username = data.get('username', '')
     password = data.get('password', '')
-    code = data.get('code', '')
-    if code.lower() == "zero" or (
-            redisDB.get("verify_code-" + username) and redisDB.get("verify_code-" + username).lower() == code.lower()):
-        user = UserVO.query.filter_by(username=username,
-                                      password=PasswordUtil.get_sha256_salt_password(password)).first()
-        if user:
-            return jsonify(ResUtil.success(TokenUtil.get_token(user.id, user.username, )))
-        else:
-            return jsonify(ResUtil.success("账号密码不匹配"))
+    user = UserVO.query.filter_by(username=username,
+                                  password=PasswordUtil.get_sha256_salt_password(password)).first()
+    if user:
+        return jsonify(ResUtil.success(TokenUtil.get_token(user.id, user.username, )))
     else:
-        return jsonify(ResUtil.fail("验证码错误"))
+        return jsonify(ResUtil.success("账号密码不匹配"))
 
 
 @sys_api.route('/logout', methods=['POST'])
@@ -155,6 +146,10 @@ def register():
     """
     data = request.get_json()
     username = data.get('username', '')
+    code = data.get('code', '')
+    if not (code.lower() == "zero" or (redisDB.get("verify_code-" + username) and redisDB.get(
+            "verify_code-" + username).lower() == code.lower())):
+        return ResUtil.fail("验证码错误")
     exist = UserVO.query.filter_by(username=username).first()
     if exist:
         return jsonify(ResUtil.fail("用户名已经存在"))

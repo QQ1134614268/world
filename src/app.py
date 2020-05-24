@@ -8,8 +8,6 @@ from flasgger import Swagger
 from flask import Flask, request, make_response
 from flask_cors import CORS
 from flask_restful import Api
-from geventwebsocket.handler import WebSocketHandler  # 提供WS（websocket）协议处理
-from geventwebsocket.server import WSGIServer  # websocket服务承载
 
 from api.HelloApi import hello_api
 from api.apply.member.MemberApi import member_api
@@ -59,6 +57,7 @@ app.config["SECRET_KEY"] = "session_key_world"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 app.config["SQLALCHEMY_ECHO"] = DEBUG
 app.config["DEBUG"] = DEBUG
+app.config['JSON_AS_ASCII'] = False
 db.init_app(app)
 
 
