@@ -15,7 +15,7 @@ from util import VerificationCodeUtil
 from vo.UserVO import AnnouncementVO, MessageVO
 from vo.UserVO import UserVO
 
-sys_api = Blueprint("sys", __name__, url_prefix='/api/sys')
+sys_api = Blueprint("sys", __name__, url_prefix='/api/sys_api')
 
 announcement_fields = {
     'id': fields.Integer,

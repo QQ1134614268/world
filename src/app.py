@@ -66,7 +66,7 @@ def before_request():  # 登录过滤,正则匹配,日志记录,IP分析
     if request.method == "OPTIONS":
         return make_response(), 200
     intercept_path = ["/api"]
-    allow_path = ["/api/user_api/register", "/api/user_api/get_verify_code", "/api/user_api/login",
+    allow_path = ["/api/sys_api/register", "/api/sys_api/get_verify_code", "/api/sys_api/login",
                   "/api/user_api/logout", "/api/hello_api"]
     url_path = request.path
     for path in allow_path:
@@ -86,8 +86,8 @@ def before_request():  # 登录过滤,正则匹配,日志记录,IP分析
             logger.info({"user": {"username": username, "userid": userid}, "url_path": url_path, "ip": ip,
                          "User-Agent": user_agent, "action": "before_request"})
             if re.match(path2, url_path):
-                utc_time_str = TokenUtil.get_payload().get("utc_time_str")
                 try:
+                    utc_time_str = TokenUtil.get_payload().get("utc_time_str")
                     utc_datetime = time_util.getDatetimeByStr(utc_time_str)
                 except Exception:
                     return ResUtil.fail("请重新登录")
