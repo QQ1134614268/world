@@ -1,17 +1,18 @@
 # -*- coding:utf-8 -*-
 import requests
-from global_variable import ROBOT_HOST
-host = ROBOT_HOST
+
+
+host = "http://ggok.top:9090"
 
 
 def register(data):
-    url = '/api/user_api/register'
-    return requests.post(host + url, json=data)
+    url = '/api/sys_api/register'
+    return requests.post(host + ":9090" + url, json=data)
     # return res.json()
 
 
 def login(data):
-    url = '/api/user_api/login'
+    url = '/api/sys_api/login'
     return requests.post(host + url, json=data)
 
 
@@ -20,14 +21,13 @@ headers_default = {
 
 
 def addAttention(data, headers=headers_default):
-    url = '/api/user_api/addAttention'
+    url = '/api/sys_api/addAttention'
     return requests.post(host + url, json=data, headers=headers)
-def getUserByName(data, headers=headers_default):
-    url = '/api/user_api/getUserByName'
-    return requests.get("http://127.0.0.1" + url, params=data, headers=headers)
 
-if __name__ == '__main__':
-    getUserByName({"username": "wg"})
+
+def getUserByName(data, headers=headers_default):
+    url = '/api/sys_api/getUserByName'
+    return requests.get("http://127.0.0.1" + url, params=data, headers=headers)
 
 
 def add_speech(data, headers=headers_default):
@@ -38,3 +38,7 @@ def add_speech(data, headers=headers_default):
 def get_my_speech(headers=headers_default):
     url = '/api/message_api/get_my_speech'
     return requests.get(host + url, headers=headers)
+
+
+if __name__ == '__main__':
+    getUserByName({"username": "wg"})

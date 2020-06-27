@@ -18,10 +18,11 @@ def add_speech():
     if not UserService.getUserType() == UserType.normal.value:
         raise WorldException
     data = request.get_json()
+    title = data.get('title', '')
     content = data.get('content', '')
     group = data.get('group', '')
     userId = UserService.get_id_by_token()
-    vo = PersonSpeech(content=content, userId=userId, group=group)
+    vo = PersonSpeech(title=title, content=content, userId=userId, group=group)
     db.session.add(vo)
     db.session.commit()
     return jsonify(ResUtil.success(vo.id))
@@ -29,6 +30,7 @@ def add_speech():
 
 speechFields = {
     'id': fields.Integer,
+    'title': fields.String,
     'content': fields.String,
     'create_time': fields.DateTime(dt_format='rfc822')
 }
@@ -47,6 +49,13 @@ def get_speech_all():
     parent_vo_list = PersonSpeech.query.order_by(PersonSpeech.create_time.desc()).limit(20)
     data_list = [marshal(i, speechFields) for i in parent_vo_list]
     return jsonify(ResUtil.success(data_list))
+
+
+@message_api.route('/get_speech_by_id', methods=['GET'])
+def get_speech_by_id():
+    speech_id = request.args.get("id")
+    vo = PersonSpeech.query.filter(PersonSpeech.id == speech_id).first()
+    return jsonify(ResUtil.success(marshal(vo, speechFields)))
 
 
 @message_api.route('/get_other_user_speech', methods=['GET'])
