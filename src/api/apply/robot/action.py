@@ -7,7 +7,7 @@ host = "http://ggok.top:9090"
 
 def register(data):
     url = '/api/sys_api/register'
-    return requests.post(host + ":9090" + url, json=data)
+    return requests.post(host + url, json=data)
     # return res.json()
 
 
@@ -21,13 +21,13 @@ headers_default = {
 
 
 def addAttention(data, headers=headers_default):
-    url = '/api/sys_api/addAttention'
+    url = '/api/user_api/addAttention'
     return requests.post(host + url, json=data, headers=headers)
 
 
 def getUserByName(data, headers=headers_default):
-    url = '/api/sys_api/getUserByName'
-    return requests.get("http://127.0.0.1" + url, params=data, headers=headers)
+    url = '/api/user_api/getUserByName'
+    return requests.get(host + url, params=data, headers=headers)
 
 
 def add_speech(data, headers=headers_default):
