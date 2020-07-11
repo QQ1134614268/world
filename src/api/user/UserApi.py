@@ -1,15 +1,11 @@
 # -- coding:UTF-8 --
 import json
 
-from flask import Blueprint, jsonify, make_response, request
+from flask import Blueprint, jsonify, request
 from flask_restful import fields, marshal
 
 from api.user import UserService
-from db.db import db
-from db.redis_db import redisDB
-from util import PasswordUtil, ResUtil
-from util import TokenUtil
-from util import VerificationCodeUtil
+from util import ResUtil
 from vo.UserVO import UserVO
 
 user_api = Blueprint("user", __name__, url_prefix='/api/user_api')
@@ -30,6 +26,13 @@ def getUserByName():
 @user_api.route('/getUserById', methods=['GET'])
 def getUserById():
     userId = request.args.get("userId")
+    user = UserVO.query.filter_by(id=userId).first()
+    return jsonify(ResUtil.success(marshal(user, user_fields)))
+
+
+@user_api.route('/getUserInfo', methods=['GET'])
+def getUserInfo():
+    userId = UserService.get_id_by_token()
     user = UserVO.query.filter_by(id=userId).first()
     return jsonify(ResUtil.success(marshal(user, user_fields)))
 

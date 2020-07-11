@@ -10,3 +10,9 @@ class StoreVO(BaseTable):
     password = Column(String(128), default='123456')
     store_name = Column(Integer, index=True)
     phone = Column(String(11), index=True)
+
+
+class StoreMemberTable(BaseTable):
+    __tablename__ = 'StoreMemberTable'
+    store_id = Column(Integer, index=True)
+    name = Column(String(256), index=True)
