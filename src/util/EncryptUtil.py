@@ -10,7 +10,7 @@ from Crypto.Hash import SHA1
 from Crypto.PublicKey import RSA
 from Crypto.Random import get_random_bytes
 from Crypto.Signature import PKCS1_v1_5 as PKCS1_v1_5_sign
-
+from config.conf import PUBLIC_KEY
 
 # base64 SHA256 直接调用
 # aes 对称加密
@@ -35,7 +35,7 @@ class SHA256Util:
         哈希加密使用sha256
     """
     @staticmethod
-    def sha256_salt(key, value):
+    def sha256_salt(value, key=PUBLIC_KEY):
         """
         sha256加密
         return:加密结果转成16进制字符串形式

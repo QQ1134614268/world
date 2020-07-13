@@ -288,3 +288,21 @@ def test_vo_n_n():
     """
     HelloService.test_vo_n_n()
     return jsonify(ResUtil.success("测试flask_sqlalchemy 一对多脚本"))
+
+
+from global_variable import DATA_DIR
+import os
+
+
+@hello_api.route('/get_music', methods=["GET"])
+def get_music():
+    if request.args.get("music"):
+        path = request.args.get("music")
+        name = path[path.rindex("/"):-1]
+        return send_file(os.path.join(DATA_DIR, "upload", path), mimetype='application/octet-stream',
+                         as_attachment=True,
+                         attachment_filename=name)
+    music_list = ["wg/music/张卫 - 机器铃 砍菜刀.mp3", "wg/music/刘德华 - 忘情水(Live).mp3", "wg/music/大壮 - 为你我受冷风吹.mp3",
+                  "wg/music/宇西 - 安和桥（Cover 宋冬野）.mp3", "wg/music/曾惜 - 讲真的.mp3", "wg/music/逃跑计划 - 夜空中最亮的星.mp3",
+                  "wg/music/颜小健 - 一不小心.mp3", ]
+    return jsonify(ResUtil.success(music_list))

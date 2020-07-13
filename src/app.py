@@ -10,15 +10,14 @@ from flask_cors import CORS
 from flask_restful import Api
 
 from api.HelloApi import hello_api
-from api.apply.member.MemberApi import member_api
-from api.apply.member.StoreApi import store_api
+from api.apply.member.member_api import StoreApi, StoreMemberApi, WalletApi
 from api.apply.stone_game.StoneGameApi import stone_game_api
 from api.customize.CustomizeApi import customize_api
 from api.message.Speech.SpeechApi import speech_api
 from api.message.message_api import message_api
 from api.message.wb.WbApi import wb_api
 from api.message.wx.SocketApi import socket_api
-from api.model.model_api import Model
+from api.model.model_api import ModelApi
 from api.my_cloud_space.CloudSpaceApi import cloud_space_api
 from api.my_cloud_space.file.file_api import fileApi
 from api.root.OrganizationApi import organization_api
@@ -149,16 +148,17 @@ app.register_blueprint(auth_api)
 app.register_blueprint(ali_pay_api)
 app.register_blueprint(cloud_space_api)
 app.register_blueprint(stone_game_api)
-app.register_blueprint(store_api)
 app.register_blueprint(socket_api)
-app.register_blueprint(member_api)
 app.register_blueprint(customize_api)
 app.register_blueprint(wb_api)
 app.register_blueprint(scheduler_api)
 app.register_blueprint(fileApi)
 app.register_blueprint(message_api)
 app.register_blueprint(btree_api)
-api.add_resource(Model, "/api/model")
+api.add_resource(ModelApi, "/api/model_api/ModelApi")
+api.add_resource(StoreApi, "/api/member/StoreApi")
+api.add_resource(StoreMemberApi, "/api/member/StoreMemberApi")
+api.add_resource(WalletApi, "/api/member/WalletApi")
 
 
 if __name__ == '__main__':

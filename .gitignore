@@ -15,6 +15,5 @@ __pycache__
 /.nb-gradle/
 
 log/
-data/
 
 venv/*

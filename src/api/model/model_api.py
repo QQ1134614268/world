@@ -15,7 +15,7 @@ model_fields = {
 }
 
 
-class Model(Resource):
+class ModelApi(Resource):
     def get(self):
         if request.args.get("id"):
             vo = ModelVO.query.filter_by(ModelVO.id == request.args.get("id")).first()
@@ -32,7 +32,6 @@ class Model(Resource):
         vos = list(marshal(vos, model_fields))
         vos = get_tree(vos)
         return ResUtil.success(vos)
-
 
     def post(self):
         data = request.get_json()
