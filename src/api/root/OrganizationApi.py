@@ -6,8 +6,8 @@
 from flask import Blueprint, jsonify, request
 from flask_restful import fields, marshal
 
-from util import ResUtil
-from db.db import db
+from util import res_util
+from config.mysql_db import db
 from api.user import UserService
 from vo.OrganizationVO import OrganizationVO
 
@@ -43,7 +43,7 @@ def get_origin_organization():
     # auth 组织权限 user_id
     # 组织下有组织,和人员,,类 文件和文件夹
     vo = OrganizationVO.query.filter_by(id=1).first()
-    return jsonify(ResUtil.success(marshal(vo, organization_fields)))
+    return jsonify(res_util.success(marshal(vo, organization_fields)))
 
 
 @organization_api.route('/add_children_organization', methods=['POST'])
@@ -97,7 +97,7 @@ def add_children_organization():
     db.session.flush()
     vo.full_path_id = parent_vo.full_path_id + str(vo.id) + "/"
     db.session.commit()
-    return jsonify(ResUtil.success("操作成功"))
+    return jsonify(res_util.success("操作成功"))
 
 
 @organization_api.route('/update_organization', methods=['POST'])
@@ -154,7 +154,7 @@ def update_organization():
         full_name, full_name_new, full_path_code, full_path_code_new, full_name)
     db.session.execute(sql)
     db.session.commit()
-    return jsonify(ResUtil.success("操作成功"))
+    return jsonify(res_util.success("操作成功"))
 
 
 @organization_api.route('/move_organization', methods=['POST'])
@@ -207,7 +207,7 @@ def move_organization():
         full_name, full_name_new, full_path_code, full_path_code_new, full_name)
     db.session.execute(sql)
     db.session.commit()
-    return jsonify(ResUtil.success("操作成功"))
+    return jsonify(res_util.success("操作成功"))
 
 
 @organization_api.route('/delete_organization', methods=['POST'])
@@ -242,7 +242,7 @@ def delete_organization():
     sql = 'DELETE FROM organization where full_path_id like "%s"' % ("%" + str(vo_id) + "%")
     db.session.execute(sql)
     db.session.commit()
-    return jsonify(ResUtil.success("操作成功"))
+    return jsonify(res_util.success("操作成功"))
 
 
 @organization_api.route('/get_child_organization', methods=['GET'])
@@ -267,4 +267,4 @@ def get_child_organization():
     vo_id = request.args.get('id')
     parent_vo_list = OrganizationVO.query.filter_by(parent_id=vo_id)
     data_list = [marshal(i, organization_fields) for i in parent_vo_list]
-    return jsonify(ResUtil.success(data_list))
+    return jsonify(res_util.success(data_list))

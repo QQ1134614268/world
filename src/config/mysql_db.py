@@ -1,13 +1,9 @@
-# -*- coding: utf-8 -*-
-"""
-# @Time    : 2019/8/6 18:50
-
-"""
 import datetime
 
+from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, String, Integer, DateTime, Sequence
 
-from db.db import db
+db = SQLAlchemy()
 
 
 class BaseTable(db.Model):

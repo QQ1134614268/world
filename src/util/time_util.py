@@ -1,16 +1,15 @@
 import datetime
-
 import time
 
-default_time_str = '%Y_%m_%d_%H_%M_%S_%f'
+from config.conf import DATE_TIME_FORMAT
 
 
 def getUtcTimeStr():
-    return datetime.datetime.utcnow().strftime(default_time_str)
+    return datetime.datetime.utcnow().strftime(DATE_TIME_FORMAT)
 
 
 def getDatetimeByStr(time_str):
-    return datetime.datetime.strptime(time_str, default_time_str)
+    return datetime.datetime.strptime(time_str, DATE_TIME_FORMAT)
 
 
 def utc_to_local():
@@ -18,7 +17,7 @@ def utc_to_local():
 
 
 def getLocalTimeStr():
-    return datetime.datetime.now().strftime(default_time_str)
+    return datetime.datetime.now().strftime(DATE_TIME_FORMAT)
 
 
 def get_utc_now():

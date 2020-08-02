@@ -5,8 +5,8 @@
 """
 from flask import Blueprint, jsonify, request
 
-from util import ResUtil
-from db.db import db
+from util import res_util
+from config.mysql_db import db
 from api.user import UserService
 from vo import AuthVO
 
@@ -59,4 +59,4 @@ def add_auth():
     vo = AuthVO(user_id=user_id, path=path)
     db.session.add(vo)
     db.session.commit()
-    return jsonify(ResUtil.success("操作成功"))
+    return jsonify(res_util.success("操作成功"))

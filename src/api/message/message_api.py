@@ -5,8 +5,8 @@ from flask_restful import fields, marshal
 from api.message.vo import PersonSpeech
 from api.user import UserService
 from api.user.user_type import UserType
-from db.db import db
-from util import ResUtil
+from config.mysql_db import db
+from util import res_util
 from util.exception import WorldException
 
 message_api = Blueprint("message_api", __name__, url_prefix='/api/message_api')
@@ -25,7 +25,7 @@ def add_speech():
     vo = PersonSpeech(title=title, content=content, userId=userId, group=group)
     db.session.add(vo)
     db.session.commit()
-    return jsonify(ResUtil.success(vo.id))
+    return jsonify(res_util.success(vo.id))
 
 
 speechFields = {
@@ -41,21 +41,21 @@ def get_my_speech():
     userId = UserService.get_id_by_token()
     parent_vo_list = PersonSpeech.query.filter_by(userId=userId).all()
     data_list = [marshal(i, speechFields) for i in parent_vo_list]
-    return jsonify(ResUtil.success(data_list))
+    return jsonify(res_util.success(data_list))
 
 
 @message_api.route('/get_speech_all', methods=['GET'])
 def get_speech_all():
     parent_vo_list = PersonSpeech.query.order_by(PersonSpeech.create_time.desc()).limit(20)
     data_list = [marshal(i, speechFields) for i in parent_vo_list]
-    return jsonify(ResUtil.success(data_list))
+    return jsonify(res_util.success(data_list))
 
 
 @message_api.route('/get_speech_by_id', methods=['GET'])
 def get_speech_by_id():
     speech_id = request.args.get("id")
     vo = PersonSpeech.query.filter(PersonSpeech.id == speech_id).first()
-    return jsonify(ResUtil.success(marshal(vo, speechFields)))
+    return jsonify(res_util.success(marshal(vo, speechFields)))
 
 
 @message_api.route('/get_other_user_speech', methods=['GET'])
@@ -65,7 +65,7 @@ def get_other_user_speech():
     attentionIds = [attenion.userId for attenion in attentionList]
     parent_vo_list = PersonSpeech.query.filter_by(PersonSpeech.userId.in_(attentionIds), )  # todo group
     data_list = [marshal(i, speechFields) for i in parent_vo_list]
-    return jsonify(ResUtil.success(data_list))
+    return jsonify(res_util.success(data_list))
 
 
 @message_api.route('/getSpeechByUserId', methods=['GET'])
@@ -73,7 +73,7 @@ def getSpeechByUserId():
     userId = request.args.get('userId')
     parent_vo_list = PersonSpeech.query.filter_by(userId=userId)
     data_list = [marshal(i, speechFields) for i in parent_vo_list]
-    return jsonify(ResUtil.success(data_list))
+    return jsonify(res_util.success(data_list))
 
 
 @message_api.route('/delete_speech', methods=['POST'])
@@ -85,7 +85,7 @@ def delete_speech():
     vo = PersonSpeech(content=content, user_id=user_id, group=group)
     db.session.add(vo)
     db.session.commit()
-    return jsonify(ResUtil.success("操作成功"))
+    return jsonify(res_util.success("操作成功"))
 
 
 @message_api.route('/addAnnouncement', methods=['POST'])
@@ -98,7 +98,7 @@ def addAnnouncement():
     vo = PersonSpeech(content=content, userId=userId, group=UserType.strange.value)
     db.session.add(vo)
     db.session.commit()
-    return jsonify(ResUtil.success(vo.id))
+    return jsonify(res_util.success(vo.id))
 
 
 @message_api.route('/getAnnouncementByUserId', methods=['GET'])
@@ -106,4 +106,4 @@ def getAnnouncementByUserId():
     userId = request.args.get('userId')
     parent_vo_list = PersonSpeech.query.filter_by(userId=userId)
     data_list = [marshal(i, speechFields) for i in parent_vo_list]
-    return jsonify(ResUtil.success(data_list))
+    return jsonify(res_util.success(data_list))

@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 import redis
 
-from global_variable import REDIS_HOST, REDIS_PORT, REDIS_PASSWORD, REDIS_DB
+from config.conf import REDIS_HOST, REDIS_PORT, REDIS_PASSWORD, REDIS_DB
 
 
 def create_redisDB():

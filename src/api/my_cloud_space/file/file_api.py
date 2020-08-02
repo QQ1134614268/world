@@ -4,8 +4,8 @@ import os
 from flask import Blueprint, send_file, jsonify
 from flask import request
 
-from global_variable import UPLOAD_FILE_PATH
-from util import ResUtil
+from config.conf import UPLOAD_FILE_PATH
+from util import res_util
 from util.LogUtil import logger
 from util.time_util import getDatetimeByStr
 from util.time_util import getUtcTimeStr
@@ -24,7 +24,7 @@ def fileUpload():
         filename = file1.filename
     file_path = UPLOAD_FILE_PATH + '/' + "upload-" + time_str + "-" + filename
     file1.save(file_path)
-    return jsonify(ResUtil.success(file_path))
+    return jsonify(res_util.success(file_path))
 
 
 @fileApi.route('/fileDownload', methods=['GET'])

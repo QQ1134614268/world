@@ -1,4 +1,4 @@
-from db.db import db
+from config.mysql_db import db
 from vo.TestVO import Test_Parent_1_to_N_VO, Test_Child_1_to_N_VO, Test_Parent_N_N_VO, \
     Test_Child_N_N_VO
 

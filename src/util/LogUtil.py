@@ -6,7 +6,7 @@ import socket
 
 from concurrent_log_handler import ConcurrentRotatingFileHandler
 
-from global_variable import LOG_PATH
+from config.conf import LOG_PATH
 from util import file_util
 
 

@@ -1,5 +1,6 @@
 # encoding: utf-8
 import datetime
+import os
 import zipfile
 from io import BytesIO
 
@@ -8,10 +9,11 @@ from flask import Blueprint, send_file, jsonify, make_response
 from flask import Response
 from flask import request
 
-from global_variable import RESOURCE_DIR
+from config.conf import DATA_DIR
+from config.conf import RESOURCE_DIR
 from service import HelloService
 from util import FileConfig
-from util import ResUtil
+from util import res_util
 from util.LogUtil import logger
 
 hello_api = Blueprint("hello", __name__, url_prefix='/api/hello_api')
@@ -38,7 +40,7 @@ def hello():
     from app import app
     logger.info(app.config["DEBUG"])
 
-    return jsonify(ResUtil.success("hello world!"))
+    return jsonify(res_util.success("hello world!"))
 
 
 @hello_api.route('/sleep', methods=["GET"])
@@ -59,7 +61,7 @@ def sleep():
     end = start + datetime.timedelta(seconds=30)
     while datetime.datetime.utcnow() < end:
         pass
-    return jsonify(ResUtil.success('thread test;I slept from ' + str(start) + " to " + str(end)))
+    return jsonify(res_util.success('thread test;I slept from ' + str(start) + " to " + str(end)))
 
 
 @hello_api.route('/exception', methods=["GET"])
@@ -77,7 +79,7 @@ def exception():
         description: success
     """
     result = 1 / 0
-    return jsonify(ResUtil.success(result))
+    return jsonify(res_util.success(result))
 
 
 @hello_api.route('/download_excel', methods=['GET'])
@@ -209,7 +211,7 @@ def post_json():
     data = request.get_json()
     name = data.get("name", None)
     age = data.get("age", None)
-    return jsonify(ResUtil.success({"name": name, "age": age}))
+    return jsonify(res_util.success({"name": name, "age": age}))
 
 
 @hello_api.route('/post_formData', methods=['POST'])
@@ -251,7 +253,7 @@ def post_formData():
     name = request.form["name"]
     file1 = request.files["file1"]
     file2 = request.files["file2"]
-    return jsonify(ResUtil.success({"name": name, "file_name1": file1.filename, "file_name2": file2.filename, }))
+    return jsonify(res_util.success({"name": name, "file_name1": file1.filename, "file_name2": file2.filename, }))
 
 
 @hello_api.route('/test_vo_1_n', methods=["GET"])
@@ -269,7 +271,7 @@ def test_vo_1_n():
         description: success
     """
     HelloService.test_vo_1_n()
-    return jsonify(ResUtil.success("测试flask_sqlalchemy 一对多脚本"))
+    return jsonify(res_util.success("测试flask_sqlalchemy 一对多脚本"))
 
 
 @hello_api.route('/test_vo_n_n', methods=["GET"])
@@ -287,11 +289,7 @@ def test_vo_n_n():
         description: success
     """
     HelloService.test_vo_n_n()
-    return jsonify(ResUtil.success("测试flask_sqlalchemy 一对多脚本"))
-
-
-from global_variable import DATA_DIR
-import os
+    return jsonify(res_util.success("测试flask_sqlalchemy 一对多脚本"))
 
 
 @hello_api.route('/get_music', methods=["GET"])
@@ -302,4 +300,4 @@ def get_music():
     music_list = ["wg/music/张卫 - 机器铃 砍菜刀.mp3", "wg/music/刘德华 - 忘情水(Live).mp3", "wg/music/大壮 - 为你我受冷风吹.mp3",
                   "wg/music/宇西 - 安和桥（Cover 宋冬野）.mp3", "wg/music/曾惜 - 讲真的.mp3", "wg/music/逃跑计划 - 夜空中最亮的星.mp3",
                   "wg/music/颜小健 - 一不小心.mp3", ]
-    return jsonify(ResUtil.success(music_list))
+    return jsonify(res_util.success(music_list))

@@ -1,7 +1,7 @@
 import json
 import os
 
-from global_variable import LOG_PATH, UPLOAD_FILE_PATH
+from config.conf import LOG_PATH, UPLOAD_FILE_PATH
 from util.LogUtil import logger
 from vo.OrganizationVO import OrganizationVO
 
@@ -20,7 +20,7 @@ def init_db():
         if not OrganizationVO.query.filter_by(id=1).first():
             vo = OrganizationVO(id=1, code="origin", parent_id=0, name="W&G company", level=0, full_name="/W&G company/",
                                 full_path_code="/origin/", full_path_id="/1/")
-            from db.db import db
+            from config.mysql_db import db
             db.session.add(vo)
             db.session.commit()
         print("init_db over")

@@ -6,10 +6,10 @@ from flask import Blueprint, jsonify, make_response, request
 from flask_restful import fields, marshal
 
 from api.user import UserService
-from db.db import db
-from db.redis_db import redisDB
-from global_variable import UPLOAD_FILE_PATH
-from util import PasswordUtil, ResUtil
+from config.mysql_db import db
+from config.redis_db import redisDB
+from config.conf import UPLOAD_FILE_PATH
+from util import PasswordUtil, res_util
 from util import TokenUtil
 from util import VerificationCodeUtil
 from vo.UserVO import AnnouncementVO, MessageVO
@@ -47,7 +47,7 @@ def get_verify_code():
     """
     username = request.args.get("username")
     if not username:
-        return jsonify(ResUtil.fail("参数不全"))
+        return jsonify(res_util.fail("参数不全"))
     code, img_bytes = VerificationCodeUtil.get_verify_code()
     response = make_response(img_bytes)
     response.headers['Content-Type'] = 'image/gif'
@@ -97,14 +97,14 @@ def login():
     user = UserVO.query.filter_by(username=username,
                                   password=PasswordUtil.get_sha256_salt_password(password)).first()
     if user:
-        return jsonify(ResUtil.success(TokenUtil.get_token(user.id, user.username, )))
+        return jsonify(res_util.success(TokenUtil.get_token(user.id, user.username, )))
     else:
-        return jsonify(ResUtil.success("账号密码不匹配"))
+        return jsonify(res_util.success("账号密码不匹配"))
 
 
 @sys_api.route('/logout', methods=['POST'])
 def logout():
-    return jsonify(ResUtil.success("退出"))
+    return jsonify(res_util.success("退出"))
 
 
 @sys_api.route('/register', methods=['POST'])
@@ -149,15 +149,15 @@ def register():
     code = data.get('code', '')
     if not (code.lower() == "zero" or (redisDB.get("verify_code-" + username) and redisDB.get(
             "verify_code-" + username).lower() == code.lower())):
-        return ResUtil.fail("验证码错误")
+        return res_util.fail("验证码错误")
     exist = UserVO.query.filter_by(username=username).first()
     if exist:
-        return jsonify(ResUtil.fail("用户名已经存在"))
+        return jsonify(res_util.fail("用户名已经存在"))
     password = data.get('password', '')
     vo = UserVO(username=username, password=PasswordUtil.get_sha256_salt_password(password))
     db.session.add(vo)
     db.session.commit()
-    return jsonify(ResUtil.success("注册成功"))
+    return jsonify(res_util.success("注册成功"))
 
 
 @sys_api.route('/add_announcement', methods=['POST'])
@@ -204,7 +204,7 @@ def add_announcement():
     vo = AnnouncementVO(userid=user_id, title=title, content=content, images=image_path)
     db.session.add(vo)
     db.session.commit()
-    return jsonify(ResUtil.success("操作成功"))
+    return jsonify(res_util.success("操作成功"))
 
 
 @sys_api.route('/get_announcement_list', methods=['GET'])
@@ -222,7 +222,7 @@ def get_announcement_list():
     """
     message_list = list(AnnouncementVO.query.order_by(AnnouncementVO.create_time).all())
     message_list = [marshal(vo, announcement_fields) for vo in message_list]
-    return jsonify(ResUtil.success(message_list))
+    return jsonify(res_util.success(message_list))
 
 
 @sys_api.route('/get_announcement_by_id', methods=['GET'])
@@ -247,7 +247,7 @@ def get_announcement_by_id():
     """
     announcement_id = request.args.get('id')
     vo = AnnouncementVO.query.filter_by(id=announcement_id).first()
-    return jsonify(ResUtil.success(marshal(vo, announcement_fields)))
+    return jsonify(res_util.success(marshal(vo, announcement_fields)))
 
 
 @sys_api.route('/add_suggest', methods=['POST'])
@@ -290,7 +290,7 @@ def add_suggest():
     vo = MessageVO(announcement_id=announcement_id, content=content, image=image)
     db.session.add(vo)
     db.session.commit()
-    return jsonify(ResUtil.success("操作成功"))
+    return jsonify(res_util.success("操作成功"))
 
 
 @sys_api.route('/get_suggest', methods=['GET'])
@@ -315,4 +315,4 @@ def get_suggest():
     """
     announcement_id = request.args.get("id")
     message_list = MessageVO.query.filter_by(id=announcement_id).order_by(MessageVO.create_time).all()
-    return jsonify(ResUtil.success(message_list))
+    return jsonify(res_util.success(message_list))

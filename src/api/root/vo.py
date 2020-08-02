@@ -2,7 +2,7 @@
 
 from sqlalchemy import Column, String, Integer, Text
 
-from vo.BaseModel import BaseTable
+from config.mysql_db import BaseTable
 
 
 class BTreeVO(BaseTable):

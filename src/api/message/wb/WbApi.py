@@ -2,9 +2,9 @@ from flask import Blueprint, jsonify, request
 from flask_restful import fields, marshal
 
 from api.message.wb.BlogVO import BlogVO, BlogCommentVO
-from db.db import db
+from config.mysql_db import db
 from api.user import UserService
-from util import ResUtil
+from util import res_util
 
 wb_api = Blueprint("wb_api", __name__, url_prefix='/api/wb_api')
 
@@ -46,7 +46,7 @@ def add_blog():
     vo = BlogVO(content=content, user_id=user_id)
     db.session.add(vo)
     db.session.commit()
-    return jsonify(ResUtil.success("发表成功"))
+    return jsonify(res_util.success("发表成功"))
 
 
 @wb_api.route('/add_comment', methods=['POST'])
@@ -93,7 +93,7 @@ def add_comment():
     vo = BlogCommentVO(comment=comment, blog_id=blog_id, user_id=user_id)
     db.session.add(vo)
     db.session.commit()
-    return jsonify(ResUtil.success("评论成功"))
+    return jsonify(res_util.success("评论成功"))
 
 
 blog_fields = {
@@ -130,4 +130,4 @@ def get_user_blog():
     db.session.add(vo)
     db.session.commit()
     blog_list = [marshal(vo, blog_fields) for vo in blog_fields]
-    return jsonify(ResUtil.success(blog_list))
+    return jsonify(res_util.success(blog_list))

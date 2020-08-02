@@ -1,7 +1,7 @@
 import jwt
 from flask import request
 
-from global_variable import SECRET
+from config.conf import SECRET
 from util.time_util import getUtcTimeStr
 
 

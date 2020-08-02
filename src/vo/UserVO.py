@@ -1,7 +1,7 @@
 # -- coding:UTF-8 --
 from sqlalchemy import Column, String, Integer, Date, Boolean, BLOB,ForeignKey
 
-from vo.BaseModel import BaseTable
+from config.mysql_db import BaseTable
 
 
 # 创建User模型

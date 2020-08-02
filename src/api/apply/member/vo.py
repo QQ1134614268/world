@@ -3,7 +3,7 @@ from sqlalchemy import Column, String, Integer
 from sqlalchemy import Float
 from sqlalchemy import JSON
 
-from vo.BaseModel import BaseTable
+from config.mysql_db import BaseTable
 
 
 class ExistVO(BaseTable):

@@ -1,6 +1,5 @@
 # encoding: utf-8
 import datetime
-import os
 import re
 import traceback
 
@@ -29,19 +28,19 @@ from api.user import UserService
 from api.user.AuthApi import auth_api
 from api.user.UserApi import user_api
 from api.wallet.AliPayApi import ali_pay_api
-from db.db import db
-from global_variable import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME, VERSION, \
-    RESOURCE_DIR
+from api.worker.work_api import WorkerApi, WorkerTimeApi
+from config.conf import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME, VERSION
+from config.mysql_db import db
 from util import MailUtil
-from util import ResUtil
 from util import TokenUtil
+from util import res_util
 from util import socket_util
 from util import time_util
 from util.LogUtil import logger
 
 app = Flask(__name__)
 
-app = Flask(__name__, template_folder=os.path.join(RESOURCE_DIR, "template"))
+app = Flask(__name__)
 # from config.config import Config
 # app.config.from_object(Config)
 api = Api(app)
@@ -89,7 +88,7 @@ def before_request():  # 登录过滤,正则匹配,日志记录,IP分析
                     utc_time_str = TokenUtil.get_payload().get("utc_time_str")
                     utc_datetime = time_util.getDatetimeByStr(utc_time_str)
                 except Exception:
-                    return ResUtil.fail("请重新登录")
+                    return res_util.fail("请重新登录")
                 if utc_datetime + datetime.timedelta(days=1) < time_util.get_utc_now():
                     # # TODO 登录控制
                     # from flask import jsonify
@@ -112,7 +111,7 @@ def handle_404_error(err_msg):
     url_path = request.path
     userId = UserService.get_name_by_token()
     logger.error({"404": {"userId": userId, "url_path": url_path, "err_msg": str(err_msg)}})
-    return ResUtil.fail(u"server error：%s" % err_msg)
+    return res_util.fail(u"server error：%s" % err_msg)
 
 
 @app.errorhandler(Exception)
@@ -124,9 +123,9 @@ def flask_global_exception_handler(e):
     # 邮件服务 发送异常通知邮件  邮件模板
     MailUtil.send_email(message + "\r\n" + socket_util.get_host_ip(), MAIL_TO)
     if app.config["DEBUG"]:
-        return ResUtil.fail(message)
+        return res_util.fail(message)
     else:
-        return ResUtil.fail("server error: " + str(e) + "; please contact your administrator ")
+        return res_util.fail("server error: " + str(e) + "; please contact your administrator ")
 
 
 @app.route('/', methods=['GET'])
@@ -136,7 +135,7 @@ def welcome():
     you can see B-tree for the api : /apidocs
     version: %s 
     """ % VERSION
-    return ResUtil.success(txt)
+    return res_util.success(txt)
 
 
 app.register_blueprint(hello_api)
@@ -159,10 +158,10 @@ api.add_resource(ModelApi, "/api/model_api/ModelApi")
 api.add_resource(StoreApi, "/api/member/StoreApi")
 api.add_resource(StoreMemberApi, "/api/member/StoreMemberApi")
 api.add_resource(WalletApi, "/api/member/WalletApi")
-
+api.add_resource(WorkerApi, "/api/work_api/WorkerApi")
+api.add_resource(WorkerTimeApi, "/api/work_api/WorkerTimeApi")
 
 if __name__ == '__main__':
-
     scheduler.init_app(app)
     scheduler.start()
     app.run(host='0.0.0.0', port=9090, debug=True, threaded=True)

@@ -6,7 +6,7 @@ import string
 
 from PIL import Image, ImageFont, ImageDraw, ImageFilter
 
-from global_variable import RESOURCE_DIR
+from config.conf import RESOURCE_DIR
 
 
 def rndColor():

@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, request
 
-from db.mongodb import mongoDB
+from config.mongodb import mongoDB
 from api.user import UserService
-from util import ResUtil
+from util import res_util
 
 customize_api = Blueprint("customize_api", __name__, url_prefix='/api/customize_api')
 
@@ -32,7 +32,7 @@ def addModel():
     data["userId"] = UserService.get_id_by_token()
     collection = mongoDB.models
     collection.insert_one(data)
-    return jsonify(ResUtil.success("success"))
+    return jsonify(res_util.success("success"))
 
 
 @customize_api.route('/getModel', methods=['POST'])
@@ -41,7 +41,7 @@ def getModel():
     res = list(collection.find({"userId": UserService.get_id_by_token()}))
     for i in res:
         i["_id"] = str(i["_id"])
-    return jsonify(ResUtil.success(res))
+    return jsonify(res_util.success(res))
 
 
 @customize_api.route('/model_eval', methods=['POST'])
@@ -52,4 +52,4 @@ def model_eval():
     :return:
     """
     pass
-    return jsonify(ResUtil.success("model_eval"))
+    return jsonify(res_util.success("model_eval"))

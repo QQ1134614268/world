@@ -4,7 +4,7 @@ import traceback
 from email.header import Header
 from email.mime.text import MIMEText
 
-from global_variable import SERVER_MAIL, SERVER_MAIL_HOST, SERVER_MAIL_PASS
+from config.conf import SERVER_MAIL, SERVER_MAIL_HOST, SERVER_MAIL_PASS
 from util.LogUtil import logger as log
 
 

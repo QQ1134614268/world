@@ -3,8 +3,8 @@ from flask import jsonify
 from flask_restful import fields, marshal
 
 from api.user.vo import Attention
-from db.db import db
-from util import ResUtil
+from config.mysql_db import db
+from util import res_util
 from util.TokenUtil import get_payload
 from vo.UserVO import UserVO
 
@@ -27,11 +27,11 @@ attentionFields = {
 def addAttention(userId, group):
     vo = Attention.query.filter_by(attentionUserId=userId).first()
     if vo:
-        return jsonify(ResUtil.fail("已经关注"))
+        return jsonify(res_util.fail("已经关注"))
     vo = Attention(userId=get_id_by_token(), attentionUserId=userId, group=group)
     db.session.add(vo)
     db.session.commit()
-    return jsonify(ResUtil.success("关注成功"))
+    return jsonify(res_util.success("关注成功"))
 
 
 def getAttentionList():

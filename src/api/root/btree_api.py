@@ -8,8 +8,8 @@ from sqlalchemy import desc
 
 from api.root import btree_service
 from api.root.vo import BTreeVO
-from db.db import db
-from util import ResUtil
+from config.mysql_db import db
+from util import res_util
 
 btree_api = Blueprint("btree_api", __name__, url_prefix='/api/btree_api')
 
@@ -50,7 +50,7 @@ def updateNode():
     vo.value = value
     db.session.add(vo)
     db.session.commit()
-    return jsonify(ResUtil.success("操作成功"))
+    return jsonify(res_util.success("操作成功"))
 
 
 @btree_api.route('/delNode', methods=['POST'])
@@ -61,7 +61,7 @@ def delNode():
     voList = BTreeVO.query.filter(BTreeVO.fullPath.like(fullPath + str(nodeId) + "%")).all()
     db.session.delete(voList)
     db.session.commit()
-    return jsonify(ResUtil.success("操作成功"))
+    return jsonify(res_util.success("操作成功"))
 
 
 @btree_api.route('/moveNode', methods=['POST'])

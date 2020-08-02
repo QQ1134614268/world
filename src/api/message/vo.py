@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Text
 
-from vo.BaseModel import BaseTable
+from config.mysql_db import BaseTable
 
 
 class   PersonSpeech(BaseTable):

@@ -2,7 +2,7 @@
 from sqlalchemy import Column, ForeignKey
 from sqlalchemy import Integer, String, Text
 
-from vo.BaseModel import BaseTable
+from config.mysql_db import BaseTable
 
 
 # from vo.UserVO import UserVO

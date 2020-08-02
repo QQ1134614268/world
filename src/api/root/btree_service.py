@@ -4,8 +4,8 @@ from flask_restful import fields, marshal
 
 from api.root.vo import BTreeVO
 from api.user import UserService
-from db.db import db
-from util import ResUtil
+from config.mysql_db import db
+from util import res_util
 from util.TreeUtil import getTreeFromList
 
 btreeFields = {
@@ -20,13 +20,13 @@ def getAllNodesService(fullPath):
     voList = BTreeVO.query.filter(BTreeVO.fullPath.like(fullPath + "%")).order_by(BTreeVO.fullPath, BTreeVO.sort).all()
     data_list = [marshal(i, btreeFields) for i in voList]
     data_list = getTreeFromList(data_list)
-    return jsonify(ResUtil.success(data_list))
+    return jsonify(res_util.success(data_list))
 
 
 def getChildNodesById(nodeId, fullPath):
     voList = BTreeVO.query.filter(BTreeVO.fullPath == fullPath + str(nodeId)).all()
     data_list = [marshal(i, btreeFields) for i in voList]
-    return jsonify(ResUtil.success(data_list))
+    return jsonify(res_util.success(data_list))
 
 
 def addNode(nodeId, value):
@@ -38,4 +38,4 @@ def addNode(nodeId, value):
     db.session.add(vo)
     db.session.commit()
 
-    return jsonify(ResUtil.success(marshal(vo, btreeFields)))
+    return jsonify(res_util.success(marshal(vo, btreeFields)))

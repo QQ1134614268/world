@@ -5,7 +5,7 @@
 """
 from sqlalchemy import Column, String, Integer
 
-from vo.BaseModel import BaseTable
+from config.mysql_db import BaseTable
 
 
 class AreaVO(BaseTable):

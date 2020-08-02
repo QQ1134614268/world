@@ -6,8 +6,8 @@
 from flask import Blueprint, jsonify, request
 from flask_restful import fields, marshal
 
-from util import ResUtil
-from db.db import db
+from util import res_util
+from config.mysql_db import db
 from vo.UserVO import RecordVO, CommentVO
 
 speech_api = Blueprint("speech", __name__, url_prefix='/api/speech')
@@ -72,7 +72,7 @@ def add_record():
     vo = RecordVO(user_id=user_id, content=content, image=image, video=video)
     db.session.add(vo)
     db.session.commit()
-    return jsonify(ResUtil.success("操作成功"))
+    return jsonify(res_util.success("操作成功"))
 
 
 @speech_api.route('/add_comment', methods=['POST'])
@@ -114,7 +114,7 @@ def add_comment():
     vo = CommentVO(record_id=record_id, content=content)
     db.session.add(vo)
     db.session.commit()
-    return jsonify(ResUtil.success("操作成功"))
+    return jsonify(res_util.success("操作成功"))
 
 
 @speech_api.route('/get_record_all', methods=['GET'])
@@ -139,7 +139,7 @@ def get_record_all():
     # 获取所有日志加评论
     message_list = RecordVO.query.order_by(RecordVO.create_time).limit(10)
     message_list = [marshal(vo, record_fields) for vo in message_list]
-    return jsonify(ResUtil.success(message_list))
+    return jsonify(res_util.success(message_list))
 
 
 @speech_api.route('/get_record_by_id', methods=['GET'])
@@ -164,4 +164,4 @@ def get_record():
     record_id = request.args.get('id')
     message_list = CommentVO.query.filter_by(record_id=record_id).order_by(CommentVO.create_time).all()
     message_list = [marshal(vo, comment_fields) for vo in message_list]
-    return jsonify(ResUtil.success(message_list))
+    return jsonify(res_util.success(message_list))

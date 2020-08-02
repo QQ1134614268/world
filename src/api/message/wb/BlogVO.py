@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String
 
-from db.db import db
-from vo.BaseModel import BaseTable
+from config.mysql_db import db
+from config.mysql_db import BaseTable
 
 
 class BlogVO(BaseTable):
