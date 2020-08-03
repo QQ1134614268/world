@@ -26,7 +26,7 @@ class StoreVO(BaseTable):
 
 
 class StoreMemberTable(BaseTable):
-    __tablename__ = 'StoreMemberTable'
+    __tablename__ = 'store_member_t'
     store_id = Column(Integer, index=True)
     user_id = Column(Integer, index=True)
 

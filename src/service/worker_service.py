@@ -27,9 +27,9 @@ def update_worker(worker_id, data):
 def get_worker_all():
     worker_fields = {
         "id": fields.Integer,
+        'name': fields.String,
         'birthday': DateTime,
         'id_card_number': fields.String,
-        'address': fields.String,
         'sex': fields.String,
         'pay': fields.String,
         'start_time': DateTime,

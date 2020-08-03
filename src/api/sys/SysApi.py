@@ -99,7 +99,7 @@ def login():
     if user:
         return jsonify(res_util.success(TokenUtil.get_token(user.id, user.username, )))
     else:
-        return jsonify(res_util.success("账号密码不匹配"))
+        return jsonify(res_util.fail("账号密码不匹配"))
 
 
 @sys_api.route('/logout', methods=['POST'])

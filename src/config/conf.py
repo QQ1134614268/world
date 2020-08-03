@@ -22,14 +22,14 @@ ALI_PAY_AES_KEY = "U2LU6HVqOHkv7w7w5rZ2Ew=="
 DEBUG = True
 
 VERSION = "1.0.4"
-ROBOT_HOST = "http://ggok.top"
+ROBOT_HOST = "http://127.0.0.1"
 
 SECRET = "secret"
 DIALCT = "mysql"
 DRIVER = "mysqlconnector"
 USERNAME = "wg"
 PASSWORD = 123456
-HOST = "ggok.top" # 生产 ggok.top
+HOST = "127.0.0.1"  # 生产 ggok.top
 PORT = 3306
 DBNAME = "world"
 

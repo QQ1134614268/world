@@ -10,9 +10,9 @@ from config.mysql_db import BaseTable
 
 class WorkerVO(BaseTable):
     __tablename__ = 'worker_t'
+    name = Column(String(255))
     birthday = Column(DateTime)
     id_card_number = Column(String(255))
-    address = Column(String(255))
     sex = Column(Enum('男', '女'))
     pay = Column(String(255))
     start_time = Column(DateTime)
