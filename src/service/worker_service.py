@@ -24,6 +24,18 @@ def update_worker(worker_id, data):
     return res_util.success(worker_id)
 
 
+def update_or_add_worker(data):
+    vos = []
+    for i in data:
+        if i.get("id"):
+            WorkerVO.query.filter(id=i.pop("id")).update(**i)
+        else:
+            vos.append(WorkerVO(**data))
+    db.session.add_all(vos)
+    db.session.commit()
+    return res_util.success()
+
+
 def get_worker_all():
     worker_fields = {
         "id": fields.Integer,

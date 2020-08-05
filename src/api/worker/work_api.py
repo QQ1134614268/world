@@ -21,8 +21,10 @@ class WorkerApi(Resource):
 
     def put(self):
         data = request.get_json()
-        worker_id = request.args.get("id")
-        return worker_service.update_worker(worker_id, data)
+        if request.args.get("id"):
+            worker_id = request.args.get("id")
+            return worker_service.update_worker(worker_id, data)
+        return worker_service.update_or_add_worker(data)
 
     def delete(self):
         data = request.get_json()
