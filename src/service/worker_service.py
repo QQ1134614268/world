@@ -28,7 +28,7 @@ def update_or_add_worker(data):
     vos = []
     for i in data:
         if i.get("id"):
-            WorkerVO.query.filter(id=i.pop("id")).update(**i)
+            WorkerVO.query.filter(WorkerVO.id == i.pop("id")).update(i)
         else:
             vos.append(WorkerVO(**data))
     db.session.add_all(vos)
