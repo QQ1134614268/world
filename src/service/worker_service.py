@@ -30,7 +30,7 @@ def update_or_add_worker(data):
         if i.get("id"):
             WorkerVO.query.filter(WorkerVO.id == i.pop("id")).update(i)
         else:
-            vos.append(WorkerVO(**data))
+            vos.append(WorkerVO(**i))
     db.session.add_all(vos)
     db.session.commit()
     return res_util.success()
