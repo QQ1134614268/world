@@ -45,15 +45,16 @@ def get_worker_all():
         'sex': fields.String,
         'pay': fields.String,
         'start_time': DateTime,
+        'phone': fields.String,
     }
     vos = WorkerVO.query.all()
     return res_util.success([marshal(vo, worker_fields) for vo in vos])
 
 
 def add_worker_time(data):
-    vo = WorkerTimeVO(**data)
-    db.session.commit()
-    return res_util.success(vo.id)
+    vos = [WorkerTimeVO(**i) for i in data]
+    db.session.commit_all(vos)
+    return res_util.success()
 
 
 def get_worker_time_all():
