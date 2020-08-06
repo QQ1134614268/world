@@ -4,6 +4,7 @@
 @Description: 
 """
 from sqlalchemy import Column, String, DateTime, Integer, Enum, ForeignKey
+from sqlalchemy.orm import relationship
 
 from config.mysql_db import BaseTable
 
@@ -28,3 +29,4 @@ class WorkerTimeVO(BaseTable):
     night = Column(Integer, default=0)
     hours = Column(Integer)
     date = Column(DateTime)
+    worker = relationship(WorkerVO, backref='time', foreign_keys=[worker_id])

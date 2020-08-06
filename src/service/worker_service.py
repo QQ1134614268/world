@@ -1,4 +1,7 @@
+import time
+
 from flask_restful import marshal, fields
+from sqlalchemy.sql import and_
 
 from api.worker.vo import WorkerVO, WorkerTimeVO
 from config.mysql_db import db
@@ -58,14 +61,32 @@ def add_worker_time(data):
 
 
 def get_worker_time_all():
-    worker_fields = {
-        'hours': fields.Integer,
-    }
-    vos = WorkerTimeVO.query.all()
-    return res_util.success([marshal(vo, worker_fields) for vo in vos])
+    res = WorkerVO.query.outerjoin(WorkerTimeVO, and_(WorkerTimeVO.date == time.strftime('%Y-%m-%d 00:00:00'),
+                                                      WorkerVO.id == WorkerTimeVO.worker_id)).with_entities(
+        WorkerVO.id.label("worker_id"),
+        WorkerVO.name,
+        WorkerTimeVO.id,
+        WorkerTimeVO.morning,
+        WorkerTimeVO.noon,
+        WorkerTimeVO.afternoon,
+        WorkerTimeVO.night,
+    ).all()
+    ret = [dict(zip(item.keys(), item)) for item in res]
+    return res_util.success(ret)
 
 
-def update_worker_time(worker_time_id, data):
-    WorkerTimeVO.query.filter(id=worker_time_id).update(**data)
+def update_worker_time(data):
+    vos = []
+    for i in data:
+        if i.get("id"):
+            WorkerTimeVO.query.filter(WorkerTimeVO.id == i.pop("id")).update(i)
+        else:
+            i["date"] = time.strftime('%Y-%m-%d 00:00:00')
+            vos.append(WorkerTimeVO(**i))
+    db.session.add_all(vos)
     db.session.commit()
-    return res_util.success(worker_time_id)
+    return res_util.success()
+    #
+    # WorkerTimeVO.query.filter(id=worker_time_id).update(**data)
+    # db.session.commit()
+    # return res_util.success(worker_time_id)
