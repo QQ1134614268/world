@@ -11,6 +11,7 @@ from config.mysql_db import BaseTable
 
 class WorkerVO(BaseTable):
     __tablename__ = 'worker_t'
+    belong = Column(Integer)
     name = Column(String(255))
     birthday = Column(DateTime)
     id_card_number = Column(String(255), unique=True)
