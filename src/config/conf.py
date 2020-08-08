@@ -5,6 +5,8 @@ RESOURCE_DIR = path.join(path.dirname(path.dirname(ROOT_DIR)), "resource")
 DATA_DIR = path.join(path.dirname(path.dirname(ROOT_DIR)), "data")
 DEFAULT_TIME_STR = '%Y_%m_%d_%H_%M_%S_%f'
 
+MAIL_HOST_BLOCK_LIST = ["DESKTOP-4JJG0QE"]
+
 DATE_TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
 PUBLIC_KEY = "world"
 
@@ -29,7 +31,7 @@ DIALCT = "mysql"
 DRIVER = "mysqlconnector"
 USERNAME = "wg"
 PASSWORD = 123456
-HOST = "ggok.top"  # 生产 ggok.top
+HOST = "127.0.0.1"  # 生产 ggok.top
 PORT = 3306
 DBNAME = "world"
 

@@ -15,10 +15,10 @@ def add_worker(data):
     return res_util.success(vo.id)
 
 
-def delete_worker(worker_id):
-    db.session.delete(WorkerVO(id=worker_id))
+def delete_worker(data):
+    WorkerVO.query.filter(WorkerVO.id.in_(data)).delete(synchronize_session=False)
     db.session.commit()
-    return res_util.success(worker_id)
+    return res_util.success()
 
 
 def update_worker(worker_id, data):
@@ -70,7 +70,7 @@ def get_worker_time_all():
         WorkerTimeVO.noon,
         WorkerTimeVO.afternoon,
         WorkerTimeVO.night,
-    ).all()
+    ).order_by(WorkerVO.name).all()
     ret = [dict(zip(item.keys(), item)) for item in res]
     return res_util.success(ret)
 
@@ -86,7 +86,3 @@ def update_worker_time(data):
     db.session.add_all(vos)
     db.session.commit()
     return res_util.success()
-    #
-    # WorkerTimeVO.query.filter(id=worker_time_id).update(**data)
-    # db.session.commit()
-    # return res_util.success(worker_time_id)

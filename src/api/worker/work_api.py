@@ -28,8 +28,7 @@ class WorkerApi(Resource):
 
     def delete(self):
         data = request.get_json()
-        worker_id = data.get("id")
-        return worker_service.delete_worker(worker_id)
+        return worker_service.delete_worker(data)
 
 
 class WorkerTimeApi(Resource):

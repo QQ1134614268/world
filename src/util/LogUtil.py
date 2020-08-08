@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
+import collections
 import datetime
 import json
 import logging
 import socket
+from flask import request
 
 from concurrent_log_handler import ConcurrentRotatingFileHandler
 
@@ -32,11 +34,13 @@ def create_logger(file_path=LOG_PATH + "/log.json"):
 
 
 class JSONFormatter(logging.Formatter):
-    REMOVE_ATTR = ["filename", "module", "exc_text", "created", "stack_info", "msecs", "relativeCreated", "exc_info",
-                   "msg", "args", "levelno"]
 
     def format(self, record):
-        extra = self.build_record(record)
+        extra = collections.OrderedDict()
+        extra['time'] = datetime.datetime.fromtimestamp(record.__dict__["created"]).strftime("%Y_%m_%d_%H_%M_%S_%f")
+        extra['levelname'] = record.__dict__["levelname"]
+        extra['pathname'] = record.__dict__["pathname"]
+        extra['lineno'] = record.__dict__["lineno"]
         if record.args:
             extra['msg'] = "'" + record.msg + "'," + str(record.args).strip('()')
         else:
@@ -47,24 +51,6 @@ class JSONFormatter(logging.Formatter):
             return json.dumps(extra, indent=2, ensure_ascii=False)
         else:
             return json.dumps(extra, ensure_ascii=False)
-
-    @classmethod
-    def build_record(cls, record):
-        extra = {
-            attr_name: record.__dict__[attr_name]
-            for attr_name in record.__dict__
-            if attr_name not in cls.REMOVE_ATTR
-        }
-        extra['time'] = datetime.datetime.fromtimestamp(record.__dict__["created"]).strftime("%Y_%m_%d_%H_%M_%S_%f")
-        try:
-            host_name = socket.gethostname()
-            host_ip = socket.gethostbyname(host_name)
-        except ConnectionError:
-            host_name = "unknown hostname"
-            host_ip = "unknown ip"
-        extra['host_name'] = host_name
-        extra['host_ip'] = host_ip
-        return extra
 
 
 logger = create_logger()

@@ -39,7 +39,6 @@ def hello():
     """
     from app import app
     logger.info(app.config["DEBUG"])
-
     return jsonify(res_util.success("hello world!"))
 
 

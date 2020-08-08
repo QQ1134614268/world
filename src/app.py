@@ -1,6 +1,7 @@
 # encoding: utf-8
 import datetime
 import re
+import socket
 import traceback
 
 from flasgger import Swagger
@@ -30,6 +31,7 @@ from api.user.UserApi import user_api
 from api.wallet.AliPayApi import ali_pay_api
 from api.worker.work_api import WorkerApi, WorkerTimeApi
 from config.conf import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME, VERSION
+from config.conf import MAIL_HOST_BLOCK_LIST
 from config.mysql_db import db
 from util import MailUtil
 from util import TokenUtil
@@ -121,7 +123,16 @@ def flask_global_exception_handler(e):
     logger.error(message)  # 日志输出到控制台和日志文件
     traceback.print_exc()
     # 邮件服务 发送异常通知邮件  邮件模板
-    MailUtil.send_email(message + "\r\n" + socket_util.get_host_ip(), MAIL_TO)
+    if not socket_util.get_host_name() in MAIL_HOST_BLOCK_LIST:
+        # if request.host_url:
+        #     pass
+        try:
+            host_name = socket.gethostname()
+            host_ip = socket.gethostbyname(host_name)
+        except ConnectionError:
+            host_name = "unknown hostname"
+            host_ip = "unknown ip"
+        MailUtil.send_email(host_name + "--" + host_ip + "\r\n" + message + "\r\n" + socket_util.get_host_ip(), MAIL_TO)
     if app.config["DEBUG"]:
         return res_util.fail(message)
     else:
