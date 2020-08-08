@@ -23,7 +23,7 @@ class WorkerVO(BaseTable):
 
 class WorkerTimeVO(BaseTable):
     __tablename__ = 'worker_time_t'
-    worker_id = Column(Integer, ForeignKey(WorkerVO.id), index=True)
+    worker_id = Column(Integer, ForeignKey(WorkerVO.id, ondelete='CASCADE'), index=True)
     morning = Column(Integer, default=0)
     noon = Column(Integer, default=0)
     afternoon = Column(Integer, default=0)
