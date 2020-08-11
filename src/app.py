@@ -25,20 +25,20 @@ from api.root.btree_api import btree_api
 from api.scheduler.APScheduler import scheduler
 from api.scheduler.SchedulerApi import scheduler_api
 from api.sys.SysApi import sys_api
-from api.user import UserService
+from service import user_service
 from api.user.AuthApi import auth_api
-from api.user.UserApi import user_api
+from api.user.user_api import user_api
 from api.wallet.AliPayApi import ali_pay_api
 from api.worker.work_api import WorkerApi, WorkerTimeApi
 from config.conf import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME, VERSION
 from config.conf import MAIL_HOST_BLOCK_LIST
 from config.mysql_db import db
-from util import MailUtil
-from util import TokenUtil
+from util import mail_util
+from util import token_util
 from util import res_util
 from util import socket_util
 from util import time_util
-from util.LogUtil import logger
+from util.log_util import logger
 
 app = Flask(__name__)
 
@@ -81,13 +81,13 @@ def before_request():  # 登录过滤,正则匹配,日志记录,IP分析
         for path2 in intercept_path:
             ip = request.remote_addr
             user_agent = request.headers.get('User-Agent')
-            username = UserService.get_name_by_token()
-            userid = UserService.get_id_by_token()
+            username = user_service.get_name_by_token()
+            userid = user_service.get_id_by_token()
             logger.info({"user": {"username": username, "userid": userid}, "url_path": url_path, "ip": ip,
                          "User-Agent": user_agent, "action": "before_request"})
             if re.match(path2, url_path):
                 try:
-                    utc_time_str = TokenUtil.get_payload().get("utc_time_str")
+                    utc_time_str = token_util.get_payload().get("utc_time_str")
                     utc_datetime = time_util.getDatetimeByStr(utc_time_str)
                 except Exception:
                     return res_util.fail("请重新登录")
@@ -111,7 +111,7 @@ def handle_404_error(err_msg):
     """自定义的异常处理函数"""
     # 这个函数的返回值就是前端用户看到的最终结果 (404错误页面)
     url_path = request.path
-    userId = UserService.get_name_by_token()
+    userId = user_service.get_name_by_token()
     logger.error({"404": {"userId": userId, "url_path": url_path, "err_msg": str(err_msg)}})
     return res_util.fail(u"server error：%s" % err_msg)
 
@@ -132,7 +132,7 @@ def flask_global_exception_handler(e):
         except ConnectionError:
             host_name = "unknown hostname"
             host_ip = "unknown ip"
-        MailUtil.send_email(host_name + "--" + host_ip + "\r\n" + message + "\r\n" + socket_util.get_host_ip(), MAIL_TO)
+        mail_util.send_email(host_name + "--" + host_ip + "\r\n" + message + "\r\n" + socket_util.get_host_ip(), MAIL_TO)
     if app.config["DEBUG"]:
         return res_util.fail(message)
     else:

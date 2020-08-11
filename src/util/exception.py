@@ -2,8 +2,8 @@
 from flask import request, json
 from werkzeug.exceptions import HTTPException
 
-from api.user.UserService import get_id_by_token
-from util.LogUtil import logger
+from service.user_service import get_id_by_token
+from util.log_util import logger
 
 
 class WorldException(Exception):

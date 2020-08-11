@@ -4,7 +4,7 @@ import json
 from flask import Blueprint, jsonify, request
 from flask_restful import fields, marshal
 
-from api.user import UserService
+from service import user_service
 from util import res_util
 from vo.UserVO import UserVO
 
@@ -32,7 +32,7 @@ def getUserById():
 
 @user_api.route('/getUserInfo', methods=['GET'])
 def getUserInfo():
-    userId = UserService.get_id_by_token()
+    userId = user_service.get_id_by_token()
     user = UserVO.query.filter_by(id=userId).first()
     return jsonify(res_util.success(marshal(user, user_fields)))
 
@@ -62,12 +62,12 @@ def addAttention():
     data = request.get_json()
     userId = data.get('userId')
     group = data.get('group')
-    return UserService.addAttention(userId, group)
+    return user_service.addAttention(userId, group)
 
 
 @user_api.route('/getAttentionList', methods=['GET'])
 def getAttentionList():
-    return jsonify(res_util.success(UserService.getAttentionList()))
+    return jsonify(res_util.success(user_service.getAttentionList()))
 
 
 @user_api.route('/updateAttention', methods=['POST'])
@@ -75,7 +75,7 @@ def updateAttention():
     data = request.get_json()
     userId = data.get('userId')
     group = data.get('group')
-    UserService.updateAttention(userId, group)
+    user_service.updateAttention(userId, group)
     return jsonify(res_util.success("账号密码不匹配"))
 
 
@@ -83,5 +83,5 @@ def updateAttention():
 def deleteAttention():
     data = request.get_json()
     userId = data.get('userId')
-    UserService.deleteAttention(userId)
+    user_service.deleteAttention(userId)
     return jsonify(res_util.success("账号密码不匹配"))

@@ -6,7 +6,7 @@ from flask import request
 
 from config.conf import UPLOAD_FILE_PATH
 from util import res_util
-from util.LogUtil import logger
+from util.log_util import logger
 from util.time_util import getDatetimeByStr
 from util.time_util import getUtcTimeStr
 

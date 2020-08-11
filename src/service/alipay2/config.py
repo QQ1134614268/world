@@ -1,5 +1,5 @@
 import time
-from service import AliPay
+from service.alipay2 import ali_pay_service
 
 class AlipayApi(object):
     def __init__(self, app_id, notify_url, return_url, merchant_private_key_path, alipay_public_key_path,debug):
@@ -16,7 +16,7 @@ class AlipayApi(object):
         self.merchant_private_key_path = merchant_private_key_path
         self.alipay_public_key_path = alipay_public_key_path
         self.debug=debug
-        self.alipay = AliPay(
+        self.alipay = ali_pay_service(
             appid=app_id,
             app_notify_url=notify_url,
             return_url=return_url,

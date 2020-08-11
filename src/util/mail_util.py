@@ -5,7 +5,7 @@ from email.header import Header
 from email.mime.text import MIMEText
 
 from config.conf import SERVER_MAIL, SERVER_MAIL_HOST, SERVER_MAIL_PASS
-from util.LogUtil import logger as log
+from util.log_util import logger as log
 
 
 def send_email(mail_content, mail_to, subject="master,your mail"):

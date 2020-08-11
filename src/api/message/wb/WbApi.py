@@ -3,7 +3,7 @@ from flask_restful import fields, marshal
 
 from api.message.wb.BlogVO import BlogVO, BlogCommentVO
 from config.mysql_db import db
-from api.user import UserService
+from service import user_service
 from util import res_util
 
 wb_api = Blueprint("wb_api", __name__, url_prefix='/api/wb_api')
@@ -42,7 +42,7 @@ def add_blog():
     """
     data = request.get_json()
     content = data.get('content', '')
-    user_id = UserService.get_id_by_token()
+    user_id = user_service.get_id_by_token()
     vo = BlogVO(content=content, user_id=user_id)
     db.session.add(vo)
     db.session.commit()
@@ -88,7 +88,7 @@ def add_comment():
     data = request.get_json()
     comment = data.get('comment', '')
     blog_id = data.get('blog_id', '')
-    user_id = UserService.get_id_by_token()
+    user_id = user_service.get_id_by_token()
     print(user_id)
     vo = BlogCommentVO(comment=comment, blog_id=blog_id, user_id=user_id)
     db.session.add(vo)

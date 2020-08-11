@@ -1,5 +1,5 @@
 # -- coding:UTF-8 --
-from sqlalchemy import Column, String, Integer, Date, Boolean, BLOB,ForeignKey
+from sqlalchemy import Column, String, Integer, Date, Boolean, BLOB, ForeignKey
 
 from config.mysql_db import BaseTable
 

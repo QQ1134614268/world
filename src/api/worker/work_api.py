@@ -39,6 +39,10 @@ class WorkerTimeApi(Resource):
         return worker_service.add_worker_time(data)
 
     def get(self):
+        if request.args.get("date"):
+            return worker_service.get_worker_day(request.args.get("date"))
+        if request.args.get("month"):
+            return worker_service.get_worker_month(request.args.get("month"))
         return worker_service.get_worker_time_all()
 
     def put(self):

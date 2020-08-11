@@ -5,13 +5,13 @@ import time
 from flask import Blueprint, jsonify, make_response, request
 from flask_restful import fields, marshal
 
-from api.user import UserService
+from service import user_service
 from config.mysql_db import db
 from config.redis_db import redisDB
 from config.conf import UPLOAD_FILE_PATH
-from util import PasswordUtil, res_util
-from util import TokenUtil
-from util import VerificationCodeUtil
+from util import password_util, res_util
+from util import token_util
+from util import verification_code_util
 from vo.UserVO import AnnouncementVO, MessageVO
 from vo.UserVO import UserVO
 
@@ -48,7 +48,7 @@ def get_verify_code():
     username = request.args.get("username")
     if not username:
         return jsonify(res_util.fail("参数不全"))
-    code, img_bytes = VerificationCodeUtil.get_verify_code()
+    code, img_bytes = verification_code_util.get_verify_code()
     response = make_response(img_bytes)
     response.headers['Content-Type'] = 'image/gif'
     redisDB.set("verify_code-" + username, code, ex=60)
@@ -95,9 +95,9 @@ def login():
     username = data.get('username', '')
     password = data.get('password', '')
     user = UserVO.query.filter_by(username=username,
-                                  password=PasswordUtil.get_sha256_salt_password(password)).first()
+                                  password=password_util.get_sha256_salt_password(password)).first()
     if user:
-        return jsonify(res_util.success(TokenUtil.get_token(user.id, user.username, )))
+        return jsonify(res_util.success(token_util.get_token(user.id, user.username, )))
     else:
         return jsonify(res_util.fail("账号密码不匹配"))
 
@@ -154,7 +154,7 @@ def register():
     if exist:
         return jsonify(res_util.fail("用户名已经存在"))
     password = data.get('password', '')
-    vo = UserVO(username=username, password=PasswordUtil.get_sha256_salt_password(password))
+    vo = UserVO(username=username, password=password_util.get_sha256_salt_password(password))
     db.session.add(vo)
     db.session.commit()
     return jsonify(res_util.success("注册成功"))
@@ -200,7 +200,7 @@ def add_announcement():
     time_str = time.strftime('%Y%m%d_%H%M%S_') + str(random.randint(1000, 9999))
     image_path = UPLOAD_FILE_PATH + '/images/' + time_str + "-" + image.filename
     image.save(image_path)  # 保存文件到指定路径
-    user_id = UserService.get_id_by_token()
+    user_id = user_service.get_id_by_token()
     vo = AnnouncementVO(userid=user_id, title=title, content=content, images=image_path)
     db.session.add(vo)
     db.session.commit()

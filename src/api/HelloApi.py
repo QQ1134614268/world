@@ -11,10 +11,9 @@ from flask import request
 
 from config.conf import DATA_DIR
 from config.conf import RESOURCE_DIR
-from service import HelloService
-from util import FileConfig
+from util import file_config
 from util import res_util
-from util.LogUtil import logger
+from util.log_util import logger
 
 hello_api = Blueprint("hello", __name__, url_prefix='/api/hello_api')
 
@@ -83,7 +82,7 @@ def exception():
 
 @hello_api.route('/download_excel', methods=['GET'])
 def download_excel():
-    byte_array_buffer = FileConfig.read_into_buffer(RESOURCE_DIR + "/excel_download_test.xlsx")
+    byte_array_buffer = file_config.read_into_buffer(RESOURCE_DIR + "/excel_download_test.xlsx")
     file_name = "excel下载测试.xlsx"
     return send_file(byte_array_buffer, as_attachment=True,
                      attachment_filename=file_name.encode(encoding='utf_8', errors="ignore").decode('utf_8'),
@@ -253,42 +252,6 @@ def post_formData():
     file1 = request.files["file1"]
     file2 = request.files["file2"]
     return jsonify(res_util.success({"name": name, "file_name1": file1.filename, "file_name2": file2.filename, }))
-
-
-@hello_api.route('/test_vo_1_n', methods=["GET"])
-def test_vo_1_n():
-    """
-    This is test API
-    测试flask_sqlalchemy 一对多脚本
-    ---
-    tags:
-        - hello_api
-    responses:
-      500:
-        description: server error
-      200:
-        description: success
-    """
-    HelloService.test_vo_1_n()
-    return jsonify(res_util.success("测试flask_sqlalchemy 一对多脚本"))
-
-
-@hello_api.route('/test_vo_n_n', methods=["GET"])
-def test_vo_n_n():
-    """
-    This is test API
-    测试flask_sqlalchemy 多对多脚本
-    ---
-    tags:
-        - hello_api
-    responses:
-      500:
-        description: server error
-      200:
-        description: success
-    """
-    HelloService.test_vo_n_n()
-    return jsonify(res_util.success("测试flask_sqlalchemy 一对多脚本"))
 
 
 @hello_api.route('/get_music', methods=["GET"])

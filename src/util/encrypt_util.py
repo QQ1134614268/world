@@ -10,15 +10,13 @@ from Crypto.Hash import SHA1
 from Crypto.PublicKey import RSA
 from Crypto.Random import get_random_bytes
 from Crypto.Signature import PKCS1_v1_5 as PKCS1_v1_5_sign
-from config.conf import PUBLIC_KEY
+
 
 # base64 SHA256 直接调用
 # aes 对称加密
 # rsa 非堆成加密
 
 class Base64Util:
-    # encodestr = base64.b64encode('abcr34r344r'.encode('utf-8'))
-    # print(str(encodestr, 'utf-8'))
     # 加密
     @staticmethod
     def enc_bytes(text):
@@ -34,13 +32,14 @@ class SHA256Util:
     """
         哈希加密使用sha256
     """
+
     @staticmethod
-    def sha256_salt(value, key=PUBLIC_KEY):
+    def sha256_salt(value, salt):
         """
         sha256加密
         return:加密结果转成16进制字符串形式
         """
-        hsobj = hashlib.sha256(key.encode("utf-8"))
+        hsobj = hashlib.sha256(salt.encode("utf-8"))
         hsobj.update(value.encode("utf-8"))
         return hsobj.hexdigest()
 
@@ -191,9 +190,3 @@ class RsaUtil:
         except (ValueError, TypeError):
             ret = False
         return ret
-
-
-if __name__ == '__main__':
-    data = SHA256Util.sha256_salt("11", "2")
-    print(data)
-    SHA256Util.enc_bytes()

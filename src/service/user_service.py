@@ -5,7 +5,7 @@ from flask_restful import fields, marshal
 from api.user.vo import Attention
 from config.mysql_db import db
 from util import res_util
-from util.TokenUtil import get_payload
+from util.token_util import get_payload
 from vo.UserVO import UserVO
 
 

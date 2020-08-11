@@ -4,7 +4,7 @@
 """
 from flask import Blueprint, redirect, request
 
-from api.user import UserService
+from service import user_service
 from service.alipay import AliPayService
 from .GameSquare import Game
 
@@ -46,7 +46,7 @@ def pay_for_product():
     # 查询数据库,获取金额,主题
     money = 100
     subject = "糖果"
-    user_id = UserService.get_id_by_token()
+    user_id = user_service.get_id_by_token()
 
     alipay = AliPayService.AliPay()
 

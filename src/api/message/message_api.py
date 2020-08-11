@@ -3,7 +3,7 @@ from flask import Blueprint, jsonify, request
 from flask_restful import fields, marshal
 
 from api.message.vo import PersonSpeech
-from api.user import UserService
+from service import user_service
 from api.user.user_type import UserType
 from config.mysql_db import db
 from util import res_util
@@ -15,13 +15,13 @@ message_api = Blueprint("message_api", __name__, url_prefix='/api/message_api')
 # 个人发表
 @message_api.route('/add_speech', methods=['POST'])
 def add_speech():
-    if not UserService.getUserType() == UserType.normal.value:
+    if not user_service.getUserType() == UserType.normal.value:
         raise WorldException
     data = request.get_json()
     title = data.get('title', '')
     content = data.get('content', '')
     group = data.get('group', '')
-    userId = UserService.get_id_by_token()
+    userId = user_service.get_id_by_token()
     vo = PersonSpeech(title=title, content=content, userId=userId, group=group)
     db.session.add(vo)
     db.session.commit()
@@ -38,7 +38,7 @@ speechFields = {
 
 @message_api.route('/get_my_speech', methods=['GET'])
 def get_my_speech():
-    userId = UserService.get_id_by_token()
+    userId = user_service.get_id_by_token()
     parent_vo_list = PersonSpeech.query.filter_by(userId=userId).all()
     data_list = [marshal(i, speechFields) for i in parent_vo_list]
     return jsonify(res_util.success(data_list))
@@ -61,7 +61,7 @@ def get_speech_by_id():
 @message_api.route('/get_other_user_speech', methods=['GET'])
 def get_other_user_speech():
     # TODO 时间 所有好友 分组可视
-    attentionList = UserService.getAttentionList()
+    attentionList = user_service.getAttentionList()
     attentionIds = [attenion.userId for attenion in attentionList]
     parent_vo_list = PersonSpeech.query.filter_by(PersonSpeech.userId.in_(attentionIds), )  # todo group
     data_list = [marshal(i, speechFields) for i in parent_vo_list]
@@ -81,7 +81,7 @@ def delete_speech():
     data = request.get_json()
     content = data.get('content', '')
     group = data.get('group', '')
-    user_id = UserService.get_id_by_token()
+    user_id = user_service.get_id_by_token()
     vo = PersonSpeech(content=content, user_id=user_id, group=group)
     db.session.add(vo)
     db.session.commit()
@@ -90,11 +90,11 @@ def delete_speech():
 
 @message_api.route('/addAnnouncement', methods=['POST'])
 def addAnnouncement():
-    if UserService.getUserType() == UserType.normal.value:
+    if user_service.getUserType() == UserType.normal.value:
         raise WorldException
     data = request.get_json()
     content = data.get('content', '')
-    userId = UserService.get_id_by_token()
+    userId = user_service.get_id_by_token()
     vo = PersonSpeech(content=content, userId=userId, group=UserType.strange.value)
     db.session.add(vo)
     db.session.commit()

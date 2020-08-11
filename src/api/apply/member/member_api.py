@@ -12,14 +12,14 @@ from flask_restful import fields, marshal
 # 会员添加人
 # 系统--会员vo,用户vo,...
 #  假设存在某些条件  todo  用户--商店--vip-vip会员-钱包   用户查看会员
-from api.user import UserService
+from service import user_service
 from config.mysql_db import db
 from util import res_util
-from util.EncryptUtil import SHA256Util
+from util.encrypt_util import SHA256Util
 from .vo import StoreMemberTable, WalletVO
 from .vo import StoreVO
 
-
+from util import password_util
 class StoreApi(Resource):
 
     def post(self):
@@ -31,7 +31,7 @@ class StoreApi(Resource):
         data = request.get_json()
         name = data.get('name', '')
         password = data.get('password', '')
-        vo = StoreVO(name=name, password=SHA256Util.sha256_salt(password), user_id=UserService.get_id_by_token())
+        vo = StoreVO(name=name, password=password_util.get_sha256_salt_password(password), user_id=user_service.get_id_by_token())
         db.session.add(vo)
         db.session.commit()
         return res_util.success(marshal(vo, field))
@@ -46,7 +46,7 @@ class StoreApi(Resource):
             vo = StoreVO.query.filter(StoreVO.id == request.args.get("id")).first()
             return res_util.success(marshal(vo, field))
 
-        vos = StoreVO.query.filter(StoreVO.user_id == UserService.get_id_by_token()).all()
+        vos = StoreVO.query.filter(StoreVO.user_id == user_service.get_id_by_token()).all()
         ret = [marshal(vo, field) for vo in vos]
         return res_util.success(ret)
 

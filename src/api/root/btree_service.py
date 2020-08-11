@@ -3,10 +3,10 @@ from flask import jsonify
 from flask_restful import fields, marshal
 
 from api.root.vo import BTreeVO
-from api.user import UserService
+from service import user_service
 from config.mysql_db import db
 from util import res_util
-from util.TreeUtil import getTreeFromList
+from util.tree_util import getTreeFromList
 
 btreeFields = {
     'id': fields.Integer,
@@ -33,7 +33,7 @@ def addNode(nodeId, value):
     vo = BTreeVO.query.filter_by(id=nodeId).first()
     fullPath = vo.fullPath + str(vo.id) + "/"
     # sort = data.get('sort')
-    userId = UserService.get_id_by_token()
+    userId = user_service.get_id_by_token()
     vo = BTreeVO(value=value, userId=userId, fullPath=fullPath)
     db.session.add(vo)
     db.session.commit()

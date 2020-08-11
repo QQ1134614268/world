@@ -2,7 +2,7 @@ import json
 import os
 
 from config.conf import LOG_PATH, UPLOAD_FILE_PATH
-from util.LogUtil import logger
+from util.log_util import logger
 from vo.OrganizationVO import OrganizationVO
 
 

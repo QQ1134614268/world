@@ -2,10 +2,10 @@ from flask import jsonify, request
 from flask_restful import Resource
 from flask_restful import marshal, fields
 
-from api.user import UserService
+from service import user_service
 from config.mysql_db import db
 from util import res_util
-from util.TreeUtil import get_tree
+from util.tree_util import get_tree
 from .vo import ModelVO
 
 model_fields = {
@@ -36,8 +36,8 @@ class ModelApi(Resource):
     def post(self):
         data = request.get_json()
         value = data.get("value", "")
-        data["userId"] = UserService.get_id_by_token()
-        vo = ModelVO(userId=UserService.get_id_by_token(), value=value)
+        data["userId"] = user_service.get_id_by_token()
+        vo = ModelVO(userId=user_service.get_id_by_token(), value=value)
         db.session.add(vo)
         db.session.commit()
         return jsonify(res_util.success("success"))
