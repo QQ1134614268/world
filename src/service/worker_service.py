@@ -64,19 +64,19 @@ def add_worker_time(data):
     return res_util.success()
 
 
-def get_worker_time_all():
-    res = WorkerVO.query.outerjoin(WorkerTimeVO, and_(WorkerTimeVO.date == time.strftime('%Y-%m-%d 00:00:00'),
-                                                      WorkerVO.id == WorkerTimeVO.worker_id)).with_entities(
-        WorkerVO.id.label("worker_id"),
-        WorkerVO.name,
-        WorkerTimeVO.id,
-        WorkerTimeVO.morning,
-        WorkerTimeVO.noon,
-        WorkerTimeVO.afternoon,
-        WorkerTimeVO.night,
-    ).order_by(WorkerVO.name).all()
-    ret = [dict(zip(item.keys(), item)) for item in res]
-    return res_util.success(ret)
+# def get_worker_time_all():
+#     res = WorkerVO.query.outerjoin(WorkerTimeVO, and_(WorkerTimeVO.date == time.strftime('%Y-%m-%d 00:00:00'),
+#                                                       WorkerVO.id == WorkerTimeVO.worker_id)).with_entities(
+#         WorkerVO.id.label("worker_id"),
+#         WorkerVO.name,
+#         WorkerTimeVO.id,
+#         WorkerTimeVO.morning,
+#         WorkerTimeVO.noon,
+#         WorkerTimeVO.afternoon,
+#         WorkerTimeVO.night,
+#     ).order_by(WorkerVO.name).all()
+#     ret = [dict(zip(item.keys(), item)) for item in res]
+#     return res_util.success(ret)
 
 
 def update_worker_time(data):
@@ -85,7 +85,6 @@ def update_worker_time(data):
         if i.get("id"):
             WorkerTimeVO.query.filter(WorkerTimeVO.id == i.pop("id")).update(i)
         else:
-            i["date"] = time.strftime('%Y-%m-%d 00:00:00')
             vos.append(WorkerTimeVO(**i))
     db.session.add_all(vos)
     db.session.commit()

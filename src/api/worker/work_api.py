@@ -3,6 +3,8 @@
 @Time: 2020/7/5
 @Description: pass
 """
+import time
+
 from flask import request
 from flask_restful import Resource
 
@@ -39,11 +41,10 @@ class WorkerTimeApi(Resource):
         return worker_service.add_worker_time(data)
 
     def get(self):
-        if request.args.get("date"):
-            return worker_service.get_worker_day(request.args.get("date"))
         if request.args.get("month"):
             return worker_service.get_worker_month(request.args.get("month"))
-        return worker_service.get_worker_time_all()
+        date = request.args.get("date", time.strftime('%Y-%m-%d 00:00:00'))
+        return worker_service.get_worker_day(date)
 
     def put(self):
         data = request.get_json()
