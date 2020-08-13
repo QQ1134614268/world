@@ -1,5 +1,3 @@
-import time
-
 from flask_restful import marshal, fields
 from sqlalchemy.sql import and_
 
@@ -107,10 +105,10 @@ def get_worker_day(date):
     return res_util.success(ret)
 
 
-def get_worker_month(month):
+def get_worker_month(month, work_id):
     res = WorkerVO.query.outerjoin(
         WorkerTimeVO, and_(WorkerTimeVO.date.between(month, month + 1), WorkerVO.id == WorkerTimeVO.worker_id)
-    ).filter(WorkerVO.belong == user_service.get_id_by_token()).with_entities(
+    ).filter(WorkerVO.id == work_id).with_entities(
         WorkerVO.id.label("worker_id"),
         WorkerVO.name,
         WorkerTimeVO.id,
