@@ -1,3 +1,6 @@
+import datetime
+
+from dateutil.relativedelta import relativedelta
 from flask_restful import marshal, fields
 from sqlalchemy.sql import and_
 
@@ -106,16 +109,23 @@ def get_worker_day(date):
 
 
 def get_worker_month(month, work_id):
+    month = datetime.datetime.strptime(month, "%Y-%m-%d")
+    last_month = month + relativedelta(months=1)
     res = WorkerVO.query.outerjoin(
-        WorkerTimeVO, and_(WorkerTimeVO.date.between(month, month + 1), WorkerVO.id == WorkerTimeVO.worker_id)
+        WorkerTimeVO,
+        and_(WorkerTimeVO.date.between(month.strftime("%Y-%m-01"), last_month.strftime("%Y-%m-01")),
+             WorkerVO.id == WorkerTimeVO.worker_id)
     ).filter(WorkerVO.id == work_id).with_entities(
         WorkerVO.id.label("worker_id"),
-        WorkerVO.name,
-        WorkerTimeVO.id,
-        WorkerTimeVO.morning,
-        WorkerTimeVO.noon,
-        WorkerTimeVO.afternoon,
-        WorkerTimeVO.night,
-    ).order_by(WorkerVO.name).all()
+        WorkerVO.name.label("name"),
+        WorkerTimeVO.id.label("id"),
+        WorkerTimeVO.date.label("date"),
+        WorkerTimeVO.morning.label("morning"),
+        WorkerTimeVO.noon.label("noon"),
+        WorkerTimeVO.afternoon.label("afternoon"),
+        WorkerTimeVO.night.label("night"),
+    ).order_by(WorkerVO.name).order_by(WorkerTimeVO.date).all()
     ret = [dict(zip(item.keys(), item)) for item in res]
+    for i in ret:
+        i["date"] = i["date"].strftime("%Y-%m-%d")
     return res_util.success(ret)

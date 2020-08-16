@@ -25,6 +25,6 @@ def get_utc_now():
 
 
 if __name__ == '__main__':
-    print(datetime.datetime.utcnow().strftime('%Y_%m_%d_%H_%M_%S_%f'))
+    print(datetime.datetime.now().strftime("%Y_%m_%d %H_%M_%S_%f"))
     print(time.strftime('%Y-%m-%d %H:%M:%S'))
     print(datetime.datetime.now())

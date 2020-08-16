@@ -42,7 +42,8 @@ class WorkerTimeApi(Resource):
 
     def get(self):
         if request.args.get("month"):
-            return worker_service.get_worker_month(request.args.get("month"),request.args.get("work_id"))
+            print(type(request.args.get("month")))
+            return worker_service.get_worker_month(request.args.get("month"), request.args.get("workerId"))
         date = request.args.get("date", time.strftime('%Y-%m-%d 00:00:00'))
         return worker_service.get_worker_day(date)
 
