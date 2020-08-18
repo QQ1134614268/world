@@ -1,4 +1,5 @@
 import datetime
+from datetime import date
 
 from dateutil.relativedelta import relativedelta
 from flask_restful import marshal, fields
@@ -110,6 +111,9 @@ def get_worker_day(date):
 
 def get_worker_month(month, work_id):
     month = datetime.datetime.strptime(month, "%Y-%m-%d")
+    # todo
+    # fir_month = date(month.year, month.month, 1)
+    # last_month = date(month.year, month.month + 1, 1) - datetime.timedelta(days=1)
     last_month = month + relativedelta(months=1)
     res = WorkerVO.query.outerjoin(
         WorkerTimeVO,
