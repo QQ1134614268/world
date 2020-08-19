@@ -11,5 +11,5 @@ class Exist(object):
 
 class Human(Exist):
     def __init__(self):
-        self.xiaolv = 0
+        self.efficiency = 0
 
