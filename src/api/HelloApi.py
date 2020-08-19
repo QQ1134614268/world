@@ -261,5 +261,5 @@ def get_music():
         return send_file(os.path.join(DATA_DIR, "upload", path), mimetype='audio/mpeg')
     music_list = ["wg/music/张卫 - 机器铃 砍菜刀.mp3", "wg/music/刘德华 - 忘情水(Live).mp3", "wg/music/大壮 - 为你我受冷风吹.mp3",
                   "wg/music/宇西 - 安和桥（Cover 宋冬野）.mp3", "wg/music/曾惜 - 讲真的.mp3", "wg/music/逃跑计划 - 夜空中最亮的星.mp3",
-                  "wg/music/颜小健 - 一不小心.mp3", ]
+                  "wg/music/颜小健 - 一不小心.mp3", "wg/music/张紫豪 - 地铁等待.mp3"]
     return jsonify(res_util.success(music_list))
