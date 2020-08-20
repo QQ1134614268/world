@@ -4,13 +4,13 @@
 @Description: 
 """
 
-from sqlalchemy import Column, String, Integer, Text, JSON, Boolean,Float
+from sqlalchemy import Column, String, Integer, Text, JSON, Boolean, Float
 
 from config.mysql_db import BaseTable
 
 
-class ExistVO(BaseTable):
-    __tablename__ = 'exist_t'
+class ClassVO(BaseTable):
+    __tablename__ = 'class_t'
     name = Column(Text, default='')
     describe = Column(String(255), default='')
     data = Column(JSON)

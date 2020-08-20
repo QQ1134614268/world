@@ -10,9 +10,9 @@ from flask_restful import marshal, fields
 from config.mysql_db import db
 from service import user_service
 from util import res_util
-from .vo import ExistVO
+from .vo import ClassVO
 
-model_fields = {
+class_fields = {
     'id': fields.Integer,
     'describe': fields.String,
     'name': fields.String,
@@ -21,35 +21,37 @@ model_fields = {
 }
 
 
-class ExistApi(Resource):
+class ClassApi(Resource):
     def get(self):
         if request.args.get("parent_id"):
-            vos = ExistVO.query.filter_by(ExistVO.parent_id == request.args.get("parent_id")).all()
-            return res_util.success([marshal(vo, model_fields) for vo in vos])
+            vos = ClassVO.query.filter(ClassVO.parent_id == request.args.get("parent_id")).all()
+            return res_util.success([marshal(vo, class_fields) for vo in vos])
 
         if request.args.get("id"):
-            vo = ExistVO.query.filter_by(ExistVO.id == request.args.get("id")).first()
-            return res_util.success(marshal(vo, model_fields))
+            vo = ClassVO.query.filter(ClassVO.id == request.args.get("id")).first()
+            return res_util.success(marshal(vo, class_fields))
+        vos = ClassVO.query.filter(ClassVO.parent_id == 0).all()
+        return res_util.success([marshal(vo, class_fields) for vo in vos])
 
     def post(self):
         data = request.get_json()
         parent_id = data.get("parent_id", "")
         describe = data.get("describe", "")
         name = data.get("name", "")
-        vo = ExistVO(name=name, describe=describe, parent_id=parent_id, user_id=user_service.get_id_by_token(), )
+        vo = ClassVO(name=name, describe=describe, parent_id=parent_id, user_id=user_service.get_id_by_token(), )
         db.session.add(vo)
         db.session.commit()
         return jsonify(res_util.success())
 
     def delete(self):
         data = request.get_json()
-        ExistVO.query.filter(ExistVO.id == data.get("id", "")).delete()
+        ClassVO.query.filter(ClassVO.id == data.get("id", "")).delete()
         db.session.commit()
         return jsonify(res_util.success())
 
     def put(self):
         # todo
         data = request.get_json()
-        ExistVO.query.filter(ExistVO.id == data.get("id", "")).update(data)
+        ClassVO.query.filter(ClassVO.id == data.get("id", "")).update(data)
         db.session.commit()
         return jsonify(res_util.success())

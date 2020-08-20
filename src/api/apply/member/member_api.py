@@ -7,19 +7,19 @@ from flask import request
 from flask_restful import Resource
 from flask_restful import fields, marshal
 
+from config.mysql_db import db
 # 用户创建 store
 # store下创建会员
 # 会员添加人
 # 系统--会员vo,用户vo,...
 #  假设存在某些条件  todo  用户--商店--vip-vip会员-钱包   用户查看会员
 from service import user_service
-from config.mysql_db import db
+from util import password_util
 from util import res_util
-from util.encrypt_util import SHA256Util
 from .vo import StoreMemberTable, WalletVO
 from .vo import StoreVO
 
-from util import password_util
+
 class StoreApi(Resource):
 
     def post(self):
@@ -31,7 +31,8 @@ class StoreApi(Resource):
         data = request.get_json()
         name = data.get('name', '')
         password = data.get('password', '')
-        vo = StoreVO(name=name, password=password_util.get_sha256_salt_password(password), user_id=user_service.get_id_by_token())
+        vo = StoreVO(name=name, password=password_util.get_sha256_salt_password(password),
+                     user_id=user_service.get_id_by_token())
         db.session.add(vo)
         db.session.commit()
         return res_util.success(marshal(vo, field))
@@ -96,9 +97,9 @@ class WalletApi(Resource):
             "user_id": fields.Integer,
             "money": fields.Float,
         }
-        if  request.args.get("id"):
+        if request.args.get("id"):
             vo = WalletVO.query.filter(WalletVO.id == request.args.get("id")).first()
             return res_util.success(marshal(vo, field))
-        if  request.args.get("user_id"):
+        if request.args.get("user_id"):
             vo = WalletVO.query.filter(WalletVO.user_id == request.args.get("user_id")).first()
             return res_util.success(marshal(vo, field))
