@@ -1,5 +1,6 @@
 # encoding: utf-8
 import datetime
+import json
 import re
 import socket
 import traceback
@@ -20,7 +21,7 @@ from api.message.wb.WbApi import wb_api
 from api.message.wx.SocketApi import socket_api
 from api.model.model_api import ModelApi
 from api.my_cloud_space.CloudSpaceApi import cloud_space_api
-from api.my_cloud_space.file.file_api import fileApi
+from api.my_cloud_space.file.file_api import FileApi
 from api.root.OrganizationApi import organization_api
 from api.root.btree_api import btree_api
 from api.scheduler.APScheduler import scheduler
@@ -68,14 +69,12 @@ def before_request():  # 登录过滤,正则匹配,日志记录,IP分析
         return make_response(), 200
     intercept_path = ["/api"]
     allow_path = ["/api/sys_api/register", "/api/sys_api/get_verify_code", "/api/sys_api/login",
-                  "/api/user_api/logout", "/api/hello_api"]
+                  "/api/sys_api/logout", "/api/hello_api"]
     url_path = request.path
     for path in allow_path:
         ip = request.remote_addr
         user_agent = request.headers.get('User-Agent')
         logger.info({"url_path": url_path, "ip": ip, "User-Agent": user_agent, "action": "before_request"})
-        if url_path == "/favicon.ico":
-            return "favicon.ico"
         if re.match(path, url_path):
             break
     else:
@@ -114,30 +113,30 @@ def handle_404_error(err_msg):
     url_path = request.path
     userId = user_service.get_name_by_token()
     logger.error({"404": {"userId": userId, "url_path": url_path, "err_msg": str(err_msg)}})
-    return res_util.fail(u"server error：%s" % err_msg)
+    return res_util.err(u"server error：%s" % err_msg)
 
 
 @app.errorhandler(Exception)
 def flask_global_exception_handler(e):
     # traceback.print_exc()  # str(e)  repr(e)  e.message
     message = traceback.format_exc()
-    logger.error(message)  # 日志输出到控制台和日志文件
+    try:
+        host_name = socket.gethostname()
+        host_ip = socket.gethostbyname(host_name)
+    except ConnectionError:
+        host_name = "unknown hostname"
+        host_ip = "unknown ip"
+    data = {"remote_ip": request.remote_addr, "url": request.path, "method": request.method,
+            "host_ip": host_ip, "host_name": host_name}
+    logger.error(message, data)  # 日志输出到控制台和日志文件
     traceback.print_exc()
     # 邮件服务 发送异常通知邮件  邮件模板
     if not socket_util.get_host_name() in MAIL_HOST_BLOCK_LIST:
-        # if request.host_url:
-        #     pass
-        try:
-            host_name = socket.gethostname()
-            host_ip = socket.gethostbyname(host_name)
-        except ConnectionError:
-            host_name = "unknown hostname"
-            host_ip = "unknown ip"
-        mail_util.send_email(host_name + "--" + host_ip + "\r\n" + message + "\r\n" + socket_util.get_host_ip(), MAIL_TO)
+        mail_util.send_email(json.dump(data) + message, MAIL_TO)
     if app.config["DEBUG"]:
-        return res_util.fail(message)
+        return res_util.err(message)
     else:
-        return res_util.fail("server error: " + str(e) + "; please contact your administrator ")
+        return res_util.err("服务器发生了一个错误")
 
 
 @app.route('/', methods=['GET'])
@@ -163,9 +162,9 @@ app.register_blueprint(socket_api)
 app.register_blueprint(customize_api)
 app.register_blueprint(wb_api)
 app.register_blueprint(scheduler_api)
-app.register_blueprint(fileApi)
 app.register_blueprint(message_api)
 app.register_blueprint(btree_api)
+api.add_resource(FileApi, "/api/file/FileApi")
 api.add_resource(ModelApi, "/api/model_api/ModelApi")
 api.add_resource(StoreApi, "/api/member/StoreApi")
 api.add_resource(StoreMemberApi, "/api/member/StoreMemberApi")

@@ -1,7 +1,3 @@
-# from util.LogUtil import logger
-# from api.user.UserService import get_id_by_token
-
-
 def success(data="success"):
     return {
         "code": 1,
@@ -13,6 +9,14 @@ def success(data="success"):
 def fail(message=""):
     return {
         "code": 2,
+        "data": "",
+        "message": message
+    }
+
+
+def err(message=""):
+    return {
+        "code": 4,
         "data": "",
         "message": message
     }
