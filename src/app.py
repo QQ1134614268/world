@@ -45,8 +45,6 @@ from util.log_util import logger
 app = Flask(__name__)
 
 app = Flask(__name__)
-# from config.config import Config
-# app.config.from_object(Config)
 api = Api(app)
 # 跨域
 CORS(app, supports_credentials=True)
@@ -84,7 +82,8 @@ def before_request():  # 登录过滤,正则匹配,日志记录,IP分析
             username = user_service.get_name_by_token()
             userid = user_service.get_id_by_token()
             logger.info({"user": {"username": username, "userid": userid}, "url_path": url_path, "ip": ip,
-                         "User-Agent": user_agent, "action": "before_request"})
+                         "User-Agent"
+                         "": user_agent, "action": "before_request"})
             if re.match(path2, url_path):
                 try:
                     utc_time_str = token_util.get_payload().get("utc_time_str")
