@@ -16,4 +16,4 @@ requests==2.23.0
 redis==3.3.11
 pymongo==3.10.1
 mysql-connector-python==8.0.18
-python-dateutil
+pyyaml==5.3.1

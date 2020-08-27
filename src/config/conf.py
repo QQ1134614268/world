@@ -6,7 +6,7 @@ DATA_DIR = path.join(path.dirname(path.dirname(ROOT_DIR)), "data")
 DEFAULT_TIME_STR = '%Y_%m_%d_%H_%M_%S_%f'
 
 MAIL_HOST_BLOCK_LIST = ["DESKTOP-4JJG0QE"]
-
+DATE_FORMAT = "%Y-%m-%d"
 DATE_TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
 PUBLIC_KEY = "world"
 

@@ -56,7 +56,7 @@ class FileApi(Resource):
         if not os.path.exists(full_path):
             return res_util.fail("参数异常")
         if os.path.isdir(full_path):
-            # for root, dirs, files in os.walk(path):
+            # root, dirs, files = os.walk(".").__next__()
             return res_util.success(os.listdir())
         return send_file(full_path, as_attachment=True,
                          attachment_filename=full_path.split('/')[-1],
@@ -85,9 +85,11 @@ class FileApi(Resource):
 if __name__ == '__main__':
     import os
 
+    print(os.listdir())
     for root, dirs, files in os.walk(".", topdown=False):
         for name in files:
             print(os.path.join(root, name))
         for name in dirs:
             print(os.path.join(root, name))
-    a = os.listdir(".")
+    root, dirs, files = os.walk(".").__next__()
+    print("--", root, dirs, files)

@@ -1,11 +1,11 @@
 import datetime
 from datetime import date
 
-from dateutil.relativedelta import relativedelta
 from flask_restful import marshal, fields
 from sqlalchemy.sql import and_
 
 from api.worker.vo import WorkerVO, WorkerTimeVO
+from config.conf import DATE_FORMAT
 from config.mysql_db import db
 from config.orm_config import DateTime
 from service import user_service
@@ -60,7 +60,6 @@ def get_worker_all():
 
 
 def add_worker_time(data):
-    # data["date"] = time.strftime('%Y-%m-%d 00:00:00')
     vos = [WorkerTimeVO(**i) for i in data]
     db.session.commit_all(vos)
     return res_util.success()
@@ -110,14 +109,12 @@ def get_worker_day(date):
 
 
 def get_worker_month(month, work_id):
-    month = datetime.datetime.strptime(month, "%Y-%m-%d")
-    # todo
-    # fir_month = date(month.year, month.month, 1)
-    # last_month = date(month.year, month.month + 1, 1) - datetime.timedelta(days=1)
-    last_month = month + relativedelta(months=1)
+    month = datetime.datetime.strptime(month, DATE_FORMAT)
+    month = date(month.year, month.month, 1)
+    last_month = date(month.year, month.month + 1, 1) - datetime.timedelta(days=1)
     res = WorkerVO.query.outerjoin(
         WorkerTimeVO,
-        and_(WorkerTimeVO.date.between(month.strftime("%Y-%m-01"), last_month.strftime("%Y-%m-01")),
+        and_(WorkerTimeVO.date.between(month, last_month),
              WorkerVO.id == WorkerTimeVO.worker_id)
     ).filter(WorkerVO.id == work_id).with_entities(
         WorkerVO.id.label("worker_id"),
@@ -131,5 +128,5 @@ def get_worker_month(month, work_id):
     ).order_by(WorkerVO.name).order_by(WorkerTimeVO.date).all()
     ret = [dict(zip(item.keys(), item)) for item in res]
     for i in ret:
-        i["date"] = i["date"].strftime("%Y-%m-%d")
+        i["date"] = i["date"].strftime(DATE_FORMAT)
     return res_util.success(ret)
