@@ -5,7 +5,7 @@ import socket
 import traceback
 
 from flasgger import Swagger
-from flask import Flask, request
+from flask import Flask, request, make_response
 from flask_cors import CORS
 from flask_restful import Api
 
@@ -61,7 +61,9 @@ db.init_app(app)
 
 
 @app.before_request
-def before_request():  # 登录过滤,正则匹配,日志记录,IP分析
+def before_request():  # 登录过滤,正则匹配,日志记录,IP分析 todo
+    if request.method == "OPTIONS":
+        return make_response(), 200
     intercept_path = ["/api"]
     allow_path = ["/api/sys_api/register", "/api/sys_api/get_verify_code", "/api/sys_api/login",
                   "/api/sys_api/logout", "/api/hello_api"]

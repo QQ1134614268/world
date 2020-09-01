@@ -37,6 +37,7 @@ def update_or_add_worker(data):
         if i.get("id"):
             WorkerVO.query.filter(WorkerVO.id == i.pop("id")).update(i)
         else:
+            i["belong"] = user_service.get_id_by_token()
             vos.append(WorkerVO(**i))
     db.session.add_all(vos)
     db.session.commit()
