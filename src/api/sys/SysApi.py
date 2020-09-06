@@ -1,14 +1,14 @@
 # encoding: utf-8
 import random
-
 import time
+
 from flask import Blueprint, jsonify, make_response, request
 from flask_restful import fields, marshal
 
-from service import user_service
+from config.conf import UPLOAD_FILE_PATH
 from config.mysql_db import db
 from config.redis_db import redisDB
-from config.conf import UPLOAD_FILE_PATH
+from service import user_service
 from util import password_util, res_util
 from util import token_util
 from util import verification_code_util
@@ -147,8 +147,8 @@ def register():
     data = request.get_json()
     username = data.get('username', '')
     code = data.get('code', '')
-    if not (code.lower() == "zero" or (redisDB.get("verify_code-" + username) and redisDB.get(
-            "verify_code-" + username).lower() == code.lower())):
+    cache_code = redisDB.get("verify_code-" + username) or ""
+    if not (code.lower() == "zero" or cache_code == code.lower()):
         return res_util.fail("验证码错误")
     exist = UserVO.query.filter_by(username=username).first()
     if exist:

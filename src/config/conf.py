@@ -7,7 +7,7 @@ DATA_DIR = path.join(path.dirname(path.dirname(ROOT_DIR)), "data")
 LOG_PATH = path.join(DATA_DIR, "log")
 UPLOAD_FILE_PATH = path.join(DATA_DIR, "upload")
 
-DEFAULT_TIME_STR = '%Y_%m_%d_%H_%M_%S_%f'
+DEFAULT_TIME_STR = '%Y-%m-%d %H:%M:%S.%f'
 
 MAIL_HOST_BLOCK_LIST = ["DESKTOP-4JJG0QE"]
 DATE_FORMAT = "%Y-%m-%d"

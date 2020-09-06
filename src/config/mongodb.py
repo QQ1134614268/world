@@ -1,8 +1,10 @@
 import pymongo
 
+from config.conf import MONGO_HOST, MONGO_PORT
+
 
 def create_mongoDB():
-    client = pymongo.MongoClient(host="mongodb://127.0.0.1:27017/")
+    client = pymongo.MongoClient(host="mongodb://{}:{}/".format(MONGO_HOST, MONGO_PORT))
     # 指定数据库
     db = client.world
     # db = client["world"]
