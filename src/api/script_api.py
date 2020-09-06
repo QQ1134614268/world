@@ -14,7 +14,7 @@ model_fields = {
 }
 
 
-class ModelApi(Resource):
+class ScriptApi(Resource):
     def get(self):
         ret = ["zero", "", "", ]
         return jsonify(res_util.success(ret))
@@ -23,9 +23,14 @@ class ModelApi(Resource):
         file = request.files["file"]
         enum_type = request.form.get("type")
         ret = []
-        if enum_type == "zero":
-            with open(file) as f:
-                lines = f.readline()
-                for line in lines:
-                    ret.append(line)
-        return jsonify(res_util.success("success"))
+        # from io import BytesIO
+        # f = BytesIO(file.readline())
+        lines = file.read()
+        for line in lines:
+            ret.append(line)
+        # if enum_type == "zero" or 1:
+        #     with open(file.read(), "rb") as f:
+        #         lines = f.readline()
+        #         for line in lines:
+        #             ret.append(line)
+        return res_util.success(ret)

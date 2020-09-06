@@ -39,7 +39,7 @@ from util import res_util
 from util import socket_util
 from util import token_util
 from util.log_util import logger
-
+from api.script_api import ScriptApi
 app = Flask(__name__)
 
 app = Flask(__name__)
@@ -159,6 +159,7 @@ api.add_resource(WalletApi, "/api/member/WalletApi")
 api.add_resource(WorkerApi, "/api/work_api/WorkerApi")
 api.add_resource(WorkerTimeApi, "/api/work_api/WorkerTimeApi")
 api.add_resource(ClassApi, "/api/class_api/ClassApi")
+api.add_resource(ScriptApi, "/api/class_api/ScriptApi")
 
 if __name__ == '__main__':
     scheduler.init_app(app)
