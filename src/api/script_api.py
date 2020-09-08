@@ -7,6 +7,8 @@ from flask import jsonify, request
 from flask_restful import Resource
 from flask_restful import fields
 
+from api.exist.vo import ClassVO
+from config.mysql_db import db
 from util import res_util
 
 model_fields = {
@@ -21,16 +23,21 @@ class ScriptApi(Resource):
 
     def post(self):
         file = request.files["file"]
-        enum_type = request.form.get("type")
-        ret = []
-        # from io import BytesIO
-        # f = BytesIO(file.readline())
-        lines = file.read()
+        lines = file.readlines()
+        root = {"children": [], "id": 1}
+        level = {-1: root}
+        count = 2
+        vos = []
         for line in lines:
-            ret.append(line)
-        # if enum_type == "zero" or 1:
-        #     with open(file.read(), "rb") as f:
-        #         lines = f.readline()
-        #         for line in lines:
-        #             ret.append(line)
-        return res_util.success(ret)
+            curr = str(line, encoding="utf-8").replace("\r\n", "")
+            if not curr.lstrip():
+                continue
+            space = len(curr) - len(curr.lstrip())
+            data = {"value": curr.lstrip(), "children": [], "id": count}
+            count += 1
+            level[space // 4 - 1]["children"].append(data)
+            level[space // 4] = data
+            vos.append(ClassVO(id=data["id"], name=data["value"], parent_id=level[space // 4 - 1]["id"]))
+        db.session.add_all(vos)
+        db.session.commit()
+        return res_util.success(root)
