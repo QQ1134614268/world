@@ -10,6 +10,7 @@ from flask_restful import Resource
 
 from service import worker_service
 
+
 class WorkerApi(Resource):
     """工人"""
 
@@ -38,8 +39,11 @@ class WorkerTimeApi(Resource):
     def post(self):
         data = request.get_json()
 
-        # 1
-        ids = data.get("worker_ids")
+        if isinstance(data.get("worker_id"), list):
+            return worker_service.cover_worker_time3(data)
+        if isinstance(data.get("type"), list):
+            return worker_service.cover_worker_time2(data)
+
         worker_service.cover_worker_time(data)
         return worker_service.add_worker_time(data)
 
