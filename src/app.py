@@ -25,6 +25,7 @@ from api.root.OrganizationApi import organization_api
 from api.root.btree_api import btree_api
 from api.scheduler.APScheduler import scheduler
 from api.scheduler.SchedulerApi import scheduler_api
+from api.script_api import ScriptApi
 from api.sys.SysApi import sys_api
 from api.user.AuthApi import auth_api
 from api.user.user_api import user_api
@@ -39,8 +40,6 @@ from util import res_util
 from util import socket_util
 from util import token_util
 from util.log_util import logger
-from api.script_api import ScriptApi
-app = Flask(__name__)
 
 app = Flask(__name__)
 api = Api(app)

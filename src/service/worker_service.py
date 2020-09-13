@@ -131,3 +131,51 @@ def get_worker_month(month, work_id):
     for i in ret:
         i["date"] = i["date"].strftime(DATE_FORMAT)
     return res_util.success(ret)
+
+
+from sqlalchemy.sql.expression import insert
+
+
+def cover_worker_time(data):
+    en = {
+        "上午": {"morning": 4.5},
+        "下午": {"morning": 4.5},
+    }
+    # 数据存在 与 不存在 -- 更新 插入
+    # insert(WorkerTimeVO).values(user_id=1, name='zs', pwd='xxx').on_duplicate_key_update(name='zs', pwd='xxx')
+
+    # 3个策略  --  批量
+    # 输入时间  时间-上下午标签- 多选人--场景  早上签到
+    # 人,勾选 上下午,,避免手动输入时间
+    # 主动更改时间,每个人的  todo
+    # {"type":"sahngwu","date":"",worker_ids:[]}
+    for i in data["worker_ids"]:
+        sql = insert(WorkerTimeVO).values(worker_id=i, **en[data.get("type")],
+                                          date=data["date"]).on_duplicate_key_update(
+            **en[data.get("type")])
+        db.session.execute(sql)
+    db.session.commit()
+    return None
+
+
+def cover_worker_time2(data):
+    en = {
+        "上午": {"morning": 4.5},
+        "下午": {"morning": 4.5},
+    }
+    # 数据存在 与 不存在 -- 更新 插入
+    # insert(WorkerTimeVO).values(user_id=1, name='zs', pwd='xxx').on_duplicate_key_update(name='zs', pwd='xxx')
+
+    # 3个策略  --  批量
+    # 输入时间  时间-上下午标签- 多选人--场景  早上签到
+    # 人,勾选 上下午,,避免手动输入时间
+    # 主动更改时间,每个人的  todo
+    # {"type":"sahngwu","date":"",worker_id:[]}
+    data2 = {}
+    for i in data["type"]:
+        data2.update(en.get(i))
+    sql = insert(WorkerTimeVO).values(worker_id=data["worker_id"], **data2,
+                                      date=data["date"]).on_duplicate_key_update(**data2)
+    db.session.execute(sql)
+    db.session.commit()
+    return None

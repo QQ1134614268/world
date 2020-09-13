@@ -3,7 +3,7 @@
 @Time: 2020/8/2
 @Description: 
 """
-from sqlalchemy import Column, String, DateTime, Integer, Enum, ForeignKey
+from sqlalchemy import Column, String, DateTime, Integer, Enum, ForeignKey, UniqueConstraint, Float
 from sqlalchemy.orm import relationship
 
 from config.mysql_db import BaseTable
@@ -24,10 +24,11 @@ class WorkerVO(BaseTable):
 class WorkerTimeVO(BaseTable):
     __tablename__ = 'worker_time_t'
     worker_id = Column(Integer, ForeignKey(WorkerVO.id, ondelete='CASCADE'), index=True)
-    morning = Column(Integer, default=0)
-    noon = Column(Integer, default=0)
-    afternoon = Column(Integer, default=0)
-    night = Column(Integer, default=0)
-    hours = Column(Integer)
+    morning = Column(Float, default=0)
+    noon = Column(Float, default=0)
+    afternoon = Column(Float, default=0)
+    night = Column(Float, default=0)
+    hours = Column(Float)
     date = Column(DateTime)
     worker = relationship(WorkerVO, backref='time', foreign_keys=[worker_id])
+    __table_args__ = (UniqueConstraint('worker_id', 'date'),)
