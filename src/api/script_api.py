@@ -6,6 +6,7 @@
 from flask import jsonify, request
 from flask_restful import Resource
 from flask_restful import fields
+from sqlalchemy.sql import func
 
 from api.exist.vo import ClassVO
 from config.mysql_db import db
@@ -24,20 +25,27 @@ class ScriptApi(Resource):
     def post(self):
         file = request.files["file"]
         lines = file.readlines()
-        root = {"children": [], "id": 1}
+        root = {"children": [], "id": 0}
         level = {-1: root}
-        count = 2
+        id_max = ClassVO.query.with_entities(func.max(ClassVO.id)).scalar() or 0
+        vo_id = id_max + 1
         vos = []
         for line in lines:
             curr = str(line, encoding="utf-8").replace("\r\n", "")
             if not curr.lstrip():
                 continue
             space = len(curr) - len(curr.lstrip())
-            data = {"value": curr.lstrip(), "children": [], "id": count}
-            count += 1
+            data = {"value": curr.lstrip(), "children": [], "id": vo_id}
+            vo_id += 1
             level[space // 4 - 1]["children"].append(data)
             level[space // 4] = data
             vos.append(ClassVO(id=data["id"], name=data["value"], parent_id=level[space // 4 - 1]["id"]))
         db.session.add_all(vos)
         db.session.commit()
         return res_util.success(root)
+
+
+if __name__ == '__main__':
+    max_id = 3
+    max_id2 = max_id or 0
+    print(max_id2)
