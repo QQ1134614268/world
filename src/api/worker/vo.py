@@ -14,7 +14,7 @@ class WorkerVO(BaseTable):
     belong = Column(Integer)
     name = Column(String(255))
     birthday = Column(DateTime)
-    id_card_number = Column(String(255), unique=True)
+    id_card_number = Column(String(255))  # , unique=True
     sex = Column(Enum('男', '女'))
     pay = Column(String(255))
     start_time = Column(DateTime)
@@ -23,6 +23,7 @@ class WorkerVO(BaseTable):
 
 class WorkerTimeVO(BaseTable):
     __tablename__ = 'worker_time_t'
+    __table_args__ = (UniqueConstraint('worker_id', 'date'),)
     worker_id = Column(Integer, ForeignKey(WorkerVO.id, ondelete='CASCADE'), index=True)
     morning = Column(Float, default=0)
     noon = Column(Float, default=0)
@@ -31,4 +32,3 @@ class WorkerTimeVO(BaseTable):
     hours = Column(Float)
     date = Column(DateTime)
     worker = relationship(WorkerVO, backref='time', foreign_keys=[worker_id])
-    __table_args__ = (UniqueConstraint('worker_id', 'date'),)

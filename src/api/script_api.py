@@ -43,9 +43,3 @@ class ScriptApi(Resource):
         db.session.add_all(vos)
         db.session.commit()
         return res_util.success(root)
-
-
-if __name__ == '__main__':
-    max_id = 3
-    max_id2 = max_id or 0
-    print(max_id2)
