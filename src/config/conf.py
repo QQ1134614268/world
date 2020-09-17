@@ -1,5 +1,7 @@
 from os import path
 
+DI = "2440024344@qq.com"
+
 ROOT_DIR = path.abspath(path.dirname(__file__))
 RESOURCE_DIR = path.join(path.dirname(path.dirname(ROOT_DIR)), "resource")
 DATA_DIR = path.join(path.dirname(path.dirname(ROOT_DIR)), "data")
