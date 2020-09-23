@@ -58,4 +58,5 @@ class ClassApi(Resource):
         data = request.get_json()
         ClassVO.query.filter(ClassVO.id == data.get("id", "")).update(data)
         db.session.commit()
+        # if data 拖拽功能
         return jsonify(res_util.success())
