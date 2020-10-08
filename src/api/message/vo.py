@@ -3,7 +3,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey, Text
 from config.mysql_db import BaseTable
 
 
-class   PersonSpeech(BaseTable):
+class PersonSpeech(BaseTable):
     __tablename__ = 'person_speech_t'
     userId = Column(Integer)
     title = Column(String(256))
@@ -13,5 +13,5 @@ class   PersonSpeech(BaseTable):
 
 class Comment(BaseTable):
     __tablename__ = 'message_comment_t'
-    personSpeechId = Column(Integer,ForeignKey('person_speech_t.id'))
+    personSpeechId = Column(Integer, ForeignKey('person_speech_t.id'))
     content = Column(String(256))

@@ -53,7 +53,7 @@ def fetch_token():
     result_str = result_str.decode()
     result = json.loads(result_str)
     if 'access_token' in result.keys() and 'scope' in result.keys():
-        if not SCOPE in result['scope'].split(' '):
+        if SCOPE not in result['scope'].split(' '):
             raise WorldException('scope is not correct')
         return result['access_token']
     else:

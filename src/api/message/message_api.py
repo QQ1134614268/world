@@ -3,20 +3,25 @@ from flask import Blueprint, jsonify, request
 from flask_restful import fields, marshal
 
 from api.message.vo import PersonSpeech
-from service import user_service
 from api.user.user_type import UserType
 from config.mysql_db import db
+from config.orm_config import DateTime
+from service import user_service
 from util import res_util
-from util.exception import WorldException
 
 message_api = Blueprint("message_api", __name__, url_prefix='/api/message_api')
+
+speechFields = {
+    'id': fields.Integer,
+    'title': fields.String,
+    'content': fields.String,
+    'create_time': DateTime
+}
 
 
 # 个人发表
 @message_api.route('/add_speech', methods=['POST'])
 def add_speech():
-    if not user_service.getUserType() == UserType.normal.value:
-        raise WorldException
     data = request.get_json()
     title = data.get('title', '')
     content = data.get('content', '')
@@ -26,14 +31,6 @@ def add_speech():
     db.session.add(vo)
     db.session.commit()
     return jsonify(res_util.success(vo.id))
-
-
-speechFields = {
-    'id': fields.Integer,
-    'title': fields.String,
-    'content': fields.String,
-    'create_time': fields.DateTime(dt_format='rfc822')
-}
 
 
 @message_api.route('/get_my_speech', methods=['GET'])
@@ -46,7 +43,7 @@ def get_my_speech():
 
 @message_api.route('/get_speech_all', methods=['GET'])
 def get_speech_all():
-    parent_vo_list = PersonSpeech.query.order_by(PersonSpeech.create_time.desc()).limit(20)
+    parent_vo_list = PersonSpeech.query.order_by(PersonSpeech.create_time.desc())
     data_list = [marshal(i, speechFields) for i in parent_vo_list]
     return jsonify(res_util.success(data_list))
 
@@ -90,8 +87,6 @@ def delete_speech():
 
 @message_api.route('/addAnnouncement', methods=['POST'])
 def addAnnouncement():
-    if user_service.getUserType() == UserType.normal.value:
-        raise WorldException
     data = request.get_json()
     content = data.get('content', '')
     userId = user_service.get_id_by_token()
