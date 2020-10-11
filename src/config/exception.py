@@ -8,7 +8,7 @@ from util.log_util import logger
 
 class WorldException(Exception):
 
-    def __init__(self, message="Exception", code=0):
+    def __init__(self, message="Exception", code=4):
         self.code = code
         self.message = message
         logger.error(str(get_id_by_token) + " url: " + request.path)

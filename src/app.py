@@ -33,13 +33,13 @@ from api.wallet.AliPayApi import ali_pay_api
 from api.worker.work_api import WorkerApi, WorkerTimeApi
 from config.conf import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME, VERSION
 from config.conf import MAIL_HOST_BLOCK_LIST
+from config.exception import WorldException
 from config.mysql_db import db
 from service import user_service
 from util import mail_util
 from util import res_util
 from util import socket_util
 from util import token_util
-from util.exception import WorldException
 from util.log_util import logger
 
 # import
@@ -151,7 +151,7 @@ def welcome():
     welcome to world!
     you can see B-tree for the api : /apidocs
     version: %s 
-    """ % VERSION
+    """.format(VERSION)
     return res_util.success(txt)
 
 
