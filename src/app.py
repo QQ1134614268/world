@@ -31,6 +31,7 @@ from api.user.AuthApi import auth_api
 from api.user.user_api import user_api
 from api.wallet.AliPayApi import ali_pay_api
 from api.worker.work_api import WorkerApi, WorkerTimeApi
+from api.worker2.work_api import work_api2
 from config.conf import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME, VERSION
 from config.conf import MAIL_HOST_BLOCK_LIST
 from config.exception import WorldException
@@ -179,6 +180,7 @@ api.add_resource(WorkerApi, "/api/work_api/WorkerApi")
 api.add_resource(WorkerTimeApi, "/api/work_api/WorkerTimeApi")
 api.add_resource(ClassApi, "/api/class_api/ClassApi")
 api.add_resource(ScriptApi, "/api/class_api/ScriptApi")
+app.register_blueprint(work_api2)
 
 if __name__ == '__main__':
     scheduler.init_app(app)
