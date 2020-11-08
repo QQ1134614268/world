@@ -34,7 +34,8 @@ DIALCT = "mysql"
 DRIVER = "mysqlconnector"
 USERNAME = "wg"
 PASSWORD = "123456"
-HOST = "127.0.0.1"  # 生产 ggok.top
+HOST = "127.0.0.1"  # 本地 dev
+# HOST = "ggok.top"  # 生产 ggok.top
 PORT = 3306
 DBNAME = "world"
 
