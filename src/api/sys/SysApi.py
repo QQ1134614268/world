@@ -46,8 +46,7 @@ def get_verify_code():
         description: success
     """
     username = request.args.get("username")
-    if not username:
-        return jsonify(res_util.fail("参数不全"))
+    assert username, "用户名不正确"
     code, img_bytes = verification_code_util.get_verify_code()
     response = make_response(img_bytes)
     response.headers['Content-Type'] = 'image/gif'
@@ -146,6 +145,7 @@ def register():
     """
     data = request.get_json()
     username = data.get('username', '')
+    # user_type = data.get('code', '')
     code = data.get('code', '')
     cache_code = redisDB.get("verify_code-" + username) or ""
     if not (code.lower() == "zero" or cache_code == code.lower()):

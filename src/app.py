@@ -43,7 +43,6 @@ from util import socket_util
 from util import token_util
 from util.log_util import logger
 
-# import
 app = Flask(__name__)
 api = Api(app)
 # 跨域
@@ -131,10 +130,9 @@ def flask_global_exception_handler(e):
 @app.errorhandler(AssertionError)
 def flask_global_exception_handler(e):
     message = traceback.format_exc()
-    if app.config["DEBUG"]:
-        return res_util.err(message)
-    else:
-        return res_util.err("服务器发生了一个错误")
+    print(e)
+    print(str(e))
+    return res_util.fail(str(e))
 
 
 @app.errorhandler(WorldException)
