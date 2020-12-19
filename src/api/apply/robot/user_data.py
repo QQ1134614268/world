@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-from api.apply.robot.BuildData import create_data
+from util.data_util import create_data
 
 wg = {
     "email": create_data("string", 10),

@@ -76,6 +76,7 @@ class StoreMemberApi(Resource):
         if request.args.get("store_id"):
             vos = StoreMemberTable.query.filter(StoreMemberTable.store_id == request.args.get("store_id")).all()
             ret = [marshal(vo, field) for vo in vos]
+            StoreMemberTable.query.outerjoin()
             return res_util.success(ret)
 
 

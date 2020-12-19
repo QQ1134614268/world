@@ -3,7 +3,7 @@ import json
 
 from api.apply.robot import action
 from api.apply.robot import user_data
-from api.apply.robot.BuildData import create_data
+from util.data_util import create_data
 from api.apply.robot.action import register
 
 

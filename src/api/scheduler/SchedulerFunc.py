@@ -7,30 +7,26 @@ from vo.OrganizationVO import OrganizationVO
 
 
 def init_dir():
+    logger.info("init_dir start")
     if not os.path.exists(LOG_PATH):
         os.makedirs(LOG_PATH)
     if not os.path.exists(UPLOAD_FILE_PATH):
         os.makedirs(UPLOAD_FILE_PATH)
+    logger.info("init_dir end")
 
 
 def init_db():
     from app import app
     with app.app_context():
-        print("init_db")
+        logger.info("init_db start")
         if not OrganizationVO.query.filter_by(id=1).first():
-            vo = OrganizationVO(id=1, code="origin", parent_id=0, name="W&G company", level=0, full_name="/W&G company/",
+            vo = OrganizationVO(id=1, code="origin", parent_id=0, name="W&G company", level=0,
+                                full_name="/W&G company/",
                                 full_path_code="/origin/", full_path_id="/1/")
             from config.mysql_db import db
             db.session.add(vo)
             db.session.commit()
-        print("init_db over")
-
-
-def init():
-    print("init")
-    init_dir()
-    # init_db()
-    print("init over")
+        logger.info("init_db end")
 
 
 def task1(a, b):
