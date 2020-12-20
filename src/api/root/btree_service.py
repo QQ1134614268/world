@@ -2,7 +2,7 @@
 from flask import jsonify
 from flask_restful import fields, marshal
 
-from api.root.vo import BTreeVO
+from vo.table_model import BTreeVO
 from service import user_service
 from config.mysql_db import db
 from util import res_util

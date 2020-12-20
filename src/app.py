@@ -12,26 +12,27 @@ from flask_restful import Api
 from api.HelloApi import hello_api
 from api.apply.member.member_api import StoreApi, StoreMemberApi, WalletApi
 from api.apply.stone_game.StoneGameApi import stone_game_api
+from api.auth.AuthApi import auth_api
 from api.customize.CustomizeApi import customize_api
 from api.exist.class_api import ClassApi
 from api.message.Speech.SpeechApi import speech_api
+from api.message.attention_api import attention_api
 from api.message.message_api import message_api
 from api.message.wb.WbApi import wb_api
 from api.message.wx.SocketApi import socket_api
 from api.model.model_api import ModelApi
 from api.my_cloud_space.CloudSpaceApi import cloud_space_api
-from api.my_cloud_space.file.file_api import FileApi
 from api.root.OrganizationApi import organization_api
 from api.root.btree_api import btree_api
 from api.scheduler.APScheduler import scheduler
 from api.scheduler.SchedulerApi import scheduler_api
 from api.script_api import ScriptApi
 from api.sys.SysApi import sys_api
-from api.user.AuthApi import auth_api
+from api.sys.file.file_api import FileApi
 from api.user.user_api import user_api
 from api.wallet.AliPayApi import ali_pay_api
-from api.worker.work_api import WorkerApi, WorkerTimeApi
-from api.worker2.work_api import work_api2
+from api.worker.worker1.work_api import WorkerApi, WorkerTimeApi
+from api.worker.worker2.work_api import work_api2
 from config.conf import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME, VERSION
 from config.conf import MAIL_HOST_BLOCK_LIST
 from config.exception import WorldException
@@ -179,7 +180,7 @@ api.add_resource(WorkerTimeApi, "/api/work_api/WorkerTimeApi")
 api.add_resource(ClassApi, "/api/class_api/ClassApi")
 api.add_resource(ScriptApi, "/api/class_api/ScriptApi")
 app.register_blueprint(work_api2)
-
+app.register_blueprint(attention_api)
 if __name__ == '__main__':
     scheduler.init_app(app)
     scheduler.start()

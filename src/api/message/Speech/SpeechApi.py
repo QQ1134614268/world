@@ -8,7 +8,7 @@ from flask_restful import fields, marshal
 
 from util import res_util
 from config.mysql_db import db
-from vo.UserVO import RecordVO, CommentVO
+from vo.table_model import RecordVO, CommentVO
 
 speech_api = Blueprint("speech", __name__, url_prefix='/api/speech')
 record_fields = {

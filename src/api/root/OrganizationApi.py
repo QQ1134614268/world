@@ -9,7 +9,7 @@ from flask_restful import fields, marshal
 from util import res_util
 from config.mysql_db import db
 from service import user_service
-from vo.OrganizationVO import OrganizationVO
+from vo.table_model import OrganizationVO
 
 organization_api = Blueprint("organization_api", __name__, url_prefix='/api/organization_api')
 

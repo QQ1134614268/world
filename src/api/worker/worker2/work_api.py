@@ -15,7 +15,7 @@ from sqlalchemy import distinct
 from config.conf import DATA_DIR
 from config.mysql_db import db
 from util import res_util
-from .vo import WorkerTime
+from vo.table_model import WorkerTime
 
 work_api2 = Blueprint("work_api2", __name__, url_prefix='/api/work_api2')
 

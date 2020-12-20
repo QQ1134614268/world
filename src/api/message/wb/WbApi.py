@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_restful import fields, marshal
 
-from api.message.wb.BlogVO import BlogVO, BlogCommentVO
+from vo.table_model import BlogVO, BlogCommentVO
 from config.mysql_db import db
 from service import user_service
 from util import res_util

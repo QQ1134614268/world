@@ -12,8 +12,7 @@ from service import user_service
 from util import password_util, res_util
 from util import token_util
 from util import verification_code_util
-from vo.UserVO import AnnouncementVO, MessageVO
-from vo.UserVO import UserVO
+from vo.table_model import UserVO, AnnouncementVO, MessageVO
 
 sys_api = Blueprint("sys", __name__, url_prefix='/api/sys_api')
 

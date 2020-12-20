@@ -10,7 +10,7 @@ from flask_restful import marshal, fields
 from config.mysql_db import db
 from service import user_service
 from util import res_util
-from .vo import ClassVO
+from vo.table_model import ClassVO
 
 class_fields = {
     'id': fields.Integer,

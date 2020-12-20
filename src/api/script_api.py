@@ -8,7 +8,7 @@ from flask_restful import Resource
 from flask_restful import fields
 from sqlalchemy.sql import func
 
-from api.exist.vo import ClassVO
+from vo.table_model import ClassVO
 from config.mysql_db import db
 from util import res_util
 

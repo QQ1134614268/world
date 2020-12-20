@@ -8,7 +8,7 @@ from flask import Blueprint, jsonify, request
 from util import res_util
 from config.mysql_db import db
 from service import user_service
-from vo import AuthVO
+from vo.table_model import AuthVO
 
 auth_api = Blueprint("auth_api", __name__, url_prefix='/api/auth_api')
 

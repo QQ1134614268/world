@@ -9,7 +9,7 @@ from config.mysql_db import db
 from config.conf import UPLOAD_FILE_PATH
 from service import user_service
 from util import res_util
-from vo.CloudSpaceVO import UserCloudSpaceVO
+from vo.table_model import UserCloudSpaceVO
 
 cloud_space_api = Blueprint("cloud_space_api", __name__, url_prefix='/api/cloud_space_api')
 

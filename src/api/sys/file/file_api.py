@@ -86,10 +86,10 @@ if __name__ == '__main__':
     import os
 
     print(os.listdir())
-    for root, dirs, files in os.walk(".", topdown=False):
+    for root, dirs, files in os.walk("", topdown=False):
         for name in files:
             print(os.path.join(root, name))
         for name in dirs:
             print(os.path.join(root, name))
-    root, dirs, files = os.walk(".").__next__()
+    root, dirs, files = os.walk("").__next__()
     print("--", root, dirs, files)

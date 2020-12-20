@@ -5,7 +5,7 @@ from flask_restful import marshal, fields
 from sqlalchemy.dialects.mysql import insert
 from sqlalchemy.sql import and_
 
-from api.worker.vo import WorkerVO, WorkerTimeVO
+from vo.table_model import WorkerVO, WorkerTimeVO
 from config.GLOBAL_DICTIONARY import TIME_ENUM
 from config.conf import DATE_FORMAT
 from config.mysql_db import db

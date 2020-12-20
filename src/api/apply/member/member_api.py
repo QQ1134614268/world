@@ -16,8 +16,7 @@ from config.mysql_db import db
 from service import user_service
 from util import password_util
 from util import res_util
-from .vo import StoreMemberTable, WalletVO
-from .vo import StoreVO
+from vo.table_model import StoreVO, StoreMemberTable, WalletVO
 
 
 class StoreApi(Resource):

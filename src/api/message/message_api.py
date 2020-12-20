@@ -2,8 +2,8 @@
 from flask import Blueprint, jsonify, request
 from flask_restful import fields, marshal
 
-from api.message.vo import PersonSpeech
-from api.user.user_type import UserType
+from vo.table_model import PersonSpeech
+from config.user_type import UserType
 from config.mysql_db import db
 from config.orm_config import DateTime
 from service import user_service

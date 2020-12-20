@@ -7,7 +7,7 @@ from flask import Blueprint, jsonify, request
 from sqlalchemy import desc
 
 from api.root import btree_service
-from api.root.vo import BTreeVO
+from vo.table_model import BTreeVO
 from config.mysql_db import db
 from util import res_util
 

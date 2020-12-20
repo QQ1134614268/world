@@ -2,11 +2,10 @@
 from flask import jsonify
 from flask_restful import fields, marshal
 
-from api.user.vo import Attention
 from config.mysql_db import db
 from util import res_util
 from util.token_util import get_payload
-from vo.UserVO import UserVO
+from vo.table_model import UserVO, Attention
 
 
 def get_name_by_token():

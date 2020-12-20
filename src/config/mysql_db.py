@@ -1,29 +1,5 @@
-import datetime
-
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, String, Integer, DateTime, Sequence
 
 db = SQLAlchemy()
 
 
-class BaseTable(db.Model):
-    __abstract__ = True  # 加了该属性后生成表的时候不会生成该表
-    id = Column(Integer, primary_key=True, autoincrement=True, comment="主键")
-    create_time = Column(DateTime, default=datetime.datetime.now)
-    update_time = db.Column(db.DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
-
-
-class ProjectConfig(BaseTable):
-    __tablename__ = 'project_config'
-    name = Column(String(50))
-    fullname = Column(String(50))
-    nickname = Column(String(50))
-
-
-class EnumConfig(BaseTable):
-    __tablename__ = 'enum_config'
-    name = Column(String(50), nullable=False, index=True)
-    identity = Column(String(50), unique=True)
-    value = Column(String(50))
-    sort = Column(Integer, Sequence('sort_seq'))
-    note = Column(String(50))
