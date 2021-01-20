@@ -2,21 +2,18 @@ def success(data="success"):
     return {
         "code": 1,
         "data": data,
-        "message": ""
     }
 
 
-def fail(message=""):
+def fail(data=""):
     return {
         "code": 2,
-        "data": "",
-        "message": message
+        "data": data,
     }
 
 
-def err(message=""):
+def err(data=""):
     return {
         "code": 4,
-        "data": "",
-        "message": message
+        "data": data,
     }
