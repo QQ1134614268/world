@@ -2,10 +2,9 @@
 """
 # @Time    : 2019/8/3 16:42
 
-E:/python/world/venv/Scripts/python.exe manage.py db init
-E:/python/world/venv/Scripts/python.exe manage.py db migrate
-E:/python/world/venv/Scripts/python.exe manage.py db upgrade
-
+E:/world_project/world/venv/Scripts/python.exe manage.py db init
+E:/world_project/world/venv/Scripts/python.exe manage.py db migrate
+E:/world_project/world/venv/Scripts/python.exe manage.py db upgrade
 """
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager

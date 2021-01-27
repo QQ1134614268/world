@@ -16,7 +16,17 @@ from config.mysql_db import db
 from service import user_service
 from util import password_util
 from util import res_util
+from vo.table_model import GoodsVO
 from vo.table_model import StoreVO, StoreMemberTable, WalletVO
+
+goods_field = {
+    "id": fields.Integer,
+    "price": fields.Float,
+    "duration": fields.Float,
+    "describe": fields.String,
+    "images": fields.String,
+    "name": fields.String,
+}
 
 
 class StoreApi(Resource):
@@ -103,3 +113,34 @@ class WalletApi(Resource):
         if request.args.get("user_id"):
             vo = WalletVO.query.filter(WalletVO.user_id == request.args.get("user_id")).first()
             return res_util.success(marshal(vo, field))
+
+
+class GoodsApi(Resource):
+
+    def get(self, _id):
+        vo = GoodsVO.query.filter(GoodsVO.id == _id).first()
+        return res_util.success(marshal(vo, goods_field))
+
+    def post(self):
+        data = request.get_json()
+        model = GoodsVO(**data).save()
+        return res_util.success(model.id)
+
+    def put(self, _id):
+        data = request.get_json()
+        # GoodsVO(id=_id).update(_id, data)
+        # db.session.query().filter(GoodsVO.id == _id).update(data)
+        GoodsVO.query.filter(GoodsVO.id == _id).update(data)
+        db.session.commit()
+        return res_util.success(_id)
+
+    def delete(self, _id):
+        GoodsVO(_id).delete()
+        return res_util.success(_id)
+
+
+class GoodsListApi(Resource):
+
+    def get(self):
+        goods_list = GoodsVO.query.all()
+        return res_util.success([marshal(vo, goods_field) for vo in goods_list])

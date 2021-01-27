@@ -19,6 +19,66 @@ class BaseTable(db.Model):
     update_time = db.Column(db.DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
 
 
+class BaseTable2(db.Model):
+    __abstract__ = True  # 加了该属性后生成表的时候不会生成该表
+    id = Column(Integer, primary_key=True, autoincrement=True, comment="主键")
+    create_time = Column(DateTime, default=datetime.datetime.now)
+    update_time = db.Column(db.DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+        return self
+
+    def get(self, _id):
+        db.session.query().filter(self.id == _id).first()
+        return self
+
+    def update(self, _id, data):
+        # todo
+        db.session.query().filter(self.id == _id).update(data)
+        db.session.commit()
+        return self
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+        return self
+
+    # def save(self):
+    #     try:
+    #         db.session.add(self)
+    #         db.session.commit()
+    #     except Exception as e:
+    #         # print(e)
+    #         db.session.rollback()
+    #         return FAILURE
+    #     else:
+    #         return SUCCESS
+    #
+    # def update(self):
+    #     try:
+    #         db.session.merge(self)
+    #         db.session.commit()
+    #     except Exception as e:
+    #         # print(e)
+    #         db.session.rollback()
+    #         return FAILURE
+    #     else:
+    #         return SUCCESS
+    #
+    # def delete(self):
+    #     try:
+    #         db.session.delete(self)
+    #         db.session.commit()
+    #     except Exception as e:
+    #         # print(e)
+    #         db.session.rollback()
+    #         return FAILURE
+    #     else:
+    #         return SUCCESS
+
+
 class ClassVO(BaseTable):
     __tablename__ = 'class_t'
     name = Column(Text, default='')
@@ -270,3 +330,12 @@ class OrganizationMemberRelationVO(BaseTable):
     level = Column(String(70), default='default.jpg')
     full_name = Column(String(70), default='default.jpg')
     full_path = Column(String(70), default='default.jpg')
+
+
+class GoodsVO(BaseTable2):
+    __tablename__ = 'goods_t'
+    name = Column(String(256), default='123456')
+    price = Column(Float)
+    duration = Column(Float, default='123456')
+    describe = Column(String(256), default='123456')
+    images = Column(String(256), default='123456')

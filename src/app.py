@@ -10,7 +10,7 @@ from flask_cors import CORS
 from flask_restful import Api
 
 from api.HelloApi import hello_api
-from api.apply.member.member_api import StoreApi, StoreMemberApi, WalletApi
+from api.apply.member.member_api import StoreApi, StoreMemberApi, WalletApi, GoodsApi,GoodsListApi
 from api.apply.stone_game.StoneGameApi import stone_game_api
 from api.auth.AuthApi import auth_api
 from api.customize.CustomizeApi import customize_api
@@ -175,6 +175,9 @@ api.add_resource(ModelApi, "/api/model_api/ModelApi")
 api.add_resource(StoreApi, "/api/member/StoreApi")
 api.add_resource(StoreMemberApi, "/api/member/StoreMemberApi")
 api.add_resource(WalletApi, "/api/member/WalletApi")
+api.add_resource(GoodsApi, "/api/goods", "/api/goods/<int:_id>")
+api.add_resource(GoodsListApi, "/api/goods_list"  )
+
 api.add_resource(WorkerApi, "/api/work_api/WorkerApi")
 api.add_resource(WorkerTimeApi, "/api/work_api/WorkerTimeApi")
 api.add_resource(ClassApi, "/api/class_api/ClassApi")
