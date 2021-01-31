@@ -10,7 +10,7 @@ from flask_cors import CORS
 from flask_restful import Api
 
 from api.HelloApi import hello_api
-from api.apply.member.member_api import StoreApi, StoreMemberApi, WalletApi, GoodsApi, GoodsListApi, StoreListApi
+from api.apply.member.member_api import StoreApi, StoreMemberApi, GoodsApi, GoodsListApi, StoreListApi
 from api.apply.stone_game.StoneGameApi import stone_game_api
 from api.auth.AuthApi import auth_api
 from api.customize.CustomizeApi import customize_api
@@ -31,6 +31,7 @@ from api.sys.SysApi import sys_api
 from api.sys.file.file_api import FileApi
 from api.user.user_api import user_api
 from api.wallet.AliPayApi import ali_pay_api
+from api.wallet.wallet_api import WalletApi
 from api.worker.worker1.work_api import WorkerApi, WorkerTimeApi
 from api.worker.worker2.work_api import work_api2
 from config.conf import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME, VERSION
