@@ -27,16 +27,16 @@ goods_field = {
     "images": fields.String,
     "name": fields.String,
 }
+store_field = {
+    "id": fields.Integer,
+    "user_id": fields.Integer,
+    "name": fields.String,
+}
 
 
 class StoreApi(Resource):
 
     def post(self):
-        field = {
-            "id": fields.Integer,
-            "user_id": fields.Integer,
-            "name": fields.String,
-        }
         data = request.get_json()
         name = data.get('name', '')
         password = data.get('password', '')
@@ -44,9 +44,9 @@ class StoreApi(Resource):
                      user_id=user_service.get_id_by_token())
         db.session.add(vo)
         db.session.commit()
-        return res_util.success(marshal(vo, field))
+        return res_util.success(marshal(vo, store_field))
 
-    def get(self):
+    def get(self, _id):
         field = {
             "id": fields.Integer,
             "user_id": fields.Integer,
@@ -59,6 +59,30 @@ class StoreApi(Resource):
         vos = StoreVO.query.filter(StoreVO.user_id == user_service.get_id_by_token()).all()
         ret = [marshal(vo, field) for vo in vos]
         return res_util.success(ret)
+
+    def put(self, _id):
+        data = request.get_json()
+        StoreVO.query.filter(StoreVO.id == _id).update(data)
+        db.session.commit()
+        return res_util.success(_id)
+
+    def put(self, _id):
+        data = request.get_json()
+        StoreVO.query.filter(StoreVO.id == _id).update(data)
+        db.session.commit()
+        return res_util.success(_id)
+
+    def delete(self, _id):
+        model = StoreVO.query.filter(StoreVO.id == _id).first()
+        db.session.delete(model)
+        db.session.commit()
+        return res_util.success(_id)
+
+
+class StoreListApi(Resource):
+    def get(self):
+        vo = StoreVO.query.all()
+        return res_util.success(marshal(vo, store_field))
 
 
 class StoreMemberApi(Resource):
