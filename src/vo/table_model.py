@@ -102,6 +102,7 @@ class UserVO(BaseTable):
     phone = Column(String(11))
     email = Column(String(60))
     userType = Column(Integer, default=1)
+    avatar = Column(Integer, default=1)
 
 
 class UserInfoVO(BaseTable):
@@ -339,3 +340,4 @@ class GoodsVO(BaseTable2):
     duration = Column(Float, default='123456')
     describe = Column(String(256), default='123456')
     images = Column(String(256), default='123456')
+    store_id = Column(Integer, ForeignKey(StoreVO.id, ondelete='CASCADE'), index=True)

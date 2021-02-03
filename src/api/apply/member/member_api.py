@@ -12,7 +12,7 @@ from service import user_service
 from util import password_util
 from util import res_util
 from vo.table_model import GoodsVO
-from vo.table_model import StoreVO, StoreMemberTable
+from vo.table_model import StoreVO, StoreMemberTable, UserVO
 
 goods_field = {
     "id": fields.Integer,
@@ -21,16 +21,17 @@ goods_field = {
     "describe": fields.String,
     "images": fields.String,
     "name": fields.String,
+    "create_time": fields.String,
 }
 store_field = {
     "id": fields.Integer,
     "user_id": fields.Integer,
     "name": fields.String,
+    "create_time": fields.String,
 }
-store_member_field = {
+user_member_field = {
     "id": fields.Integer,
-    "store_id": fields.Integer,
-    "user_id": fields.Integer,
+    "username": fields.String,
 }
 
 
@@ -98,9 +99,9 @@ class StoreMemberApi(Resource):
         db.session.commit()
         return res_util.success(vo.id)
 
-    def get(self, _id):
-        vo = StoreMemberTable.query.filter(StoreVO.id == _id).first()
-        return res_util.success(marshal(vo, store_member_field))
+    # def get(self, _id):
+    #     vo = StoreMemberTable.query.filter(StoreVO.id == _id).first()
+    #     return res_util.success(marshal(vo, store_member_field))
 
     def put(self, _id):
         data = request.get_json()
@@ -124,12 +125,14 @@ class StoreListApi(Resource):
 class GoodsListApi(Resource):
 
     def get(self):
-        goods_list = GoodsVO.query.all()
+        query = [GoodsVO.store_id == request.args.get("store_id")]
+        goods_list = GoodsVO.query.filter(*query).all()
         return res_util.success([marshal(vo, goods_field) for vo in goods_list])
 
 
-class StoreMemberApi(Resource):
+class StoreMemberListApi(Resource):
 
-    def get(self, _id):
-        vo = StoreMemberTable.query.all()
-        return res_util.success(marshal(vo, store_member_field))
+    def get(self):
+        query = [StoreMemberTable.store_id == request.args.get("store_id")]
+        vos = UserVO.query.outerjoin(StoreMemberTable, UserVO.id == StoreMemberTable.user_id).filter(*query).all()
+        return res_util.success([marshal(vo, user_member_field) for vo in vos])
