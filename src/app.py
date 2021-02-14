@@ -157,12 +157,10 @@ def welcome():
 
 
 app.register_blueprint(hello_api)
-app.register_blueprint(user_api)
 app.register_blueprint(sys_api)
 app.register_blueprint(speech_api)
 app.register_blueprint(organization_api)
 app.register_blueprint(auth_api)
-app.register_blueprint(ali_pay_api)
 app.register_blueprint(cloud_space_api)
 app.register_blueprint(stone_game_api)
 app.register_blueprint(socket_api)
@@ -171,24 +169,31 @@ app.register_blueprint(wb_api)
 app.register_blueprint(scheduler_api)
 app.register_blueprint(message_api)
 app.register_blueprint(btree_api)
+api.add_resource(ScriptApi, "/api/class_api/ScriptApi")
+# 用户
+app.register_blueprint(user_api)
+app.register_blueprint(attention_api)
+
+api.add_resource(ClassApi, "/api/class_api/ClassApi")
+
 api.add_resource(FileApi, "/api/file/FileApi")
 api.add_resource(ModelApi, "/api/model_api/ModelApi")
+# 会员
 api.add_resource(StoreApi, "/api/member/StoreApi", "/api/member/StoreApi/<int:_id>")
 api.add_resource(StoreListApi, "/api/member/StoreListApi")
-
 api.add_resource(StoreMemberApi, "/api/member/StoreMemberApi")
 api.add_resource(StoreMemberListApi, "/api/member/StoreMemberListApi")
 
+# 钱包
 api.add_resource(WalletApi, "/api/member/WalletApi")
 api.add_resource(GoodsApi, "/api/goods", "/api/goods/<int:_id>")
 api.add_resource(GoodsListApi, "/api/goods_list")
+app.register_blueprint(ali_pay_api)
 
+# 工时
 api.add_resource(WorkerApi, "/api/work_api/WorkerApi")
 api.add_resource(WorkerTimeApi, "/api/work_api/WorkerTimeApi")
-api.add_resource(ClassApi, "/api/class_api/ClassApi")
-api.add_resource(ScriptApi, "/api/class_api/ScriptApi")
 app.register_blueprint(work_api2)
-app.register_blueprint(attention_api)
 if __name__ == '__main__':
     scheduler.init_app(app)
     scheduler.start()

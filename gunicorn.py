@@ -1,9 +1,9 @@
 # debug = True
 loglevel = 'debug'
 bind = "0.0.0.0:9090"
-pidfile = "data/log/gunicorn.pid"
-accesslog = "data/log/gunicorn_access.log"
-errorlog = "data/log/debug.log"
+pidfile = "/var/log/gunicorn.pid"
+accesslog = "/var/log/gunicorn_access.log"
+errorlog = "/var/log/debug.log"
 daemon = True
 
 # 启动的进程数
