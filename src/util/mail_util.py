@@ -47,7 +47,7 @@ def send_email(mail_content, mail_to, subject="master,your mail"):
     finally:
         log.info("*************************************")
         smtpObj.quit()
-    log.error("退出" + message)
+    log.error("退出")
 
 
 if __name__ == '__main__':
