@@ -109,6 +109,7 @@ def handle_404_error(err_msg):
 @app.errorhandler(Exception)
 def flask_global_exception_handler(e):
     # traceback.print_exc()  # str(e)  repr(e)  e.message
+    print(123)
     message = traceback.format_exc()
     try:
         host_name = socket.gethostname()
@@ -121,6 +122,7 @@ def flask_global_exception_handler(e):
     logger.error(message, data)  # 日志输出到控制台和日志文件
     traceback.print_exc()
     # 邮件服务 发送异常通知邮件  邮件模板
+    print(111)
     if not socket_util.get_host_name() in MAIL_HOST_BLOCK_LIST:
         logger.info("5555")
         mail_util.send_email(json.dump(data) + message, MAIL_TO)
