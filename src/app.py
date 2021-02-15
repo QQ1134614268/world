@@ -141,9 +141,8 @@ def flask_global_exception_handler(err):
     print(111)
     if not socket_util.get_host_name() in MAIL_HOST_BLOCK_LIST:
         logger.info("5555")
-        mail_util.send_email((json.dumps(data) + message), MAIL_TO)
+        mail_util.send_email(json.dumps(data) + message, MAIL_TO)
     print(999)
-    mail_util.send_email((json.dumps(data) + message), MAIL_TO)
     logger.error("test------------------------------------------")  # 日志输出到控制台和日志文件
     if app.config["DEBUG"]:
         return res_util.err(message)
