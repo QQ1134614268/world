@@ -10,6 +10,7 @@ from util.log_util import logger as log
 
 def send_email(mail_content, mail_to, subject="master,your mail"):
     print("===============================")
+    log.info("9999999999999999999999999")
     message = MIMEText(mail_content, 'plain', 'utf-8')
     message['Subject'] = Header(subject, 'utf-8')
     message['From'] = Header("明宇致和", 'utf-8')
