@@ -150,20 +150,25 @@ def flask_global_exception_handler(err):
 
 
 @app.errorhandler(AssertionError)
-def flask_global_exception_handler(e):
+def flask_global_assertion_handler(exception):
     """
 
-    :param e:
+    :param exception:
     :return:
     """
-    print(e)
-    print(str(e))
-    return res_util.fail(str(e))
+    print(exception)
+    print(str(exception))
+    return res_util.fail(str(exception))
 
 
 @app.errorhandler(WorldException)
-def flask_global_exception_handler(e):
-    print(e)
+def flask_global_world_exception_handler(exception):
+    """
+
+    :param exception:
+    :return:
+    """
+    print(exception)
     message = traceback.format_exc()
     if app.config["DEBUG"]:
         return res_util.err(message)
@@ -174,6 +179,7 @@ def flask_global_exception_handler(e):
 def welcome():
     """
 
+    :return:
     """
     txt = """
     welcome to world!
