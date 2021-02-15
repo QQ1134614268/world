@@ -123,6 +123,8 @@ def flask_global_exception_handler(e):
     # 邮件服务 发送异常通知邮件  邮件模板
     if not socket_util.get_host_name() in MAIL_HOST_BLOCK_LIST:
         mail_util.send_email(json.dump(data) + message, MAIL_TO)
+    print(999)
+    mail_util.send_email(json.dump(data) + message, MAIL_TO)
     logger.error("test------------------------------------------")  # 日志输出到控制台和日志文件
     if app.config["DEBUG"]:
         return res_util.err(message)
