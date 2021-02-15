@@ -45,6 +45,7 @@ def send_email(mail_content, mail_to, subject="master,your mail"):
         # 邮件服务 发送异常通知邮件  邮件模板
         log.error("Error: 无法发送邮件.[原因]" + message)
     finally:
+        log.info("*************************************")
         smtpObj.quit()
     log.error("退出" + message)
 
