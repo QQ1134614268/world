@@ -102,7 +102,7 @@ class UserVO(BaseTable):
     phone = Column(String(11))
     email = Column(String(60))
     userType = Column(Integer, default=1)
-    avatar = Column(Integer, default=1)
+    avatar2 = Column(Integer, default=1)
 
 
 class UserInfoVO(BaseTable):
