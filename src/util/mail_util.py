@@ -49,9 +49,5 @@ def send_email(mail_content, mail_to, subject="master,your mail"):
     log.error("退出" + message)
 
 
-def send_email2():
-    print("===============================")
-
-
 if __name__ == '__main__':
     send_email("hello world", '1134614268@qq.com')

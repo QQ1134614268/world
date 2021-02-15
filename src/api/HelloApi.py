@@ -91,6 +91,10 @@ def download_excel():
 
 @hello_api.route('/download_excel_file', methods=['GET'])
 def download_excel_file():
+    """
+
+    :return:
+    """
     response = make_response(send_file("E:\\python\\world\\resource\\Book1.xlsx"))
     response.headers["Content-Disposition"] = "attachment; filename=myfiles.xls;"
     return response
@@ -98,6 +102,10 @@ def download_excel_file():
 
 @hello_api.route('/test_download_buffer', methods=['GET'])
 def test_download_buffer():
+    """
+
+    :return:
+    """
     buffer = BytesIO()
     buffer.write(b'jJust some letters.')
     buffer.seek(0)

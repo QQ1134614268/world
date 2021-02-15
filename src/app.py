@@ -1,16 +1,20 @@
 # encoding: utf-8
+"""
+@Time: 2021/2/15
+@Description:
+"""
 import json
-import re
 import socket
 import traceback
 
 from flasgger import Swagger
-from flask import Flask, request, make_response
+from flask import Flask, request
 from flask_cors import CORS
 from flask_restful import Api
 
 from api.HelloApi import hello_api
-from api.apply.member.member_api import StoreApi, StoreMemberApi, GoodsApi, GoodsListApi, StoreListApi,StoreMemberListApi
+from api.apply.member.member_api import StoreApi, StoreMemberApi, GoodsApi, GoodsListApi, StoreListApi, \
+    StoreMemberListApi
 from api.apply.stone_game.StoneGameApi import stone_game_api
 from api.auth.AuthApi import auth_api
 from api.customize.CustomizeApi import customize_api
@@ -42,11 +46,10 @@ from service import user_service
 from util import mail_util
 from util import res_util
 from util import socket_util
-from util import token_util
 from util.log_util import logger
 
 app = Flask(__name__)
-api = Api(app)
+api2 = Api(app)
 # 跨域
 CORS(app, supports_credentials=True)
 # swagger
@@ -65,16 +68,20 @@ db.init_app(app)
 
 @app.before_request
 def before_request():  # 登录过滤,正则匹配,日志记录,IP分析 todo
+    """
+
+    :return:
+    """
     # if request.method == "OPTIONS":
     #     return make_response(), 200
     # intercept_path = ["/api"]
     # allow_path = ["/api/sys_api/register", "/api/sys_api/get_verify_code", "/api/sys_api/login",
     #               "/api/sys_api/logout", "/api/hello_api"]
     url_path = request.path
-    ip = request.remote_addr
+    ip_addr = request.remote_addr
     user_agent = request.headers.get('User-Agent')
     # for path in allow_path:
-    logger.info({"url_path": url_path, "ip": ip, "User-Agent": user_agent, "action": "before_request"})
+    logger.info({"url_path": url_path, "ip": ip_addr, "User-Agent": user_agent, "action": "before_request"})
     #     if re.match(path, url_path):
     #         break
     # else:
@@ -98,18 +105,27 @@ def before_request():  # 登录过滤,正则匹配,日志记录,IP分析 todo
 
 @app.errorhandler(404)  # 当发生404错误时，会被该路由匹配
 def handle_404_error(err_msg):
-    """自定义的异常处理函数"""
+    """
+    自定义的异常处理函数
+    :param err_msg:
+    :return:
+    """
     # 这个函数的返回值就是前端用户看到的最终结果 (404错误页面)
     url_path = request.path
-    userId = user_service.get_name_by_token()
-    logger.error({"404": {"userId": userId, "url_path": url_path, "err_msg": str(err_msg)}})
+    user_id = user_service.get_name_by_token()
+    logger.error({"404": {"userId": user_id, "url_path": url_path, "err_msg": str(err_msg)}})
     return res_util.err(u"server error：%s" % err_msg)
 
 
 @app.errorhandler(Exception)
-def flask_global_exception_handler(e):
+def flask_global_exception_handler(err):
+    """
+
+    :param err:
+    :return:
+    """
     # traceback.print_exc()  # str(e)  repr(e)  e.message
-    print(123)
+    print(err)
     message = traceback.format_exc()
     try:
         host_name = socket.gethostname()
@@ -125,19 +141,22 @@ def flask_global_exception_handler(e):
     print(111)
     if not socket_util.get_host_name() in MAIL_HOST_BLOCK_LIST:
         logger.info("5555")
-        mail_util.send_email(json.dump(data) + message, MAIL_TO)
+        mail_util.send_email((json.dumps(data) + message), MAIL_TO)
     print(999)
-    mail_util.send_email(json.dump(data) + message, MAIL_TO)
+    mail_util.send_email((json.dumps(data) + message), MAIL_TO)
     logger.error("test------------------------------------------")  # 日志输出到控制台和日志文件
     if app.config["DEBUG"]:
         return res_util.err(message)
-    else:
-        return res_util.err("服务器发生了一个错误")
+    return res_util.err("服务器发生了一个错误")
 
 
 @app.errorhandler(AssertionError)
 def flask_global_exception_handler(e):
-    message = traceback.format_exc()
+    """
+
+    :param e:
+    :return:
+    """
     print(e)
     print(str(e))
     return res_util.fail(str(e))
@@ -145,19 +164,22 @@ def flask_global_exception_handler(e):
 
 @app.errorhandler(WorldException)
 def flask_global_exception_handler(e):
+    print(e)
     message = traceback.format_exc()
     if app.config["DEBUG"]:
         return res_util.err(message)
-    else:
-        return res_util.err("服务器发生了一个错误")
+    return res_util.err("服务器发生了一个错误")
 
 
 @app.route('/', methods=['GET'])
 def welcome():
+    """
+
+    """
     txt = """
     welcome to world!
     you can see B-tree for the api : /apidocs
-    version: %s 
+    version: {} 
     """.format(VERSION)
     return res_util.success(txt)
 
@@ -175,30 +197,30 @@ app.register_blueprint(wb_api)
 app.register_blueprint(scheduler_api)
 app.register_blueprint(message_api)
 app.register_blueprint(btree_api)
-api.add_resource(ScriptApi, "/api/class_api/ScriptApi")
+api2.add_resource(ScriptApi, "/api/class_api/ScriptApi")
 # 用户
 app.register_blueprint(user_api)
 app.register_blueprint(attention_api)
 
-api.add_resource(ClassApi, "/api/class_api/ClassApi")
+api2.add_resource(ClassApi, "/api/class_api/ClassApi")
 
-api.add_resource(FileApi, "/api/file/FileApi")
-api.add_resource(ModelApi, "/api/model_api/ModelApi")
+api2.add_resource(FileApi, "/api/file/FileApi")
+api2.add_resource(ModelApi, "/api/model_api/ModelApi")
 # 会员
-api.add_resource(StoreApi, "/api/member/StoreApi", "/api/member/StoreApi/<int:_id>")
-api.add_resource(StoreListApi, "/api/member/StoreListApi")
-api.add_resource(StoreMemberApi, "/api/member/StoreMemberApi")
-api.add_resource(StoreMemberListApi, "/api/member/StoreMemberListApi")
+api2.add_resource(StoreApi, "/api/member/StoreApi", "/api/member/StoreApi/<int:_id>")
+api2.add_resource(StoreListApi, "/api/member/StoreListApi")
+api2.add_resource(StoreMemberApi, "/api/member/StoreMemberApi")
+api2.add_resource(StoreMemberListApi, "/api/member/StoreMemberListApi")
 
 # 钱包
-api.add_resource(WalletApi, "/api/member/WalletApi")
-api.add_resource(GoodsApi, "/api/goods", "/api/goods/<int:_id>")
-api.add_resource(GoodsListApi, "/api/goods_list")
+api2.add_resource(WalletApi, "/api/member/WalletApi")
+api2.add_resource(GoodsApi, "/api/goods", "/api/goods/<int:_id>")
+api2.add_resource(GoodsListApi, "/api/goods_list")
 app.register_blueprint(ali_pay_api)
 
 # 工时
-api.add_resource(WorkerApi, "/api/work_api/WorkerApi")
-api.add_resource(WorkerTimeApi, "/api/work_api/WorkerTimeApi")
+api2.add_resource(WorkerApi, "/api/work_api/WorkerApi")
+api2.add_resource(WorkerTimeApi, "/api/work_api/WorkerTimeApi")
 app.register_blueprint(work_api2)
 if __name__ == '__main__':
     scheduler.init_app(app)
