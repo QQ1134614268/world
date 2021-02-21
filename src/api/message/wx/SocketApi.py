@@ -12,5 +12,4 @@ def socket(userId):
     user_id_socket[userId] = client_socket
     while True:
         data = client_socket.receive()
-        print("------------", data)
         websocket_route.func_handler(data)

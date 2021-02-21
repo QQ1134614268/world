@@ -7,7 +7,7 @@ from flask import request
 from flask_restful import Resource
 from flask_restful import fields, marshal
 
-from config.mysql_db import db
+from service import WalletService
 from util import res_util
 from vo.table_model import WalletVO
 
@@ -24,11 +24,7 @@ class WalletApi(Resource):
         money = data.get('money', '')
         wallet_id = data.get('id', '')
         # todo 查看sql语句 检验正确性
-        vo = WalletVO.query.filter(WalletVO.id == wallet_id).with_for_update().first()
-        if vo.money + money > 0:
-            vo.money += money
-        db.session.commit()
-        return res_util.success(vo.money)
+        return res_util.success(WalletService.pay(wallet_id, money))
 
     def get(self):
         if request.args.get("id"):

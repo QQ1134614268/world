@@ -14,7 +14,7 @@ from flask_restful import Api
 
 from api.HelloApi import hello_api
 from api.apply.member.member_api import StoreApi, StoreMemberApi, GoodsApi, GoodsListApi, StoreListApi, \
-    StoreMemberListApi
+    StoreMemberListApi, OrderApi, OrderListApi
 from api.apply.stone_game.StoneGameApi import stone_game_api
 from api.auth.AuthApi import auth_api
 from api.customize.CustomizeApi import customize_api
@@ -138,12 +138,8 @@ def flask_global_exception_handler(err):
     logger.error(message, data)  # 日志输出到控制台和日志文件
     traceback.print_exc()
     # 邮件服务 发送异常通知邮件  邮件模板
-    print(111)
     if not socket_util.get_host_name() in MAIL_HOST_BLOCK_LIST:
-        logger.info("5555")
         mail_util.send_email(json.dumps(data) + message, MAIL_TO)
-    print(999)
-    logger.error("test------------------------------------------")  # 日志输出到控制台和日志文件
     if app.config["DEBUG"]:
         return res_util.err(message)
     return res_util.err("服务器发生了一个错误")
@@ -216,6 +212,8 @@ api2.add_resource(StoreApi, "/api/member/StoreApi", "/api/member/StoreApi/<int:_
 api2.add_resource(StoreListApi, "/api/member/StoreListApi")
 api2.add_resource(StoreMemberApi, "/api/member/StoreMemberApi")
 api2.add_resource(StoreMemberListApi, "/api/member/StoreMemberListApi")
+api2.add_resource(OrderApi, "/api/member/OrderApi")
+api2.add_resource(OrderListApi, "/api/member/OrderListApi")
 
 # 钱包
 api2.add_resource(WalletApi, "/api/member/WalletApi")
@@ -227,6 +225,7 @@ app.register_blueprint(ali_pay_api)
 api2.add_resource(WorkerApi, "/api/work_api/WorkerApi")
 api2.add_resource(WorkerTimeApi, "/api/work_api/WorkerTimeApi")
 app.register_blueprint(work_api2)
+
 if __name__ == '__main__':
     scheduler.init_app(app)
     scheduler.start()

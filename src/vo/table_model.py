@@ -341,3 +341,10 @@ class GoodsVO(BaseTable2):
     describe = Column(String(256), default='123456')
     images = Column(String(256), default='123456')
     store_id = Column(Integer, ForeignKey(StoreVO.id, ondelete='CASCADE'), index=True)
+
+
+class OrderVO(BaseTable2):
+    __tablename__ = 'order_t'
+    goods_id = Column(Integer, ForeignKey(GoodsVO.id, ondelete='CASCADE'), index=True)
+    user_id = Column(Integer, ForeignKey(UserVO.id, ondelete='CASCADE'), index=True)
+    num = Column(Integer)

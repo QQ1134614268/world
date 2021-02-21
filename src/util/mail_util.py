@@ -9,8 +9,6 @@ from util.log_util import logger as log
 
 
 def send_email(mail_content, mail_to, subject="master,your mail"):
-    print("===============================")
-    log.info("9999999999999999999999999")
     message = MIMEText(mail_content, 'plain', 'utf-8')
     message['Subject'] = Header(subject, 'utf-8')
     message['From'] = Header("明宇致和", 'utf-8')
@@ -45,9 +43,7 @@ def send_email(mail_content, mail_to, subject="master,your mail"):
         # 邮件服务 发送异常通知邮件  邮件模板
         log.error("Error: 无法发送邮件.[原因]" + message)
     finally:
-        log.info("*************************************")
         smtpObj.quit()
-    log.error("退出")
 
 
 if __name__ == '__main__':

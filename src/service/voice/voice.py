@@ -47,7 +47,6 @@ SCOPE = 'audio_tts_post'  # 有此scope表示有tts能力，没有请在网页�
 
 
 def fetch_token():
-    print("fetch token begin")
     params = {'grant_type': 'client_credentials',
               'client_id': API_KEY,
               'client_secret': SECRET_KEY}

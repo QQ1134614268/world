@@ -8,10 +8,11 @@ from flask_restful import Resource
 from flask_restful import fields, marshal
 
 from config.mysql_db import db
+from service import WalletService
 from service import user_service
 from util import password_util
 from util import res_util
-from vo.table_model import GoodsVO
+from vo.table_model import GoodsVO, WalletVO, OrderVO
 from vo.table_model import StoreVO, StoreMemberTable, UserVO
 
 goods_field = {
@@ -136,3 +137,37 @@ class StoreMemberListApi(Resource):
         query = [StoreMemberTable.store_id == request.args.get("store_id")]
         vos = UserVO.query.outerjoin(StoreMemberTable, UserVO.id == StoreMemberTable.user_id).filter(*query).all()
         return res_util.success([marshal(vo, user_member_field) for vo in vos])
+
+
+class OrderApi(Resource):
+
+    def post(self):
+        data = request.get_json()
+        # todo
+        # goods = GoodsVO.query.filter(GoodsVO.id.in_([item["id"] for item in data])).all()
+        money = sum([item["num"] * item["price"] for item in data])
+        user_id = user_service.get_id_by_token()
+        wallet = WalletVO.query.filter(WalletVO.user_id == user_id).one()
+        WalletService.pay(wallet.id, money)
+
+        vos = [OrderVO(user_id=user_id, goods_id=item["id"], num=item["num"]) for item in data]
+        db.session.add_all(vos)
+        db.session.commit()
+        return res_util.success()
+
+
+class OrderListApi(Resource):
+
+    def get(self):
+        # 获取用户订单
+        user_id = user_service.get_id_by_token()
+        res = OrderVO.query.outerjoin(
+            GoodsVO, OrderVO.goods_id == GoodsVO.id
+        ).filter(
+            OrderVO.user_id == user_id).with_entities(
+            GoodsVO.id,
+            GoodsVO.name,
+            OrderVO.num,
+        ).all()
+        ret = [dict(zip(item.keys(), item)) for item in res]
+        return res_util.success(ret)
