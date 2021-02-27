@@ -164,11 +164,7 @@ def flask_global_world_exception_handler(exception):
     :param exception:
     :return:
     """
-    print(exception)
-    message = traceback.format_exc()
-    if app.config["DEBUG"]:
-        return res_util.err(message)
-    return res_util.err("服务器发生了一个错误")
+    return res_util.fail(exception.message)
 
 
 @app.route('/', methods=['GET'])

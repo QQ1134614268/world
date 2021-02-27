@@ -3,8 +3,8 @@
 @Time: 2021/2/21
 @Description:
 """
+from config.exception import WorldException
 from config.mysql_db import db
-
 from vo.table_model import WalletVO
 
 
@@ -15,5 +15,5 @@ def pay(wallet_id, money):
         db.session.commit()
     else:
         db.session.commit()
-        assert Exception, "余额不足"
+        raise WorldException("余额不足")
     return money
