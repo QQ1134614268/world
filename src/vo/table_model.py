@@ -348,3 +348,37 @@ class OrderVO(BaseTable2):
     goods_id = Column(Integer, ForeignKey(GoodsVO.id, ondelete='CASCADE'), index=True)
     user_id = Column(Integer, ForeignKey(UserVO.id, ondelete='CASCADE'), index=True)
     num = Column(Integer)
+
+
+class VideoUserVO(BaseTable2):
+    __tablename__ = 'video_user_t'
+    avatar = Column(String(255))
+    user_name = Column(Integer, ForeignKey(UserVO.id, ondelete='CASCADE'), index=True)
+    password = Column(String(255))
+    describe = Column(String(255))
+    outer_chain = Column(String(255))  # 外链接
+    id_card = Column(String(255))  # 身份证
+    business_license = Column(String(255))  # 营业执照
+
+    def to_json(self):
+        dict2 = self.__dict__
+        if "_sa_instance_state" in dict2:
+            del dict["_sa_instance_state"]
+        return dict
+
+
+class WorksVO(BaseTable2):
+    __tablename__ = 'works_t'
+    avatar = Column(String(255))
+    user_name = Column(Integer, ForeignKey(UserVO.id, ondelete='CASCADE'), index=True)
+    password = Column(String(255))
+    describe = Column(String(255))
+    outer_chain = Column(String(255))  # 外链接
+    id_card = Column(String(255))  # 身份证
+    business_license = Column(String(255))  # 营业执照
+
+    def to_json(self):
+        dict2 = self.__dict__
+        if "_sa_instance_state" in dict2:
+            del dict["_sa_instance_state"]
+        return dict
