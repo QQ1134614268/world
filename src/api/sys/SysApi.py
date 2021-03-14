@@ -56,38 +56,8 @@ def get_verify_code():
 @sys_api.route('/login', methods=['POST'])
 def login():
     """
-    用户登录
-    ---
-    tags:
-      - user
-    consumes:
-      - application/json
-    parameters:
-      - in: body
-        name: body
-        description:
-          用户登录
-        required: true
-        schema:
-          id: login
-          required:
-            - username
-            - password
-            - code
-          properties:
-            username:
-              description: 用户名
-              type: string
-              example: tom
-            password:
-              description: 密码
-              type: string
-              example: abc123
-    responses:
-      500:
-        description: server error
-      200:
-        description: success
+
+    :return:
     """
     data = request.get_json()
     username = data.get('username', '')

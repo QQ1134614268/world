@@ -16,6 +16,7 @@ from api.HelloApi import hello_api
 from api.apply.member.member_api import StoreApi, StoreMemberApi, GoodsApi, GoodsListApi, StoreListApi, \
     StoreMemberListApi, OrderApi, OrderListApi
 from api.apply.stone_game.StoneGameApi import stone_game_api
+from api.apply.video.video_api import TargetApi, WorksApi, VideoUserApi, AllApi
 from api.auth.AuthApi import auth_api
 from api.customize.CustomizeApi import customize_api
 from api.exist.class_api import ClassApi
@@ -32,7 +33,7 @@ from api.scheduler.APScheduler import scheduler
 from api.scheduler.SchedulerApi import scheduler_api
 from api.script_api import ScriptApi
 from api.sys.SysApi import sys_api
-from api.sys.file.file_api import FileApi
+from api.sys.file.file_api import FileApi, FileApi2
 from api.user.user_api import user_api
 from api.wallet.AliPayApi import ali_pay_api
 from api.wallet.wallet_api import WalletApi
@@ -41,6 +42,7 @@ from api.worker.worker2.work_api import work_api2
 from config.conf import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME, VERSION
 from config.conf import MAIL_HOST_BLOCK_LIST
 from config.exception import WorldException
+from config.json_e import JSONEncoder
 from config.mysql_db import db
 from service import user_service
 from util import mail_util
@@ -64,6 +66,7 @@ app.config["DEBUG"] = DEBUG
 app.config['JSON_AS_ASCII'] = False
 app.config.update(RESTFUL_JSON=dict(ensure_ascii=False))
 db.init_app(app)
+app.json_encoder = JSONEncoder
 
 
 @app.before_request
@@ -202,6 +205,7 @@ app.register_blueprint(attention_api)
 api2.add_resource(ClassApi, "/api/class_api/ClassApi")
 
 api2.add_resource(FileApi, "/api/file/FileApi")
+api2.add_resource(FileApi2, "/api/file/FileApi2")
 api2.add_resource(ModelApi, "/api/model_api/ModelApi")
 # 会员
 api2.add_resource(StoreApi, "/api/member/StoreApi", "/api/member/StoreApi/<int:_id>")
@@ -221,6 +225,11 @@ app.register_blueprint(ali_pay_api)
 api2.add_resource(WorkerApi, "/api/work_api/WorkerApi")
 api2.add_resource(WorkerTimeApi, "/api/work_api/WorkerTimeApi")
 app.register_blueprint(work_api2)
+# video
+api2.add_resource(TargetApi, "/api/video_api/TargetApi/<int:_id>")
+api2.add_resource(WorksApi, "/api/video_api/WorksApi/<int:_id>")
+api2.add_resource(VideoUserApi, "/api/video_api/VideoUserApi/<int:_id>")
+api2.add_resource(AllApi, "/api/video_api/AllApi/<int:_id>")
 
 if __name__ == '__main__':
     scheduler.init_app(app)

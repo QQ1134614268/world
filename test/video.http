@@ -1,0 +1,15 @@
+###
+GET http://127.0.0.1:9090/api/video_api/VideoUserApi/0?username=wg&password=123456
+
+
+###
+POST http://127.0.0.1:9090/api/video_api/VideoUserApi/0
+Content-Type: application/json
+
+{
+  "username": "wg",
+  "password": 123456
+}
+
+###
+GET http://127.0.0.1:9090/api/video_api/VideoUserApi/0?userName=wg&password=123456

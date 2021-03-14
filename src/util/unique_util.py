@@ -3,7 +3,7 @@ import uuid
 
 
 def get_uuid():
-    return uuid.uuid1()
+    return uuid.uuid1().hex
 
 
 if __name__ == '__main__':
