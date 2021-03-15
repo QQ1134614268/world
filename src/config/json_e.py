@@ -10,13 +10,14 @@ from datetime import date, datetime
 from flask.json import JSONEncoder as _JSONEncoder
 from flask_sqlalchemy import SQLAlchemy
 from itsdangerous import json as _json
-
-
+from config.mysql_db import db
 # 类变量是不会存储到 dict中，只有实例变量才可以
 class JSONEncoder(_JSONEncoder):
 
     def default(self, o):
-        if isinstance(o, SQLAlchemy().Model):
+        if isinstance(o, db.Model):
+            # pass
+        # if isinstance(o, SQLAlchemy().Model):
 
             dict2 = o.__dict__
             if "_sa_instance_state" in dict2:

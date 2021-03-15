@@ -383,8 +383,8 @@ class WorksVO(BaseTable2):
 class TargetVO(BaseTable2):
     __tablename__ = 'target_t'
     title = Column(String(255))
-    content = Column(Integer, ForeignKey(UserVO.id, ondelete='CASCADE'), index=True)
-    price = Column(String(255))
+    content = Column(String(255))
+    price = Column(Float)
 
     def to_json(self):
         dict2 = self.__dict__

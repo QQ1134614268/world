@@ -4,6 +4,7 @@
 @Description:
 """
 
+from flask import jsonify
 from flask import request
 from flask_restful import Resource
 
@@ -57,8 +58,13 @@ class WorksApi(Resource):
         return res_util.success(vo.id)
 
     def get(self, _id):
-        vo = WorksVO.query.filter(WorksVO.id == request.args.get("id")).first()
-        return res_util.success(vo.to_json())
+        if _id:
+            vo = WorksVO.query.filter(WorksVO.id == request.args.get("id")).first()
+            return res_util.success(vo)
+        obj_filter = []
+        vos = WorksVO.query.all()
+        # return res_util.success(jsonify(vos))
+        return jsonify(res_util.success(vos))
 
     def put(self, _id):
         data = request.get_json()
@@ -75,7 +81,7 @@ class WorksApi(Resource):
 
 class TargetApi(Resource):
 
-    def post(self, ):
+    def post(self, _id):
         data = request.get_json()
         vo = TargetVO(**data)
         db.session.add(vo)
@@ -83,8 +89,11 @@ class TargetApi(Resource):
         return res_util.success(vo.id)
 
     def get(self, _id):
-        vo = TargetVO.query.filter(TargetVO.id == request.args.get("id")).first()
-        return res_util.success(vo.to_json())
+        if _id:
+            vo = TargetVO.query.filter(TargetVO.id == request.args.get("id")).first()
+            return res_util.success(vo)
+        vos = TargetVO.query.all()
+        return jsonify(res_util.success(vos))
 
     def put(self, _id):
         data = request.get_json()

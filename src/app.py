@@ -66,6 +66,7 @@ app.config["DEBUG"] = DEBUG
 app.config['JSON_AS_ASCII'] = False
 app.config.update(RESTFUL_JSON=dict(ensure_ascii=False))
 db.init_app(app)
+print(app.json_encoder)
 app.json_encoder = JSONEncoder
 
 
