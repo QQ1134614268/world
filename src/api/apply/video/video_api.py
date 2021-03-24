@@ -63,7 +63,6 @@ class WorksApi(Resource):
             return res_util.success(vo)
         obj_filter = []
         vos = WorksVO.query.all()
-        # return res_util.success(jsonify(vos))
         return jsonify(res_util.success(vos))
 
     def put(self, _id):
