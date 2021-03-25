@@ -391,3 +391,10 @@ class TargetVO(BaseTable2):
         if "_sa_instance_state" in dict2:
             del dict2["_sa_instance_state"]
         return dict2
+
+
+class InvitationCodeVO(BaseTable2):
+    __tablename__ = 'invitation_code_t'
+    user_id = Column(Integer)
+    code = Column(String(255))
+    invitation_user_id = Column(Integer)

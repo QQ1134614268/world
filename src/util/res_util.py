@@ -8,6 +8,16 @@ def success(data="success"):
     }
 
 
+def page_success(data="success"):
+    return {
+        "code": 1,
+        "data": data.items,
+        "total": data.total,
+        "page": data.page,
+        "page_size": data.per_page,
+    }
+
+
 def json_success(data="success"):
     return jsonify({
         "code": 1,

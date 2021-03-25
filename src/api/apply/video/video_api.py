@@ -11,7 +11,7 @@ from flask_restful import Resource
 from config.mysql_db import db
 from util import res_util
 from util import token_util
-from vo.table_model import VideoUserVO, WorksVO, TargetVO
+from vo.table_model import VideoUserVO, WorksVO, TargetVO, InvitationCodeVO
 
 
 class VideoUserApi(Resource):
@@ -78,6 +78,19 @@ class WorksApi(Resource):
         return res_util.success(_id)
 
 
+class WorksListApi(Resource):
+    def get(self, _id):
+        page = request.args.get("page", 1, int)
+        page_size = request.args.get("pageSize", 15, int)
+        search = request.args.get("search")
+        obj_filter = []
+        if search:
+            obj_filter.append(WorksVO.describe.contains(search))
+        page_item = WorksVO.query.filter(*obj_filter).paginate(page=page, per_page=page_size)
+
+        return jsonify(res_util.page_success(page_item))
+
+
 class TargetApi(Resource):
 
     def post(self, _id):
@@ -88,11 +101,8 @@ class TargetApi(Resource):
         return res_util.success(vo.id)
 
     def get(self, _id):
-        if _id:
-            vo = TargetVO.query.filter(TargetVO.id == request.args.get("id")).first()
-            return res_util.success(vo)
-        vos = TargetVO.query.all()
-        return jsonify(res_util.success(vos))
+        vo = TargetVO.query.filter(TargetVO.id == _id).first()
+        return res_util.success(vo)
 
     def put(self, _id):
         data = request.get_json()
@@ -105,6 +115,29 @@ class TargetApi(Resource):
         db.session.delete(model)
         db.session.commit()
         return res_util.success(_id)
+
+
+class TargetListApi(Resource):
+
+    def get(self):
+        page = request.args.get("page", 1, int)
+        page_size = request.args.get("pageSize", 15, int)
+        search = request.args.get("search")
+        vos = TargetVO.query.filter().paginate(page=int(page), per_page=3)
+        return jsonify(res_util.success(vos))
+
+
+class InvitationCodeApi(Resource):
+    """
+    邀请码
+    """
+
+    def post(self, _id):
+        data = request.get_json()
+        vo = InvitationCodeVO(**data)
+        db.session.add(vo)
+        db.session.commit()
+        return res_util.success(vo.id)
 
 
 class AllApi(Resource):
