@@ -7,6 +7,7 @@
 from flask import jsonify
 from flask import request
 from flask_restful import Resource
+from sqlalchemy import or_
 
 from config.mysql_db import db
 from util import res_util
@@ -25,8 +26,8 @@ class VideoUserApi(Resource):
 
     def get(self, _id):
         if _id:
-            vo = VideoUserVO.query.filter(VideoUserVO.id == request.args.get("id")).first()
-            return res_util.success(vo)
+            vo = VideoUserVO.query.filter(VideoUserVO.id == _id).first()
+            return res_util.json_success(vo)
         obj_filter = []
         username = request.args.get("username")
         password = request.args.get("password")
@@ -119,12 +120,16 @@ class TargetApi(Resource):
 
 class TargetListApi(Resource):
 
-    def get(self):
+    def get(self, _id):
         page = request.args.get("page", 1, int)
         page_size = request.args.get("pageSize", 15, int)
         search = request.args.get("search")
-        vos = TargetVO.query.filter().paginate(page=int(page), per_page=3)
-        return jsonify(res_util.success(vos))
+        obj_filter = []
+        if search:
+            obj_filter.append(or_(TargetVO.title.contains(search), TargetVO.content.contains(search)))
+
+        page_item = TargetVO.query.filter(*obj_filter).paginate(page=page, per_page=page_size)
+        return jsonify(res_util.page_success(page_item))
 
 
 class InvitationCodeApi(Resource):
