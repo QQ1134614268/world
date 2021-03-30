@@ -359,12 +359,19 @@ class VideoUserVO(BaseTable2):
     outer_chain = Column(String(255))  # 外链接
     id_card = Column(String(255))  # 身份证
     business_license = Column(String(255))  # 营业执照
+    brand = Column(String(255))  # 商标
+    resume = Column(String(255))  # 简历
+    phone = Column(String(255))  # 手机号
+    tiktok_number = Column(String(255))  # 抖音号
+    video_number = Column(String(255))  # 视频号
+    wechat_number = Column(String(255))  # 微信号
 
-    def to_json(self):
-        dict2 = self.__dict__
-        if "_sa_instance_state" in dict2:
-            del dict2["_sa_instance_state"]
-        return dict2
+
+def to_json(self):
+    dict2 = self.__dict__
+    if "_sa_instance_state" in dict2:
+        del dict2["_sa_instance_state"]
+    return dict2
 
 
 class WorksVO(BaseTable2):
