@@ -32,3 +32,6 @@ Content-Type: application/json
   "content": "123456",
   "price": 12
 }
+###
+GET http://127.0.0.1:9090/api/video_api/MarketWorksListApi/0
+

@@ -16,7 +16,8 @@ from api.HelloApi import hello_api
 from api.apply.member.member_api import StoreApi, StoreMemberApi, GoodsApi, GoodsListApi, StoreListApi, \
     StoreMemberListApi, OrderApi, OrderListApi
 from api.apply.stone_game.StoneGameApi import stone_game_api
-from api.apply.video.video_api import TargetApi, WorksApi, VideoUserApi, AllApi, InvitationCodeApi, TargetListApi,WorksListApi
+from api.apply.video.video_api import TargetApi, WorksApi, VideoUserApi, AllApi, InvitationCodeApi, TargetListApi, \
+    WorksListApi, MarketWorksListApi
 from api.auth.AuthApi import auth_api
 from api.customize.CustomizeApi import customize_api
 from api.exist.class_api import ClassApi
@@ -231,6 +232,7 @@ api2.add_resource(TargetApi, "/api/video_api/TargetApi/<int:_id>")
 api2.add_resource(TargetListApi, "/api/video_api/TargetListApi/<int:_id>")
 api2.add_resource(WorksApi, "/api/video_api/WorksApi/<int:_id>")
 api2.add_resource(WorksListApi, "/api/video_api/WorksListApi/<int:_id>")
+api2.add_resource(MarketWorksListApi, "/api/video_api/MarketWorksListApi/<int:_id>")
 api2.add_resource(VideoUserApi, "/api/video_api/VideoUserApi/<int:_id>")
 api2.add_resource(AllApi, "/api/video_api/AllApi/<int:_id>")
 api2.add_resource(InvitationCodeApi, "/api/video_api/InvitationCodeApi/<int:_id>")

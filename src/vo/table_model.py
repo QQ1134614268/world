@@ -10,6 +10,7 @@ from sqlalchemy import Column, Text, String, JSON, Integer, Float, Boolean, Fore
 from sqlalchemy.orm import relationship
 
 from config.mysql_db import db
+from service import user_service
 
 
 class BaseTable(db.Model):
@@ -17,6 +18,8 @@ class BaseTable(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True, comment="主键")
     create_time = Column(DateTime, default=datetime.datetime.now)
     update_time = db.Column(db.DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
+    # create_user = db.Column(db.Integer, default=user_service.get_id_by_token, onupdate=user_service.get_id_by_token)
+    # update_user = db.Column(db.Integer, default=user_service.get_id_by_token, onupdate=user_service.get_id_by_token)
 
 
 class BaseTable2(db.Model):
@@ -24,6 +27,8 @@ class BaseTable2(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True, comment="主键")
     create_time = Column(DateTime, default=datetime.datetime.now)
     update_time = db.Column(db.DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
+    # create_user = db.Column(db.Integer, default=user_service.get_id_by_token, onupdate=user_service.get_id_by_token)
+    # update_user = db.Column(db.Integer, default=user_service.get_id_by_token, onupdate=user_service.get_id_by_token)
 
     def save(self):
         db.session.add(self)
@@ -367,15 +372,9 @@ class VideoUserVO(BaseTable2):
     wechat_number = Column(String(255))  # 微信号
 
 
-def to_json(self):
-    dict2 = self.__dict__
-    if "_sa_instance_state" in dict2:
-        del dict2["_sa_instance_state"]
-    return dict2
-
-
 class WorksVO(BaseTable2):
     __tablename__ = 'works_t'
+    user_id = Column(Integer, ForeignKey(VideoUserVO.id, ondelete='CASCADE'), index=True)
     describe = Column(String(255))
     outer_chain = Column(String(255))  # 外链接
     file = Column(String(255))
@@ -389,6 +388,7 @@ class WorksVO(BaseTable2):
 
 class TargetVO(BaseTable2):
     __tablename__ = 'target_t'
+    user_id = Column(Integer, ForeignKey(VideoUserVO.id, ondelete='CASCADE'), index=True)
     title = Column(String(255))
     content = Column(String(255))
     price = Column(Float)

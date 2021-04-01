@@ -10,6 +10,7 @@ from flask_restful import Resource
 from sqlalchemy import or_
 
 from config.mysql_db import db
+from service.common_service import set_model_user_id
 from util import res_util
 from util import token_util
 from vo.table_model import VideoUserVO, WorksVO, TargetVO, InvitationCodeVO
@@ -54,6 +55,7 @@ class WorksApi(Resource):
     def post(self, _id):
         data = request.get_json()
         vo = WorksVO(**data)
+        set_model_user_id(vo)
         db.session.add(vo)
         db.session.commit()
         return res_util.success(vo.id)
@@ -84,12 +86,54 @@ class WorksListApi(Resource):
         page = request.args.get("page", 1, int)
         page_size = request.args.get("pageSize", 15, int)
         search = request.args.get("search")
+        user_id = request.args.get("user_id")
         obj_filter = []
         if search:
             obj_filter.append(WorksVO.describe.contains(search))
+        if user_id:
+            obj_filter.append(WorksVO.user_id == user_id)
         page_item = WorksVO.query.filter(*obj_filter).paginate(page=page, per_page=page_size)
 
         return jsonify(res_util.page_success(page_item))
+
+
+class MarketWorksListApi(Resource):
+    def get(self, _id):
+        page = request.args.get("page", 1, int)
+        page_size = request.args.get("pageSize", 15, int)
+        search = request.args.get("search")
+        obj_filter = []
+        if search:
+            obj_filter.append(WorksVO.describe.contains(search))
+        page_item = WorksVO.query.join(
+            VideoUserVO, WorksVO.user_id == VideoUserVO.id
+        ).filter(
+            *obj_filter
+        ).with_entities(
+            WorksVO.id,
+            WorksVO.describe,
+            WorksVO.outer_chain,
+            WorksVO.file,
+            WorksVO.user_id,
+            WorksVO.create_time,
+            VideoUserVO.avatar,
+        ).paginate(page=page, per_page=page_size)
+        page_item.items = [dict(zip(item.keys(), item)) for item in page_item.items]
+        # return jsonify(res_util.success(ret))
+        return jsonify(res_util.page_success(page_item))
+
+
+# class UserWorksListApi(Resource):
+#     def get(self, _id):
+#         page = request.args.get("page", 1, int)
+#         page_size = request.args.get("pageSize", 15, int)
+#         search = request.args.get("search")
+#         obj_filter = []
+#         if search:
+#             obj_filter.append(WorksVO.describe.contains(search))
+#         page_item = WorksVO.query.filter(*obj_filter).paginate(page=page, per_page=page_size)
+#
+#         return jsonify(res_util.page_success(page_item))
 
 
 class TargetApi(Resource):
