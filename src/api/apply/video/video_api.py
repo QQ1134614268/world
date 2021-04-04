@@ -20,6 +20,7 @@ class VideoUserApi(Resource):
 
     def post(self, _id):
         data = request.get_json()
+        # UserVO
         vo = VideoUserVO(**data)
         db.session.add(vo)
         db.session.commit()
@@ -62,8 +63,8 @@ class WorksApi(Resource):
 
     def get(self, _id):
         if _id:
-            vo = WorksVO.query.filter(WorksVO.id == request.args.get("id")).first()
-            return res_util.success(vo)
+            vo = WorksVO.query.filter(WorksVO.id == _id).first()
+            return res_util.json_success(vo)
         obj_filter = []
         vos = WorksVO.query.all()
         return jsonify(res_util.success(vos))
@@ -123,19 +124,6 @@ class MarketWorksListApi(Resource):
         return jsonify(res_util.page_success(page_item))
 
 
-# class UserWorksListApi(Resource):
-#     def get(self, _id):
-#         page = request.args.get("page", 1, int)
-#         page_size = request.args.get("pageSize", 15, int)
-#         search = request.args.get("search")
-#         obj_filter = []
-#         if search:
-#             obj_filter.append(WorksVO.describe.contains(search))
-#         page_item = WorksVO.query.filter(*obj_filter).paginate(page=page, per_page=page_size)
-#
-#         return jsonify(res_util.page_success(page_item))
-
-
 class TargetApi(Resource):
 
     def post(self, _id):
@@ -147,7 +135,7 @@ class TargetApi(Resource):
 
     def get(self, _id):
         vo = TargetVO.query.filter(TargetVO.id == _id).first()
-        return res_util.success(vo)
+        return res_util.json_success(vo)
 
     def put(self, _id):
         data = request.get_json()
@@ -173,6 +161,37 @@ class TargetListApi(Resource):
             obj_filter.append(or_(TargetVO.title.contains(search), TargetVO.content.contains(search)))
 
         page_item = TargetVO.query.filter(*obj_filter).paginate(page=page, per_page=page_size)
+        return jsonify(res_util.page_success(page_item))
+
+
+class MarketTargetListApi(Resource):
+    """
+
+    """
+
+    def get(self, _id):
+        page = request.args.get("page", 1, int)
+        page_size = request.args.get("pageSize", 15, int)
+        search = request.args.get("search")
+        obj_filter = []
+        if search:
+            obj_filter.append(or_(TargetVO.title.contains(search), TargetVO.content.contains(search)))
+
+        page_item = TargetVO.query.join(
+            VideoUserVO, TargetVO.user_id == VideoUserVO.id
+        ).filter(
+            *obj_filter
+        ).with_entities(
+            TargetVO.id,
+            TargetVO.title,
+            TargetVO.content,
+            TargetVO.price,
+            TargetVO.user_id,
+            TargetVO.create_time,
+            VideoUserVO.avatar,
+            VideoUserVO.username,
+        ).paginate(page=page, per_page=page_size)
+        page_item.items = [dict(zip(item.keys(), item)) for item in page_item.items]
         return jsonify(res_util.page_success(page_item))
 
 
