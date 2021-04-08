@@ -118,6 +118,7 @@ class MarketWorksListApi(Resource):
             WorksVO.user_id,
             WorksVO.create_time,
             VideoUserVO.avatar,
+            VideoUserVO.username,
         ).paginate(page=page, per_page=page_size)
         page_item.items = [dict(zip(item.keys(), item)) for item in page_item.items]
         # return jsonify(res_util.success(ret))
