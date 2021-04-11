@@ -13,6 +13,7 @@ from config.mysql_db import db
 from service.common_service import set_model_user_id
 from util import res_util
 from util import token_util
+from util.video_util import get_first_frame_loc
 from vo.table_model import VideoUserVO, WorksVO, TargetVO, InvitationCodeVO
 
 
@@ -55,6 +56,7 @@ class WorksApi(Resource):
 
     def post(self, _id):
         data = request.get_json()
+        data["thumbnail"] = get_first_frame_loc(data["file"])
         vo = WorksVO(**data)
         set_model_user_id(vo)
         db.session.add(vo)
@@ -117,6 +119,8 @@ class MarketWorksListApi(Resource):
             WorksVO.file,
             WorksVO.user_id,
             WorksVO.create_time,
+            WorksVO.start,
+            WorksVO.thumbnail,
             VideoUserVO.avatar,
             VideoUserVO.username,
         ).paginate(page=page, per_page=page_size)

@@ -28,6 +28,7 @@ from api.message.wb.WbApi import wb_api
 from api.message.wx.SocketApi import socket_api
 from api.model.model_api import ModelApi
 from api.my_cloud_space.CloudSpaceApi import cloud_space_api
+from api.project_api import ProjectInit
 from api.root.OrganizationApi import organization_api
 from api.root.btree_api import btree_api
 from api.scheduler.APScheduler import scheduler
@@ -203,6 +204,8 @@ api2.add_resource(ScriptApi, "/api/class_api/ScriptApi")
 # 用户
 app.register_blueprint(user_api)
 app.register_blueprint(attention_api)
+
+api2.add_resource(ProjectInit, "/api/ProjectInit")
 
 api2.add_resource(ClassApi, "/api/class_api/ClassApi")
 

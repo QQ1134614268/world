@@ -10,7 +10,6 @@ from sqlalchemy import Column, Text, String, JSON, Integer, Float, Boolean, Fore
 from sqlalchemy.orm import relationship
 
 from config.mysql_db import db
-from service import user_service
 
 
 class BaseTable(db.Model):
@@ -27,6 +26,7 @@ class BaseTable2(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True, comment="主键")
     create_time = Column(DateTime, default=datetime.datetime.now)
     update_time = db.Column(db.DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
+
     # create_user = db.Column(db.Integer, default=user_service.get_id_by_token, onupdate=user_service.get_id_by_token)
     # update_user = db.Column(db.Integer, default=user_service.get_id_by_token, onupdate=user_service.get_id_by_token)
 
@@ -378,6 +378,8 @@ class WorksVO(BaseTable2):
     describe = Column(String(255))
     outer_chain = Column(String(255))  # 外链接
     file = Column(String(255))
+    start = Column(Integer, default=0)
+    thumbnail = Column(String(255))
 
     def to_json(self):
         dict2 = self.__dict__
