@@ -2,6 +2,7 @@
 from flask import Blueprint, jsonify, request
 from flask_restful import fields, marshal
 
+import service.token_service
 from vo.table_model import PersonSpeech
 from config.user_type import UserType
 from config.mysql_db import db
@@ -26,7 +27,7 @@ def add_speech():
     title = data.get('title', '')
     content = data.get('content', '')
     group = data.get('group', '')
-    userId = user_service.get_id_by_token()
+    userId = service.token_service.get_id_by_token()
     vo = PersonSpeech(title=title, content=content, userId=userId, group=group)
     db.session.add(vo)
     db.session.commit()
@@ -35,7 +36,7 @@ def add_speech():
 
 @message_api.route('/get_my_speech', methods=['GET'])
 def get_my_speech():
-    userId = user_service.get_id_by_token()
+    userId = service.token_service.get_id_by_token()
     parent_vo_list = PersonSpeech.query.filter_by(userId=userId).all()
     data_list = [marshal(i, speechFields) for i in parent_vo_list]
     return jsonify(res_util.success(data_list))
@@ -78,7 +79,7 @@ def delete_speech():
     data = request.get_json()
     content = data.get('content', '')
     group = data.get('group', '')
-    user_id = user_service.get_id_by_token()
+    user_id = service.token_service.get_id_by_token()
     vo = PersonSpeech(content=content, user_id=user_id, group=group)
     db.session.add(vo)
     db.session.commit()
@@ -89,7 +90,7 @@ def delete_speech():
 def addAnnouncement():
     data = request.get_json()
     content = data.get('content', '')
-    userId = user_service.get_id_by_token()
+    userId = service.token_service.get_id_by_token()
     vo = PersonSpeech(content=content, userId=userId, group=UserType.strange.value)
     db.session.add(vo)
     db.session.commit()

@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_restful import fields, marshal
 
+import service.token_service
 from vo.table_model import BlogVO, BlogCommentVO
 from config.mysql_db import db
 from service import user_service
@@ -42,7 +43,7 @@ def add_blog():
     """
     data = request.get_json()
     content = data.get('content', '')
-    user_id = user_service.get_id_by_token()
+    user_id = service.token_service.get_id_by_token()
     vo = BlogVO(content=content, user_id=user_id)
     db.session.add(vo)
     db.session.commit()
@@ -88,7 +89,7 @@ def add_comment():
     data = request.get_json()
     comment = data.get('comment', '')
     blog_id = data.get('blog_id', '')
-    user_id = user_service.get_id_by_token()
+    user_id = service.token_service.get_id_by_token()
     print(user_id)
     vo = BlogCommentVO(comment=comment, blog_id=blog_id, user_id=user_id)
     db.session.add(vo)

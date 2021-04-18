@@ -2,7 +2,7 @@
 from flask import request, json
 from werkzeug.exceptions import HTTPException
 
-from service.user_service import get_id_by_token
+from service.token_service import get_id_by_token
 from util.log_util import logger
 
 

@@ -2,6 +2,7 @@ from flask import jsonify, request
 from flask_restful import Resource
 from flask_restful import marshal, fields
 
+import service.token_service
 from service import user_service
 from config.mysql_db import db
 from util import res_util
@@ -36,8 +37,8 @@ class ModelApi(Resource):
     def post(self):
         data = request.get_json()
         value = data.get("value", "")
-        data["userId"] = user_service.get_id_by_token()
-        vo = ModelVO(userId=user_service.get_id_by_token(), value=value)
+        data["userId"] = service.token_service.get_id_by_token()
+        vo = ModelVO(userId=service.token_service.get_id_by_token(), value=value)
         db.session.add(vo)
         db.session.commit()
         return jsonify(res_util.success("success"))

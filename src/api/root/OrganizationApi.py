@@ -6,6 +6,7 @@
 from flask import Blueprint, jsonify, request
 from flask_restful import fields, marshal
 
+import service.token_service
 from util import res_util
 from config.mysql_db import db
 from service import user_service
@@ -39,7 +40,7 @@ def get_origin_organization():
       200:
         description: A language with its awesomeness
      """
-    user_id = user_service.get_id_by_token()
+    user_id = service.token_service.get_id_by_token()
     # auth 组织权限 user_id
     # 组织下有组织,和人员,,类 文件和文件夹
     vo = OrganizationVO.query.filter_by(id=1).first()

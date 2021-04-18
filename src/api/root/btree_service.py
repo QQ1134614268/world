@@ -2,6 +2,7 @@
 from flask import jsonify
 from flask_restful import fields, marshal
 
+import service.token_service
 from vo.table_model import BTreeVO
 from service import user_service
 from config.mysql_db import db
@@ -33,7 +34,7 @@ def addNode(nodeId, value):
     vo = BTreeVO.query.filter_by(id=nodeId).first()
     fullPath = vo.fullPath + str(vo.id) + "/"
     # sort = data.get('sort')
-    userId = user_service.get_id_by_token()
+    userId = service.token_service.get_id_by_token()
     vo = BTreeVO(value=value, userId=userId, fullPath=fullPath)
     db.session.add(vo)
     db.session.commit()

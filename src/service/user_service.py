@@ -3,18 +3,9 @@ from flask import jsonify
 from flask_restful import fields, marshal
 
 from config.mysql_db import db
+from service.token_service import get_id_by_token
 from util import res_util
-from util.token_util import get_payload
 from vo.table_model import UserVO, Attention
-
-
-def get_name_by_token():
-    return get_payload()["name"]  # dict的缺点,直接取值,且需要明白之前存的数据
-
-
-def get_id_by_token():
-    return get_payload()["id"]
-
 
 attentionFields = {
     'group': fields.String,

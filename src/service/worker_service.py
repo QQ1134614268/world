@@ -5,6 +5,7 @@ from flask_restful import marshal, fields
 from sqlalchemy.dialects.mysql import insert
 from sqlalchemy.sql import and_
 
+import service.token_service
 from vo.table_model import WorkerVO, WorkerTimeVO
 from config.GLOBAL_DICTIONARY import TIME_ENUM
 from config.conf import DATE_FORMAT
@@ -15,7 +16,7 @@ from util import res_util
 
 
 def add_worker(data):
-    data["belong"] = user_service.get_id_by_token()
+    data["belong"] = service.token_service.get_id_by_token()
     vo = WorkerVO(**data)
     db.session.commit()
     return res_util.success(vo.id)
@@ -39,7 +40,7 @@ def update_or_add_worker(data):
         if i.get("id"):
             WorkerVO.query.filter(WorkerVO.id == i.pop("id")).update(i)
         else:
-            i["belong"] = user_service.get_id_by_token()
+            i["belong"] = service.token_service.get_id_by_token()
             vos.append(WorkerVO(**i))
     db.session.add_all(vos)
     db.session.commit()
@@ -47,7 +48,7 @@ def update_or_add_worker(data):
 
 
 def get_worker_all():
-    user_id = user_service.get_id_by_token()
+    user_id = service.token_service.get_id_by_token()
     worker_fields = {
         "id": fields.Integer,
         'name': fields.String,
@@ -98,7 +99,7 @@ def update_worker_time(data):
 def get_worker_day(date):
     res = WorkerVO.query.outerjoin(
         WorkerTimeVO, and_(WorkerTimeVO.date == date, WorkerVO.id == WorkerTimeVO.worker_id)
-    ).filter(WorkerVO.belong == user_service.get_id_by_token()).with_entities(
+    ).filter(WorkerVO.belong == service.token_service.get_id_by_token()).with_entities(
         WorkerVO.id.label("worker_id"),
         WorkerVO.name,
         WorkerTimeVO.id,

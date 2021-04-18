@@ -7,6 +7,7 @@ from flask import request
 from flask_restful import Resource
 from flask_restful import fields, marshal
 
+import service.token_service
 from config.mysql_db import db
 from service import WalletService
 from service import user_service
@@ -43,7 +44,7 @@ class StoreApi(Resource):
         name = data.get('name', '')
         password = data.get('password', '')
         vo = StoreVO(name=name, password=password_util.get_sha256_salt_password(password),
-                     user_id=user_service.get_id_by_token())
+                     user_id=service.token_service.get_id_by_token())
         db.session.add(vo)
         db.session.commit()
         return res_util.success(marshal(vo, store_field))
@@ -146,7 +147,7 @@ class OrderApi(Resource):
         # todo
         # goods = GoodsVO.query.filter(GoodsVO.id.in_([item["id"] for item in data])).all()
         money = sum([item["num"] * item["price"] for item in data])
-        user_id = user_service.get_id_by_token()
+        user_id = service.token_service.get_id_by_token()
         wallet = WalletVO.query.filter(WalletVO.user_id == user_id).one()
         WalletService.pay(wallet.id, money)
 
@@ -160,7 +161,7 @@ class OrderListApi(Resource):
 
     def get(self):
         # 获取用户订单
-        user_id = user_service.get_id_by_token()
+        user_id = service.token_service.get_id_by_token()
         res = OrderVO.query.outerjoin(
             GoodsVO, OrderVO.goods_id == GoodsVO.id
         ).filter(

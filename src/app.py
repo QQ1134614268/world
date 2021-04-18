@@ -12,6 +12,7 @@ from flask import Flask, request
 from flask_cors import CORS
 from flask_restful import Api
 
+import service.token_service
 from api.HelloApi import hello_api
 from api.apply.member.member_api import StoreApi, StoreMemberApi, GoodsApi, GoodsListApi, StoreListApi, \
     StoreMemberListApi, OrderApi, OrderListApi
@@ -118,7 +119,7 @@ def handle_404_error(err_msg):
     """
     # 这个函数的返回值就是前端用户看到的最终结果 (404错误页面)
     url_path = request.path
-    user_id = user_service.get_name_by_token()
+    user_id = service.token_service.get_name_by_token()
     logger.error({"404": {"userId": user_id, "url_path": url_path, "err_msg": str(err_msg)}})
     return res_util.err(u"server error：%s" % err_msg)
 

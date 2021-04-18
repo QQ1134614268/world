@@ -5,6 +5,7 @@ import time
 from flask import Blueprint, jsonify, make_response, request
 from flask_restful import fields, marshal
 
+import service.token_service
 from config.conf import UPLOAD_FILE_PATH
 from config.mysql_db import db
 from config.redis_db import redisDB
@@ -169,7 +170,7 @@ def add_announcement():
     time_str = time.strftime('%Y%m%d_%H%M%S_') + str(random.randint(1000, 9999))
     image_path = UPLOAD_FILE_PATH + '/images/' + time_str + "-" + image.filename
     image.save(image_path)  # 保存文件到指定路径
-    user_id = user_service.get_id_by_token()
+    user_id = service.token_service.get_id_by_token()
     vo = AnnouncementVO(userid=user_id, title=title, content=content, images=image_path)
     db.session.add(vo)
     db.session.commit()

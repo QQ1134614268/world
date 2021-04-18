@@ -10,6 +10,7 @@ from sqlalchemy import Column, Text, String, JSON, Integer, Float, Boolean, Fore
 from sqlalchemy.orm import relationship
 
 from config.mysql_db import db
+from service.token_service import get_id_by_token
 
 
 class BaseTable(db.Model):
@@ -390,7 +391,7 @@ class WorksVO(BaseTable2):
 
 class TargetVO(BaseTable2):
     __tablename__ = 'target_t'
-    user_id = Column(Integer, ForeignKey(VideoUserVO.id, ondelete='CASCADE'), index=True)
+    user_id = Column(Integer, ForeignKey(VideoUserVO.id, ondelete='CASCADE'), index=True, default=get_id_by_token)
     title = Column(String(255))
     content = Column(String(255))
     price = Column(Float)

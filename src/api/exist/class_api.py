@@ -7,6 +7,7 @@ from flask import jsonify, request
 from flask_restful import Resource
 from flask_restful import marshal, fields
 
+import service.token_service
 from config.mysql_db import db
 from service import user_service
 from util import res_util
@@ -42,7 +43,7 @@ class ClassApi(Resource):
         parent_id = data.get("parent_id", "")
         describe = data.get("describe", "")
         name = data.get("name", "")
-        vo = ClassVO(name=name, describe=describe, parent_id=parent_id, user_id=user_service.get_id_by_token(), )
+        vo = ClassVO(name=name, describe=describe, parent_id=parent_id, user_id=service.token_service.get_id_by_token(), )
         db.session.add(vo)
         db.session.commit()
         return jsonify(res_util.success())
