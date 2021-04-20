@@ -36,3 +36,10 @@ class ProjectInit(Resource):
             ProjectInit.code2[func_code]()
             return res_util.success(func_code)
         return ProjectInit.code
+
+
+class SyncData(Resource):
+
+    def get(self):
+        # 直接连生产数据 --- 文件  上传
+        pass
