@@ -9,6 +9,7 @@ from config.conf import DATA_DIR
 from config.conf import UPLOAD_FILE_PATH2
 from util import res_util
 from util.file_util import get_file_name_by_uuid
+from util.log_util import logger
 
 
 #
@@ -90,9 +91,11 @@ class FileApi2(Resource):
     def get(self):
         path = request.args.get("path")
         full_path = os.path.join(DATA_DIR, path)
-        return send_file(full_path, as_attachment=True,
-                         attachment_filename=full_path.split('/')[-1],
-                         mimetype='application/octet-stream')
+        logger.info("文件不存在: " + full_path)
+        if os.path.exists(full_path):
+            return send_file(full_path, as_attachment=True,
+                             attachment_filename=full_path.split('/')[-1],
+                             mimetype='application/octet-stream')
 
     def post(self):
         file = request.files["file"]
