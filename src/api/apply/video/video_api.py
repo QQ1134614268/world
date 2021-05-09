@@ -103,7 +103,7 @@ class WorksListApi(Resource):
 class WorksRankListApi(Resource):
     def get(self, _id):
         obj_filter = []
-        results = WorksVO.query.filter(*obj_filter).limit(10).all()
+        results = WorksVO.query.filter(*obj_filter).order_by(WorksVO.create_time.desc()).limit(10).all()
         return jsonify(res_util.success(results))
 
 
@@ -181,7 +181,7 @@ class TargetRankListApi(Resource):
 
     def get(self, _id):
         obj_filter = []
-        results = TargetVO.query.filter(*obj_filter).limit(10).all()
+        results = TargetVO.query.filter(*obj_filter).order_by(TargetVO.create_time.desc()).limit(10).all()
         return jsonify(res_util.success(results))
 
 
