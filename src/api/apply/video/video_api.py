@@ -180,7 +180,11 @@ class MarketTargetListApi(Resource):
         page = request.args.get("page", 1, int)
         page_size = request.args.get("pageSize", 15, int)
         search = request.args.get("search")
+        user_id = request.args.get("user_id")
         obj_filter = []
+        if user_id:
+            obj_filter.append(TargetVO.user_id == user_id)
+
         if search:
             obj_filter.append(or_(TargetVO.title.contains(search), TargetVO.content.contains(search)))
 
