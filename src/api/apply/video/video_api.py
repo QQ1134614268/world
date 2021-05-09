@@ -100,6 +100,13 @@ class WorksListApi(Resource):
         return jsonify(res_util.page_success(page_item))
 
 
+class WorksRankListApi(Resource):
+    def get(self, _id):
+        obj_filter = []
+        results = WorksVO.query.filter(*obj_filter).limit(10).all()
+        return jsonify(res_util.success(results))
+
+
 class MarketWorksListApi(Resource):
     def get(self, _id):
         page = request.args.get("page", 1, int)
@@ -125,7 +132,6 @@ class MarketWorksListApi(Resource):
             VideoUserVO.username,
         ).paginate(page=page, per_page=page_size)
         page_item.items = [dict(zip(item.keys(), item)) for item in page_item.items]
-        # return jsonify(res_util.success(ret))
         return jsonify(res_util.page_success(page_item))
 
 
@@ -169,6 +175,14 @@ class TargetListApi(Resource):
             obj_filter.append(WorksVO.user_id == user_id)
         page_item = TargetVO.query.filter(*obj_filter).paginate(page=page, per_page=page_size)
         return jsonify(res_util.page_success(page_item))
+
+
+class TargetRankListApi(Resource):
+
+    def get(self, _id):
+        obj_filter = []
+        results = TargetVO.query.filter(*obj_filter).limit(10).all()
+        return jsonify(res_util.success(results))
 
 
 class MarketTargetListApi(Resource):
