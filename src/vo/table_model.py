@@ -371,6 +371,7 @@ class VideoUserVO(BaseTable2):
     tiktok_number = Column(String(255))  # 抖音号
     video_number = Column(String(255))  # 视频号
     wechat_number = Column(String(255))  # 微信号
+    role = Column(String(255))
 
 
 class WorksVO(BaseTable2):
