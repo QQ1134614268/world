@@ -26,7 +26,7 @@ class VideoUserApi(Resource):
 
     def post(self, _id):
         data = request.get_json()
-        code = data.get("code")
+        code = data.pop("code")
         code_vo = InvitationCodeVO.query.filter(InvitationCodeVO.code == code).first()
         if not code_vo:
             return res_util.fail("请输入邀请码")
