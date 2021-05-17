@@ -29,7 +29,7 @@ class VideoUserApi(Resource):
         code = data.pop("code")
         code_vo = InvitationCodeVO.query.filter(InvitationCodeVO.code == code).first()
         if not code_vo:
-            return res_util.fail("请输入邀请码")
+            return res_util.fail("邀请码不正确!")
         vo = VideoUserVO(**data)
         db.session.add(vo)
         db.session.commit()
