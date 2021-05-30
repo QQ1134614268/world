@@ -130,7 +130,6 @@ class MarketWorksListApi(Resource):
         ).with_entities(
             WorksVO.id,
             WorksVO.describe,
-            WorksVO.outer_chain,
             WorksVO.file,
             WorksVO.user_id,
             WorksVO.create_time,
