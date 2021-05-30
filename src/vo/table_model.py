@@ -358,7 +358,7 @@ class OrderVO(BaseTable2):
 
 class VideoUserVO(BaseTable2):
     __tablename__ = 'video_user_t'
-    avatar = Column(String(255))
+    avatar = Column(String(255), default="default_avatar.png")
     username = Column(String(255), unique=True)
     password = Column(String(255))
     describe = Column(String(255))

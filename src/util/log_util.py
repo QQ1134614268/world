@@ -19,7 +19,7 @@ def create_logger(file_path=LOG_PATH + "/log.json"):
 
     # write log to file
     # handler = logging.FileHandler(file_path)
-    handler = ConcurrentRotatingFileHandler(file_path, maxBytes=5 * 1024 * 1024, backupCount=3, encoding="utf_8")
+    handler = ConcurrentRotatingFileHandler(file_path, maxBytes=1 * 1024 * 1024, backupCount=10, encoding="utf_8")
     handler.setLevel(logging.INFO)
     handler.setFormatter(JSONFormatter())
     # write log to console
