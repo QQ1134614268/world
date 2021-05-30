@@ -359,10 +359,9 @@ class OrderVO(BaseTable2):
 class VideoUserVO(BaseTable2):
     __tablename__ = 'video_user_t'
     avatar = Column(String(255))
-    username = Column(String(255))
+    username = Column(String(255), unique=True)
     password = Column(String(255))
     describe = Column(String(255))
-    outer_chain = Column(String(255))  # 外链接
     id_card = Column(String(255))  # 身份证
     business_license = Column(String(255))  # 营业执照
     brand = Column(String(255))  # 商标
@@ -378,7 +377,6 @@ class WorksVO(BaseTable2):
     __tablename__ = 'works_t'
     user_id = Column(Integer, ForeignKey(VideoUserVO.id, ondelete='CASCADE'), index=True)
     describe = Column(String(255))
-    outer_chain = Column(String(255))  # 外链接
     file = Column(String(255))
     start = Column(Integer, default=0)
     thumbnail = Column(String(255))
