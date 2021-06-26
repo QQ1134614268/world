@@ -73,12 +73,8 @@ class WorksApi(Resource):
         return res_util.success(vo.id)
 
     def get(self, _id):
-        if _id:
-            vo = WorksVO.query.filter(WorksVO.id == _id).first()
-            return res_util.json_success(vo)
-        obj_filter = []
-        vos = WorksVO.query.all()
-        return jsonify(res_util.success(vos))
+        vo = WorksVO.query.filter(WorksVO.id == _id).first()
+        return res_util.json_success(vo)
 
     def put(self, _id):
         data = request.get_json()
