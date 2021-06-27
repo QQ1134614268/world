@@ -176,7 +176,7 @@ class TargetListApi(Resource):
         if search:
             obj_filter.append(or_(TargetVO.title.contains(search), TargetVO.content.contains(search)))
         if user_id:
-            obj_filter.append(WorksVO.user_id == user_id)
+            obj_filter.append(TargetVO.user_id == user_id)
         page_item = TargetVO.query.filter(*obj_filter).paginate(page=page, per_page=page_size)
         return jsonify(res_util.page_success(page_item))
 
