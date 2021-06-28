@@ -126,12 +126,11 @@ def flask_global_exception_handler(err):
     :return:
     """
     # traceback.print_exc()  # str(e)  repr(e)  e.message
-    print(err)
     message = traceback.format_exc()
     try:
         host_name = socket.gethostname()
         host_ip = socket.gethostbyname(host_name)
-    except ConnectionError:
+    except:
         host_name = "unknown hostname"
         host_ip = "unknown ip"
     data = {"remote_ip": request.remote_addr, "url": request.path, "method": request.method,
