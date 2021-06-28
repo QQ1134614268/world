@@ -11,6 +11,7 @@ from enum import Enum
 from flask import jsonify
 from flask import request
 from flask_restful import Resource
+from flask_restful import marshal
 from sqlalchemy import or_
 
 from config.mysql_db import db
@@ -20,6 +21,17 @@ from util import res_util
 from util import token_util
 from util.video_util import get_first_frame_loc
 from vo.table_model import VideoUserVO, WorksVO, TargetVO, InvitationCodeVO
+
+
+class VideoUserLoginApi(Resource):
+
+    def get(self):
+        username = request.args.get("username")
+        password = request.args.get("password")
+        user = VideoUserVO.query.filter(VideoUserVO.username == username, VideoUserVO.password == password, ).first()
+        if not user:
+            return res_util.fail("密码不正确")
+        return res_util.success(token_util.get_token(user.id, user.username, ))
 
 
 class VideoUserApi(Resource):
@@ -32,20 +44,13 @@ class VideoUserApi(Resource):
             return res_util.fail("邀请码不正确!")
         vo = VideoUserVO(**data)
         db.session.add(vo)
+        code_vo.code = ""
         db.session.commit()
         return res_util.success(vo.id)
 
     def get(self, _id):
-        if _id:
-            vo = VideoUserVO.query.filter(VideoUserVO.id == _id).first()
-            return res_util.json_success(vo)
-        obj_filter = []
-        username = request.args.get("username")
-        password = request.args.get("password")
-        if username:
-            user = VideoUserVO.query.filter(VideoUserVO.username == username,
-                                            VideoUserVO.password == password, ).first()
-            return res_util.success(token_util.get_token(user.id, user.username, ))
+        vo = VideoUserVO.query.filter(VideoUserVO.id == _id).first()
+        return res_util.success(marshal(vo, VideoUserVO.get_video_user_field()))
 
     def put(self, _id):
         data = request.get_json()

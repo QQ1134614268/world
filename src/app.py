@@ -18,7 +18,7 @@ from api.apply.member.member_api import StoreApi, StoreMemberApi, GoodsApi, Good
     StoreMemberListApi, OrderApi, OrderListApi
 from api.apply.stone_game.StoneGameApi import stone_game_api
 from api.apply.video.video_api import TargetApi, WorksApi, VideoUserApi, AllApi, InvitationCodeApi, TargetListApi, \
-    WorksListApi, MarketWorksListApi, MarketTargetListApi, WorksRankListApi,TargetRankListApi
+    WorksListApi, MarketWorksListApi, MarketTargetListApi, WorksRankListApi, TargetRankListApi, VideoUserLoginApi
 from api.auth.AuthApi import auth_api
 from api.customize.CustomizeApi import customize_api
 from api.exist.class_api import ClassApi
@@ -63,12 +63,12 @@ SQLALCHEMY_DATABASE_URI = '{}+{}://{}:{}@{}:{}/{}'.format(DIALCT, DRIVER, USERNA
 app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
 app.config["SECRET_KEY"] = "session_key_world"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
+app.config["SQLALCHEMY_POOL_RECYCLE"] = 14400
 app.config["SQLALCHEMY_ECHO"] = DEBUG
 app.config["DEBUG"] = DEBUG
 app.config['JSON_AS_ASCII'] = False
 app.config.update(RESTFUL_JSON=dict(ensure_ascii=False))
 db.init_app(app)
-print(app.json_encoder)
 app.json_encoder = JSONEncoder
 
 
@@ -78,11 +78,6 @@ def before_request():  # 登录过滤,正则匹配,日志记录,IP分析 todo
 
     :return:
     """
-    # if request.method == "OPTIONS":
-    #     return make_response(), 200
-    # intercept_path = ["/api"]
-    # allow_path = ["/api/sys_api/register", "/api/sys_api/get_verify_code", "/api/sys_api/login",
-    #               "/api/sys_api/logout", "/api/hello_api"]
     url_path = request.path
     ip_addr = request.remote_addr
     user_agent = request.headers.get('User-Agent')
@@ -241,6 +236,7 @@ api2.add_resource(WorksRankListApi, "/api/video_api/WorksRankListApi/<int:_id>")
 api2.add_resource(TargetRankListApi, "/api/video_api/TargetRankListApi/<int:_id>")
 api2.add_resource(MarketWorksListApi, "/api/video_api/MarketWorksListApi/<int:_id>")
 api2.add_resource(VideoUserApi, "/api/video_api/VideoUserApi/<int:_id>")
+api2.add_resource(VideoUserLoginApi, "/api/video_api/VideoUserLoginApi")
 api2.add_resource(AllApi, "/api/video_api/AllApi/<int:_id>")
 api2.add_resource(InvitationCodeApi, "/api/video_api/InvitationCodeApi/<int:_id>")
 

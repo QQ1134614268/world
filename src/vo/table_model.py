@@ -5,6 +5,7 @@
 """
 import datetime
 
+from flask_restful import fields
 from sqlalchemy import Column, Text, String, JSON, Integer, Float, Boolean, ForeignKey, Date, BLOB, DateTime, Sequence, \
     Time, Enum, UniqueConstraint
 from sqlalchemy.orm import relationship
@@ -371,6 +372,24 @@ class VideoUserVO(BaseTable2):
     video_number = Column(String(255))  # 视频号
     wechat_number = Column(String(255))  # 微信号
     role = Column(String(255))
+
+    @staticmethod
+    def get_video_user_field():
+        return {
+            'id': fields.Integer,
+            'avatar': fields.String,
+            "username": fields.String,
+            "describe": fields.String,
+            "id_card": fields.String,
+            "business_license": fields.String,
+            "brand": fields.String,
+            "resume": fields.String,
+            "phone": fields.String,
+            "tiktok_number": fields.String,
+            "video_number": fields.String,
+            "wechat_number": fields.String,
+            "role": fields.String,
+        }
 
 
 class WorksVO(BaseTable2):
