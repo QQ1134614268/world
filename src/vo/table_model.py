@@ -413,7 +413,8 @@ class TargetVO(BaseTable2):
     title = Column(String(255))
     content = Column(String(255))
     price = Column(Float)
-
+    # 800
+    # 600
     def to_json(self):
         dict2 = self.__dict__
         if "_sa_instance_state" in dict2:

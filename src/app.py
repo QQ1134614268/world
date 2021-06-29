@@ -64,6 +64,10 @@ app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
 app.config["SECRET_KEY"] = "session_key_world"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 app.config["SQLALCHEMY_POOL_RECYCLE"] = 14400
+app.config["SQLALCHEMY_POOL_SIZE"] = 20
+app.config["SQLALCHEMY_MAX_OVERFLOW"] = 10
+app.config["SQLALCHEMY_POOL_TIMEOUT"] = 30
+
 app.config["SQLALCHEMY_ECHO"] = DEBUG
 app.config["DEBUG"] = DEBUG
 app.config['JSON_AS_ASCII'] = False
@@ -126,20 +130,31 @@ def flask_global_exception_handler(err):
     :return:
     """
     # traceback.print_exc()  # str(e)  repr(e)  e.message
-    message = traceback.format_exc()
     try:
-        host_name = socket.gethostname()
-        host_ip = socket.gethostbyname(host_name)
+        message = traceback.format_exc()
+        try:
+            host_name = socket.gethostname()
+            host_ip = socket.gethostbyname(host_name)
+        except:
+            host_name = "unknown hostname"
+            host_ip = "unknown ip"
+        data = {"remote_ip": request.remote_addr, "url": request.path, "method": request.method,
+                "host_ip": host_ip, "host_name": host_name}
+        logger.error(message, data)  # 日志输出到控制台和日志文件
+        try:
+            traceback.print_exc()
+        except Exception as e:
+            # logger.exception(e)
+            logger.error(str(e))
+        # 邮件服务 发送异常通知邮件  邮件模板
+        try:
+            if not socket_util.get_host_name() in MAIL_HOST_BLOCK_LIST:
+                mail_util.send_email(json.dumps(data) + message, MAIL_TO)
+        except Exception as e:
+            # logger.exception(e)
+            logger.error(str(e))
     except:
-        host_name = "unknown hostname"
-        host_ip = "unknown ip"
-    data = {"remote_ip": request.remote_addr, "url": request.path, "method": request.method,
-            "host_ip": host_ip, "host_name": host_name}
-    logger.error(message, data)  # 日志输出到控制台和日志文件
-    traceback.print_exc()
-    # 邮件服务 发送异常通知邮件  邮件模板
-    if not socket_util.get_host_name() in MAIL_HOST_BLOCK_LIST:
-        mail_util.send_email(json.dumps(data) + message, MAIL_TO)
+        logger.error("global_exception_handler 发生异常")
     if app.config["DEBUG"]:
         return res_util.err(message)
     return res_util.err("服务器发生了一个错误")
