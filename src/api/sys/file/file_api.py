@@ -91,11 +91,11 @@ class FileApi2(Resource):
     def get(self):
         path = request.args.get("path", "")
         full_path = os.path.join(DATA_DIR, path)
-        logger.info("文件不存在: " + full_path)
-        if os.path.exists(full_path):
+        if os.path.isfile(full_path):
             return send_file(full_path, as_attachment=True,
                              attachment_filename=full_path.split('/')[-1],
                              mimetype='application/octet-stream')
+        logger.info("文件不存在: " + full_path)
 
     def post(self):
         file = request.files["file"]
