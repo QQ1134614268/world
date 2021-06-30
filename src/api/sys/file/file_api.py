@@ -55,7 +55,7 @@ from util.log_util import logger
 class FileApi(Resource):
 
     def get(self):
-        path = request.args.get("path")
+        path = request.args.get("path", "")
         full_path = os.path.join(DATA_DIR, path)
         if not os.path.exists(full_path):
             return res_util.fail("参数异常")
@@ -89,7 +89,7 @@ class FileApi(Resource):
 class FileApi2(Resource):
 
     def get(self):
-        path = request.args.get("path")
+        path = request.args.get("path", "")
         full_path = os.path.join(DATA_DIR, path)
         logger.info("文件不存在: " + full_path)
         if os.path.exists(full_path):
