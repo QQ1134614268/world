@@ -1,0 +1,84 @@
+<template>
+  <div>
+    <div>
+      日期:
+      <el-date-picker
+          v-model="date"
+          type="date"
+          format="yyyy 年 MM 月 dd 日"
+          value-format="yyyy-MM-dd"
+          placeholder="选择日期">
+      </el-date-picker>
+      时间段:
+      <el-select v-model="type" placeholder="请选择">
+        <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+        </el-option>
+      </el-select>
+      <el-button @click="save">确定</el-button>
+    </div>
+    <div>
+      <el-checkbox-group v-model="checkboxGroup2" size="medium">
+        <el-checkbox-button v-for="worker in workers" :label="worker.id" :key="worker.id">
+          {{ worker.name }}
+        </el-checkbox-button>
+      </el-checkbox-group>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "MonthTime",
+  data() {
+    return {
+      checkboxGroup2: [],
+      workers: [],
+      date: new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate(),
+      type: "",
+      options: [
+        {value: '上午', label: '上午'},
+        {value: '下午', label: '下午'},
+        {value: '全天', label: '全天'},
+        {value: '中午', label: '中午'},
+        {value: '晚上', label: '晚上'},
+      ]
+    }
+  },
+  methods: {
+    async init2() {
+      let url = '/api/work_api/WorkerApi';
+      let response = await this.$get(url);
+      if (response.data.code != 1) {
+        this.$message('server error');
+        return
+      }
+      this.workers = response.data.data
+    },
+    async save() {
+      let url = '/api/work_api/WorkerTimeApi';
+      let data = {
+        worker_id: this.checkboxGroup2,
+        date: this.date,
+        type: this.type
+      }
+      let response = await this.$postJson(url, data);
+      if (response.data.code != 1) {
+        this.$message('server error');
+      } else {
+        this.$message('success');
+      }
+    },
+  },
+  created() {
+    this.init2()
+  }
+}
+</script>
+
+<style scoped>
+
+</style>
