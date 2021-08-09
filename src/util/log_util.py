@@ -3,31 +3,52 @@ import collections
 import datetime
 import json
 import logging
+import os
 
 from concurrent_log_handler import ConcurrentRotatingFileHandler
 
 from config.conf import DEFAULT_TIME_STR
 from config.conf import LOG_PATH
-from util import file_util
 
 
-def create_logger(file_path=LOG_PATH + "/log.json"):
-    file_util.prepare_path(file_path)
+def create_logger(file_path=LOG_PATH):
 
     log = logging.getLogger(__name__)
     log.setLevel(logging.DEBUG)
 
-    # write log to file
-    # handler = logging.FileHandler(file_path)
-    handler = ConcurrentRotatingFileHandler(file_path, maxBytes=1 * 1024 * 1024, backupCount=10, encoding="utf_8")
-    handler.setLevel(logging.INFO)
-    handler.setFormatter(JSONFormatter())
+
+    err_handler = ConcurrentRotatingFileHandler(os.path.join(file_path, "err.log"), maxBytes=1 * 1024 * 1024,
+                                                backupCount=10, encoding="utf_8")
+    err_handler.setLevel(logging.INFO)
+    err_handler.setFormatter(JSONFormatter())
+    err_filter = logging.Filter()
+    err_filter.filter = lambda record: record.levelno >= logging.ERROR
+    err_handler.addFilter(err_filter)
+
+    warn_handler = ConcurrentRotatingFileHandler(os.path.join(file_path, "warn.log"), maxBytes=1 * 1024 * 1024,
+                                                 backupCount=10, encoding="utf_8")
+    warn_handler.setLevel(logging.INFO)
+    warn_handler.setFormatter(JSONFormatter())
+    warn_filter = logging.Filter()
+    warn_filter.filter = lambda record: record.levelno == logging.WARN
+    warn_handler.addFilter(warn_filter)
+
+    info_handler = ConcurrentRotatingFileHandler(os.path.join(file_path, "info.log"), maxBytes=1 * 1024 * 1024,
+                                                 backupCount=10, encoding="utf_8")
+    info_handler.setLevel(logging.INFO)
+    info_handler.setFormatter(JSONFormatter())
+    info_filter = logging.Filter()
+    info_filter.filter = lambda record: record.levelno == logging.INFO
+    info_handler.addFilter(info_filter)
+
     # write log to console
     handler_console = logging.StreamHandler()
     handler_console.setLevel(logging.INFO)
     handler_console.setFormatter(JSONFormatter())
 
-    log.addHandler(handler)
+    log.addHandler(err_handler)
+    log.addHandler(warn_handler)
+    log.addHandler(info_handler)
     log.addHandler(handler_console)
     return log
 

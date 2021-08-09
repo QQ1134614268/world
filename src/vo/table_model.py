@@ -411,7 +411,7 @@ class TargetVO(BaseTable2):
     __tablename__ = 'target_t'
     user_id = Column(Integer, ForeignKey(VideoUserVO.id, ondelete='CASCADE'), index=True, default=get_id_by_token)
     title = Column(String(255))
-    content = Column(String(255))
+    content = Column(String(1000))
     price = Column(Float)
 
     def to_json(self):
