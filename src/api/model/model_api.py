@@ -7,7 +7,7 @@ from service import user_service
 from config.mysql_db import db
 from util import res_util
 from util.tree_util import get_tree
-from vo.table_model import ModelVO
+from api.model.model import ModelVO
 
 model_fields = {
     'id': fields.Integer,

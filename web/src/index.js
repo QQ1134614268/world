@@ -73,11 +73,6 @@ let routes = [
         component: message
     },
     {
-        path: '/model/object',
-        name: '/model/object',
-        component: () => import('@/views/model/classVO')
-    },
-    {
         path: '/about',
         name: '/about',
         component: function () {

@@ -189,15 +189,6 @@ class EnumConfig(BaseTable):
     note = Column(String(50))
 
 
-class ModelVO(BaseTable):
-    __tablename__ = 'model_t'
-    userId = Column(Integer, ForeignKey('user.id'), index=True)
-    path = Column(String(70), default='/')
-    value = Column(Text, default='')
-    sort = Column(Integer)
-    wight = Column(Integer, default=1)
-
-
 class BTreeVO(BaseTable):
     __tablename__ = 'btree_t'
     fullPath = Column(String(70), default='/')
