@@ -1,5 +1,7 @@
 from os import path
 
+DEBUG_MODE = False
+
 DI = "2440024344@qq.com"
 
 ROOT_DIR = path.abspath(path.dirname(__file__))

@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import collections
 import datetime
 import json
 import logging
@@ -56,11 +55,12 @@ def create_logger(file_path=LOG_PATH):
 class JSONFormatter(logging.Formatter):
 
     def format(self, record):
-        extra = collections.OrderedDict()
-        extra['time'] = datetime.datetime.fromtimestamp(record.created).strftime(DEFAULT_TIME_STR)
-        extra['level'] = record.levelname
-        extra['pathname'] = record.pathname
-        extra['lineno'] = record.lineno
+        extra = {
+            'time': datetime.datetime.fromtimestamp(record.created).strftime(DEFAULT_TIME_STR),
+            'level': record.levelname,
+            'pathname': record.pathname,
+            'lineno': record.lineno
+        }
         if record.args:
             extra['msg'] = "'" + record.msg + "'," + str(record.args).strip('()')
         else:
@@ -69,8 +69,8 @@ class JSONFormatter(logging.Formatter):
             extra['exc_info'] = self.formatException(record.exc_info)
         if self._fmt == 'pretty':
             return json.dumps(extra, indent=2, ensure_ascii=False)
-        else:
-            return json.dumps(extra, ensure_ascii=False)
+
+        return json.dumps(extra, ensure_ascii=False)
 
 
 logger = create_logger()
@@ -79,3 +79,10 @@ if __name__ == '__main__':
     logger.info({"a": 1})
     logger.error("Do something")
     logger.warning("Something maybe fail.")
+    logger.exception("Something maybe fail.")
+
+    # # pylint test
+    # logger.info("股票 4 {}_{}".format("code", "date_str"), "函数:{} ".format("res"))
+    # logger.info("股票 4 %s_%s" % ("code", "date_str"), "函数:%s " % "res")
+    # logger.info("this is "  "a test %s", 123)
+    # logger.info("this is a test %s", 123)
