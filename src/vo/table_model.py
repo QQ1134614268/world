@@ -173,20 +173,15 @@ class AuthVO(BaseTable):
     path = Column(String(150), default='/')
 
 
-class ProjectConfig(BaseTable):
-    __tablename__ = 'project_config'
-    name = Column(String(50))
-    fullname = Column(String(50))
-    nickname = Column(String(50))
-
-
 class EnumConfig(BaseTable):
     __tablename__ = 'enum_config'
-    name = Column(String(50), nullable=False, index=True)
-    identity = Column(String(50), unique=True)
-    value = Column(String(50))
-    sort = Column(Integer, Sequence('sort_seq'))
-    note = Column(String(50))
+    group_code = Column(String(255), comment="")
+    code = Column(String(255), comment="")
+    value = Column(String(255), comment="")
+
+    parent_id = Column(Integer, Sequence('sort_seq'), comment="")
+
+    comment = Column(String(255))
 
 
 class BTreeVO(BaseTable):
