@@ -87,14 +87,25 @@ class BaseTable2(db.Model):
 
 
 class EnumConfig(BaseTable):
-    __tablename__ = 'enum_config'
-    group_code = Column(String(255), comment="")
-    code = Column(String(255), comment="")
-    value = Column(String(255), comment="")
+    """
+    场景:
+        1. 常量 (系统,用户配置)
+        2. 下拉菜单,类似list
+        3. 省市区级联下拉菜单
+        4. 二维结构,目录与文件同级?? 深圳市,广东省, 市级, 直辖市, 人口
 
+    树形结构????
+    """
+    __tablename__ = 'enum_config'
+    code = Column(String(255), unique=True, comment="")  # code唯一 or 联合唯一?? 用户code随机生成
+    value = Column(String(255), comment="")
+    # value: shenzhen,code:shenzhen_city,
+    group_code = Column(String(255), unique=True, comment="")  # group_code也有树形结构?,唯一
     parent_id = Column(Integer, Sequence('sort_seq'), comment="")
 
     comment = Column(String(255))
+    # cfg_value_type=Column(String(255)) 配置值类型，比如integer（整数）、html（HTML）等bool（是否），不同的值类型可以通过不同的表单来显示和编辑
+    sort = Column(Integer, Sequence('sort_seq'), comment="")
 
 
 class ClassVO(BaseTable):
