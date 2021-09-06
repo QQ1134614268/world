@@ -115,6 +115,7 @@ class EnumConfig(BaseTable):
     comment = Column(String(255), comment="备注")
     # cfg_value_type=Column(String(255)) 配置值类型，比如integer（整数）、html（HTML）等bool（是否），不同的值类型可以通过不同的表单来显示和编辑
     sort = Column(Integer, comment="排序字段")
+    create_by = Column(Integer, server_default='SYSTEM', comment="创建者")
 
 
 class SettingConfig(BaseTable):
