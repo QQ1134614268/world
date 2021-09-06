@@ -88,24 +88,43 @@ class BaseTable2(db.Model):
 
 class EnumConfig(BaseTable):
     """
+    # 状态迁移--临时计算,唯一字段, eg:用户状态,系统状态,目标状态
+
+    用户修改枚举表,
+    用户配置表
+    系统枚举,配置表
+
+    校验用户权限
+
     场景:
-        1. 常量 (系统,用户配置)
+
+        1. 枚举,常量 (系统,用户配置) ,,
         2. 下拉菜单,类似list
         3. 省市区级联下拉菜单
-        4. 二维结构,目录与文件同级?? 深圳市,广东省, 市级, 直辖市, 人口
 
     树形结构????
+    二维结构,目录与文件同级?? 深圳市,广东省, 市级, 直辖市, 人口????
     """
     __tablename__ = 'enum_config'
-    code = Column(String(255), unique=True, comment="")  # code唯一 or 联合唯一?? 用户code随机生成
-    value = Column(String(255), comment="")
+    code = Column(String(255), unique=True, comment="枚举key值")  # code唯一 or 联合唯一?? 用户code随机生成
+    value = Column(String(255), comment="枚举value数据")
     # value: shenzhen,code:shenzhen_city,
-    group_code = Column(String(255), unique=True, comment="")  # group_code也有树形结构?,唯一
-    parent_id = Column(Integer, Sequence('sort_seq'), comment="")
+    group_code = Column(String(255), unique=True, comment="分组code")  # group_code也有树形结构?,唯一
+    parent_id = Column(Integer, Sequence('sort_seq'), comment="父级id", server_default='0')
 
-    comment = Column(String(255))
+    comment = Column(String(255), comment="备注")
     # cfg_value_type=Column(String(255)) 配置值类型，比如integer（整数）、html（HTML）等bool（是否），不同的值类型可以通过不同的表单来显示和编辑
-    sort = Column(Integer, Sequence('sort_seq'), comment="")
+    sort = Column(Integer, comment="排序字段")
+
+
+class SettingConfig(BaseTable):
+    """
+    系统,用户配置
+    """
+    __tablename__ = 'setting_config'
+    code = Column(String(255), unique=True, comment="配置项code")
+    value = Column(String(255), comment="配置项value")
+    create_by = Column(String(255), comment="创建人")
 
 
 class ClassVO(BaseTable):
