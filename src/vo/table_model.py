@@ -86,6 +86,17 @@ class BaseTable2(db.Model):
     #         return SUCCESS
 
 
+class EnumConfig(BaseTable):
+    __tablename__ = 'enum_config'
+    group_code = Column(String(255), comment="")
+    code = Column(String(255), comment="")
+    value = Column(String(255), comment="")
+
+    parent_id = Column(Integer, Sequence('sort_seq'), comment="")
+
+    comment = Column(String(255))
+
+
 class ClassVO(BaseTable):
     __tablename__ = 'class_t'
     name = Column(Text, default='')
@@ -171,17 +182,6 @@ class AuthVO(BaseTable):
     __tablename__ = 'auth'
     user_id = Column(Integer)
     path = Column(String(150), default='/')
-
-
-class EnumConfig(BaseTable):
-    __tablename__ = 'enum_config'
-    group_code = Column(String(255), comment="")
-    code = Column(String(255), comment="")
-    value = Column(String(255), comment="")
-
-    parent_id = Column(Integer, Sequence('sort_seq'), comment="")
-
-    comment = Column(String(255))
 
 
 class BTreeVO(BaseTable):
