@@ -1,15 +1,22 @@
 <template>
   <div>
-    <div>
-      title
+    <div class="title">
+      title--希洛之书
     </div>
-    <div>
+    <div v-for="(item,k)  in tableList">
+      <div>
+        <span>{{ k }}</span>
+        .
+        <span>
+        {{ item }}
+         </span>
+      </div>
       1. 论点1
       1.1 论证
       1.2 推理现象
       1.2.1 图,文字,故事,短视频
 
-      # tag  继承 --协议实现
+      # tag 继承 --协议实现
       # es 辅助建立 知识图谱
     </div>
     <div>
@@ -24,7 +31,12 @@
 
 <script>
 export default {
-  name: "Home"
+  name: "Home",
+  data() {
+    return {
+      tableList: []
+    }
+  },
 }
 </script>
 

@@ -272,61 +272,11 @@ class InvitationCodeApi(Resource):
 
     @staticmethod
     def activation_code(_id, length=10):
-        '''
+        """
         id + L + 随机码
         string模块中的3个函数：string.letters，string.printable，string.printable
-        '''
+        """
         prefix = hex(_id)[2:] + 'L'
         length = length - len(prefix)
         chars = string.ascii_letters + string.digits
         return prefix + ''.join([random.choice(chars) for i in range(length)])
-
-
-class AllApi(Resource):
-    # todo
-
-    def post(self, model, _id):
-        obj = self.__init_obj__(model)
-        data = request.get_json()
-        vo = WorksVO(**data)
-        db.session.add(vo)
-        db.session.commit()
-        return res_util.success(vo.id)
-
-    def get(self, model, _id):
-        obj = self.__init_obj__(model)
-        vo = obj.query.filter(obj.id == request.args.get("id")).first()
-        return res_util.success(vo.to_json())
-
-    def put(self, model, _id):
-        obj = self.__init_obj__(model)
-        data = request.get_json()
-        obj.query.filter(obj.id == _id).update(data)
-        db.session.commit()
-        return res_util.success(_id)
-
-    def delete(self, model, _id):
-        obj = self.__init_obj__(model)
-        model = obj.query.filter(obj.id == _id).first()
-        db.session.delete(model)
-        db.session.commit()
-        return res_util.success(_id)
-
-    def __init_obj__(self, model):
-        model_path = "vo.table_model"
-        import importlib
-        class_name = model
-        module = importlib.import_module(model_path)  # 根据"auth.my_auth"导入my_auth模块
-        obj_i = getattr(module, class_name)()  # 反射并实例化
-        return obj_i
-
-    def __init__(self, model):
-        # todo
-        return
-        request.args.get_path = ""
-        model_path = "vo.table_model"
-        import importlib
-        class_name = model
-        module = importlib.import_module(model_path)  # 根据"auth.my_auth"导入my_auth模块
-        obj_i = getattr(module, class_name)()  # 反射并实例化
-        return obj_i

@@ -3,11 +3,10 @@ from flask_restful import Resource
 from flask_restful import marshal, fields
 
 import service.token_service
-from service import user_service
+from api.exist.model.model import ModelVO
 from config.mysql_db import db
 from util import res_util
 from util.tree_util import get_tree
-from api.model.model import ModelVO
 
 model_fields = {
     'id': fields.Integer,
@@ -50,9 +49,8 @@ class ModelApi(Resource):
             target_vo = ModelVO.query.filter(ModelVO.id == data["target_id"]).first()
             old_path = vo.path + str(vo.id) + "/"
             new_path = target_vo.path + str(target_vo.id) + "/"
-            sql = 'UPDATE model_t SET path = REPLACE(path,"%s","%s") WHERE path like "%s" '.format(old_path,
-                                                                                                   new_path,
-                                                                                                   old_path + "%")
+            sql = 'UPDATE model_t SET path = REPLACE(path,"%s","%s") WHERE path like "%s" '.format(
+                old_path, new_path, old_path + "%")
             db.session.execute(sql)
             vo.path = new_path
             db.session.commit()

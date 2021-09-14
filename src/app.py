@@ -27,7 +27,7 @@ from api.message.attention_api import attention_api
 from api.message.message_api import message_api
 from api.message.wb.WbApi import wb_api
 from api.message.wx.SocketApi import socket_api
-from api.model.model_api import ModelApi
+from api.exist.model.model_api import ModelApi
 from api.my_cloud_space.CloudSpaceApi import cloud_space_api
 from api.project_api import ProjectInit
 from api.root.OrganizationApi import organization_api
