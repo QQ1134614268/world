@@ -2,8 +2,14 @@
   <div>
     <div class="title">
       title--希洛之书
+      <div>
+        <button @click="edit">编辑</button>
+      </div>
     </div>
-    <div v-for="(item,k)  in tableList">
+    <div class="p_c_box-flex" v-for="(item,k)  in argList">
+      {{ item }}
+    </div>
+    <div v-for="(item,k)  in storyList">
       <div>
         <span>{{ k }}</span>
         .
@@ -11,13 +17,7 @@
         {{ item }}
          </span>
       </div>
-      1. 论点1
-      1.1 论证
-      1.2 推理现象
-      1.2.1 图,文字,故事,短视频
 
-      # tag 继承 --协议实现
-      # es 辅助建立 知识图谱
     </div>
     <div>
       2. xxx
@@ -34,9 +34,24 @@ export default {
   name: "Home",
   data() {
     return {
-      tableList: []
+      storyList: [],
+      argList: [],
+      url: "",
     }
   },
+  methods: {
+    async edit() {
+      await this.$router.push({path: '/model/Edit'})
+    },
+    async save() {
+      let result = await this.$putJson2(this.url, this.form.id, this.form)
+      if (result.data.code == 1) {
+        this.$message('修改成功!');
+      } else {
+        this.$message('');
+      }
+    }
+  }
 }
 </script>
 
