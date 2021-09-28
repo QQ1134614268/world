@@ -17,10 +17,11 @@ from api.HelloApi import hello_api
 from api.apply.member.member_api import StoreApi, StoreMemberApi, GoodsApi, GoodsListApi, StoreListApi, \
     StoreMemberListApi, OrderApi, OrderListApi
 from api.apply.stone_game.StoneGameApi import stone_game_api
-from api.apply.video.video_api import TargetApi, WorksApi, VideoUserApi, AllApi, InvitationCodeApi, TargetListApi, \
+from api.apply.video.video_api import TargetApi, WorksApi, VideoUserApi, InvitationCodeApi, TargetListApi, \
     WorksListApi, MarketWorksListApi, MarketTargetListApi, WorksRankListApi, TargetRankListApi, VideoUserLoginApi
 from api.auth.AuthApi import auth_api
 from api.customize.CustomizeApi import customize_api
+from api.exist.all import AllApi
 from api.exist.class_api import ClassApi
 from api.message.Speech.SpeechApi import speech_api
 from api.message.attention_api import attention_api
