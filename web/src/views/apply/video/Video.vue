@@ -3,7 +3,8 @@
     <div class="col-6">
       <HeaderComponent :user_id="this.user.id" v-if="this.user.id" class=""></HeaderComponent>
       <div class="p_c_box-flex_row-center">
-        <video controls v-if="video.file">
+        <video  webkit-playsinline="" playsinline="" x5-playsinline="" x-webkit-airplay="allow"
+                preload="true" controls v-if="video.file">
           <source :src="file_url2+video.file" type="video/mp4">
           您的浏览器不支持 HTML5 video 标签 。
         </video>
@@ -14,7 +15,7 @@
 </template>
 
 <script>
-import HeaderComponent from "./component/HeaderComponent"
+import HeaderComponent from "./component/avatar/HeaderComponent"
 
 export default {
   name: "Video",

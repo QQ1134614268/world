@@ -21,7 +21,7 @@
 
 <script>
 import VideoCard2 from "./component/VideoCard2"
-import HeaderComponent from "./component/HeaderComponent"
+import HeaderComponent from "./component/avatar/HeaderComponent"
 
 export default {
   name: "UserInfo",

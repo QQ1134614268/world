@@ -69,8 +69,8 @@
 </template>
 <script>
 import jwt_decode from 'jwt-decode';
-import HeaderComponent from '@/views/apply/video/component/HeaderComponent'
-import AvatarPureComponent from '@/views/apply/video/component/AvatarPureComponent'
+import HeaderComponent from '@/views/apply/video/component/avatar/HeaderComponent'
+import AvatarPureComponent from '@/views/apply/video/component/avatar/AvatarPureComponent'
 
 export default {
   name: "App",

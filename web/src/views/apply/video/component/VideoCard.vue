@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import AvatarComponent from "./AvatarComponent"
+import AvatarComponent from "./avatar/AvatarComponent"
 import ThumbnailComponent from "./ThumbnailComponent"
 
 export default {

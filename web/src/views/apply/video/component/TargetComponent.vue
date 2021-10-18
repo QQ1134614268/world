@@ -7,7 +7,7 @@
   </div>
 </template>
 <script>
-import AvatarComponent2 from "./AvatarComponent2"
+import AvatarComponent2 from "./avatar/AvatarComponent2"
 
 export default {
   name: "TargetComponent",

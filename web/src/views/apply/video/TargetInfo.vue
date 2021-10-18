@@ -1,9 +1,15 @@
 <template>
   <div class="p_c_box-flex_row-center">
     <div class="col-6">
-      <HeaderComponent2 :user_id="user.id" :username="user.username" :avatar="user.avatar" v-if="user">
-      </HeaderComponent2>
-
+      <div style="margin-bottom: 1.6rem" v-if="user">
+        <AvatarComponentBase001
+            :username="user.username"
+            :avatar="user.avatar"
+            :width="'4.8rem'"
+            :height="'4.8rem'"
+        ></AvatarComponentBase001>
+        <div style="font-size: 1.6rem;margin-bottom: 0.6rem">微信号: {{ user.wechat_number }}</div>
+      </div>
       <div class="art_title"> {{ target.title }}</div>
       <div class="art_body"> {{ target.content }}</div>
       <div class="art_note"> 佣金:{{ target.price }}</div>
@@ -12,7 +18,6 @@
 </template>
 
 <script>
-import HeaderComponent2 from "./component/HeaderComponent2"
 
 export default {
   name: "TargetInfo",
@@ -28,7 +33,6 @@ export default {
       user: "",
     }
   },
-  components: {HeaderComponent2},
   methods: {
     async init() {
 

@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import HeaderComponent from "./component/HeaderComponent"
+import HeaderComponent from "./component/avatar/HeaderComponent"
 import TargetComponent from "./component/TargetComponent"
 
 export default {

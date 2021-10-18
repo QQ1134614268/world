@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import HeaderComponent from "./component/HeaderComponent"
+import HeaderComponent from "./component/avatar/HeaderComponent"
 import jwt_decode from "jwt-decode";
 
 export default {

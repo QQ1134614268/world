@@ -3,22 +3,26 @@
 @Time: 2021/3/6
 @Description:
 """
-
+import os
 import random
+import shutil
 import string
 from enum import Enum
 
-from flask import jsonify
+from flask import jsonify, send_file
 from flask import request
 from flask_restful import Resource
 from flask_restful import marshal
 from sqlalchemy import or_
 
+from config.conf import DATA_DIR, UPLOAD_FILE_PATH2
 from config.mysql_db import db
 from service.common_service import set_model_user_id
 from service.token_service import get_id_by_token
 from util import res_util
 from util import token_util
+from util.file_util import get_file_name_by_uuid
+from util.log_util import logger
 from util.video_util import get_first_frame_loc
 from vo.table_model import VideoUserVO, WorksVO, TargetVO, InvitationCodeVO
 
@@ -169,6 +173,30 @@ class TargetApi(Resource):
         db.session.commit()
         return res_util.success(_id)
 
+
+class FileApi2(Resource):
+
+    def get(self):
+        path = request.args.get("path", "")
+        full_path = os.path.join(DATA_DIR, path)
+        if os.path.isfile(full_path):
+            return send_file(full_path, as_attachment=True,
+                             attachment_filename=full_path.split('/')[-1],
+                             mimetype='application/octet-stream')
+        logger.info("文件不存在: " + full_path)
+
+    def post(self):
+        file = request.files["file"]
+        # file     print()    # 打印文件名
+        f_name = get_file_name_by_uuid() + "_" + file.filename
+        full_path = os.path.join(UPLOAD_FILE_PATH2, f_name)
+        file.save(full_path)
+        return res_util.success("upload_file/" + f_name)
+
+    def delete(self):
+        path = request.get_json("path")
+        shutil.rmtree(path)
+        return res_util.success()
 
 class TargetListApi(Resource):
 

@@ -10,12 +10,12 @@ from vo.table_model import BaseTable
 
 
 class ProtocolVO(BaseTable):
-    __tablename__ = 'class_t'
+    __tablename__ = 'ProtocolVO'
     name = Column(Text, default='')
 
 
 class ObjectVO(BaseTable):  # 定义 概念 对象
-    __tablename__ = 'class_t'
+    __tablename__ = 'ObjectVO'
     # create_time = Column(DateTime, default=datetime.datetime.now)
     # update_time = db.Column(db.DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
     # create_user = db.Column(db.Integer,
@@ -33,7 +33,7 @@ class ModelVO(BaseTable):
 
 
 class ProveVO(BaseTable):
-    __tablename__ = 'model_t'
+    __tablename__ = 'ProveVO'
     userId = Column(Integer, ForeignKey('user.id'), index=True)
     path = Column(String(70), default='/')
     value = Column(Text, default='')
@@ -42,7 +42,7 @@ class ProveVO(BaseTable):
 
 
 class StoryVO(BaseTable):  # article
-    __tablename__ = 'model_t'
+    __tablename__ = 'StoryVO'
     userId = Column(Integer, ForeignKey('user.id'), index=True)
     path = Column(String(70), default='/')
     value = Column(Text, default='')
