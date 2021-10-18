@@ -54,7 +54,7 @@
       <div>
         <a href="http://www.6liuzhibo.com/public/index.php/mobile/common/video/player_sharing/0/power_id/0/store_id/184/with_id/3872/type/3/invite_id/15521439.html">
           <div style="height: 5rem">
-            <img src="@/assets/advert.jpg" style="height:100%" class="blink">
+<!--            <img src="@/assets/advert.jpg" style="height:100%" class="blink">-->
           </div>
         </a>
       </div>
