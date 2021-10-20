@@ -41,7 +41,7 @@ class ProveVO(BaseTable):
     wight = Column(Integer, default=1)
 
 
-class StoryVO(BaseTable):  # article
+class StoryVO(BaseTable):
     __tablename__ = 'StoryVO'
     userId = Column(Integer, ForeignKey('user.id'), index=True)
     path = Column(String(70), default='/')

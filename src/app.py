@@ -23,12 +23,12 @@ from api.auth.AuthApi import auth_api
 from api.customize.CustomizeApi import customize_api
 from api.exist.all import AllApi
 from api.exist.class_api import ClassApi
+from api.exist.model.model_api import ModelApi, ProveApi, StoryApi
 from api.message.Speech.SpeechApi import speech_api
 from api.message.attention_api import attention_api
 from api.message.message_api import message_api
 from api.message.wb.WbApi import wb_api
 from api.message.wx.SocketApi import socket_api
-from api.exist.model.model_api import ModelApi
 from api.my_cloud_space.CloudSpaceApi import cloud_space_api
 from api.project_api import ProjectInit
 from api.root.OrganizationApi import organization_api
@@ -221,7 +221,10 @@ api2.add_resource(ClassApi, "/api/class_api/ClassApi")
 
 api2.add_resource(FileApi, "/api/file/FileApi")
 api2.add_resource(FileApi2, "/api/file/FileApi2")
+# model
 api2.add_resource(ModelApi, "/api/model_api/ModelApi")
+api2.add_resource(ProveApi, "/api/model_api/ProveApi")
+api2.add_resource(StoryApi, "/api/model_api/StoryApi")
 # 会员
 api2.add_resource(StoreApi, "/api/member/StoreApi", "/api/member/StoreApi/<int:_id>")
 api2.add_resource(StoreListApi, "/api/member/StoreListApi")

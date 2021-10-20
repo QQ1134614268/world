@@ -5,6 +5,7 @@
         node-key="id"
         default-expand-all
         :label="name"
+        :node-click="getData"
         :expand-on-click-node="false">
       <span class="custom-tree-node" slot-scope="{ node, data }">
         <span>
@@ -34,6 +35,8 @@ export default {
   name: "Catalogue",
   data() {
     return {
+      url: "/api/model_api/ProveApi",
+
       data2: [
         {
           id: 0,
@@ -145,7 +148,7 @@ export default {
           ]
         }
       ],
-      data:JSON.parse(JSON.stringify([
+      data: JSON.parse(JSON.stringify([
         {
           id: 0,
           name: "首页",
@@ -259,6 +262,10 @@ export default {
     }
   },
   methods: {
+    getData(data) {
+      let res = this.$get2(this.url, 0, data["id"])
+      data.children = res.data
+    },
     append(data) {
       const newChild = {id: id++, label: 'testtest', children: []};
       if (!data.children) {
