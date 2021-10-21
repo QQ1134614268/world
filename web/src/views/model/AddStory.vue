@@ -31,10 +31,11 @@ export default {
       let vo1 = this.$get2(this.url, this._id, {});
       this.obj = vo1
     },
+
     async save() {
       let a_data = {
-        parent_id: this._id,
-        content:this.content
+        title,
+        content,
       }
       let result = await this.$putJson2(this.url2, this._id, a_data);
     }

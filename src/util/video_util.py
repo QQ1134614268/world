@@ -4,6 +4,9 @@
 @Description:
 """
 
+import os
+import threading
+
 import cv2
 
 from config.conf import DATA_DIR
@@ -23,8 +26,6 @@ def get_first_frame_loc(mp4_loc):
         cv2.imwrite(os.path.join(DATA_DIR, first_frame_loc), frame)
         return first_frame_loc
 
-    return
-
 
 class mp4_to_H264():
     def __init__(self):
@@ -34,13 +35,19 @@ class mp4_to_H264():
         ffmpeg = '{ffmpeg} -y -i "{infile}" -c:v libx264 -strict -2 "{outfile}"'.format(ffmpeg=ffmpeg_exec,
                                                                                         infile=input_file,
                                                                                         outfile=output_file)
-        f = os.popen(ffmpeg)
-        ffmpegresult = f.readline()
+        # import subprocess
+        #
+        # subprocess.call(ffmpeg)
 
+        print(ffmpeg)
+        os.system(ffmpeg)
+        import time
+        time.sleep(10)
+        # ffmpegresult = f.readline()
         # s = os.stat(output_file)
         # fsize = s.st_size
 
-        return ffmpegresult
+        # return ffmpegresult
 
     def convert_avi_to_webm(self, input_file, output_file, ffmpeg_exec="ffmpeg"):
         return self.convert_avi(input_file, output_file, ffmpeg_exec="ffmpeg")

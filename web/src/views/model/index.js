@@ -5,6 +5,16 @@ const routes = [
         component: () => import('@/views/model/classVO')
     },
     {
+        path: '/model/AddProve',
+        name: '/model/AddProve',
+        component: () => import('@/views/model/AddProve')
+    },
+    {
+        path: '/model/AddStory',
+        name: '/model/AddStory',
+        component: () => import('@/views/model/AddStory')
+    },
+    {
         path: '/model/EditStory',
         name: '/model/EditStory',
         component: () => import('@/views/model/EditStory')
