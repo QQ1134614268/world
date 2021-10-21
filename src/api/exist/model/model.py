@@ -19,7 +19,7 @@ class ObjectVO(BaseTable):  # 定义 概念 对象
     # create_time = Column(DateTime, default=datetime.datetime.now)
     # update_time = db.Column(db.DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
     # create_user = db.Column(db.Integer,
-    id = Column(String, default='', primary_key=True, comment="主键")
+    id = Column(Integer, default='', primary_key=True, comment="主键")
     content = Column(Text, default='')
 
 

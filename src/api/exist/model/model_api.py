@@ -131,7 +131,7 @@ class ProveApi(Resource):
         return Res.get(_id, ProveVO)
 
     def post(self, _id):
-        return Res.add(ProveVO, request.get_data())
+        return Res.add(ProveVO, request.get_json())
 
     def put(self, _id):
         return Res.update(_id, ProveVO, request.get_data())

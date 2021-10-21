@@ -222,9 +222,9 @@ api2.add_resource(ClassApi, "/api/class_api/ClassApi")
 api2.add_resource(FileApi, "/api/file/FileApi")
 api2.add_resource(FileApi2, "/api/file/FileApi2")
 # model
-api2.add_resource(ModelApi, "/api/model_api/ModelApi")
-api2.add_resource(ProveApi, "/api/model_api/ProveApi")
-api2.add_resource(StoryApi, "/api/model_api/StoryApi")
+api2.add_resource(ModelApi, "/api/model_api/ModelApi/<int:_id>")
+api2.add_resource(ProveApi, "/api/model_api/ProveApi/<int:_id>")
+api2.add_resource(StoryApi, "/api/model_api/StoryApi/<int:_id>")
 # 会员
 api2.add_resource(StoreApi, "/api/member/StoreApi", "/api/member/StoreApi/<int:_id>")
 api2.add_resource(StoreListApi, "/api/member/StoreListApi")
