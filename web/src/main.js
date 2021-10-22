@@ -8,6 +8,7 @@ import "./assets/global.css"
 import "./assets/global_article.css"
 import store from "./views/hello/vuex_test/store"
 import VueCropper from 'vue-cropper'
+
 Vue.use(VueCropper)
 
 Axios.defaults.baseURL = process.env.VUE_APP_BASE_URL
@@ -57,6 +58,9 @@ const get = (url, params) => {
     })
 };
 const get2 = (url, id, params) => {
+    if (id == undefined) {
+        id = 0
+    }
     return Axios({
         method: 'get',
         url: url + "/" + id,
@@ -71,6 +75,9 @@ const postJson = (url, data = {}) => {
     })
 };
 const postJson2 = (url, id, data = {}) => {
+    if (id == undefined) {
+        id = 0
+    }
     return Axios({
         method: 'POST',
         url: url + "/" + id,
@@ -85,6 +92,9 @@ const putJson = (url, data = {}) => {
     })
 };
 const putJson2 = (url, id, data = {}) => {
+    if (id == undefined) {
+        id = 0
+    }
     return Axios({
         method: 'PUT',
         url: url + "/" + id,
@@ -99,6 +109,9 @@ const deleteJson = (url, data = {}) => {
     })
 };
 const deleteJson2 = (url, id, data = {}) => {
+    if (id == undefined) {
+        id = 0
+    }
     return Axios({
         method: 'DELETE',
         url: url + "/" + id,
@@ -116,6 +129,9 @@ const postForm = (url, data = {}) => {
     })
 };
 const postForm2 = (url, id, data = {}) => {
+    if (id == undefined) {
+        id = 0
+    }
     return Axios({
         method: 'POST',
         url: url + "/" + id,

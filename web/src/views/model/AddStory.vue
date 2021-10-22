@@ -22,13 +22,13 @@ export default {
       content: "存在",
       url: "/api/model_api/ProveApi",
       url2: "/api/model_api/StoryApi",
-      _id: 0,
+      id: 0,
     }
   },
   methods: {
 
     async getData() {
-      let vo1 = this.$get2(this.url, this._id, {});
+      let vo1 = this.$get2(this.url, this.id, {});
       this.obj = vo1
     },
 
@@ -37,7 +37,7 @@ export default {
         title,
         content,
       }
-      let result = await this.$putJson2(this.url2, this._id, a_data);
+      let result = await this.$putJson2(this.url2, this.id, a_data);
     }
   }
 }
