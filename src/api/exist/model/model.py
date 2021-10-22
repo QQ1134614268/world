@@ -9,13 +9,8 @@ from sqlalchemy import Column, Text, String, Integer, ForeignKey
 from vo.table_model import BaseTable
 
 
-class ProtocolVO(BaseTable):
-    __tablename__ = 'ProtocolVO'
-    name = Column(Text, default='')
-
-
 class ObjectVO(BaseTable):  # 定义 概念 对象
-    __tablename__ = 'ObjectVO'
+    __tablename__ = 'object_vo'
     # create_time = Column(DateTime, default=datetime.datetime.now)
     # update_time = db.Column(db.DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
     # create_user = db.Column(db.Integer,
@@ -33,18 +28,18 @@ class ModelVO(BaseTable):
 
 
 class ProveVO(BaseTable):
-    __tablename__ = 'ProveVO'
+    __tablename__ = 'prove_vo'
     userId = Column(Integer, ForeignKey('user.id'), index=True)
-    path = Column(String(70), default='/')
+    parent_id = Column(Integer)
     value = Column(Text, default='')
     sort = Column(Integer)
     wight = Column(Integer, default=1)
 
 
 class StoryVO(BaseTable):
-    __tablename__ = 'StoryVO'
+    __tablename__ = 'story_vo'
     userId = Column(Integer, ForeignKey('user.id'), index=True)
-    path = Column(String(70), default='/')
+    parent_id = Column(Integer)
     value = Column(Text, default='')
     sort = Column(Integer)
     wight = Column(Integer, default=1)

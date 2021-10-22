@@ -10,10 +10,8 @@ pkill -f "python3.7 /app/world/src/app.py"
 nohup python3.7 /app/world/src/app.py &
 
 
-cd /app/world_web
-git pull
-npm install
-pkill -f "node /app/world_web"
+cd  /app/world/web
+pkill -f "node /app/world/web"
 nohup npm run production >/dev/null 2>&1 &
 cd
 '>world_update.sh
