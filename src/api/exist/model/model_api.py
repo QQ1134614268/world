@@ -81,7 +81,7 @@ class ProveApi(Resource):
 
     @staticmethod
     def put(_id):
-        return Res.update(_id, ProveVO, request.get_data())
+        return Res.update(_id, ProveVO, request. get_json())
 
     @staticmethod
     def delete(_id):
@@ -93,10 +93,10 @@ class StoryApi(Resource):
         return Res.get(_id, StoryVO)
 
     def post(self, _id):
-        return Res.add(StoryVO, request.get_data())
+        return Res.add(StoryVO, request. get_json())
 
     def put(self, _id):
-        return Res.update(_id, StoryVO, request.get_data())
+        return Res.update(_id, StoryVO, request. get_json())
 
     def delete(self, _id):
         return Res.delete(_id, StoryVO)

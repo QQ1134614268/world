@@ -33,7 +33,7 @@ export default {
       this.recordList = result.data.data;
     },
     async getDiaryInfo(id) {
-      this.$router.push({
+      await this.$router.push({
         name: '/diary/diary_info',
         params: {
           id: id,

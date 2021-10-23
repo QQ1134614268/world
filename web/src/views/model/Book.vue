@@ -17,11 +17,11 @@
       </div>
     </div>
     <div class="block">
-      <router-link :to="{name:'/model/AddProve',params: {id: id,value: obj.value}}">
+      <router-link :to="{name:'/model/AddStory',params: {id: id,value: obj.value}}">
         <button>添加</button>
       </router-link>
       <div v-for="(item , index) in story">
-        <router-link :to="{name:'/model/EditProve',params: {id: id,value: obj.value}}">
+        <router-link :to="{name:'/model/EditStory',params: {id: id,value: obj.value}}">
           <button>编辑</button>
         </router-link>
         <span>{{ index + 1 }}</span> {{ item.value }}
