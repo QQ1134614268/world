@@ -22,7 +22,6 @@ export default {
       title: this.$route.params.value,
       content: "",
       url: "/api/model_api/ProveApi",
-      url2: "/api/model_api/StoryApi",
     }
   },
   methods: {

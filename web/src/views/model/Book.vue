@@ -5,29 +5,40 @@
     </div>
     <div class="block">
       <div>
-        <button @click="addProve">添加</button>
-        <button @click="editProve">编辑</button>
-        <router-link :to="{name:'/model/AddProve',params: {id:this.id,value:this.obj.value}}">
+        <router-link :to="{name:'/model/AddProve',params: {id:id,value: obj.value}}">
           <button>添加</button>
         </router-link>
       </div>
       <div v-for="(item , index) in prove">
-        <span>{{ index }}</span> {{ item.value }}
+        <router-link :to="{name:'/model/EditProve',params: {id:item.id,value:obj.value}}">
+          <button>编辑</button>
+        </router-link>
+        <span>{{ index + 1 }}</span> {{ item.value }}
       </div>
     </div>
     <div class="block">
+      <router-link :to="{name:'/model/AddProve',params: {id: id,value: obj.value}}">
+        <button>添加</button>
+      </router-link>
       <div v-for="(item , index) in story">
-        <span>{{ index }}</span> {{ item.value }}
+        <router-link :to="{name:'/model/EditProve',params: {id: id,value: obj.value}}">
+          <button>编辑</button>
+        </router-link>
+        <span>{{ index + 1 }}</span> {{ item.value }}
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import {ADD_PROVE, ADD_STORY} from './index.js'
+
 export default {
   name: "Book",
   data() {
     return {
+      ADD_STORY: ADD_STORY,
+      ADD_PROVE: ADD_PROVE,
       obj: {
         value: "希洛之书",
       },
@@ -68,7 +79,6 @@ export default {
       } else {
         this.$message('失败');
       }
-
       if (res3.data.code == 1) {
         this.prove = res2.data.data
       } else {
@@ -80,12 +90,6 @@ export default {
         this.$message('失败');
       }
     },
-    async addProve() {
-      await this.$router.push({path: '/model/AddProve'})
-    },
-    editProve() {
-      this.$router.push({path: '/model/EditProve'})
-    }
   },
   created() {
     this.get_data();

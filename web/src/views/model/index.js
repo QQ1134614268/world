@@ -1,3 +1,14 @@
+let ADD_PROVE = '/model/AddProve'
+let ADD_STORY = '/model/AddStory'
+let EDIT_STORY = '/model/EditStory'
+let EDIT_PROVE = '/model/EditProve'
+export {
+    ADD_PROVE,
+    ADD_STORY,
+    EDIT_STORY,
+    EDIT_PROVE,
+}
+
 const routes = [
     {
         path: '/model/object',

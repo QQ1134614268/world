@@ -8,7 +8,7 @@
       </textarea>
     </div>
     <div class="block">
-      <button onclick="save">保存</button>
+      <button @click="save">保存</button>
     </div>
   </div>
 </template>
@@ -18,28 +18,24 @@ export default {
   name: "Edit",
   data() {
     return {
-      title: "希洛之书",
-      content: "存在",
-      url: "/api/model_api/ProveApi",
-      url2: "/api/model_api/StoryApi",
-      id: 0,
+      id: this.$route.params.id,
+      title: this.$route.params.value,
+      content: "",
+      url: "/api/model_api/StoryApi",
     }
   },
   methods: {
-
-    async getData() {
-      let vo1 = this.$get2(this.url, this.id, {});
-      this.obj = vo1
-    },
-
     async save() {
-      let a_data = {
-        title,
-        content,
+      let data = {
+        parent_id: this.id,
+        value: this.content
       }
-      let result = await this.$putJson2(this.url2, this.id, a_data);
+      let result = await this.$postJson2(this.url, 0, data);
+      if (result.data.code == 1) {
+        this.$message("添加成功")
+      }
     }
-  }
+  },
 }
 </script>
 
