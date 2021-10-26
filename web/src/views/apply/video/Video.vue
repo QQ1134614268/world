@@ -1,9 +1,10 @@
 <template>
   <div class="p_c_box-flex_row-center">
     <div class="col-6">
+      {{ video }}
       <HeaderComponent :user_id="this.user.id" v-if="this.user.id" class=""></HeaderComponent>
       <div class="p_c_box-flex_row-center">
-        <video  preload="true" controls>
+        <video preload="true" controls v-if="video.file">
           <source :src="file_url2+video.file" type="video/mp4">
           您的浏览器不支持 HTML5 video 标签 。
         </video>
