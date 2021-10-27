@@ -109,7 +109,8 @@ class WorksListApi(Resource):
             obj_filter.append(WorksVO.describe.contains(search))
         if user_id:
             obj_filter.append(WorksVO.user_id == user_id)
-        page_item = WorksVO.query.filter(*obj_filter).paginate(page=page, per_page=page_size)
+        page_item = WorksVO.query.filter(*obj_filter).order_by(WorksVO.create_time.desc()).paginate(
+            page=page, per_page=page_size)
 
         return jsonify(res_util.page_success(page_item))
 
@@ -197,6 +198,7 @@ class FileApi2(Resource):
         path = request.get_json("path")
         shutil.rmtree(path)
         return res_util.success()
+
 
 class TargetListApi(Resource):
 

@@ -4,7 +4,7 @@
       <HeaderComponent :user_id="this.user.id" v-if="this.user.id" class=""></HeaderComponent>
       <div class="p_c_box-flex_row-center">
         <video  preload="true" controls>
-          <source :src="file_url2+video.file" type="video/mp4">
+          <source :src="file_url3+video.file" type="video/mp4">
           您的浏览器不支持 HTML5 video 标签 。
         </video>
       </div>
@@ -27,6 +27,7 @@ export default {
       url: "/api/video_api/WorksApi",
       user_url: "/api/video_api/VideoUserApi",
       file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
+      file_url3:"/upload_file/",
       user: {},
     }
   },
