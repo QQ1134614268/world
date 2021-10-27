@@ -12,45 +12,6 @@ from util.file_util import get_file_name_by_uuid
 from util.log_util import logger
 
 
-#
-# fileApi = Blueprint("fileApi", __name__, url_prefix='/api/fileApi')
-#
-#
-# @fileApi.route('/fileUpload', methods=['POST'])
-# def fileUpload():
-#     file1 = request.files["file"]
-#     time_str = getUtcTimeStr()
-#     if file1.filename.endswith("\""):
-#         # todo postman上传文件,文件名会多一个 引号,swagger不会产生这种问题
-#         filename = file1.filename[:-1]
-#     else:
-#         filename = file1.filename
-#     file_path = UPLOAD_FILE_PATH + '/' + "upload-" + time_str + "-" + filename
-#     file1.save(file_path)
-#     return jsonify(res_util.success(file_path))
-#
-#
-# @fileApi.route('/fileDownload', methods=['GET'])
-# def fileDownload():
-#     path = request.args.get("path")
-#     return send_file(path, as_attachment=False,
-#                      attachment_filename=path.split('/')[-1],
-#                      mimetype='image/jpeg')
-#
-#
-# def clear_file():
-#     root, dirs, files = os.walk(UPLOAD_FILE_PATH).__next__()
-#     for fileName in files:
-#         if not fileName.startswith("upload"):
-#             continue
-#         create_time = getDatetimeByStr(fileName.split("-")[1])
-#         now = datetime.datetime.now()
-#         delta = datetime.timedelta(days=7)
-#         if now > create_time + delta:
-#             name = os.path.join(UPLOAD_FILE_PATH, fileName)
-#             os.remove(name)
-#             logger.info("delete: " + name)
-
 # todo  space 云空间接口 FileApi2
 class FileApi(Resource):
 
@@ -109,6 +70,16 @@ class FileApi2(Resource):
         path = request.get_json("path")
         shutil.rmtree(path)
         return res_util.success()
+
+
+class GetFileApi3(Resource):
+
+    def get(self):
+        path = request.args.get("path", "")
+        full_path = os.path.join(DATA_DIR, path)
+        if os.path.isfile(full_path):
+            return send_file(full_path)
+        logger.info("文件不存在: " + full_path)
 
 
 if __name__ == '__main__':

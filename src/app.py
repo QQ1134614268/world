@@ -37,7 +37,7 @@ from api.scheduler.APScheduler import scheduler
 from api.scheduler.SchedulerApi import scheduler_api
 from api.script_api import ScriptApi
 from api.sys.SysApi import sys_api
-from api.sys.file.file_api import FileApi, FileApi2
+from api.sys.file.file_api import FileApi, FileApi2, GetFileApi3
 from api.user.user_api import user_api
 from api.wallet.AliPayApi import ali_pay_api
 from api.wallet.wallet_api import WalletApi
@@ -221,6 +221,7 @@ api2.add_resource(ClassApi, "/api/class_api/ClassApi")
 
 api2.add_resource(FileApi, "/api/file/FileApi")
 api2.add_resource(FileApi2, "/api/file/FileApi2")
+api2.add_resource(GetFileApi3, "/api/file/GetFileApi3")
 # model
 api2.add_resource(ModelApi, "/api/model_api/ModelApi/<int:_id>")
 api2.add_resource(ProveApi, "/api/model_api/ProveApi/<int:_id>")
