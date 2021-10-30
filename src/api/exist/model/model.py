@@ -30,7 +30,7 @@ class ModelVO(BaseTable):
 class ProveVO(BaseTable):
     __tablename__ = 'prove_vo'
     userId = Column(Integer, ForeignKey('user.id'), index=True)
-    parent_id = Column(Integer)
+    parent_id = Column(Integer, default=0)
     value = Column(Text, default='')
     sort = Column(Integer)
     wight = Column(Integer, default=1)

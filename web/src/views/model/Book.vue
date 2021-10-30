@@ -1,7 +1,20 @@
 <template>
   <div>
     <div class="title">
-      {{ obj.value }}
+      <div v-if="EditTitle!=true">
+        {{ obj.value }}
+        <el-button class="remove el-icon-edit" @click="EditTitle=true">
+        </el-button>
+      </div>
+      <div v-else>
+        <el-input v-model=" obj.value">
+          <el-button class="remove el-icon-upload" @click="save;EditTitle = false;">
+          </el-button>
+        </el-input>
+      </div>
+      <router-link :to="{name:'/model/Catalogue'}">
+        回到目录
+      </router-link>
     </div>
     <div class="block">
       <div>
@@ -37,6 +50,7 @@ export default {
   name: "Book",
   data() {
     return {
+      EditTitle: false,
       ADD_STORY: ADD_STORY,
       ADD_PROVE: ADD_PROVE,
       obj: {
@@ -65,15 +79,18 @@ export default {
         }],
       url: "/api/model_api/ProveApi",
       url2: "/api/model_api/StoryApi",
-      id: 1,
+      id: this.$route.query.id,
     }
   },
   methods: {
+    async save() {
+
+    },
     async get_data() {
       let res1 = await this.$get2(this.url, this.id, {});
-
       let res2 = await this.$get2(this.url, 0, {"parent_id": this.id});
       let res3 = await this.$get2(this.url2, 0, {"parent_id": this.id});
+
       if (res1.data.code == 1) {
         this.obj = res1.data.data
       } else {

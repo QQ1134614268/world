@@ -16,6 +16,11 @@ const routes = [
         component: () => import('@/views/model/classVO')
     },
     {
+        path: '/model',
+        name: '/model',
+        component: () => import('@/views/model/Catalogue')
+    },
+    {
         path: '/model/AddProve',
         name: '/model/AddProve',
         component: () => import('@/views/model/AddProve')
