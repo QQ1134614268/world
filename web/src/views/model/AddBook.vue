@@ -1,44 +1,32 @@
 <template>
   <div>
-    <div>
-      <router-link :to="{name:'/model/Catalogue'}" class="p_c_space">
-        回到目录
-      </router-link>
-      <router-link :to="{name:'/model/EditBook',query: {id:id }}" class="p_c_space">
-        编辑
-      </router-link>
-      <router-link :to="{name:'/model/AddProve',params: {id:id,value: obj.value}}" class="p_c_space">
-        添加论点
-      </router-link>
-      <router-link :to="{name:'/model/AddStory',params: {id: id,value: obj.value}}" class="p_c_space">
-        添加故事
-      </router-link>
+    <div class="block">
+      <el-button @click="del">删除</el-button>
+      <el-button @click="save">保存</el-button>
     </div>
     <div class="title">
-      {{ obj.value }}
+      <el-input v-model="obj.value"></el-input>
     </div>
     <div class="block">
       <div v-for="(item , index) in prove">
-        <span>{{ index + 1 }}</span>
-        <a :href="'/model/Book?id='+item.id">
-          {{ item.value }}
-        </a>
+        <textarea v-model="item.value " class="p_c_para">
+        </textarea>
       </div>
     </div>
     <div class="block">
-      <div v-for="(item , index) in story">
-        <span>{{ index + 1 }}</span>
-        <span>{{ item.value }}</span>
+      <div v-for="(item , index) in story" class="p_c_flexbox_row">
+        <textarea v-model="item.value " class="p_c_para">
+        </textarea>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import {ADD_PROVE, ADD_STORY} from './index.js'
+import {ADD_PROVE, ADD_STORY} from "@/views/model/index";
 
 export default {
-  name: "Book",
+  name: "EditBook",
   data() {
     return {
       ADD_STORY: ADD_STORY,
@@ -46,27 +34,8 @@ export default {
       obj: {
         value: "希洛之书",
       },
-      prove: [
-        {
-          value: "论点1",
-        },
-        {
-          value: "论点2",
-        },
-        {
-          value: "论点3",
-        }
-      ],
-      story: [
-        {
-          value: "故事1",
-        },
-        {
-          value: "故事2",
-        },
-        {
-          value: "故事3",
-        }],
+      prove: [],
+      story: [],
       url: "/api/model_api/ProveApi",
       url2: "/api/model_api/StoryApi",
       id: this.$route.query.id,
@@ -93,6 +62,14 @@ export default {
       } else {
         this.$message('失败');
       }
+    },
+    async del() {
+      let res1 = await this.$deleteJson2(this.url, this.id, {});
+    },
+    async save() {
+      let res1 = await this.$putJson2(this.url, 0, this.prove);
+      let res2 = await this.$putJson2(this.url2, 0, this.story);
+      this.$router.back()
     },
   },
   created() {

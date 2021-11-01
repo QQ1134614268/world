@@ -33,6 +33,7 @@ export default {
       let result = await this.$postJson2(this.url, 0, data);
       if (result.data.code == 1) {
         this.$message("添加成功")
+        this.$router.back()
       }
     }
   },

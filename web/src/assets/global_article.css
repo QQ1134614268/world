@@ -9,3 +9,12 @@
 .index {
 
 }
+
+.p_c_space {
+    margin-right: 1.6rem;
+}
+
+.p_c_para {
+    width: 100%;
+    rows: "10"
+}
