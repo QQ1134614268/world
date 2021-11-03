@@ -81,7 +81,7 @@ class ProveApi(Resource):
 
     @staticmethod
     def put(_id):
-        return Res.update(_id, ProveVO, request. get_json())
+        return Res.update(_id, ProveVO, request.get_json())
 
     @staticmethod
     def delete(_id):
@@ -93,10 +93,46 @@ class StoryApi(Resource):
         return Res.get(_id, StoryVO)
 
     def post(self, _id):
-        return Res.add(StoryVO, request. get_json())
+        return Res.add(StoryVO, request.get_json())
 
     def put(self, _id):
-        return Res.update(_id, StoryVO, request. get_json())
+        return Res.update(_id, StoryVO, request.get_json())
 
     def delete(self, _id):
         return Res.delete(_id, StoryVO)
+
+
+class UploadDataApi:
+    @staticmethod
+    def post(_id):
+        file = request.files["file"]
+        lines = file.readlines()
+        for index, line in enumerate(lines):
+            lines[index] = str(line, encoding="utf-8").replace("\r\n", "").replace("\t", " " * 4)
+        for index, parent_line in enumerate(lines):
+            if UploadDataApi.get_level(parent_line) == 0:
+                p_vo = ProveVO(parent_id=1, value=parent_line)
+                db.session.add(p_vo)
+                db.session.flush()
+                UploadDataApi.digui(p_vo, 0, lines[index:])
+        return res_util.success()
+
+    @staticmethod
+    def digui(p_vo, level, lines):
+        for index, parent_line in enumerate(lines):
+            if level + 1 == UploadDataApi.get_level(parent_line):
+                c_vo = ProveVO(parent_id=p_vo.id, value=parent_line)
+                db.session.add(c_vo)
+                UploadDataApi.digui(c_vo, UploadDataApi.get_level(parent_line), lines[index:])
+            elif level < UploadDataApi.get_level(parent_line) + 1:
+                break
+
+    @staticmethod
+    def get_level(line: str):
+        new = line.lstrip()
+        len_space = len(line) - len(new)
+        return bool(len_space % 4) + len_space // 4
+
+    @staticmethod
+    def get(_id):
+        pass
