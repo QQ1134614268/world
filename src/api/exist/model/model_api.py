@@ -88,6 +88,14 @@ class ProveApi(Resource):
         return Res.delete(_id, ProveVO)
 
 
+class Prove2Api(Resource):
+    @staticmethod
+    def get(_id):
+        value = request.args.get("value")
+        vos = ProveVO.query.filter(ProveVO.value.contains(value)).all()
+        return jsonify(res_util.success(vos))
+
+
 class StoryApi(Resource):
     def get(self, _id):
         return Res.get(_id, StoryVO)

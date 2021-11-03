@@ -23,7 +23,7 @@ from api.auth.AuthApi import auth_api
 from api.customize.CustomizeApi import customize_api
 from api.exist.all import AllApi
 from api.exist.class_api import ClassApi
-from api.exist.model.model_api import ModelApi, ProveApi, StoryApi
+from api.exist.model.model_api import ModelApi, ProveApi, StoryApi, Prove2Api
 from api.message.Speech.SpeechApi import speech_api
 from api.message.attention_api import attention_api
 from api.message.message_api import message_api
@@ -225,6 +225,7 @@ api2.add_resource(GetFileApi3, "/api/file/GetFileApi3")
 # model
 api2.add_resource(ModelApi, "/api/model_api/ModelApi/<int:_id>")
 api2.add_resource(ProveApi, "/api/model_api/ProveApi/<int:_id>")
+api2.add_resource(Prove2Api, "/api/model_api/Prove2Api/<int:_id>")
 api2.add_resource(StoryApi, "/api/model_api/StoryApi/<int:_id>")
 # 会员
 api2.add_resource(StoreApi, "/api/member/StoreApi", "/api/member/StoreApi/<int:_id>")
