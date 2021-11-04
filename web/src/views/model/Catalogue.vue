@@ -1,6 +1,11 @@
 <template>
   <div>
     <div>
+      <router-link :to="{name:'/model/Compare'}">
+        <el-button>移动</el-button>
+      </router-link>
+    </div>
+    <div>
       <el-autocomplete class="inline-input" v-model="search" placeholder="请输入内容" :fetch-suggestions="querySearch"
                        :trigger-on-focus="false" @select="handleSelect">
       </el-autocomplete>
