@@ -1,0 +1,45 @@
+<template>
+  <div>
+    <div class="title block" v-if="this.$route.params.value">
+      <input v-model="title"> </input>
+    </div>
+    <div class="block">
+      <textarea v-model="content" style="width: 100%;" rows="10">
+      </textarea>
+    </div>
+    <div class="block">
+      <button @click="save">保存</button>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "AddRoot",
+  data() {
+    return {
+      id: this.$route.params.id,
+      title: this.$route.params.value,
+      content: "",
+      url: "/api/model_api/ProveApi",
+    }
+  },
+  methods: {
+    async save() {
+      let data = {
+        parent_id: this.id,
+        value: this.content
+      }
+      let result = await this.$postJson2(this.url, 0, data);
+      if (result.data.code == 1) {
+        this.$message("添加成功")
+        this.$router.back()
+      }
+    }
+  },
+}
+</script>
+
+<style scoped>
+
+</style>

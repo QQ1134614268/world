@@ -50,6 +50,11 @@ const routes = [
         name: '/model/Catalogue',
         component: () => import('@/views/model/Catalogue')
     },
+    {
+        path: '/model/Compare',
+        name: '/model/Compare',
+        component: () => import('@/views/model/Compare')
+    },
 ]
 
 

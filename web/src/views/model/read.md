@@ -12,3 +12,7 @@
 
 # tag 继承 --协议实现
 # es 辅助建立 知识图谱
+
+v-if参数 两个tree组件相互影响 
+
+$emit  出发 tree load函数

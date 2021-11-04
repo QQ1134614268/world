@@ -70,6 +70,8 @@ export default {
     },
     returnFalse() {
       return false;
+    },
+    handleDrop() {
     }
   }
 };
