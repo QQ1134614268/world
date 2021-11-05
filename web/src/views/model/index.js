@@ -11,11 +11,6 @@ export {
 
 const routes = [
     {
-        path: '/model/object',
-        name: '/model/object',
-        component: () => import('@/views/model/classVO')
-    },
-    {
         path: '/model',
         name: '/model',
         component: () => import('@/views/model/Catalogue')

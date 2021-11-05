@@ -1,73 +1,12 @@
-from flask import jsonify, request
-from flask_restful import Resource
-from flask_restful import marshal, fields
+from io import BytesIO
 
-import service.token_service
+from flask import jsonify, request, send_file
+from flask_restful import Resource
+
 from api.exist.model.Util import Res
-from api.exist.model.model import ModelVO, ProveVO, StoryVO
+from api.exist.model.model import ProveVO, StoryVO
 from config.mysql_db import db
 from util import res_util
-from util.tree_util import get_tree
-
-model_fields = {
-    'id': fields.Integer,
-    'path': fields.String,
-    'value': fields.String,
-}
-
-
-class ModelApi(Resource):
-    def get(self):
-        if request.args.get("id"):
-            vo = ModelVO.query.filter_by(ModelVO.id == request.args.get("id")).first()
-            return res_util.success(marshal(vo, model_fields))
-
-        if request.args.get("model_id"):
-            vo = ModelVO.query.filter_by(ModelVO.id == request.args.get("model_id")).first()
-            vos = ModelVO.query.filter_by(ModelVO.path == vo.path + str(vo.id) + "/").order_by(
-                ModelVO.path.desc()).all()
-            vos = list(marshal(vos, model_fields))
-            vos = get_tree(vos)
-            return res_util.success(vos)
-
-        vos = ModelVO.query.order_by(ModelVO.path.desc()).all()
-        vos = list(marshal(vos, model_fields))
-        vos = get_tree(vos)
-        return res_util.success(vos)
-
-    def post(self):
-        data = request.get_json()
-        value = data.get("value", "")
-        data["userId"] = service.token_service.get_id_by_token()
-        vo = ModelVO(userId=service.token_service.get_id_by_token(), value=value)
-        db.session.add(vo)
-        db.session.commit()
-        return jsonify(res_util.success("success"))
-
-    def put(self):
-        data = request.get_json()
-        if data["model_id"] and data["target_id"]:
-            vo = ModelVO.query.filter(ModelVO.id == data["model_id"]).first()
-            target_vo = ModelVO.query.filter(ModelVO.id == data["target_id"]).first()
-            old_path = vo.path + str(vo.id) + "/"
-            new_path = target_vo.path + str(target_vo.id) + "/"
-            sql = 'UPDATE model_t SET path = REPLACE(path,"%s","%s") WHERE path like "%s" '.format(
-                old_path, new_path, old_path + "%")
-            db.session.execute(sql)
-            vo.path = new_path
-            db.session.commit()
-        ModelVO.query.filter(ModelVO.id == data["model_id"]).update(dict(value=data["value"]))
-        db.session.commit()
-        return res_util.success("操作成功")
-
-    def delete(self):
-        data = request.get_json()
-        modelId = data.get('id')
-        vo = ModelVO.query.filter(ModelVO.id == modelId).first()
-        vos = ModelVO.query.filter(ModelVO.path.like(vo.path + str(modelId) + "%")).all()
-        db.session.delete(vos)
-        db.session.commit()
-        return res_util.success("操作成功")
 
 
 class ProveApi(Resource):
@@ -110,29 +49,66 @@ class StoryApi(Resource):
         return Res.delete(_id, StoryVO)
 
 
-class UploadDataApi:
-    @staticmethod
-    def post(_id):
+class UploadDataApi(Resource):
+    def post(self, _id):
+        # 增量, 全量
         file = request.files["file"]
         lines = file.readlines()
-        for index, line in enumerate(lines):
-            lines[index] = str(line, encoding="utf-8").replace("\r\n", "").replace("\t", " " * 4)
-        for index, parent_line in enumerate(lines):
-            if UploadDataApi.get_level(parent_line) == 0:
-                p_vo = ProveVO(parent_id=1, value=parent_line)
-                db.session.add(p_vo)
+        line_list = []
+        for line in lines:
+            new_line = line.replace("\r\n", "").replace("\t", " " * 4).replace("\n", "").replace(":", "")
+            if not new_line.isspace():
+                line_list.append(new_line)
+
+        for index, parent_line in enumerate(line_list):
+            level = self.get_level(parent_line)
+            if level == 0:
+                vo = ProveVO(parent_id=1, value=parent_line)
+                db.session.add(vo)
                 db.session.flush()
-                UploadDataApi.digui(p_vo, 0, lines[index:])
+                self.find_children(vo, level, line_list[index + 1:])
         return res_util.success()
 
-    @staticmethod
-    def digui(p_vo, level, lines):
-        for index, parent_line in enumerate(lines):
-            if level + 1 == UploadDataApi.get_level(parent_line):
-                c_vo = ProveVO(parent_id=p_vo.id, value=parent_line)
-                db.session.add(c_vo)
-                UploadDataApi.digui(c_vo, UploadDataApi.get_level(parent_line), lines[index:])
-            elif level < UploadDataApi.get_level(parent_line) + 1:
+    def get(self, _id):
+        vos = ProveVO.query.with_entities(ProveVO.id, ProveVO.parent_id, ProveVO.value).all()
+        ret_list = [dict(zip(item.keys(), item)) for item in vos]
+        vo_dic = {val["id"]: val for val in ret_list}
+
+        for val in ret_list:
+            if val["parent_id"] in vo_dic:
+                data = vo_dic.get(val["parent_id"])
+                if data.get("children"):
+                    data["children"].append(val)
+                else:
+                    data["children"] = [val]
+
+        root = [val for val in ret_list if val["parent_id"] == 0]
+        lines = list(self.get_line(0, root))
+        bytes_io = BytesIO()
+        for line in lines:
+            bytes_io.write((line + "\n").encode("utf-8"))
+        # bytes_io.write("\n".join(lines).encode("utf-8"))
+        bytes_io.seek(0)
+        return send_file(bytes_io, as_attachment=True, attachment_filename="dump.yml")
+
+    def get_line(self, deep, arr):
+        for val in arr:
+            line = " " * deep * 4 + val["value"]
+            yield line
+            if val.get("children"):
+                for i in self.get_line(deep + 1, val["children"]):
+                    yield i
+
+    def find_children(self, p_vo, level, lines):
+        for index, line in enumerate(lines):
+            new_level = self.get_level(line)
+            # 找出子节点,给子节点p_id
+            if level + 1 == new_level:
+                vo = ProveVO(parent_id=p_vo.id, value=line)
+                db.session.add(vo)
+                db.session.flush()
+                self.find_children(vo, new_level, lines[index + 1:])
+            elif level + 1 > new_level:
                 break
 
     @staticmethod
@@ -140,7 +116,3 @@ class UploadDataApi:
         new = line.lstrip()
         len_space = len(line) - len(new)
         return bool(len_space % 4) + len_space // 4
-
-    @staticmethod
-    def get(_id):
-        pass

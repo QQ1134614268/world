@@ -1,5 +1,12 @@
 from os import path
 
+# app.config.from_pyfile(config_name)
+
+CONFIG_NAME_MAPPER = {
+    'dev': 'dev_config.py',
+    'prod': 'prod_config.py',
+    'test': 'test_config.py'
+}
 DEBUG_MODE = False
 
 DI = "2440024344@qq.com"

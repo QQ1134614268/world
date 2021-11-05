@@ -22,8 +22,7 @@ from api.apply.video.video_api import TargetApi, WorksApi, VideoUserApi, Invitat
 from api.auth.AuthApi import auth_api
 from api.customize.CustomizeApi import customize_api
 from api.exist.all import AllApi
-from api.exist.class_api import ClassApi
-from api.exist.model.model_api import ModelApi, ProveApi, StoryApi, Prove2Api
+from api.exist.model.model_api import ProveApi, StoryApi, Prove2Api, UploadDataApi
 from api.message.Speech.SpeechApi import speech_api
 from api.message.attention_api import attention_api
 from api.message.message_api import message_api
@@ -87,7 +86,12 @@ def before_request():  # 登录过滤,正则匹配,日志记录,IP分析 todo
     ip_addr = request.remote_addr
     user_agent = request.headers.get('User-Agent')
     # for path in allow_path:
-    logger.info({"url_path": url_path, "ip": ip_addr, "User-Agent": user_agent, "action": "before_request"})
+    logger.info({
+        "url_path": url_path,
+        "ip": ip_addr,
+        "User-Agent": user_agent,
+        "action": "before_request"
+    })
     #     if re.match(path, url_path):
     #         break
     # else:
@@ -119,7 +123,13 @@ def handle_404_error(err_msg):
     # 这个函数的返回值就是前端用户看到的最终结果 (404错误页面)
     url_path = request.path
     user_id = service.token_service.get_name_by_token()
-    logger.error({"404": {"userId": user_id, "url_path": url_path, "err_msg": str(err_msg)}})
+    logger.error({
+        "404": {
+            "userId": user_id,
+            "url_path": url_path,
+            "err_msg": str(err_msg)
+        }
+    })
     return res_util.err(u"server error：%s" % err_msg)
 
 
@@ -139,8 +149,13 @@ def flask_global_exception_handler(err):
         except:
             host_name = "unknown hostname"
             host_ip = "unknown ip"
-        data = {"remote_ip": request.remote_addr, "url": request.path, "method": request.method,
-                "host_ip": host_ip, "host_name": host_name}
+        data = {
+            "remote_ip": request.remote_addr,
+            "url": request.path,
+            "method": request.method,
+            "host_ip": host_ip,
+            "host_name": host_name
+        }
         logger.error(message, data)  # 日志输出到控制台和日志文件
         try:
             traceback.print_exc()
@@ -217,13 +232,11 @@ app.register_blueprint(attention_api)
 
 api2.add_resource(ProjectInit, "/api/ProjectInit")
 
-api2.add_resource(ClassApi, "/api/class_api/ClassApi")
-
 api2.add_resource(FileApi, "/api/file/FileApi")
 api2.add_resource(FileApi2, "/api/file/FileApi2")
 api2.add_resource(GetFileApi3, "/api/file/GetFileApi3")
 # model
-api2.add_resource(ModelApi, "/api/model_api/ModelApi/<int:_id>")
+api2.add_resource(UploadDataApi, "/api/model_api/UploadDataApi/<int:_id>")
 api2.add_resource(ProveApi, "/api/model_api/ProveApi/<int:_id>")
 api2.add_resource(Prove2Api, "/api/model_api/Prove2Api/<int:_id>")
 api2.add_resource(StoryApi, "/api/model_api/StoryApi/<int:_id>")
