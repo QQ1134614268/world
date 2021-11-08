@@ -66,6 +66,7 @@ export default {
     async del() {
       let res1 = await this.$deleteJson2(this.url, this.id, {});
       this.$router.back()
+      this.$router.back()
     },
     async save() {
       let res1 = await this.$putJson2(this.url, this.obj.id, this.obj);
