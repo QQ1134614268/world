@@ -118,16 +118,6 @@ class EnumConfig(BaseTable):
     create_by = Column(String(255), server_default='SYSTEM', comment="创建者")
 
 
-class SettingConfig(BaseTable):
-    """
-    系统,用户配置
-    """
-    __tablename__ = 'setting_config'
-    code = Column(String(255), unique=True, comment="配置项code")
-    value = Column(String(255), comment="配置项value")
-    create_by = Column(String(255), comment="创建人")
-
-
 class ClassVO(BaseTable):
     __tablename__ = 'class_t'
     name = Column(Text, default='')
@@ -217,15 +207,6 @@ class AuthVO(BaseTable):
 
 class BTreeVO(BaseTable):
     __tablename__ = 'btree_t'
-    fullPath = Column(String(70), default='/')
-    value = Column(Text, default='')
-    userId = Column(Integer)
-    sort = Column(Integer)
-
-
-class BTreeVO2(BaseTable):
-    __tablename__ = 'btree2_t'
-    parentId = Column(Integer)
     fullPath = Column(String(70), default='/')
     value = Column(Text, default='')
     userId = Column(Integer)
