@@ -7,6 +7,7 @@ from api.exist.model.Util import Res
 from api.exist.model.model import ProveVO, StoryVO
 from config.mysql_db import db
 from util import res_util
+from util.log_util import logger
 
 
 class ProveApi(Resource):
@@ -56,17 +57,19 @@ class UploadDataApi(Resource):
         lines = file.readlines()
         line_list = []
         for line in lines:
-            new_line = line.replace("\r\n", "").replace("\t", " " * 4).replace("\n", "").replace(":", "")
-            if not new_line.isspace():
+            new_line = str(line, encoding="utf-8").replace("\r\n", "").replace("\t", " " * 4).replace("\n", "").replace(
+                ":", "")
+            if new_line.strip():
                 line_list.append(new_line)
 
         for index, parent_line in enumerate(line_list):
             level = self.get_level(parent_line)
             if level == 0:
-                vo = ProveVO(parent_id=1, value=parent_line)
+                vo = ProveVO(parent_id=1, value=parent_line.strip())
                 db.session.add(vo)
                 db.session.flush()
                 self.find_children(vo, level, line_list[index + 1:])
+        db.session.commit()
         return res_util.success()
 
     def get(self, _id):
@@ -104,7 +107,7 @@ class UploadDataApi(Resource):
             new_level = self.get_level(line)
             # 找出子节点,给子节点p_id
             if level + 1 == new_level:
-                vo = ProveVO(parent_id=p_vo.id, value=line)
+                vo = ProveVO(parent_id=p_vo.id, value=line.strip())
                 db.session.add(vo)
                 db.session.flush()
                 self.find_children(vo, new_level, lines[index + 1:])
@@ -115,4 +118,6 @@ class UploadDataApi(Resource):
     def get_level(line: str):
         new = line.lstrip()
         len_space = len(line) - len(new)
-        return bool(len_space % 4) + len_space // 4
+        if bool(len_space % 4):
+            logger.info('数据异常,有空格', line, len_space % 4)
+        return len_space // 4

@@ -2,7 +2,7 @@ import json
 import unittest
 
 from src.app import app
-from test.BuildData import create_data
+from src.util.data_util import create_data
 
 
 class UserApiTest(unittest.TestCase):

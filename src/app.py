@@ -34,7 +34,6 @@ from api.root.OrganizationApi import organization_api
 from api.root.btree_api import btree_api
 from api.scheduler.APScheduler import scheduler
 from api.scheduler.SchedulerApi import scheduler_api
-from api.script_api import ScriptApi
 from api.sys.SysApi import sys_api
 from api.sys.file.file_api import FileApi, FileApi2, GetFileApi3
 from api.user.user_api import user_api
@@ -225,7 +224,6 @@ app.register_blueprint(wb_api)
 app.register_blueprint(scheduler_api)
 app.register_blueprint(message_api)
 app.register_blueprint(btree_api)
-api2.add_resource(ScriptApi, "/api/class_api/ScriptApi")
 # 用户
 app.register_blueprint(user_api)
 app.register_blueprint(attention_api)
