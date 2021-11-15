@@ -35,7 +35,7 @@
                v-if="!searchFlag"
       >
       <span class="custom-tree-node" slot-scope="{ node, data }">
-        <router-link :to="{name:'/model/Book',query: {id: data.id}}">
+        <router-link tag="a" target="_blank" :to="{name:'/model/Book',query: {id: data.id}}">
               {{ data.value }}
         </router-link>
       </span>
