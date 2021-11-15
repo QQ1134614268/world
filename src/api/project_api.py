@@ -48,14 +48,26 @@ def sync_prove_api():
     return res_util.success("sync_prove_api")
 
 
+def clear_id():
+    cte_part = db.session.query(ProveVO.id).filter(ProveVO.id == 1).cte(name="hierarchy", recursive=True)
+    cte_all = cte_part.union_all(db.session.query(ProveVO.id).filter(ProveVO.parent_id == cte_part.c.id))
+    result = db.session.query(ProveVO.id).select_entity_from(cte_all).all()
+    ret = [item[0] for item in result]
+    if ret:
+        ProveVO.query.filter(ProveVO.id.notin_(ret)).delete(synchronize_session=False)
+        db.session.commit()
+    return res_util.json_success(ret)
+
+
 class ProjectInit(Resource):
     code = {
         "video": "更新视频缩略图",
         "sync_prove_api": "同步ProveVO数据",
+        "clear_ProveVO_id": "清除ProveVO没有父节点数据",
     }
     code2 = {
         "video": ref_first_frame_loc,
-        "sync_prove_api": sync_prove_api,
+        "clear_ProveVO_id": clear_id,
     }
 
     def get(self):

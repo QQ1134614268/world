@@ -50,18 +50,6 @@ class ProveBlueprintApi:
         return res_util.json_success(result)
 
     @staticmethod
-    @prove_api.route('/clear_id/<int:_id>', methods=['GET'])
-    def clear_id(_id):
-        cte_part = db.session.query(ProveVO.id).filter(ProveVO.id == 1).cte(name="hierarchy", recursive=True)
-        cte_all = cte_part.union_all(db.session.query(ProveVO.id).filter(ProveVO.parent_id == cte_part.c.id))
-        result = db.session.query(ProveVO.id).select_entity_from(cte_all).all()
-        ret = [item[0] for item in result]
-        if ret:
-            ProveVO.query.filter(ProveVO.id.notin_(ret)).delete(synchronize_session=False)
-            db.session.commit()
-        return res_util.json_success(ret)
-
-    @staticmethod
     def _prove_parent(_id):
         cte_part = db.session.query(ProveVO).filter(ProveVO.id == _id).cte(name="hierarchy", recursive=True)
         cte_all = cte_part.union_all(db.session.query(ProveVO).filter(ProveVO.id == cte_part.c.parent_id))
