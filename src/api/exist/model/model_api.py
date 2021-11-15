@@ -1,9 +1,10 @@
 from io import BytesIO
 
+import jieba
 from flask import jsonify, request, send_file, Blueprint
 from flask_restful import Resource
 
-from api.exist.model.Util import Res
+from api.exist.model.Util import Res, ResList
 from api.exist.model.model import ProveVO, StoryVO
 from config.mysql_db import db
 from util import res_util
@@ -31,6 +32,34 @@ class ProveBlueprintApi:
         # cte 根据id 获取父节点
         result = ProveBlueprintApi._prove_parent(_id)
         return res_util.json_success(result)
+
+    @staticmethod
+    @prove_api.route('/high_word/<int:_id>', methods=['GET'])
+    def high_word(_id):
+        res = ProveVO.query.with_entities(ProveVO.value).all()
+        ret = [item[0] for item in res]
+        bytes_res = bytes(" ".join(ret), encoding="utf-8")
+        words = jieba.lcut(bytes_res)
+        counts = {}
+        for word in words:
+            if len(word) == 1 or word.isspace():
+                continue
+            else:
+                counts[word] = counts.get(word, 0) + 1
+        result = sorted(counts.items(), key=lambda x: x[1], reverse=True)
+        return res_util.json_success(result)
+
+    @staticmethod
+    @prove_api.route('/clear_id/<int:_id>', methods=['GET'])
+    def clear_id(_id):
+        cte_part = db.session.query(ProveVO.id).filter(ProveVO.id == 1).cte(name="hierarchy", recursive=True)
+        cte_all = cte_part.union_all(db.session.query(ProveVO.id).filter(ProveVO.parent_id == cte_part.c.id))
+        result = db.session.query(ProveVO.id).select_entity_from(cte_all).all()
+        ret = [item[0] for item in result]
+        if ret:
+            ProveVO.query.filter(ProveVO.id.notin_(ret)).delete(synchronize_session=False)
+            db.session.commit()
+        return res_util.json_success(ret)
 
     @staticmethod
     def _prove_parent(_id):
@@ -70,7 +99,16 @@ class ProveApi(Resource):
 
     @staticmethod
     def delete(_id):
-        return Res.delete(_id, ProveVO)
+        # 删除子集
+        cte_part = db.session.query(ProveVO.id).filter(ProveVO.id == _id).cte(name="hierarchy", recursive=True)
+        cte_all = cte_part.union_all(db.session.query(ProveVO.id).filter(ProveVO.parent_id == cte_part.c.id))
+        result = db.session.query(ProveVO.id).select_entity_from(cte_all).all()
+        ret = [item[0] for item in result]
+        ProveVO.query.filter(ProveVO.id.in_(ret)).delete(synchronize_session=False)
+        db.session.commit()
+        return res_util.success(ret)
+        # return Res.delete(_id, ProveVO)
+        # return ResList.delete()
 
 
 class StoryApi(Resource):
@@ -84,7 +122,7 @@ class StoryApi(Resource):
         return Res.update(_id, StoryVO, request.get_json())
 
     def delete(self, _id):
-        return Res.delete(_id, StoryVO)
+        return ResList.delete(_id, StoryVO)
 
 
 class UploadDataApi(Resource):
