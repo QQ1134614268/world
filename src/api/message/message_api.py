@@ -3,12 +3,12 @@ from flask import Blueprint, jsonify, request
 from flask_restful import fields, marshal
 
 import service.token_service
-from vo.table_model import PersonSpeech
-from config.user_type import UserType
 from config.mysql_db import db
 from config.orm_config import DateTime
+from config.user_type import UserType
 from service import user_service
 from util import res_util
+from vo.table_model import PersonSpeech
 
 message_api = Blueprint("message_api", __name__, url_prefix='/api/message_api')
 
@@ -58,10 +58,10 @@ def get_speech_by_id():
 
 @message_api.route('/get_other_user_speech', methods=['GET'])
 def get_other_user_speech():
-    # TODO 时间 所有好友 分组可视
+    # TODO 时间 所有好友 分组可视  group
     attentionList = user_service.getAttentionList()
     attentionIds = [attenion.userId for attenion in attentionList]
-    parent_vo_list = PersonSpeech.query.filter_by(PersonSpeech.userId.in_(attentionIds), )  # todo group
+    parent_vo_list = PersonSpeech.query.filter_by(PersonSpeech.userId.in_(attentionIds))
     data_list = [marshal(i, speechFields) for i in parent_vo_list]
     return jsonify(res_util.success(data_list))
 

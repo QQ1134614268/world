@@ -2,7 +2,7 @@
   <div>
     <div>
       <router-link tag="a" target="_blank" :to="{name:'/model/Compare'}">
-       移动
+        移动
       </router-link>
       <router-link tag="a" target="_blank" :to="{name:'/model/Parent'}">
         查看父级
@@ -54,7 +54,7 @@ export default {
       search: "",
       parent_id: 0,
       url: "/api/model_api/ProveApi",
-      url2: "/api/model_api/Prove2Api",
+      url2: "/api/ProveBlueprintApi/contain_value",
       data: [],
       idArr: [1],
       // idArr: [1, 2, 3],

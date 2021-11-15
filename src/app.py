@@ -28,23 +28,20 @@ from api.message.attention_api import attention_api
 from api.message.message_api import message_api
 from api.message.wb.WbApi import wb_api
 from api.message.wx.SocketApi import socket_api
-from api.my_cloud_space.CloudSpaceApi import cloud_space_api
+from api.my_cloud_space.CloudSpaceApi import cloud_space_api, FileApi
 from api.project_api import ProjectInit
-from api.root.OrganizationApi import organization_api
-from api.root.btree_api import btree_api
 from api.scheduler.APScheduler import scheduler
 from api.scheduler.SchedulerApi import scheduler_api
 from api.sys.SysApi import sys_api
-from api.sys.file.file_api import FileApi, FileApi2, GetFileApi3
+from api.sys.file.file_api import FileApi2
 from api.user.user_api import user_api
-from api.wallet.AliPayApi import ali_pay_api
 from api.wallet.wallet_api import WalletApi
 from api.worker.worker1.work_api import WorkerApi, WorkerTimeApi
 from api.worker.worker2.work_api import work_api2
 from config.conf import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME, VERSION
 from config.conf import MAIL_HOST_BLOCK_LIST
 from config.exception import WorldException
-from config.json_e import JSONEncoder
+from config.json_config import JSONEncoder
 from config.mysql_db import db
 from util import mail_util
 from util import res_util
@@ -84,13 +81,13 @@ def before_request():  # 登录过滤,正则匹配,日志记录,IP分析 todo
     url_path = request.path
     ip_addr = request.remote_addr
     user_agent = request.headers.get('User-Agent')
-    # for path in allow_path:
     logger.info({
         "url_path": url_path,
         "ip": ip_addr,
         "User-Agent": user_agent,
         "action": "before_request"
     })
+    # for path in allow_path:
     #     if re.match(path, url_path):
     #         break
     # else:
@@ -214,7 +211,6 @@ def welcome():
 app.register_blueprint(hello_api)
 app.register_blueprint(sys_api)
 app.register_blueprint(speech_api)
-app.register_blueprint(organization_api)
 app.register_blueprint(auth_api)
 app.register_blueprint(cloud_space_api)
 app.register_blueprint(stone_game_api)
@@ -223,7 +219,6 @@ app.register_blueprint(customize_api)
 app.register_blueprint(wb_api)
 app.register_blueprint(scheduler_api)
 app.register_blueprint(message_api)
-app.register_blueprint(btree_api)
 # 用户
 app.register_blueprint(user_api)
 app.register_blueprint(attention_api)
@@ -232,7 +227,6 @@ api2.add_resource(ProjectInit, "/help")
 
 api2.add_resource(FileApi, "/api/file/FileApi")
 api2.add_resource(FileApi2, "/api/file/FileApi2")
-api2.add_resource(GetFileApi3, "/api/file/GetFileApi3")
 # model
 api2.add_resource(UploadDataApi, "/api/model_api/UploadDataApi/<int:_id>")
 app.register_blueprint(prove_api)
@@ -250,7 +244,6 @@ api2.add_resource(OrderListApi, "/api/member/OrderListApi")
 api2.add_resource(WalletApi, "/api/member/WalletApi")
 api2.add_resource(GoodsApi, "/api/goods", "/api/goods/<int:_id>")
 api2.add_resource(GoodsListApi, "/api/goods_list")
-app.register_blueprint(ali_pay_api)
 
 # 工时
 api2.add_resource(WorkerApi, "/api/work_api/WorkerApi")

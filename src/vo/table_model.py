@@ -32,59 +32,6 @@ class BaseTable2(db.Model):
     # create_user = db.Column(db.Integer, default=user_service.get_id_by_token, onupdate=user_service.get_id_by_token)
     # update_user = db.Column(db.Integer, default=user_service.get_id_by_token, onupdate=user_service.get_id_by_token)
 
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
-        return self
-
-    def get(self, _id):
-        db.session.query().filter(self.id == _id).first()
-        return self
-
-    def update(self, _id, data):
-        # todo
-        db.session.query().filter(self.id == _id).update(data)
-        db.session.commit()
-        return self
-
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
-        return self
-
-    # def save(self):
-    #     try:
-    #         db.session.add(self)
-    #         db.session.commit()
-    #     except Exception as e:
-    #         # print(e)
-    #         db.session.rollback()
-    #         return FAILURE
-    #     else:
-    #         return SUCCESS
-    #
-    # def update(self):
-    #     try:
-    #         db.session.merge(self)
-    #         db.session.commit()
-    #     except Exception as e:
-    #         # print(e)
-    #         db.session.rollback()
-    #         return FAILURE
-    #     else:
-    #         return SUCCESS
-    #
-    # def delete(self):
-    #     try:
-    #         db.session.delete(self)
-    #         db.session.commit()
-    #     except Exception as e:
-    #         # print(e)
-    #         db.session.rollback()
-    #         return FAILURE
-    #     else:
-    #         return SUCCESS
-
 
 class EnumConfig(BaseTable):
     """
@@ -205,14 +152,6 @@ class AuthVO(BaseTable):
     path = Column(String(150), default='/')
 
 
-class BTreeVO(BaseTable):
-    __tablename__ = 'btree_t'
-    fullPath = Column(String(70), default='/')
-    value = Column(Text, default='')
-    userId = Column(Integer)
-    sort = Column(Integer)
-
-
 class BlogVO(BaseTable):
     __tablename__ = 'blog_t'
     user_id = Column(Integer)
@@ -316,18 +255,6 @@ class UserCloudSpaceVO(BaseTable):
     user_id = Column(Integer)
     file_name = Column(String(150), default='xxx.txt')
     file_path = Column(String(150), default='/xxx/xxx.txt')
-
-
-class OrganizationVO(BaseTable):
-    __tablename__ = 'organization'
-    parent_id = Column(Integer)
-    name = Column(String(150), default='123456')
-    level = Column(Integer, default=1)
-    full_name = Column(String(70), default='default.jpg')
-    full_path_code = Column(String(70), default='default.jpg')
-    full_path_id = Column(String(70), default='default.jpg')
-    code = Column(String(150), default='123456')
-    leader = Column(Integer, default=1)
 
 
 class OrganizationMemberRelationVO(BaseTable):

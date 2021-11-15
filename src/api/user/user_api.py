@@ -1,11 +1,9 @@
 # -- coding:UTF-8 --
-import json
 
 from flask import Blueprint, request
 from flask_restful import fields, marshal
 
 import service.token_service
-from service import user_service
 from util import res_util
 from vo.table_model import UserVO
 
@@ -42,12 +40,8 @@ def getUserInfo():
 
 @user_api.route('/getUserByDict', methods=['GET'])
 def getUserByDict():
-    kw = request.args.get("kw")
-    # todo2
-    # data={"xxx":"xxx"} 自行组装
-    data = json.loads(kw)
-    user = UserVO.query.filter_by(**data).first()
-    # user不存在 返回{"id": 0,"userType": 0, "username": null} 不好
+    data = request.get_json()
+    user = UserVO.query.filter_by(**data).all()
     return res_util.success(marshal(user, user_fields))
 
 

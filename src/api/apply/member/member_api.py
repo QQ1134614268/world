@@ -10,7 +10,6 @@ from flask_restful import fields, marshal
 import service.token_service
 from config.mysql_db import db
 from service import WalletService
-from service import user_service
 from util import password_util
 from util import res_util
 from vo.table_model import GoodsVO, WalletVO, OrderVO
@@ -144,9 +143,9 @@ class OrderApi(Resource):
 
     def post(self):
         data = request.get_json()
-        # todo
-        # goods = GoodsVO.query.filter(GoodsVO.id.in_([item["id"] for item in data])).all()
-        money = sum([item["num"] * item["price"] for item in data])
+        goods = GoodsVO.query.filter(GoodsVO.id.in_([item["id"] for item in data])).all()
+        price_dic = {item.id: item.price for item in goods}
+        money = sum([item["num"] * price_dic.get(item.id) for item in data])
         user_id = service.token_service.get_id_by_token()
         wallet = WalletVO.query.filter(WalletVO.user_id == user_id).one()
         WalletService.pay(wallet.id, money)

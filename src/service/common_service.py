@@ -73,6 +73,7 @@ def admin_required(f):
 
 
 def own_resource():
+    # todo
     pass
 
 

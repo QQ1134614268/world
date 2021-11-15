@@ -23,7 +23,6 @@ class WalletApi(Resource):
         data = request.get_json()
         money = data.get('money', '')
         wallet_id = data.get('id', '')
-        # todo 查看sql语句 检验正确性
         return res_util.success(WalletService.pay(wallet_id, money))
 
     def get(self):

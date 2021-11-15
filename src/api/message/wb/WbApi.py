@@ -2,10 +2,9 @@ from flask import Blueprint, jsonify, request
 from flask_restful import fields, marshal
 
 import service.token_service
-from vo.table_model import BlogVO, BlogCommentVO
 from config.mysql_db import db
-from service import user_service
 from util import res_util
+from vo.table_model import BlogVO, BlogCommentVO
 
 wb_api = Blueprint("wb_api", __name__, url_prefix='/api/wb_api')
 

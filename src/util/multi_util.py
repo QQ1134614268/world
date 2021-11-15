@@ -8,6 +8,9 @@ from multiprocessing import Pool
 from typing import Any
 
 
+# todo queue, 幂等, threading async process, @functools.lru_cache
+
+
 @dataclass(order=True)
 class PrioritizedItem:
     priority: int

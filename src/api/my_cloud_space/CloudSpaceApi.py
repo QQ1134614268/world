@@ -1,13 +1,15 @@
 # -- coding:UTF-8 --
 import os
 import random
+import shutil
 
 import time
 from flask import Blueprint, send_file, jsonify, make_response, request
+from flask_restful import Resource
 
 import service.token_service
 from config.mysql_db import db
-from config.conf import UPLOAD_FILE_PATH
+from config.conf import UPLOAD_FILE_PATH, DATA_DIR
 from service import user_service
 from util import res_util
 from vo.table_model import UserCloudSpaceVO
@@ -170,3 +172,37 @@ def delete_file():
     db.session.delete(vo)
     db.session.commit()
     return jsonify(res_util.success("success"))
+
+
+class FileApi(Resource):
+
+    def get(self):
+        path = request.args.get("path", "")
+        full_path = os.path.join(DATA_DIR, path)
+        if not os.path.exists(full_path):
+            return res_util.fail("参数异常")
+        if os.path.isdir(full_path):
+            # root, dirs, files = os.walk(".").__next__()
+            return res_util.success(os.listdir())
+        return send_file(full_path, as_attachment=True,
+                         attachment_filename=full_path.split('/')[-1],
+                         mimetype='application/octet-stream')
+
+    def post(self):
+        path = request.form.get("path")
+        dir_name = request.form.get("dir")
+        full_path = os.path.join(path, dir_name)
+        # 异常直接抛出,不再校验异常情况
+        # if not os.path.exists(path):
+        #     return res_util.fail()
+        if dir_name:
+            os.mkdir(full_path)
+            return res_util.success()
+        file = request.files["file"]
+        file.save(full_path)
+        return res_util.success(full_path)
+
+    def delete(self):
+        path = request.get_json("path")
+        shutil.rmtree(path)
+        return res_util.success()
