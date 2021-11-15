@@ -2,10 +2,10 @@
   <div>
     <div>
       <router-link tag="a" target="_blank" :to="{name:'/model/Compare'}">
-        <el-button>移动</el-button>
+       移动
       </router-link>
       <router-link tag="a" target="_blank" :to="{name:'/model/Parent'}">
-        <el-button>查看父级</el-button>
+        查看父级
       </router-link>
     </div>
     <div>

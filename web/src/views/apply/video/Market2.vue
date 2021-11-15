@@ -29,19 +29,26 @@
       <div style="line-height: 3">
         品牌榜
       </div>
-      <RankComponent :rank-data="rankData">
-      </RankComponent>
+      <div v-for="(item,index) in rankData" class="p_c_flexbox_row">
+        <div :class="_getRankCls(index)">
+          {{ index + 1 }}
+        </div>
+        <div class="p_c_long_txt_hidden " style="width: 80%">
+          <router-link :to="{name:'/video/TargetInfo',query: {target_id: item.id}}" class="p_c_space">
+            {{ item.content }}
+          </router-link>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import TargetComponent from "./component/TargetComponent"
-import RankComponent from "@/views/apply/video/component/RankComponent";
 
 export default {
   name: "market",
-  components: {RankComponent, TargetComponent},
+  components: {TargetComponent},
   data() {
     return {
       search: "",
@@ -58,6 +65,13 @@ export default {
     }
   },
   methods: {
+    _getRankCls(index) {
+      if (index <= 2) {
+        return `rank_base rank_${index}`
+      } else {
+        return 'rank_base'
+      }
+    },
     async findUser(user_id) {
       await this.$router.push({path: '/video/UserInfo2', params: {user_id: user_id}})
     },
@@ -96,5 +110,24 @@ export default {
 </script>
 
 <style scoped>
+.rank_base {
+  width: 2.4rem;
+  height: 2.4rem;
+  background-size: 25px 24px;
+  color: #c1abab;
+}
+
+/*rank_base rank_0*/
+.rank_0 {
+  color: #f30303;
+}
+
+.rank_1 {
+  color: #cb2e59;
+}
+
+.rank_2 {
+  color: #ac4d60;
+}
 
 </style>

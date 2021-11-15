@@ -28,15 +28,22 @@
       <div style="line-height: 3">
         热度榜
       </div>
-      <RankComponent :rank-data="rankData">
-      </RankComponent>
+      <div v-for="(item,index) in rankData" class="p_c_flexbox_row">
+        <div :class="_getRankCls(index)">
+          {{ index + 1 }}
+        </div>
+        <div style="width: 80%" class="p_c_long_txt_hidden ">
+          <router-link :to="{name:'/video/Video',query: {video_id: item.id}}" class="p_c_space">
+            {{ item.describe }}
+          </router-link>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import VideoCard from "./component/VideoCard"
-import RankComponent from "./component/RankComponent"
 
 export default {
   name: "market",
@@ -55,9 +62,16 @@ export default {
     }
   },
   components: {
-    VideoCard, RankComponent
+    VideoCard,
   },
   methods: {
+    _getRankCls(index) {
+      if (index <= 2) {
+        return `rank_base rank_${index}`
+      } else {
+        return 'rank_base'
+      }
+    },
     async init() {
       let data = {page: this.currentPage, pageSize: this.pageSize, search: this.search}
       let result = await this.$get2(this.url2, 0, data)
@@ -94,5 +108,24 @@ export default {
 </script>
 
 <style scoped>
+.rank_base {
+  width: 2.4rem;
+  height: 2.4rem;
+  background-size: 25px 24px;
+  color: #c1abab;
+}
+
+/*rank_base rank_0*/
+.rank_0 {
+  color: #f30303;
+}
+
+.rank_1 {
+  color: #cb2e59;
+}
+
+.rank_2 {
+  color: #ac4d60;
+}
 
 </style>

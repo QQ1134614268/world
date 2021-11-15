@@ -18,9 +18,11 @@
 </template>
 
 <script>
+import AvatarComponentBase001 from "./component/avatar/AvatarComponentBase001"
 
 export default {
   name: "TargetInfo",
+  comments: {AvatarComponentBase001},
   data() {
     return {
       target_id: this.$route.query.target_id,
