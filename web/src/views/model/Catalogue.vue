@@ -1,8 +1,11 @@
 <template>
   <div>
     <div>
-      <router-link :to="{name:'/model/Compare'}">
+      <router-link tag="a" target="_blank" :to="{name:'/model/Compare'}">
         <el-button>移动</el-button>
+      </router-link>
+      <router-link tag="a" target="_blank" :to="{name:'/model/Parent'}">
+        <el-button>查看父级</el-button>
       </router-link>
     </div>
     <div>
@@ -68,8 +71,9 @@ export default {
       this.splitRules = res.data.data
       callback(this.splitRules)
     },
+
     async handleSelect(item) {
-      this.parent_id = item.id
+      this.parent_id = item.parent_id
       this.searchFlag = !this.searchFlag
     },
     async load(node, resolve) {

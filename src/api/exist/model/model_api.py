@@ -1,6 +1,6 @@
 from io import BytesIO
 
-from flask import jsonify, request, send_file
+from flask import jsonify, request, send_file, Blueprint
 from flask_restful import Resource
 
 from api.exist.model.Util import Res
@@ -8,6 +8,51 @@ from api.exist.model.model import ProveVO, StoryVO
 from config.mysql_db import db
 from util import res_util
 from util.log_util import logger
+
+prove_api = Blueprint("ProveApi", __name__, url_prefix='/api/ProveBlueprintApi')
+
+
+class ProveBlueprintApi:
+    @staticmethod
+    @prove_api.route('/prove_child/<int:_id>', methods=['GET'])
+    def prove_child(_id):
+        # cte 根据id 获取子节点
+        cte_part = db.session.query(ProveVO).filter(ProveVO.id == _id).cte(name="hierarchy", recursive=True)
+        # parent = aliased(cte_part, name="p")
+        # children = aliased(ProveVO, name="c")
+        # hierarchy = hierarchy.union_all(db.session.query(children).filter(children.parent_id == parent.c.id))
+        cte_all = cte_part.union_all(db.session.query(ProveVO).filter(ProveVO.parent_id == cte_part.c.id))
+        result = ProveVO.query.select_entity_from(cte_all).all()
+        return res_util.json_success(result)
+
+    @staticmethod
+    @prove_api.route('/prove_parent/<int:_id>', methods=['GET'])
+    def prove_parent(_id):
+        # cte 根据id 获取父节点
+        result = ProveBlueprintApi._prove_parent(_id)
+        return res_util.json_success(result)
+
+    @staticmethod
+    def _prove_parent(_id):
+        cte_part = db.session.query(ProveVO).filter(ProveVO.id == _id).cte(name="hierarchy", recursive=True)
+        cte_all = cte_part.union_all(db.session.query(ProveVO).filter(ProveVO.id == cte_part.c.parent_id))
+        result = db.session.query(ProveVO).select_entity_from(cte_all).all()
+        return result
+
+    @prove_api.route('/prove_value_parent/<int:_id>', methods=['GET'])
+    def prove_value_parent(_id):
+        # cte 根据value 获取父节点
+        value = request.args.get("value", "")
+        vos = ProveVO.query.filter(ProveVO.value.contains(value)).all()
+        result = [ProveBlueprintApi._prove_parent(vo.id) for vo in vos]
+        return res_util.json_success(result)
+
+    @staticmethod
+    @prove_api.route('/contain_value/<int:_id>', methods=['GET'])
+    def get(_id):
+        value = request.args.get("value", "")
+        vos = ProveVO.query.filter(ProveVO.value.contains(value)).all()
+        return jsonify(res_util.success(vos))
 
 
 class ProveApi(Resource):
@@ -28,14 +73,6 @@ class ProveApi(Resource):
         return Res.delete(_id, ProveVO)
 
 
-class Prove2Api(Resource):
-    @staticmethod
-    def get(_id):
-        value = request.args.get("value")
-        vos = ProveVO.query.filter(ProveVO.value.contains(value)).all()
-        return jsonify(res_util.success(vos))
-
-
 class StoryApi(Resource):
     def get(self, _id):
         return Res.get(_id, StoryVO)
@@ -54,21 +91,24 @@ class UploadDataApi(Resource):
     def post(self, _id):
         # 增量, 全量
         file = request.files["file"]
+
         lines = file.readlines()
         line_list = []
+
         for line in lines:
             new_line = str(line, encoding="utf-8").replace("\r\n", "").replace("\t", " " * 4).replace("\n", "").replace(
                 ":", "")
+            # new_line 不为空串,空白串
             if new_line.strip():
                 line_list.append(new_line)
 
-        for index, parent_line in enumerate(line_list):
-            level = self.get_level(parent_line)
+        for index, line in enumerate(line_list):
+            level = self._get_level(line)
             if level == 0:
-                vo = ProveVO(parent_id=1, value=parent_line.strip())
+                vo = ProveVO(parent_id=1, value=line.strip())
                 db.session.add(vo)
                 db.session.flush()
-                self.find_children(vo, level, line_list[index + 1:])
+                self._find_children(vo, level, line_list[index + 1:])
         db.session.commit()
         return res_util.success()
 
@@ -86,7 +126,7 @@ class UploadDataApi(Resource):
                     data["children"] = [val]
 
         root = [val for val in ret_list if val["parent_id"] == 0]
-        lines = list(self.get_line(0, root))
+        lines = list(self._get_line(0, root))
         bytes_io = BytesIO()
         for line in lines:
             bytes_io.write((line + "\n").encode("utf-8"))
@@ -94,28 +134,28 @@ class UploadDataApi(Resource):
         bytes_io.seek(0)
         return send_file(bytes_io, as_attachment=True, attachment_filename="dump.yml")
 
-    def get_line(self, deep, arr):
+    def _get_line(self, deep, arr):
         for val in arr:
             line = " " * deep * 4 + val["value"]
             yield line
             if val.get("children"):
-                for i in self.get_line(deep + 1, val["children"]):
+                for i in self._get_line(deep + 1, val["children"]):
                     yield i
 
-    def find_children(self, p_vo, level, lines):
+    def _find_children(self, p_vo, level, lines):
         for index, line in enumerate(lines):
-            new_level = self.get_level(line)
+            new_level = self._get_level(line)
             # 找出子节点,给子节点p_id
             if level + 1 == new_level:
                 vo = ProveVO(parent_id=p_vo.id, value=line.strip())
                 db.session.add(vo)
                 db.session.flush()
-                self.find_children(vo, new_level, lines[index + 1:])
+                self._find_children(vo, new_level, lines[index + 1:])
             elif level + 1 > new_level:
                 break
 
     @staticmethod
-    def get_level(line: str):
+    def _get_level(line: str):
         new = line.lstrip()
         len_space = len(line) - len(new)
         if bool(len_space % 4):

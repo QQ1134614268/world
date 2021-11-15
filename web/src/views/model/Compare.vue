@@ -42,7 +42,7 @@ export default {
       },
 
       url: "/api/model_api/ProveApi",
-      url2: "/api/model_api/Prove2Api",
+      url2: "/api/ProveBlueprintApi/contain_value",
     };
   },
   methods: {

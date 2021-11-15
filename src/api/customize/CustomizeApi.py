@@ -2,7 +2,6 @@ from flask import Blueprint, jsonify, request
 
 import service.token_service
 from config.mongodb import mongoDB
-from service import user_service
 from util import res_util
 
 customize_api = Blueprint("customize_api", __name__, url_prefix='/api/customize_api')
@@ -39,7 +38,9 @@ def addModel():
 @customize_api.route('/getModel', methods=['POST'])
 def getModel():
     collection = mongoDB.models
-    res = list(collection.find({"userId": service.token_service.get_id_by_token()}))
+    res = list(collection.find({
+        "userId": service.token_service.get_id_by_token()
+    }))
     for i in res:
         i["_id"] = str(i["_id"])
     return jsonify(res_util.success(res))
