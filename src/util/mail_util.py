@@ -4,7 +4,7 @@ import traceback
 from email.header import Header
 from email.mime.text import MIMEText
 
-from config.conf import SERVER_MAIL, SERVER_MAIL_HOST, SERVER_MAIL_PASS
+from config.conf import SERVER_MAIL, SERVER_MAIL_HOST, SERVER_MAIL_PASS, SERVER_MAIL_PORT
 from util.log_util import logger as log
 
 
@@ -31,19 +31,19 @@ def send_email(mail_content, mail_to, subject="master,your mail"):
     #         message.attach(mime)
 
     try:
-        smtpObj = smtplib.SMTP_SSL(SERVER_MAIL_HOST, 465)
-        # smtpObj.set_debuglevel(1)
-        smtpObj.login(SERVER_MAIL, SERVER_MAIL_PASS)
-        smtpObj.sendmail(SERVER_MAIL, mail_to, message.as_string())
+        smtp_obj = smtplib.SMTP_SSL(SERVER_MAIL_HOST, SERVER_MAIL_PORT)
+        # smtp_obj.set_debuglevel(1)
+        smtp_obj.login(SERVER_MAIL, SERVER_MAIL_PASS)
+        smtp_obj.sendmail(SERVER_MAIL, mail_to, message.as_string())
         log.info("邮件发送成功")
-    except smtplib.SMTPException as e:
+    except smtplib.SMTPException:
         traceback.print_exc()
         # 日志记录异常信息
         message = traceback.format_exc()
         # 邮件服务 发送异常通知邮件  邮件模板
         log.error("Error: 无法发送邮件.[原因]" + message)
     finally:
-        smtpObj.quit()
+        smtp_obj.quit()
 
 
 if __name__ == '__main__':
