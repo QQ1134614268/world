@@ -7,10 +7,10 @@
       <router-link :to="{name:'/model/EditBook',query: {id:id }}" class="p_c_space">
         编辑
       </router-link>
-      <router-link :to="{name:'/model/AddProve',params: {id:id,value: obj.value}}" class="p_c_space">
+      <router-link :to="{name:'/model/AddProve',query: {id:id,value: obj.value}}" class="p_c_space">
         添加论点
       </router-link>
-      <router-link :to="{name:'/model/AddStory',params: {id: id,value: obj.value}}" class="p_c_space">
+      <router-link :to="{name:'/model/AddStory',query: {id: id,value: obj.value}}" class="p_c_space">
         添加故事
       </router-link>
     </div>

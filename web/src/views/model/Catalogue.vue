@@ -7,6 +7,15 @@
       <router-link tag="a" target="_blank" :to="{name:'/model/Parent'}">
         查看父级
       </router-link>
+      <router-link tag="a" target="_blank" :to="{name:'/model/Story'}">
+        故事
+      </router-link>
+      <router-link tag="a" target="_blank" :to="{name:'/model/Story'}">
+        少量原则 告警 todo
+      </router-link>
+      <router-link tag="a" target="_blank" :to="{name:'/model/Story'}">
+        关注 常用 todo
+      </router-link>
     </div>
     <div>
       <el-autocomplete class="inline-input" v-model="search" placeholder="请输入内容" :fetch-suggestions="querySearch"

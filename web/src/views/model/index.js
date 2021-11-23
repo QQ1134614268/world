@@ -16,6 +16,16 @@ const routes = [
         component: () => import('@/views/model/Catalogue')
     },
     {
+        path: '/model/Catalogue',
+        name: '/model/Catalogue',
+        component: () => import('@/views/model/Catalogue')
+    },
+    {
+        path: '/model/Story',
+        name: '/model/Story',
+        component: () => import('@/views/model/Story')
+    },
+    {
         path: '/model/AddProve',
         name: '/model/AddProve',
         component: () => import('@/views/model/AddProve')
@@ -39,11 +49,6 @@ const routes = [
         path: '/model/Book2',
         name: '/model/Book2',
         component: () => import('@/views/model/Book2')
-    },
-    {
-        path: '/model/Catalogue',
-        name: '/model/Catalogue',
-        component: () => import('@/views/model/Catalogue')
     },
     {
         path: '/model/Compare',
