@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Slot</title>
+    <style type="text/css">
+        .panel {
+            width: 400px;
+            border: 1px solid #ccc;
+        }
+
+        .panel > * {
+            padding: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .footer {
+            border: none;
+        }
+    </style>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <Child>
+        这是Child内容 这是Child内容 这是Child内容
+        <slot style="color:red;">这是在slot上添加了样式</slot>
+    </Child>
+</div>
+
+<template id="child">
+    <div>
+        <div class="panel">
+            <div class="title">这是标题</div>
+            <div class="content">
+                <slot></slot>
+                <slot style="color:blue;">这是在slot上添加了样式</slot>
+                <slot name="boboy">我是boboy</slot>
+            </div>
+            <div class="footer">这是页脚</div>
+        </div>
+    </div>
+</template>
+
+</body>
+<script type="text/javascript">
+    new Vue({
+        el: "#app",
+        data: {},
+        components: {
+            Child: {
+                template: "#child"
+            }
+        }
+    })
+</script>
+</html>

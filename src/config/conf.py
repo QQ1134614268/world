@@ -7,7 +7,7 @@ CONFIG_NAME_MAPPER = {
     'prod': 'prod_config.py',
     'test': 'test_config.py'
 }
-DEBUG_MODE = False
+DEBUG = True
 
 DI = "2440024344@qq.com"
 
@@ -34,8 +34,6 @@ SERVER_MAIL_PASS = "ragrmyytlnsuibih"
 
 APPID = "2019082466418136"
 ALI_PAY_AES_KEY = "U2LU6HVqOHkv7w7w5rZ2Ew=="
-
-DEBUG = True
 
 VERSION = "1.0.4"
 ROBOT_HOST = "http://127.0.0.1"

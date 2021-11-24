@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="title block" v-if="this.$route.params.value">
+    <div class="title block" v-if="this.$route.query.value">
       <input v-model="title"> </input>
     </div>
     <div class="block">
@@ -18,8 +18,8 @@ export default {
   name: "AddRoot",
   data() {
     return {
-      id: this.$route.params.id,
-      title: this.$route.params.value,
+      id: this.$route.query.id,
+      title: this.$route.query.value,
       content: "",
       url: "/api/model_api/ProveApi",
     }

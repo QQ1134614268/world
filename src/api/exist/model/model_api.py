@@ -3,6 +3,8 @@ from io import BytesIO
 import jieba
 from flask import jsonify, request, send_file, Blueprint
 from flask_restful import Resource
+from sqlalchemy import func, desc
+from sqlalchemy.orm import aliased
 
 from api.exist.model.Util import Res, ResList
 from api.exist.model.model import ProveVO, StoryVO
@@ -36,6 +38,7 @@ class ProveBlueprintApi:
     @staticmethod
     @prove_api.route('/high_word/<int:_id>', methods=['GET'])
     def high_word(_id):
+        # 高频词语
         res = ProveVO.query.with_entities(ProveVO.value).all()
         ret = [item[0] for item in res]
         bytes_res = bytes(" ".join(ret), encoding="utf-8")
@@ -51,11 +54,13 @@ class ProveBlueprintApi:
 
     @staticmethod
     def _prove_parent(_id):
+        # cte 递归查询父节点
         cte_part = db.session.query(ProveVO).filter(ProveVO.id == _id).cte(name="hierarchy", recursive=True)
         cte_all = cte_part.union_all(db.session.query(ProveVO).filter(ProveVO.id == cte_part.c.parent_id))
         result = db.session.query(ProveVO).select_entity_from(cte_all).all()
         return result
 
+    @staticmethod
     @prove_api.route('/prove_value_parent/<int:_id>', methods=['GET'])
     def prove_value_parent(_id):
         # cte 根据value 获取父节点
@@ -71,9 +76,65 @@ class ProveBlueprintApi:
         vos = ProveVO.query.filter(ProveVO.value.contains(value)).all()
         return jsonify(res_util.success(vos))
 
+    @staticmethod
+    @prove_api.route('/big_data/<int:_id>', methods=['GET'])
+    def big_data(_id):
+        # label aliased alias select_from join_from
+        # todo https://docs.sqlalchemy.org/en/14/orm/queryguide.html#controlling-what-to-join-from
+
+        prove_right = aliased(ProveVO, name='r')
+        vos = ProveVO.query.outerjoin(
+            prove_right, ProveVO.parent_id == prove_right.id
+        ).group_by(
+            ProveVO.parent_id
+        ).order_by(
+            desc("count")
+        ).with_entities(
+            prove_right.id, prove_right.value, func.count(ProveVO.parent_id).label("count")
+        ).limit(10).all()
+
+        # prove_right = aliased(ProveVO, name='r')
+        # db.session.execute('SET session sql_mode=""')
+        # vos = ProveVO.query.outerjoin(
+        #     prove_right, ProveVO.parent_id == prove_right.id
+        # ).group_by(
+        #     ProveVO.parent_id
+        # ).order_by(
+        #     ProveVO.parent_id.desc()
+        # ).limit(10).all()
+        return jsonify(res_util.success(vos))
+
+    @staticmethod
+    @prove_api.route('/attention_prove/<int:_id>', methods=['GET'])
+    def attention_prove(_id):
+        vos = ProveVO.query.order_by(ProveVO.wight.desc()).limit(10).all()
+        return jsonify(res_util.success(vos))
+
+
+def count_prove(function):
+    def wrapper(*args, **kw):
+        if kw.get("_id") == 0:
+            _id = request.args.get("parent_id")
+            ProveVO.query.filter(ProveVO.id == _id).update({ProveVO.wight: ProveVO.wight + 1})
+            db.session.commit()
+        res = function(*args, **kw)
+        return res
+
+    return wrapper
+
+
+# 装饰器为函数
+def timeit(fn):
+    def wrap(*args, **kwargs):
+        ret = fn(*args, **kwargs)
+        return ret
+
+    return wrap
+
 
 class ProveApi(Resource):
     @staticmethod
+    @count_prove
     def get(_id):
         return Res.get(_id, ProveVO)
 

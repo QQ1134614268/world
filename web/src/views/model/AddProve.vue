@@ -18,8 +18,8 @@ export default {
   name: "Edit",
   data() {
     return {
-      id: this.$route.params.id,
-      title: this.$route.params.value,
+      id: this.$route.query.id,
+      title: this.$route.query.value,
       content: "",
       url: "/api/model_api/ProveApi",
     }
