@@ -23,7 +23,7 @@ export default {
         {url: "/diary/diary_list", name: "日志列表"},
         {url: "/diary/add_diary", name: "写日志"},
         {url: "/message/message", name: "消息"},
-        {url: "/model/object", name: "真实之树"},
+        {url: "/model", name: "真实之树"},
         {url: "/apply/music/Music", name: "音乐"},
         {url: "/member/Store", name: "店铺"},
         {url: "/user/UserSpace", name: "用户空间"},

@@ -9,11 +9,10 @@ from flask_restful import Resource
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, make_transient
 
-from api.exist.model.model import ProveVO, StoryVO
 from config.mysql_db import db
 from util import res_util
 from util.video_util import get_first_frame_loc
-from vo.table_model import WorksVO
+from vo.table_model import WorksVO, ProveVO, StoryVO
 
 
 def ref_first_frame_loc():

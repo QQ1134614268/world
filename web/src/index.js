@@ -82,10 +82,17 @@ let routes = [
         }
     },
     {
+        path: '/FeedBack',
+        name: '/FeedBack',
+        component: function () {
+            return import(  '@/views/FeedBack.vue')
+        }
+    },
+    {
         path: '*',
         name: '/error/404',
         component: function () {
-            return import(/* webpackChunkName: "about" */ '@/views/404.vue')
+            return import( '@/views/404.vue')
         }
     },
 ]

@@ -7,10 +7,10 @@ from sqlalchemy import func, desc
 from sqlalchemy.orm import aliased
 
 from api.exist.model.Util import Res, ResList
-from api.exist.model.model import ProveVO, StoryVO
 from config.mysql_db import db
-from util import res_util
+from util import res_util, db_util
 from util.log_util import logger
+from vo.table_model import ProveVO, StoryVO
 
 prove_api = Blueprint("ProveApi", __name__, url_prefix='/api/ProveBlueprintApi')
 
@@ -36,8 +36,8 @@ class ProveBlueprintApi:
         return res_util.json_success(result)
 
     @staticmethod
-    @prove_api.route('/high_word/<int:_id>', methods=['GET'])
-    def high_word(_id):
+    @prove_api.route('/get_key_word/<int:_id>', methods=['GET'])
+    def get_key_word(_id):
         # 高频词语
         res = ProveVO.query.with_entities(ProveVO.value).all()
         ret = [item[0] for item in res]
@@ -50,6 +50,7 @@ class ProveBlueprintApi:
             else:
                 counts[word] = counts.get(word, 0) + 1
         result = sorted(counts.items(), key=lambda x: x[1], reverse=True)
+        result = [{"name": item[0], "count": item[1]} for item in result if item[1] > 3]
         return res_util.json_success(result)
 
     @staticmethod
@@ -77,13 +78,13 @@ class ProveBlueprintApi:
         return jsonify(res_util.success(vos))
 
     @staticmethod
-    @prove_api.route('/big_data/<int:_id>', methods=['GET'])
-    def big_data(_id):
-        # label aliased alias select_from join_from
-        # todo https://docs.sqlalchemy.org/en/14/orm/queryguide.html#controlling-what-to-join-from
+    @prove_api.route('/much_children/<int:_id>', methods=['GET'])
+    def much_children(_id):
+        # todo 函数 label aliased alias select_from join_from 右连接
+        #  https://docs.sqlalchemy.org/en/14/orm/queryguide.html#controlling-what-to-join-from
 
         prove_right = aliased(ProveVO, name='r')
-        vos = ProveVO.query.outerjoin(
+        res = ProveVO.query.outerjoin(
             prove_right, ProveVO.parent_id == prove_right.id
         ).group_by(
             ProveVO.parent_id
@@ -102,11 +103,12 @@ class ProveBlueprintApi:
         # ).order_by(
         #     ProveVO.parent_id.desc()
         # ).limit(10).all()
-        return jsonify(res_util.success(vos))
+        ret = db_util.row_to_dic(res)
+        return jsonify(res_util.success(ret))
 
     @staticmethod
-    @prove_api.route('/attention_prove/<int:_id>', methods=['GET'])
-    def attention_prove(_id):
+    @prove_api.route('/popular_word/<int:_id>', methods=['GET'])
+    def popular_word(_id):
         vos = ProveVO.query.order_by(ProveVO.wight.desc()).limit(10).all()
         return jsonify(res_util.success(vos))
 

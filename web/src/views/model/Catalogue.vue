@@ -10,11 +10,17 @@
       <router-link tag="a" target="_blank" :to="{name:'/model/Story'}">
         故事
       </router-link>
-      <router-link tag="a" target="_blank" :to="{name:'/model/Story'}">
-        少量原则 告警 todo
+      <router-link tag="a" target="_blank" :to="{name:'/model/MuchChildren'}">
+        子节点多告警
       </router-link>
-      <router-link tag="a" target="_blank" :to="{name:'/model/Story'}">
-        关注 常用 todo
+      <router-link tag="a" target="_blank" :to="{name:'/model/PopularWord'}">
+        关注与常用
+      </router-link>
+      <router-link tag="a" target="_blank" :to="{name:'/model/KeyWord'}">
+        关键词统计
+      </router-link>
+      <router-link tag="a" target="_blank" :to="{name:'/FeedBack'}">
+        反馈
       </router-link>
     </div>
     <div>

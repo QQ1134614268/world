@@ -60,6 +60,21 @@ const routes = [
         name: '/model/Parent',
         component: () => import('@/views/model/Parent')
     },
+    {
+        path: '/model/KeyWord',
+        name: '/model/KeyWord',
+        component: () => import('@/views/model/components/KeyWord')
+    },
+    {
+        path: '/model/MuchChildren',
+        name: '/model/MuchChildren',
+        component: () => import('@/views/model/components/MuchChildren')
+    },
+    {
+        path: '/model/PopularWord',
+        name: '/model/PopularWord',
+        component: () => import('@/views/model/components/PopularWord')
+    },
 ]
 
 

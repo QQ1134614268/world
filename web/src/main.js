@@ -57,7 +57,7 @@ const get = (url, params) => {
         params: params
     })
 };
-const get2 = (url, id, params) => {
+export const get2 = (url, id, params) => {
     if (id == undefined) {
         id = 0
     }
@@ -191,6 +191,14 @@ router.beforeEach((to, from, next) => {
         next()
     }
 })
+
+import VueQuillEditor  from 'vue-quill-editor'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+
+Vue.use(VueQuillEditor);
+
 new Vue({
     router,
     store,
