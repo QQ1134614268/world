@@ -16,3 +16,6 @@ todo
 
 button-box slot
 router-link
+
+权限-- 资源所有者权限校验 todo
+video_user 与 user

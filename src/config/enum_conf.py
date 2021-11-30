@@ -38,3 +38,19 @@ class Weekday(Enum):
 
 
 Month = Enum('Month2', ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'))
+
+
+class Permission:  # 权限常量
+    FOLLOW = 0x01  # 关注用户
+    COMMENT = 0x02  # 发表评论
+    WRITE_ARTICLES = 0x04  # 写文章
+    MODERATE_COMMENTS = 0x08  # 管理他们发表的评价
+    ADMINISTER = 0x80  # 管理员权限
+
+
+class Role:  # 权限常量
+    FOLLOW = 0x01  # 关注用户
+    COMMENT = 0x02  # 发表评论
+    WRITE_ARTICLES = 0x04  # 写文章
+    MODERATE_COMMENTS = 0x08  # 管理他们发表的评价
+    ADMINISTER = 0x80  # 管理员权限

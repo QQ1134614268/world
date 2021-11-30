@@ -276,14 +276,6 @@ class UserCloudSpaceVO(BaseTable):
     file_path = Column(String(150), default='/xxx/xxx.txt')
 
 
-class OrganizationMemberRelationVO(BaseTable):
-    __tablename__ = 'organization_member_relation'
-    name = Column(String(150), default='123456')
-    level = Column(String(70), default='default.jpg')
-    full_name = Column(String(70), default='default.jpg')
-    full_path = Column(String(70), default='default.jpg')
-
-
 class GoodsVO(BaseTable2):
     __tablename__ = 'goods_t'
     name = Column(String(256), default='123456')
