@@ -68,11 +68,27 @@ class EnumConfig(BaseTable):
 class UserVO(BaseTable):
     __tablename__ = 'user'
     username = Column(String(12), index=True)
-    password = Column(String(128))
+    password = Column(String(128))  # todo 加密
     phone = Column(String(11))
+    avatar = Column(Integer, default=1)
+
     email = Column(String(60))
     userType = Column(Integer, default=1)
-    avatar = Column(Integer, default=1)
+
+    # avatar = Column(String(255), default="default_avatar.png")
+    # username = Column(String(255), unique=True)
+    # password = Column(String(255))
+    # phone = Column(String(255))  # 手机号
+    #
+    # describe = Column(String(255))
+    # id_card = Column(String(255))  # 身份证
+    # business_license = Column(String(255))  # 营业执照
+    # brand = Column(String(255))  # 商标
+    # resume = Column(String(255))  # 简历
+    # tiktok_number = Column(String(255))  # 抖音号
+    # video_number = Column(String(255))  # 视频号
+    # wechat_number = Column(String(255))  # 微信号
+    # role = Column(String(255))
 
 
 class VideoUserVO(BaseTable2):
