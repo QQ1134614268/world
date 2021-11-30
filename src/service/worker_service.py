@@ -7,8 +7,7 @@ from sqlalchemy.sql import and_
 
 import service.token_service
 from vo.table_model import WorkerVO, WorkerTimeVO
-from config.GLOBAL_DICTIONARY import TIME_ENUM
-from config.conf import DATE_FORMAT
+from config.conf import DATE_FORMAT, TIME_ENUM
 from config.mysql_db import db
 from config.orm_config import DateTime
 from service import user_service

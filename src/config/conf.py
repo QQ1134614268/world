@@ -55,3 +55,11 @@ REDIS_HOST = "127.0.0.1"
 REDIS_PORT = 6379
 REDIS_DB = 0
 REDIS_PASSWORD = 1234567890
+
+TIME_ENUM = {
+    "上午": {"morning": 4.5},
+    "下午": {"afternoon": 4.5},
+    "中午": {"noon": 1.5},
+    "晚上": {"night": 4.5},
+    "全天": {"morning": 4.5, "afternoon": 4.5},
+}

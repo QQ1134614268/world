@@ -3,7 +3,7 @@ import pymongo
 from config.conf import MONGO_HOST, MONGO_PORT
 
 
-def create_mongoDB():
+def create_mongo_db():
     client = pymongo.MongoClient(host="mongodb://{}:{}/".format(MONGO_HOST, MONGO_PORT))
     # 指定数据库
     db = client.world
@@ -11,7 +11,7 @@ def create_mongoDB():
     return db
 
 
-mongoDB = create_mongoDB()
+mongoDB = create_mongo_db()
 
 if __name__ == '__main__':
     # collection = mongoDB.student
