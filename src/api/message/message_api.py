@@ -5,7 +5,7 @@ from flask_restful import fields, marshal
 import service.token_service
 from config.mysql_db import db
 from config.orm_config import DateTime
-from config.user_type import UserType
+from config.enum_conf import UserType
 from service import user_service
 from util import res_util
 from vo.table_model import PersonSpeech

@@ -1,16 +1,18 @@
 from flask import jsonify
 
+from config.enum_conf import ExceptionCode
+
 
 def success(data="success"):
     return {
-        "code": 1,
+        "code": ExceptionCode.SUCCESS.value,
         "data": data,
     }
 
 
 def page_success(data="success"):
     return {
-        "code": 1,
+        "code": ExceptionCode.SUCCESS.value,
         "data": data.items,
         "total": data.total,
         "page": data.page,
@@ -20,20 +22,20 @@ def page_success(data="success"):
 
 def json_success(data="success"):
     return jsonify({
-        "code": 1,
+        "code": ExceptionCode.SUCCESS.value,
         "data": data,
     })
 
 
 def fail(data=""):
     return {
-        "code": 2,
+        "code": ExceptionCode.FAIL.value,
         "data": data,
     }
 
 
-def err(data=""):
+def exception(data=""):
     return {
-        "code": 4,
+        "code": ExceptionCode.EXCEPTION.value,
         "data": data,
     }

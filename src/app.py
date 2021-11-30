@@ -126,7 +126,7 @@ def handle_404_error(err_msg):
             "err_msg": str(err_msg)
         }
     })
-    return res_util.err(u"server error：%s" % err_msg)
+    return res_util.exception(u"server error：%s" % err_msg)
 
 
 @app.errorhandler(Exception)
@@ -168,8 +168,8 @@ def flask_global_exception_handler(err):
     except:
         logger.error("global_exception_handler 发生异常")
     if app.config["DEBUG"]:
-        return res_util.err(message)
-    return res_util.err("服务器发生了一个错误")
+        return res_util.exception(message)
+    return res_util.exception("服务器发生了一个错误")
 
 
 @app.errorhandler(AssertionError)

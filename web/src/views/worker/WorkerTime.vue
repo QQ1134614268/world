@@ -61,7 +61,7 @@ export default {
       }
       let response = await this.$get(url, data);
       if (response.data.code != 1) {
-        this.$message('server error');
+        this.$message(response.data.data);
         return
       }
       this.workerTime = response.data.data

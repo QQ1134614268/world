@@ -78,7 +78,7 @@ export default {
       let url = '/api/work_api/WorkerApi';
       let response = await this.$get(url);
       if (response.data.code != 1) {
-        this.$message('server error');
+        this.$message(response.data.data);
         return
       }
       this.dataList = response.data.data
@@ -87,7 +87,7 @@ export default {
       let url = '/api/work_api/WorkerApi';
       let response = await this.$putJson(url, this.dataList);
       if (response.data.code != 1) {
-        this.$message('server error');
+        this.$message(response.data.data);
         return
       }
       this.$message('success');
@@ -109,7 +109,7 @@ export default {
       let url = '/api/work_api/WorkerApi';
       let response = await this.$get(url);
       if (response.data.code != 1) {
-        this.$message('server error');
+        this.$message(response.data.data);
         return
       }
       this.dataList = response.data.data
@@ -118,7 +118,7 @@ export default {
       let url = '/api/work_api/WorkerApi';
       let response = await this.$get(url);
       if (response.data.code != 1) {
-        this.$message('server error');
+        this.$message(response.data.data);
         return
       }
       this.dataList = response.data.data

@@ -2,7 +2,7 @@ echo 'cd  /app/world
 git pull
 cd
 # git --git-dir /app/world/.git pull
-nohup pip3.7 install -r /app/world/requirements.txt  &
+pip3.7 install -r /app/world/requirements.txt  > /var/log/world.log
 cd  /app/world/src
 python3.7 manage.py db upgrade
 
@@ -11,9 +11,9 @@ nohup python3.7 /app/world/src/app.py &
 
 
 cd  /app/world/web
+npm install >> /var/log/world.log
 pkill -f "node /app/world/web"
 nohup npm run production >/dev/null 2>&1 &
-cd
 '>world_update.sh
 
 chmod +x world_update.sh

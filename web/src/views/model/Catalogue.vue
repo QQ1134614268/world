@@ -1,29 +1,35 @@
 <template>
   <div>
-    <div>
-      <router-link tag="a" target="_blank" :to="{name:'/model/Compare'}">
+    <div class="block">
+      <router-link tag="a" target="_blank" :to="{name:'/model/Compare'}" class="p_c_space">
         移动
       </router-link>
-      <router-link tag="a" target="_blank" :to="{name:'/model/Parent'}">
+      <router-link tag="a" target="_blank" :to="{name:'/model/Parent'}" class="p_c_space">
         查看父级
       </router-link>
-      <router-link tag="a" target="_blank" :to="{name:'/model/Story'}">
+      <router-link tag="a" target="_blank" :to="{name:'/model/Story'}" class="p_c_space">
         故事
       </router-link>
-      <router-link tag="a" target="_blank" :to="{name:'/model/MuchChildren'}">
+      <router-link tag="a" target="_blank" :to="{name:'/model/MuchChildren'}" class="p_c_space">
         子节点多告警
       </router-link>
-      <router-link tag="a" target="_blank" :to="{name:'/model/PopularWord'}">
+      <router-link tag="a" target="_blank" :to="{name:'/model/PopularWord'}" class="p_c_space">
         关注与常用
       </router-link>
-      <router-link tag="a" target="_blank" :to="{name:'/model/KeyWord'}">
+      <router-link tag="a" target="_blank" :to="{name:'/model/KeyWord'}" class="p_c_space">
         关键词统计
       </router-link>
-      <router-link tag="a" target="_blank" :to="{name:'/FeedBack'}">
+      <router-link tag="a" target="_blank" :to="{name:'/FeedBack'}" class="p_c_space">
         反馈
       </router-link>
+      <router-link tag="a" target="_blank"
+                   :to="{name:'/model/AddProve',query: {id:0,value: '新项目'}}"
+                   class="p_c_space">
+        创建新项目
+      </router-link>
+
     </div>
-    <div>
+    <div  class="block">
       <el-autocomplete class="inline-input" v-model="search" placeholder="请输入内容" :fetch-suggestions="querySearch"
                        :trigger-on-focus="false" @select="handleSelect">
       </el-autocomplete>

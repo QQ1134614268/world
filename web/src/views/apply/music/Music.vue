@@ -40,7 +40,6 @@ export default {
       let url = "/api/hello_api/get_music"
       let response = await this.$get(url);
       if (response.data.code != 1) {
-        alert("2")
         return
       }
       for (let value of response.data.data) {

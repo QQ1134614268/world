@@ -8,11 +8,16 @@ import "./assets/global.css"
 import "./assets/global_article.css"
 import store from "./views/hello/vuex_test/store"
 import VueCropper from 'vue-cropper'
+import VueQuillEditor from 'vue-quill-editor'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
 
 Vue.use(VueCropper)
 
 Axios.defaults.baseURL = process.env.VUE_APP_BASE_URL
-Axios.defaults.headers.common['token'] = localStorage.getItem("token");
+let token = localStorage.getItem("token")
+Axios.defaults.headers.common['token'] = token ? token : "";
 // Axios.defaults.headers.common['token'] = token ? token : "";
 // Vue.http.headers.common['token'] = "3";
 Axios.defaults.headers.common['Content-Type'] = 'application/json;';
@@ -30,12 +35,15 @@ Axios.interceptors.response.use(
         // 成功请求到数据
         if (response.status === 200) {
             if (response.data.code && response.data.code == 4) {
-                alert("服务器发生一个错误")
+                alert(response.data.data)
+                return
             }
-            if (response.data.code && response.data.code == 2) {
-                // alert(response.data.data)
-                console.log(response.data)
-            }
+            //todo code ==8, 交互, list<object> 统一处理, str
+            // if (response.data.code && response.data.code == 2) {
+            //     // alert(response.data.data)
+            //     alert(response.data.data)
+            //     return
+            // }
             return Promise.resolve(response);
         } else {
             return Promise.reject(response);
@@ -191,11 +199,6 @@ router.beforeEach((to, from, next) => {
         next()
     }
 })
-
-import VueQuillEditor  from 'vue-quill-editor'
-import 'quill/dist/quill.core.css'
-import 'quill/dist/quill.snow.css'
-import 'quill/dist/quill.bubble.css'
 
 Vue.use(VueQuillEditor);
 

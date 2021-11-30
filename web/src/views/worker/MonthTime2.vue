@@ -53,7 +53,7 @@ export default {
       let url = '/api/work_api/WorkerApi';
       let response = await this.$get(url);
       if (response.data.code != 1) {
-        this.$message('server error');
+        this.$message(response.data.data);
         return
       }
       this.workers = response.data.data
@@ -67,7 +67,7 @@ export default {
       }
       let response = await this.$postJson(url, data);
       if (response.data.code != 1) {
-        this.$message('server error');
+        this.$message(response.data.data);
       } else {
         this.$message('success');
       }

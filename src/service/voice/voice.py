@@ -51,7 +51,7 @@ def fetch_token():
               'client_id': API_KEY,
               'client_secret': SECRET_KEY}
     post_data = urlencode(params)
-    if (IS_PY3):
+    if IS_PY3:
         post_data = post_data.encode('utf-8')
     req = Request(TOKEN_URL, post_data)
     try:
