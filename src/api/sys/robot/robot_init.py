@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 import json
 
-from api.apply.robot.action import register
-from api.apply.robot.user_data import wg, zero, ran, test
+from api.sys.robot.action import register
+from api.sys.robot.user_data import wg, zero, ran, test
 
 
 def register_init():

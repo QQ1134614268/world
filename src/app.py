@@ -14,14 +14,13 @@ from flask_restful import Api
 
 import service.token_service
 from api.HelloApi import hello_api
-from api.apply.member.member_api import StoreApi, StoreMemberApi, GoodsApi, GoodsListApi, StoreListApi, \
+from api.member import StoreApi, StoreMemberApi, GoodsApi, GoodsListApi, StoreListApi, \
     StoreMemberListApi, OrderApi, OrderListApi
-from api.apply.stone_game.StoneGameApi import stone_game_api
-from api.apply.video.video_api import TargetApi, WorksApi, VideoUserApi, InvitationCodeApi, TargetListApi, \
+from api.stone_game import stone_game_api
+from api.video import TargetApi, WorksApi, VideoUserApi, InvitationCodeApi, TargetListApi, \
     WorksListApi, MarketWorksListApi, MarketTargetListApi, WorksRankListApi, TargetRankListApi, VideoUserLoginApi
-from api.auth.AuthApi import auth_api
-from api.customize.CustomizeApi import customize_api
-from api.exist.all import AllApi
+from api.sys.customize import customize_api
+from api.tree.all import AllApi
 from api.exist.model.model_api import ProveApi, StoryApi, UploadDataApi, prove_api
 from api.message.Speech.SpeechApi import speech_api
 from api.message.attention_api import attention_api
@@ -30,8 +29,8 @@ from api.message.wb.WbApi import wb_api
 from api.message.wx.SocketApi import socket_api
 from api.my_cloud_space.CloudSpaceApi import cloud_space_api, FileApi
 from api.project_api import ProjectInit
-from api.scheduler.APScheduler import scheduler
-from api.scheduler.SchedulerApi import scheduler_api
+from api.sys.scheduler.APScheduler import scheduler
+from api.sys.scheduler.SchedulerApi import scheduler_api
 from api.sys.SysApi import sys_api
 from api.sys.file.file_api import FileApi2
 from api.user.user_api import user_api

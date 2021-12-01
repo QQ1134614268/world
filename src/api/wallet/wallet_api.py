@@ -7,7 +7,7 @@ from flask import request
 from flask_restful import Resource
 from flask_restful import fields, marshal
 
-from service import WalletService
+from service import wallet_service
 from util import res_util
 from vo.table_model import WalletVO
 
@@ -23,7 +23,7 @@ class WalletApi(Resource):
         data = request.get_json()
         money = data.get('money', '')
         wallet_id = data.get('id', '')
-        return res_util.success(WalletService.pay(wallet_id, money))
+        return res_util.success(wallet_service.pay(wallet_id, money))
 
     def get(self):
         if request.args.get("id"):

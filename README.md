@@ -21,3 +21,16 @@ router-link
     模块权限,防数据被盗
     
 video_user 与 user
+
+UI
+
+renren.ggok.top  人人影
+worker.oa.ggok.top  工时系统
+store.ggok.com
+jiangxin.ggok.com
+
+root.system.ggok.com 树
+user.ggok.com 统一登录
+
+game.ggok.com  
+# https://blog.csdn.net/Yokna/article/details/117196684

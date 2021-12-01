@@ -11,35 +11,6 @@ wb_api = Blueprint("wb_api", __name__, url_prefix='/api/wb_api')
 
 @wb_api.route('/add_blog', methods=['POST'])
 def add_blog():
-    """
-    发表博客
-    ---
-    tags:
-      - wb_api
-    consumes:
-      - application/json
-    produces: ["application/json"]
-    parameters:
-      - in: body
-        name: body
-        description:
-          发表博客
-        required: true
-        schema:
-          id: blog
-          required:
-            - content
-          properties:
-            content:
-              description: 内容
-              type: string
-              example: 天气晴
-    responses:
-      500:
-        description: server error
-      200:
-        description: success
-    """
     data = request.get_json()
     content = data.get('content', '')
     user_id = service.token_service.get_id_by_token()
@@ -51,40 +22,6 @@ def add_blog():
 
 @wb_api.route('/add_comment', methods=['POST'])
 def add_comment():
-    """
-    发表博客
-    ---
-    tags:
-      - wb_api
-    consumes:
-      - application/json
-    produces: ["application/json"]
-    parameters:
-      - in: body
-        name: body
-        description:
-          发表博客
-        required: true
-        schema:
-          id: comment
-          required:
-            - content
-            - blog_id
-          properties:
-            comment:
-              description: 评论
-              type: string
-              example: 天气晴
-            blog_id:
-              description: 评论博客id
-              type: integer
-              example: 1
-    responses:
-      500:
-        description: server error
-      200:
-        description: success
-    """
     data = request.get_json()
     comment = data.get('comment', '')
     blog_id = data.get('blog_id', '')
@@ -109,18 +46,6 @@ blog_fields = {
 
 @wb_api.route('/get_user_blog_by_page', methods=['GET'])
 def get_user_blog():
-    """
-    获取用户的博客
-    ---
-    tags:
-      - wb_api
-    responses:
-      500:
-        description: server error
-      200:
-        description: success
-    """
-
     data = request.get_json()
     user_id = data.get('user_id', '')
     page_index = data.get('page_index', 0)

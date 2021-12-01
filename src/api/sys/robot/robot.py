@@ -1,10 +1,9 @@
 # -*- coding:utf-8 -*-
 import json
 
-from api.apply.robot import action
-from api.apply.robot import user_data
+from api.sys.robot import user_data, action
 from util.data_util import create_data
-from api.apply.robot.action import register
+from api.sys.robot.action import register
 
 
 def robot1():

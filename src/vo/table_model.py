@@ -68,7 +68,7 @@ class EnumConfig(BaseTable):
 class UserVO(BaseTable):
     __tablename__ = 'user'
     username = Column(String(12), index=True)
-    password = Column(String(128))  # todo 加密
+    password = Column(String(128))  # todo
     phone = Column(String(11))
     avatar = Column(Integer, default=1)
 
@@ -179,12 +179,6 @@ class Attention(BaseTable):
     #     '最爱', '风景', '人物', '动物', '游记', '卡通', '生活', '其他'
     # ), server_default='最爱', nullable=False)
     group = Column(String(150), index=True)
-
-
-class AuthVO(BaseTable):
-    __tablename__ = 'auth'
-    user_id = Column(Integer)
-    path = Column(String(150), default='/')
 
 
 class BlogVO(BaseTable):

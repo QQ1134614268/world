@@ -1,9 +1,9 @@
 from flask_apscheduler import APScheduler
 
-from api.apply.robot.robot import robot1
-from api.apply.robot.robot import robot1_wg
-from api.scheduler.SchedulerFunc import init_dir
-from api.scheduler.SchedulerFunc import init_db
+from api.sys.robot import robot1
+from api.sys.robot import robot1_wg
+from api.sys.scheduler.SchedulerFunc import init_dir
+from api.sys.scheduler.SchedulerFunc import init_db
 
 
 scheduler = APScheduler()
