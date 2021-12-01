@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import message from '@/views/message/message'
 import HelloRoutes from "@/views/hello/index";
-import video_routes from "@/views/apply/video/index";
+import video_routes from "@/views/video/index";
 import worker_routes from "@/views/worker/index";
 import worker2_routes from "@/views/worker2/index";
 import member_routes from "@/views/member/index";
@@ -22,7 +22,7 @@ let routes = [
     {
         path: '/',
         name: '/',
-        component: () => import('@/views/apply/video/Market'),
+        component: () => import('@/views/video/Market'),
     }, {
         path: '/root',
         name: '/root',
@@ -34,20 +34,20 @@ let routes = [
     }, {
         path: '/apply/music/Music',
         name: '/apply/music/Music',
-        component: () => import('@/views/apply/music/Music.vue')
+        component: () => import('@/views/music/Music.vue')
     },
     {
         path: '/diary/add_diary',
         name: '/diary/add_diary',
-        component: () => import('@/views/apply/diary/add_diary.vue')
+        component: () => import('@/views/user/diary/add_diary.vue')
     }, {
         path: '/diary/diary_info',
         name: '/diary/diary_info',
-        component: () => import('@/views/apply/diary/diary_info.vue')
+        component: () => import('@/views/user/diary/diary_info.vue')
     }, {
         path: '/diary/diary_list',
         name: '/diary/diary_list',
-        component: () => import('@/views/apply/diary/diary_list.vue')
+        component: () => import('@/views/user/diary/diary_list.vue')
     },
     {
         path: '/sys/root',

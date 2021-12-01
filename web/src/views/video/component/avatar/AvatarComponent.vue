@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import AvatarComponentBase from "@/views/apply/video/component/avatar/AvatarComponentBase";
+import AvatarComponentBase from "@/views/video/component/avatar/AvatarComponentBase";
 
 export default {
   name: "AvatarComment",
