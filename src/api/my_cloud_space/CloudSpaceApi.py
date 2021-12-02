@@ -54,17 +54,6 @@ def getFiles(file_dir):
 
 @cloud_space_api.route('/get_filename_list', methods=['GET'])
 def get_filename_list():
-    """
-    获取文件列表
-    ---
-    tags:
-      - cloud_space_api
-    responses:
-      500:
-        description: server err
-      200:
-        description: success
-    """
     user_id = service.token_service.get_id_by_token()
     vo_list = UserCloudSpaceVO.query.filter(UserCloudSpaceVO.user_id == user_id).all()
     name_list = [vo.file_name for vo in vo_list]
@@ -73,23 +62,6 @@ def get_filename_list():
 
 @cloud_space_api.route('/file_upload', methods=['POST'])
 def file_upload():
-    """
-    上传一个文件
-    ---
-    tags:
-      - cloud_space_api
-    parameters:
-      - in: formData
-        name: file
-        type: file
-        required: true
-        description: upload a file
-    responses:
-      500:
-        description: server err
-      200:
-        description: success
-    """
     file1 = request.files["file"]
     user_id = service.token_service.get_id_by_token()
     vo = UserCloudSpaceVO.query.filter_by(file_name=file1.filename, user_id=user_id).first()
@@ -110,24 +82,6 @@ def file_upload():
 
 @cloud_space_api.route('/file_download', methods=['GET'])
 def file_download():
-    """
-    下载一个文件
-    ---
-    tags:
-      - cloud_space_api
-    parameters:
-     - name: filename
-       type: string
-       required: true
-       description: user_id
-       in: query
-       example: 1
-    responses:
-      500:
-        description: server err
-      200:
-        description: success
-    """
     user_id = service.token_service.get_id_by_token()
     filename = request.args.get("filename")
     vo = UserCloudSpaceVO.query.filter_by(file_name=filename, user_id=user_id).first()
@@ -139,31 +93,6 @@ def file_download():
 
 @cloud_space_api.route('/delete_file', methods=['POST'])
 def delete_file():
-    """
-    删除一个文件
-    ---
-    tags:
-      - cloud_space_api
-    parameters:
-      - in: body
-        name: body
-        description:
-          文件名
-        required: true
-        schema:
-          required:
-            - filename
-          properties:
-            filename:
-              description: filename
-              type: string
-              example: a.txt
-    responses:
-      500:
-        description: server err
-      200:
-        description: success
-    """
     data = request.get_json()
     filename = data.get("filename")
     user_id = service.token_service.get_id_by_token()

@@ -22,6 +22,10 @@ router-link
     
 video_user 与 user
 
+java繁琐,通用, Python模糊,简洁
+大数据,人工智能, pmp, 
+
+
 UI
 
 renren.ggok.top  人人影

@@ -65,6 +65,27 @@ class EnumConfig(BaseTable):
     create_by = Column(String(255), server_default='SYSTEM', comment="创建者")
 
 
+
+# class Business(BaseModel, UserMixin):
+#     username = db.Column(db.String(16), unique=True, index=True)
+#     _password = db.Column('password', db.String(128), nullable=False)
+#     phone = db.Column(db.Integer, nullable=False)
+#
+#     # 设置访问密码的方法,并用装饰器@property设置为属性,调用时不用加括号
+#     @property
+#     def password(self):
+#         return self._password
+#
+#     # 设置加密的方法,传入密码,对类属性进行操作
+#     @password.setter
+#     def password(self, value):
+#         self._password = generate_password_hash(value)
+#
+#     # 设置验证密码的方法
+#     def check_password(self, user_pwd):
+#         return check_password_hash(self._password, user_pwd)
+
+
 class UserVO(BaseTable):
     __tablename__ = 'user'
     username = Column(String(12), index=True)
