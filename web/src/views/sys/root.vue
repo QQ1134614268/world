@@ -1,10 +1,14 @@
 <template>
-  <div class="hello" style="line-height:4rem;">
-    <div v-for="item in routes">
-      <a :href=item>{{ item }}</a>
-    </div>
+  <div class="p_c_flexbox">
     <div v-for="item in sysUrls ">
-      <a :href=item.url>{{ item.name }}</a>
+      <a :href=item.url>
+        <div class="p_c_box-flex_col-center">
+          <div style="width: 10rem">
+            <img src="@/assets/route.webp" >
+          </div>
+          <div>{{item.name}}</div>
+        </div>
+      </a>
     </div>
   </div>
 </template>
@@ -15,11 +19,9 @@ export default {
   name: "root",
   data() {
     return {
-      routes: [
-        "/hello",
-        "/worker",
-      ],
       sysUrls: [
+        {url: "/worker", name: "工时"},
+        {url: "/hello", name: "测试"},
         {url: "/diary/diary_list", name: "日志列表"},
         {url: "/diary/add_diary", name: "写日志"},
         {url: "/message/message", name: "消息"},

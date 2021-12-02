@@ -1,7 +1,6 @@
 from flask_apscheduler import APScheduler
 
-from api.sys.robot import robot1
-from api.sys.robot import robot1_wg
+from api.sys.robot.robot import robot1, robot1_wg
 from api.sys.scheduler.SchedulerFunc import init_dir
 from api.sys.scheduler.SchedulerFunc import init_db
 

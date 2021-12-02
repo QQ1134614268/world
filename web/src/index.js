@@ -57,12 +57,12 @@ let routes = [
     {
         path: '/sys/login',
         name: '/sys/login',
-        component: () => import('@/views/sys/login.vue')
+        component: () => import('@/views/user/login.vue')
     },
     {
         path: '/sys/register',
         name: '/sys/register',
-        component: () => import('@/views/sys/register.vue')
+        component: () => import('@/views/user/register.vue')
     },
     {
         path: '/user/attention',

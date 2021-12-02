@@ -10,11 +10,12 @@
       <div style="width: 20rem">{{ item.title }}</div>
       <button @click="getDiaryInfo(item.id)">查看详情</button>
     </div>
-     <el-tabs tab-position="left" style="height: 200px;">
-    <el-tab-pane label="列表">列表</el-tab-pane>
-    <el-tab-pane label="写个日记">配置管理</el-tab-pane>
-    <el-tab-pane label="查看详情">角色管理</el-tab-pane>
-  </el-tabs>
+    <!--    todo el-tabs 页签-->
+    <el-tabs tab-position="left" style="height: 200px;">
+      <el-tab-pane label="列表">列表</el-tab-pane>
+      <el-tab-pane label="写个日记">配置管理</el-tab-pane>
+      <el-tab-pane label="查看详情">角色管理</el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 

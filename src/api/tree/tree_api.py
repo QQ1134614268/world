@@ -6,7 +6,7 @@ from flask_restful import Resource
 from sqlalchemy import func, desc
 from sqlalchemy.orm import aliased
 
-from api.exist.model.Util import Res, ResList
+from api.tree.Util import Res, ResList
 from config.mysql_db import db
 from util import res_util, db_util
 from util.log_util import logger
