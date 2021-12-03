@@ -1,5 +1,6 @@
 <template>
   <div>
+    统计 -- 月度,成本 个人维度
     <div>
       <el-select v-model="year" clearable placeholder="请选择" v-on:change="initDayList">
         <el-option

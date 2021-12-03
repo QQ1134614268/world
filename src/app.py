@@ -117,10 +117,8 @@ def handle_404_error(err_msg):
     """
     # 这个函数的返回值就是前端用户看到的最终结果 (404错误页面)
     url_path = request.path
-    user_id = service.token_service.get_name_by_token()
     logger.error({
         "404": {
-            "userId": user_id,
             "url_path": url_path,
             "err_msg": str(err_msg)
         }
@@ -244,8 +242,8 @@ api2.add_resource(GoodsApi, "/api/goods", "/api/goods/<int:_id>")
 api2.add_resource(GoodsListApi, "/api/goods_list")
 
 # 工时
-api2.add_resource(WorkerApi, "/api/work_api/WorkerApi")
-api2.add_resource(WorkerTimeApi, "/api/work_api/WorkerTimeApi")
+api2.add_resource(WorkerApi, "/api/work_api/WorkerApi/<int:_id>")
+api2.add_resource(WorkerTimeApi, "/api/work_api/WorkerTimeApi/<int:_id>")
 app.register_blueprint(work_api2)
 # video
 api2.add_resource(TargetApi, "/api/video_api/TargetApi/<int:_id>")
