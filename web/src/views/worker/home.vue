@@ -1,8 +1,8 @@
 <template>
   <div class="p_c_flexbox">
     <div>
-      <el-menu>
-        <el-submenu index="1">
+      <el-menu default-active="1" active-text-color="#409EFF">
+        <el-menu-item index="1">
           <template slot="title">
             <i class="el-icon-location"></i>
             <span slot="title">
@@ -11,8 +11,8 @@
               </router-link>
             </span>
           </template>
-        </el-submenu>
-        <el-submenu index="2">
+        </el-menu-item>
+        <el-menu-item index="2">
           <template slot="title">
             <i class="el-icon-setting"></i>
             <span slot="title">
@@ -21,8 +21,8 @@
               </router-link>
             </span>
           </template>
-        </el-submenu>
-        <el-submenu index="3">
+        </el-menu-item>
+        <el-menu-item index="3">
           <template slot="title">
             <i class="el-icon-info"></i>
             <span slot="title">
@@ -31,8 +31,8 @@
               </router-link>
             </span>
           </template>
-        </el-submenu>
-        <el-submenu index="4">
+        </el-menu-item>
+        <el-menu-item index="4">
           <template slot="title">
             <i class="el-icon-data-analysis"></i>
             <span slot="title">
@@ -41,7 +41,7 @@
               </router-link>
             </span>
           </template>
-        </el-submenu>
+        </el-menu-item>
       </el-menu>
 
     </div>
@@ -53,19 +53,12 @@
 
 <script>
 export default {
-  name: "index",
+  name: "home",
   data() {
     return {
-      isCollapse: true
     };
   },
   methods: {
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
-    }
   }
 }
 </script>
