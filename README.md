@@ -56,3 +56,11 @@ game.ggok.com
 
 
 页签 vs 新页面 vs children 子集
+
+
+项目拆分,项目嵌套?? todo
+<router-view class="view left-sidebar" name="LeftSidebar"></router-view>
+<router-view class="view main-content"></router-view>
+<router-view class="view right-sidebar" name="RightSidebar"></router-view>
+
+todo 工时系统

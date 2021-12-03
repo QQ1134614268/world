@@ -1,14 +1,15 @@
 export const routes = [
-    {
-        path: '/worker/home',
-        name: '/worker/home',
-        component: () => import('@/views/worker/home'),
-    },
+    // {
+    //     path: '/worker/home',
+    //     name: '/worker/home',
+    //     component: () => import('@/views/worker/home'),
+    // },
     {
         path: '/worker',
         name: '/worker',
         component: () => import('@/views/worker/home'),
-        redirect: "/worker/home",
+        redirect: "/worker/time",
+        // redirect: "/worker/home",
         children: [
             {
                 path: 'time',

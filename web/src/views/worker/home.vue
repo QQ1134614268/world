@@ -1,52 +1,56 @@
 <template>
-  <div class="p_c_flexbox">
-    <div>
-      <el-menu default-active="1" active-text-color="#409EFF">
-        <el-menu-item index="1">
-          <template slot="title">
-            <i class="el-icon-location"></i>
-            <span slot="title">
-              <router-link to="worker" class="p_c_space">
-                工人列表
-              </router-link>
-            </span>
-          </template>
-        </el-menu-item>
-        <el-menu-item index="2">
-          <template slot="title">
-            <i class="el-icon-setting"></i>
-            <span slot="title">
-              <router-link to="workTimeRecord" class="p_c_space">
-                考勤打卡
-              </router-link>
-            </span>
-          </template>
-        </el-menu-item>
-        <el-menu-item index="3">
-          <template slot="title">
-            <i class="el-icon-info"></i>
-            <span slot="title">
-              <router-link to="time" class="p_c_space">
-                考勤信息
-              </router-link>
-            </span>
-          </template>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <template slot="title">
-            <i class="el-icon-data-analysis"></i>
-            <span slot="title">
-              <router-link to="workTimeAnalyse" class="p_c_space">
-                统计看板
-              </router-link>
-            </span>
-          </template>
-        </el-menu-item>
-      </el-menu>
-
+  <div>
+    <div class="p_c_box-flex_row-center " style="height: 10rem">
+      <div>工时系统</div>
     </div>
-    <div>
-      <router-view></router-view>
+    <div class="p_c_flexbox">
+      <div>
+        <el-menu default-active="1" active-text-color="#409EFF">
+          <router-link to="worker">
+            <el-menu-item index="1">
+              <template slot="title">
+                <i class="el-icon-location"></i>
+                <span slot="title">
+                    工人列表
+                </span>
+              </template>
+            </el-menu-item>
+          </router-link>
+          <router-link to="workTimeRecord">
+            <el-menu-item index="2">
+              <template slot="title">
+                <i class="el-icon-setting"></i>
+                <span slot="title">
+                    考勤打卡
+                </span>
+              </template>
+            </el-menu-item>
+          </router-link>
+          <router-link to="time">
+            <el-menu-item index="3">
+              <template slot="title">
+                <i class="el-icon-info"></i>
+                <span slot="title">
+                    考勤信息
+                </span>
+              </template>
+            </el-menu-item>
+          </router-link>
+          <router-link to="workTimeAnalyse">
+            <el-menu-item index="4">
+              <template slot="title">
+                <i class="el-icon-data-analysis"></i>
+                <span slot="title">
+                  统计看板
+                </span>
+              </template>
+            </el-menu-item>
+          </router-link>
+        </el-menu>
+      </div>
+      <div>
+        <router-view></router-view>
+      </div>
     </div>
   </div>
 </template>
@@ -56,10 +60,10 @@ export default {
   name: "home",
   data() {
     return {
+      data: []
     };
   },
-  methods: {
-  }
+  methods: {}
 }
 </script>
 <style>

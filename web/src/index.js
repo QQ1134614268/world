@@ -18,14 +18,26 @@ Vue.use(VueRouter)
 
 let routes = [
     {
-        path: '/',
-        name: '/',
-        component: () => import('@/views/video/Market'),
-    }, {
         path: '/root',
         name: '/root',
         component: () => import('@/views/sys/root'),
-    }, {
+    },
+    {
+        path: '/sys',
+        name: '/sys',
+        component: () => import('@/views/sys/root'),
+    },
+    {
+        path: '/help',
+        name: '/help',
+        component: () => import('@/views/sys/root'),
+    },
+    {
+        path: '/h',
+        name: '/h',
+        component: () => import('@/views/sys/root'),
+    },
+    {
         path: '/user/UserSpace',
         name: '/user/UserSpace',
         component: () => import('@/views/user/UserSpace.vue')
