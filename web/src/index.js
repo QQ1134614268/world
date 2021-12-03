@@ -5,7 +5,7 @@ import HelloRoutes from "@/views/hello/index";
 import video_routes from "@/views/video/index";
 import worker_routes from "@/views/worker/index";
 import member_routes from "@/views/member/index";
-import model_routes from "@/views/model/index";
+import model_routes from "@/views/tree";
 
 let total = []
 total = total.concat(HelloRoutes)
@@ -44,20 +44,7 @@ let routes = [
     }, {
         path: '/apply/music/Music',
         name: '/apply/music/Music',
-        component: () => import('@/views/music/Music.vue')
-    },
-    {
-        path: '/diary/add_diary',
-        name: '/diary/add_diary',
-        component: () => import('@/views/user/diary/add_diary.vue')
-    }, {
-        path: '/diary/diary_info',
-        name: '/diary/diary_info',
-        component: () => import('@/views/user/diary/diary_info.vue')
-    }, {
-        path: '/diary/diary_list',
-        name: '/diary/diary_list',
-        component: () => import('@/views/user/diary/diary_list.vue')
+        component: () => import('@/views/hello/Music.vue')
     },
     {
         path: '/sys/root',
@@ -83,13 +70,6 @@ let routes = [
         path: '/message/message',
         name: '/message/message',
         component: message
-    },
-    {
-        path: '/about',
-        name: '/about',
-        component: function () {
-            return import(/* webpackChunkName: "about" */ '@/views/About.vue')
-        }
     },
     {
         path: '/FeedBack',

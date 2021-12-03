@@ -12,7 +12,6 @@ from flask import Flask, request
 from flask_cors import CORS
 from flask_restful import Api
 
-import service.token_service
 from api.HelloApi import hello_api
 from api.member.member_api import StoreMemberListApi, StoreListApi, StoreMemberApi, StoreApi, OrderApi, OrderListApi, \
     GoodsApi, GoodsListApi
@@ -32,9 +31,9 @@ from api.sys.scheduler.SchedulerApi import scheduler_api
 from api.tree.all import AllApi
 from api.tree.tree_api import UploadDataApi, prove_api, ProveApi, StoryApi
 from api.user.user_api import user_api
+from api.user.wallet.wallet_api import WalletApi
 from api.video.video_api import TargetApi, TargetListApi, MarketTargetListApi, WorksApi, WorksListApi, WorksRankListApi, \
     TargetRankListApi, VideoUserApi, VideoUserLoginApi, InvitationCodeApi, MarketWorksListApi
-from api.wallet.wallet_api import WalletApi
 from api.worker.worker1.work_api import WorkerApi, WorkerTimeApi
 from api.worker.worker2.work_api import work_api2
 from config.conf import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME, VERSION
@@ -238,6 +237,8 @@ api2.add_resource(OrderListApi, "/api/member/OrderListApi")
 
 # 钱包
 api2.add_resource(WalletApi, "/api/member/WalletApi")
+
+# 会员
 api2.add_resource(GoodsApi, "/api/goods", "/api/goods/<int:_id>")
 api2.add_resource(GoodsListApi, "/api/goods_list")
 

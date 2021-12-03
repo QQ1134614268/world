@@ -64,3 +64,7 @@ game.ggok.com
 <router-view class="view right-sidebar" name="RightSidebar"></router-view>
 
 todo 工时系统
+
+0,1 增加, 1->3 修改 1->0 删除
+人   ->看-> 排序 筛选 分页
+    -> 效率 导入 导出

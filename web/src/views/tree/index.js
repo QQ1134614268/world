@@ -14,78 +14,78 @@ const routes = [
     {
         path: '/tree',
         name: '/tree',
-        component: () => import('@/views/model/treeHome'),
+        component: () => import('@/views/tree/treeHome'),
         redirect: '/tree/Catalogue',
     },
     {
         path: '/tree',
         name: '/tree',
-        component: () => import('@/views/model/treeHome'),
+        component: () => import('@/views/tree/treeHome'),
         redirect: '/tree/Catalogue',
         children: [
             {
                 path: 'Catalogue',
                 name: 'Catalogue',
                 components: {
-                    tree: () => import('@/views/model/Catalogue'),
-                    default: () => import('@/views/model/Catalogue')
+                    tree: () => import('@/views/tree/Catalogue'),
+                    default: () => import('@/views/tree/Catalogue')
                     //    todo test <router-view  name="tree"/>
                 }
             },
             {
                 path: 'Story',
                 name: 'Story',
-                component: () => import('@/views/model/Story')
+                component: () => import('@/views/tree/Story')
             },
             {
                 path: 'AddProve',
                 name: 'AddProve',
-                component: () => import('@/views/model/AddProve')
+                component: () => import('@/views/tree/AddProve')
             },
             {
                 path: 'AddStory',
                 name: 'AddStory',
-                component: () => import('@/views/model/AddStory')
+                component: () => import('@/views/tree/AddStory')
             },
             {
                 path: 'EditBook',
                 name: 'EditBook',
-                component: () => import('@/views/model/EditBook')
+                component: () => import('@/views/tree/EditBook')
             },
             {
                 path: 'Book',
                 name: 'Book',
-                component: () => import('@/views/model/Book')
+                component: () => import('@/views/tree/Book')
             },
             {
                 path: 'Book2',
                 name: 'Book2',
-                component: () => import('@/views/model/Book2')
+                component: () => import('@/views/tree/Book2')
             },
             {
                 path: 'Compare',
                 name: 'Compare',
-                component: () => import('@/views/model/Compare')
+                component: () => import('@/views/tree/Compare')
             },
             {
                 path: 'Parent',
                 name: 'Parent',
-                component: () => import('@/views/model/Parent')
+                component: () => import('@/views/tree/Parent')
             },
             {
                 path: 'KeyWord',
                 name: 'KeyWord',
-                component: () => import('@/views/model/components/KeyWord')
+                component: () => import('@/views/tree/components/KeyWord')
             },
             {
                 path: 'MuchChildren',
                 name: 'MuchChildren',
-                component: () => import('@/views/model/components/MuchChildren')
+                component: () => import('@/views/tree/components/MuchChildren')
             },
             {
                 path: 'PopularWord',
                 name: 'PopularWord',
-                component: () => import('@/views/model/components/PopularWord')
+                component: () => import('@/views/tree/components/PopularWord')
             },
         ]
     },

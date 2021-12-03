@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import {ADD_PROVE, ADD_STORY} from "@/views/model/index";
+import {ADD_PROVE, ADD_STORY} from "@/views/tree/index";
 
 export default {
   name: "EditBook",
@@ -65,10 +65,13 @@ export default {
     },
     async del() {
       let res1 = await this.$deleteJson2(this.url, this.id, {});
+      this.$router.back()
+      this.$router.back()
     },
     async save() {
-      let res1 = await this.$putJson2(this.url, 0, this.prove);
-      let res2 = await this.$putJson2(this.url2, 0, this.story);
+      let res1 = await this.$putJson2(this.url, this.obj.id, this.obj);
+      let res2 = await this.$putJson2(this.url, 0, this.prove);
+      let res3 = await this.$putJson2(this.url2, 0, this.story);
       this.$router.back()
     },
   },
