@@ -1,14 +1,12 @@
 <template>
   <div>
-    todo 选择人名,楼道,内容(内容1,2,3), 配合单独编辑
-    日期:
-
+    考勤 打卡
+    <span>日期:</span>
+    <el-date-picker v-model="value1" disabled type="date"></el-date-picker>
     <div>上午(自动)</div>
     <el-table :data="data" style="width: 100%" height="500">
       <el-table-column prop="name" label="姓名"></el-table-column>
-      <el-table-column prop="name" label="楼栋">
-
-      </el-table-column>
+      <el-table-column prop="name" label="楼栋"></el-table-column>
       <el-table-column prop="name" label="工作内容"></el-table-column>
       <el-table-column prop="name" label="楼栋长"></el-table-column>
     </el-table>
@@ -22,6 +20,7 @@ export default {
     return {
       url: "/api/work_api/WorkerApi",
       data: [],
+      value1: new Date(),
     }
   },
   methods: {

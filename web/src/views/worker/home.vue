@@ -6,12 +6,12 @@
     <div class="p_c_flexbox_row">
       <div class="col-2">
         <el-menu default-active="1" active-text-color="#409EFF">
-          <router-link to="worker">
-            <el-menu-item index="1">
+          <router-link to="workTimeInfo">
+            <el-menu-item index="3">
               <template slot="title">
-                <i class="el-icon-location"></i>
+                <i class="el-icon-info"></i>
                 <span slot="title">
-                    工人列表
+                    考勤信息
                 </span>
               </template>
             </el-menu-item>
@@ -26,12 +26,12 @@
               </template>
             </el-menu-item>
           </router-link>
-          <router-link to="time">
-            <el-menu-item index="3">
+          <router-link to="worker">
+            <el-menu-item index="1">
               <template slot="title">
-                <i class="el-icon-info"></i>
+                <i class="el-icon-location"></i>
                 <span slot="title">
-                    考勤信息
+                    工人列表
                 </span>
               </template>
             </el-menu-item>
@@ -42,6 +42,16 @@
                 <i class="el-icon-data-analysis"></i>
                 <span slot="title">
                   统计看板
+                </span>
+              </template>
+            </el-menu-item>
+          </router-link>
+          <router-link to="config">
+            <el-menu-item index="4">
+              <template slot="title">
+                <i class="el-icon-connection"></i>
+                <span slot="title">
+                  配置
                 </span>
               </template>
             </el-menu-item>

@@ -1,6 +1,7 @@
 <template>
   <div>
     <div>
+      靠勤 信息
       批量考勤记录--搜索--编辑
       <el-date-picker
           v-model="date"

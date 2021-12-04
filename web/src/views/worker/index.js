@@ -8,13 +8,18 @@ export const routes = [
         path: '/worker',
         name: '/worker',
         component: () => import('@/views/worker/home'),
-        redirect: "/worker/time",
+        redirect: "/worker/workTimeInfo",
         // redirect: "/worker/home",
         children: [
             {
-                path: 'time',
-                name: 'time',
+                path: 'workTimeInfo',
+                name: 'workTimeInfo',
                 component: () => import('@/views/worker/workTimeInfo'),
+            },
+            {
+                path: 'config',
+                name: 'config',
+                component: () => import('@/views/worker/config'),
             },
             {
                 path: 'workTimeAnalyse',
