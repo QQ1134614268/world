@@ -34,3 +34,7 @@ def check_token():
             return True
     # return False
     return True
+
+
+if __name__ == '__main__':
+    print(get_token(1, 'wg'))

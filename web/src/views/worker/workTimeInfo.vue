@@ -2,6 +2,13 @@
   <div>
     <div>
       批量考勤记录--搜索--编辑
+      <el-date-picker
+          v-model="date"
+          type="date"
+          format="yyyy 年 MM 月 dd 日"
+          value-format="yyyy-MM-dd"
+          placeholder="选择日期">
+      </el-date-picker>
     </div>
     <el-table :data="data" style="width: 100%" height="500">
       <el-table-column prop="date" label="日期"></el-table-column>

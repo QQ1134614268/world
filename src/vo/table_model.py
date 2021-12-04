@@ -65,7 +65,6 @@ class EnumConfig(BaseTable):
     create_by = Column(String(255), server_default='SYSTEM', comment="创建者")
 
 
-
 # class Business(BaseModel, UserMixin):
 #     username = db.Column(db.String(16), unique=True, index=True)
 #     _password = db.Column('password', db.String(128), nullable=False)
@@ -277,6 +276,13 @@ class WalletVO(BaseTable):
 
 class WorkerVO(BaseTable):
     __tablename__ = 'worker_t'
+
+    __table_args__ = {
+        'mysql_engine': "InnoDB",
+        'mysql_collate': 'utf8mb4_general_ci',
+        'mysql_charset': 'utf8mb4',
+        'comment': '工人详情表',
+    }
     belong = Column(Integer)
     name = Column(String(255))
     birthday = Column(DateTime)
@@ -285,6 +291,8 @@ class WorkerVO(BaseTable):
     pay = Column(String(255))
     start_time = Column(DateTime)
     phone = Column(String(11))
+
+    UniqueConstraint(belong, id_card_number)
 
 
 class WorkerTimeVO(BaseTable):

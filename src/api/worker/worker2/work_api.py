@@ -25,6 +25,7 @@ class Kind(Enum):
     end = "下班"
 
 
+# todo
 @work_api2.route("/init_data", methods=['GET', 'POST'])
 def init_data():
     name = ['7月打卡.xlsx', '8月打卡.xlsx', '9月打卡.xlsx', ]

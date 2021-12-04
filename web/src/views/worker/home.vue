@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="p_c_box-flex_row-center " style="height: 10rem">
-      <div>工时系统</div>
+      <div class="title2">工时系统</div>
     </div>
-    <div class="p_c_flexbox">
-      <div>
+    <div class="p_c_flexbox_row">
+      <div class="col-2">
         <el-menu default-active="1" active-text-color="#409EFF">
           <router-link to="worker">
             <el-menu-item index="1">
@@ -48,7 +48,7 @@
           </router-link>
         </el-menu>
       </div>
-      <div>
+      <div class="col-10">
         <router-view></router-view>
       </div>
     </div>

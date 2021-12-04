@@ -12,7 +12,6 @@ export default {
 <style>
 #app {
   margin: auto;
-  max-width: 100rem;
   height: 100%;
   /*页面文字可复制*/
   -webkit-user-select: text;

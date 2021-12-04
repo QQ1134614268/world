@@ -2,13 +2,7 @@
   <div>
     todo 选择人名,楼道,内容(内容1,2,3), 配合单独编辑
     日期:
-    <el-date-picker
-        v-model="date"
-        type="date"
-        format="yyyy 年 MM 月 dd 日"
-        value-format="yyyy-MM-dd"
-        placeholder="选择日期">
-    </el-date-picker>
+
     <div>上午(自动)</div>
     <el-table :data="data" style="width: 100%" height="500">
       <el-table-column prop="name" label="姓名"></el-table-column>

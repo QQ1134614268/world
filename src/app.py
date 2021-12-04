@@ -34,7 +34,7 @@ from api.user.user_api import user_api
 from api.user.wallet.wallet_api import WalletApi
 from api.video.video_api import TargetApi, TargetListApi, MarketTargetListApi, WorksApi, WorksListApi, WorksRankListApi, \
     TargetRankListApi, VideoUserApi, VideoUserLoginApi, InvitationCodeApi, MarketWorksListApi
-from api.worker.worker1.work_api import WorkerApi, WorkerTimeApi
+from api.worker.worker1.work_api import WorkerApi, WorkerTimeApi, WorkerExcelApi
 from api.worker.worker2.work_api import work_api2
 from config.conf import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME, VERSION
 from config.conf import MAIL_HOST_BLOCK_LIST
@@ -243,6 +243,7 @@ api2.add_resource(GoodsApi, "/api/goods", "/api/goods/<int:_id>")
 api2.add_resource(GoodsListApi, "/api/goods_list")
 
 # 工时
+api2.add_resource(WorkerExcelApi, "/api/work_api/WorkerExcelApi")
 api2.add_resource(WorkerApi, "/api/work_api/WorkerApi/<int:_id>")
 api2.add_resource(WorkerTimeApi, "/api/work_api/WorkerTimeApi/<int:_id>")
 app.register_blueprint(work_api2)

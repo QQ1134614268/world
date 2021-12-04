@@ -1,5 +1,5 @@
 <template>
-  <div class="p_c_box-flex_col-center">
+  <div class="p_c_box-flex_row-center">
     <el-avatar :src="file_url2+avatar" fit="contain" :class="{width:width,height:height}"></el-avatar>
     <span> {{ username }} </span>
   </div>

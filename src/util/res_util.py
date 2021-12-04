@@ -11,13 +11,13 @@ def success(data="success"):
 
 
 def page_success(data="success"):
-    return {
+    return jsonify({
         "code": ExceptionCode.SUCCESS.value,
         "data": data.items,
         "total": data.total,
         "page": data.page,
         "page_size": data.per_page,
-    }
+    })
 
 
 def json_success(data="success"):

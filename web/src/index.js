@@ -41,10 +41,6 @@ let routes = [
         path: '/user/UserSpace',
         name: '/user/UserSpace',
         component: () => import('@/views/user/UserSpace.vue')
-    }, {
-        path: '/apply/music/Music',
-        name: '/apply/music/Music',
-        component: () => import('@/views/hello/Music.vue')
     },
     {
         path: '/sys/root',

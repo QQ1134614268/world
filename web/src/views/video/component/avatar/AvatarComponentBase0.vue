@@ -1,7 +1,7 @@
 <template>
   <div>
     <a :href="user_url+'?user_id='+user_id">
-      <div class="p_c_box-flex_col-center">
+      <div class="p_c_box-flex_row-center">
         <!--        <el-avatar :src="file_url2+avatar" fit="contain"-->
         <!--                   :class="{width:width,height:height}">-->
         <!--        </el-avatar>-->
