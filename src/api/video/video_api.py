@@ -146,7 +146,7 @@ class MarketWorksListApi(Resource):
             VideoUserVO.username,
         ).paginate(page=page, per_page=page_size)
         page_item.items = [dict(zip(item.keys(), item)) for item in page_item.items]
-        return jsonify(res_util.page_success(page_item))
+        return res_util.page_success(page_item)
 
 
 class TargetApi(Resource):
