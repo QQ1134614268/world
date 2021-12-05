@@ -54,7 +54,11 @@ export default {
         return
       }
       this.data = res.data.data
-    }
+    },
+    handleEdit() {
+    },
+    handleDelete() {
+    },
   },
   created() {
     this.init()
