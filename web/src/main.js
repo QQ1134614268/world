@@ -38,6 +38,10 @@ Axios.interceptors.response.use(
                 alert(response.data.data)
                 return
             }
+            if (response.data.code && response.data.code == 2) {
+                alert(response.data.data)
+                return
+            }
             //todo code ==8, 交互, list<object> 统一处理, str
             // if (response.data.code && response.data.code == 2) {
             //     // alert(response.data.data)
