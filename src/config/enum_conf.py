@@ -13,6 +13,9 @@ class ExceptionCode(Enum):
     # 失败, 一般参数问题, 反馈用户
     FAIL = 2
 
+    # 未登录
+    NO_LOGIN_FAIL = 8
+
     # 程序异常, 反馈eg: 服务器发生异常
     EXCEPTION = 4
 

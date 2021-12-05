@@ -4,7 +4,7 @@ import jwt
 from flask import request
 
 from config.conf import SECRET
-from config.exception import WorldException
+from config.exception import WorldNoLoginException
 from util import time_util
 from util.time_util import getUtcTimeStr
 
@@ -19,7 +19,7 @@ def get_payload():
     try:
         return jwt.decode(bytes(jwt_token, "utf_8"), SECRET, algorithms=['HS256'])
     except:
-        raise WorldException("请重新登录")
+        raise WorldNoLoginException("请重新登录")
         # jwt_token = get_token(1, "wg")
         # return jwt.decode(bytes(jwt_token, "utf_8"), SECRET, algorithms=['HS256'])
 

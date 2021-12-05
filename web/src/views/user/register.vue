@@ -8,47 +8,27 @@
               placeholder="请输入内容"
               v-model="username"
               clearable
-              style="width: 10em"
-              size="small"
-          >
+              style="width: 20em">
           </el-input>
         </td>
       </tr>
       <tr>
         <td>密码</td>
         <td>
-          <el-input
-              placeholder="请输入内容"
-              size="small"
-              v-model="password"
-              clearable
-              show-password
-              style="width: 10em">
-          </el-input>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td><img :src="codeImg" alt="加载图片失败..." style="width: 8rem ;height: 3rem"></td>
-        <td>
-          <button @click="get_verify_code()"> 获取验证码</button>
+          <el-input placeholder="请输入内容" v-model="password" clearable show-password style="width: 20em"></el-input>
         </td>
       </tr>
       <tr>
         <td>验证码</td>
         <td>
-          <el-input
-              placeholder="请输入内容"
-              size="small"
-              v-model="code"
-              clearable
-              style="width: 10em">
-          </el-input>
+          <el-input placeholder="请输入内容" size="small" v-model="code" clearable style="width: 10em"></el-input>
+          <img :src="codeImg" alt="加载图片失败..." style="width: 8rem ;height: 3rem">
+          <button @click="get_verify_code()"> 获取验证码</button>
         </td>
       </tr>
       <tr>
         <td>
-          <button @click="register()" style="width: 10rem">注册</button>
+          <el-button @click="register" style="width: 10rem">注册</el-button>
         </td>
       </tr>
     </table>

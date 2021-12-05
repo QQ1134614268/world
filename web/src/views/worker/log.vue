@@ -1,6 +1,6 @@
 <template>
   <div>
-    待开发(登陆,修改记录)
+    待开发(登录,修改记录)
   </div>
 </template>
 

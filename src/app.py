@@ -97,7 +97,7 @@ def before_request():  # 登录过滤,正则匹配,日志记录,IP分析 todo
     #                      "User-Agent": user_agent, "action": "before_request"})
     #         if re.match(path2, url_path):
     #             if not token_util.check_token():
-    #                 return res_util.fail("请登陆")
+    #                 return res_util.fail("请登录")
 
 
 # @app.after_request  todo  所有数据都转成  格式
