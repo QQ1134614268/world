@@ -22,6 +22,11 @@ export const routes = [
                 component: () => import('@/views/worker/config'),
             },
             {
+                path: 'log',
+                name: 'log',
+                component: () => import('@/views/worker/log'),
+            },
+            {
                 path: 'workTimeAnalyse',
                 name: 'workTimeAnalyse',
                 component: () => import('@/views/worker/workTimeAnalyse')

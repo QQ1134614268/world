@@ -6,6 +6,7 @@
     </div>
     <div class="p_c_flexbox">
       <div>
+        <span>选择层级: </span>
         <el-cascader v-model="value" :options="options" @change="handleChange"></el-cascader>
       </div>
       <div>
@@ -15,7 +16,7 @@
     <el-table :data="data">
       <el-table-column prop="code" label="编码" sortable></el-table-column>
       <el-table-column prop="value" label="枚举值" sortable></el-table-column>
-      <el-table-column prop="comment" label="备注" sortable></el-table-column>
+      <el-table-column prop="comment" label="备注"></el-table-column>
     </el-table>
   </div>
 </template>
