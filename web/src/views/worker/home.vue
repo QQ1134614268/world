@@ -7,7 +7,7 @@
       <div class="col-2">
         <el-menu default-active="1" active-text-color="#409EFF">
           <router-link to="workTimeInfo">
-            <el-menu-item index="3">
+            <el-menu-item index="1">
               <template slot="title">
                 <i class="el-icon-info"></i>
                 <span slot="title">
@@ -27,7 +27,7 @@
             </el-menu-item>
           </router-link>
           <router-link to="worker">
-            <el-menu-item index="1">
+            <el-menu-item index="3">
               <template slot="title">
                 <i class="el-icon-location"></i>
                 <span slot="title">
@@ -47,11 +47,21 @@
             </el-menu-item>
           </router-link>
           <router-link to="config">
-            <el-menu-item index="4">
+            <el-menu-item index="5">
               <template slot="title">
                 <i class="el-icon-connection"></i>
                 <span slot="title">
                   配置
+                </span>
+              </template>
+            </el-menu-item>
+          </router-link>
+          <router-link to="log">
+            <el-menu-item index="6">
+              <template slot="title">
+                <i class="el-icon-document"></i>
+                <span slot="title">
+                  操作日志
                 </span>
               </template>
             </el-menu-item>

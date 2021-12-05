@@ -62,7 +62,7 @@ class EnumConfig(BaseTable):
     comment = Column(String(255), comment="备注")
     # cfg_value_type=Column(String(255)) 配置值类型，比如integer（整数）、html（HTML）等bool（是否），不同的值类型可以通过不同的表单来显示和编辑
     sort = Column(Integer, comment="排序字段")
-    create_by = Column(String(255), server_default='SYSTEM', comment="创建者")
+    create_by = Column(Integer, server_default="1", comment="创建者id")
 
 
 # class Business(BaseModel, UserMixin):
@@ -304,8 +304,9 @@ class WorkerTimeVO(BaseTable):
     afternoon = Column(Float, default=0)
     night = Column(Float, default=0)
     hours = Column(Float)
-    date = Column(DateTime)
+    date = Column(Date)
     worker = relationship(WorkerVO, backref='time', foreign_keys=[worker_id])
+    # info = Column(JSON) # todo
 
 
 class UserCloudSpaceVO(BaseTable):

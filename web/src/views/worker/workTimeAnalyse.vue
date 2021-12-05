@@ -1,32 +1,19 @@
 <template>
   <div>
-    统计 -- 月度,成本 个人维度
-    <div>
-      <el-select v-model="year" clearable placeholder="请选择" v-on:change="initDayList">
-        <el-option
-            v-for="item in yearList"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-        </el-option>
-      </el-select>
-      <el-select v-model="month" clearable placeholder="请选择" v-on:change="initDayList">
-        <el-option
-            v-for="item in monthList"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-        </el-option>
-      </el-select>
-      <el-select v-model="day" clearable placeholder="请选择">
-        <el-option
-            v-for="item in dayList"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-        </el-option>
-      </el-select>
-      <el-button type="primary" v-on:click="getDataByDate">查询</el-button>
+    统计 ( 月度,成本 个人维度,姓名模糊搜索 )
+    <div class="p_c_flexbox">
+      <div class="col-3">
+        <span>姓名:</span>
+        <el-input class="col-6" v-model="name"></el-input>
+      </div>
+      <div>
+        <span>时间(年-月-日):</span>
+        <el-cascader
+            v-model="value"
+            :options="options"
+            @change="handleChange"></el-cascader>
+      </div>
+      <el-button type="primary" v-on:click="init">查询</el-button>
     </div>
     <div>
       <el-table :data="tableData" style="width: 100%">
@@ -52,6 +39,11 @@ export default {
     }
   },
   methods: {
+    async init() {
+    },
+
+    handleChange() {
+    },
     //  循环年
     //  可以给定自己想要年份的范围，我这里给的是现在年份的后十年
     initYearList() {

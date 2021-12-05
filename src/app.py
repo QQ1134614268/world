@@ -24,6 +24,7 @@ from api.my_cloud_space.CloudSpaceApi import cloud_space_api, FileApi
 from api.project_api import ProjectInit
 from api.stone_game.StoneGameApi import stone_game_api
 from api.sys.SysApi import sys_api
+from api.sys.config_api import ConfigApi
 from api.sys.customize.CustomizeApi import customize_api
 from api.sys.file.file_api import FileApi2
 from api.sys.scheduler.APScheduler import scheduler
@@ -219,6 +220,7 @@ app.register_blueprint(user_api)
 app.register_blueprint(attention_api)
 
 api2.add_resource(ProjectInit, "/help")
+api2.add_resource(ConfigApi, "/api/config_api/ConfigApi/<int:_id>")
 
 api2.add_resource(FileApi, "/api/file/FileApi")
 api2.add_resource(FileApi2, "/api/file/FileApi2")

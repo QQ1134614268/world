@@ -3,7 +3,6 @@
 @Time: 2020/7/5
 @Description: pass
 """
-import time
 from io import BytesIO
 
 import openpyxl
@@ -13,10 +12,11 @@ from openpyxl import Workbook
 from sqlalchemy.dialects.mysql import insert
 
 import service
+from config.conf import DATE_FORMAT
 from config.mysql_db import db
 from service import worker_service
-from util import res_util
-from vo.table_model import WorkerVO
+from util import res_util, time_util
+from vo.table_model import WorkerVO, WorkerTimeVO
 
 header_dic = {
     "name": "姓名",
@@ -123,27 +123,34 @@ class WorkerApi(Resource):
         return res_util.success()
 
 
+class WorkerTimeInfoApi(Resource):
+    """工时"""
+
+    def get(self):
+        pass
+
+    def post(self):
+        pass
+
+
 class WorkerTimeApi(Resource):
     """工时"""
 
-    def post(self):
+    def post(self, _id):
         data = request.get_json()
-
-        if isinstance(data.get("worker_id"), list):
-            return worker_service.cover_worker_time3(data)
-        if isinstance(data.get("type"), list):
-            return worker_service.cover_worker_time2(data)
-
-        worker_service.cover_worker_time(data)
         return worker_service.add_worker_time(data)
 
     def get(self, _id):
-        if request.args.get("month"):
-            return res_util.success([])
-            # return worker_service.get_worker_month(request.args.get("month"), request.args.get("workerId"))
-        date = request.args.get("date", time.strftime('%Y-%m-%d 00:00:00'))
-        return worker_service.get_worker_day(date)
+        date = request.args.get("date", time_util.getLocalTimeStr(DATE_FORMAT), str)
+        page = request.args.get("currentPage", 1, int)
+        page_size = request.args.get("pageSize", 15, int)
+        user_id = service.token_service.get_id_by_token()
 
-    def put(self):
+        vos = WorkerTimeVO.query.select_from(WorkerTimeVO).outerjoin(
+            WorkerVO, WorkerTimeVO.worker_id == WorkerVO.id
+        ).filter(WorkerVO.belong == user_id, WorkerTimeVO.date == date).paginate(page=page, per_page=page_size)
+        return res_util.page_success(vos)
+
+    def put(self, _id):
         data = request.get_json()
         return worker_service.update_worker_time(data)

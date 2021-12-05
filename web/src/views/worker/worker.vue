@@ -30,7 +30,7 @@
         </div>
       </div>
 
-      <el-table :data="data" style="width: 100%" height="500">
+      <el-table :data="data" style="width: 100%">
         <el-table-column prop="name" label="姓名" sortable></el-table-column>
         <el-table-column prop="id_card_number" label="身份证" sortable></el-table-column>
         <el-table-column prop="sex" label="性别" sortable></el-table-column>
@@ -184,7 +184,7 @@ export default {
         JSON.parse(res.data)
         if (data.code != 1) {
           this.$message(data.data)
-          return
+
         }
       } catch (err) {
         // const {data, headers} = res;
