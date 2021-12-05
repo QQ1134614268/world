@@ -2,11 +2,11 @@
   <div>
     <div class="p_c_flexbox">
       <div class="col-3">
-        <spn>姓名:</spn>
+        <span>姓名:</span>
         <el-input class="col-6" v-model="name"></el-input>
       </div>
       <div class="col-3">
-        <spn>日期:</spn>
+        <span>日期:</span>
         <el-date-picker
             v-model="date"
             type="date"
@@ -38,7 +38,7 @@
 
 <script>
 export default {
-  name: "time",
+  name: "workTimeInfo",
   data() {
     return {
       url: '/api/work_api/WorkerTimeApi',
