@@ -1,20 +1,26 @@
-import request from '@/utils/request'
-import get2 from '@/main'
+import {get2} from '@/main'
+import {WorkerApi} from "@/api/const";
 
-/**
- * 应用列表接口
- * @param {*} data
- *
- */
-export function adminConfigsetIndexAPI(data) {
-    return request({
-        url: 'adminConfig/queryModuleSetting',
-        method: 'post',
-        data: data
-    })
+
+/*获取工人列表*/
+export async function getWorkers(data) {
+    let res = await get2(WorkerApi, 0, data);
+    return res
 }
 
-export async function getProveApi(parent_id) {
-    return await get2(this.url, 0, {"parent_id": parent_id});
+export async function querySearch(data) {
+    let res = await get2(WorkerApi, 0, data);
+    return res
 }
 
+export async function querySearch(queryString, cb, url) {
+    let data = {name: queryString}
+    let res = await this.$get2(url, 0, data)
+    let suggest = []
+    for (let i = 0; i < res.data.data.length; i++) {
+        suggest.push({
+            value: res.data.data[i].name
+        })
+    }
+    cb(suggest)
+}

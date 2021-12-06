@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <div>
       <el-button @click="add">增加</el-button>
     </div>
@@ -22,11 +21,13 @@
 </template>
 
 <script>
+import {ConfigApi} from "@/api/const";
+
 export default {
   name: "config",
   data() {
     return {
-      url: "/api/config_api/ConfigApi",
+      url: ConfigApi,
       data: [],
       parent_id: -1,
     }

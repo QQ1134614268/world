@@ -9,7 +9,10 @@
       <div class="p_c_flexbox">
         <div class="col-3">
           <span class="col-3">姓名:</span>
-          <el-input class="col-6" size="medium" v-model="searchName"></el-input>
+          <el-autocomplete class="inline-input" v-model="searchName" placeholder="请输入内容"
+                           :fetch-suggestions="querySearch"
+                           :trigger-on-focus="false">
+          </el-autocomplete>
         </div>
         <div class="col-3">
           <span>身份证:</span>
@@ -97,6 +100,7 @@
 
 <script>
 import Axios from "axios";
+import {WorkerApi, WorkerExcelApi} from "@/api/const";
 
 export default {
   name: "MyWorker",
@@ -115,7 +119,7 @@ export default {
 
       //表格
       data: [],
-      worker_excel_url: process.env.VUE_APP_BASE_URL + '/api/work_api/WorkerExcelApi',
+      worker_excel_url: process.env.VUE_APP_BASE_URL + WorkerExcelApi,
       headers: {
         token: localStorage.getItem("token")
       },
@@ -157,6 +161,17 @@ export default {
         return
       }
       this.data = response.data.data
+    },
+    async querySearch(queryString, cb) {
+      let data = {name: queryString}
+      let res = await this.$get2(WorkerApi, 0, data)
+      let suggest = []
+      for (let i = 0; i < res.data.data.length; i++) {
+        suggest.push({
+          value: res.data.data[i].name
+        })
+      }
+      cb(suggest)
     },
     async save() {
       let url = '/api/work_api/WorkerApi';

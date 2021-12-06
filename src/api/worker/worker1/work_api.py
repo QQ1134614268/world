@@ -9,6 +9,7 @@ import openpyxl
 from flask import request, make_response, send_file
 from flask_restful import Resource
 from openpyxl import Workbook
+from sqlalchemy import and_
 from sqlalchemy.dialects.mysql import insert
 
 import service
@@ -146,10 +147,24 @@ class WorkerTimeApi(Resource):
         page_size = request.args.get("pageSize", 15, int)
         user_id = service.token_service.get_id_by_token()
 
-        vos = WorkerTimeVO.query.select_from(WorkerTimeVO).outerjoin(
-            WorkerVO, WorkerTimeVO.worker_id == WorkerVO.id
-        ).filter(WorkerVO.belong == user_id, WorkerTimeVO.date == date).paginate(page=page, per_page=page_size)
-        return res_util.page_success(vos)
+        # vos = WorkerTimeVO.query.select_from(WorkerVO).outerjoin(
+        #     WorkerTimeVO, and_(WorkerTimeVO.worker_id == WorkerVO.id, WorkerTimeVO.date == date)
+        # ).filter(WorkerVO.belong == user_id).paginate(page=page, per_page=page_size)
+
+        res = WorkerVO.query.outerjoin(
+            WorkerTimeVO,
+            and_(WorkerTimeVO.worker_id == WorkerVO.id, WorkerTimeVO.date == date)
+        ).with_entities(
+            WorkerVO.id,
+            WorkerVO.name,
+            WorkerTimeVO.date,
+            WorkerTimeVO.morning,
+            WorkerTimeVO.noon,
+            WorkerTimeVO.afternoon,
+            WorkerTimeVO.night,
+            WorkerTimeVO.hours,
+        ).paginate(page=page, per_page=page_size)
+        return res_util.page_success_row(res)
 
     def put(self, _id):
         data = request.get_json()

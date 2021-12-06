@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import {WorkerApi_get_date} from "@/api/const";
+
 export default {
   name: "Time",
   data() {
@@ -81,7 +83,7 @@ export default {
         month: this.month,
         day: this.day,
       }
-      let result = await this.$get('/api/work_api2/get_date', data);
+      let result = await this.$get(WorkerApi_get_date, data);
       this.tableData = result.data.data
     }
   },

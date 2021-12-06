@@ -3,24 +3,19 @@
     <div class="p_c_flexbox">
       <div class="col-3">
         <span>姓名:</span>
-        <el-input class="col-6" v-model="name"></el-input>
+        <el-autocomplete class="inline-input" v-model="name" placeholder="请输入内容" :fetch-suggestions="querySearch"
+                         :trigger-on-focus="false">
+        </el-autocomplete>
       </div>
       <div class="col-3">
         <span>日期:</span>
-        <el-date-picker
-            v-model="date"
-            type="date"
-            format="yyyy 年 MM 月 dd 日"
-            value-format="yyyy-MM-dd"
-            placeholder="选择日期">
-        </el-date-picker>
+        <el-date-picker v-model="date" type="date" value-format="yyyy-MM-dd" placeholder="选择日期"></el-date-picker>
       </div>
       <div class="col-3">
         <el-button @click="init">搜索</el-button>
       </div>
     </div>
     <el-table :data="data" style="width: 100%">
-      <el-table-column prop="date" label="日期"></el-table-column>
       <el-table-column prop="name" label="姓名"></el-table-column>
       <el-table-column prop="morning" label="上午"></el-table-column>
       <el-table-column prop="noon" label="中午"></el-table-column>
@@ -37,27 +32,50 @@
 </template>
 
 <script>
+import {WorkerApi, WorkerTimeApi} from "@/api/const";
+import {getDateYMD} from "@/api/timeUtil";
+
 export default {
   name: "workTimeInfo",
   data() {
     return {
-      url: '/api/work_api/WorkerTimeApi',
+      name: "",
+      date: getDateYMD(),
       data: [],
     }
   },
   methods: {
     async init() {
-      let data = {}
-      let res = await this.$get2(this.url, 0, data)
+      let data = {
+        date: this.date
+      }
+      let res = await this.$get2(WorkerTimeApi, 0, data)
+
       if (res.data.code != 1) {
         this.$message('服务器异常');
         return
       }
       this.data = res.data.data
     },
+    async querySearch(queryString, cb) {
+      let data = {name: queryString}
+      let res = await this.$get2(WorkerApi, 0, data)
+      let suggest = []
+      for (let i = 0; i < res.data.data.length; i++) {
+        suggest.push({
+          value: res.data.data[i].name
+        })
+      }
+      cb(suggest)
+    },
+    handleSelect() {
+
+    },
     handleEdit() {
+
     },
     handleDelete() {
+
     },
   },
   created() {
