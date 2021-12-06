@@ -124,16 +124,6 @@ class WorkerApi(Resource):
         return res_util.success()
 
 
-class WorkerTimeInfoApi(Resource):
-    """工时"""
-
-    def get(self):
-        pass
-
-    def post(self):
-        pass
-
-
 class WorkerTimeApi(Resource):
     """工时"""
 
@@ -143,17 +133,20 @@ class WorkerTimeApi(Resource):
 
     def get(self, _id):
         date = request.args.get("date", time_util.getLocalTimeStr(DATE_FORMAT), str)
+        name = request.args.get("name")
         page = request.args.get("currentPage", 1, int)
         page_size = request.args.get("pageSize", 15, int)
         user_id = service.token_service.get_id_by_token()
 
-        # vos = WorkerTimeVO.query.select_from(WorkerVO).outerjoin(
-        #     WorkerTimeVO, and_(WorkerTimeVO.worker_id == WorkerVO.id, WorkerTimeVO.date == date)
-        # ).filter(WorkerVO.belong == user_id).paginate(page=page, per_page=page_size)
-
+        query_filter = [WorkerVO.belong == user_id]
+        if name:
+            query_filter.append(WorkerVO.name.contains(name))
+        join_filter = [WorkerTimeVO.worker_id == WorkerVO.id]
+        if date:
+            join_filter.append(WorkerTimeVO.date == date)
         res = WorkerVO.query.outerjoin(
             WorkerTimeVO,
-            and_(WorkerTimeVO.worker_id == WorkerVO.id, WorkerTimeVO.date == date)
+            and_(*join_filter)
         ).with_entities(
             WorkerVO.id,
             WorkerVO.name,
@@ -163,7 +156,7 @@ class WorkerTimeApi(Resource):
             WorkerTimeVO.afternoon,
             WorkerTimeVO.night,
             WorkerTimeVO.hours,
-        ).paginate(page=page, per_page=page_size)
+        ).filter(*query_filter).paginate(page=page, per_page=page_size)
         return res_util.page_success_row(res)
 
     def put(self, _id):

@@ -47,7 +47,8 @@ export default {
   methods: {
     async init() {
       let data = {
-        date: this.date
+        date: this.date,
+        name: this.name
       }
       let res = await this.$get2(WorkerTimeApi, 0, data)
 

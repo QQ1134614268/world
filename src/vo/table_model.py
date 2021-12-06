@@ -57,7 +57,7 @@ class EnumConfig(BaseTable):
     value = Column(String(255), comment="枚举value数据")
     # value: shenzhen,code:shenzhen_city,
     group_code = Column(String(255), unique=True, comment="分组code")  # group_code也有树形结构?,唯一
-    parent_id = Column(Integer, Sequence('sort_seq'), comment="父级id", server_default='0')
+    parent_id = Column(Integer, Sequence('sort_seq'), comment="父级id", server_default='-1', default=-1)
 
     comment = Column(String(255), comment="备注")
     # cfg_value_type=Column(String(255)) 配置值类型，比如integer（整数）、html（HTML）等bool（是否），不同的值类型可以通过不同的表单来显示和编辑

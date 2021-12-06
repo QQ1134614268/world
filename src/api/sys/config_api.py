@@ -17,9 +17,11 @@ class ConfigApi(Resource):
 
     def get(self, _id):
         parent_id = request.args.get("parent_id", -1)
+        group_code = request.args.get("group_code", "BUILD")
         vos = EnumConfig.query.filter(
             EnumConfig.create_by == token_service.get_id_by_token(),
-            EnumConfig.parent_id == parent_id
+            EnumConfig.parent_id == parent_id,
+            EnumConfig.group_code == group_code
         ).all()
         return res_util.json_success(vos)
 
