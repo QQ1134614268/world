@@ -9,7 +9,7 @@
       <el-table-column prop="name" label="姓名"></el-table-column>
       <el-table-column prop="name" :label="time">
         <template slot-scope="scope">
-          <el-radio v-model="scope.row.flag" @change="change" label="2" border size="medium">标志(上下午 todo)</el-radio>
+          <el-checkbox v-model="scope.row.flag" @change="change">标志</el-checkbox>
         </template>
       </el-table-column>
     </el-table>
@@ -39,7 +39,6 @@ export default {
       this.data = res.data.data
     },
     async get() {
-      //todo  抽取 后端配置
       let myDate = new Date();
       let myHour = myDate.getHours(); //获取当前小时数(0-23)
       if (myHour <= 12) {
