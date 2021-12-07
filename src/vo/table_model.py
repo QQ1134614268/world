@@ -281,15 +281,15 @@ class WorkerVO(BaseTable):
         'mysql_engine': "InnoDB",
         'mysql_collate': 'utf8mb4_general_ci',
         'mysql_charset': 'utf8mb4',
-        'comment': '工人详情表',
+        'comment': '工人详情',
     }
     belong = Column(Integer)
     name = Column(String(255))
-    birthday = Column(DateTime)
+    birthday = Column(Date)
     id_card_number = Column(String(255))  # , unique=True
     sex = Column(Enum('男', '女'))
     pay = Column(String(255))
-    start_time = Column(DateTime)
+    start_time = Column(Date)
     phone = Column(String(11))
 
     UniqueConstraint(belong, id_card_number)
