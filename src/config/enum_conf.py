@@ -5,6 +5,8 @@
 """
 from enum import Enum, unique
 
+from dateutil.relativedelta import relativedelta
+
 
 class ExceptionCode(Enum):
     # 成功
@@ -57,3 +59,14 @@ class Role:  # 权限常量
     WRITE_ARTICLES = 0x04  # 写文章
     MODERATE_COMMENTS = 0x08  # 管理他们发表的评价
     ADMINISTER = 0x80  # 管理员权限
+
+
+class DateType(Enum):
+    month = relativedelta(months=1)
+    year = relativedelta(years=1)
+    date = relativedelta(days=1)
+
+
+class Kind(Enum):
+    start = "上班"
+    end = "下班"

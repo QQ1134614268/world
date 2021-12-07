@@ -1,3 +1,4 @@
+from enum import Enum
 from os import path
 
 # app.config.from_pyfile(config_name)
@@ -63,3 +64,8 @@ TIME_ENUM = {
     "晚上": {"night": 4.5},
     "全天": {"morning": 4.5, "afternoon": 4.5},
 }
+
+
+class Role(Enum):
+    ADMIN = "ADMIN"
+    SYS_ADMIN = "SYS_ADMIN"

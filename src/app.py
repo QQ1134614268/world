@@ -35,8 +35,9 @@ from api.user.user_api import user_api
 from api.user.wallet.wallet_api import WalletApi
 from api.video.video_api import TargetApi, TargetListApi, MarketTargetListApi, WorksApi, WorksListApi, WorksRankListApi, \
     TargetRankListApi, VideoUserApi, VideoUserLoginApi, InvitationCodeApi, MarketWorksListApi
-from api.worker.worker1.work_api import WorkerApi, WorkerTimeApi, WorkerExcelApi
-from api.worker.worker2.work_api import work_api2
+from api.worker.work_api import WorkerApi, WorkerTimeApi, WorkerExcelApi, WorkTimeAnalyseApi, \
+    work_time_analyse_api
+from api.worker.work_api2 import work_api2
 from config.conf import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME, VERSION
 from config.conf import MAIL_HOST_BLOCK_LIST
 from config.exception import WorldException
@@ -248,7 +249,9 @@ api2.add_resource(GoodsListApi, "/api/goods_list")
 api2.add_resource(WorkerExcelApi, "/api/work_api/WorkerExcelApi")
 api2.add_resource(WorkerApi, "/api/work_api/WorkerApi/<int:_id>")
 api2.add_resource(WorkerTimeApi, "/api/work_api/WorkerTimeApi/<int:_id>")
+api2.add_resource(WorkTimeAnalyseApi, "/api/work_api/WorkTimeAnalyseApi/<int:_id>")
 app.register_blueprint(work_api2)
+app.register_blueprint(work_time_analyse_api)
 # video
 api2.add_resource(TargetApi, "/api/video_api/TargetApi/<int:_id>")
 api2.add_resource(TargetListApi, "/api/video_api/TargetListApi/<int:_id>")

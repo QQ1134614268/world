@@ -23,3 +23,4 @@ gunicorn
 pylint==2.6.0
 opencv-python
 jieba
+python-dateutil

@@ -3,21 +3,24 @@
 @Time: 2020/7/5
 @Description: pass
 """
+from datetime import datetime
 from io import BytesIO
 
 import openpyxl
-from flask import request, make_response, send_file
+from flask import request, make_response, send_file, Blueprint
 from flask_restful import Resource
 from openpyxl import Workbook
-from sqlalchemy import and_
-from sqlalchemy.dialects.mysql import insert
+from sqlalchemy import and_, insert, func
 
 import service
 from config.conf import DATE_FORMAT
+from config.enum_conf import DateType
 from config.mysql_db import db
 from service import worker_service
-from util import res_util, time_util
+from util import res_util, time_util, db_util
 from vo.table_model import WorkerVO, WorkerTimeVO
+
+# from sqlalchemy.dialects.mysql import insert
 
 header_dic = {
     "name": "姓名",
@@ -28,6 +31,8 @@ header_dic = {
     "start_time": "入职日期",
     "pay": "薪资",
 }
+
+work_time_analyse_api = Blueprint("WorkTimeAnalyseApi", __name__, url_prefix='/api/work_api/WorkTimeAnalyseApi')
 
 
 class WorkerExcelApi(Resource):
@@ -141,6 +146,7 @@ class WorkerTimeApi(Resource):
         query_filter = [WorkerVO.belong == user_id]
         if name:
             query_filter.append(WorkerVO.name.contains(name))
+
         join_filter = [WorkerTimeVO.worker_id == WorkerVO.id]
         if date:
             join_filter.append(WorkerTimeVO.date == date)
@@ -162,3 +168,39 @@ class WorkerTimeApi(Resource):
     def put(self, _id):
         data = request.get_json()
         return worker_service.update_worker_time(data)
+
+
+class WorkTimeAnalyseApi(Resource):
+    """工时统计"""
+
+    @staticmethod
+    @work_time_analyse_api.route('/get_sum_time/<int:_id>', methods=['GET'])
+    def get_sum_time(_id):
+        date_str = request.args.get("date", time_util.getLocalTimeStr(DATE_FORMAT))
+        name = request.args.get("name")
+        date_type = request.args.get("dateType", "date")
+        date = datetime.strptime(date_str, DATE_FORMAT)
+        end_day = date + DateType[date_type].value
+        user_id = service.token_service.get_id_by_token()
+        query_filter = [WorkerVO.belong == user_id,
+                        WorkerTimeVO.date >= date_str,
+                        WorkerTimeVO.date <= end_day]
+        if name:
+            query_filter.append(WorkerVO.name.contains(name))
+        res = WorkerVO.query.outerjoin(
+            WorkerTimeVO,
+            and_(WorkerTimeVO.worker_id == WorkerVO.id)
+        ).with_entities(
+            WorkerVO.id,
+            WorkerVO.name,
+            func.sum(WorkerTimeVO.morning),
+            func.sum(WorkerTimeVO.noon),
+            func.sum(WorkerTimeVO.afternoon),
+            func.sum(WorkerTimeVO.night),
+            func.sum(WorkerTimeVO.hours),
+        ).filter(
+            *query_filter
+        ).group_by(
+            WorkerVO.id
+        ).all()
+        return res_util.json_success(db_util.row_to_dic(res))

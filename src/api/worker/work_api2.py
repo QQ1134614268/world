@@ -4,14 +4,12 @@
 @Description: pass
 """
 import datetime
-import os
-from enum import Enum
 
+import openpyxl
 from flask import Blueprint, request
-from openpyxl import load_workbook
 from sqlalchemy import distinct
 
-from config.conf import DATA_DIR
+from config.enum_conf import Kind
 from config.mysql_db import db
 from util import res_util
 from vo.table_model import WorkerTime
@@ -19,83 +17,77 @@ from vo.table_model import WorkerTime
 work_api2 = Blueprint("work_api2", __name__, url_prefix='/api/work_api2')
 
 
-class Kind(Enum):
-    start = "上班"
-    end = "下班"
-
-
-# todo
 @work_api2.route("/init_data", methods=['GET', 'POST'])
 def init_data():
-    name = ['7月打卡.xlsx', '8月打卡.xlsx', '9月打卡.xlsx', ]
     data = {}
-    # session.query(User).filter(User.username == "Jack").delete()
     WorkerTime.query.delete()
-    for file in name:
-        wb = load_workbook(os.path.join(DATA_DIR, "work", file))
-        table = wb['考勤统计汇总']
-        morning_start = datetime.time(hour=7, minute=0, second=0)
-        morning_end = datetime.time(hour=12, minute=0, second=0)
-        afternoon_start = datetime.time(hour=13, minute=30, second=0)
-        afternoon_end = datetime.time(hour=18, minute=0, second=0)
-        evening_start = datetime.time(hour=19, minute=0, second=0)
-        evening_end = datetime.time(hour=22, minute=30, second=0)
-        day_end = datetime.time(hour=23, minute=29, second=59)
-        for i in range(3, table.max_row):
-            name = table.cell(row=i, column=2).value
-            kind = table.cell(row=i, column=6).value
-            note = table.cell(row=i, column=8).value
-            att_datetime = table.cell(row=i, column=7).value
-            att_datetime = datetime.datetime.strptime(att_datetime, '%Y-%m-%d %H:%M:%S')
-            att_time = datetime.time(att_datetime.hour, att_datetime.minute, att_datetime.second, )
 
-            key = (name, att_datetime.year, att_datetime.month, att_datetime.day)
-            if key not in data:
-                data[key] = WorkerTime(
-                    name=name,
-                    date=datetime.date(att_datetime.year, att_datetime.month, att_datetime.day),
-                    note=note,
-                    json_data=[],
-                    json_data2=[]
-                )
+    file = request.files.get("file")
+    wb = openpyxl.load_workbook(file)
+    table = wb['考勤统计汇总']
 
-            vo = data[key]
-            if att_time < morning_end and kind == Kind.start.value:
-                if vo.morning_start:
-                    vo.json_data.append({"time": att_time.strftime("%H:%M:%S"), "kind": kind})
-                else:
-                    vo.morning_start = att_time
-            elif morning_start < att_time < afternoon_start and kind == Kind.end.value:
-                if vo.morning_end:
-                    vo.json_data.append({"time": att_time.strftime("%H:%M:%S"), "kind": kind})
-                else:
-                    vo.morning_end = att_time
+    morning_start = datetime.time(hour=7, minute=0, second=0)
+    morning_end = datetime.time(hour=12, minute=0, second=0)
+    afternoon_start = datetime.time(hour=13, minute=30, second=0)
+    afternoon_end = datetime.time(hour=18, minute=0, second=0)
+    evening_start = datetime.time(hour=19, minute=0, second=0)
+    evening_end = datetime.time(hour=22, minute=30, second=0)
+    day_end = datetime.time(hour=23, minute=29, second=59)
+    for i in range(3, table.max_row):
+        name = table.cell(row=i, column=2).value
+        kind = table.cell(row=i, column=6).value
+        note = table.cell(row=i, column=8).value
+        att_datetime = table.cell(row=i, column=7).value
+        att_datetime = datetime.datetime.strptime(att_datetime, '%Y-%m-%d %H:%M:%S')
+        att_time = datetime.time(att_datetime.hour, att_datetime.minute, att_datetime.second, )
 
-            elif morning_end < att_time < afternoon_end and kind == Kind.start.value:
-                if vo.afternoon_start:
-                    vo.json_data.append({"time": att_time.strftime("%H:%M:%S"), "kind": kind})
-                else:
-                    vo.afternoon_start = att_time
+        key = (name, att_datetime.year, att_datetime.month, att_datetime.day)
+        if key not in data:
+            data[key] = WorkerTime(
+                name=name,
+                date=datetime.date(att_datetime.year, att_datetime.month, att_datetime.day),
+                note=note,
+                json_data=[],
+                json_data2=[]
+            )
 
-            elif afternoon_start < att_time < evening_start and kind == Kind.end.value:
-                if vo.afternoon_end:
-                    vo.json_data.append({"time": att_time.strftime("%H:%M:%S"), "kind": kind})
-                else:
-                    vo.afternoon_end = att_time
-
-            elif afternoon_end < att_time < evening_end and kind == Kind.start.value:
-                if vo.evening_start:
-                    vo.json_data.append({"time": att_time.strftime("%H:%M:%S"), "kind": kind})
-                else:
-                    vo.evening_start = att_time
-
-            elif evening_start < att_time and kind == Kind.end.value:
-                if vo.evening_end:
-                    vo.json_data.append({"time": att_time.strftime("%H:%M:%S"), "kind": kind})
-                else:
-                    vo.evening_end = att_time
+        vo = data[key]
+        if att_time < morning_end and kind == Kind.start.value:
+            if vo.morning_start:
+                vo.json_data.append({"time": att_time.strftime("%H:%M:%S"), "kind": kind})
             else:
-                vo.json_data2.append({"time": att_time.strftime("%H:%M:%S"), "kind": kind})
+                vo.morning_start = att_time
+        elif morning_start < att_time < afternoon_start and kind == Kind.end.value:
+            if vo.morning_end:
+                vo.json_data.append({"time": att_time.strftime("%H:%M:%S"), "kind": kind})
+            else:
+                vo.morning_end = att_time
+
+        elif morning_end < att_time < afternoon_end and kind == Kind.start.value:
+            if vo.afternoon_start:
+                vo.json_data.append({"time": att_time.strftime("%H:%M:%S"), "kind": kind})
+            else:
+                vo.afternoon_start = att_time
+
+        elif afternoon_start < att_time < evening_start and kind == Kind.end.value:
+            if vo.afternoon_end:
+                vo.json_data.append({"time": att_time.strftime("%H:%M:%S"), "kind": kind})
+            else:
+                vo.afternoon_end = att_time
+
+        elif afternoon_end < att_time < evening_end and kind == Kind.start.value:
+            if vo.evening_start:
+                vo.json_data.append({"time": att_time.strftime("%H:%M:%S"), "kind": kind})
+            else:
+                vo.evening_start = att_time
+
+        elif evening_start < att_time and kind == Kind.end.value:
+            if vo.evening_end:
+                vo.json_data.append({"time": att_time.strftime("%H:%M:%S"), "kind": kind})
+            else:
+                vo.evening_end = att_time
+        else:
+            vo.json_data2.append({"time": att_time.strftime("%H:%M:%S"), "kind": kind})
     db.session.add_all(data.values())  # 只能加一条数据
     db.session.commit()
     return res_util.success()

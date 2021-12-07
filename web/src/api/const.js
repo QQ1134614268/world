@@ -14,3 +14,4 @@ export const WorkerTimeApi = '/api/work_api/WorkerTimeApi'
 export const ConfigApi = "/api/config_api/ConfigApi";
 export const WorkerExcelApi = '/api/work_api/WorkerExcelApi'
 export const WorkerApi_get_date = '/api/work_api2/get_date'
+export const WorkTimeAnalyseApi = '/api/work_api/WorkTimeAnalyseApi/get_sum_time'
