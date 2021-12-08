@@ -15,14 +15,8 @@ speech_api = Blueprint("speech", __name__, url_prefix='/api/speech')
 @speech_api.route('/add_record', methods=['POST'])
 def add_record():
     content = request.form.get('content')
-    try:
-        image = request.files('image')
-    except:
-        image = ""
-    try:
-        video = request.files('video')
-    except:
-        video = ""
+    image = request.files.get('image')
+    video = request.files.get('video')
     user_id = request.form.get('user_id')
     vo = RecordVO(user_id=user_id, content=content, image=image, video=video)
     db.session.add(vo)

@@ -21,6 +21,9 @@ Axios.defaults.headers.common['token'] = token ? token : "";
 // Axios.defaults.headers.common['token'] = token ? token : "";
 // Vue.http.headers.common['token'] = "3";
 Axios.defaults.headers.common['Content-Type'] = 'application/json;';
+
+// 请求拦截器（在请求之前进行一些配置）
+// https://blog.csdn.net/qq_42899245/article/details/107876734
 Axios.interceptors.request.use(
     config => {
         return config;
@@ -191,9 +194,8 @@ Vue.prototype.$worldResult = {code: "1", data: "ok", message: "ok"}
 router.beforeEach((to, from, next) => {
     if (to.meta.login) {
         let token = localStorage.getItem('token');
-
         if (token === null || token === '') {
-            next('/login');
+            next('/sys/login');
         } else {
             //  if (to.meta.roles.length !== 0) {
             //                      //下一个页面的rules是否与当前token相等
