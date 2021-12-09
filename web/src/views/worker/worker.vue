@@ -70,23 +70,25 @@
     </el-dialog>
 
     <el-dialog :title="form.id?'编辑':'新增'" :visible.sync="editDialog" width="30%">
-      <el-form v-model="form">
-        <el-form-item label="姓名">
+      <el-form v-model="form" label-position="left" label-width="8rem">
+        <el-form-item label="姓名 : ">
           <el-input class="col-6" v-model="form.name"></el-input>
         </el-form-item>
-        <el-form-item label="身份证">
+        <el-form-item label="身份证 : ">
           <el-input class="col-6" v-model="form.id_card_number"></el-input>
         </el-form-item>
-        <el-form-item label="电话">
+        <el-form-item label="电话 : ">
           <el-input class="col-6" v-model="form.phone"></el-input>
         </el-form-item>
-        <el-form-item label="生日">
-          <el-input class="col-6" v-model="form.birthday"></el-input>
+        <el-form-item label="生日 : ">
+          <el-date-picker class="col-6" value-format="yyyy-MM-dd" v-model="form.birthday" type="date">
+          </el-date-picker>
         </el-form-item>
-        <el-form-item label="入职日期">
-          <el-input class="col-6" v-model="form.start_time"></el-input>
+        <el-form-item label="入职日期 : ">
+          <el-date-picker class="col-6" value-format="yyyy-MM-dd" v-model="form.start_time" type="date">
+          </el-date-picker>
         </el-form-item>
-        <el-form-item label="薪资">
+        <el-form-item label="薪资 : ">
           <el-input class="col-6" v-model="form.pay"></el-input>
         </el-form-item>
       </el-form>
@@ -144,7 +146,6 @@ export default {
       this.init();
     },
     async init() {
-      let url = '/api/work_api/WorkerApi';
       let data = {
         page: this.currentPage,
         pageSize: this.pageSize,
@@ -155,7 +156,7 @@ export default {
         endDate: this.dateRange[1],
       }
       // todo  排序
-      let response = await this.$get2(url, 0, data);
+      let response = await this.$get2(WorkerApi, 0, data);
       if (response.data.code != 1) {
         this.$message(response.data.data);
         return
@@ -174,11 +175,11 @@ export default {
       cb(suggest)
     },
     async save() {
-      let url = '/api/work_api/WorkerApi';
+      let response;
       if (this.form.id) {
-        let response = await this.$postJson2(url, this.from);
+        response = await this.$putJson2(WorkerApi, this.form.id, this.form);
       } else {
-        let response = await this.$putJson2(url, this.from);
+        response = await this.$postJson2(WorkerApi, 0, this.form);
       }
       if (response.data.code != 1) {
         this.$message(response.data.data);
@@ -235,8 +236,7 @@ export default {
       this.editDialog = true
     },
     async handleDelete(index, row) {
-      let url = '/api/work_api/WorkerApi';
-      let response = await this.$deleteJson2(url, row.id);
+      let response = await this.$deleteJson2(WorkerApi, row.id);
     }
   },
   created() {

@@ -1,4 +1,4 @@
-export function getDateYMD() {
+export function getDateY_M_D() {
     let date = new Date()
     let char = '-'
     let year = date.getFullYear()

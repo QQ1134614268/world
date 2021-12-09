@@ -32,6 +32,11 @@ export const routes = [
                 component: () => import('@/views/worker/workTimeAnalyse')
             },
             {
+                path: 'workTimeReport',
+                name: 'workTimeReport',
+                component: () => import('@/views/worker/workTimeReport')
+            },
+            {
                 path: 'worker',
                 name: 'worker',
                 component: () => import('@/views/worker/worker'),

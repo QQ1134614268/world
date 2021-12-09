@@ -33,14 +33,14 @@
 
 <script>
 import {WorkerApi, WorkerTimeApi} from "@/api/const";
-import {getDateYMD} from "@/api/timeUtil";
+import {getDateY_M_D} from "@/api/timeUtil";
 
 export default {
   name: "workTimeInfo",
   data() {
     return {
       name: "",
-      date: getDateYMD(),
+      date: getDateY_M_D(),
       data: [],
     }
   },

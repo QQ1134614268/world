@@ -37,15 +37,15 @@
 </template>
 
 <script>
-import {WorkerApi, WorkTimeAnalyseApi} from "@/api/const";
-import {getDateYMD} from "@/api/timeUtil";
+import {WorkerApi, WorkTimeAnalyseApi_get_sum_time} from "@/api/const";
+import {getDateY_M_D} from "@/api/timeUtil";
 
 export default {
-  name: "Time",
+  name: "workTimeAnalyse",
   data() {
     return {
       name: '',
-      date: getDateYMD(),
+      date: getDateY_M_D(),
       dateType: 'date',
       options: [
         {value: 'year', label: '年'},
@@ -62,7 +62,7 @@ export default {
         dateType: this.dateType,
         date: this.date,
       }
-      let result = await this.$get2(WorkTimeAnalyseApi, 0, data);
+      let result = await this.$get2(WorkTimeAnalyseApi_get_sum_time, 0, data);
       this.data = result.data.data
     },
     async querySearch(queryString, cb) {

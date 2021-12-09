@@ -12,11 +12,11 @@
           <el-button @click="group='BUILD_LEADER'; init()">工长</el-button>
         </el-menu-item>
       </el-menu>
-      <div>
+      <div class='col-12'>
         <div>
           <el-button @click="add();editDialog=true">增加</el-button>
         </div>
-        <el-table :data="data">
+        <el-table :data="data" class='col-6'>
           <el-table-column prop="value" label="取值"></el-table-column>
           <el-table-column prop="comment" label="备注"></el-table-column>
           <el-table-column label="操作">
@@ -28,7 +28,7 @@
         </el-table>
       </div>
     </div>
-    <el-dialog :title="form.id?'编辑':'新增'" :visible.sync="editDialog" width="30%">
+        <el-dialog :title="form.id?'编辑':'新增'" :visible.sync="editDialog" width="30%">
       <el-form v-model="form">
         <el-form-item label="编码">
           <el-input class="col-6" v-model="form.code"></el-input>

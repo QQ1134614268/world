@@ -10,24 +10,6 @@ from config.mysql_db import db
 from util import res_util
 from vo.table_model import WorkerVO, WorkerTimeVO
 
-def add_worker_time(data):
-    vos = [WorkerTimeVO(**i) for i in data]
-    db.session.commit_all(vos)
-    return res_util.success()
-
-
-
-def update_worker_time(data):
-    vos = []
-    for i in data:
-        if i.get("id"):
-            WorkerTimeVO.query.filter(WorkerTimeVO.id == i.pop("id")).update(i)
-        else:
-            vos.append(WorkerTimeVO(**i))
-    db.session.add_all(vos)
-    db.session.commit()
-    return res_util.success()
-
 
 def get_worker_day(date):
     res = WorkerVO.query.outerjoin(

@@ -10,17 +10,15 @@ import openpyxl
 from flask import request, make_response, send_file, Blueprint
 from flask_restful import Resource
 from openpyxl import Workbook
-from sqlalchemy import and_, insert, func
+from sqlalchemy import and_, func
+from sqlalchemy.dialects.mysql import insert
 
-import service
 from config.conf import DATE_FORMAT
 from config.enum_conf import DateType
 from config.mysql_db import db
-from service import worker_service
+from service.token_service import get_id_by_token
 from util import res_util, time_util, db_util
 from vo.table_model import WorkerVO, WorkerTimeVO
-
-# from sqlalchemy.dialects.mysql import insert
 
 header_dic = {
     "name": "姓名",
@@ -53,7 +51,7 @@ class WorkerExcelApi(Resource):
             data.append(dict(zip(en_header, v)))
 
         for val in data:
-            val["belong"] = service.token_service.get_id_by_token()
+            val["belong"] = get_id_by_token()
         insert_stmt = insert(WorkerVO).values(data)
         on_duplicate_key_stmt = insert_stmt.on_duplicate_key_update(
             name=insert_stmt.inserted.name,
@@ -70,7 +68,7 @@ class WorkerExcelApi(Resource):
         return res_util.success()
 
     def get(self):
-        vos = WorkerVO.query.filter(WorkerVO.belong == service.token_service.get_id_by_token()).all()
+        vos = WorkerVO.query.filter(WorkerVO.belong == get_id_by_token()).all()
         wb = Workbook()
         ws = wb.active
         for index, header_name in enumerate(header_dic.values()):
@@ -94,15 +92,16 @@ class WorkerApi(Resource):
 
     def post(self, _id):
         data = request.get_json()
-        data["belong"] = service.token_service.get_id_by_token()
+        data["belong"] = get_id_by_token()
         vo = WorkerVO(**data)
+        db.session.add(vo)
         db.session.commit()
         return res_util.success(vo.id)
 
     def get(self, _id):
         page = request.args.get("currentPage", 1, int)
         page_size = request.args.get("pageSize", 15, int)
-        user_id = service.token_service.get_id_by_token()
+        user_id = get_id_by_token()
         query_build = [WorkerVO.belong == user_id]
         if request.args.get("name"):
             query_build.append(WorkerVO.name.contains(request.args.get("name")))
@@ -119,7 +118,7 @@ class WorkerApi(Resource):
 
     def put(self, _id):
         data = request.get_json()
-        WorkerVO.query.filter(id=_id).update(**data)
+        WorkerVO.query.filter(WorkerVO.id == _id).update(data)
         db.session.commit()
         return res_util.success(_id)
 
@@ -134,14 +133,16 @@ class WorkerTimeApi(Resource):
 
     def post(self, _id):
         data = request.get_json()
-        return worker_service.add_worker_time(data)
+        db.session.add(WorkerTimeVO(**data))
+        db.session.commit()
+        return res_util.success()
 
     def get(self, _id):
         date = request.args.get("date", time_util.getLocalTimeStr(DATE_FORMAT), str)
         name = request.args.get("name")
         page = request.args.get("currentPage", 1, int)
         page_size = request.args.get("pageSize", 15, int)
-        user_id = service.token_service.get_id_by_token()
+        user_id = get_id_by_token()
 
         query_filter = [WorkerVO.belong == user_id]
         if name:
@@ -167,7 +168,23 @@ class WorkerTimeApi(Resource):
 
     def put(self, _id):
         data = request.get_json()
-        return worker_service.update_worker_time(data)
+        insert_stmt = insert(WorkerTimeVO).values(data)
+        update_data = {}
+        if 'morning' in data:
+            update_data['morning'] = insert_stmt.inserted.morning
+        if 'noon' in data:
+            update_data['noon'] = insert_stmt.inserted.noon
+        if 'afternoon' in data:
+            update_data['afternoon'] = insert_stmt.inserted.afternoon
+        if 'night' in data:
+            update_data['night'] = insert_stmt.inserted.noon
+
+        on_duplicate_key_stmt = insert_stmt.on_duplicate_key_update(
+            **update_data
+        )
+        db.session.execute(on_duplicate_key_stmt)
+        db.session.commit()
+        return res_util.success()
 
 
 class WorkTimeAnalyseApi(Resource):
@@ -181,7 +198,7 @@ class WorkTimeAnalyseApi(Resource):
         date_type = request.args.get("dateType", "date")
         date = datetime.strptime(date_str, DATE_FORMAT)
         end_day = date + DateType[date_type].value
-        user_id = service.token_service.get_id_by_token()
+        user_id = get_id_by_token()
         query_filter = [WorkerVO.belong == user_id,
                         WorkerTimeVO.date >= date_str,
                         WorkerTimeVO.date <= end_day]
@@ -204,3 +221,10 @@ class WorkTimeAnalyseApi(Resource):
             WorkerVO.id
         ).all()
         return res_util.json_success(db_util.row_to_dic(res))
+
+    @staticmethod
+    @work_time_analyse_api.route('/get_day_report/<int:_id>', methods=['GET'])
+    def get_day_report(_id):
+        # 日报模式
+
+        return res_util.json_success()

@@ -36,6 +36,16 @@
               </template>
             </el-menu-item>
           </router-link>
+          <router-link to="workTimeReport">
+            <el-menu-item index="4">
+              <template slot="title">
+                <i class="el-icon-data-analysis"></i>
+                <span slot="title">
+                  报表看板
+                </span>
+              </template>
+            </el-menu-item>
+          </router-link>
           <router-link to="workTimeAnalyse">
             <el-menu-item index="4">
               <template slot="title">
