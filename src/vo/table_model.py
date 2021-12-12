@@ -64,8 +64,9 @@ class EnumConfig(BaseTable):
     sort = Column(Integer, comment="排序字段")
     create_by = Column(Integer, server_default="1", comment="创建者id")
 
-    UniqueConstraint(group_code, code)
-    UniqueConstraint(group_code, value)
+    # todo 用户层级, 无需code?? 翻译,k-v, 是否有层级??
+    UniqueConstraint(create_by, parent_id, group_code, code)
+    UniqueConstraint(create_by, parent_id, group_code, value)
 
 # class Business(BaseModel, UserMixin):
 #     username = db.Column(db.String(16), unique=True, index=True)

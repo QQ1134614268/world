@@ -25,7 +25,7 @@
         </el-table>
       </div>
     </div>
-        <el-dialog :title="form.id?'编辑':'新增'" :visible.sync="editDialog" width="30%">
+    <el-dialog :title="form.id?'编辑':'新增'" :visible.sync="editDialog" width="30%">
       <el-form v-model="form">
         <el-form-item label="编码">
           <el-input class="col-6" v-model="form.code"></el-input>
@@ -80,6 +80,7 @@ export default {
       } else {
         this.$message.info("编辑失败")
       }
+      await this.init()
     },
     async add() {
       this.form = {}
@@ -98,6 +99,7 @@ export default {
       } else {
         this.$message.info(res.data.data)
       }
+      await this.init()
     }
   },
   created() {
