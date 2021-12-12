@@ -56,7 +56,7 @@ class EnumConfig(BaseTable):
     code = Column(String(255), unique=True, comment="枚举key值")  # code唯一 or 联合唯一?? 用户code随机生成
     value = Column(String(255), comment="枚举value数据")
     # value: shenzhen,code:shenzhen_city,
-    group_code = Column(String(255), unique=True, comment="分组code")  # group_code也有树形结构?,唯一
+    group_code = Column(String(255), comment="分组code")  # group_code也有树形结构?,唯一
     parent_id = Column(Integer, Sequence('sort_seq'), comment="父级id", server_default='-1', default=-1)
 
     comment = Column(String(255), comment="备注")
@@ -64,6 +64,8 @@ class EnumConfig(BaseTable):
     sort = Column(Integer, comment="排序字段")
     create_by = Column(Integer, server_default="1", comment="创建者id")
 
+    UniqueConstraint(group_code, code)
+    UniqueConstraint(group_code, value)
 
 # class Business(BaseModel, UserMixin):
 #     username = db.Column(db.String(16), unique=True, index=True)
@@ -300,9 +302,17 @@ class WorkerTimeVO(BaseTable):
     __table_args__ = (UniqueConstraint('worker_id', 'date'),)
     worker_id = Column(Integer, ForeignKey(WorkerVO.id, ondelete='CASCADE'), index=True)
     morning = Column(Float, default=0)
+    morning_area = Column(String(255))
+    morning_content = Column(String(255))
     noon = Column(Float, default=0)
+    noon_area = Column(String(255))
+    noon_content = Column(String(255))
     afternoon = Column(Float, default=0)
+    afternoon_area = Column(String(255))
+    afternoon_content = Column(String(255))
     night = Column(Float, default=0)
+    night_area = Column(String(255))
+    night_content = Column(String(255))
     hours = Column(Float)
     date = Column(Date)
     worker = relationship(WorkerVO, backref='time', foreign_keys=[worker_id])

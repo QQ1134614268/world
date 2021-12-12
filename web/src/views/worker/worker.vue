@@ -186,6 +186,8 @@ export default {
         return
       }
       this.$message('success');
+
+      await this.init();
     },
 
     async exportExcel() {
@@ -226,6 +228,7 @@ export default {
       } else {
         this.$message(response.data.data);
       }
+      await this.init();
     },
     handleAdd() {
       this.form = {};
@@ -237,6 +240,7 @@ export default {
     },
     async handleDelete(index, row) {
       let response = await this.$deleteJson2(WorkerApi, row.id);
+      await this.init();
     }
   },
   created() {

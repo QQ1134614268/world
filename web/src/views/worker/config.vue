@@ -8,9 +8,6 @@
         <el-menu-item index="2">
           <el-button @click="group='WORK_TYPE'; init()"> 工作类型</el-button>
         </el-menu-item>
-        <el-menu-item index="3">
-          <el-button @click="group='BUILD_LEADER'; init()">工长</el-button>
-        </el-menu-item>
       </el-menu>
       <div class='col-12'>
         <div>
@@ -58,7 +55,6 @@ export default {
       options: [],
       value: '',
       editDialog: false,
-      url: ConfigApi,
       data: [],
       parent_id: -1,
       form: {},
@@ -68,7 +64,7 @@ export default {
   methods: {
     async init() {
       let data = {"group_code": this.group}
-      let res = await this.$get2(this.url, 0, data)
+      let res = await this.$get2(ConfigApi, 0, data)
       this.data = res.data.data
     },
     async save() {

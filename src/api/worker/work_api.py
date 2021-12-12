@@ -201,7 +201,7 @@ class WorkTimeAnalyseApi(Resource):
         user_id = get_id_by_token()
         query_filter = [WorkerVO.belong == user_id,
                         WorkerTimeVO.date >= date_str,
-                        WorkerTimeVO.date <= end_day]
+                        WorkerTimeVO.date < end_day]
         if name:
             query_filter.append(WorkerVO.name.contains(name))
         res = WorkerVO.query.outerjoin(
@@ -210,11 +210,11 @@ class WorkTimeAnalyseApi(Resource):
         ).with_entities(
             WorkerVO.id,
             WorkerVO.name,
-            func.sum(WorkerTimeVO.morning),
-            func.sum(WorkerTimeVO.noon),
-            func.sum(WorkerTimeVO.afternoon),
-            func.sum(WorkerTimeVO.night),
-            func.sum(WorkerTimeVO.hours),
+            func.sum(WorkerTimeVO.morning).label('morning'),
+            func.sum(WorkerTimeVO.noon).label('noon'),
+            func.sum(WorkerTimeVO.afternoon).label('afternoon'),
+            func.sum(WorkerTimeVO.night).label('night'),
+            func.sum(WorkerTimeVO.hours).label('hours'),
         ).filter(
             *query_filter
         ).group_by(

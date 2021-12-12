@@ -12,12 +12,26 @@
           <el-checkbox v-model="scope.row.flag" @change="change(scope.row)">标志</el-checkbox>
         </template>
       </el-table-column>
+      <el-table-column prop="name" label="位置">
+        <template slot-scope="scope">
+          <el-radio v-model="scope.row.area" :label="item.code" v-for="(item,index) in config1">
+            {{ item.value }}
+          </el-radio>
+        </template>
+      </el-table-column>
+      <el-table-column prop="name" label="工作内容">
+        <template slot-scope="scope">
+          <el-radio v-model="scope.row.content" :label="item.code" v-for="(item,index) in config2">
+            {{ item.value }}
+          </el-radio>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
-import {WorkerApi, WorkerTimeApi} from "@/api/const";
+import {ConfigApi, WorkerApi, WorkerTimeApi} from "@/api/const";
 import {getDateY_M_D} from "@/api/timeUtil";
 
 export default {
@@ -27,7 +41,9 @@ export default {
       data: [],
       date: getDateY_M_D(),
       time: "",
-      attr: ''
+      attr: '',
+      config1: [],
+      config2: []
     }
   },
   methods: {
@@ -39,6 +55,16 @@ export default {
         return
       }
       this.data = res.data.data
+    },
+    async initArea() {
+      let data = {"group_code": "BUILD"}
+      let res = await this.$get2(ConfigApi, 0, data)
+      this.config1 = res.data.data
+    },
+    async initWorkContent() {
+      let data = {"group_code": "WORK_TYPE"}
+      let res = await this.$get2(ConfigApi, 0, data)
+      this.config2 = res.data.data
     },
     async get() {
       let myDate = new Date();
@@ -67,7 +93,6 @@ export default {
         date: this.date
       }
       data[attr] = row.flag
-      debugger
       let response = await this.$putJson2(WorkerTimeApi, 0, data)
     }
   },
@@ -75,6 +100,8 @@ export default {
   created() {
     this.init()
     this.get()
+    this.initArea()
+    this.initWorkContent()
   },
 }
 </script>

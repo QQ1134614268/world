@@ -3,7 +3,7 @@
 # @Time    : 2019/8/3 16:42
 E:/world/venv/Scripts/python.exe manage.py db init
 E: && cd E:/world/src
-D:/workspace/world/venv/Scripts/python.exe manage.py db migrate
+E:/world/venv/Scripts/python.exe manage.py db migrate
 E:/world/venv/Scripts/python.exe manage.py db upgrade
 """
 from flask_migrate import Migrate, MigrateCommand
