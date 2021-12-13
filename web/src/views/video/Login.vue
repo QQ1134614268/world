@@ -29,7 +29,6 @@ export default {
       let url = '/api/video_api/VideoUserLoginApi';
       let result = await this.$get(url,  this.form)
       if (result.data.code == 1) {
-        Axios.defaults.headers.common['token'] = result.data.data
         localStorage.setItem("token", result.data.data);
         this.$store.commit('receiveUserInfo', {
           token: result.data.data

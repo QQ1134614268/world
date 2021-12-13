@@ -10,13 +10,6 @@ export {
 }
 
 const routes = [
-
-    {
-        path: '/tree',
-        name: '/tree',
-        component: () => import('@/views/tree/treeHome'),
-        redirect: '/tree/Catalogue',
-    },
     {
         path: '/tree',
         name: '/tree',

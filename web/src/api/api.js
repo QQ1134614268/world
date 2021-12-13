@@ -17,3 +17,9 @@ export const ProveBlueprintApi_get_key_word = "/api/ProveBlueprintApi/get_key_wo
 export const ProveBlueprintApi_much_children = "/api/ProveBlueprintApi/much_children"
 export const ProveBlueprintApi_popular_word = "/api/ProveBlueprintApi/popular_word"
 export const ProveBlueprintApi_prove_value_parent = "/api/ProveBlueprintApi/prove_value_parent"
+
+//用户
+export const sys_api_login = "/api/sys_api/login"
+
+//人人影
+let VideoUserApi = "/api/video_api/VideoUserApi"

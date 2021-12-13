@@ -71,14 +71,16 @@ Axios.interceptors.response.use(
                 return Promise.resolve(response);
             } else if (response.data.code === 2) {
                 Vue.prototype.$message.error(response.data.data)
-                return Promise.reject();
+                return Promise.reject(response);
             } else if (response.data.code === 4) {
                 Vue.prototype.$message.error(response.data.data)
-                return Promise.reject();
+                return Promise.reject(response);
             } else if (response.data.code === 8) {
                 Vue.prototype.$message.error('登录已过期，请重新登录')
-                router.replace(SYS_LOGIN_URL + "?from=" + window.location.href).then(r => {return r})
-                return Promise.reject();
+                router.replace(SYS_LOGIN_URL + "?from=" + window.location.href).then(r => {
+                    return r
+                })
+                return Promise.reject(response);
             } else {
                 return Promise.resolve(response);
             }
