@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import {WorkerApi, WorkTimeAnalyseApi_get_sum_time} from "@/api/const";
 import {getDateY_M_D} from "@/api/timeUtil";
+import {WorkerApi, WorkTimeAnalyseApi_get_sum_time} from "@/api/api";
 
 export default {
   name: "workTimeAnalyse",

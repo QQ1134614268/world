@@ -15,20 +15,29 @@
 
 <script>
 
+import {
+  HelloRootUrl,
+  MemberRootUrl,
+  messageRootUrl,
+  RegisterRootUrl,
+  RenrenRootUrl, SYS_LOGIN_URL, TreeRootUrl,
+  UserSpaceRootUrl, WorkerRootUrl
+} from "@/api/routerUrl";
+
 export default {
   name: "root",
   data() {
     return {
       sysUrls: [
-        {url: "/tree", name: "真实之树"},
-        {url: "/video", name: "人人影"},
-        {url: "/worker", name: "工时"},
-        {url: "/member/Store", name: "店铺"},
-        {url: "/hello", name: "测试"},
-        {url: "/message/message", name: "消息"},
-        {url: "/user/UserSpace", name: "用户空间"},
-        {url: "/sys/register", name: "注册"},
-        {url: "/sys/login", name: "登录"},
+        {url: TreeRootUrl, name: "真实之树"},
+        {url: RenrenRootUrl, name: "人人影"},
+        {url: WorkerRootUrl, name: "工时"},
+        {url: MemberRootUrl, name: "店铺"},
+        {url: HelloRootUrl, name: "测试"},
+        {url: messageRootUrl, name: "消息"},
+        {url: UserSpaceRootUrl, name: "用户空间"},
+        {url: RegisterRootUrl, name: "注册"},
+        {url: SYS_LOGIN_URL, name: "登录"},
       ],
     }
   }

@@ -189,7 +189,7 @@ def flask_global_world_exception_handler(exception):
     :param exception:
     :return:
     """
-    return res_util.fail(exception.message)
+    return res_util.fail(exception.message, exception.code)
 
 
 @app.route('/', methods=['GET'])

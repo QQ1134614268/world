@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import {WorkTimeAnalyseApi_get_day_report} from "@/api/const";
+import {WorkTimeAnalyseApi_get_day_report} from "@/api/api";
 
 export default {
   name: "workTimeReport",

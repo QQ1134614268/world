@@ -7,13 +7,13 @@
 </template>
 
 <script>
-import {SYS_LOGIN} from '@/api/const.js'
+import {SYS_LOGIN_URL} from "@/api/routerUrl";
 
 export default {
   name: "UserIconCOMPO",
   data() {
     return {
-      url: SYS_LOGIN
+      url: SYS_LOGIN_URL
     }
   },
   methods: {

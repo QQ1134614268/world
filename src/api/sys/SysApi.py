@@ -1,7 +1,7 @@
 # encoding: utf-8
 import random
-import time
 
+import time
 from flask import Blueprint, jsonify, make_response, request
 from flask_restful import fields, marshal
 
@@ -9,7 +9,6 @@ import service.token_service
 from config.conf import UPLOAD_FILE_PATH
 from config.mysql_db import db
 from config.redis_db import redisDB
-from service import user_service
 from util import password_util, res_util
 from util import token_util
 from util import verification_code_util
@@ -27,12 +26,10 @@ announcement_fields = {
 
 @sys_api.route('/get_verify_code', methods=['GET'])
 def get_verify_code():
-    username = request.args.get("username")
-    assert username, "用户名不正确"
     code, img_bytes = verification_code_util.get_verify_code()
     response = make_response(img_bytes)
     response.headers['Content-Type'] = 'image/gif'
-    redisDB.set("verify_code-" + username, code, ex=60)
+    redisDB.set(code, code, ex=60)
     return response
 
 
@@ -63,9 +60,9 @@ def register():
     data = request.get_json()
     username = data.get('username', '')
     # user_type = data.get('code', '')
-    code = data.get('code', '')
-    cache_code = redisDB.get("verify_code-" + username) or ""
-    if not (code.lower() == "zero" or cache_code == code.lower()):
+    code = data.get('code')
+    cache_code = redisDB.get(code)
+    if not (code and cache_code and code.upper() == cache_code.upper()):
         return res_util.fail("验证码错误")
     exist = UserVO.query.filter_by(username=username).first()
     if exist:

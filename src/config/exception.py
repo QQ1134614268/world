@@ -13,7 +13,7 @@ class WorldException(Exception):
         return "code: %(code)d      message: %(message)s " % {'code': self.code, 'message': self.message}
 
 
-class WorldNoLoginException(Exception):
+class WorldNoLoginException(WorldException):
 
     def __init__(self, message="Exception", code=ExceptionCode.NO_LOGIN_FAIL.value):
         self.code = code

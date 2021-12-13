@@ -38,9 +38,9 @@ def json_success(data="success"):
     })
 
 
-def fail(data=""):
+def fail(data="", code=ExceptionCode.FAIL.value):
     return {
-        "code": ExceptionCode.FAIL.value,
+        "code": code,
         "data": data,
     }
 

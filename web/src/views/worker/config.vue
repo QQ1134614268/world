@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import {ConfigApi} from "@/api/const";
+import {ConfigApi} from "@/api/api";
 
 export default {
   name: "config",

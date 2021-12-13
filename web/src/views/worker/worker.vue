@@ -102,7 +102,7 @@
 
 <script>
 import Axios from "axios";
-import {WorkerApi, WorkerExcelApi} from "@/api/const";
+import {WorkerApi, WorkerExcelApi} from "@/api/api";
 
 export default {
   name: "MyWorker",

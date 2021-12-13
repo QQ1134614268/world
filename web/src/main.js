@@ -12,53 +12,58 @@ import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
+import {
+    deleteJson,
+    deleteJson2,
+    get,
+    get2,
+    postForm,
+    postForm2,
+    postJson,
+    postJson2,
+    ppJson,
+    putJson,
+    putJson2
+} from "@/api/config";
+import {SYS_LOGIN_URL} from "@/api/routerUrl";
 
 Vue.use(VueCropper)
 
 Axios.defaults.baseURL = process.env.VUE_APP_BASE_URL
-let token = localStorage.getItem("token")
-Axios.defaults.headers.common['token'] = token ? token : "";
-// Axios.defaults.headers.common['token'] = token ? token : "";
-// Vue.http.headers.common['token'] = "3";
 Axios.defaults.headers.common['Content-Type'] = 'application/json;';
 
 // 请求拦截器（在请求之前进行一些配置）
-// https://blog.csdn.net/qq_42899245/article/details/107876734
 Axios.interceptors.request.use(
     config => {
+        if (localStorage.getItem('token')) {
+            config.headers['token'] = localStorage.getItem('token')     //此时将token添加到url的头部header中
+        }
         return config;
     },
     error => {
         return Promise.reject(error);
     }
 );
-/** **** respone拦截器==>对响应做处理 ******/
+/** **** response 拦截器==>对响应做处理 ******/
 Axios.interceptors.response.use(
     response => {
-        // 成功请求到数据
         if (response.status === 200) {
-            if (response.data.code && response.data.code == 4) {
-                alert(response.data.data)
-                return
+            if (response.data.code === 1) {
+                return Promise.resolve(response);
+            } else if (response.data.code === 2) {
+                Vue.prototype.$message.error(response.data.data)
+                return Promise.reject();
+            } else if (response.data.code === 4) {
+                Vue.prototype.$message.error(response.data.data)
+                return Promise.reject();
+            } else if (response.data.code === 8) {
+                debugger
+                Vue.prototype.$message.error('登录已过期，请重新登录')
+                router.replace(SYS_LOGIN_URL + "?from=" + window.location.href).then(r => {})
+                return Promise.reject();
+            } else {
+                return Promise.resolve(response);
             }
-            if (response.data.code && response.data.code == 2) {
-                alert(response.data.data)
-                return
-            }
-
-            if (response.data.code && response.data.code == 8) {
-                this.$router.push({path: '/user/UserSpace'}).then(r => {
-
-                })
-                return
-            }
-            //todo code ==8, 交互, list<object> 统一处理, str
-            // if (response.data.code && response.data.code == 2) {
-            //     // alert(response.data.data)
-            //     alert(response.data.data)
-            //     return
-            // }
-            return Promise.resolve(response);
         } else {
             return Promise.reject(response);
         }
@@ -72,105 +77,6 @@ Vue.prototype.$axios = Axios;
 // Vue.use(ElementUI)
 Vue.config.productionTip = false
 
-const get = (url, params) => {
-    return Axios({
-        method: 'get',
-        url: url,
-        params: params
-    })
-};
-export const get2 = (url, id, params) => {
-    if (id == undefined) {
-        id = 0
-    }
-    return Axios({
-        method: 'get',
-        url: url + "/" + id,
-        params: params
-    })
-};
-const postJson = (url, data = {}) => {
-    return Axios({
-        method: 'POST',
-        url,
-        data: data
-    })
-};
-const postJson2 = (url, id, data = {}) => {
-    if (id == undefined) {
-        id = 0
-    }
-    return Axios({
-        method: 'POST',
-        url: url + "/" + id,
-        data: data
-    })
-};
-const putJson = (url, data = {}) => {
-    return Axios({
-        method: 'PUT',
-        url,
-        data: data
-    })
-};
-const putJson2 = (url, id, data = {}) => {
-    if (id == undefined) {
-        id = 0
-    }
-    return Axios({
-        method: 'PUT',
-        url: url + "/" + id,
-        data: data
-    })
-};
-const deleteJson = (url, data = {}) => {
-    return Axios({
-        method: 'DELETE',
-        url,
-        data: data
-    })
-};
-const deleteJson2 = (url, id, data = {}) => {
-    if (id == undefined) {
-        id = 0
-    }
-    return Axios({
-        method: 'DELETE',
-        url: url + "/" + id,
-        data: data
-    })
-};
-const postForm = (url, data = {}) => {
-    return Axios({
-        method: 'POST',
-        url,
-        data: data,
-        headers: {
-            'Content-Type': 'multipart/form-data;'
-        }
-    })
-};
-const postForm2 = (url, id, data = {}) => {
-    if (id == undefined) {
-        id = 0
-    }
-    return Axios({
-        method: 'POST',
-        url: url + "/" + id,
-        data: data,
-        headers: {
-            'Content-Type': 'multipart/form-data;'
-        }
-    })
-};
-
-
-const ppJson = (url, data, id) => {
-    if (typeof (id) == "undefined" || id == null) {
-        return postJson(url, data)
-    }
-    return putJson(url + "/" + id, data)
-};
 
 Vue.prototype.$get = get;
 Vue.prototype.$postJson = postJson;
@@ -185,7 +91,6 @@ Vue.prototype.$deleteJson2 = deleteJson2;
 Vue.prototype.$postForm2 = postForm2;
 
 Vue.prototype.$ppJson = ppJson;
-Vue.prototype.$worldResult = {code: "1", data: "ok", message: "ok"}
 // Vue.directive({
 //     inserted: function (el, binding) {
 //         document.title ="r热能"
@@ -195,7 +100,7 @@ router.beforeEach((to, from, next) => {
     if (to.meta.login) {
         let token = localStorage.getItem('token');
         if (token === null || token === '') {
-            next('/sys/login');
+            next(SYS_LOGIN_URL);
         } else {
             //  if (to.meta.roles.length !== 0) {
             //                      //下一个页面的rules是否与当前token相等
