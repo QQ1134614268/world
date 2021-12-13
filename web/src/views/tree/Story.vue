@@ -1,11 +1,11 @@
 <template>
   <div>
     <div>
-      <router-link :to="{name:'/model/Catalogue'}" class="p_c_space">
+      <router-link :to="{path:'/tree/Catalogue'}" class="p_c_space">
         回到目录
       </router-link>
 
-      <router-link :to="{name:'/model/AddStory',query: {id: -1,value: '未分类'}}" class="p_c_space">
+      <router-link :to="{path:'/tree/AddStory',query: {id: -1,value: '未分类'}}" class="p_c_space">
         添加故事
       </router-link>
     </div>
@@ -17,17 +17,18 @@
 </template>
 
 <script>
+import {StoryApi} from "@/api/api";
+
 export default {
   name: "Story",
   data() {
     return {
       story: [],
-      url2: "/api/model_api/StoryApi",
     }
   },
   methods: {
     async init() {
-      let res3 = await this.$get2(this.url2, 0, {});
+      let res3 = await this.$get2(StoryApi, 0, {});
       if (res3.data.code == 1) {
         this.story = res3.data.data
       } else {

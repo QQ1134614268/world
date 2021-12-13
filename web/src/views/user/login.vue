@@ -10,7 +10,7 @@
     </div>
     <div class="p_c_para">
       <el-button type="primary" @click="login">登陆</el-button>
-      <router-link :to="{name:this.registerUrl,query: {from: this.from}}">
+      <router-link :to="{path:this.registerUrl,query: {from: this.from}}">
         <el-button>注册</el-button>
       </router-link>
     </div>

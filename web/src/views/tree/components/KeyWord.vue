@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="block">
-      <router-link :to="{name:'/model/Catalogue'}" class="p_c_space">
+      <router-link :to="{path:'/tree/Catalogue'}" class="p_c_space">
         回到目录
       </router-link>
     </div>
@@ -13,18 +13,19 @@
 </template>
 
 <script>
+import {ProveBlueprintApi_get_key_word} from "@/api/api";
+
 export default {
   name: "KeyWord",
   data() {
     return {
-      url: "/api/ProveBlueprintApi/get_key_word",
       data: []
     }
   },
   methods: {
     async init() {
       let data = {}
-      let res = await this.$get2(this.url, 0, data)
+      let res = await this.$get2(ProveBlueprintApi_get_key_word, 0, data)
       if (res.data.code != 1) {
         this.$message('服务器异常');
         return

@@ -19,12 +19,11 @@ router-link
 
 权限-- 资源所有者权限校验 todo
     模块权限,防数据被盗
-    
+
 video_user 与 user
 
 java繁琐,通用, Python模糊,简洁
 大数据,人工智能, pmp, 
-
 
 UI
 
@@ -63,11 +62,10 @@ game.ggok.com
 <router-view class="view main-content"></router-view>
 <router-view class="view right-sidebar" name="RightSidebar"></router-view>
 
-todo 工时系统
-
 0,1 增加, 1->3 修改 1->0 删除
 人   ->看-> 排序 筛选 分页
     -> 效率 导入 导出
     
-todo  多环境,后端
 excel 导入校验 时间 考勤打卡 看板(报表) 登陆入口 配置 操作日志 登陆
+todo  多环境,后端
+todo 工时系统 -- 用户模块-- 头像

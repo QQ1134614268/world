@@ -14,14 +14,14 @@
       </el-table-column>
       <el-table-column prop="name" label="位置">
         <template slot-scope="scope">
-          <el-radio v-model="scope.row.area" :label="item.code" v-for="(item,index) in config1">
+          <el-radio v-model="scope.row.area" :label="item.code" :key=index v-for="(item,index) in config1">
             {{ item.value }}
           </el-radio>
         </template>
       </el-table-column>
       <el-table-column prop="name" label="工作内容">
         <template slot-scope="scope">
-          <el-radio v-model="scope.row.content" :label="item.code" v-for="(item,index) in config2">
+          <el-radio v-model="scope.row.content" :label="item.code" :key=index v-for="(item,index) in config2">
             {{ item.value }}
           </el-radio>
         </template>

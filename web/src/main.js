@@ -26,12 +26,31 @@ import {
     putJson2
 } from "@/api/config";
 import {SYS_LOGIN_URL} from "@/api/routerUrl";
-
+// 头像裁剪组件
 Vue.use(VueCropper)
+// 文本编辑器
+Vue.use(VueQuillEditor);
+// Vue.use(ElementUI)
+
+Vue.prototype.$axios = Axios;
+Vue.prototype.$get = get;
+Vue.prototype.$postJson = postJson;
+Vue.prototype.$putJson = putJson;
+Vue.prototype.$deleteJson = deleteJson;
+Vue.prototype.$postForm = postForm;
+
+Vue.prototype.$get2 = get2;
+Vue.prototype.$postJson2 = postJson2;
+Vue.prototype.$putJson2 = putJson2;
+Vue.prototype.$deleteJson2 = deleteJson2;
+Vue.prototype.$postForm2 = postForm2;
+
+Vue.prototype.$ppJson = ppJson;
+
+Vue.config.productionTip = false
 
 Axios.defaults.baseURL = process.env.VUE_APP_BASE_URL
 Axios.defaults.headers.common['Content-Type'] = 'application/json;';
-
 // 请求拦截器（在请求之前进行一些配置）
 Axios.interceptors.request.use(
     config => {
@@ -57,9 +76,8 @@ Axios.interceptors.response.use(
                 Vue.prototype.$message.error(response.data.data)
                 return Promise.reject();
             } else if (response.data.code === 8) {
-                debugger
                 Vue.prototype.$message.error('登录已过期，请重新登录')
-                router.replace(SYS_LOGIN_URL + "?from=" + window.location.href).then(r => {})
+                router.replace(SYS_LOGIN_URL + "?from=" + window.location.href).then(r => {return r})
                 return Promise.reject();
             } else {
                 return Promise.resolve(response);
@@ -73,29 +91,6 @@ Axios.interceptors.response.use(
         return Promise.reject(error);
     }
 );
-Vue.prototype.$axios = Axios;
-// Vue.use(ElementUI)
-Vue.config.productionTip = false
-
-
-Vue.prototype.$get = get;
-Vue.prototype.$postJson = postJson;
-Vue.prototype.$putJson = putJson;
-Vue.prototype.$deleteJson = deleteJson;
-Vue.prototype.$postForm = postForm;
-
-Vue.prototype.$get2 = get2;
-Vue.prototype.$postJson2 = postJson2;
-Vue.prototype.$putJson2 = putJson2;
-Vue.prototype.$deleteJson2 = deleteJson2;
-Vue.prototype.$postForm2 = postForm2;
-
-Vue.prototype.$ppJson = ppJson;
-// Vue.directive({
-//     inserted: function (el, binding) {
-//         document.title ="r热能"
-//     }
-// })
 router.beforeEach((to, from, next) => {
     if (to.meta.login) {
         let token = localStorage.getItem('token');
@@ -117,8 +112,6 @@ router.beforeEach((to, from, next) => {
         next()
     }
 })
-
-Vue.use(VueQuillEditor);
 
 new Vue({
     router,

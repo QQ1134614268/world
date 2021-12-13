@@ -8,13 +8,13 @@
       <el-input v-model="obj.value"></el-input>
     </div>
     <div class="block">
-      <div v-for="(item , index) in prove">
+      <div :key=index v-for="(item , index) in prove">
         <textarea v-model="item.value " class="p_c_para">
         </textarea>
       </div>
     </div>
     <div class="block">
-      <div v-for="(item , index) in story" class="p_c_flexbox_row">
+      <div :key=index v-for="(item , index) in story" class="p_c_flexbox_row">
         <textarea v-model="item.value " class="p_c_para">
         </textarea>
       </div>
@@ -24,6 +24,7 @@
 
 <script>
 import {ADD_PROVE, ADD_STORY} from "@/views/tree/index";
+import {ProveApi, StoryApi} from "@/api/api";
 
 export default {
   name: "EditBook",
@@ -36,16 +37,14 @@ export default {
       },
       prove: [],
       story: [],
-      url: "/api/model_api/ProveApi",
-      url2: "/api/model_api/StoryApi",
       id: this.$route.query.id,
     }
   },
   methods: {
     async get_data() {
-      let res1 = await this.$get2(this.url, this.id, {});
-      let res2 = await this.$get2(this.url, 0, {"parent_id": this.id});
-      let res3 = await this.$get2(this.url2, 0, {"parent_id": this.id});
+      let res1 = await this.$get2(ProveApi, this.id, {});
+      let res2 = await this.$get2(ProveApi, 0, {"parent_id": this.id});
+      let res3 = await this.$get2(StoryApi, 0, {"parent_id": this.id});
 
       if (res1.data.code == 1) {
         this.obj = res1.data.data
@@ -64,11 +63,11 @@ export default {
       }
     },
     async del() {
-      let res1 = await this.$deleteJson2(this.url, this.id, {});
+      let res1 = await this.$deleteJson2(ProveApi, this.id, {});
     },
     async save() {
-      let res1 = await this.$putJson2(this.url, 0, this.prove);
-      let res2 = await this.$putJson2(this.url2, 0, this.story);
+      let res1 = await this.$putJson2(ProveApi, 0, this.prove);
+      let res2 = await this.$putJson2(StoryApi, 0, this.story);
       this.$router.back()
     },
   },

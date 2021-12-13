@@ -1,7 +1,7 @@
-let ADD_PROVE = '/model/AddProve'
-let ADD_STORY = '/model/AddStory'
-let EDIT_STORY = '/model/EditStory'
-let EDIT_PROVE = '/model/EditProve'
+let ADD_PROVE = '/tree/AddProve'
+let ADD_STORY = '/tree/AddStory'
+let EDIT_STORY = '/tree/EditStory'
+let EDIT_PROVE = '/tree/EditProve'
 export {
     ADD_PROVE,
     ADD_STORY,

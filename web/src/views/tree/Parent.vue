@@ -21,7 +21,8 @@ export default {
   data() {
     return {
       space: "--------------------------------------------------------------------------------------------",
-      search: "", splitRules: [], url3: "/api/ProveBlueprintApi/prove_value_parent",
+      search: "",
+      splitRules: [],
     }
   },
   methods: {
@@ -30,14 +31,14 @@ export default {
     },
     async proveParent(queryString, callback) {
       let paras = {value: queryString}
-      let res = await this.$get2(this.url3, 0, paras)
+      let res = await this.$get2(ProveBlueprintApi_prove_value_parent, 0, paras)
       this.splitRules = res.data.data
     },
 
     async proveParent2(queryString, callback) {
       //todo
       let paras = {value: queryString}
-      let res = await this.$get2(this.url3, 0, paras)
+      let res = await this.$get2(ProveBlueprintApi_prove_value_parent, 0, paras)
       this.splitRules = []
       let resData = res.data.data
 

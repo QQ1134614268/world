@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import {ProveApi} from "@/api/api";
+
 export default {
   name: "Edit",
   data() {
@@ -21,7 +23,6 @@ export default {
       id: this.$route.query.id,
       title: this.$route.query.value,
       content: "",
-      url: "/api/model_api/ProveApi",
     }
   },
   methods: {
@@ -30,7 +31,7 @@ export default {
         parent_id: this.id,
         value: this.content
       }
-      let result = await this.$postJson2(this.url, 0, data);
+      let result = await this.$postJson2(ProveApi, 0, data);
       if (result.data.code == 1) {
         this.$message("添加成功")
         this.$router.back()

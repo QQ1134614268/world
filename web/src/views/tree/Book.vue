@@ -1,16 +1,16 @@
 <template>
   <div>
     <div>
-      <router-link :to="{name:'/model/Catalogue'}" class="p_c_space">
+      <router-link :to="{path:'/tree/Catalogue'}" class="p_c_space">
         回到目录
       </router-link>
-      <router-link :to="{name:'/model/EditBook',query: {id:id }}" class="p_c_space">
+      <router-link :to="{path:'/tree/EditBook',query: {id:id }}" class="p_c_space">
         编辑
       </router-link>
-      <router-link :to="{name:'/model/AddProve',query: {id:id,value: obj.value}}" class="p_c_space">
+      <router-link :to="{path:'/tree/AddProve',query: {id:id,value: obj.value}}" class="p_c_space">
         添加论点
       </router-link>
-      <router-link :to="{name:'/model/AddStory',query: {id: id,value: obj.value}}" class="p_c_space">
+      <router-link :to="{path:'/tree/AddStory',query: {id: id,value: obj.value}}" class="p_c_space">
         添加故事
       </router-link>
     </div>
@@ -20,7 +20,7 @@
     <div class="block">
       <div v-for="(item , index) in prove">
         <span>{{ index + 1 }}</span>
-        <a :href="'/model/Book?id='+item.id">
+        <a :href="'/tree/Book?id='+item.id">
           {{ item.value }}
         </a>
       </div>
@@ -36,6 +36,7 @@
 
 <script>
 import {ADD_PROVE, ADD_STORY} from './index.js'
+import {ProveApi, StoryApi} from "@/api/api";
 
 export default {
   name: "Book",
@@ -74,9 +75,9 @@ export default {
   },
   methods: {
     async get_data() {
-      let res1 = await this.$get2(this.url, this.id, {});
-      let res2 = await this.$get2(this.url, 0, {"parent_id": this.id});
-      let res3 = await this.$get2(this.url2, 0, {"parent_id": this.id});
+      let res1 = await this.$get2(ProveApi, this.id, {});
+      let res2 = await this.$get2(ProveApi, 0, {"parent_id": this.id});
+      let res3 = await this.$get2(StoryApi, 0, {"parent_id": this.id});
 
       if (res1.data.code == 1) {
         this.obj = res1.data.data

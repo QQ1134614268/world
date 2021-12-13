@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="block">
-      <router-link :to="{name:'/model/Catalogue'}" class="p_c_space">
+      <router-link :to="{path:'/tree/Catalogue'}" class="p_c_space">
         回到目录
       </router-link>
     </div>
@@ -13,18 +13,19 @@
   </div>
 </template>
 <script>
+import {ProveBlueprintApi_much_children} from "@/api/api";
+
 export default {
   name: "MuchChildren",
   data() {
     return {
-      url: "/api/ProveBlueprintApi/much_children",
       data: []
     }
   },
   methods: {
     async init() {
       let data = {}
-      let res = await this.$get2(this.url, 0, data)
+      let res = await this.$get2(ProveBlueprintApi_much_children, 0, data)
       if (res.data.code != 1) {
         this.$message('服务器异常');
         return

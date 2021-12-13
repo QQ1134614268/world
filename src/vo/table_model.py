@@ -64,13 +64,14 @@ class EnumConfig(BaseTable):
     sort = Column(Integer, comment="排序字段")
     create_by = Column(Integer, server_default="1", comment="创建者id")
 
-    # todo 用户层级, 无需code?? 翻译,k-v, 是否有层级??
+    # todo 用户层级, 无需code?? 翻译,k-v, 是否有层级?? 删除操作()
     UniqueConstraint(create_by, parent_id, group_code, code)
     UniqueConstraint(create_by, parent_id, group_code, value)
 
+
 # class Business(BaseModel, UserMixin):
 #     username = db.Column(db.String(16), unique=True, index=True)
-#     _password = db.Column('password', db.String(128), nullable=False)
+#     _password = db.Column('password', db.String(128), nullable=False) todo __password 私有
 #     phone = db.Column(db.Integer, nullable=False)
 #
 #     # 设置访问密码的方法,并用装饰器@property设置为属性,调用时不用加括号
@@ -317,7 +318,7 @@ class WorkerTimeVO(BaseTable):
     hours = Column(Float)
     date = Column(Date)
     worker = relationship(WorkerVO, backref='time', foreign_keys=[worker_id])
-    # info = Column(JSON) # todo
+    # todo 标识字段(type = morning) , 新表,当前
 
 
 class UserCloudSpaceVO(BaseTable):

@@ -34,7 +34,7 @@
           {{ index + 1 }}
         </div>
         <div class="p_c_long_txt_hidden " style="width: 80%">
-          <router-link :to="{name:'/video/TargetInfo',query: {target_id: item.id}}" class="p_c_space">
+          <router-link :to="{path:'/video/TargetInfo',query: {target_id: item.id}}" class="p_c_space">
             {{ item.content }}
           </router-link>
         </div>

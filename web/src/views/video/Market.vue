@@ -33,7 +33,7 @@
           {{ index + 1 }}
         </div>
         <div style="width: 80%" class="p_c_long_txt_hidden ">
-          <router-link :to="{name:'/video/Video',query: {video_id: item.id}}" class="p_c_space">
+          <router-link :to="{path:'/video/Video',query: {video_id: item.id}}" class="p_c_space">
             {{ item.describe }}
           </router-link>
         </div>
