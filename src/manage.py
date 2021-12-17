@@ -5,6 +5,9 @@ E:/world/venv/Scripts/python.exe manage.py db init
 E: && cd E:/world/src
 E:/world/venv/Scripts/python.exe manage.py db migrate
 E:/world/venv/Scripts/python.exe manage.py db upgrade
+
+D:/workspace/world/venv/Scripts/python.exe manage.py db migrate
+D:/workspace/world/venv/Scripts/python.exe manage.py db upgrade
 """
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager

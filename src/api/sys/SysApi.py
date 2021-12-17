@@ -29,7 +29,7 @@ def get_verify_code():
     code, img_bytes = verification_code_util.get_verify_code()
     response = make_response(img_bytes)
     response.headers['Content-Type'] = 'image/gif'
-    redisDB.set(code, code, ex=60)
+    redisDB.set(code, 1, ex=60)
     return response
 
 
@@ -61,6 +61,8 @@ def register():
     username = data.get('username', '')
     # user_type = data.get('code', '')
     code = data.get('code')
+    if not code:
+        return res_util.fail("验证码错误")
     cache_code = redisDB.get(code)
     if not (code and cache_code and code.upper() == cache_code.upper()):
         return res_util.fail("验证码错误")
