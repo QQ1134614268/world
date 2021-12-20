@@ -69,3 +69,14 @@ TIME_ENUM = {
 class Role(Enum):
     ADMIN = "ADMIN"
     SYS_ADMIN = "SYS_ADMIN"
+
+
+header_dic = {
+    "name": "姓名",
+    "id_card_number": "身份证",
+    "phone": "电话",
+    "sex": "性别",
+    "birthday": "生日",
+    "start_time": "入职日期",
+    "pay": "薪资",
+}

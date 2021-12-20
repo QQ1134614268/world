@@ -3,7 +3,6 @@
 @Time: 2020/7/5
 @Description: pass
 """
-from datetime import datetime
 from io import BytesIO
 
 import openpyxl
@@ -13,22 +12,11 @@ from openpyxl import Workbook
 from sqlalchemy import and_, func
 from sqlalchemy.dialects.mysql import insert
 
-from config.conf import DATE_FORMAT
-from config.enum_conf import DateType
+from config.conf import header_dic
 from config.mysql_db import db
 from service.token_service import get_id_by_token
-from util import res_util, time_util, db_util
+from util import res_util, db_util
 from vo.table_model import WorkerVO, WorkerTimeVO
-
-header_dic = {
-    "name": "姓名",
-    "id_card_number": "身份证",
-    "phone": "电话",
-    "sex": "性别",
-    "birthday": "生日",
-    "start_time": "入职日期",
-    "pay": "薪资",
-}
 
 work_time_analyse_api = Blueprint("WorkTimeAnalyseApi", __name__, url_prefix='/api/work_api/WorkTimeAnalyseApi')
 
@@ -138,7 +126,7 @@ class WorkerTimeApi(Resource):
         return res_util.success()
 
     def get(self, _id):
-        date = request.args.get("date", time_util.getLocalTimeStr(DATE_FORMAT), str)
+        date = request.args.get("date")
         name = request.args.get("name")
         page = request.args.get("currentPage", 1, int)
         page_size = request.args.get("pageSize", 15, int)
@@ -193,23 +181,21 @@ class WorkTimeAnalyseApi(Resource):
     @staticmethod
     @work_time_analyse_api.route('/get_sum_time/<int:_id>', methods=['GET'])
     def get_sum_time(_id):
-        date_str = request.args.get("date", time_util.getLocalTimeStr(DATE_FORMAT))
+        query_filter = [WorkerVO.belong == get_id_by_token()]
+        date = request.args.getlist("date[]")
+        if date:
+            query_filter.extend([WorkerTimeVO.date >= date[0], WorkerTimeVO.date < date[1]])
         name = request.args.get("name")
-        date_type = request.args.get("dateType", "date")
-        date = datetime.strptime(date_str, DATE_FORMAT)
-        end_day = date + DateType[date_type].value
-        user_id = get_id_by_token()
-        query_filter = [WorkerVO.belong == user_id,
-                        WorkerTimeVO.date >= date_str,
-                        WorkerTimeVO.date < end_day]
         if name:
             query_filter.append(WorkerVO.name.contains(name))
+
         res = WorkerVO.query.outerjoin(
             WorkerTimeVO,
             and_(WorkerTimeVO.worker_id == WorkerVO.id)
         ).with_entities(
             WorkerVO.id,
             WorkerVO.name,
+            WorkerVO.pay,
             func.sum(WorkerTimeVO.morning).label('morning'),
             func.sum(WorkerTimeVO.noon).label('noon'),
             func.sum(WorkerTimeVO.afternoon).label('afternoon'),
@@ -220,7 +206,12 @@ class WorkTimeAnalyseApi(Resource):
         ).group_by(
             WorkerVO.id
         ).all()
-        return res_util.json_success(db_util.row_to_dic(res))
+        data = db_util.row_to_dic(res)
+        for item in data:
+            item["days"] = (item.get("morning") * 4.5 + item.get("noon") * 2 + item.get("afternoon") * 4.5 + item.get(
+                "night") * 4.5) / 9
+            item["money"] = item["days"] * item["pay"]
+        return res_util.json_success(data)
 
     @staticmethod
     @work_time_analyse_api.route('/get_day_report/<int:_id>', methods=['GET'])

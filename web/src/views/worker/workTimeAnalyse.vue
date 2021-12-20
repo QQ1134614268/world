@@ -9,20 +9,13 @@
         </el-autocomplete>
       </div>
       <div>
-        <span>时间:</span>
-        <el-select v-model="dateType" placeholder="请选择">
-          <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-          </el-option>
-        </el-select>
         <el-date-picker
             v-model="date"
-            :type="dateType"
             value-format="yyyy-MM-dd"
-            placeholder="选择时间">
+            type="daterange"
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期">
         </el-date-picker>
       </div>
       <el-button type="primary" v-on:click="init">查询</el-button>
@@ -30,23 +23,24 @@
     <div>
       <el-table :data="data" style="width: 100%">
         <el-table-column prop="name" label="姓名" width="180"></el-table-column>
-        <el-table-column prop="hours" label="工时"></el-table-column>
+        <el-table-column prop="days" label="工时(天)"></el-table-column>
+        <el-table-column prop="money" label="成本"></el-table-column>
       </el-table>
     </div>
   </div>
 </template>
 
 <script>
-import {getDateY_M_D} from "@/api/timeUtil";
 import {WorkerApi, WorkTimeAnalyseApi_get_sum_time} from "@/api/api";
+import {fmtDateY_M_D} from "@/api/timeUtil";
 
 export default {
   name: "workTimeAnalyse",
   data() {
     return {
       name: '',
-      date: getDateY_M_D(),
-      dateType: 'date',
+      date: this.get_month_day(),
+      dateType: 'month',
       options: [
         {value: 'year', label: '年'},
         {value: 'month', label: '月'},
@@ -56,6 +50,10 @@ export default {
     }
   },
   methods: {
+    get_month_day() {
+      let date = new Date(), y = date.getFullYear(), m = date.getMonth();
+      return [fmtDateY_M_D(new Date(y, m, 1)), fmtDateY_M_D(new Date(y, m + 1, 0))];
+    },
     async init() {
       let data = {
         name: this.name,

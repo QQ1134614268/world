@@ -292,7 +292,7 @@ class WorkerVO(BaseTable):
     birthday = Column(Date)
     id_card_number = Column(String(255))  # , unique=True
     sex = Column(Enum('男', '女'))
-    pay = Column(String(255))
+    pay = Column(Float, default=0)
     start_time = Column(Date)
     phone = Column(String(11))
 

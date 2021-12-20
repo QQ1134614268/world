@@ -1,29 +1,32 @@
 <template>
   <div>
-    考勤打卡 ( 待开发todo 楼栋 工作内容 楼栋长 )
+    考勤打卡
     <div>
       <span>日期:</span>
-      <el-date-picker v-model="date" disabled type="date"></el-date-picker>
+      <el-date-picker v-model="date" type="date"></el-date-picker>
+      <el-select v-model="time" placeholder="请选择">
+        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+      </el-select>
     </div>
     <el-table :data="data" style="width: 100%">
       <el-table-column prop="name" label="姓名"></el-table-column>
-      <el-table-column prop="name" :label="time">
-        <template slot-scope="scope">
-          <el-checkbox v-model="scope.row.flag" @change="change(scope.row)">标志</el-checkbox>
-        </template>
-      </el-table-column>
       <el-table-column prop="name" label="位置">
         <template slot-scope="scope">
-          <el-radio v-model="scope.row.area" :label="item.code" :key=index v-for="(item,index) in config1">
+          <el-radio-button v-model="scope.row.area" :label="item.code" :key=index v-for="(item,index) in config1">
             {{ item.value }}
-          </el-radio>
+          </el-radio-button>
         </template>
       </el-table-column>
       <el-table-column prop="name" label="工作内容">
         <template slot-scope="scope">
-          <el-radio v-model="scope.row.content" :label="item.code" :key=index v-for="(item,index) in config2">
+          <el-radio-button v-model="scope.row.content" :label="item.code" :key=index v-for="(item,index) in config2">
             {{ item.value }}
-          </el-radio>
+          </el-radio-button>
+        </template>
+      </el-table-column>
+      <el-table-column label="签到">
+        <template slot-scope="scope">
+          <el-checkbox @change="change(scope.row)"></el-checkbox>
         </template>
       </el-table-column>
     </el-table>
@@ -43,7 +46,13 @@ export default {
       time: "",
       attr: '',
       config1: [],
-      config2: []
+      config2: [],
+      options: [
+        {value: 'morning', label: '上午'},
+        {value: 'noon', label: '中午'},
+        {value: 'afternoon', label: '下午'},
+        {value: 'night', label: '晚上'},
+      ],
     }
   },
   methods: {
@@ -94,7 +103,7 @@ export default {
       }
       data[attr] = row.flag
       let response = await this.$putJson2(WorkerTimeApi, 0, data)
-    }
+    },
   },
 
   created() {

@@ -36,7 +36,7 @@ root.system.ggok.com 树
 user.ggok.com 统一登录
 
 game.ggok.com  
-# https://blog.csdn.net/Yokna/article/details/117196684
+# 五子棋: https://blog.csdn.net/Yokna/article/details/117196684 
 
 
 # 代码很耗时 -- 策略,指令 ,智能推断, 复用
@@ -69,3 +69,4 @@ game.ggok.com
 excel 导入校验 时间 考勤打卡 看板(报表) 登陆入口 配置 操作日志 登陆
 todo  多环境,后端
 todo 工时系统 -- 用户模块-- 头像
+

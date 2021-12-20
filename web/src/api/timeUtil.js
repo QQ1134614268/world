@@ -1,5 +1,9 @@
 export function getDateY_M_D() {
     let date = new Date()
+    return fmtDateY_M_D(date)
+}
+
+export function fmtDateY_M_D(date) {
     let char = '-'
     let year = date.getFullYear()
     let month = date.getMonth() + 1
