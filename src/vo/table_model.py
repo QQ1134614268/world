@@ -302,6 +302,7 @@ class WorkerVO(BaseTable):
 class WorkerTimeVO(BaseTable):
     __tablename__ = 'worker_time_t'
     __table_args__ = (UniqueConstraint('worker_id', 'date'),)
+    date = Column(Date)
     worker_id = Column(Integer, ForeignKey(WorkerVO.id, ondelete='CASCADE'), index=True)
     morning = Column(Float, default=0)
     morning_area = Column(String(255))
@@ -315,8 +316,6 @@ class WorkerTimeVO(BaseTable):
     night = Column(Float, default=0)
     night_area = Column(String(255))
     night_content = Column(String(255))
-    hours = Column(Float)
-    date = Column(Date)
     worker = relationship(WorkerVO, backref='time', foreign_keys=[worker_id])
     # todo 标识字段(type = morning) , 新表,当前
 

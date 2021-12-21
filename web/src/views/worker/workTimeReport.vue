@@ -1,8 +1,16 @@
 <template>
   <div>
-    报表(待确定需求)
-
-
+    报表(待实现 todo)
+    <el-table>
+      <el-table-column prop="value" label="地点"></el-table-column>
+      <el-table-column prop="value" label="工作内容"></el-table-column>
+      <el-table-column prop="value" label="人员"></el-table-column>
+      <el-table-column prop="value" label="总人数"></el-table-column>
+      <el-table-column prop="value" label="工作时间"></el-table-column>
+      <el-table-column prop="value" label="时间(小时)"></el-table-column>
+      <el-table-column prop="value" label="总人数"></el-table-column>
+    </el-table>
+    总工时--
   </div>
 </template>
 

@@ -12,21 +12,21 @@
       <el-table-column prop="name" label="姓名"></el-table-column>
       <el-table-column prop="name" label="位置">
         <template slot-scope="scope">
-          <el-radio-button v-model="scope.row.area" :label="item.code" :key=index v-for="(item,index) in config1">
-            {{ item.value }}
-          </el-radio-button>
+          <el-select v-model="scope.row.area" placeholder="请选择">
+            <el-option v-for="item in config1" :key="item.value" :label="item.code" :value="item.value"></el-option>
+          </el-select>
         </template>
       </el-table-column>
       <el-table-column prop="name" label="工作内容">
         <template slot-scope="scope">
-          <el-radio-button v-model="scope.row.content" :label="item.code" :key=index v-for="(item,index) in config2">
-            {{ item.value }}
-          </el-radio-button>
+          <el-select v-model="scope.row.content" placeholder="请选择">
+            <el-option v-for="item in config2" :key="item.value" :label="item.code" :value="item.value"></el-option>
+          </el-select>
         </template>
       </el-table-column>
       <el-table-column label="签到">
         <template slot-scope="scope">
-          <el-checkbox @change="change(scope.row)"></el-checkbox>
+          <el-checkbox @change="change(scope.row)" v-model="scope.row.flag" :true-label="1" :false-label="0"></el-checkbox>
         </template>
       </el-table-column>
     </el-table>
@@ -44,7 +44,6 @@ export default {
       data: [],
       date: getDateY_M_D(),
       time: "",
-      attr: '',
       config1: [],
       config2: [],
       options: [
@@ -79,29 +78,24 @@ export default {
       let myDate = new Date();
       let myHour = myDate.getHours(); //获取当前小时数(0-23)
       if (myHour <= 12) {
-        this.time = "上午"
-        this.attr = "morning"
+        this.time = "morning"
       } else if (12 < myHour && myHour <= 14) {
-        this.time = "中午"
-        this.attr = "noon"
+        this.time = "noon"
       } else if (14 < myHour && myHour <= 18) {
-        this.time = "下午"
-        this.attr = "afternoon"
+        this.time = "afternoon"
       } else if (18 < myHour && myHour <= 24) {
-        this.time = "晚上"
-        this.attr = "night"
+        this.time = "night"
       }
     },
     async change(row) {
-      let attr = this.attr
-      if (this.time == "上午") {
-        attr = 'morning'
-      }
       let data = {
         'worker_id': row.id,
-        date: this.date
+        date: this.date,
+        type: this.time,
+        area: row.area,
+        content: row.content,
+        flag: row.flag,
       }
-      data[attr] = row.flag
       let response = await this.$putJson2(WorkerTimeApi, 0, data)
     },
   },

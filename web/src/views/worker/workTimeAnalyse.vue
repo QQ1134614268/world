@@ -40,12 +40,6 @@ export default {
     return {
       name: '',
       date: this.get_month_day(),
-      dateType: 'month',
-      options: [
-        {value: 'year', label: '年'},
-        {value: 'month', label: '月'},
-        {value: 'date', label: '日'},
-      ],
       data: []
     }
   },
@@ -57,7 +51,6 @@ export default {
     async init() {
       let data = {
         name: this.name,
-        dateType: this.dateType,
         date: this.date,
       }
       let result = await this.$get2(WorkTimeAnalyseApi_get_sum_time, 0, data);

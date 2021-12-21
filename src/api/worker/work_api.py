@@ -3,6 +3,7 @@
 @Time: 2020/7/5
 @Description: pass
 """
+from datetime import date, datetime
 from io import BytesIO
 
 import openpyxl
@@ -15,7 +16,7 @@ from sqlalchemy.dialects.mysql import insert
 from config.conf import header_dic
 from config.mysql_db import db
 from service.token_service import get_id_by_token
-from util import res_util, db_util
+from util import res_util, db_util, time_util
 from vo.table_model import WorkerVO, WorkerTimeVO
 
 work_time_analyse_api = Blueprint("WorkTimeAnalyseApi", __name__, url_prefix='/api/work_api/WorkTimeAnalyseApi')
@@ -40,6 +41,7 @@ class WorkerExcelApi(Resource):
 
         for val in data:
             val["belong"] = get_id_by_token()
+
         insert_stmt = insert(WorkerVO).values(data)
         on_duplicate_key_stmt = insert_stmt.on_duplicate_key_update(
             name=insert_stmt.inserted.name,
@@ -51,9 +53,12 @@ class WorkerExcelApi(Resource):
             pay=insert_stmt.inserted.pay,
             belong=insert_stmt.inserted.belong,
         )
-        db.session.execute(on_duplicate_key_stmt)
-        db.session.commit()
-        return res_util.success()
+        try:
+            db.session.execute(on_duplicate_key_stmt)
+            db.session.commit()
+            return res_util.success()
+        except:
+            return res_util.fail("请检查Excel内容")
 
     def get(self):
         vos = WorkerVO.query.filter(WorkerVO.belong == get_id_by_token()).all()
@@ -73,6 +78,81 @@ class WorkerExcelApi(Resource):
             send_file(byte_ios, as_attachment=True, attachment_filename=filename, mimetype='application/octet-stream'))
         response.headers.add("Cache control", "no cache")
         return response
+
+    # obj.filename
+    def check_excel_type(self,file_data):
+        file_name = file_data.split(".")[0]
+        file_type = file_data.split(".")[1]
+        if not file_type in ["xlxs", "xls"]:
+            raise
+    # 读取excel类型
+    # empty
+    # string
+    # number
+    # date
+    # boolean
+    # Error
+    def float_convert(self, src, nullable):
+        if src is None:
+            raise
+        if isinstance(src, float):
+            return src
+        if isinstance(src, str):
+            try:
+                return float(src)
+            except:
+                raise
+
+    def enum_convert(self, src, nullable=None, max_length=None):
+        if src is None:
+            raise
+        if isinstance(src, float):
+            return src
+        if isinstance(src, str):
+            try:
+                return float(src)
+            except:
+                raise
+
+    def date_convert(self, src, nullable=None, max_length=None):
+        if src is None:
+            raise
+        if isinstance(src, date):
+            return src
+        if isinstance(src, str):
+            try:
+                return time_util.getDatetimeByStr(src)
+            except:
+                # 格式错误
+                raise
+
+    def date_convert(self, src, nullable=None, max_length=None):
+        if src is None:
+            raise
+        if isinstance(src, datetime):
+            return src
+        if isinstance(src, str):
+            try:
+                return time_util.getDatetimeByStr(src)
+            except:
+                # 格式错误
+                raise
+
+
+# todo 重要
+class Field:
+    def __init__(self, obj_type, nullable=False, max_length=20, comment="姓名"):
+        pass
+
+
+class User:
+    name = Field(str, nullable=False, max_length=20, comment="姓名")
+    birthday = Field(datetime, nullable=False, max_length=20, comment="生日")
+    pay = Field(float, nullable=False, max_length=20, comment="薪资")
+
+
+class ExcelExceptionMsg:
+    pass
 
 
 class WorkerApi(Resource):
@@ -150,26 +230,34 @@ class WorkerTimeApi(Resource):
             WorkerTimeVO.noon,
             WorkerTimeVO.afternoon,
             WorkerTimeVO.night,
-            WorkerTimeVO.hours,
         ).filter(*query_filter).paginate(page=page, per_page=page_size)
         return res_util.page_success_row(res)
 
     def put(self, _id):
         data = request.get_json()
-        insert_stmt = insert(WorkerTimeVO).values(data)
-        update_data = {}
-        if 'morning' in data:
-            update_data['morning'] = insert_stmt.inserted.morning
-        if 'noon' in data:
-            update_data['noon'] = insert_stmt.inserted.noon
-        if 'afternoon' in data:
-            update_data['afternoon'] = insert_stmt.inserted.afternoon
-        if 'night' in data:
-            update_data['night'] = insert_stmt.inserted.noon
-
-        on_duplicate_key_stmt = insert_stmt.on_duplicate_key_update(
-            **update_data
-        )
+        update_data = {
+            'date': data.get("date"),
+            'worker_id': data.get("worker_id"),
+        }
+        if data.get("type") == 'morning':
+            update_data['morning'] = data.get("flag")
+            update_data['morning_area'] = data.get("area")
+            update_data['morning_content'] = data.get("content")
+        if data.get("type") == 'noon':
+            update_data['noon'] = data.get("flag")
+            update_data['noon_area'] = data.get("area")
+            update_data['noon_content'] = data.get("content")
+        if data.get("type") == 'afternoon':
+            update_data['afternoon'] = data.get("flag")
+            update_data['afternoon_area'] = data.get("area")
+            update_data['afternoon_content'] = data.get("content")
+        if data.get("type") == 'night':
+            update_data['night'] = data.get("flag")
+            update_data['night_area'] = data.get("area")
+            update_data['night_content'] = data.get("content")
+        u_list = [(k, v) for k, v in update_data.items()]
+        insert_stmt = insert(WorkerTimeVO).values(update_data)
+        on_duplicate_key_stmt = insert_stmt.on_duplicate_key_update(u_list)
         db.session.execute(on_duplicate_key_stmt)
         db.session.commit()
         return res_util.success()
@@ -200,7 +288,6 @@ class WorkTimeAnalyseApi(Resource):
             func.sum(WorkerTimeVO.noon).label('noon'),
             func.sum(WorkerTimeVO.afternoon).label('afternoon'),
             func.sum(WorkerTimeVO.night).label('night'),
-            func.sum(WorkerTimeVO.hours).label('hours'),
         ).filter(
             *query_filter
         ).group_by(
