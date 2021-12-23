@@ -122,10 +122,6 @@ export default {
       //表格
       data: [],
       worker_excel_url: process.env.VUE_APP_BASE_URL + WorkerExcelApi,
-      headers: {
-        token: localStorage.getItem("token")
-      },
-
       // 表单
       form: {},
 
@@ -194,15 +190,14 @@ export default {
       let res = await Axios.get(this.worker_excel_url, {
         responseType: 'arraybuffer', // 或者responseType: 'blob'
         xsrfHeaderName: 'Authorization',
-        headers: this.headers
+        headers: {
+          token: localStorage.getItem("token")
+        }
       })
       try {
         let data = JSON.parse(res.data)
-        this.$message.error("请点击右上角登录后重新下载");
-        JSON.parse(res.data)
         if (data.code != 1) {
           this.$message(data.data)
-
         }
       } catch (err) {
         // const {data, headers} = res;
@@ -219,16 +214,6 @@ export default {
         document.body.removeChild(link);  //  下载完成移除元素
         window.URL.revokeObjectURL(link.href);  // 释放掉blob对象
       }
-    },
-    async importExcel() {
-      let url = '/api/work_api/WorkerExcelApi';
-      let response = await this.$get2(url, 0);
-      if (response.data.code != 1) {
-        this.$message(response.data.data);
-      } else {
-        this.$message(response.data.data);
-      }
-      await this.init();
     },
     handleAdd() {
       this.form = {};
