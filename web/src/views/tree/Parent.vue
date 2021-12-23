@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import {ProveBlueprintApi_prove_value_parent} from "@/api/api";
+
 export default {
   name: " Parent",
   data() {

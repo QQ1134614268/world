@@ -74,7 +74,7 @@ app.json_encoder = JSONEncoder
 
 
 @app.before_request
-def before_request():  # 登录过滤,正则匹配,日志记录,IP分析 todo
+def before_request():
     """
 
     :return:
@@ -209,11 +209,9 @@ api2.add_resource(FileApi, "/api/file/FileApi")
 api2.add_resource(FileApi2, "/api/file/FileApi2")
 api2.add_resource(LogApi, "/api/log_api/LogApi/<int:_id>")
 
-
 # 用户
 app.register_blueprint(user_api)
 app.register_blueprint(attention_api)
-
 
 # model
 api2.add_resource(UploadDataApi, "/api/model_api/UploadDataApi/<int:_id>")
