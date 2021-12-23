@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import Axios from "axios";
 
 export default {
   name: "Home",
@@ -27,7 +26,7 @@ export default {
   methods: {
     async onLogin() {
       let url = '/api/video_api/VideoUserLoginApi';
-      let result = await this.$get(url,  this.form)
+      let result = await this.$get(url, this.form)
       if (result.data.code == 1) {
         localStorage.setItem("token", result.data.data);
         this.$store.commit('receiveUserInfo', {

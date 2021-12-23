@@ -71,6 +71,7 @@
 import jwt_decode from 'jwt-decode';
 import HeaderComponent from '@/views/video/component/avatar/HeaderComponent'
 import AvatarPureComponent from '@/views/video/component/avatar/AvatarPureComponent'
+import {userLogout} from "@/api/user";
 
 export default {
   name: "App",
@@ -89,10 +90,7 @@ export default {
   },
   methods: {
     logout() {
-      localStorage.removeItem("token")
-      this.$store.commit('receiveUserInfo', {
-        token: ""
-      })
+      userLogout()
     }
   }
 }

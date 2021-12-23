@@ -77,7 +77,7 @@ Axios.interceptors.response.use(
                 return Promise.reject(response);
             } else if (response.data.code === 8) {
                 Vue.prototype.$message.error('登录已过期，请重新登录')
-                router.replace(SYS_LOGIN_URL + "?from=" + window.location.href).then(r => {
+                router.replace(SYS_LOGIN_URL + "?from=" + router.currentRoute.fullPath).then(r => {
                     return r
                 })
                 return Promise.reject(response);

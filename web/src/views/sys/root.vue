@@ -10,6 +10,14 @@
         </div>
       </a>
     </div>
+    <div>
+      <a @click="logOut">
+        <div style="width: 10rem">
+          <img src="@/assets/route.webp">
+        </div>
+        <div>退出登录</div>
+      </a>
+    </div>
   </div>
 </template>
 
@@ -20,9 +28,13 @@ import {
   MemberRootUrl,
   messageRootUrl,
   RegisterRootUrl,
-  RenrenRootUrl, SYS_LOGIN_URL, TreeRootUrl,
-  UserSpaceRootUrl, WorkerRootUrl
+  RenrenRootUrl,
+  SYS_LOGIN_URL,
+  TreeRootUrl,
+  UserSpaceRootUrl,
+  WorkerRootUrl
 } from "@/api/routerUrl";
+import {userLogout} from "@/api/user";
 
 export default {
   name: "root",
@@ -39,6 +51,12 @@ export default {
         {url: RegisterRootUrl, name: "注册"},
         {url: SYS_LOGIN_URL, name: "登录"},
       ],
+    }
+  },
+  methods: {
+    logOut() {
+      userLogout()
+      this.$message("退出")
     }
   }
 }

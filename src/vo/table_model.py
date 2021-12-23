@@ -408,3 +408,12 @@ class StoryVO(BaseTable):
     value = Column(Text, default='')
     sort = Column(Integer)
     wight = Column(Integer, default=1)
+
+
+class LogVO(BaseTable):
+    __tablename__ = 'log_t'
+    # tag: 标签
+    userId = Column(Integer, index=True)
+    message = Column(Text, default='')
+    tag = Column(Text, default='')
+    is_read = Column(Boolean, default=False)

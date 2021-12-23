@@ -1,19 +1,21 @@
 # encoding: utf-8
-import datetime
-import os
+import asyncio
 import zipfile
 from io import BytesIO
+from threading import Thread
 
 import pandas
-from flask import Blueprint, send_file, jsonify, make_response
+import time
+from flask import Blueprint, send_file, jsonify
 from flask import Response
 from flask import request
+from time import sleep
 
-from config.conf import DATA_DIR
 from config.conf import RESOURCE_DIR
 from util import file_config
 from util import res_util
 from util.log_util import logger
+from util.time_util import get_now_str
 
 hello_api = Blueprint("hello", __name__, url_prefix='/api/hello_api')
 
@@ -24,58 +26,20 @@ hello_api = Blueprint("hello", __name__, url_prefix='/api/hello_api')
 # response
 @hello_api.route('/hello', methods=["GET"])
 def hello():
-    """
-    This is test API
-    测试联通性
-    ---
-    tags:
-        - hello_api
-    responses:
-      500:
-        description: server error
-      200:
-        description: success
-    """
     from app import app
     logger.info(app.config["DEBUG"])
     return jsonify(res_util.success("hello world!"))
 
 
-@hello_api.route('/sleep', methods=["GET"])
-def sleep():
-    """
-    This is test API
-    sleep 测试单线程
-    ---
-    tags:
-        - hello_api
-    responses:
-      500:
-        description: server error
-      200:
-        description: success
-    """
-    start = datetime.datetime.utcnow()
-    end = start + datetime.timedelta(seconds=30)
-    while datetime.datetime.utcnow() < end:
-        pass
-    return jsonify(res_util.success('thread test;I slept from ' + str(start) + " to " + str(end)))
+@hello_api.route('/test_sleep', methods=["GET"])
+def test_sleep():
+    start = get_now_str()
+    time.sleep(5)
+    return jsonify(res_util.success(f'sleep test;I slept from {start} to {get_now_str()} '))
 
 
 @hello_api.route('/exception', methods=["GET"])
 def exception():
-    """
-    This is test API
-    exception 测试异常
-    ---
-    tags:
-        - hello_api
-    responses:
-      500:
-        description: server error
-      200:
-        description: success
-    """
     result = 1 / 0
     return jsonify(res_util.success(result))
 
@@ -89,23 +53,8 @@ def download_excel():
                      mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
 
 
-@hello_api.route('/download_excel_file', methods=['GET'])
-def download_excel_file():
-    """
-
-    :return:
-    """
-    response = make_response(send_file("E:\\python\\world\\resource\\Book1.xlsx"))
-    response.headers["Content-Disposition"] = "attachment; filename=myfiles.xls;"
-    return response
-
-
 @hello_api.route('/test_download_buffer', methods=['GET'])
 def test_download_buffer():
-    """
-
-    :return:
-    """
     buffer = BytesIO()
     buffer.write(b'jJust some letters.')
     buffer.seek(0)
@@ -114,19 +63,6 @@ def test_download_buffer():
 
 @hello_api.route('/test_download_zip', methods=['GET'])
 def test_download_zip():
-    """
-    This is test API
-    下载zip文件
-    ---
-    tags:
-       - hello_api
-    responses:
-      500:
-        description: server error
-      200:
-        description: success
-    """
-
     data = [{"name": 1, "age": 1, }, {"name": 1, "age": 1, }, {"name": 1, "age": 1, "sex": 2}, ]
     translate = {
         "name": "姓名",
@@ -149,18 +85,6 @@ def test_download_zip():
 
 @hello_api.route('/test_download_pandas', methods=['GET'])
 def test_download_pandas():
-    """
-    This is test API
-    pandas 导出csv
-    ---
-    tags:
-       - hello_api
-    responses:
-      500:
-        description: server error
-      200:
-        description: success
-     """
     data = [{"name": 1, "age": 1, }, {"name": 1, "age": 1, }, {"name": 1, "age": 1, "sex": 2}, ]
     translate = {
         "name": "姓名",
@@ -178,85 +102,47 @@ def test_download_pandas():
 
 @hello_api.route('/post_json', methods=['POST'])
 def post_json():
-    """
-    post_json
-    ---
-    tags:
-        - hello_api
-    summary: Creates a new User
-    consumes:
-      - application/json
-    produces:
-      - application/json
-    parameters:
-      - in: body
-        name: body
-        description:
-          User object that needs to be persisted to the database
-        required: true
-        schema:
-          id: User
-          required:
-            - name
-            - age
-          properties:
-            name:
-              description: User's name
-              type: string
-              example: tom
-            age:
-              description: User's age
-              type: string
-              example: 11
-    responses:
-      200:
-        description: Successful operation
-      400:
-        description: Invalid input
-    """
     data = request.get_json()
     name = data.get("name", None)
     age = data.get("age", None)
     return jsonify(res_util.success({"name": name, "age": age}))
 
 
-@hello_api.route('/post_formData', methods=['POST'])
-def post_formData():
-    """
-    上传多个文件，以及其他form参数
-    ---
-    tags:
-      - hello_api
-    consumes: ["multipart/form-data"]
-    produces: ["application/json"]
-    parameters:
-      - in: formData
-        name: file_name1
-        type: file
-        required: true
-        description: upload a image file
-      - in: formData
-        name: file_name2
-        type: file
-        required: false
-        description: upload a image file11
-      - in: formData
-        name: name
-        description: name
-        required: true
-        type: string
-      - in: formData
-        name: code
-        description: code
-        required: true
-        type: string
-    responses:
-      500:
-        description: server error
-      200:
-        description: success
-    """
+@hello_api.route('/post_form_data', methods=['POST'])
+def post_form_data():
     name = request.form["name"]
     file1 = request.files["file1"]
     file2 = request.files["file2"]
     return jsonify(res_util.success({"name": name, "file_name1": file1.filename, "file_name2": file2.filename, }))
+
+
+@hello_api.route('/test_thread', methods=['GET'])
+def test_thread():
+    start = get_now_str()
+    print("开始", get_now_str())
+
+    def task_a(a, b=1):
+        print("任务 part1", get_now_str(), a, b)
+        sleep(5)
+        print("任务 part2", get_now_str(), a, b)
+
+    args = (1,)
+    kwargs = {'b': 2}
+    thr = Thread(target=task_a, args=args, kwargs=kwargs)
+    thr.start()
+    print("结束", get_now_str())
+    return jsonify(res_util.success("开始{},结束{},异步任务时长5秒".format(start, get_now_str())))
+
+
+@hello_api.route('/test_asyncio', methods=['GET'])
+def test_asyncio():
+    # 携程不能提前返回, 只能多个任务节省时间, gather(task1,task2,task3,task4,)
+    start = get_now_str()
+    print("开始", get_now_str())
+
+    async def test_asyncio_sleep():
+        await asyncio.sleep(5)
+
+    asyncio.run(test_asyncio_sleep())
+    print("结束", get_now_str())
+    return jsonify(res_util.success("开始{},结束{},异步任务时长5秒".format(start, get_now_str())))

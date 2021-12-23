@@ -21,7 +21,7 @@ UPLOAD_FILE_PATH = path.join(DATA_DIR, "upload")
 UPLOAD_FILE_PATH2 = path.join(DATA_DIR, "upload_file")
 
 DEFAULT_TIME_STR = '%Y-%m-%d %H:%M:%S.%f'
-
+# dev  不发邮件的主机
 MAIL_HOST_BLOCK_LIST = ["DESKTOP-4JJG0QE", "WGCOMPUTER"]
 DATE_FORMAT = "%Y-%m-%d"
 DATE_TIME_FORMAT = '%Y-%m-%d %H:%M:%S'

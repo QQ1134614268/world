@@ -27,6 +27,7 @@ from api.sys.SysApi import sys_api
 from api.sys.config_api import ConfigApi
 from api.sys.customize.CustomizeApi import customize_api
 from api.sys.file.file_api import FileApi2
+from api.sys.log_api import LogApi
 from api.sys.scheduler.APScheduler import scheduler
 from api.sys.scheduler.SchedulerApi import scheduler_api
 from api.tree.all import AllApi
@@ -87,26 +88,10 @@ def before_request():  # 登录过滤,正则匹配,日志记录,IP分析 todo
         "User-Agent": user_agent,
         "action": "before_request"
     })
-    # for path in allow_path:
-    #     if re.match(path, url_path):
-    #         break
-    # else:
-    #     for path2 in intercept_path:
-    #         username = user_service.get_name_by_token()
-    #         userid = user_service.get_id_by_token()
-    #         logger.info({"user": {"username": username, "userid": userid}, "url_path": url_path, "ip": ip,
-    #                      "User-Agent": user_agent, "action": "before_request"})
-    #         if re.match(path2, url_path):
-    #             if not token_util.check_token():
-    #                 return res_util.fail("请登录")
-
-
-# @app.after_request  todo  所有数据都转成  格式
-# def after_request():
-#     from flask import Response
-#     data = Response.get_data()
-#     print(type(data), data)
-#     pass
+    # # 需登录api, 没有登录 登录校验
+    # allow_path=[]
+    # if url_path not in [] and not check_token():
+    #     raise WorldNoLoginException("请重新登录")
 
 
 @app.errorhandler(404)  # 当发生404错误时，会被该路由匹配
@@ -216,15 +201,20 @@ app.register_blueprint(customize_api)
 app.register_blueprint(wb_api)
 app.register_blueprint(scheduler_api)
 app.register_blueprint(message_api)
-# 用户
-app.register_blueprint(user_api)
-app.register_blueprint(attention_api)
-
+# sys
 api2.add_resource(ProjectInit, "/help")
 api2.add_resource(ConfigApi, "/api/config_api/ConfigApi/<int:_id>")
 
 api2.add_resource(FileApi, "/api/file/FileApi")
 api2.add_resource(FileApi2, "/api/file/FileApi2")
+api2.add_resource(LogApi, "/api/log_api/LogApi/<int:_id>")
+
+
+# 用户
+app.register_blueprint(user_api)
+app.register_blueprint(attention_api)
+
+
 # model
 api2.add_resource(UploadDataApi, "/api/model_api/UploadDataApi/<int:_id>")
 app.register_blueprint(prove_api)

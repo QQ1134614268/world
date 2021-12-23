@@ -54,7 +54,7 @@ export default {
         // await this.$router.go({path: '/user/UserSpace'}) todo
         // 弹框式登录
         if (this.from != null) {
-          await this.$router.push({path: this.from})
+          await this.$router.push(this.from)
         } else {
           await this.$router.push({path: SYS_HOME})
         }

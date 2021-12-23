@@ -1,4 +1,5 @@
 //工时系统
+export const LogApi = "/api/log_api/LogApi"
 export const WorkerApi = "/api/work_api/WorkerApi"
 export const WorkerTimeApi = '/api/work_api/WorkerTimeApi'
 export const ConfigApi = "/api/config_api/ConfigApi";
@@ -20,6 +21,7 @@ export const ProveBlueprintApi_prove_value_parent = "/api/ProveBlueprintApi/prov
 
 //用户
 export const sys_api_login = "/api/sys_api/login"
+export const sys_api_logout = "/api/sys_api/logout"
 
 //人人影
 let VideoUserApi = "/api/video_api/VideoUserApi"

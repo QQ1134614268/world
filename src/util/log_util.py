@@ -15,7 +15,6 @@ def create_logger(file_path=LOG_PATH):
     log = logging.getLogger(__name__)
     log.setLevel(logging.DEBUG)
 
-
     err_handler = ConcurrentRotatingFileHandler(os.path.join(file_path, "err.log"), maxBytes=1 * 1024 * 1024,
                                                 backupCount=10, encoding="utf_8")
     err_handler.setLevel(logging.INFO)

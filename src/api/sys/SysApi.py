@@ -9,6 +9,7 @@ import service.token_service
 from config.conf import UPLOAD_FILE_PATH
 from config.mysql_db import db
 from config.redis_db import redisDB
+from service import log_table_service, token_service
 from util import password_util, res_util
 from util import token_util
 from util import verification_code_util
@@ -45,13 +46,16 @@ def login():
     user = UserVO.query.filter_by(username=username,
                                   password=password_util.get_sha256_salt_password(password)).first()
     if user:
+        log_table_service.log_table(user.id, "登录系统", "登录")
         return jsonify(res_util.success(token_util.get_token(user.id, user.username, )))
     else:
         return jsonify(res_util.fail("账号密码不匹配"))
 
 
-@sys_api.route('/logout', methods=['POST'])
+@sys_api.route('/logout', methods=['GET'])
 def logout():
+    # 单点登录, redis 删除
+    log_table_service.log_table(token_service.get_id_by_token(), "退出", "退出")
     return jsonify(res_util.success("退出"))
 
 

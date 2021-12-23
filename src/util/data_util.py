@@ -6,14 +6,14 @@
 import random
 import string
 
-from util.time_util import getUtcTimeStr
+from util.time_util import get_now_str
 
 
 def create_data(datatype, length):
     if datatype == "String" or datatype == "string":
         return ''.join(random.sample(string.ascii_letters + string.digits, length))
     if datatype == "Time" or datatype == "time":
-        return getUtcTimeStr()
+        return get_now_str()
     if datatype == "Int" or datatype == "int":
         return random.randint(10 ** (length - 1), 10 ** length - 1)
     if datatype == "Float" or datatype == "float":

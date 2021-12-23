@@ -121,7 +121,7 @@ class WorkerExcelApi(Resource):
             return src
         if isinstance(src, str):
             try:
-                return time_util.getDatetimeByStr(src)
+                return time_util.get_datetime_by_str(src)
             except:
                 # 格式错误
                 raise
@@ -133,7 +133,7 @@ class WorkerExcelApi(Resource):
             return src
         if isinstance(src, str):
             try:
-                return time_util.getDatetimeByStr(src)
+                return time_util.get_datetime_by_str(src)
             except:
                 # 格式错误
                 raise
