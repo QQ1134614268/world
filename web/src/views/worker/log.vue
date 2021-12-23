@@ -1,6 +1,6 @@
 <template>
   <div>
-    待开发(登录,修改记录)
+    操作日志
     <el-table :data="data" style="width: 100%">
       <el-table-column prop="create_time" label="时间"></el-table-column>
       <el-table-column prop="message" label="操作"></el-table-column>
