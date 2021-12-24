@@ -1,16 +1,15 @@
 <template>
   <div>
-    报表(待实现 todo)
-    <el-table>
-      <el-table-column prop="value" label="地点"></el-table-column>
-      <el-table-column prop="value" label="工作内容"></el-table-column>
-      <el-table-column prop="value" label="人员"></el-table-column>
-      <el-table-column prop="value" label="总人数"></el-table-column>
-      <el-table-column prop="value" label="工作时间"></el-table-column>
+    每日报表
+    <el-table :data="data">
+      <el-table-column prop="area" label="地点"></el-table-column>
+      <el-table-column prop="content" label="工作内容"></el-table-column>
+      <el-table-column prop="name" label="人员"></el-table-column>
+      <el-table-column prop="time" label="工作时间"></el-table-column>
       <el-table-column prop="value" label="时间(小时)"></el-table-column>
       <el-table-column prop="value" label="总人数"></el-table-column>
     </el-table>
-    总工时--
+    总工时--0小时
   </div>
 </template>
 
@@ -20,7 +19,7 @@ import {WorkTimeAnalyseApi_get_day_report} from "@/api/api";
 export default {
   name: "workTimeReport",
   data() {
-    return {}
+    return {data: []}
   },
   methods: {
     async init() {

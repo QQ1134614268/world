@@ -16,11 +16,15 @@ class ConfigApi(Resource):
     """工时"""
 
     def get(self, _id):
-        parent_id = request.args.get("parent_id", -1)
+        parent_code = request.args.get("parent_code", '-1')
         group_code = request.args.get("group_code", "BUILD")
+        if request.args.get("create_by") == "-1":
+            create_by = "-1"
+        else:
+            create_by = token_service.get_id_by_token()
         vos = EnumConfig.query.filter(
-            EnumConfig.create_by == token_service.get_id_by_token(),
-            EnumConfig.parent_id == parent_id,
+            EnumConfig.create_by == create_by,
+            EnumConfig.parent_code == parent_code,
             EnumConfig.group_code == group_code
         ).all()
         return res_util.json_success(vos)

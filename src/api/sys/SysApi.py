@@ -1,16 +1,18 @@
 # encoding: utf-8
+# todo 公告, 反馈
+import importlib
 import random
 
 import time
 from flask import Blueprint, jsonify, make_response, request
-from flask_restful import fields, marshal
+from flask_restful import fields, marshal, Resource
 
 import service.token_service
 from config.conf import UPLOAD_FILE_PATH
 from config.mysql_db import db
 from config.redis_db import redisDB
 from service import log_table_service, token_service
-from util import password_util, res_util
+from util import res_util
 from util import token_util
 from util import verification_code_util
 from vo.table_model import UserVO, AnnouncementVO, MessageVO
@@ -30,7 +32,7 @@ def get_verify_code():
     code, img_bytes = verification_code_util.get_verify_code()
     response = make_response(img_bytes)
     response.headers['Content-Type'] = 'image/gif'
-    redisDB.set(code, 1, ex=60)
+    redisDB.set(code, code, ex=60)
     return response
 
 
@@ -43,9 +45,8 @@ def login():
     data = request.get_json()
     username = data.get('username', '')
     password = data.get('password', '')
-    user = UserVO.query.filter_by(username=username,
-                                  password=password_util.get_sha256_salt_password(password)).first()
-    if user:
+    user = UserVO.query.filter_by(username=username).first()
+    if user and user.check_password(password):
         log_table_service.log_table(user.id, "登录系统", "登录")
         return jsonify(res_util.success(token_util.get_token(user.id, user.username, )))
     else:
@@ -63,7 +64,6 @@ def logout():
 def register():
     data = request.get_json()
     username = data.get('username', '')
-    # user_type = data.get('code', '')
     code = data.get('code')
     if not code:
         return res_util.fail("验证码错误")
@@ -74,7 +74,7 @@ def register():
     if exist:
         return jsonify(res_util.fail("用户名已经存在"))
     password = data.get('password', '')
-    vo = UserVO(username=username, password=password_util.get_sha256_salt_password(password))
+    vo = UserVO(username=username, password=password)
     db.session.add(vo)
     db.session.commit()
     return jsonify(res_util.success("注册成功"))
@@ -125,3 +125,41 @@ def get_suggest():
     announcement_id = request.args.get("id")
     message_list = MessageVO.query.filter_by(id=announcement_id).order_by(MessageVO.create_time).all()
     return jsonify(res_util.success(message_list))
+
+
+class AllApi(Resource):
+
+    def post(self, model):
+        data = request.get_json()
+        obj = self.reflect_obj(model)
+        vo = obj(**data)
+        db.session.add(vo)
+        db.session.commit()
+        return res_util.success(vo.id)
+
+    def get(self, model, _id):
+        obj = self.reflect_obj(model)
+        vo = obj.query.filter(obj.id == request.args.get("id")).first()
+        return res_util.success(vo.to_json())
+
+    def put(self, model, _id):
+        obj = self.reflect_obj(model)
+        data = request.get_json()
+        obj.query.filter(obj.id == _id).update(data)
+        db.session.commit()
+        return res_util.success(_id)
+
+    def delete(self, model, _id):
+        obj = self.reflect_obj(model)
+        model = obj.query.filter(obj.id == _id).first()
+        db.session.delete(model)
+        db.session.commit()
+        return res_util.success(_id)
+
+    @staticmethod
+    def reflect_obj(model):
+        model_path = "vo.table_model"
+        class_name = model
+        module = importlib.import_module(model_path)  # 根据"auth.my_auth"导入my_auth模块
+        obj = getattr(module, class_name)()  # 反射并实例化
+        return obj

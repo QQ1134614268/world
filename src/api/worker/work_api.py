@@ -13,10 +13,11 @@ from openpyxl import Workbook
 from sqlalchemy import and_, func
 from sqlalchemy.dialects.mysql import insert
 
-from config.conf import header_dic
+from config.conf import header_dic, DATE_FORMAT
 from config.mysql_db import db
 from service.token_service import get_id_by_token
 from util import res_util, db_util, time_util
+from util.db_util import row_to_dic
 from vo.table_model import WorkerVO, WorkerTimeVO
 
 work_time_analyse_api = Blueprint("WorkTimeAnalyseApi", __name__, url_prefix='/api/work_api/WorkTimeAnalyseApi')
@@ -80,11 +81,14 @@ class WorkerExcelApi(Resource):
         return response
 
     # obj.filename
-    def check_excel_type(self,file_data):
+    def check_excel_type(self, file_data):
         file_name = file_data.split(".")[0]
         file_type = file_data.split(".")[1]
         if not file_type in ["xlxs", "xls"]:
             raise
+
+
+class Convert:
     # 读取excel类型
     # empty
     # string
@@ -93,17 +97,6 @@ class WorkerExcelApi(Resource):
     # boolean
     # Error
     def float_convert(self, src, nullable):
-        if src is None:
-            raise
-        if isinstance(src, float):
-            return src
-        if isinstance(src, str):
-            try:
-                return float(src)
-            except:
-                raise
-
-    def enum_convert(self, src, nullable=None, max_length=None):
         if src is None:
             raise
         if isinstance(src, float):
@@ -141,17 +134,24 @@ class WorkerExcelApi(Resource):
 
 # todo 重要
 class Field:
-    def __init__(self, obj_type, nullable=False, max_length=20, comment="姓名"):
+    def __init__(self, obj_type, nullable=False, max_length=20, comment="姓名", index=None):
         pass
 
 
 class User:
-    name = Field(str, nullable=False, max_length=20, comment="姓名")
-    birthday = Field(datetime, nullable=False, max_length=20, comment="生日")
-    pay = Field(float, nullable=False, max_length=20, comment="薪资")
+    name = Field(str, nullable=False, max_length=20, comment="姓名", index=1)
+    birthday = Field(datetime, nullable=False, max_length=20, comment="生日", index=1)
+    pay = Field(float, nullable=False, max_length=20, comment="薪资", index=1)
 
 
 class ExcelExceptionMsg:
+    pass
+
+
+class ExcelHandler:
+    file = None
+    wb = openpyxl.load_workbook(file)
+
     pass
 
 
@@ -304,5 +304,61 @@ class WorkTimeAnalyseApi(Resource):
     @work_time_analyse_api.route('/get_day_report/<int:_id>', methods=['GET'])
     def get_day_report(_id):
         # 日报模式
+        page = request.args.get("currentPage", 1, int)
+        page_size = request.args.get("pageSize", 15, int)
+        user_id = get_id_by_token()
+        query_filter = [WorkerVO.belong == user_id]
+        join_filter = [WorkerTimeVO.worker_id == WorkerVO.id]
+        if date:
+            join_filter.append(WorkerTimeVO.date == time_util.get_now_str(DATE_FORMAT))
+        res = WorkerVO.query.outerjoin(
+            WorkerTimeVO,
+            and_(*join_filter)
+        ).with_entities(
+            WorkerVO.id,
+            WorkerVO.name,
+            WorkerTimeVO.date,
+            WorkerTimeVO.morning,
+            WorkerTimeVO.morning_area,
+            WorkerTimeVO.morning_content,
+            WorkerTimeVO.noon,
+            WorkerTimeVO.noon_area,
+            WorkerTimeVO.noon_content,
+            WorkerTimeVO.afternoon,
+            WorkerTimeVO.afternoon_area,
+            WorkerTimeVO.afternoon_content,
+            WorkerTimeVO.night,
+            WorkerTimeVO.night_area,
+            WorkerTimeVO.night_content,
+        ).filter(*query_filter).order_by(
+            WorkerTimeVO.afternoon_area,
+        ).paginate(page=page, per_page=page_size)
+        ret = []
+        for item in row_to_dic(res.items):
+            ret.append({
+                "area": item["morning_area"] or '',
+                "time": "morning",
+                "content": item["morning_content"],
+                "name": item["name"],
+            })
+            ret.append({
+                "area": item["noon_area"] or '',
+                "time": "noon",
+                "content": item["noon_content"],
+                "name": item["name"],
+            })
+            ret.append({
+                "area": item["afternoon_area"] or '',
+                "time": "night",
+                "content": item["afternoon_area"],
+                "name": item["name"],
+            })
+            ret.append({
+                "area": item["night_area"] or '',
+                "time": "morning",
+                "content": item["night_content"],
+                "name": item["name"],
+            })
 
-        return res_util.json_success()
+        ret = sorted(ret, key=lambda x: x["area"])
+        return res_util.json_success(ret)

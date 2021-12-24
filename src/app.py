@@ -23,14 +23,13 @@ from api.message.wx.SocketApi import socket_api
 from api.my_cloud_space.CloudSpaceApi import cloud_space_api, FileApi
 from api.project_api import ProjectInit
 from api.stone_game.StoneGameApi import stone_game_api
-from api.sys.SysApi import sys_api
+from api.sys.SysApi import sys_api, AllApi
 from api.sys.config_api import ConfigApi
 from api.sys.customize.CustomizeApi import customize_api
 from api.sys.file.file_api import FileApi2
 from api.sys.log_api import LogApi
 from api.sys.scheduler.APScheduler import scheduler
 from api.sys.scheduler.SchedulerApi import scheduler_api
-from api.tree.all import AllApi
 from api.tree.tree_api import UploadDataApi, prove_api, ProveApi, StoryApi
 from api.user.user_api import user_api
 from api.user.wallet.wallet_api import WalletApi
@@ -38,7 +37,6 @@ from api.video.video_api import TargetApi, TargetListApi, MarketTargetListApi, W
     TargetRankListApi, VideoUserApi, VideoUserLoginApi, InvitationCodeApi, MarketWorksListApi
 from api.worker.work_api import WorkerApi, WorkerTimeApi, WorkerExcelApi, WorkTimeAnalyseApi, \
     work_time_analyse_api
-from api.worker.work_api2 import work_api2
 from config.conf import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME, VERSION
 from config.conf import MAIL_HOST_BLOCK_LIST
 from config.exception import WorldException
@@ -209,6 +207,8 @@ api2.add_resource(FileApi, "/api/file/FileApi")
 api2.add_resource(FileApi2, "/api/file/FileApi2")
 api2.add_resource(LogApi, "/api/log_api/LogApi/<int:_id>")
 
+api2.add_resource(AllApi, "/api/video_api/AllApi/<int:_id>")
+
 # 用户
 app.register_blueprint(user_api)
 app.register_blueprint(attention_api)
@@ -238,7 +238,6 @@ api2.add_resource(WorkerExcelApi, "/api/work_api/WorkerExcelApi")
 api2.add_resource(WorkerApi, "/api/work_api/WorkerApi/<int:_id>")
 api2.add_resource(WorkerTimeApi, "/api/work_api/WorkerTimeApi/<int:_id>")
 api2.add_resource(WorkTimeAnalyseApi, "/api/work_api/WorkTimeAnalyseApi/<int:_id>")
-app.register_blueprint(work_api2)
 app.register_blueprint(work_time_analyse_api)
 # video
 api2.add_resource(TargetApi, "/api/video_api/TargetApi/<int:_id>")
@@ -252,7 +251,6 @@ api2.add_resource(TargetRankListApi, "/api/video_api/TargetRankListApi/<int:_id>
 api2.add_resource(MarketWorksListApi, "/api/video_api/MarketWorksListApi/<int:_id>")
 api2.add_resource(VideoUserApi, "/api/video_api/VideoUserApi/<int:_id>")
 api2.add_resource(VideoUserLoginApi, "/api/video_api/VideoUserLoginApi")
-api2.add_resource(AllApi, "/api/video_api/AllApi/<int:_id>")
 api2.add_resource(InvitationCodeApi, "/api/video_api/InvitationCodeApi/<int:_id>")
 
 if __name__ == '__main__':

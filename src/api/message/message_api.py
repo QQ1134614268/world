@@ -2,6 +2,7 @@
 from flask import Blueprint, jsonify, request
 from flask_restful import fields, marshal
 
+import service.attention_service
 import service.token_service
 from config.mysql_db import db
 from config.orm_config import DateTime
@@ -59,7 +60,7 @@ def get_speech_by_id():
 @message_api.route('/get_other_user_speech', methods=['GET'])
 def get_other_user_speech():
     # TODO 时间 所有好友 分组可视  group
-    attentionList = user_service.getAttentionList()
+    attentionList = service.attention_service.getAttentionList()
     attentionIds = [attenion.userId for attenion in attentionList]
     parent_vo_list = PersonSpeech.query.filter_by(PersonSpeech.userId.in_(attentionIds))
     data_list = [marshal(i, speechFields) for i in parent_vo_list]

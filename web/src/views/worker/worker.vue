@@ -113,7 +113,9 @@ export default {
       searchName: "",
       searchIDCard: "",
       searchPhone: "",
-
+      headers: {
+        token: localStorage.getItem("token")
+      },
       //分页
       currentPage: 1,
       pageSize: 6,
@@ -190,9 +192,7 @@ export default {
       let res = await Axios.get(this.worker_excel_url, {
         responseType: 'arraybuffer', // 或者responseType: 'blob'
         xsrfHeaderName: 'Authorization',
-        headers: {
-          token: localStorage.getItem("token")
-        }
+        headers: this.headers
       })
       try {
         let data = JSON.parse(res.data)

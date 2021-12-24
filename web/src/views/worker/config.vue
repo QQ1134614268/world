@@ -56,7 +56,6 @@ export default {
       value: '',
       editDialog: false,
       data: [],
-      parent_id: -1,
       form: {},
       group: 'BUILD'
     }
