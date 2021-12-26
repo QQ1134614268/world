@@ -1,19 +1,25 @@
 <template>
   <div>
-    <img alt="加载失败">
-    <!--    todo 需要刷新 使用vuex 等 ,溢出改变同步全局-->
-    <el-button @click="logout"></el-button>
+    <div v-if="userId">
+      下拉
+      select
+      dropdown
+      <!--    todo 需要刷新 使用vuex 等 ,溢出改变同步全局-->
+
+      <el-button @click="logout"></el-button>
+
+    </div>
   </div>
 </template>
 
 <script>
-import {SYS_LOGIN_URL} from "@/api/routerUrl";
 
 export default {
   name: "UserIconCOMPO",
   data() {
     return {
-      url: SYS_LOGIN_URL
+      userId: '',
+
     }
   },
   methods: {

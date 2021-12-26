@@ -3,11 +3,10 @@
 @Time: 2020/7/5
 @Description: pass
 """
-from datetime import date, datetime
-from io import BytesIO
+from datetime import date
 
 import openpyxl
-from flask import request, make_response, send_file, Blueprint
+from flask import request, Blueprint
 from flask_restful import Resource
 from openpyxl import Workbook
 from sqlalchemy import and_, func
@@ -18,6 +17,7 @@ from config.mysql_db import db
 from service.token_service import get_id_by_token
 from util import res_util, db_util, time_util
 from util.db_util import row_to_dic
+from util.dowmload_util import down_response
 from vo.table_model import WorkerVO, WorkerTimeVO
 
 work_time_analyse_api = Blueprint("WorkTimeAnalyseApi", __name__, url_prefix='/api/work_api/WorkTimeAnalyseApi')
@@ -71,88 +71,14 @@ class WorkerExcelApi(Resource):
         for row_index, vo in enumerate(vos):
             for col_index, attr in enumerate(header_dic.keys()):
                 ws.cell(row=(row_index + 2), column=(col_index + 1)).value = getattr(vo, attr)
-        byte_ios = BytesIO()
-        wb.save(byte_ios)
-        byte_ios.seek(0)
-        filename = "名单.xlsx"
-        response = make_response(
-            send_file(byte_ios, as_attachment=True, attachment_filename=filename, mimetype='application/octet-stream'))
-        response.headers.add("Cache control", "no cache")
-        return response
+        return down_response(wb, "名单.xlsx")
 
     # obj.filename
-    def check_excel_type(self, file_data):
-        file_name = file_data.split(".")[0]
-        file_type = file_data.split(".")[1]
-        if not file_type in ["xlxs", "xls"]:
+    def check_excel_type(self, file_name):
+        arr = file_name.split(".")
+        file_type = arr and arr[-1]
+        if file_type not in ["xlxs", "xls"]:
             raise
-
-
-class Convert:
-    # 读取excel类型
-    # empty
-    # string
-    # number
-    # date
-    # boolean
-    # Error
-    def float_convert(self, src, nullable):
-        if src is None:
-            raise
-        if isinstance(src, float):
-            return src
-        if isinstance(src, str):
-            try:
-                return float(src)
-            except:
-                raise
-
-    def date_convert(self, src, nullable=None, max_length=None):
-        if src is None:
-            raise
-        if isinstance(src, date):
-            return src
-        if isinstance(src, str):
-            try:
-                return time_util.get_datetime_by_str(src)
-            except:
-                # 格式错误
-                raise
-
-    def date_convert(self, src, nullable=None, max_length=None):
-        if src is None:
-            raise
-        if isinstance(src, datetime):
-            return src
-        if isinstance(src, str):
-            try:
-                return time_util.get_datetime_by_str(src)
-            except:
-                # 格式错误
-                raise
-
-
-# todo 重要
-class Field:
-    def __init__(self, obj_type, nullable=False, max_length=20, comment="姓名", index=None):
-        pass
-
-
-class User:
-    name = Field(str, nullable=False, max_length=20, comment="姓名", index=1)
-    birthday = Field(datetime, nullable=False, max_length=20, comment="生日", index=1)
-    pay = Field(float, nullable=False, max_length=20, comment="薪资", index=1)
-
-
-class ExcelExceptionMsg:
-    pass
-
-
-class ExcelHandler:
-    file = None
-    wb = openpyxl.load_workbook(file)
-
-    pass
 
 
 class WorkerApi(Resource):
