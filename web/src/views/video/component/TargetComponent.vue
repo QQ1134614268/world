@@ -2,18 +2,23 @@
   <div class="p_c_box_margin target">
     <div class="art_title"><a :href="target_url+'?target_id='+target_id">{{ title }} </a></div>
     <div class="art_body"> {{ content }}</div>
-    <AvatarComponent2 :username="username" :user_id="user_id" :avatar="avatar">
-    </AvatarComponent2>
+    <div class="box">
+      <a :href="user_url+'?user_id='+user_id">
+        <div class="p_c_box-flex_row-col-center">
+          <el-avatar :src="file_url2+avatar"></el-avatar>
+          <span> {{ username }} </span>
+        </div>
+      </a>
+    </div>
   </div>
 </template>
 <script>
-import AvatarComponent2 from "./avatar/AvatarComponent2"
 
 export default {
   name: "TargetComponent",
-  components: {AvatarComponent2},
   data() {
     return {
+      user_url: "/video/UserInfo2",
       search: "",
       activeName: "first",
       tableData: [],

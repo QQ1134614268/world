@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import VideoCard2 from "./component/VideoCard2"
-import HeaderComponent from "./component/avatar/HeaderComponent"
+import UserAvatarIComponent from "@/views/video/component/UserAvatarIComponent";
+import VideoCard2 from "@/views/video/component/VideoCard2";
 
 export default {
   name: "UserInfo",
@@ -39,7 +39,7 @@ export default {
     }
   },
   components: {
-    VideoCard2, HeaderComponent
+    VideoCard2, UserAvatarIComponent
   },
   methods: {
     async init() {

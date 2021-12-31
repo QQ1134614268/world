@@ -1,22 +1,18 @@
 <template>
   <div style="margin-bottom: 1.6rem" v-if="user">
-    <AvatarComponentBase001
-        :username="user.username"
-        :avatar="user.avatar"
-        :width="'4.8rem'"
-        :height="'4.8rem'"
-    ></AvatarComponentBase001>
-    <div style="font-size: 1.6rem;margin-bottom: 0.6rem">微信号: {{user.wechat_number}}</div>
-    <div style="font-size: 1.6rem;margin-bottom: 0.6rem">抖音号: {{user.tiktok_number}}</div>
+    <div class="p_c_box-flex_center">
+      <el-avatar :src="file_url2+user.avatar" :style="{width:width,height:height}"></el-avatar>
+      <span> {{ user.username }} </span>
+    </div>
+    <div style="font-size: 1.6rem;margin-bottom: 0.6rem">微信号: {{ user.wechat_number }}</div>
+    <div style="font-size: 1.6rem;margin-bottom: 0.6rem">抖音号: {{ user.tiktok_number }}</div>
   </div>
 </template>
 
 <script>
-import AvatarComponentBase001 from "./AvatarComponentBase001"
 
 export default {
   name: "HeaderComponent",
-  components: {AvatarComponentBase001},
   data() {
     return {
       video_url: "/video/Video",

@@ -48,7 +48,7 @@ def login():
     user = UserVO.query.filter_by(username=username).first()
     if user and user.check_password(password):
         log_table_service.log_table(user.id, "登录系统", "登录")
-        return jsonify(res_util.success(token_util.get_token(user.id, user.username, )))
+        return res_util.json_success(token_util.get_token(user ))
     else:
         return jsonify(res_util.fail("账号密码不匹配"))
 

@@ -62,13 +62,13 @@
 </template>
 
 <script>
-import HeaderComponent from "./component/avatar/HeaderComponent"
 import jwt_decode from "jwt-decode";
+import UserAvatarIComponent from "@/views/video/component/UserAvatarIComponent";
 
 export default {
   name: "Target",
   components: {
-    HeaderComponent
+    UserAvatarIComponent
   },
   data() {
     return {

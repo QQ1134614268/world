@@ -1,20 +1,16 @@
 <template>
   <div style="min-height: 100%">
-    <div id="header" class="p_c_box-flex_center ">
-      <div style="" class="p_c_box-flex_center ">
+    <div id="header" class="p_c_box-flex_center">
+      <div class="p_c_box-flex_center">
         <a href="/">
           <img src="@/assets/icon/favicon2.jpg" style="width: 4rem; border-radius: 45rem">
         </a>人人影
       </div>
-      <!--       <a href="/sys/root">root</a>-->
-      <!--      <a href="/message/message">消息</a>-->
-      <a type="primary" href="/video/Market" class="">达人</a>
-      <a type="primary" href="/video/Market2">赞助商</a>
-      <div v-if="user.id">
+      <router-link tag="a" to="/video/Market"> 达人</router-link>
+      <router-link tag="a" to="/video/Market2"> 赞助商</router-link>
+      <div v-if="user">
         <el-dropdown>
-          <span class="el-dropdown-link">
-            <AvatarPureComponent :user_id="user.id" style="display: inline" v-if="user.id"></AvatarPureComponent>
-          </span>
+          <el-avatar :src="imgUrl"></el-avatar>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>
               <a @click="logout">退出登录</a>
@@ -32,32 +28,16 @@
         </el-dropdown>
       </div>
       <div v-else>
-        <!--        <a href="/sys/login">登陆</a>&#45;&#45;-->
-        <a href="/video/login">登陆</a> |
-        <a href="/video/register">注册</a>
+        <router-link tag="a" to="/video/login"> 登陆</router-link>
+        |
+        <router-link tag="a" to="/video/register"> 注册</router-link>
       </div>
     </div>
 
     <div id="body">
-      <!--        搜索-->
-      <!--        设置-->
-      <!--                <div> 侧边导航栏</div>-->
-      <!--# 仿 pycharm风格  另设置一处,查找一处-->
-      <!--# 左侧 root的分类叉树,新增 删除-->
-      <!--# 中上 select查找 其下分类查找-->
-      <!--# 中间改变-->
-      <!--# 右侧消息列表,类似弹幕-->
-      <!--# 最下输出-->
       <router-view/>
     </div>
     <div id="footer">
-      <div>
-        <a href="http://www.6liuzhibo.com/public/index.php/mobile/common/video/player_sharing/0/power_id/0/store_id/184/with_id/3872/type/3/invite_id/15521439.html">
-          <div style="height: 5rem">
-<!--            <img src="@/assets/advert.jpg" style="height:100%" class="blink">-->
-          </div>
-        </a>
-      </div>
       <div>
         客服微信: i17601083308
       </div>
@@ -69,23 +49,23 @@
 </template>
 <script>
 import jwt_decode from 'jwt-decode';
-import HeaderComponent from '@/views/video/component/avatar/HeaderComponent'
-import AvatarPureComponent from '@/views/video/component/avatar/AvatarPureComponent'
 import {userLogout} from "@/api/user";
 
 export default {
   name: "App",
-  components: {HeaderComponent, AvatarPureComponent},
   data() {
-    return {}
+    return {
+      imgUrl: "",
+    }
   },
   computed: {
     user() {
       // 这里存储从store里获取的token的数据 todo
       if (this.$store.state.token) {
-        return jwt_decode(this.$store.state.token)
+        let user = jwt_decode(this.$store.state.token)
+        this.imgUrl = process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=" + user.avatar
+        return user
       }
-      return {}
     }
   },
   methods: {

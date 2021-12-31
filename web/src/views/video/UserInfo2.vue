@@ -25,8 +25,9 @@
 </template>
 
 <script>
-import HeaderComponent from "./component/avatar/HeaderComponent"
-import TargetComponent from "./component/TargetComponent"
+
+import UserAvatarIComponent from "@/views/video/component/UserAvatarIComponent";
+import TargetComponent from "@/views/video/component/TargetComponent";
 
 export default {
   name: "UserInfo2",
@@ -45,7 +46,7 @@ export default {
     }
   },
   components: {
-    HeaderComponent,
+    UserAvatarIComponent,
     TargetComponent
   },
   methods: {

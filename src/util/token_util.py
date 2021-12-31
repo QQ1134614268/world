@@ -9,8 +9,14 @@ from util import time_util
 from util.time_util import get_now_str
 
 
-def get_token(user_id, user_name):
-    payload = {"start_time": get_now_str(), "id": user_id, "name": user_name}
+def get_token(user_vo):
+    payload = {
+        "id": user_vo.id,
+        "name": user_vo.username,
+        "avatar": user_vo.avatar,
+        "role": user_vo.role,
+        "start_time": get_now_str(),
+    }
     return str(jwt.encode(payload, SECRET, algorithm='HS256'), "utf_8")
 
 

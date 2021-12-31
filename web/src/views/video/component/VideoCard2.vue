@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import AvatarComponent from "./avatar/AvatarComponent"
-import ThumbnailComponent from "./ThumbnailComponent"
+
+import ThumbnailComponent from "@/views/video/component/ThumbnailComponent";
 
 export default {
   name: "VideoCard2",
@@ -19,8 +19,7 @@ export default {
     }
   },
   components: {
-    AvatarComponent,
-    ThumbnailComponent
+     ThumbnailComponent
   },
   props: {
     username: {

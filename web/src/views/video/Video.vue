@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import HeaderComponent from "./component/avatar/HeaderComponent"
+import UserAvatarIComponent from "@/views/video/component/UserAvatarIComponent";
 
 export default {
   name: "Video",
@@ -31,7 +31,7 @@ export default {
       user: {},
     }
   },
-  components: {HeaderComponent},
+  components: {UserAvatarIComponent},
   methods: {
     async init() {
 

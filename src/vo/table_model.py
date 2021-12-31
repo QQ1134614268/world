@@ -112,7 +112,7 @@ class UserVO(BaseTable):
     username = Column(String(12), index=True, unique=True, nullable=False)
     _password = db.Column('password', db.String(128), nullable=False)
     phone = Column(String(11))
-    avatar = Column(Integer, default=1)
+    avatar = Column(String(255), default="default_avatar.png")
 
     email = Column(String(60))
     userType = Column(Integer, default=1)

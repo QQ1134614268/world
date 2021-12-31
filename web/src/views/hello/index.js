@@ -5,6 +5,11 @@ const routes = [
         component: () => import('@/views/hello/BgColor')
     },
     {
+        path: '/hello/testHeader',
+        name: '/hello/testHeader',
+        component: () => import('@/views/hello/testHeader')
+    },
+    {
         path: '/hello/test_vue-cropper',
         name: '/hello/test_vue-cropper',
         component: () => import('@/views/hello/test_vue-cropper')

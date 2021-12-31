@@ -14,33 +14,9 @@
 </template>
 
 <script>
-import jwt_decode from 'jwt-decode';
-import HeaderComponent from '@/views/video/component/avatar/HeaderComponent'
-import AvatarPureComponent from '@/views/video/component/avatar/AvatarPureComponent'
 
 export default {
   name: "treeHome",
-  components: {HeaderComponent, AvatarPureComponent},
-  data() {
-    return {}
-  },
-  computed: {
-    user() {
-      // 这里存储从store里获取的token的数据 todo
-      if (this.$store.state.token) {
-        return jwt_decode(this.$store.state.token)
-      }
-      return {}
-    }
-  },
-  methods: {
-    logout() {
-      localStorage.removeItem("token")
-      this.$store.commit('receiveUserInfo', {
-        token: ""
-      })
-    }
-  }
 }
 </script>
 <style>

@@ -44,7 +44,8 @@
 </template>
 
 <script>
-import TargetComponent from "./component/TargetComponent"
+
+import TargetComponent from "@/views/video/component/TargetComponent";
 
 export default {
   name: "market",

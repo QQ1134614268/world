@@ -29,7 +29,7 @@ class VideoUserLoginApi(Resource):
         user = VideoUserVO.query.filter(VideoUserVO.username == username, VideoUserVO.password == password, ).first()
         if not user:
             return res_util.fail("密码不正确")
-        return res_util.success(token_util.get_token(user.id, user.username, ))
+        return res_util.success(token_util.get_token(user))
 
 
 class VideoUserApi(Resource):

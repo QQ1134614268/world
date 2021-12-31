@@ -1,14 +1,9 @@
 <template>
   <div class="p_c_box-flex_row-center">
     <div class="col-6">
-      <div style="margin-bottom: 1.6rem" v-if="user">
-        <AvatarComponentBase001
-            :username="user.username"
-            :avatar="user.avatar"
-            :width="'4.8rem'"
-            :height="'4.8rem'"
-        ></AvatarComponentBase001>
-        <div style="font-size: 1.6rem;margin-bottom: 0.6rem">微信号: {{ user.wechat_number }}</div>
+      <div style="margin-bottom: 1.6rem" class="p_c_box-flex_center">
+        <el-avatar :src="file_url2+user.avatar" style="{width:4.8rem ;height:4.8rem}"></el-avatar>
+        <span> {{ user.username }} </span>
       </div>
       <div class="art_title"> {{ target.title }}</div>
       <div class="art_body"> {{ target.content }}</div>
@@ -18,11 +13,9 @@
 </template>
 
 <script>
-import AvatarComponentBase001 from "./component/avatar/AvatarComponentBase001"
 
 export default {
   name: "TargetInfo",
-  comments: {AvatarComponentBase001},
   data() {
     return {
       target_id: this.$route.query.target_id,
@@ -37,7 +30,6 @@ export default {
   },
   methods: {
     async init() {
-
       let result = await this.$get2(this.url, this.target_id)
       if (result.data.code == 1) {
         this.target = result.data.data

@@ -22,6 +22,17 @@
     width: 100%;
 }
 
+/*水平方向*/
+.p_c_box-flex_row-center {
+    display: flex;
+    justify-content: center;
+}
+
+.p_c_box-flex_row-col-center {
+    display: flex;
+    align-items: center;
+}
+
 .p_c_box-flex {
     display: flex;
 }
@@ -32,22 +43,12 @@
     flex-wrap: wrap;
 }
 
-/*水平方向*/
-.p_c_box-flex_row-center {
-    display: flex;
-    justify-content: center;
-}
-
-
-.p_c_box-flex_row-center {
-    display: flex;
-    align-items: center;
-}
 
 .p_c_box-flex_col {
     display: flex;
     flex-direction: column;
 }
+
 .p_c_box-flex_col-center {
     display: flex;
     flex-direction: column;
@@ -237,4 +238,19 @@ img, video {
 /*链接*/
 /*神奇数字  2 8 0.618*/
 
+/*todo*/
+/**/
+/*[class*="height-"] {*/
+/*    height: 100%;*/
+/*}*/
 
+/*@media only screen and (max-width: 600px) {*/
+/*    !* For mobile phones: *!*/
+/*    [class*="col-"] {*/
+/*        width: 100%;*/
+/*    }*/
+/*}*/
+
+/*@media only screen and (max-width: 768px) {*/
+/*    */
+/*}*/

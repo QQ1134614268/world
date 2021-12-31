@@ -43,7 +43,8 @@
 </template>
 
 <script>
-import VideoCard from "./component/VideoCard"
+
+import VideoCard from "@/views/video/component/VideoCard";
 
 export default {
   name: "market",
