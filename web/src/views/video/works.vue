@@ -1,6 +1,6 @@
 <template>
   <div>
-    <HeaderComponent :user_id="user_id" v-if="user_id"></HeaderComponent>
+    <UserAvatarIComponent :user_id="user_id" v-if="user_id"></UserAvatarIComponent>
     <el-tabs v-model="activeName">
       <el-tab-pane label="我的作品" name="first" class="p_c_box-flex_row-center">
         <div class="p_c_flexbox">
@@ -70,6 +70,7 @@
 import jwt_decode from 'jwt-decode';
 import UserAvatarIComponent from "@/views/video/component/UserAvatarIComponent";
 import ThumbnailComponent from "@/views/video/component/ThumbnailComponent";
+import {VideoUrl} from "@/api/routerUrl";
 
 export default {
   name: "works",
@@ -88,7 +89,7 @@ export default {
       dialogVisible: false,
       file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
       file_url: process.env.VUE_APP_BASE_URL + '/api/file/FileApi2',
-      video_url: "/video/Video",
+      video_url: VideoUrl,
       user_id: jwt_decode(localStorage.getItem("token"))["id"],
       activeName: "first",
       currentDate: new Date(),

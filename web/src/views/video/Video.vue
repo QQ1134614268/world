@@ -1,9 +1,9 @@
 <template>
   <div class="p_c_box-flex_row-center">
     <div class="col-6">
-      <HeaderComponent :user_id="this.user.id" v-if="this.user.id" class=""></HeaderComponent>
+      <UserAvatarIComponent :user_id="this.user.id" v-if="this.user.id"></UserAvatarIComponent>
       <div class="p_c_box-flex_row-center">
-        <video  preload="true" controls v-if="video.file">
+        <video preload="true" controls v-if="video.file">
           <source :src="file_url3+video.file" type="video/mp4">
           您的浏览器不支持 HTML5 video 标签 。
         </video>
@@ -27,14 +27,13 @@ export default {
       url: "/api/video_api/WorksApi",
       user_url: "/api/video_api/VideoUserApi",
       file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
-      file_url3:"/upload_file/",
+      file_url3: "/upload_file/",
       user: {},
     }
   },
   components: {UserAvatarIComponent},
   methods: {
     async init() {
-
       let result = await this.$get2(this.url, this.video_id)
       if (result.data.code == 1) {
         this.video = result.data.data

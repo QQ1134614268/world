@@ -2,7 +2,7 @@
   <div>
     <div class="p_c_box-flex">
       <div class="col-9">
-        <HeaderComponent :user_id="user_id"></HeaderComponent>
+        <UserAvatarIComponent :user_id="user_id"></UserAvatarIComponent>
         <div v-for="o in tableData">
           <TargetComponent :username="o.username" :user_id="o.user_id" :avatar="o.avatar"
                            :title="o.title" :content="o.content" :price="o.price" :target_id="o.id"

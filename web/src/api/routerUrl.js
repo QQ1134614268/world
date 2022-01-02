@@ -10,6 +10,10 @@ export const WorkerRootUrl = "/worker"
 export const TreeRootUrl = "/tree"
 //人人影
 export const RenrenRootUrl = "/video"
+export const VideoUrl = "/video/video"
+export const VideoRegisterUrl = "/video/register"
+
+
 //店铺
 export const MemberRootUrl = "/member/Store"
 //测试
@@ -20,3 +24,4 @@ export const messageRootUrl = "/message/message"
 export const UserSpaceRootUrl = "/user/UserSpace"
 //注册
 export const RegisterRootUrl = "/sys/register"
+

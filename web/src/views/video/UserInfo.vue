@@ -1,6 +1,6 @@
 <template>
   <div class="col-12">
-    <HeaderComponent :user_id="user_id"></HeaderComponent>
+    <UserAvatarIComponent :user_id="user_id"></UserAvatarIComponent>
     <div class="p_c_flexbox">
       <div v-for="o in tableData" class="col-3">
         <VideoCard2 :username="o.username" :user_id="o.user_id" :create_time="o.create_time" :thumbnail="o.thumbnail"
@@ -22,6 +22,7 @@
 <script>
 import UserAvatarIComponent from "@/views/video/component/UserAvatarIComponent";
 import VideoCard2 from "@/views/video/component/VideoCard2";
+import {VideoUrl} from "@/api/routerUrl";
 
 export default {
   name: "UserInfo",
@@ -32,7 +33,7 @@ export default {
       currentPage: 1,
       pageSize: 5,
       file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
-      video_url: "/video/Video",
+      video_url: VideoUrl,
       tableData: [],
       totalNum: 0,
       url2: '/api/video_api/WorksListApi'

@@ -8,6 +8,8 @@ E:/world/venv/Scripts/python.exe manage.py db upgrade
 
 D:/workspace/world/venv/Scripts/python.exe manage.py db migrate
 D:/workspace/world/venv/Scripts/python.exe manage.py db upgrade
+
+alter table user modify  column avatar  varchar(255) DEFAULT "" COMMENT '注释';
 """
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager

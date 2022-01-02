@@ -9,12 +9,13 @@
 <script>
 
 import ThumbnailComponent from "@/views/video/component/ThumbnailComponent";
+import {VideoUrl} from "@/api/routerUrl";
 
 export default {
   name: "VideoCard2",
   data() {
     return {
-      video_url: "/video/Video",
+      video_url: VideoUrl,
       file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
     }
   },

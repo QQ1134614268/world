@@ -11,12 +11,10 @@ export default {
   data() {
     return {
       file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
-      imgUrl: "",
-      username: ""
     }
   },
   props: {
-    avatar: {
+    imgUrl: {
       type: String,
       default: ""
     },

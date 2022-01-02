@@ -12,7 +12,7 @@
 <script>
 
 export default {
-  name: "HeaderComponent",
+  name: "UserAvatarIComponent",
   data() {
     return {
       video_url: "/video/Video",

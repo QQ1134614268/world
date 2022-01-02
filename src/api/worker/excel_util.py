@@ -3,7 +3,7 @@
 @Time: 2021/12/26
 @Description:
 """
-from datetime import date
+from datetime import datetime
 
 from openpyxl import load_workbook
 
@@ -33,47 +33,55 @@ class Convert:
 class DateConvert(Convert):
 
     @staticmethod
-    def convert(src, nullable=None, max_length=None):
-        if src is None:
+    def convert(value, **kwargs):
+        if value is None:
             return None
-        if isinstance(src, date):
-            return src
-        return time_util.get_datetime_by_str(src)
+        if isinstance(value, datetime):
+            return value
+        return time_util.get_datetime_by_str(value)
 
 
 class FloatConvert(Convert):
 
     @staticmethod
-    def convert(src, nullable):
-        if src is None:
+    def convert(value, **kwargs):
+        if value is None:
             return None
-        if isinstance(src, float):
-            return src
-        return float(src)
+        if isinstance(value, float):
+            return value
+        return float(value)
 
 
 class StrConvert(Convert):
-
+    # , nullable = True
     @staticmethod
-    def convert(src, nullable):
-        if src is None:
+    def convert(value, **kwargs):
+        # nullable = False, max_length = 20, comment = "姓名", index = None
+        if value is None:
             return None
-        if isinstance(src, str):
-            return src
-        return str(src)
+        if isinstance(value, str):
+            return value
+        return str(value)
 
 
 # todo 重要
 class Field:
-    def __init__(self, obj_type: Convert, nullable=False, max_length=20, comment="姓名", index=None):
-        self.obj_type = obj_type(nullable=nullable, max_length=max_length, comment=comment, index=index)
+    def __init__(self, convert_handle: Convert, nullable=False, max_length=20, comment="姓名", index=None):
+        self.convert_handle = convert_handle
         self.comment = comment
+        self.nullable = nullable
+        self.max_length = max_length
+        self.index = index
+
+    def convert(self, value):
+        return self.convert_handle.convert(value, nullable=self.nullable, max_length=self.max_length)
 
 
 class User:
     name = Field(StrConvert, nullable=False, max_length=20, comment="姓名", index=1)
-    birthday = Field(DateConvert, nullable=False, max_length=20, comment="生日", index=1)
-    pay = Field(FloatConvert, nullable=False, max_length=20, comment="薪资", index=1)
+    sex = Field(StrConvert, nullable=False, max_length=20, comment="性别", index=2)
+    birthday = Field(DateConvert, nullable=False, max_length=20, comment="生日", index=3)
+    # pay = Field(FloatConvert, nullable=False, max_length=20, comment="薪资", index=3)
 
 
 class ExcelExceptionMsg:
@@ -99,18 +107,26 @@ class ExcelHandler:
         return cn_en
 
     @staticmethod
+    def get_cn(cla_type=None):
+        cn_en = []
+        for attr, field in cla_type.__dict__.items():
+            if isinstance(field, Field):
+                cn_en.insert(field.index, field.comment)
+                # cn_en[field.index] = field.comment
+        return cn_en
+
+    @staticmethod
     def get_attr_map(cla_type=None):
         attr_map = {}
         for attr, field in cla_type.__dict__.items():
             if isinstance(field, Field):
-                attr_map[field.comment] = field
+                attr_map[attr] = field
         return attr_map
 
     @classmethod
-    def get_excel_header(cls, fp):
+    def get_excel_header(cls, rows):
         headers = []
-        sheet = cls.get_sheet(fp)
-        for row in sheet.iter_rows():
+        for row in rows:
             for cell in row:
                 headers.append(cell.value)
             break
@@ -121,20 +137,25 @@ class ExcelHandler:
         errmsg = []
         ret = []
         sheet = cls.get_sheet(fp)
-        excel_header = cls.get_excel_header(fp)
-        cn_en = cls.get_cn_en(cla_type)
+        rows = sheet.iter_rows()
+        if sheet.max_row < 2:
+            raise WorldException("没有数据")
+        excel_header = cls.get_excel_header(rows)
+        obj_header = cls.get_cn(cla_type)
+        if excel_header != obj_header:
+            raise WorldException(obj_header)  # todo
         attr_map = cls.get_attr_map(cla_type)
-        for row_index, row in enumerate(sheet.iter_rows()):
+        for row_index, row in enumerate(rows):
             row_data = {}
-            for col_index, cn_excel_attr in enumerate(excel_header):
-                attr = cn_en.get(cn_excel_attr)
-                field = attr_map.get(cn_excel_attr)
-                cell = row[col_index]
+            for col_index, attr_key in enumerate(attr_map.keys()):
+                field = attr_map.get(attr_key)
+                col_index = field.index or col_index
+                cell = row[col_index - 1]
                 try:
-                    value = field.obj_type.convert(cell.value)
-                    row_data[attr] = value
-                except:
-                    errmsg.append(f"{row_index}行{col_index}列, 值有问题")
+                    value = field.convert(cell.value)
+                    row_data[attr_key] = value
+                except Exception as e:
+                    errmsg.append(f"{row_index + 2}行{col_index + 1}列, 值有问题")
             ret.append(row_data)
         if errmsg:
             raise WorldException(errmsg)

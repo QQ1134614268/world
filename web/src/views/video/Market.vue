@@ -6,11 +6,22 @@
                   placeholder="请输入搜索内容">
         </el-input>
       </div>
+      {{ tableData }}
       <div class="p_c_flexbox">
-        <div v-for="o in tableData" class="col-3">
-          <VideoCard :username="o.username" :user_id="o.user_id" :create_time="o.create_time" :thumbnail="o.thumbnail"
-                     :avatar="o.avatar" :describe="o.describe" :id="o.id">
-          </VideoCard>
+        <div v-for="o in tableData">
+          <div>
+            <a href="/video/video">
+              <div>
+                <img :src="file_url2+o.thumbnail" style="width: 25rem;height: 14rem;object-fit: cover;">
+              </div>
+            </a>
+            <div>
+              {{ o.describe }}
+            </div>
+            <div>
+              {{o.avatar}}-{{ o.username }}
+            </div>
+          </div>
         </div>
       </div>
       <div class="col-12 ">
@@ -45,6 +56,7 @@
 <script>
 
 import VideoCard from "@/views/video/component/VideoCard";
+import {VideoUrl} from "@/api/routerUrl";
 
 export default {
   name: "market",
@@ -53,7 +65,7 @@ export default {
       search: "",
       currentPage: 1,
       pageSize: 6,
-      video_url: "/video/Video",
+      video_url: VideoUrl,
       file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
       tableData: [],
       totalNum: 0,

@@ -4,8 +4,8 @@ import router from '@/index'
 import Axios from 'axios'
 // import ElementUI from 'element-ui'
 // import 'element-ui/lib/theme-chalk/index.css';
-import "./assets/global.css"
-import "./assets/global_article.css"
+import "@/assets/global.css"
+import "@/assets/global_article.css"
 import store from "./views/hello/vuex_test/store"
 import VueCropper from 'vue-cropper'
 import VueQuillEditor from 'vue-quill-editor'

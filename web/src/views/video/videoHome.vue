@@ -8,6 +8,7 @@
       </div>
       <router-link tag="a" to="/video/Market"> 达人</router-link>
       <router-link tag="a" to="/video/Market2"> 赞助商</router-link>
+
       <div v-if="user">
         <el-dropdown>
           <el-avatar :src="imgUrl"></el-avatar>
@@ -30,7 +31,7 @@
       <div v-else>
         <router-link tag="a" to="/video/login"> 登陆</router-link>
         |
-        <router-link tag="a" to="/video/register"> 注册</router-link>
+        <router-link tag="a" :to=videoRegisterUrl> 注册</router-link>
       </div>
     </div>
 
@@ -50,15 +51,20 @@
 <script>
 import jwt_decode from 'jwt-decode';
 import {userLogout} from "@/api/user";
+import {VideoRegisterUrl} from "@/api/routerUrl";
 
 export default {
   name: "App",
   data() {
     return {
+      videoRegisterUrl: VideoRegisterUrl,
       imgUrl: "",
     }
   },
   computed: {
+    store() {
+      return this.$store.state
+    },
     user() {
       // 这里存储从store里获取的token的数据 todo
       if (this.$store.state.token) {

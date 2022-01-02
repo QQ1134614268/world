@@ -1,7 +1,7 @@
 <template>
   <!--  发布 招聘信息-- 类似猪八戒  boss  -->
   <div>
-    <HeaderComponent :user_id="user_id"></HeaderComponent>
+    <UserAvatarIComponent :user_id="user_id"></UserAvatarIComponent>
     <el-tabs v-model="activeName">
       <el-tab-pane label="历史发布" name="first">
         <el-table ref="dormitoryTable" :data="tableData" tooltip-effect="dark" stripe>
