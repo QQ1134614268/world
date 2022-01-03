@@ -2,26 +2,35 @@
   <div class="col-12">
     <UserAvatarIComponent :user_id="user_id"></UserAvatarIComponent>
     <div class="p_c_flexbox">
-      <div v-for="o in tableData" class="col-3">
-        <VideoCard2 :username="o.username" :user_id="o.user_id" :create_time="o.create_time" :thumbnail="o.thumbnail"
-                    :avatar="o.avatar" :describe="o.describe" :id="o.id">
-        </VideoCard2>
-      </div>
+      <div v-for="o in tableData">
+        <div>
+          <a href="/video/video">
+            <div>
+              <img :src="file_url2+o.thumbnail" style="width: 25rem;height: 14rem;object-fit: cover;">
+            </div>
+          </a>
+          <div>
+            {{ o.describe }}
+          </div>
+          <div>
+            {{ o.avatar }}-{{ o.username }}
+          </div>
+        </div>
     </div>
+  </div>
 
-    <el-pagination @current-change="handleCurrentChange"
-                   :current-page="currentPage"
-                   :page-size="pageSize"
-                   layout=" prev, pager, next"
-                   :total="totalNum">
-    </el-pagination>
+  <el-pagination @current-change="handleCurrentChange"
+                 :current-page="currentPage"
+                 :page-size="pageSize"
+                 layout=" prev, pager, next"
+                 :total="totalNum">
+  </el-pagination>
   </div>
 
 </template>
 
 <script>
 import UserAvatarIComponent from "@/views/video/component/UserAvatarIComponent";
-import VideoCard2 from "@/views/video/component/VideoCard2";
 import {VideoUrl} from "@/api/routerUrl";
 import {WorksListApi} from "@/api/api";
 
@@ -41,7 +50,7 @@ export default {
     }
   },
   components: {
-    VideoCard2, UserAvatarIComponent
+    UserAvatarIComponent
   },
   methods: {
     async init() {
