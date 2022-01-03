@@ -24,4 +24,9 @@ export const sys_api_login = "/api/sys_api/login"
 export const sys_api_logout = "/api/sys_api/logout"
 
 //人人影
-let VideoUserApi = "/api/video_api/VideoUserApi"
+export const VideoUserApi = "/api/video_api/VideoUserApi"
+export const WorksApi = '/api/video_api/WorksApi'
+export const WorksListApi = '/api/video_api/WorksListApi'
+export const TargetApi = '/api/video_api/TargetApi'
+export const TargetListApi = "/api/video_api/TargetListApi"
+export const MarketTargetListApi ="/api/video_api/MarketTargetListApi"

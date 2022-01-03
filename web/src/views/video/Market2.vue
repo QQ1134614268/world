@@ -7,11 +7,13 @@
         </el-input>
       </div>
       <div class="col-12">
-        <div v-for="o in tableData">
-          <TargetComponent :username="o.username" :user_id="o.user_id" :avatar="o.avatar"
-                           :title="o.title" :content="o.content" :price="o.price" :target_id="o.id"
-          >
-          </TargetComponent>
+        <div v-for="(o, index) in tableData">
+          <div class="art_title"><a :href="target_url+'?target_id='+o.id">{{ o.title }} </a></div>
+          <div class="art_body"> {{ o.content }}</div>
+          <div class="art_body">
+            <el-avatar :src="file_url2+o.avatar"></el-avatar>
+            {{ o.username }}
+          </div>
         </div>
       </div>
       <div class=" col-12">
@@ -45,11 +47,10 @@
 
 <script>
 
-import TargetComponent from "@/views/video/component/TargetComponent";
+import {MarketTargetListApi} from "@/api/api";
 
 export default {
   name: "market",
-  components: {TargetComponent},
   data() {
     return {
       search: "",
@@ -58,7 +59,7 @@ export default {
       currentPage: 1,
       pageSize: 5,
       totalNum: 0,
-      url: "/api/video_api/MarketTargetListApi",
+      url: MarketTargetListApi,
       url3: "/api/video_api/TargetRankListApi",
       target_url: "/video/TargetInfo",
       file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",

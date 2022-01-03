@@ -1,72 +1,25 @@
 <template>
   <div>
-    <div v-if="this.form.role">
-      <span>邀请码--</span>
-      <span>{{ code }}</span>
-      <el-button @click="updateCode" v-if="code"> 更新</el-button>
-      <el-button @click="createCode" v-else> 生成</el-button>
+    <div v-if="form.avatar">
+      <el-avatar :src="file_url+'?path='+form.avatar"></el-avatar>
     </div>
-    <el-form ref="form" :model="form" label-width="8rem" :rules="rules" style="padding: 1rem">
-      <el-form-item label="头像">
-        <el-upload style="width: 10%;height: 10%" drag :auto-upload="false" :show-file-list="false"
-                   :on-change='changeUpload'>
-          <img v-if="form.avatar" :src="file_url+'?path='+form.avatar" class="avatar">
-          <div v-else>
-            <i class="el-icon-upload"></i>
-            <div class="el-upload__text">点击上传</div>
-            <div class="el-upload__tip">支持绝大多数图片格式，单张图片最大支持5MB</div>
-          </div>
-        </el-upload>
-      </el-form-item>
-      <el-form-item label="手机号" prop="phone" :required="true">
-        <el-input v-model="form.phone" style="width: 16rem"></el-input>
-      </el-form-item>
-      <el-form-item label="签名">
-        <el-input v-model="form.describe" style="width: 16rem"></el-input>
-      </el-form-item>
-      <el-form-item label="身份证">
-        <el-input v-model="form.id_card" style="width: 16rem"></el-input>
-      </el-form-item>
-      <el-form-item label="执照">
-        <el-upload style="width: 10%;height: 10%"
-                   :show-file-list="false"
-                   :action="file_url"
-                   :on-success="uploadLicense">
-          <img v-if="form.business_license" :src="file_url+'?path='+form.business_license">
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
-      </el-form-item>
-      <el-form-item label="商标">
-        <el-upload style="width: 10%;height: 10%"
-                   :show-file-list="false"
-                   class="upload-demo"
-                   :action="file_url"
-                   :on-success="uploadBrand"
-        >
-          <img v-if="form.brand" :src="file_url+'?path='+form.brand" class="avatar">
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i></el-upload>
-      </el-form-item>
-      <el-form-item label="简历">
-        <el-upload style="width: 10%;height: 10%"
-                   :show-file-list="false"
-                   class="upload-demo"
-                   :action="file_url"
-                   :on-success="uploadResume"
-        >
-          <img v-if="form.resume" :src="file_url+'?path='+form.resume" class="avatar">
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
-      </el-form-item>
-      <el-form-item label="微信号">
-        <el-input v-model="form.wechat_number" style="width: 16rem"></el-input>
-      </el-form-item>
-      <el-form-item label="抖音号">
-        <el-input v-model="form.tiktok_number" style="width: 16rem"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="save">保存</el-button>
-      </el-form-item>
-    </el-form>
+    <div> 手机号: {{ form.phone }}</div>
+    <div> 签名: {{ form.describe }}</div>
+    <div> 微信号: {{ form.wechat_number }}</div>
+    <div> 抖音号: {{ form.tiktok_number }}</div>
+    <div> 身份证: {{ form.id_card }}</div>
+    <div>
+      <div> 执照:</div>
+      <div><img width="125rem" height="70rem" :src="file_url+'?path='+form.business_license"></div>
+    </div>
+    <div>
+      <div> 商标:</div>
+      <div><img width="125rem" height="70rem" :src="file_url+'?path='+form.brand"></div>
+    </div>
+    <div>
+      <div> 简历:</div>
+      <div><img width="125rem" height="70rem" :src="file_url+'?path='+form.resume"></div>
+    </div>
     <el-dialog title="图片剪裁" :visible.sync="dialogVisible" append-to-body>
       <div class="cropper-content">
         <div class="cropper p_c_test_border" style="text-align:center">
@@ -88,11 +41,10 @@
         </div>
       </div>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button @click="dialogVisible = false;">取 消</el-button>
         <el-button type="primary" @click="finish" :loading="loading">确认</el-button>
       </div>
     </el-dialog>
-
   </div>
 </template>
 

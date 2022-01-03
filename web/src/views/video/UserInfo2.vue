@@ -2,12 +2,20 @@
   <div>
     <div class="p_c_box-flex">
       <div class="col-9">
-        <UserAvatarIComponent :user_id="user_id"></UserAvatarIComponent>
         <div v-for="o in tableData">
-          <TargetComponent :username="o.username" :user_id="o.user_id" :avatar="o.avatar"
-                           :title="o.title" :content="o.content" :price="o.price" :target_id="o.id"
-          >
-          </TargetComponent>
+          <div>
+            <a href="/video/video">
+              <div>
+                <img :src="file_url2+o.thumbnail" style="width: 25rem;height: 14rem;object-fit: cover;">
+              </div>
+            </a>
+            <div>
+              {{ o.describe }}
+            </div>
+            <div>
+              {{ o.avatar }}-{{ o.username }}
+            </div>
+          </div>
         </div>
         <div>
           <el-pagination @size-change="handleSizeChange"
@@ -27,7 +35,7 @@
 <script>
 
 import UserAvatarIComponent from "@/views/video/component/UserAvatarIComponent";
-import TargetComponent from "@/views/video/component/TargetComponent";
+import {MarketTargetListApi} from "@/api/api";
 
 export default {
   name: "UserInfo2",
@@ -40,14 +48,13 @@ export default {
       currentPage: 1,
       pageSize: 5,
       totalNum: 0,
-      url: "/api/video_api/MarketTargetListApi",
+      url: MarketTargetListApi,
       target_url: "/video/TargetInfo",
       file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
     }
   },
   components: {
     UserAvatarIComponent,
-    TargetComponent
   },
   methods: {
     async init() {

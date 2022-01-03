@@ -15,6 +15,7 @@
 
 <script>
 import UserAvatarIComponent from "@/views/video/component/UserAvatarIComponent";
+import {VideoUserApi, WorksApi} from "@/api/api";
 
 export default {
   name: "Video",
@@ -24,8 +25,7 @@ export default {
       search: "",
       activeName: "first",
       video: {},
-      url: "/api/video_api/WorksApi",
-      user_url: "/api/video_api/VideoUserApi",
+      url: WorksApi,
       file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
       file_url3: "/upload_file/",
       user: {},
@@ -34,14 +34,14 @@ export default {
   components: {UserAvatarIComponent},
   methods: {
     async init() {
-      let result = await this.$get2(this.url, this.video_id)
+      let result = await this.$get2(WorksApi, this.video_id)
       if (result.data.code == 1) {
         this.video = result.data.data
         document.title = this.video.describe
       } else {
         this.$message('失败');
       }
-      let result2 = await this.$get2(this.user_url, this.video.user_id)
+      let result2 = await this.$get2(VideoUserApi, this.video.user_id)
       if (result.data.code == 1) {
         this.user = result2.data.data
       } else {

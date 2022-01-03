@@ -14,6 +14,8 @@
 
 <script>
 
+import {TargetApi} from "@/api/api";
+
 export default {
   name: "TargetInfo",
   data() {
@@ -22,7 +24,7 @@ export default {
       search: "",
       activeName: "first",
       target: {},
-      url: "/api/video_api/TargetApi",
+      url: TargetApi,
       user_url: "/api/video_api/VideoUserApi",
       file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
       user: "",

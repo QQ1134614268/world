@@ -23,6 +23,7 @@
 import UserAvatarIComponent from "@/views/video/component/UserAvatarIComponent";
 import VideoCard2 from "@/views/video/component/VideoCard2";
 import {VideoUrl} from "@/api/routerUrl";
+import {WorksListApi} from "@/api/api";
 
 export default {
   name: "UserInfo",
@@ -36,7 +37,7 @@ export default {
       video_url: VideoUrl,
       tableData: [],
       totalNum: 0,
-      url2: '/api/video_api/WorksListApi'
+      url2: WorksListApi
     }
   },
   components: {

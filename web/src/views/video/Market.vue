@@ -6,7 +6,6 @@
                   placeholder="请输入搜索内容">
         </el-input>
       </div>
-      {{ tableData }}
       <div class="p_c_flexbox">
         <div v-for="o in tableData">
           <div>
@@ -19,7 +18,7 @@
               {{ o.describe }}
             </div>
             <div>
-              {{o.avatar}}-{{ o.username }}
+              {{ o.avatar }}-{{ o.username }}
             </div>
           </div>
         </div>
@@ -55,8 +54,8 @@
 
 <script>
 
-import VideoCard from "@/views/video/component/VideoCard";
 import {VideoUrl} from "@/api/routerUrl";
+import {WorksListApi} from "@/api/api";
 
 export default {
   name: "market",
@@ -69,13 +68,10 @@ export default {
       file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
       tableData: [],
       totalNum: 0,
-      url2: '/api/video_api/MarketWorksListApi',
+      url2: WorksListApi,
       url3: '/api/video_api/WorksRankListApi',
       rankData: [],
     }
-  },
-  components: {
-    VideoCard,
   },
   methods: {
     _getRankCls(index) {

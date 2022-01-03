@@ -1,65 +1,65 @@
 <template>
   <div>
-    <UserAvatarIComponent :user_id="user_id" v-if="user_id"></UserAvatarIComponent>
-    <el-tabs v-model="activeName">
-      <el-tab-pane label="我的作品" name="first" class="p_c_box-flex_row-center">
-        <div class="p_c_flexbox">
-          <div v-for="(o, index) in tableData" class="col-3">
-            <div class="p_c_box_margin p_c_box-shadow">
-              <ThumbnailComponent :describe="o.describe" :thumbnail="o.thumbnail" :id="o.id">
-              </ThumbnailComponent>
-              <div style="display: flex;justify-content: space-between">
-                <time>{{ o.create_time }}</time>
-                <span>
-                  <i class="el-icon-edit" @click="handleEdit(o)" style="margin-right: 1.6rem;">编辑</i>
-                <i class="el-icon-delete" @click="del(index,o.id)" style="margin-right: 1.6rem;">删除</i>
-                </span>
-              </div>
+    <div>
+      <span>
+          我的作品
+      </span>
+      <span>
+        <el-button @click="dialogVisible=true;form={}">上传作品</el-button>
+      </span>
+    </div>
+    <div class="p_c_flexbox">
+      <div v-for="o in tableData">
+        <div>
+          <a href="/video/video">
+            <div>
+              <img :src="file_url2+o.thumbnail" style="width: 25rem;height: 14rem;object-fit: cover;">
             </div>
+          </a>
+          <div>
+            {{ o.describe }}
+          </div>
+          <div>
+            <date >{{ o.create_time }}</date>
+          </div>
+          <div>
+              <span>
+                <i class="el-icon-edit" @click="handleEdit(o)" style="margin-right: 1.6rem;">编辑</i>
+                      <i class="el-icon-delete" @click="del(index,o.id)" style="margin-right: 1.6rem;">删除</i>
+                      </span>
           </div>
         </div>
-      </el-tab-pane>
-      <el-tab-pane label="上传作品" name="second">
-        <el-form ref="form" :model="form" :rules="rules" label-width="8rem" style="padding: 1rem">
-          <el-form-item label="视频" prop="describe" required>
-            <el-upload
-                class="upload-demo"
-                :show-file-list="false"
-                :action="file_url"
-                :on-change="handleChange"
-                :on-success="handleAvatarSuccess"
-                :before-upload="beforeAvatarUpload"
-                :file-list="fileList">
-              <el-button size="small" type="primary">点击上传</el-button>
-            </el-upload>
-          </el-form-item>
-          <el-form-item label="视频封面" prop="describe" required>
-            <el-upload style="width: 10%;height: 10%"
-                       :show-file-list="false"
-                       :action="file_url"
-                       :on-success="uploadLicense">
-              <img v-if="form.thumbnail" :src="file_url+'?path='+form.thumbnail">
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
-          </el-form-item>
-          <el-form-item label="描述">
-            <el-input v-model="form.describe"></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="onSubmit">立即创建</el-button>
-            <el-button type="primary" @click="onCancel">取消</el-button>
-          </el-form-item>
-        </el-form>
-      </el-tab-pane>
-    </el-tabs>
-    <el-dialog title="编辑" :visible.sync="dialogVisible">
+      </div>
+    </div>
+    <el-dialog :title="form.id?'编辑':'新增'" :visible.sync="dialogVisible">
       <el-form ref="form" :model="form" :rules="rules" label-width="8rem" style="padding: 1rem">
+        <el-form-item label="视频" prop="describe" required>
+          <el-upload
+              class="upload-demo"
+              :show-file-list="false"
+              :action="file_url"
+              :on-change="handleChange"
+              :on-success="handleAvatarSuccess"
+              :before-upload="beforeAvatarUpload"
+              :file-list="fileList">
+            <el-button size="small" type="primary">点击上传</el-button>
+          </el-upload>
+        </el-form-item>
+        <el-form-item label="视频封面" prop="describe" required>
+          <el-upload style="width: 10%;height: 10%"
+                     :show-file-list="false"
+                     :action="file_url"
+                     :on-success="uploadLicense">
+            <img v-if="form.thumbnail" :src="file_url+'?path='+form.thumbnail">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+        </el-form-item>
         <el-form-item label="描述">
           <el-input v-model="form.describe"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit2">立即创建</el-button>
-          <el-button type="primary" @click="onCancel2">取消</el-button>
+          <el-button type="primary" @click="onSubmit">立即创建</el-button>
+          <el-button type="primary" @click="onCancel">取消</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -68,9 +68,8 @@
 
 <script>
 import jwt_decode from 'jwt-decode';
-import UserAvatarIComponent from "@/views/video/component/UserAvatarIComponent";
-import ThumbnailComponent from "@/views/video/component/ThumbnailComponent";
 import {VideoUrl} from "@/api/routerUrl";
+import {WorksApi, WorksListApi} from "@/api/api";
 
 export default {
   name: "works",
@@ -97,15 +96,11 @@ export default {
       file_path: null,
       form: {},
       tableData: [],
-      url: '/api/video_api/WorksApi',
-      works_list_url: '/api/video_api/WorksListApi',
+      url: WorksApi,
+      works_list_url:WorksListApi,
       tabPosition: "left",
       user: "",
     }
-  },
-  components: {
-    UserAvatarIComponent,
-    ThumbnailComponent
   },
   methods: {
     uploadLicense(res, file, fileList) {
@@ -131,6 +126,7 @@ export default {
       if (result.data.code == 1) {
         this.form = {}
         // await this.$router.push({path: 'video/works'})
+        this.dialogVisible = false
       } else {
         this.$message('失败');
       }
@@ -138,6 +134,7 @@ export default {
     async onCancel() {
       this.activeName = this.TAB_FIRST
       this.form = {}
+      this.dialogVisible = false
     },
     handleEdit(row) {
       this.dialogVisible = true
