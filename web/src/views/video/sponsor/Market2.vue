@@ -8,11 +8,17 @@
       </div>
       <div class="col-12">
         <div v-for="(o, index) in tableData">
-          <div class="art_title"><a :href="target_url+'?target_id='+o.id">{{ o.title }} </a></div>
+          <div class="art_title">
+            <router-link :to="{path:target_url,query: {target_id: o.id}}">
+            {{ o.title }}
+            </router-link>
+          </div>
           <div class="art_body"> {{ o.content }}</div>
           <div class="art_note">
-            <el-avatar :src="file_url2+o.avatar"></el-avatar>
-            {{ o.username }}
+            <router-link :to="{path:'/video/UserInfo2',query: {user_id: o.user_id}}">
+              <el-avatar :src="file_url2+o.avatar"></el-avatar>
+              {{ o.username }}
+            </router-link>
           </div>
         </div>
       </div>

@@ -52,32 +52,4 @@ export default {
 </script>
 
 <style scoped>
-.art_title {
-  font-size: 2.4rem;
-  font-weight: bold;
-  color: blue;
-  margin-bottom: 0.8rem;
-  margin-top: 0.8rem;
-}
-
-.target {
-  margin-top: 0.8rem;
-  margin-bottom: 0.8rem;
-  padding: 1.6rem;
-  border-radius: 1rem;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-}
-
-.art_body {
-  margin-bottom: 0.8rem;
-  margin-top: 0.8rem;
-  font-size: 1.6rem;
-}
-
-.art_note {
-  margin-bottom: 0.8rem;
-  margin-top: 0.8rem;
-  color: #72727f;
-  font-size: 1.6rem;
-}
 </style>

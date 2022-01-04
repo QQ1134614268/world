@@ -3,15 +3,11 @@
     <div class="p_c_box-flex">
       <div class="col-9">
         <div v-for="o in tableData">
-          <div>
-            <a :href=VideoUrl>
-              <div>
-                <img :src="file_url2+o.thumbnail" style="width: 25rem;height: 14rem;object-fit: cover;">
-              </div>
-            </a>
-            <div>
-              {{ o.describe }}
-            </div>
+          <div class="art_title">
+            {{ o.title }}
+          </div>
+          <div class="art_body">
+            {{ o.content }}
           </div>
         </div>
         <div>
