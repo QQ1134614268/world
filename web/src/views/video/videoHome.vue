@@ -11,7 +11,7 @@
 
       <div v-if="user">
         <el-dropdown>
-          <el-avatar :src="imgUrl"></el-avatar>
+          <el-avatar :src="FileApi+user.avatar" :key="user.avatar"></el-avatar>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>
               <a @click="logout">退出登录</a>
@@ -52,6 +52,7 @@
 import jwt_decode from 'jwt-decode';
 import {userLogout} from "@/api/user";
 import {VideoRegisterUrl} from "@/api/routerUrl";
+import {FileApi} from "@/api/api";
 
 export default {
   name: "App",
@@ -59,6 +60,7 @@ export default {
     return {
       videoRegisterUrl: VideoRegisterUrl,
       imgUrl: "",
+      FileApi
     }
   },
   computed: {

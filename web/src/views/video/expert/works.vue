@@ -20,7 +20,7 @@
             {{ o.describe }}
           </div>
           <div>
-            <date>{{ o.create_time }}</date>
+            <span>{{ o.create_time }}</span>
           </div>
           <div>
               <span>

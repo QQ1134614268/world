@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import UserAvatarIComponent from "@/views/video/component/UserAvatarIComponent";
 import {VideoUserApi, WorksApi} from "@/api/api";
 
 export default {
@@ -28,7 +27,6 @@ export default {
       user: {},
     }
   },
-  components: {UserAvatarIComponent},
   methods: {
     async init() {
       let result = await this.$get2(WorksApi, this.video_id)

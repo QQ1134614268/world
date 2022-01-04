@@ -11,16 +11,16 @@
           <div class="block">
             <router-link :to="{path:VideoUrl,query: {video_id: o.id}}">
               <div>
-                <img :src="file_url2+o.thumbnail" style="width: 25rem;height: 14rem;object-fit: cover;">
+                <img :src="file_url2+o.thumbnail" style="width: 20rem;height: 11.25rem;object-fit: cover;">
               </div>
             </router-link>
-            <div>
+            <div class="p_c_long_txt_hidden">
               {{ o.describe }}
             </div>
             <div>
-              <router-link :to="{path:UserInfoUrl,query: {video_id: o.user_id}}">
-                <el-avatar :src="file_url2+o.avatar"></el-avatar>
-                {{ o.username }}
+              <router-link :to="{path:UserInfoUrl,query: {video_id: o.user_id}}" class="p_c_box-flex_row-col-center ">
+                <el-avatar size="small" :src="file_url2+o.avatar"></el-avatar>
+                <span>{{ o.username }}</span>
               </router-link>
             </div>
           </div>
@@ -60,7 +60,7 @@ export default {
     return {
       search: "",
       currentPage: 1,
-      pageSize: 6,
+      pageSize: 10,
       totalNum: 0,
 
       VideoUrl: VideoUrl,

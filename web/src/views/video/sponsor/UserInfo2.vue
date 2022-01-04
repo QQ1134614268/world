@@ -30,7 +30,6 @@
 
 <script>
 
-import UserAvatarIComponent from "@/views/video/component/UserAvatarIComponent";
 import {MarketTargetListApi} from "@/api/api";
 import {TargetInfoUrl, VideoUrl} from "@/api/routerUrl";
 
@@ -48,9 +47,6 @@ export default {
       target_url: TargetInfoUrl,
       file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
     }
-  },
-  components: {
-    UserAvatarIComponent,
   },
   methods: {
     async init() {

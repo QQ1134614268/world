@@ -16,9 +16,9 @@
             </div>
             <div class="art_body"> {{ o.content }}</div>
             <div class="art_note">
-              <router-link :to="{path:'/video/UserInfo2',query: {user_id: o.user_id}}">
+              <router-link :to="{path:'/video/UserInfo2',query: {user_id: o.user_id}}" class="p_c_box-flex_row-col-center">
                 <el-avatar :src="file_url2+o.avatar"></el-avatar>
-                {{ o.username }}
+                <span>{{ o.username }}</span>
               </router-link>
             </div>
           </div>

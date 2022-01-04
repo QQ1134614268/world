@@ -1,23 +1,17 @@
 <template>
   <div class="col-12">
-    <UserAvatarIComponent :user_id="user_id"></UserAvatarIComponent>
     <div class="p_c_flexbox">
       <div v-for="o in tableData">
         <div class="block">
           <div>
-            <img :src="file_url2+o.thumbnail" style="width: 25rem;height: 14rem;object-fit: cover;">
+            <img :src="file_url2+o.thumbnail" style="width: 20rem;height: 11.25rem;object-fit: cover;">
           </div>
-          <div>
+          <div class="p_c_long_txt_hidden">
             {{ o.describe }}
-          </div>
-          <div>
-            <el-avatar :src="file_url2+o.avatar"></el-avatar>
-            {{ o.username }}
           </div>
         </div>
       </div>
     </div>
-
     <el-pagination @current-change="handleCurrentChange"
                    :current-page="currentPage"
                    :page-size="pageSize"
@@ -29,7 +23,6 @@
 </template>
 
 <script>
-import UserAvatarIComponent from "@/views/video/component/UserAvatarIComponent";
 import {VideoUrl} from "@/api/routerUrl";
 import {WorksListApi} from "@/api/api";
 
@@ -40,15 +33,12 @@ export default {
       user_id: this.$route.query.user_id,
       search: this.$route,
       currentPage: 1,
-      pageSize: 5,
+      pageSize: 10,
       file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
       VideoUrl: VideoUrl,
       tableData: [],
       totalNum: 0,
     }
-  },
-  components: {
-    UserAvatarIComponent
   },
   methods: {
     async init() {

@@ -1,10 +1,6 @@
 <template>
   <div class="p_c_box-flex_row-center">
     <div class="col-6">
-      <div style="margin-bottom: 1.6rem" class="p_c_box-flex_center">
-        <el-avatar :src="file_url2+user.avatar" style="{width:4.8rem ;height:4.8rem}"></el-avatar>
-        <span> {{ user.username }} </span>
-      </div>
       <div class="art_title"> {{ target.title }}</div>
       <div class="art_body"> {{ target.content }}</div>
       <div class="art_note"> 佣金:{{ target.price }}</div>
