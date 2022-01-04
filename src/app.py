@@ -15,7 +15,6 @@ from flask_restful import Api
 from api.HelloApi import hello_api
 from api.member.member_api import StoreMemberListApi, StoreListApi, StoreMemberApi, StoreApi, OrderApi, OrderListApi, \
     GoodsApi, GoodsListApi
-from api.message.wb.WbApi import wb_api
 from api.message.socket.SocketApi import socket_api
 from api.my_cloud_space.CloudSpaceApi import cloud_space_api, FileApi
 from api.project_api import ProjectInit
@@ -31,7 +30,7 @@ from api.tree.tree_api import UploadDataApi, prove_api, ProveApi, StoryApi
 from api.user.user_api import user_api
 from api.user.wallet.wallet_api import WalletApi
 from api.video.video_api import TargetApi, TargetListApi, MarketTargetListApi, WorksApi, WorksListApi, WorksRankListApi, \
-    TargetRankListApi, VideoUserApi, VideoUserLoginApi, InvitationCodeApi, MarketWorksListApi
+    TargetRankListApi, VideoUserApi, VideoUserLoginApi , MarketWorksListApi
 from api.worker.work_api import WorkerApi, WorkerTimeApi, WorkerExcelApi, WorkTimeAnalyseApi, \
     work_time_analyse_api
 from config.conf import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME, VERSION
@@ -192,7 +191,6 @@ app.register_blueprint(cloud_space_api)
 app.register_blueprint(stone_game_api)
 app.register_blueprint(socket_api)
 app.register_blueprint(customize_api)
-app.register_blueprint(wb_api)
 app.register_blueprint(scheduler_api)
 # sys
 api2.add_resource(ProjectInit, "/help")
@@ -247,7 +245,6 @@ api2.add_resource(TargetRankListApi, "/api/video_api/TargetRankListApi/<int:_id>
 api2.add_resource(MarketWorksListApi, "/api/video_api/MarketWorksListApi/<int:_id>")
 api2.add_resource(VideoUserApi, "/api/video_api/VideoUserApi/<int:_id>")
 api2.add_resource(VideoUserLoginApi, "/api/video_api/VideoUserLoginApi")
-api2.add_resource(InvitationCodeApi, "/api/video_api/InvitationCodeApi/<int:_id>")
 
 if __name__ == '__main__':
     scheduler.init_app(app)

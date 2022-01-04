@@ -1,5 +1,10 @@
 const routes = [
     {
+        path: '/hello',
+        name: '/hello',
+        component: () => import('@/views/hello/TestHome')
+    },
+    {
         path: '/hello/BgColor',
         name: '/hello/BgColor',
         component: () => import('@/views/hello/BgColor')

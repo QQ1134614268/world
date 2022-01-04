@@ -6,8 +6,8 @@ from flask_restful import Resource
 from sqlalchemy import func, desc
 from sqlalchemy.orm import aliased
 
-from config.Util import Res, ResList
 from config.mysql_db import db
+from config.res_config import Res, ResList
 from util import res_util, db_util
 from util.log_util import logger
 from vo.table_model import ProveVO, StoryVO

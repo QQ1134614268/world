@@ -7,8 +7,6 @@
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="a">退出登录</el-dropdown-item>
-          <el-dropdown-item command="b">设置</el-dropdown-item>
-          <el-dropdown-item command="c">用户空间</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -22,14 +20,19 @@
 <script>
 import jwt_decode from "jwt-decode";
 import {FileApi} from "@/api/api";
+import {userLogout} from "@/api/user";
 
 export default {
-  name: "UserIconCOMPO",
+  name: "TreeUserIcon",
   data() {
     return {
       userId: '',
       FileApi: FileApi
     }
+  },
+
+  components: {
+    Tree
   },
   methods: {
 
@@ -40,7 +43,7 @@ export default {
 
     },
     async logout() {
-
+      await userLogout()
     },
     handleCommand(command) {
       this.$message('click on item ' + command);

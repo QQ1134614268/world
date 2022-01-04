@@ -14,11 +14,10 @@ from sqlalchemy import or_
 
 import service.user_service
 from config.mysql_db import db
-from service.common_service import set_model_user_id
-from service.user_service import get_id_by_token
+from service.auth_service import set_model_user_id
 from util import res_util
 from util.video_util import get_first_frame_loc
-from vo.table_model import VideoUserVO, WorksVO, TargetVO, InvitationCodeVO
+from vo.table_model import VideoUserVO, WorksVO, TargetVO
 
 
 class VideoUserLoginApi(Resource):
@@ -223,51 +222,3 @@ class MarketTargetListApi(Resource):
         ).paginate(page=page, per_page=page_size)
         page_item.items = [dict(zip(item.keys(), item)) for item in page_item.items]
         return res_util.page_success(page_item)
-
-
-class InvitationCodeApi(Resource):
-    """
-    邀请码
-    """
-
-    def post(self, _id):
-        user_id = get_id_by_token()
-        data = {
-            "user_id": get_id_by_token()
-        }
-        user = VideoUserVO.query.filter(VideoUserVO.id == get_id_by_token()).first()
-        if user.role not in ["ADMIN", "SYS_ADMIN", ]:
-            return res_util.fail("权限不足!")
-        vo = InvitationCodeVO.query.filter(InvitationCodeVO.user_id == user_id).first()
-        if vo:
-            self.put(vo.id)
-            return res_util.success(vo.id)
-        vo = InvitationCodeVO(**data)
-        db.session.add(vo)
-        db.session.commit()
-        vo.code = self.activation_code(vo.id)
-        db.session.commit()
-        return res_util.success(vo.id)
-
-    def put(self, _id):
-        user_id = get_id_by_token()
-        vo = InvitationCodeVO.query.filter(InvitationCodeVO.user_id == user_id).first()
-        vo.code = self.activation_code(vo.id)
-        db.session.commit()
-        return res_util.success(vo.id)
-
-    def get(self, _id):
-        user_id = get_id_by_token()
-        vo = InvitationCodeVO.query.filter(InvitationCodeVO.user_id == user_id).first()
-        return res_util.json_success(vo)
-
-    @staticmethod
-    def activation_code(_id, length=10):
-        """
-        id + L + 随机码
-        string模块中的3个函数：string.letters，string.printable，string.printable
-        """
-        prefix = hex(_id)[2:] + 'L'
-        length = length - len(prefix)
-        chars = string.ascii_letters + string.digits
-        return prefix + ''.join([random.choice(chars) for _ in range(length)])

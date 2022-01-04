@@ -42,7 +42,7 @@ class StoreApi(Resource):
         data = request.get_json()
         name = data.get('name', '')
         password = data.get('password', '')
-        vo = StoreVO(name=name, password=password_util.get_sha256_salt_password(password),
+        vo = StoreVO(name=name, password=password_util.get_sha256_salt_password(password),  # todo
                      user_id=service.user_service.get_id_by_token())
         db.session.add(vo)
         db.session.commit()

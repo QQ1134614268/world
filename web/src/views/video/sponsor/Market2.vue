@@ -6,20 +6,23 @@
                   placeholder="请输入搜索内容">
         </el-input>
       </div>
-      <div class="col-12">
+      <div>
         <div v-for="(o, index) in tableData">
-          <div class="art_title">
-            <router-link :to="{path:target_url,query: {target_id: o.id}}">
-            {{ o.title }}
-            </router-link>
+          <div class="block">
+            <div class="art_title">
+              <router-link :to="{path:target_url,query: {target_id: o.id}}">
+                {{ o.title }}
+              </router-link>
+            </div>
+            <div class="art_body"> {{ o.content }}</div>
+            <div class="art_note">
+              <router-link :to="{path:'/video/UserInfo2',query: {user_id: o.user_id}}">
+                <el-avatar :src="file_url2+o.avatar"></el-avatar>
+                {{ o.username }}
+              </router-link>
+            </div>
           </div>
-          <div class="art_body"> {{ o.content }}</div>
-          <div class="art_note">
-            <router-link :to="{path:'/video/UserInfo2',query: {user_id: o.user_id}}">
-              <el-avatar :src="file_url2+o.avatar"></el-avatar>
-              {{ o.username }}
-            </router-link>
-          </div>
+
         </div>
       </div>
       <div class=" col-12">

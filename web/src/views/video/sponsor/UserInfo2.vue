@@ -3,12 +3,15 @@
     <div class="p_c_box-flex">
       <div class="col-9">
         <div v-for="o in tableData">
-          <div class="art_title">
-            {{ o.title }}
+          <div class="block">
+            <div class="art_title">
+              {{ o.title }}
+            </div>
+            <div class="art_body">
+              {{ o.content }}
+            </div>
           </div>
-          <div class="art_body">
-            {{ o.content }}
-          </div>
+
         </div>
         <div>
           <el-pagination @size-change="handleSizeChange"

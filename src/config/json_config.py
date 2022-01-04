@@ -21,10 +21,10 @@ class JSONEncoder(_JSONEncoder):
         #     todo  直接获取列名
         # o.table.cl
         if isinstance(o, db.Model):
-            dict2 = o.__dict__
-            if "_sa_instance_state" in dict2:
-                del dict2["_sa_instance_state"]
-            return dict2
+            dic = o.__dict__
+            if "_sa_instance_state" in dic:
+                del dic["_sa_instance_state"]
+            return dic
         if isinstance(o, datetime):
             return o.strftime(DATE_TIME_FORMAT)
         if isinstance(o, date):

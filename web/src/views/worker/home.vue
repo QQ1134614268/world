@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="p_c_box-flex_row-center " style="height: 10rem">
-      <div class="title2">工时系统</div>
+      <div style="flex: 1" class="p_c_box-flex_row-center title2">工时系统</div>
+      <div class="p_c_flexbox_row" style="width: 20rem">
+        <WorkerUserIcon></WorkerUserIcon>
+      </div>
     </div>
     <div class="p_c_flexbox_row">
       <div class="col-2">
@@ -86,12 +89,18 @@
 </template>
 
 <script>
+import WorkerUserIcon from "@/components/WorkerUserIcon";
+
 export default {
   name: "home",
   data() {
     return {
       data: []
     };
+  },
+
+  components: {
+    WorkerUserIcon
   },
   methods: {}
 }

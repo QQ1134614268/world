@@ -62,9 +62,6 @@ export default {
     }
   },
   computed: {
-    store() {
-      return this.$store.state
-    },
     user() {
       // 这里存储从store里获取的token的数据 todo
       if (this.$store.state.token) {

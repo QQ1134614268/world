@@ -51,7 +51,6 @@ export default {
         Axios.defaults.headers.common['token'] = result.data.data
         localStorage.setItem("token", result.data.data);
         this.$message('登录成功');
-        // await this.$router.go({path: '/user/UserSpace'}) todo
         // 弹框式登录
         if (this.from != null) {
           await this.$router.push(this.from)

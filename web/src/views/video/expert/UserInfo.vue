@@ -3,7 +3,7 @@
     <UserAvatarIComponent :user_id="user_id"></UserAvatarIComponent>
     <div class="p_c_flexbox">
       <div v-for="o in tableData">
-        <div>
+        <div class="block">
           <div>
             <img :src="file_url2+o.thumbnail" style="width: 25rem;height: 14rem;object-fit: cover;">
           </div>

@@ -7,8 +7,7 @@ import datetime
 
 from flask_restful import fields
 from sqlalchemy import Column, Text, String, Integer, Float, Boolean, Date, DateTime, Sequence, \
-    Enum, UniqueConstraint, ForeignKey
-from sqlalchemy.orm import relationship
+    Enum, UniqueConstraint
 
 from config.mysql_db import db
 from service.user_service import get_id_by_token
@@ -252,12 +251,6 @@ class WorksVO(BaseTable):
     start = Column(Integer, default=0)
     thumbnail = Column(String(255))
 
-    def to_json(self):
-        dict2 = self.__dict__
-        if "_sa_instance_state" in dict2:
-            del dict2["_sa_instance_state"]
-        return dict2
-
 
 class TargetVO(BaseTable):
     __tablename__ = 'target_t'
@@ -265,19 +258,6 @@ class TargetVO(BaseTable):
     title = Column(String(255))
     content = Column(String(1000))
     price = Column(Float)
-
-    def to_json(self):
-        dict2 = self.__dict__
-        if "_sa_instance_state" in dict2:
-            del dict2["_sa_instance_state"]
-        return dict2
-
-
-class InvitationCodeVO(BaseTable):
-    __tablename__ = 'invitation_code_t'
-    user_id = Column(Integer)
-    code = Column(String(255))
-    invitation_user_id = Column(Integer)
 
 
 class ProveVO(BaseTable):

@@ -1,3 +1,12 @@
+/*todo 文档总样式*/
+.art_title {
+    font-size: 2.0rem;
+    font-weight: bold;
+    color: blue;
+    margin-bottom: 0.8rem;
+    margin-top: 0.8rem;
+}
+
 .title {
     text-align: center;
 }
@@ -25,15 +34,6 @@
     rows: "10"
 }
 
-
-.art_title {
-    font-size: 2.4rem;
-    font-weight: bold;
-    color: blue;
-    margin-bottom: 0.8rem;
-    margin-top: 0.8rem;
-}
-
 .target {
     margin-top: 0.8rem;
     margin-bottom: 0.8rem;
@@ -53,4 +53,34 @@
     margin-top: 0.8rem;
     color: #72727f;
     font-size: 1.6rem;
+}
+
+.p_c_line-height {
+    line-height: 1.5;
+}
+
+.p_c_box-shadow {
+    border-radius: 1rem;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)
+}
+
+.p_c_box_padding {
+    padding: 0.8rem;
+}
+
+.p_c_box_margin {
+    margin: 0.8rem;
+}
+
+.p_c_long_txt_hidden {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    min-width: 0;
+}
+
+.p_c_word-break {
+    white-space: normal;
+    word-break: break-all;
+    overflow: hidden;
 }

@@ -8,7 +8,7 @@
       </div>
       <div class="p_c_flexbox">
         <div v-for="o in tableData">
-          <div>
+          <div class="block">
             <router-link :to="{path:VideoUrl,query: {video_id: o.id}}">
               <div>
                 <img :src="file_url2+o.thumbnail" style="width: 25rem;height: 14rem;object-fit: cover;">
