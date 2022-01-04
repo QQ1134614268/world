@@ -14,13 +14,13 @@
                 <img :src="file_url2+o.thumbnail" style="width: 20rem;height: 11.25rem;object-fit: cover;">
               </div>
             </router-link>
-            <div class="p_c_long_txt_hidden">
+            <div class="p_c_long_txt_hidden" style="width: 10rem">
               {{ o.describe }}
             </div>
             <div>
               <router-link :to="{path:UserInfoUrl,query: {video_id: o.user_id}}" class="p_c_box-flex_row-col-center ">
                 <el-avatar size="small" :src="file_url2+o.avatar"></el-avatar>
-                <span>{{ o.username }}</span>
+                <span class="p_c_long_txt_hidden" style="width: 10rem">{{ o.username }}</span>
               </router-link>
             </div>
           </div>

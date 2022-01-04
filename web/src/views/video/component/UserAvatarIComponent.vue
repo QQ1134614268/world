@@ -1,7 +1,7 @@
 <template>
   <div class="p_c_box-flex_center">
     <el-avatar :src="imgUrl"></el-avatar>
-    <span> {{ username }} </span>
+    <span class="p_c_long_txt_hidden" style="width: 10rem"> {{ username }} </span>
   </div>
 </template>
 
