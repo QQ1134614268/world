@@ -1,6 +1,5 @@
 from flask_apscheduler import APScheduler
 
-from api.sys.robot.robot import robot1, robot1_wg
 from api.sys.scheduler.SchedulerFunc import init_dir
 from api.sys.scheduler.SchedulerFunc import init_db
 
@@ -11,8 +10,8 @@ scheduler = APScheduler()
 # 1. 立即执行
 scheduler.add_job('init_dir', init_dir, trigger='date')
 scheduler.add_job("init_db", init_db, trigger='date')
-scheduler.add_job("robot1", robot1, trigger='interval', hours=24)
-scheduler.add_job("robot1_wg", robot1_wg, trigger='cron', hour=8, minute=30)
+# scheduler.add_job("robot1", robot1, trigger='interval', hours=24)
+# scheduler.add_job("robot1_wg", robot1_wg, trigger='cron', hour=8, minute=30)
 
 # 1. date 定时
 # scheduler.add_job("2",my_job, 'date', run_date='2009-11-06 16:30:05', args=['text'])

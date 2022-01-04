@@ -8,7 +8,7 @@ from io import BytesIO
 from flask import make_response, send_file
 
 
-def down_response(wb,filename):
+def down_response(wb, filename):
     byte_ios = BytesIO()
     wb.save(byte_ios)
     byte_ios.seek(0)

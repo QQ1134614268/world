@@ -1,30 +1,18 @@
 # encoding: utf-8
-# todo 公告, 反馈
 import importlib
-import random
 
-import time
 from flask import Blueprint, jsonify, make_response, request
-from flask_restful import fields, marshal, Resource
+from flask_restful import Resource
 
-import service.token_service
-from config.conf import UPLOAD_FILE_PATH
+import service.user_service
 from config.mysql_db import db
 from config.redis_db import redisDB
-from service import log_table_service, token_service
+from service import log_table_service
 from util import res_util
-from util import token_util
 from util import verification_code_util
-from vo.table_model import UserVO, AnnouncementVO, MessageVO
+from vo.table_model import UserVO, AnnouncementVO, SuggestVO
 
 sys_api = Blueprint("sys", __name__, url_prefix='/api/sys_api')
-
-announcement_fields = {
-    'id': fields.Integer,
-    'userid': fields.Integer,
-    'content': fields.String,
-    'images': fields.String
-}
 
 
 @sys_api.route('/get_verify_code', methods=['GET'])
@@ -38,26 +26,22 @@ def get_verify_code():
 
 @sys_api.route('/login', methods=['POST'])
 def login():
-    """
-
-    :return:
-    """
     data = request.get_json()
     username = data.get('username', '')
     password = data.get('password', '')
     user = UserVO.query.filter_by(username=username).first()
     if user and user.check_password(password):
         log_table_service.log_table(user.id, "登录系统", "登录")
-        return res_util.json_success(token_util.get_token(user ))
+        return res_util.json_success(service.user_service.get_token(user))
     else:
-        return jsonify(res_util.fail("账号密码不匹配"))
+        return res_util.fail("账号密码不匹配")
 
 
 @sys_api.route('/logout', methods=['GET'])
 def logout():
     # 单点登录, redis 删除
-    log_table_service.log_table(token_service.get_id_by_token(), "退出", "退出")
-    return jsonify(res_util.success("退出"))
+    log_table_service.log_table(service.user_service.get_id_by_token(), "退出", "退出")
+    return res_util.json_success()
 
 
 @sys_api.route('/register', methods=['POST'])
@@ -77,54 +61,41 @@ def register():
     vo = UserVO(username=username, password=password)
     db.session.add(vo)
     db.session.commit()
-    return jsonify(res_util.success("注册成功"))
+    return res_util.json_success()
 
 
-@sys_api.route('/add_announcement', methods=['POST'])
-def add_announcement():
-    title = request.form.get('title')
-    content = request.form.get('content')
-    image = request.files['image']
-    time_str = time.strftime('%Y%m%d_%H%M%S_') + str(random.randint(1000, 9999))
-    image_path = UPLOAD_FILE_PATH + '/images/' + time_str + "-" + image.filename
-    image.save(image_path)  # 保存文件到指定路径
-    user_id = service.token_service.get_id_by_token()
-    vo = AnnouncementVO(userid=user_id, title=title, content=content, images=image_path)
-    db.session.add(vo)
-    db.session.commit()
-    return jsonify(res_util.success("操作成功"))
+class AnnouncementApi(Resource):
+    def post(self, _id):
+        data = request.get_json()
+        user_id = service.user_service.get_id_by_token()
+        vo = AnnouncementVO(userid=user_id, **data)
+        db.session.add(vo)
+        db.session.commit()
+        return res_util.json_success()
+
+    def get(self, _id):
+        query_filter = []
+
+        announcement_id = request.args.get('id')
+        if announcement_id:
+            query_filter.append(AnnouncementVO.id == announcement_id)
+        message_list = AnnouncementVO.query.filter(query_filter).order_by(AnnouncementVO.create_time).all()
+        return res_util.json_success(message_list)
 
 
-@sys_api.route('/get_announcement_list', methods=['GET'])
-def get_announcement_list():
-    message_list = list(AnnouncementVO.query.order_by(AnnouncementVO.create_time).all())
-    message_list = [marshal(vo, announcement_fields) for vo in message_list]
-    return jsonify(res_util.success(message_list))
+class SuggestApi(Resource):
 
+    def post(self, _id):
+        data = request.get_json()
 
-@sys_api.route('/get_announcement_by_id', methods=['GET'])
-def get_announcement_by_id():
-    announcement_id = request.args.get('id')
-    vo = AnnouncementVO.query.filter_by(id=announcement_id).first()
-    return jsonify(res_util.success(marshal(vo, announcement_fields)))
+        vo = SuggestVO(**data)
+        db.session.add(vo)
+        db.session.commit()
+        return res_util.json_success()
 
-
-@sys_api.route('/add_suggest', methods=['POST'])
-def add_suggest():
-    announcement_id = request.form.get("id")
-    content = request.form.get('content')
-    image = request.files.get("image")
-    vo = MessageVO(announcement_id=announcement_id, content=content, image=image)
-    db.session.add(vo)
-    db.session.commit()
-    return jsonify(res_util.success("操作成功"))
-
-
-@sys_api.route('/get_suggest', methods=['GET'])
-def get_suggest():
-    announcement_id = request.args.get("id")
-    message_list = MessageVO.query.filter_by(id=announcement_id).order_by(MessageVO.create_time).all()
-    return jsonify(res_util.success(message_list))
+    def get(self, _id):
+        message_list = SuggestVO.query.filter_by(id=_id).order_by(SuggestVO.create_time).all()
+        return res_util.json_success(message_list)
 
 
 class AllApi(Resource):

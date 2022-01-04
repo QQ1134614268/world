@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 
-from api.message.wx import websocket_route
-from api.message.wx.gloable_v import user_id_socket
+from api.message.socket import websocket_route
+from api.message.socket.gloable_v import user_id_socket
 
 socket_api = Blueprint("socket_api", __name__, url_prefix='/api/socket_api')
 

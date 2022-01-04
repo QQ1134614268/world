@@ -6,8 +6,8 @@
 from flask import request
 from flask_restful import Resource
 
+import service.user_service
 from config.mysql_db import db
-from service import token_service
 from util import res_util
 from vo.table_model import EnumConfig
 
@@ -21,7 +21,7 @@ class ConfigApi(Resource):
         if request.args.get("create_by") == "-1":
             create_by = "-1"
         else:
-            create_by = token_service.get_id_by_token()
+            create_by = service.user_service.get_id_by_token()
         vos = EnumConfig.query.filter(
             EnumConfig.create_by == create_by,
             EnumConfig.parent_code == parent_code,
@@ -32,7 +32,7 @@ class ConfigApi(Resource):
     def post(self, _id):
         data = request.get_json()
         vo = EnumConfig(**data)
-        vo.create_by = token_service.get_id_by_token()
+        vo.create_by = service.user_service.get_id_by_token()
         db.session.add(vo)
         db.session.commit()
         return res_util.json_success(vo.id)

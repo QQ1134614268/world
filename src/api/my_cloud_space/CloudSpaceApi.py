@@ -7,10 +7,9 @@ import time
 from flask import Blueprint, send_file, jsonify, make_response, request
 from flask_restful import Resource
 
-import service.token_service
+import service.user_service
 from config.mysql_db import db
 from config.conf import UPLOAD_FILE_PATH, DATA_DIR
-from service import user_service
 from util import res_util
 from vo.table_model import UserCloudSpaceVO
 
@@ -19,7 +18,7 @@ cloud_space_api = Blueprint("cloud_space_api", __name__, url_prefix='/api/cloud_
 
 @cloud_space_api.route('/init', methods=['GET'])
 def init():
-    user_id = service.token_service.get_id_by_token()
+    user_id = service.user_service.get_id_by_token()
     os.makedirs(os.path.join(UPLOAD_FILE_PATH, str(user_id)))
     return jsonify(res_util.success("cloud_space init success"))
 
@@ -28,7 +27,7 @@ def init():
 def create_dir():
     data = request.get_json()
     name = data.get('name')
-    user_id = service.token_service.get_id_by_token()
+    user_id = service.user_service.get_id_by_token()
     os.makedirs(os.path.join(UPLOAD_FILE_PATH, str(user_id)), name)
     return jsonify(res_util.success("操作成功"))
 
@@ -43,7 +42,7 @@ def get_filename_list_v2():
 
 
 def getDirName(file_dir):
-    user_id = service.token_service.get_id_by_token()
+    user_id = service.user_service.get_id_by_token()
     return os.path.join(UPLOAD_FILE_PATH, str(user_id), file_dir)
 
 
@@ -54,7 +53,7 @@ def getFiles(file_dir):
 
 @cloud_space_api.route('/get_filename_list', methods=['GET'])
 def get_filename_list():
-    user_id = service.token_service.get_id_by_token()
+    user_id = service.user_service.get_id_by_token()
     vo_list = UserCloudSpaceVO.query.filter(UserCloudSpaceVO.user_id == user_id).all()
     name_list = [vo.file_name for vo in vo_list]
     return jsonify(res_util.success(name_list))
@@ -63,7 +62,7 @@ def get_filename_list():
 @cloud_space_api.route('/file_upload', methods=['POST'])
 def file_upload():
     file1 = request.files["file"]
-    user_id = service.token_service.get_id_by_token()
+    user_id = service.user_service.get_id_by_token()
     vo = UserCloudSpaceVO.query.filter_by(file_name=file1.filename, user_id=user_id).first()
     time_str = time.strftime('%Y%m%d_%H%M%S_') + str(random.randint(1000, 9999))
     file_path = UPLOAD_FILE_PATH + '/' + time_str + "-" + file1.filename
@@ -73,7 +72,7 @@ def file_upload():
         vo.file_path = file_path
         db.session.commit()
     else:
-        user_id = service.token_service.get_id_by_token()
+        user_id = service.user_service.get_id_by_token()
         vo = UserCloudSpaceVO(user_id=user_id, file_name=file1.filename, file_path=file_path)
         db.session.add(vo)
         db.session.commit()
@@ -82,7 +81,7 @@ def file_upload():
 
 @cloud_space_api.route('/file_download', methods=['GET'])
 def file_download():
-    user_id = service.token_service.get_id_by_token()
+    user_id = service.user_service.get_id_by_token()
     filename = request.args.get("filename")
     vo = UserCloudSpaceVO.query.filter_by(file_name=filename, user_id=user_id).first()
     response = make_response(send_file(vo.file_path))
@@ -95,7 +94,7 @@ def file_download():
 def delete_file():
     data = request.get_json()
     filename = data.get("filename")
-    user_id = service.token_service.get_id_by_token()
+    user_id = service.user_service.get_id_by_token()
     vo = UserCloudSpaceVO.query.filter_by(file_name=filename, user_id=user_id).first()
     os.remove(vo.file_path)
     db.session.delete(vo)

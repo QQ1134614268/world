@@ -42,7 +42,7 @@ class Weekday(Enum):
     Sat = 6
 
 
-Month = Enum('Month2', ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'))
+Month = Enum('Month', ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'))
 
 
 class Permission:  # 权限常量

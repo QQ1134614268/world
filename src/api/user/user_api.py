@@ -3,7 +3,7 @@
 from flask import Blueprint, request
 from flask_restful import fields, marshal
 
-import service.token_service
+import service.user_service
 from util import res_util
 from vo.table_model import UserVO
 
@@ -33,7 +33,7 @@ def getUserById():
 
 @user_api.route('/getUserInfo', methods=['GET'])
 def getUserInfo():
-    userId = service.token_service.get_id_by_token()
+    userId = service.user_service.get_id_by_token()
     user = UserVO.query.filter_by(id=userId).first()
     return res_util.success(marshal(user, user_fields))
 

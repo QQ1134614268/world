@@ -1,6 +1,6 @@
 import json
 
-from api.message.wx.gloable_v import user_id_socket
+from api.message.socket.gloable_v import user_id_socket
 
 
 # 字符串转函数  https://www.jb51.net/article/120311.htm

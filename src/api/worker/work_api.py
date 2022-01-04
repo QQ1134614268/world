@@ -5,20 +5,21 @@
 """
 from datetime import date
 
-import openpyxl
 from flask import request, Blueprint
 from flask_restful import Resource
-from openpyxl import Workbook
 from sqlalchemy import and_, func
 from sqlalchemy.dialects.mysql import insert
 
-from config.conf import header_dic, DATE_FORMAT
+from util.excel_util import ExcelHandler
+from config.conf import DATE_FORMAT
+from config.exception import WorldException
 from config.mysql_db import db
-from service.token_service import get_id_by_token
+from service.user_service import get_id_by_token
 from util import res_util, db_util, time_util
 from util.db_util import row_to_dic
 from util.dowmload_util import down_response
 from vo.table_model import WorkerVO, WorkerTimeVO
+from vo.value_object import WorkerExcelVO
 
 work_time_analyse_api = Blueprint("WorkTimeAnalyseApi", __name__, url_prefix='/api/work_api/WorkTimeAnalyseApi')
 
@@ -28,21 +29,22 @@ class WorkerExcelApi(Resource):
 
     def post(self):
         file = request.files.get("file")
-        wb = openpyxl.load_workbook(file)
-        # sheet = wb["Sheet"]
-        sheet = wb.active
-        # get_column_letter column_index_from_string
-        values = list(sheet.values)
-        headers = values[0]
-        header_dic_resvese = {v: k for k, v in header_dic.items()}
-        en_header = [header_dic_resvese.get(header) for header in headers]
-        data = []
-        for v in values[1:]:
-            data.append(dict(zip(en_header, v)))
+        self.check_excel_type(file.filename)
+        # wb = openpyxl.load_workbook(file)
+        # # sheet = wb["Sheet"]
+        # sheet = wb.active
+        # # get_column_letter column_index_from_string
+        # values = list(sheet.values)
+        # headers = values[0]
+        # header_dic_resvese = {v: k for k, v in header_dic.items()}
+        # en_header = [header_dic_resvese.get(header) for header in headers]
+        # data = []
+        # for v in values[1:]:
+        #     data.append(dict(zip(en_header, v)))
 
+        data = ExcelHandler.from_file(file, WorkerExcelVO)
         for val in data:
             val["belong"] = get_id_by_token()
-
         insert_stmt = insert(WorkerVO).values(data)
         on_duplicate_key_stmt = insert_stmt.on_duplicate_key_update(
             name=insert_stmt.inserted.name,
@@ -63,22 +65,15 @@ class WorkerExcelApi(Resource):
 
     def get(self):
         vos = WorkerVO.query.filter(WorkerVO.belong == get_id_by_token()).all()
-        wb = Workbook()
-        ws = wb.active
-        for index, header_name in enumerate(header_dic.values()):
-            ws.cell(row=1, column=(index + 1)).value = header_name
-
-        for row_index, vo in enumerate(vos):
-            for col_index, attr in enumerate(header_dic.keys()):
-                ws.cell(row=(row_index + 2), column=(col_index + 1)).value = getattr(vo, attr)
+        wb = ExcelHandler.to_file(vos, WorkerExcelVO)
         return down_response(wb, "名单.xlsx")
 
-    # obj.filename
+    @staticmethod
     def check_excel_type(self, file_name):
         arr = file_name.split(".")
         file_type = arr and arr[-1]
         if file_type not in ["xlxs", "xls"]:
-            raise
+            raise WorldException("上传文件格式不正确!")
 
 
 class WorkerApi(Resource):

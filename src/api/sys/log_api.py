@@ -6,7 +6,7 @@
 from flask import request
 from flask_restful import Resource
 
-from service.token_service import get_id_by_token
+from service.user_service import get_id_by_token
 from util import res_util
 from vo.table_model import LogVO
 

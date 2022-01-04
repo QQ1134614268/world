@@ -15,15 +15,12 @@ from flask_restful import Api
 from api.HelloApi import hello_api
 from api.member.member_api import StoreMemberListApi, StoreListApi, StoreMemberApi, StoreApi, OrderApi, OrderListApi, \
     GoodsApi, GoodsListApi
-from api.message.Speech.SpeechApi import speech_api
-from api.message.attention_api import attention_api
-from api.message.message_api import message_api
 from api.message.wb.WbApi import wb_api
-from api.message.wx.SocketApi import socket_api
+from api.message.socket.SocketApi import socket_api
 from api.my_cloud_space.CloudSpaceApi import cloud_space_api, FileApi
 from api.project_api import ProjectInit
 from api.stone_game.StoneGameApi import stone_game_api
-from api.sys.SysApi import sys_api, AllApi
+from api.sys.SysApi import sys_api, AllApi, SuggestApi, AnnouncementApi
 from api.sys.config_api import ConfigApi
 from api.sys.customize.CustomizeApi import customize_api
 from api.sys.file.file_api import FileApi2
@@ -191,17 +188,17 @@ def welcome():
 
 app.register_blueprint(hello_api)
 app.register_blueprint(sys_api)
-app.register_blueprint(speech_api)
 app.register_blueprint(cloud_space_api)
 app.register_blueprint(stone_game_api)
 app.register_blueprint(socket_api)
 app.register_blueprint(customize_api)
 app.register_blueprint(wb_api)
 app.register_blueprint(scheduler_api)
-app.register_blueprint(message_api)
 # sys
 api2.add_resource(ProjectInit, "/help")
 api2.add_resource(ConfigApi, "/api/config_api/ConfigApi/<int:_id>")
+api2.add_resource(SuggestApi, "/api/sys_api/SuggestApi/<int:_id>")
+api2.add_resource(AnnouncementApi, "/api/sys_api/AnnouncementApi/<int:_id>")
 
 api2.add_resource(FileApi, "/api/file/FileApi")
 api2.add_resource(FileApi2, "/api/file/FileApi2")
@@ -211,7 +208,6 @@ api2.add_resource(AllApi, "/api/video_api/AllApi/<int:_id>")
 
 # 用户
 app.register_blueprint(user_api)
-app.register_blueprint(attention_api)
 
 # model
 api2.add_resource(UploadDataApi, "/api/model_api/UploadDataApi/<int:_id>")

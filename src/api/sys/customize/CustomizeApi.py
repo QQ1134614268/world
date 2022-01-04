@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 
-import service.token_service
+import service.user_service
 from config.mongodb import mongoDB
 from util import res_util
 
@@ -8,7 +8,7 @@ customize_api = Blueprint("customize_api", __name__, url_prefix='/api/customize_
 
 
 @customize_api.route('/addModel', methods=['POST'])
-def addModel():
+def add_model():
     """
     {
         # path: /userId/菜品 # 有mongo提供 _id 做标识
@@ -29,17 +29,17 @@ def addModel():
     :return:
     """
     data = request.get_json()
-    data["userId"] = service.token_service.get_id_by_token()
+    data["userId"] = service.user_service.get_id_by_token()
     collection = mongoDB.models
     collection.insert_one(data)
     return jsonify(res_util.success("success"))
 
 
 @customize_api.route('/getModel', methods=['POST'])
-def getModel():
+def get_model():
     collection = mongoDB.models
     res = list(collection.find({
-        "userId": service.token_service.get_id_by_token()
+        "userId": service.user_service.get_id_by_token()
     }))
     for i in res:
         i["_id"] = str(i["_id"])

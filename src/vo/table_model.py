@@ -11,21 +11,12 @@ from sqlalchemy import Column, Text, String, Integer, Float, Boolean, Date, Date
 from sqlalchemy.orm import relationship
 
 from config.mysql_db import db
-from service.token_service import get_id_by_token
+from service.user_service import get_id_by_token
 from util.password_util import get_sha256_salt_password
 from util.unique_util import get_uuid
 
 
 class BaseTable(db.Model):
-    __abstract__ = True  # 加了该属性后生成表的时候不会生成该表
-    id = Column(Integer, primary_key=True, autoincrement=True, comment="主键")
-    create_time = Column(DateTime, default=datetime.datetime.now)
-    update_time = db.Column(db.DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
-    # create_user = db.Column(db.Integer, default=user_service.get_id_by_token, onupdate=user_service.get_id_by_token)
-    # update_user = db.Column(db.Integer, default=user_service.get_id_by_token, onupdate=user_service.get_id_by_token)
-
-
-class BaseTable2(db.Model):
     __abstract__ = True  # 加了该属性后生成表的时候不会生成该表
     id = Column(Integer, primary_key=True, autoincrement=True, comment="主键")
     create_time = Column(DateTime, default=datetime.datetime.now)
@@ -69,50 +60,12 @@ class EnumConfig(BaseTable):
     UniqueConstraint(parent_code, value)
 
 
-# class EnumConfig(BaseTable):
-#     __tablename__ = 'enum_config'
-#     parent_code = Column(String(255), Sequence('sort_seq'), comment="父级code", server_default='-1', default='-1')
-#
-#     # 没父子级, 标识字段; eg: 深圳/龙华 北京/朝阳 都是区级
-#     group_code = Column(String(255), comment="分组code")
-#
-#     # 生成唯一
-#     code = Column(String(255), comment="枚举key值, 唯一(相当于自带路径)", default=get_uuid, nullable=False, unique=True)
-#
-#     value = Column(String(255), comment="枚举value数据", nullable=False)
-#     # value_type = Column(String(255), comment="配置值类型", nullable=False)
-#     comment = Column(String(255), comment="备注")
-#     sort = Column(Integer, comment="排序字段")
-#
-#     # 分组下 唯一
-#     UniqueConstraint(parent_code, value)
-
-# class Business(BaseModel, UserMixin):
-#     username = db.Column(db.String(16), unique=True, index=True)
-#     _password = db.Column('password', db.String(128), nullable=False) todo __password 私有
-#     phone = db.Column(db.Integer, nullable=False)
-#
-#     # 设置访问密码的方法,并用装饰器@property设置为属性,调用时不用加括号
-#     @property
-#     def password(self):
-#         return self._password
-#
-#     # 设置加密的方法,传入密码,对类属性进行操作
-#     @password.setter
-#     def password(self, value):
-#         self._password = generate_password_hash(value)
-#
-#     # 设置验证密码的方法
-#     def check_password(self, user_pwd):
-#         return check_password_hash(self._password, user_pwd)
-
-
 class UserVO(BaseTable):
     __tablename__ = 'user'
     username = Column(String(12), index=True, unique=True, nullable=False)
     _password = db.Column('password', db.String(128), nullable=False)
     phone = Column(String(11))
-    avatar = Column(String(255), default="default_avatar.png")  # todo
+    avatar = Column(String(255))
 
     email = Column(String(60))
     userType = Column(Integer, default=1)
@@ -144,7 +97,7 @@ class UserVO(BaseTable):
         return False
 
 
-class VideoUserVO(BaseTable2):
+class VideoUserVO(BaseTable):
     __tablename__ = 'video_user_t'
     avatar = Column(String(255), default="default_avatar.png")
     username = Column(String(255), unique=True)
@@ -187,66 +140,11 @@ class AnnouncementVO(BaseTable):
     images = Column(String(70), default='/')
 
 
-class MessageVO(BaseTable):
-    __tablename__ = 'message'
+class SuggestVO(BaseTable):
+    __tablename__ = 'suggest_t'
     content = Column(String(150), default='123456')
     image = Column(String(70), default='default.jpg')
     announcement_id = Column(Integer)
-
-
-class RecordVO(BaseTable):
-    __tablename__ = 'record'
-    user_id = Column(Integer)
-    content = Column(String(150), default='123456')
-    image = Column(String(70), default='default.jpg')
-    video = Column(String(70), default='default.jpg')
-
-
-class CommentVO(BaseTable):
-    __tablename__ = 'comment'
-    record_id = Column(String(150), default='123456')
-    content = Column(String(150), default='123456')
-
-
-class Attention(BaseTable):
-    __tablename__ = 'attention_t'
-    userId = Column(Integer, ForeignKey(UserVO.id), index=True)
-    # attentionUserId = 一个user对象
-    attentionUserId = Column(Integer, ForeignKey(UserVO.id), index=True)
-    user = relationship('UserVO', backref='attention_t', foreign_keys=[userId])  # lazy='dynamic'
-    attentionUser = relationship('UserVO', backref='attention_t2', foreign_keys=[attentionUserId])  # lazy='dynamic'
-    # cate = db.Column(db.Enum(
-    #     '最爱', '风景', '人物', '动物', '游记', '卡通', '生活', '其他'
-    # ), server_default='最爱', nullable=False)
-    group = Column(String(150), index=True)
-
-
-class BlogVO(BaseTable):
-    __tablename__ = 'blog_t'
-    user_id = Column(Integer)
-    content = Column(String(256))
-    up_files = Column(String(1024))
-
-
-class BlogCommentVO(BaseTable):
-    __tablename__ = 'blog_comment_t'
-    user_id = Column(Integer)
-    blog_id = Column(db.Integer)
-    comment = Column(String(256))
-
-
-class PersonSpeech(BaseTable):
-    __tablename__ = 'person_speech_t'
-    userId = Column(Integer)
-    title = Column(String(256))
-    content = Column(Text)
-    group = Column(String(256))  # 分组 家人 朋友  陌生人...
-
-
-class Comment(BaseTable):
-    __tablename__ = 'message_comment_t'
-    personSpeechId = Column(Integer)
-    content = Column(String(256))
 
 
 class StoreVO(BaseTable):
@@ -329,7 +227,7 @@ class UserCloudSpaceVO(BaseTable):
     file_path = Column(String(150), comment='/xxx/xxx.txt')
 
 
-class GoodsVO(BaseTable2):
+class GoodsVO(BaseTable):
     __tablename__ = 'goods_t'
     name = Column(String(256), default='123456')
     price = Column(Float)
@@ -339,14 +237,14 @@ class GoodsVO(BaseTable2):
     store_id = Column(Integer, index=True)
 
 
-class OrderVO(BaseTable2):
+class OrderVO(BaseTable):
     __tablename__ = 'order_t'
     goods_id = Column(Integer, index=True)
     user_id = Column(Integer, index=True)
     num = Column(Integer)
 
 
-class WorksVO(BaseTable2):
+class WorksVO(BaseTable):
     __tablename__ = 'works_t'
     user_id = Column(Integer, index=True)
     describe = Column(String(255))
@@ -361,7 +259,7 @@ class WorksVO(BaseTable2):
         return dict2
 
 
-class TargetVO(BaseTable2):
+class TargetVO(BaseTable):
     __tablename__ = 'target_t'
     user_id = Column(Integer, index=True, default=get_id_by_token)
     title = Column(String(255))
@@ -375,7 +273,7 @@ class TargetVO(BaseTable2):
         return dict2
 
 
-class InvitationCodeVO(BaseTable2):
+class InvitationCodeVO(BaseTable):
     __tablename__ = 'invitation_code_t'
     user_id = Column(Integer)
     code = Column(String(255))

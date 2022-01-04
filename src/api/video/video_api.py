@@ -12,11 +12,11 @@ from flask_restful import Resource
 from flask_restful import marshal
 from sqlalchemy import or_
 
+import service.user_service
 from config.mysql_db import db
 from service.common_service import set_model_user_id
-from service.token_service import get_id_by_token
+from service.user_service import get_id_by_token
 from util import res_util
-from util import token_util
 from util.video_util import get_first_frame_loc
 from vo.table_model import VideoUserVO, WorksVO, TargetVO, InvitationCodeVO
 
@@ -29,7 +29,7 @@ class VideoUserLoginApi(Resource):
         user = VideoUserVO.query.filter(VideoUserVO.username == username, VideoUserVO.password == password, ).first()
         if not user:
             return res_util.fail("密码不正确")
-        return res_util.success(token_util.get_token(user))
+        return res_util.success(service.user_service.get_token(user))
 
 
 class VideoUserApi(Resource):

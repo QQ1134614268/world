@@ -57,26 +57,7 @@ REDIS_PORT = 6379
 REDIS_DB = 0
 REDIS_PASSWORD = 1234567890
 
-TIME_ENUM = {
-    "上午": {"morning": 4.5},
-    "下午": {"afternoon": 4.5},
-    "中午": {"noon": 1.5},
-    "晚上": {"night": 4.5},
-    "全天": {"morning": 4.5, "afternoon": 4.5},
-}
-
 
 class Role(Enum):
     ADMIN = "ADMIN"
     SYS_ADMIN = "SYS_ADMIN"
-
-
-header_dic = {
-    "name": "姓名",
-    "id_card_number": "身份证",
-    "phone": "电话",
-    "sex": "性别",
-    "birthday": "生日",
-    "start_time": "入职日期",
-    "pay": "薪资",
-}

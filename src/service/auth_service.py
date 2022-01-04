@@ -3,17 +3,16 @@
 @Time: 2021/3/31
 @Description:
 """
-
 from functools import wraps
 
-import service.token_service
 from config.exception import WorldException
+from service import user_service
 from util.log_util import logger
 from vo.table_model import UserVO
 
 
 def get_curr_user():
-    user_id = service.token_service.get_id_by_token()
+    user_id = user_service.get_id_by_token()
     user_vo = UserVO.query.filter(UserVO.id == user_id).one()
     return user_vo
 
@@ -57,6 +56,6 @@ def own_resource(func):
 
 def set_model_user_id(model):
     try:
-        model.user_id = service.token_service.get_id_by_token()
+        model.user_id = user_service.get_id_by_token()
     except Exception as e:
         logger.exception(str(e))
