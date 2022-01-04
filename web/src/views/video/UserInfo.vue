@@ -13,18 +13,19 @@
             {{ o.describe }}
           </div>
           <div>
-            {{ o.avatar }}-{{ o.username }}
+            <el-avatar :src="file_url2+o.avatar"></el-avatar>
+            {{ o.username }}
           </div>
         </div>
+      </div>
     </div>
-  </div>
 
-  <el-pagination @current-change="handleCurrentChange"
-                 :current-page="currentPage"
-                 :page-size="pageSize"
-                 layout=" prev, pager, next"
-                 :total="totalNum">
-  </el-pagination>
+    <el-pagination @current-change="handleCurrentChange"
+                   :current-page="currentPage"
+                   :page-size="pageSize"
+                   layout=" prev, pager, next"
+                   :total="totalNum">
+    </el-pagination>
   </div>
 
 </template>
