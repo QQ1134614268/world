@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div class="p_c_flexbox" style="justify-content: space-between">
       <span>
           我的作品
       </span>

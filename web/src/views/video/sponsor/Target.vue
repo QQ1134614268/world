@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div class="p_c_flexbox" style="justify-content: space-between">
       <span>我的发布</span>
       <span>
         <el-button @click="dialogVisible=true;this.form={}">我要发布</el-button>
