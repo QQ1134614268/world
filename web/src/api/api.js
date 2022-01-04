@@ -1,3 +1,6 @@
+// sys
+export const FileApi = process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path="
+
 //工时系统
 export const LogApi = "/api/log_api/LogApi"
 export const WorkerApi = "/api/work_api/WorkerApi"
@@ -27,6 +30,9 @@ export const sys_api_logout = "/api/sys_api/logout"
 export const VideoUserApi = "/api/video_api/VideoUserApi"
 export const WorksApi = '/api/video_api/WorksApi'
 export const WorksListApi = '/api/video_api/WorksListApi'
+export const MarketWorksListApi = '/api/video_api/MarketWorksListApi'
 export const TargetApi = '/api/video_api/TargetApi'
 export const TargetListApi = "/api/video_api/TargetListApi"
 export const MarketTargetListApi ="/api/video_api/MarketTargetListApi"
+export const WorksRankListApi = '/api/video_api/WorksRankListApi'
+export const TargetRankListApi = '/api/video_api/TargetRankListApi'

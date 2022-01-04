@@ -6,45 +6,38 @@
                   placeholder="请输入搜索内容">
         </el-input>
       </div>
-      <div class="p_c_flexbox">
-        <div v-for="o in tableData">
-          <div>
-            <a href="/video/video">
-              <div>
-                <img :src="file_url2+o.thumbnail" style="width: 25rem;height: 14rem;object-fit: cover;">
-              </div>
-            </a>
-            <div>
-              {{ o.describe }}
-            </div>
-            <div>
-              {{ o.avatar }}-{{ o.username }}
-            </div>
+      <div class="col-12">
+        <div v-for="(o, index) in tableData">
+          <div class="art_title"><a :href="target_url+'?target_id='+o.id">{{ o.title }} </a></div>
+          <div class="art_body"> {{ o.content }}</div>
+          <div class="art_note">
+            <el-avatar :src="file_url2+o.avatar"></el-avatar>
+            {{ o.username }}
           </div>
         </div>
       </div>
-      <div class="col-12 ">
+      <div class=" col-12">
         <el-pagination @size-change="handleSizeChange"
                        @current-change="handleCurrentChange"
                        :current-page="currentPage"
+                       :page-sizes="[5, 10, 20, 50]"
                        :page-size="pageSize"
-                       layout=" prev, pager, next"
-                       :total="totalNum"
-        >
+                       layout="prev, pager, next"
+                       :total="totalNum">
         </el-pagination>
       </div>
     </div>
     <div class="col-3">
       <div style="line-height: 3">
-        热度榜
+        品牌榜
       </div>
       <div v-for="(item,index) in rankData" class="p_c_flexbox_row">
         <div :class="_getRankCls(index)">
           {{ index + 1 }}
         </div>
-        <div style="width: 80%" class="p_c_long_txt_hidden ">
-          <router-link :to="{path:'/video/Video',query: {video_id: item.id}}" class="p_c_space">
-            {{ item.describe }}
+        <div class="p_c_long_txt_hidden " style="width: 80%">
+          <router-link :to="{path:'/video/TargetInfo',query: {target_id: item.id}}" class="p_c_space">
+            {{ item.content }}
           </router-link>
         </div>
       </div>
@@ -54,22 +47,20 @@
 
 <script>
 
-import {VideoUrl} from "@/api/routerUrl";
-import {WorksListApi} from "@/api/api";
+import {MarketTargetListApi, TargetRankListApi} from "@/api/api";
+import {TargetInfoUrl} from "@/api/routerUrl";
 
 export default {
   name: "market",
   data() {
     return {
       search: "",
-      currentPage: 1,
-      pageSize: 6,
-      video_url: VideoUrl,
-      file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
       tableData: [],
+      currentPage: 1,
+      pageSize: 5,
       totalNum: 0,
-      url2: WorksListApi,
-      url3: '/api/video_api/WorksRankListApi',
+      target_url: TargetInfoUrl,
+      file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
       rankData: [],
     }
   },
@@ -83,26 +74,25 @@ export default {
     },
     async init() {
       let data = {page: this.currentPage, pageSize: this.pageSize, search: this.search}
-      let result = await this.$get2(this.url2, 0, data)
+      let result = await this.$get2(MarketTargetListApi, 0, data)
       if (result.data.code == 1) {
         this.tableData = result.data.data
         this.totalNum = result.data.total
       } else {
         this.$message('失败');
       }
-      let result3 = await await this.$get2(this.url3, 0)
+      let result3 = await this.$get2(TargetRankListApi, 0)
       this.rankData = result3.data.data
     },
     handleSizeChange(val) {
+      console.log('每页' + val + '条');
       this.pageSize = val;
       this.init();
     },
     handleCurrentChange(val) {
+      console.log('当前页:' + val);
       this.currentPage = val;
       this.init();
-    },
-    async findUser(user_id) {
-      await this.$router.push({path: '/video/UserInfo', params: {user_id: user_id}})
     },
   },
   watch: {

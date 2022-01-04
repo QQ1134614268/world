@@ -12,6 +12,9 @@ export const TreeRootUrl = "/tree"
 export const RenrenRootUrl = "/video"
 export const VideoUrl = "/video/video"
 export const VideoRegisterUrl = "/video/register"
+export const TargetInfoUrl = "/video/TargetInfo"
+export const WorksUrl = "/video/works"
+export const UserInfoUrl = "/video/UserInfo"
 
 
 //店铺

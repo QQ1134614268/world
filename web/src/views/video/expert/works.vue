@@ -11,7 +11,7 @@
     <div class="p_c_flexbox">
       <div v-for="o in tableData">
         <div>
-          <a href="/video/video">
+          <a :href=VideoUrl>
             <div>
               <img :src="file_url2+o.thumbnail" style="width: 25rem;height: 14rem;object-fit: cover;">
             </div>
@@ -20,13 +20,13 @@
             {{ o.describe }}
           </div>
           <div>
-            <date >{{ o.create_time }}</date>
+            <date>{{ o.create_time }}</date>
           </div>
           <div>
               <span>
                 <i class="el-icon-edit" @click="handleEdit(o)" style="margin-right: 1.6rem;">编辑</i>
-                      <i class="el-icon-delete" @click="del(index,o.id)" style="margin-right: 1.6rem;">删除</i>
-                      </span>
+                <i class="el-icon-delete" @click="del(index,o.id)" style="margin-right: 1.6rem;">删除</i>
+              </span>
           </div>
         </div>
       </div>
@@ -83,23 +83,15 @@ export default {
           {required: true, message: '不能为空', trigger: 'blur'}
         ],
       },
-      TAB_FIRST: "first",
-      TAB_SECOND: "second",
       dialogVisible: false,
       file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
       file_url: process.env.VUE_APP_BASE_URL + '/api/file/FileApi2',
-      video_url: VideoUrl,
+      VideoUrl: VideoUrl,
       user_id: jwt_decode(localStorage.getItem("token"))["id"],
-      activeName: "first",
-      currentDate: new Date(),
       fileList: [],
       file_path: null,
       form: {},
       tableData: [],
-      url: WorksApi,
-      works_list_url:WorksListApi,
-      tabPosition: "left",
-      user: "",
     }
   },
   methods: {
@@ -107,7 +99,7 @@ export default {
       this.form.thumbnail = res.data
     },
     async init() {
-      let result = await this.$get2(this.works_list_url, 0, {user_id: this.user_id})
+      let result = await this.$get2(WorksListApi, 0, {user_id: this.user_id})
       if (result.data.code == 1) {
         this.tableData = result.data.data
         // await this.$router.push({path: 'video/works'})
@@ -122,7 +114,7 @@ export default {
         this.$message('请上传视频');
         return
       }
-      let result = await this.$postJson2(this.url, 0, this.form)
+      let result = await this.$postJson2(WorksApi, 0, this.form)
       if (result.data.code == 1) {
         this.form = {}
         // await this.$router.push({path: 'video/works'})
@@ -132,7 +124,6 @@ export default {
       }
     },
     async onCancel() {
-      this.activeName = this.TAB_FIRST
       this.form = {}
       this.dialogVisible = false
     },
@@ -141,7 +132,7 @@ export default {
       this.form = row
     },
     async onSubmit2() {
-      let result = await this.$putJson2(this.url, this.form2.id, this.form2)
+      let result = await this.$putJson2(WorksApi, this.form2.id, this.form2)
       if (result.data.code == 1) {
         this.dialogVisible = false
         this.form = {}
@@ -154,7 +145,7 @@ export default {
       this.form = {}
     },
     async del(index, id) {
-      let result = await this.$deleteJson2(this.url, id)
+      let result = await this.$deleteJson2(WorksApi, id)
       if (result.data.code == 1) {
         this.$message('删除成功!');
         this.tableData.splice(index, 1)

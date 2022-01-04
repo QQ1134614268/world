@@ -4,11 +4,9 @@
     <div class="p_c_flexbox">
       <div v-for="o in tableData">
         <div>
-          <a href="/video/video">
-            <div>
-              <img :src="file_url2+o.thumbnail" style="width: 25rem;height: 14rem;object-fit: cover;">
-            </div>
-          </a>
+          <div>
+            <img :src="file_url2+o.thumbnail" style="width: 25rem;height: 14rem;object-fit: cover;">
+          </div>
           <div>
             {{ o.describe }}
           </div>
@@ -39,15 +37,14 @@ export default {
   name: "UserInfo",
   data() {
     return {
-      user_id: parseInt(this.$route.query.user_id),
+      user_id: this.$route.query.user_id,
       search: this.$route,
       currentPage: 1,
       pageSize: 5,
       file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
-      video_url: VideoUrl,
+      VideoUrl: VideoUrl,
       tableData: [],
       totalNum: 0,
-      url2: WorksListApi
     }
   },
   components: {
@@ -56,7 +53,7 @@ export default {
   methods: {
     async init() {
       let data = {page: this.currentPage, pageSize: this.pageSize, user_id: this.user_id}
-      let result = await this.$get2(this.url2, this.user_id, data)
+      let result = await this.$get2(WorksListApi, this.user_id, data)
       if (result.data.code == 1) {
         this.tableData = result.data.data
         this.totalNum = result.data.total

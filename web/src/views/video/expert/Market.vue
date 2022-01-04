@@ -6,38 +6,42 @@
                   placeholder="请输入搜索内容">
         </el-input>
       </div>
-      <div class="col-12">
-        <div v-for="(o, index) in tableData">
-          <div class="art_title"><a :href="target_url+'?target_id='+o.id">{{ o.title }} </a></div>
-          <div class="art_body"> {{ o.content }}</div>
-          <div class="art_body">
-            <el-avatar :src="file_url2+o.avatar"></el-avatar>
-            {{ o.username }}
+      <div class="p_c_flexbox">
+        <div v-for="o in tableData">
+          <div>
+            <router-link :to="{path:VideoUrl,query: {video_id: o.id}}">
+              <div>
+                <img :src="file_url2+o.thumbnail" style="width: 25rem;height: 14rem;object-fit: cover;">
+              </div>
+            </router-link>
+            <div>
+              {{ o.describe }}
+            </div>
+            <div>
+              <router-link :to="{path:UserInfoUrl,query: {video_id: o.user_id}}">
+                <el-avatar :src="file_url2+o.avatar"></el-avatar>
+                {{ o.username }}
+              </router-link>
+            </div>
           </div>
         </div>
       </div>
-      <div class=" col-12">
-        <el-pagination @size-change="handleSizeChange"
-                       @current-change="handleCurrentChange"
-                       :current-page="currentPage"
-                       :page-sizes="[5, 10, 20, 50]"
-                       :page-size="pageSize"
-                       layout="prev, pager, next"
-                       :total="totalNum">
-        </el-pagination>
+      <div class="col-12 ">
+        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage"
+                       :page-size="pageSize" layout=" prev, pager, next" :total="totalNum"></el-pagination>
       </div>
     </div>
     <div class="col-3">
       <div style="line-height: 3">
-        品牌榜
+        热度榜
       </div>
       <div v-for="(item,index) in rankData" class="p_c_flexbox_row">
         <div :class="_getRankCls(index)">
           {{ index + 1 }}
         </div>
-        <div class="p_c_long_txt_hidden " style="width: 80%">
-          <router-link :to="{path:'/video/TargetInfo',query: {target_id: item.id}}" class="p_c_space">
-            {{ item.content }}
+        <div style="width: 80%" class="p_c_long_txt_hidden ">
+          <router-link :to="{path:VideoUrl,query: {video_id: item.id}}" class="p_c_space">
+            {{ item.describe }}
           </router-link>
         </div>
       </div>
@@ -47,22 +51,23 @@
 
 <script>
 
-import {MarketTargetListApi} from "@/api/api";
+import {UserInfoUrl, VideoUrl} from "@/api/routerUrl";
+import {MarketWorksListApi, WorksRankListApi} from "@/api/api";
 
 export default {
   name: "market",
   data() {
     return {
       search: "",
-      activeName: "first",
-      tableData: [],
       currentPage: 1,
-      pageSize: 5,
+      pageSize: 6,
       totalNum: 0,
-      url: MarketTargetListApi,
-      url3: "/api/video_api/TargetRankListApi",
-      target_url: "/video/TargetInfo",
+
+      VideoUrl: VideoUrl,
+      UserInfoUrl: UserInfoUrl,
+
       file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
+      tableData: [],
       rankData: [],
     }
   },
@@ -74,28 +79,23 @@ export default {
         return 'rank_base'
       }
     },
-    async findUser(user_id) {
-      await this.$router.push({path: '/video/UserInfo2', params: {user_id: user_id}})
-    },
     async init() {
       let data = {page: this.currentPage, pageSize: this.pageSize, search: this.search}
-      let result = await this.$get2(this.url, 0, data)
+      let result = await this.$get2(MarketWorksListApi, 0, data)
       if (result.data.code == 1) {
         this.tableData = result.data.data
         this.totalNum = result.data.total
       } else {
         this.$message('失败');
       }
-      let result3 = await await this.$get2(this.url3, 0)
+      let result3 = await this.$get2(WorksRankListApi, 0)
       this.rankData = result3.data.data
     },
     handleSizeChange(val) {
-      console.log('每页' + val + '条');
       this.pageSize = val;
       this.init();
     },
     handleCurrentChange(val) {
-      console.log('当前页:' + val);
       this.currentPage = val;
       this.init();
     },

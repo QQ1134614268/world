@@ -22,9 +22,7 @@ export default {
     return {
       target_id: this.$route.query.target_id,
       search: "",
-      activeName: "first",
       target: {},
-      url: TargetApi,
       user_url: "/api/video_api/VideoUserApi",
       file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
       user: "",
@@ -32,7 +30,7 @@ export default {
   },
   methods: {
     async init() {
-      let result = await this.$get2(this.url, this.target_id)
+      let result = await this.$get2(TargetApi, this.target_id)
       if (result.data.code == 1) {
         this.target = result.data.data
         document.title = this.target.title

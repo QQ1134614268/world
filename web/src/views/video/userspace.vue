@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="display:flex; align-items:center ; flex-direction: column; ">
     <div v-if="form.avatar">
       <el-avatar :src="file_url+'?path='+form.avatar"></el-avatar>
     </div>
@@ -22,7 +22,7 @@
     </div>
     <el-dialog title="图片剪裁" :visible.sync="dialogVisible" append-to-body>
       <div class="cropper-content">
-        <div class="cropper p_c_test_border" style="text-align:center">
+        <div class="cropper" style="text-align:center">
           <VueCropper
               ref="cropper"
               :img="option.img"
@@ -49,8 +49,8 @@
 </template>
 
 <script>
-
 import jwt_decode from "jwt-decode";
+import {VideoUserApi} from "@/api/api";
 
 export default {
   name: "video_user",
@@ -59,12 +59,10 @@ export default {
       user_id: this.$route.query.user_id,
       file_url: process.env.VUE_APP_BASE_URL + '/api/file/FileApi2',
       form: {},
-      url: "/api/video_api/VideoUserApi",
-      url2: "/api/video_api/InvitationCodeApi",
+      url: VideoUserApi,
       rules: {
         phone: [{required: true, message: '手机号不能为空', trigger: 'blur'}],
       },
-      code: "",
       user_role: "",
       dialogVisible: false,
       // 裁剪组件的基础配置option
@@ -147,39 +145,15 @@ export default {
     },
     async init() {
       let user = jwt_decode(localStorage.getItem("token"))
-      let result = await this.$get2(this.url, this.user_id)
+      let result = await this.$get2(VideoUserApi, this.user_id)
       if (result.data.code == 1) {
         this.form = result.data.data
       } else {
         this.$message('');
       }
     },
-    async init2() {
-      let result = await this.$get2(this.url2, this.user_id)
-      if (result.data.code == 1) {
-        this.code = result.data.data.code
-      } else {
-        this.$message('');
-      }
-    },
-    async updateCode() {
-      let result = await this.$putJson2(this.url2, 0)
-      if (result.data.code == 1) {
-        await this.init2()
-      } else {
-        this.$message('');
-      }
-    },
-    async createCode() {
-      let result = await this.$postJson2(this.url2, 0)
-      if (result.data.code == 1) {
-        await this.init2()
-      } else {
-        this.$message('');
-      }
-    },
     async save() {
-      let result = await this.$putJson2(this.url, this.form.id, this.form)
+      let result = await this.$putJson2(VideoUserApi, this.form.id, this.form)
       if (result.data.code == 1) {
         this.$message('修改成功!');
       } else {
@@ -189,7 +163,6 @@ export default {
   },
   created() {
     this.init()
-    this.init2()
   }
 }
 </script>

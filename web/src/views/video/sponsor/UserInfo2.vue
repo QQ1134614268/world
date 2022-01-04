@@ -4,16 +4,13 @@
       <div class="col-9">
         <div v-for="o in tableData">
           <div>
-            <a href="/video/video">
+            <a :href=VideoUrl>
               <div>
                 <img :src="file_url2+o.thumbnail" style="width: 25rem;height: 14rem;object-fit: cover;">
               </div>
             </a>
             <div>
               {{ o.describe }}
-            </div>
-            <div>
-              {{ o.avatar }}-{{ o.username }}
             </div>
           </div>
         </div>
@@ -36,20 +33,20 @@
 
 import UserAvatarIComponent from "@/views/video/component/UserAvatarIComponent";
 import {MarketTargetListApi} from "@/api/api";
+import {TargetInfoUrl, VideoUrl} from "@/api/routerUrl";
 
 export default {
   name: "UserInfo2",
   data() {
     return {
-      user_id: parseInt(this.$route.query.user_id),
+      user_id: this.$route.query.user_id,
+      VideoUrl: VideoUrl,
       search: "",
-      activeName: "first",
       tableData: [],
       currentPage: 1,
       pageSize: 5,
       totalNum: 0,
-      url: MarketTargetListApi,
-      target_url: "/video/TargetInfo",
+      target_url: TargetInfoUrl,
       file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
     }
   },
@@ -64,7 +61,7 @@ export default {
         user_id: this.user_id,
         search: this.search
       }
-      let result = await this.$get2(this.url, 0, data)
+      let result = await this.$get2(MarketTargetListApi, 0, data)
       if (result.data.code == 1) {
         this.tableData = result.data.data
         this.totalNum = result.data.total

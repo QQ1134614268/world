@@ -1,10 +1,9 @@
 <template>
   <div class="p_c_box-flex_row-center">
     <div class="col-6">
-      <UserAvatarIComponent :user_id="this.user.id" v-if="this.user.id"></UserAvatarIComponent>
       <div class="p_c_box-flex_row-center">
         <video preload="true" controls v-if="video.file">
-          <source :src="file_url3+video.file" type="video/mp4">
+          <source :src="file_url2+video.file" type="video/mp4">
           您的浏览器不支持 HTML5 video 标签 。
         </video>
       </div>
@@ -23,11 +22,9 @@ export default {
     return {
       video_id: this.$route.query.video_id,
       search: "",
-      activeName: "first",
       video: {},
       url: WorksApi,
       file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
-      file_url3: "/upload_file/",
       user: {},
     }
   },

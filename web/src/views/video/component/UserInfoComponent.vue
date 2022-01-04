@@ -11,12 +11,14 @@
 
 <script>
 
+import {VideoUserApi} from "@/api/api";
+import {VideoUrl} from "@/api/routerUrl";
+
 export default {
   name: "UserAvatarIComponent",
   data() {
     return {
-      video_url: "/video/Video",
-      url2: '/api/video_api/VideoUserApi',
+      video_url: VideoUrl,
       file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
       user: ""
     }
@@ -28,7 +30,7 @@ export default {
   },
   methods: {
     async init() {
-      let result = await this.$get2(this.url2, this.user_id, {})
+      let result = await this.$get2(VideoUserApi, this.user_id, {})
       if (result.data.code == 1) {
         this.user = result.data.data
         // await this.$router.push({path: 'video/works'})
