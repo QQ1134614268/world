@@ -50,13 +50,13 @@ Vue.prototype.$ppJson = ppJson;
 
 Vue.config.productionTip = false
 
-Axios.defaults.baseURL = process.env.VUE_APP_BASE_URL
+// Axios.defaults.baseURL = process.env.VUE_APP_BASE_URL
 Axios.defaults.headers.common['Content-Type'] = 'application/json;';
 // 请求拦截器（在请求之前进行一些配置）
 Axios.interceptors.request.use(
     config => {
         if (localStorage.getItem('token')) {
-            config.headers['token'] = localStorage.getItem('token')     //此时将token添加到url的头部header中
+            config.headers['token'] = localStorage.getItem('token')
         }
         return config;
     },

@@ -70,7 +70,6 @@ export default {
     },
     async getStoreMember() {
       let url = "/api/member/StoreMemberListApi"
-      let user = jwt_decode(localStorage.getItem("token"))
       let data = {
         store_id: this.store_id,
       }

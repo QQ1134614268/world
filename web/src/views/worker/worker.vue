@@ -123,7 +123,7 @@ export default {
 
       //表格
       data: [],
-      worker_excel_url: process.env.VUE_APP_BASE_URL + WorkerExcelApi,
+      worker_excel_url: WorkerExcelApi,
       // 表单
       form: {},
 

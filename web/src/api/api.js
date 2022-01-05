@@ -1,5 +1,6 @@
 // sys
-export const FileApi = process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=" // todo
+export const FilePathApi = "/api/file/FileApi2?path="
+export const FileApi = "/api/file/FileApi2"
 
 //工时系统
 export const LogApi = "/api/log_api/LogApi"
@@ -36,3 +37,4 @@ export const TargetListApi = "/api/video_api/TargetListApi"
 export const MarketTargetListApi = "/api/video_api/MarketTargetListApi"
 export const WorksRankListApi = '/api/video_api/WorksRankListApi'
 export const TargetRankListApi = '/api/video_api/TargetRankListApi'
+export const VideoUserLoginApi = '/api/video_api/VideoUserLoginApi';

@@ -7,10 +7,10 @@
       </div>
     </div>
     <div id="body">
-      <el-input v-model="FileApi+from.imgUrl"></el-input>
+      <el-input v-model="FilePathApi+from.imgUrl"></el-input>
       <el-input v-model="from.imgUrl"></el-input>
       <el-button @click="change">改变</el-button>
-      <el-avatar :src="FileApi+from.imgUrl" :key="FileApi+from.imgUrl"></el-avatar>
+      <el-avatar :src="FilePathApi+from.imgUrl" :key="from.imgUrl"></el-avatar>
       <!--      <img :src="FileApi+from.imgUrl">-->
     </div>
   </div>
@@ -19,7 +19,7 @@
 <script>
 
 import UserIconCMPO from "@/components/UserIconCMPO";
-import {FileApi} from "@/api/api";
+import {FilePathApi} from "@/api/api";
 
 export default {
   name: "test",
@@ -27,7 +27,7 @@ export default {
     return {
       input: "",
       from: {},
-      FileApi: FileApi,
+      FilePathApi,
       imgUrl: "upload_file/963e329ab7f411eb849580fa5b6c6ed4_movie.jpg",
       imgUrl2: "upload_file/1b337502917011ebb2b580fa5b6c6ed4_小程序.jpg",
     }

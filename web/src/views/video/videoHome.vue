@@ -11,7 +11,7 @@
 
       <div v-if="user">
         <el-dropdown>
-          <el-avatar :src="FileApi+user.avatar" :key="user.avatar"></el-avatar>
+          <el-avatar :src="FilePathApi+user.avatar" :key="user.avatar"></el-avatar>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>
               <a @click="logout">退出登录</a>
@@ -52,23 +52,21 @@
 import jwt_decode from 'jwt-decode';
 import {userLogout} from "@/api/user";
 import {VideoRegisterUrl} from "@/api/routerUrl";
-import {FileApi} from "@/api/api";
+import {FilePathApi} from "@/api/api";
 
 export default {
   name: "App",
   data() {
     return {
       videoRegisterUrl: VideoRegisterUrl,
-      imgUrl: "",
-      FileApi
+      FilePathApi
     }
   },
   computed: {
     user() {
-      // 这里存储从store里获取的token的数据 todo
+      // 这里存储从store里获取的token的数据
       if (this.$store.state.token) {
         let user = jwt_decode(this.$store.state.token)
-        this.imgUrl = process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=" + user.avatar
         return user
       }
     }

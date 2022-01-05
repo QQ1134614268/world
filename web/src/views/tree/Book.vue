@@ -47,29 +47,8 @@ export default {
       obj: {
         value: "希洛之书",
       },
-      prove: [
-        {
-          value: "论点1",
-        },
-        {
-          value: "论点2",
-        },
-        {
-          value: "论点3",
-        }
-      ],
-      story: [
-        {
-          value: "故事1",
-        },
-        {
-          value: "故事2",
-        },
-        {
-          value: "故事3",
-        }],
-      url: "/api/model_api/ProveApi",
-      url2: "/api/model_api/StoryApi",
+      prove: [],
+      story: [],
       id: this.$route.query.id,
     }
   },

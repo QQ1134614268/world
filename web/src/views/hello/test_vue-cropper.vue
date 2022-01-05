@@ -40,6 +40,8 @@
 <script>
 // import {client} from '@/utils/alioss'
 
+import {FileApi} from "@/api/api";
+
 export default {
   data() {
     return {
@@ -90,14 +92,13 @@ export default {
     },
     // 点击裁剪，这一步是可以拿到处理后的地址
     async finish() {
-      let file_url = process.env.VUE_APP_BASE_URL + '/api/file/FileApi2'
       let formData = new FormData();
       this.$refs.cropper.getCropBlob(async (data) => {
         let img = window.URL.createObjectURL(data)
         this.model = true;
         this.modelSrc = img;
         formData.append("file", data, "cropper.png");
-        let result = await this.$postForm(file_url, formData)
+        let result = await this.$postForm(FileApi, formData)
         if (result.data.code) {
           this.dialogVisible = false
           //   this.picsList.push(result.url)

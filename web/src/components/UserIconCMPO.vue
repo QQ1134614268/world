@@ -3,7 +3,7 @@
     <div v-if="user">
       <el-dropdown @command="handleCommand">
         <span class="el-dropdown-link">
-          <el-avatar :src="FileApi+user.avatar" :key="user.avatar"></el-avatar>
+          <el-avatar :src="FilePathApi+user.avatar" :key="user.avatar"></el-avatar>
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="a">退出登录</el-dropdown-item>
@@ -21,14 +21,13 @@
 
 <script>
 import jwt_decode from "jwt-decode";
-import {FileApi} from "@/api/api";
+import {FilePathApi} from "@/api/api";
 
 export default {
   name: "UserIconCOMPO",
   data() {
     return {
-      userId: '',
-      FileApi: FileApi
+      FilePathApi
     }
   },
   methods: {
@@ -50,7 +49,6 @@ export default {
     user() {
       if (this.$store.state.token) {
         let user = jwt_decode(this.$store.state.token)
-        this.imgUrl = process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=" + user.avatar
         return user
       }
     }

@@ -3,7 +3,7 @@
     <div class="col-6">
       <div class="p_c_box-flex_row-center">
         <video preload="true" controls v-if="video.file">
-          <source :src="file_url2+video.file" type="video/mp4">
+          <source :src="FilePathApi+video.file" type="video/mp4">
           您的浏览器不支持 HTML5 video 标签 。
         </video>
       </div>
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import {VideoUserApi, WorksApi} from "@/api/api";
+import {FilePathApi, VideoUserApi, WorksApi} from "@/api/api";
 
 export default {
   name: "Video",
@@ -22,8 +22,7 @@ export default {
       video_id: this.$route.query.video_id,
       search: "",
       video: {},
-      url: WorksApi,
-      file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
+      FilePathApi,
       user: {},
     }
   },

@@ -4,7 +4,7 @@
       <div v-for="o in tableData">
         <div class="block">
           <div>
-            <img :src="file_url2+o.thumbnail" style="width: 20rem;height: 11.25rem;object-fit: cover;">
+            <img :src="FilePathApi+o.thumbnail" style="width: 20rem;height: 11.25rem;object-fit: cover;">
           </div>
           <div class="p_c_long_txt_hidden">
             {{ o.describe }}
@@ -24,7 +24,7 @@
 
 <script>
 import {VideoUrl} from "@/api/routerUrl";
-import {WorksListApi} from "@/api/api";
+import {FilePathApi, WorksListApi} from "@/api/api";
 
 export default {
   name: "UserInfo",
@@ -34,7 +34,7 @@ export default {
       search: this.$route,
       currentPage: 1,
       pageSize: 10,
-      file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
+      FilePathApi,
       VideoUrl: VideoUrl,
       tableData: [],
       totalNum: 0,

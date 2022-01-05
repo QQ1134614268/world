@@ -11,7 +11,7 @@
           <div class="block">
             <router-link :to="{path:VideoUrl,query: {video_id: o.id}}">
               <div>
-                <img :src="file_url2+o.thumbnail" style="width: 20rem;height: 11.25rem;object-fit: cover;">
+                <img :src="'/api/file/FileApi2?path='+o.thumbnail" style="width: 20rem;height: 11.25rem;object-fit: cover;">
               </div>
             </router-link>
             <div class="p_c_long_txt_hidden" style="width: 10rem">
@@ -19,7 +19,7 @@
             </div>
             <div>
               <router-link :to="{path:UserInfoUrl,query: {video_id: o.user_id}}" class="p_c_box-flex_row-col-center ">
-                <el-avatar size="small" :src="file_url2+o.avatar"></el-avatar>
+                <el-avatar size="small" :src="FilePathApi+o.avatar"></el-avatar>
                 <span class="p_c_long_txt_hidden" style="width: 10rem">{{ o.username }}</span>
               </router-link>
             </div>
@@ -52,7 +52,7 @@
 <script>
 
 import {UserInfoUrl, VideoUrl} from "@/api/routerUrl";
-import {MarketWorksListApi, WorksRankListApi} from "@/api/api";
+import {FilePathApi, MarketWorksListApi, WorksRankListApi} from "@/api/api";
 
 export default {
   name: "market",
@@ -66,7 +66,7 @@ export default {
       VideoUrl: VideoUrl,
       UserInfoUrl: UserInfoUrl,
 
-      file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
+      FilePathApi,
       tableData: [],
       rankData: [],
     }

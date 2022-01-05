@@ -10,7 +10,7 @@
 
 <script>
 
-import {TargetApi} from "@/api/api";
+import {FilePathApi, TargetApi, VideoUserApi} from "@/api/api";
 
 export default {
   name: "TargetInfo",
@@ -19,8 +19,7 @@ export default {
       target_id: this.$route.query.target_id,
       search: "",
       target: {},
-      user_url: "/api/video_api/VideoUserApi",
-      file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
+      FilePathApi,
       user: "",
     }
   },
@@ -33,7 +32,7 @@ export default {
       } else {
         this.$message('失败');
       }
-      let result2 = await this.$get2(this.user_url, this.target.user_id)
+      let result2 = await this.$get2(VideoUserApi, this.target.user_id)
       if (result.data.code == 1) {
         this.user = result2.data.data
       } else {

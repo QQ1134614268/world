@@ -1,8 +1,6 @@
 <template>
   <div style="display:flex; align-items:center ; flex-direction: column; ">
-    <div v-if="form.avatar">
-      <el-avatar :src="file_url+'?path='+form.avatar"></el-avatar>
-    </div>
+    <el-avatar :src="FilePathApi+form.avatar" :key="form.avatar"></el-avatar>
     <div> 手机号: {{ form.phone }}</div>
     <div> 签名: {{ form.describe }}</div>
     <div> 微信号: {{ form.wechat_number }}</div>
@@ -10,15 +8,15 @@
     <div> 身份证: {{ form.id_card }}</div>
     <div>
       <div> 执照:</div>
-      <div><img width="125rem" height="70rem" :src="file_url+'?path='+form.business_license"></div>
+      <div><img width="125rem" height="70rem" :src="FilePathApi+form.business_license"></div>
     </div>
     <div>
       <div> 商标:</div>
-      <div><img width="125rem" height="70rem" :src="file_url+'?path='+form.brand"></div>
+      <div><img width="125rem" height="70rem" :src="FilePathApi+form.brand"></div>
     </div>
     <div>
       <div> 简历:</div>
-      <div><img width="125rem" height="70rem" :src="file_url+'?path='+form.resume"></div>
+      <div><img width="125rem" height="70rem" :src="FilePathApi+form.resume"></div>
     </div>
     <el-dialog title="图片剪裁" :visible.sync="dialogVisible" append-to-body>
       <div class="cropper-content">
@@ -50,14 +48,14 @@
 
 <script>
 import jwt_decode from "jwt-decode";
-import {VideoUserApi} from "@/api/api";
+import {FileApi, FilePathApi, VideoUserApi} from "@/api/api";
 
 export default {
   name: "video_user",
   data() {
     return {
       user_id: this.$route.query.user_id,
-      file_url: process.env.VUE_APP_BASE_URL + '/api/file/FileApi2',
+      FilePathApi,
       form: {},
       url: VideoUserApi,
       rules: {
@@ -112,14 +110,13 @@ export default {
     },
     // 点击裁剪，这一步是可以拿到处理后的地址
     async finish() {
-      let file_url = process.env.VUE_APP_BASE_URL + '/api/file/FileApi2'
       let formData = new FormData();
       this.$refs.cropper.getCropBlob(async (data) => {
         let img = window.URL.createObjectURL(data)
         this.model = true;
         this.modelSrc = img;
         formData.append("file", data, "cropper.png");
-        let result = await this.$postForm(file_url, formData)
+        let result = await this.$postForm(FileApi, formData)
         if (result.data.code) {
           this.dialogVisible = false
           this.form.avatar = result.data.data
@@ -144,7 +141,6 @@ export default {
       this.form.resume = res.data
     },
     async init() {
-      let user = jwt_decode(localStorage.getItem("token"))
       let result = await this.$get2(VideoUserApi, this.user_id)
       if (result.data.code == 1) {
         this.form = result.data.data

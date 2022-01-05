@@ -16,15 +16,15 @@ module.exports = {
         https: false,
         hotOnly: false,
         disableHostCheck: true,
-        // proxy: {
-        //   "/api": {
-        //     target: "", // 本地请求后端真正的地址，只有本地开发时才会做代理，上线不执行这段代码
-        //     changeOrigin: true,
-        //     pathRewrite: { // 路径重写
-        //       "^/api": ""
-        //     }
-        //   }
-        // }
+        proxy: { //todo /upload/xxx.png
+            "/api": {
+                target: process.env.VUE_APP_BASE_URL,
+                changeOrigin: true,
+                pathRewrite: { // 路径重写
+                    '^/api': '/api'
+                }
+            }
+        }
     },
     productionSourceMap: false,
 };

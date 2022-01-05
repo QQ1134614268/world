@@ -16,6 +16,8 @@
 
 <script>
 
+import {VideoUserLoginApi} from "@/api/api";
+
 export default {
   name: "Home",
   data() {
@@ -25,8 +27,7 @@ export default {
   },
   methods: {
     async onLogin() {
-      let url = '/api/video_api/VideoUserLoginApi';
-      let result = await this.$get(url, this.form)
+      let result = await this.$get(VideoUserLoginApi, this.form)
       if (result.data.code === 1) {
         localStorage.setItem("token", result.data.data);
         this.$store.commit('receiveUserInfo', {

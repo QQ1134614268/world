@@ -17,7 +17,7 @@
             <div class="art_body"> {{ o.content }}</div>
             <div class="art_note">
               <router-link :to="{path:'/video/UserInfo2',query: {user_id: o.user_id}}" class="p_c_box-flex_row-col-center">
-                <el-avatar :src="file_url2+o.avatar"></el-avatar>
+                <el-avatar :src="FilePathApi+o.avatar"></el-avatar>
                 <span class="p_c_long_txt_hidden" style="width: 10rem">{{ o.username }}</span>
               </router-link>
             </div>
@@ -56,7 +56,7 @@
 
 <script>
 
-import {MarketTargetListApi, TargetRankListApi} from "@/api/api";
+import {FilePathApi, MarketTargetListApi, TargetRankListApi} from "@/api/api";
 import {TargetInfoUrl} from "@/api/routerUrl";
 
 export default {
@@ -69,7 +69,7 @@ export default {
       pageSize: 5,
       totalNum: 0,
       target_url: TargetInfoUrl,
-      file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
+      FilePathApi,
       rankData: [],
     }
   },

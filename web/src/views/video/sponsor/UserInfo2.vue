@@ -45,7 +45,6 @@ export default {
       pageSize: 5,
       totalNum: 0,
       target_url: TargetInfoUrl,
-      file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
     }
   },
   methods: {

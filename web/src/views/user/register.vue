@@ -39,22 +39,13 @@ export default {
       username: "",
       password: "",
       code: "",
-      codeImg: "",
       url: ""
     }
   },
   methods: {
     async updateCode() {
-      this.url = process.env.VUE_APP_BASE_URL + UserApi_get_verify_code + "?t=" + Math.random()
+      this.url = UserApi_get_verify_code + "?t=" + Math.random()
     },
-    // async get_verify_code() {
-    //   let result = await Axios( process.env.VUE_APP_BASE_URL + "/api/sys_api/get_verify_code", {
-    //     responseType: "arraybuffer",
-    //   })
-    //   that.codeImg = 'data:image/png;base64,' + btoa(
-    //       new Uint8Array(result.data).reduce((data, byte) => data + String.fromCharCode(byte), '')
-    //   );
-    // },
     async register() {
       let result = await this.$postJson(UserApi_register, {
         username: this.username,

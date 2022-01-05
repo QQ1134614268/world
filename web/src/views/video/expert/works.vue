@@ -13,7 +13,7 @@
         <div class="block">
           <a :href=VideoUrl>
             <div>
-              <img :src="file_url2+o.thumbnail" style="width: 25rem;height: 14rem;object-fit: cover;">
+              <img :src="FilePathApi+o.thumbnail" style="width: 25rem;height: 14rem;object-fit: cover;">
             </div>
           </a>
           <div>
@@ -37,7 +37,7 @@
           <el-upload
               class="upload-demo"
               :show-file-list="false"
-              :action="file_url"
+              :action="FileApi"
               :on-change="handleChange"
               :on-success="handleAvatarSuccess"
               :before-upload="beforeAvatarUpload"
@@ -48,9 +48,9 @@
         <el-form-item label="视频封面" prop="describe" required>
           <el-upload style="width: 10%;height: 10%"
                      :show-file-list="false"
-                     :action="file_url"
+                     :action="FileApi"
                      :on-success="uploadLicense">
-            <img v-if="form.thumbnail" :src="file_url+'?path='+form.thumbnail">
+            <img v-if="form.thumbnail" :src="FilePathApi +form.thumbnail">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
@@ -69,7 +69,7 @@
 <script>
 import jwt_decode from 'jwt-decode';
 import {VideoUrl} from "@/api/routerUrl";
-import {WorksApi, WorksListApi} from "@/api/api";
+import {FileApi, FilePathApi, WorksApi, WorksListApi} from "@/api/api";
 
 export default {
   name: "works",
@@ -84,8 +84,8 @@ export default {
         ],
       },
       dialogVisible: false,
-      file_url2: process.env.VUE_APP_BASE_URL + "/api/file/FileApi2?path=",
-      file_url: process.env.VUE_APP_BASE_URL + '/api/file/FileApi2',
+      FilePathApi,
+      FileApi,
       VideoUrl: VideoUrl,
       user_id: jwt_decode(localStorage.getItem("token"))["id"],
       fileList: [],
