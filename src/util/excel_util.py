@@ -88,6 +88,13 @@ class ExcelExceptionMsg:
     pass
 
 
+def check_excel_type(file_name):
+    arr = file_name.split(".")
+    file_type = arr and arr[-1]
+    if file_type not in ["xlxs", "xls"]:
+        raise WorldException("上传文件格式不正确!")
+
+
 class ExcelHandler:
     # [姓名,生日]
     # 字段 field

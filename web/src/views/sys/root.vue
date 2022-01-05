@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     logOut() {
-      userLogout()
+      userLogout(this)
       this.$message("退出")
     }
   }

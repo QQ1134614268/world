@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import {FilePathApi, VideoUserApi, WorksApi} from "@/api/api";
+import {FilePathApi, UserApi, WorksApi} from "@/api/api";
 
 export default {
   name: "Video",
@@ -35,7 +35,7 @@ export default {
       } else {
         this.$message('失败');
       }
-      let result2 = await this.$get2(VideoUserApi, this.video.user_id)
+      let result2 = await this.$get2(UserApi, this.video.user_id)
       if (result.data.code == 1) {
         this.user = result2.data.data
       } else {

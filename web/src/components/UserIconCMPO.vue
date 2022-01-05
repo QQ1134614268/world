@@ -22,6 +22,7 @@
 <script>
 import jwt_decode from "jwt-decode";
 import {FilePathApi} from "@/api/api";
+import {userLogout} from "@/api/user";
 
 export default {
   name: "UserIconCOMPO",
@@ -31,15 +32,15 @@ export default {
     }
   },
   methods: {
-
     async login() {
+      //  todo
 
     },
     async register() {
-
+      //  todo
     },
     async logout() {
-
+      await userLogout(this)
     },
     handleCommand(command) {
       this.$message('click on item ' + command);

@@ -11,11 +11,6 @@ export const routes = [
         redirect: "/video/market",
         children: [
             {
-                path: 'Login',
-                name: 'Login',
-                component: () => import('@/views/video/Login'),
-            },
-            {
                 path: 'UserInfo',
                 name: 'UserInfo',
                 component: () => import('@/views/video/expert/UserInfo'),
@@ -31,10 +26,6 @@ export const routes = [
                 path: 'TargetInfo',
                 name: 'TargetInfo',
                 component: () => import('@/views/video/sponsor/TargetInfo'),
-            }, {
-                path: 'Register',
-                name: 'Register',
-                component: () => import('@/views/video/Register'),
             }, {
                 path: 'works',
                 name: 'works',

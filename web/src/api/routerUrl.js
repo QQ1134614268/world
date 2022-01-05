@@ -1,9 +1,10 @@
 //系统
 export const SYS_HOME = '/'
 export const SYS_LOGIN_URL = "/sys/login"
-export const SYS_REGISTER = "/sys/register"
+export const SYS_REGISTER_URL = "/sys/register"
 export const SYS_LOGOUT = "/sys/logout"
 export const SYS_ROOT = "/sys/root"
+
 //工时系统
 export const WorkerRootUrl = "/worker"
 //真实之树
@@ -11,11 +12,9 @@ export const TreeRootUrl = "/tree"
 //人人影
 export const RenrenRootUrl = "/video"
 export const VideoUrl = "/video/video"
-export const VideoRegisterUrl = "/video/register"
 export const TargetInfoUrl = "/video/TargetInfo"
 export const WorksUrl = "/video/works"
 export const UserInfoUrl = "/video/UserInfo"
-
 
 //店铺
 export const MemberRootUrl = "/member/Store"

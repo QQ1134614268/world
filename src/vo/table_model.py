@@ -95,23 +95,6 @@ class UserVO(BaseTable):
             return True
         return False
 
-
-class VideoUserVO(BaseTable):
-    __tablename__ = 'video_user_t'
-    avatar = Column(String(255), default="default_avatar.png")
-    username = Column(String(255), unique=True)
-    password = Column(String(255))
-    describe = Column(String(255))
-    id_card = Column(String(255))  # 身份证
-    business_license = Column(String(255))  # 营业执照
-    brand = Column(String(255))  # 商标
-    resume = Column(String(255))  # 简历
-    phone = Column(String(255))  # 手机号
-    tiktok_number = Column(String(255))  # 抖音号
-    video_number = Column(String(255))  # 视频号
-    wechat_number = Column(String(255))  # 微信号
-    role = Column(String(255))
-
     @staticmethod
     def get_video_user_field():
         return {

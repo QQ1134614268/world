@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import {FileApi, FilePathApi, VideoUserApi} from "@/api/api";
+import {FileApi, FilePathApi, UserApi} from "@/api/api";
 
 export default {
   name: "video_user",
@@ -56,7 +56,6 @@ export default {
       user_id: this.$route.query.user_id,
       FilePathApi,
       form: {},
-      url: VideoUserApi,
       rules: {
         phone: [{required: true, message: '手机号不能为空', trigger: 'blur'}],
       },
@@ -140,7 +139,7 @@ export default {
       this.form.resume = res.data
     },
     async init() {
-      let result = await this.$get2(VideoUserApi, this.user_id)
+      let result = await this.$get2(UserApi, this.user_id)
       if (result.data.code == 1) {
         this.form = result.data.data
       } else {
@@ -148,7 +147,7 @@ export default {
       }
     },
     async save() {
-      let result = await this.$putJson2(VideoUserApi, this.form.id, this.form)
+      let result = await this.$putJson2(UserApi, this.form.id, this.form)
       if (result.data.code == 1) {
         this.$message('修改成功!');
       } else {

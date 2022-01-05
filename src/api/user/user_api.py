@@ -1,9 +1,10 @@
 # -- coding:UTF-8 --
 
 from flask import Blueprint, request
-from flask_restful import fields, marshal
+from flask_restful import fields, marshal, Resource
 
 import service.user_service
+from config.mysql_db import db
 from util import res_util
 from vo.table_model import UserVO
 
@@ -49,3 +50,29 @@ def getUserByDict():
 def getUserAll():
     user = list(UserVO.query.limit(10))
     return res_util.success(marshal(user, user_fields))
+
+
+class UserApi(Resource):
+
+    def post(self, _id):
+        data = request.get_json()
+        vo = UserVO(**data)
+        db.session.add(vo)
+        db.session.commit()
+        return res_util.success(vo.id)
+
+    def get(self, _id):
+        vo = UserVO.query.filter(UserVO.id == _id).first()
+        return res_util.success(marshal(vo, UserVO.get_video_user_field()))
+
+    def put(self, _id):
+        data = request.get_json()
+        UserVO.query.filter(UserVO.id == _id).update(data)
+        db.session.commit()
+        return res_util.success(_id)
+
+    def delete(self, _id):
+        model = UserVO.query.filter(UserVO.id == _id).first()
+        db.session.delete(model)
+        db.session.commit()
+        return res_util.success(_id)

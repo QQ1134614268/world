@@ -20,7 +20,7 @@
 <script>
 import errDialog from "@/components/err.vue"
 import Axios from 'axios'
-import {SYS_HOME, SYS_REGISTER} from "@/api/routerUrl";
+import {SYS_HOME, SYS_REGISTER_URL} from "@/api/routerUrl";
 import {sys_api_login} from "@/api/api";
 
 export default {
@@ -30,7 +30,7 @@ export default {
   },
   data() {
     return {
-      registerUrl: SYS_REGISTER,
+      registerUrl: SYS_REGISTER_URL,
       from: this.$route.query.from,
       err_message: "",
       err_flag: false,

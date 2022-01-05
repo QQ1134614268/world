@@ -27,10 +27,10 @@ from api.sys.log_api import LogApi
 from api.sys.scheduler.APScheduler import scheduler
 from api.sys.scheduler.SchedulerApi import scheduler_api
 from api.tree.tree_api import UploadDataApi, prove_api, ProveApi, StoryApi
-from api.user.user_api import user_api
+from api.user.user_api import user_api, UserApi
 from api.user.wallet.wallet_api import WalletApi
 from api.video.video_api import TargetApi, TargetListApi, MarketTargetListApi, WorksApi, WorksListApi, WorksRankListApi, \
-    TargetRankListApi, VideoUserApi, VideoUserLoginApi , MarketWorksListApi
+    TargetRankListApi, MarketWorksListApi
 from api.worker.work_api import WorkerApi, WorkerTimeApi, WorkerExcelApi, WorkTimeAnalyseApi, \
     work_time_analyse_api
 from config.conf import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME, VERSION
@@ -206,6 +206,7 @@ api2.add_resource(AllApi, "/api/video_api/AllApi/<int:_id>")
 
 # 用户
 app.register_blueprint(user_api)
+api2.add_resource(UserApi, "/api/user_api/UserApi/<int:_id>")
 
 # model
 api2.add_resource(UploadDataApi, "/api/model_api/UploadDataApi/<int:_id>")
@@ -243,8 +244,6 @@ api2.add_resource(WorksListApi, "/api/video_api/WorksListApi/<int:_id>")
 api2.add_resource(WorksRankListApi, "/api/video_api/WorksRankListApi/<int:_id>")
 api2.add_resource(TargetRankListApi, "/api/video_api/TargetRankListApi/<int:_id>")
 api2.add_resource(MarketWorksListApi, "/api/video_api/MarketWorksListApi/<int:_id>")
-api2.add_resource(VideoUserApi, "/api/video_api/VideoUserApi/<int:_id>")
-api2.add_resource(VideoUserLoginApi, "/api/video_api/VideoUserLoginApi")
 
 if __name__ == '__main__':
     scheduler.init_app(app)

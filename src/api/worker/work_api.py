@@ -4,20 +4,20 @@
 @Description: pass
 """
 from datetime import date
+from io import BytesIO
 
 from flask import request, Blueprint
 from flask_restful import Resource
 from sqlalchemy import and_, func
 from sqlalchemy.dialects.mysql import insert
 
-from util.excel_util import ExcelHandler
 from config.conf import DATE_FORMAT
-from config.exception import WorldException
 from config.mysql_db import db
 from service.user_service import get_id_by_token
 from util import res_util, db_util, time_util
 from util.db_util import row_to_dic
 from util.dowmload_util import down_response
+from util.excel_util import ExcelHandler, check_excel_type
 from vo.table_model import WorkerVO, WorkerTimeVO
 from vo.value_object import WorkerExcelVO
 
@@ -29,19 +29,7 @@ class WorkerExcelApi(Resource):
 
     def post(self):
         file = request.files.get("file")
-        self.check_excel_type(file.filename)
-        # wb = openpyxl.load_workbook(file)
-        # # sheet = wb["Sheet"]
-        # sheet = wb.active
-        # # get_column_letter column_index_from_string
-        # values = list(sheet.values)
-        # headers = values[0]
-        # header_dic_resvese = {v: k for k, v in header_dic.items()}
-        # en_header = [header_dic_resvese.get(header) for header in headers]
-        # data = []
-        # for v in values[1:]:
-        #     data.append(dict(zip(en_header, v)))
-
+        check_excel_type(file.filename)
         data = ExcelHandler.from_file(file, WorkerExcelVO)
         for val in data:
             val["belong"] = get_id_by_token()
@@ -66,14 +54,11 @@ class WorkerExcelApi(Resource):
     def get(self):
         vos = WorkerVO.query.filter(WorkerVO.belong == get_id_by_token()).all()
         wb = ExcelHandler.to_file(vos, WorkerExcelVO)
-        return down_response(wb, "名单.xlsx")
-
-    @staticmethod
-    def check_excel_type(self, file_name):
-        arr = file_name.split(".")
-        file_type = arr and arr[-1]
-        if file_type not in ["xlxs", "xls"]:
-            raise WorldException("上传文件格式不正确!")
+        byte_ios = BytesIO()
+        wb.save(byte_ios)
+        byte_ios.seek(0)
+        filename = "名单.xlsx"
+        return down_response(byte_ios, filename)
 
 
 class WorkerApi(Resource):

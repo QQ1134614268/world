@@ -26,9 +26,9 @@ export const ProveBlueprintApi_prove_value_parent = "/api/ProveBlueprintApi/prov
 //用户
 export const sys_api_login = "/api/sys_api/login"
 export const sys_api_logout = "/api/sys_api/logout"
+export const UserApi = "/api/user_api/UserApi"
 
 //人人影
-export const VideoUserApi = "/api/video_api/VideoUserApi"
 export const WorksApi = '/api/video_api/WorksApi'
 export const WorksListApi = '/api/video_api/WorksListApi'
 export const MarketWorksListApi = '/api/video_api/MarketWorksListApi'
@@ -37,4 +37,3 @@ export const TargetListApi = "/api/video_api/TargetListApi"
 export const MarketTargetListApi = "/api/video_api/MarketTargetListApi"
 export const WorksRankListApi = '/api/video_api/WorksRankListApi'
 export const TargetRankListApi = '/api/video_api/TargetRankListApi'
-export const VideoUserLoginApi = '/api/video_api/VideoUserLoginApi';

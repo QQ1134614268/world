@@ -38,7 +38,7 @@ export default {
 
     },
     async logout() {
-      await userLogout()
+      await userLogout(this)
     },
     handleCommand(command) {
       this.$message('click on item ' + command);

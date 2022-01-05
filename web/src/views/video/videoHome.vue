@@ -29,9 +29,9 @@
         </el-dropdown>
       </div>
       <div v-else>
-        <router-link tag="a" to="/video/login"> 登陆</router-link>
+        <router-link tag="a" :to=SYS_LOGIN_URL> 登陆</router-link>
         |
-        <router-link tag="a" :to=videoRegisterUrl> 注册</router-link>
+        <router-link tag="a" :to=SYS_REGISTER_URL> 注册</router-link>
       </div>
     </div>
 
@@ -51,15 +51,16 @@
 <script>
 import jwt_decode from 'jwt-decode';
 import {userLogout} from "@/api/user";
-import {VideoRegisterUrl} from "@/api/routerUrl";
+import {SYS_LOGIN_URL, SYS_REGISTER_URL} from "@/api/routerUrl";
 import {FilePathApi} from "@/api/api";
 
 export default {
   name: "App",
   data() {
     return {
-      videoRegisterUrl: VideoRegisterUrl,
-      FilePathApi
+      FilePathApi,
+      SYS_LOGIN_URL,
+      SYS_REGISTER_URL
     }
   },
   computed: {
@@ -73,7 +74,7 @@ export default {
   },
   methods: {
     logout() {
-      userLogout()
+      userLogout(this)
     }
   }
 }

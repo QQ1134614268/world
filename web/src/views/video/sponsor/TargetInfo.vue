@@ -10,7 +10,7 @@
 
 <script>
 
-import {FilePathApi, TargetApi, VideoUserApi} from "@/api/api";
+import {FilePathApi, TargetApi, UserApi} from "@/api/api";
 
 export default {
   name: "TargetInfo",
@@ -32,7 +32,7 @@ export default {
       } else {
         this.$message('失败');
       }
-      let result2 = await this.$get2(VideoUserApi, this.target.user_id)
+      let result2 = await this.$get2(UserApi, this.target.user_id)
       if (result.data.code == 1) {
         this.user = result2.data.data
       } else {
