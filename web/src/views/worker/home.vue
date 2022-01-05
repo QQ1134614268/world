@@ -10,7 +10,7 @@
       <div class="col-2">
         <el-menu default-active="1" active-text-color="#409EFF">
           <router-link to="workTimeRecord">
-            <el-menu-item index="2">
+            <el-menu-item index="1">
               <template slot="title">
                 <i class="el-icon-setting"></i>
                 <span slot="title">
@@ -20,7 +20,7 @@
             </el-menu-item>
           </router-link>
           <router-link to="workTimeInfo">
-            <el-menu-item index="1">
+            <el-menu-item index="2">
               <template slot="title">
                 <i class="el-icon-info"></i>
                 <span slot="title">

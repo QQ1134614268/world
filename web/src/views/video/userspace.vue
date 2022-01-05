@@ -47,7 +47,6 @@
 </template>
 
 <script>
-import jwt_decode from "jwt-decode";
 import {FileApi, FilePathApi, VideoUserApi} from "@/api/api";
 
 export default {

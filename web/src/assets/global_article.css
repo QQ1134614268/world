@@ -1,4 +1,5 @@
 /*todo 文档总样式*/
+/*  <!--设置,布局,字体,伸缩,flex,float todo -->*/
 .art_title {
     font-size: 2.0rem;
     font-weight: bold;
@@ -12,7 +13,6 @@
 }
 
 .title2 {
-    text-align: center;
     font-size: 3rem;
     color: black;
 }

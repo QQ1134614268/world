@@ -18,7 +18,6 @@
 </template>
 
 <script>
-// <!--    页面跳转 https://blog.csdn.net/qi_dabin/article/details/82454588  -->
 import errDialog from "@/components/err.vue"
 import Axios from 'axios'
 import {SYS_HOME, SYS_REGISTER} from "@/api/routerUrl";
@@ -50,6 +49,9 @@ export default {
       if (result.data.code == 1) {
         Axios.defaults.headers.common['token'] = result.data.data
         localStorage.setItem("token", result.data.data);
+        this.$store.commit('receiveUserInfo', {
+          token: result.data.data
+        })
         this.$message('登录成功');
         // 弹框式登录
         if (this.from != null) {
