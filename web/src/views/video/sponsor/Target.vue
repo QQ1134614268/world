@@ -73,7 +73,12 @@ export default {
       }
     },
     async onSubmit() {
-      let result = await this.$postJson2(TargetApi, 0, this.form)
+      let result;
+      if (this.form.id) {
+        result = await this.$putJson2(TargetApi, this.form.id, this.form)
+      } else {
+        result = await this.$postJson2(TargetApi, 0, this.form)
+      }
       if (result.data.code == 1) {
         this.$message('成功');
       } else {

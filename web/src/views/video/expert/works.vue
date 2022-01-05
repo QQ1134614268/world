@@ -86,7 +86,7 @@ export default {
       dialogVisible: false,
       FilePathApi,
       FileApi,
-      VideoUrl: VideoUrl,
+      VideoUrl,
       user_id: jwt_decode(localStorage.getItem("token"))["id"],
       fileList: [],
       file_path: null,
@@ -114,10 +114,12 @@ export default {
         this.$message('请上传视频');
         return
       }
-      let result = await this.$postJson2(WorksApi, 0, this.form)
+      let result;
+      if (this.form.id) {
+        result = await this.$putJson2(WorksApi, this.form.id, this.form)
+      } else
+        result = await this.$postJson2(WorksApi, 0, this.form)
       if (result.data.code == 1) {
-        this.form = {}
-        // await this.$router.push({path: 'video/works'})
         this.dialogVisible = false
       } else {
         this.$message('失败');
