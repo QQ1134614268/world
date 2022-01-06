@@ -24,8 +24,6 @@
           </el-table-column>
         </el-table>
       </div>
-      <div v-if="ctl.b">
-      </div>
       <div v-if="ctl.add">
         <input v-model.number="user_name"></input>
         <el-button type="success" @click="searchUser">查找用户</el-button>

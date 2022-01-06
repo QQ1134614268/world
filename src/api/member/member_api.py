@@ -68,7 +68,7 @@ class GoodsApi(Resource):
         vo = GoodsVO.query.filter(GoodsVO.id == _id).first()
         return res_util.success(marshal(vo, goods_field))
 
-    def post(self):
+    def post(self,_id):
         data = request.get_json()
         model = GoodsVO(**data).save()
         return res_util.success(model.id)

@@ -225,7 +225,7 @@ api2.add_resource(OrderListApi, "/api/member/OrderListApi")
 api2.add_resource(WalletApi, "/api/member/WalletApi")
 
 # 会员
-api2.add_resource(GoodsApi, "/api/goods", "/api/goods/<int:_id>")
+api2.add_resource(GoodsApi, "/api/goods_api/GoodsApi/<int:_id>")
 api2.add_resource(GoodsListApi, "/api/goods_list")
 
 # 工时

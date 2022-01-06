@@ -91,7 +91,7 @@ export const postForm2 = (url, id, data = {}) => {
         }
     })
 };
-export const ppJson = (url, data, id) => {
+export const ppJson = (url, id, data) => {
     if (typeof (id) == "undefined" || id == null) {
         return postJson(url, data)
     }

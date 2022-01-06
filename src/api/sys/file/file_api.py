@@ -13,7 +13,8 @@ from util.log_util import logger
 
 class FileApi2(Resource):
 
-    def get(self, path):
+    def get(self):
+        path=request.args.get("path")
         full_path = os.path.join(DATA_DIR, path)
         if os.path.isfile(full_path):
             return send_file(full_path, as_attachment=True,
