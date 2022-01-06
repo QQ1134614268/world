@@ -93,9 +93,9 @@ export const postForm2 = (url, id, data = {}) => {
 };
 export const ppJson = (url, id, data) => {
     if (typeof (id) == "undefined" || id == null) {
-        return postJson(url, data)
+        return postJson2(url, 0, data)
     }
-    return putJson(url + "/" + id, data)
+    return putJson2(url, id, data)
 };
 
 export async function querySearch(queryString, cb, url) {

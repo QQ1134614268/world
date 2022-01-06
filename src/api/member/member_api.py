@@ -65,12 +65,20 @@ class StoreApi(Resource):
 class GoodsApi(Resource):
 
     def get(self, _id):
-        vo = GoodsVO.query.filter(GoodsVO.id == _id).first()
-        return res_util.success(marshal(vo, goods_field))
+        query_filter = []
+        if _id:
+            query_filter.append(GoodsVO.id == _id)
+        if request.args.get("store_id"):
+            query_filter.append(GoodsVO.store_id == request.args.get("store_id"))
 
-    def post(self,_id):
+        vos = GoodsVO.query.filter(*query_filter).all()
+        return res_util.json_success(vos)
+
+    def post(self, _id):
         data = request.get_json()
-        model = GoodsVO(**data).save()
+        model = GoodsVO(**data)
+        db.session.add(model)
+        db.session.commit()
         return res_util.success(model.id)
 
     def put(self, _id):

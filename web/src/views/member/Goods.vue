@@ -2,7 +2,7 @@
   <div>
     <div>
       商品列表
-      <el-button @click="this.form={}; this.dialogVisible=true"> 新增</el-button>
+      <el-button @click="form={}; dialogVisible=true"> 新增</el-button>
     </div>
     <div>
       <el-table :data="tableData" style="width: 100%">
@@ -19,13 +19,24 @@
         </el-table-column>
       </el-table>
     </div>
-    <el-dialog :title="this.form.id?'编辑':'新增'" :visible="dialogVisible">
+    <el-dialog :title="form.id?'编辑':'新增'" :visible="dialogVisible">
       <el-form ref="form" :model="form" label-width="80px">
         <el-form-item label="商品图片">
-          <el-upload>
-            <el-input v-model="form.name"></el-input>
+          <el-upload
+              class="avatar-uploader"
+              :action="FileApi"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              style="width:10rem;  height:10rem ">
+            <!--                          :before-upload="beforeAvatarUpload"-->
+
+            <img :key="imageUrl" v-if="imageUrl" :src="FilePathApi+imageUrl" style="width:10rem;
+                 height:10rem ;object-fit: cover"
+            >
+            <i v-else class="el-icon-plus avatar-uploader-icon" style="width:10rem;  height:10rem "></i>
           </el-upload>
         </el-form-item>
+
         <el-form-item label="商品名">
           <el-input v-model="form.name"></el-input>
         </el-form-item>
@@ -45,24 +56,32 @@
 </template>
 
 <script>
+import {FileApi, FilePathApi} from '@/api/api';
 
 export default {
   name: "Goods",
   data() {
     return {
+      FileApi,
+      FilePathApi,
       dialogVisible: false,
       form: {},
-      tableData: []
+      imageUrl: "",
+      tableData: [],
+      store_id: 1,
     };
   },
   methods: {
+    handleAvatarSuccess(res, file) {
+      this.imageUrl = res.data;
+    },
     async init() {
       let url = "/api/goods_api/GoodsApi"
       let data = {
         storeId: 1
       }
       let response = await this.$get2(url, 1, data);
-      this.data = response.data.data
+      this.tableData = response.data.data
     },
     async handleEdit(index, row) {
       this.form = row
@@ -77,7 +96,7 @@ export default {
       this.tableData.splice(index, 1)
     },
     async onSubmit() {
-      let url = "api/goods"
+      let url = "/api/goods_api/GoodsApi"
       this.form.store_id = this.store_id
       let response = await this.$ppJson(url, this.form.id, this.form);
       if (response.data.code != 1) {
@@ -85,8 +104,8 @@ export default {
       } else {
         this.$message('操作成功');
       }
-      await this.getGoodsList()
-      this.form = {}
+      this.dialogVisible = false
+      this.init()
     },
     cancel() {
 
