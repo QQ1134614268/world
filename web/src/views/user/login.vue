@@ -21,7 +21,7 @@
 import errDialog from "@/components/err.vue"
 import Axios from 'axios'
 import {SYS_HOME, SYS_REGISTER_URL} from "@/api/routerUrl";
-import {sys_api_login} from "@/api/api";
+import {UserApi_login} from "@/api/api";
 
 export default {
   name: "login",
@@ -44,7 +44,7 @@ export default {
         "username": this.username,
         "password": this.password,
       }
-      let result = await this.$postJson(sys_api_login, data)
+      let result = await this.$postJson(UserApi_login, data)
 
       if (result.data.code == 1) {
         Axios.defaults.headers.common['token'] = result.data.data

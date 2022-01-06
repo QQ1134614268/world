@@ -9,7 +9,7 @@ from flask_restful import fields, marshal
 
 from service import wallet_service
 from util import res_util
-from vo.table_model import WalletVO
+from vo.member_model import WalletVO
 
 wallet_field = {
     "id": fields.Integer,

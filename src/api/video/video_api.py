@@ -13,7 +13,8 @@ from config.mysql_db import db
 from service.auth_service import set_model_user_id
 from util import res_util
 from util.video_util import get_first_frame_loc
-from vo.table_model import UserVO, WorksVO, TargetVO
+from vo.table_model import UserVO
+from vo.video_model import WorksVO, TargetVO
 
 
 class WorksApi(Resource):

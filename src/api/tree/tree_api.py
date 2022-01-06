@@ -10,7 +10,7 @@ from config.mysql_db import db
 from config.res_config import Res, ResList
 from util import res_util, db_util
 from util.log_util import logger
-from vo.table_model import ProveVO, StoryVO
+from vo.tree_model import ProveVO, StoryVO
 
 prove_api = Blueprint("ProveApi", __name__, url_prefix='/api/ProveBlueprintApi')
 

@@ -18,7 +18,7 @@ from util import res_util, db_util, time_util
 from util.db_util import row_to_dic
 from util.dowmload_util import down_response
 from util.excel_util import ExcelHandler, check_excel_type
-from vo.table_model import WorkerVO, WorkerTimeVO
+from vo.worker_model import WorkerVO, WorkerTimeVO
 from vo.value_object import WorkerExcelVO
 
 work_time_analyse_api = Blueprint("WorkTimeAnalyseApi", __name__, url_prefix='/api/work_api/WorkTimeAnalyseApi')

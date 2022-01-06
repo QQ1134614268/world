@@ -5,7 +5,7 @@
 """
 from config.exception import WorldException
 from config.mysql_db import db
-from vo.table_model import WalletVO
+from vo.member_model import WalletVO
 
 
 def pay(wallet_id, money):

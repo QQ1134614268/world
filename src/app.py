@@ -199,7 +199,7 @@ api2.add_resource(SuggestApi, "/api/sys_api/SuggestApi/<int:_id>")
 api2.add_resource(AnnouncementApi, "/api/sys_api/AnnouncementApi/<int:_id>")
 
 api2.add_resource(FileApi, "/api/file/FileApi")
-api2.add_resource(FileApi2, "/api/file/FileApi2")
+api2.add_resource(FileApi2, "/api/file/FileApi2", "/api/file/FileApi2/<string:path>")
 api2.add_resource(LogApi, "/api/log_api/LogApi/<int:_id>")
 
 api2.add_resource(AllApi, "/api/video_api/AllApi/<int:_id>")

@@ -6,11 +6,10 @@
 import datetime
 
 from flask_restful import fields
-from sqlalchemy import Column, Text, String, Integer, Float, Boolean, Date, DateTime, Sequence, \
-    Enum, UniqueConstraint
+from sqlalchemy import Column, Text, String, Integer, Boolean, DateTime, Sequence, \
+    UniqueConstraint
 
 from config.mysql_db import db
-from service.user_service import get_id_by_token
 from util.password_util import get_sha256_salt_password
 from util.unique_util import get_uuid
 
@@ -61,8 +60,8 @@ class EnumConfig(BaseTable):
 
 class UserVO(BaseTable):
     __tablename__ = 'user'
-    username = Column(String(12), index=True, unique=True, nullable=False)
-    _password = db.Column('password', db.String(128), nullable=False)
+    username = Column(String(255), index=True, unique=True, nullable=False)
+    _password = db.Column('password', db.String(255), nullable=False)
     phone = Column(String(11))
     avatar = Column(String(255))
 
@@ -129,136 +128,11 @@ class SuggestVO(BaseTable):
     announcement_id = Column(Integer)
 
 
-class StoreVO(BaseTable):
-    __tablename__ = 'store_t'
-    name = Column(String(256), index=True)
-    password = Column(String(128), default='123456')
-    store_name = Column(Integer, index=True)
-    phone = Column(String(11), index=True)
-    user_id = Column(Integer, index=True)
-
-
-class StoreMemberTable(BaseTable):
-    __tablename__ = 'store_member_t'
-    store_id = Column(Integer, index=True)
-    user_id = Column(Integer, index=True)
-
-
-class WalletVO(BaseTable):
-    __tablename__ = 'wallet_t'
-    user_id = Column(Integer)
-    store_id = Column(Integer, index=True)
-    money = Column(Float, default=0)
-
-
-class WorkerVO(BaseTable):
-    __tablename__ = 'worker_t'
-
-    __table_args__ = {
-        'mysql_engine': "InnoDB",
-        'mysql_collate': 'utf8mb4_general_ci',
-        'mysql_charset': 'utf8mb4',
-        'comment': '工人详情',
-    }
-    belong = Column(Integer)
-    name = Column(String(255))
-    birthday = Column(Date)
-    id_card_number = Column(String(255))  # , unique=True
-    sex = Column(Enum('男', '女'))
-    pay = Column(Float, default=0)
-    start_time = Column(Date)
-    phone = Column(String(11))
-
-    UniqueConstraint(belong, id_card_number)
-
-
-class WorkerTimeVO(BaseTable):
-    __tablename__ = 'worker_time_t'
-    __table_args__ = (UniqueConstraint('worker_id', 'date'),)
-    date = Column(Date)
-    worker_id = Column(Integer, index=True)
-    morning = Column(Float, default=0)
-    morning_area = Column(String(255))
-    morning_content = Column(String(255))
-    noon = Column(Float, default=0)
-    noon_area = Column(String(255))
-    noon_content = Column(String(255))
-    afternoon = Column(Float, default=0)
-    afternoon_area = Column(String(255))
-    afternoon_content = Column(String(255))
-    night = Column(Float, default=0)
-    night_area = Column(String(255))
-    night_content = Column(String(255))
-
-
-class WorkerTimeVO2(BaseTable):
-    # todo 上午 下午 晚上
-    __tablename__ = 'worker_time_t2'
-    __table_args__ = (UniqueConstraint('worker_id', 'date'),)
-    date = Column(Date)
-    time_type = Column(Enum('morning', 'noon', 'afternoon', 'night'))
-    worker_id = Column(Integer, index=True)
-    area = Column(String(255))
-    content = Column(String(255))
-
-
 class UserCloudSpaceVO(BaseTable):
     __tablename__ = 'user_cloud_space'
     user_id = Column(Integer)
     file_name = Column(String(150), comment='xxx.txt')
     file_path = Column(String(150), comment='/xxx/xxx.txt')
-
-
-class GoodsVO(BaseTable):
-    __tablename__ = 'goods_t'
-    name = Column(String(256), default='123456')
-    price = Column(Float)
-    duration = Column(Float, default='123456')
-    describe = Column(String(256), default='123456')
-    images = Column(String(256), default='123456')
-    store_id = Column(Integer, index=True)
-
-
-class OrderVO(BaseTable):
-    __tablename__ = 'order_t'
-    goods_id = Column(Integer, index=True)
-    user_id = Column(Integer, index=True)
-    num = Column(Integer)
-
-
-class WorksVO(BaseTable):
-    __tablename__ = 'works_t'
-    user_id = Column(Integer, index=True)
-    describe = Column(String(255))
-    file = Column(String(255))
-    start = Column(Integer, default=0)
-    thumbnail = Column(String(255))
-
-
-class TargetVO(BaseTable):
-    __tablename__ = 'target_t'
-    user_id = Column(Integer, index=True, default=get_id_by_token)
-    title = Column(String(255))
-    content = Column(String(1000))
-    price = Column(Float)
-
-
-class ProveVO(BaseTable):
-    __tablename__ = 'prove_vo'
-    userId = Column(Integer, index=True)
-    parent_id = Column(Integer, default=0)
-    value = Column(Text, default='')
-    sort = Column(Integer)
-    wight = Column(Integer, default=1)
-
-
-class StoryVO(BaseTable):
-    __tablename__ = 'story_vo'
-    userId = Column(Integer, index=True)
-    parent_id = Column(Integer)
-    value = Column(Text, default='')
-    sort = Column(Integer)
-    wight = Column(Integer, default=1)
 
 
 class LogVO(BaseTable):

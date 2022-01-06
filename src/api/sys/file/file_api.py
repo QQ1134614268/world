@@ -1,5 +1,4 @@
 import os
-import shutil
 
 from flask import request
 from flask import send_file
@@ -14,8 +13,7 @@ from util.log_util import logger
 
 class FileApi2(Resource):
 
-    def get(self):
-        path = request.args.get("path", "")
+    def get(self, path):
         full_path = os.path.join(DATA_DIR, path)
         if os.path.isfile(full_path):
             return send_file(full_path, as_attachment=True,
@@ -26,16 +24,13 @@ class FileApi2(Resource):
 
     def post(self):
         file = request.files["file"]
-        # file     print()    # 打印文件名
-        f_name = get_file_name_by_uuid() + "_" + file.filename
+        f_name = get_file_name_by_uuid() + "_" + file.filename  # todo
         full_path = os.path.join(UPLOAD_FILE_PATH2, f_name)
         file.save(full_path)
         return res_util.success("upload_file/" + f_name)
 
-    def delete(self):
-        path = request.get_json("path")
-        shutil.rmtree(path)
-        return res_util.success()
+    def delete(self, _path):
+        pass
 
 
 if __name__ == '__main__':

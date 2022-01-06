@@ -1,6 +1,6 @@
 import {get, get2} from "@/api/config";
 import {SYS_LOGIN_URL, SYS_REGISTER_URL} from "@/api/routerUrl";
-import {sys_api_logout} from "@/api/api";
+import {UserApi_logout} from "@/api/api";
 
 // 本地,服务器 同步
 /*登录*/
@@ -13,7 +13,7 @@ export async function userLogin(data) {
 
 // 登出
 export async function userLogout(that) {
-    await get(sys_api_logout);// 单点登录
+    await get(UserApi_logout);// 单点登录
     localStorage.removeItem("token")
     that.$store.commit('receiveUserInfo', {
         token: ""

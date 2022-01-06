@@ -10,10 +10,9 @@ from flask_restful import fields, marshal
 import service.user_service
 from config.mysql_db import db
 from service import wallet_service
-from util import password_util
 from util import res_util
-from vo.table_model import GoodsVO, WalletVO, OrderVO
-from vo.table_model import StoreVO, StoreMemberTable, UserVO
+from vo.member_model import StoreVO, StoreMemberTable, WalletVO, GoodsVO, OrderVO
+from vo.table_model import UserVO
 
 goods_field = {
     "id": fields.Integer,
@@ -40,10 +39,8 @@ class StoreApi(Resource):
 
     def post(self):
         data = request.get_json()
-        name = data.get('name', '')
-        password = data.get('password', '')
-        vo = StoreVO(name=name, password=password_util.get_sha256_salt_password(password),  # todo
-                     user_id=service.user_service.get_id_by_token())
+        data['user_id'] = service.user_service.get_id_by_token()
+        vo = StoreVO(**data)
         db.session.add(vo)
         db.session.commit()
         return res_util.success(marshal(vo, store_field))
@@ -117,6 +114,14 @@ class StoreMemberApi(Resource):
         return res_util.success(_id)
 
 
+class StoreMemberListApi(Resource):
+
+    def get(self):
+        query = [StoreMemberTable.store_id == request.args.get("store_id")]
+        vos = UserVO.query.outerjoin(StoreMemberTable, UserVO.id == StoreMemberTable.user_id).filter(*query).all()
+        return res_util.success([marshal(vo, user_member_field) for vo in vos])
+
+
 class StoreListApi(Resource):
     def get(self):
         vo = StoreVO.query.all()
@@ -129,14 +134,6 @@ class GoodsListApi(Resource):
         query = [GoodsVO.store_id == request.args.get("store_id")]
         goods_list = GoodsVO.query.filter(*query).all()
         return res_util.success([marshal(vo, goods_field) for vo in goods_list])
-
-
-class StoreMemberListApi(Resource):
-
-    def get(self):
-        query = [StoreMemberTable.store_id == request.args.get("store_id")]
-        vos = UserVO.query.outerjoin(StoreMemberTable, UserVO.id == StoreMemberTable.user_id).filter(*query).all()
-        return res_util.success([marshal(vo, user_member_field) for vo in vos])
 
 
 class OrderApi(Resource):

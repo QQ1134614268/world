@@ -1,67 +1,15 @@
 # encoding: utf-8
 import importlib
 
-from flask import Blueprint, jsonify, make_response, request
+from flask import Blueprint, request
 from flask_restful import Resource
 
 import service.user_service
 from config.mysql_db import db
-from config.redis_db import redisDB
-from service import log_table_service
 from util import res_util
-from util import verification_code_util
-from vo.table_model import UserVO, AnnouncementVO, SuggestVO
+from vo.table_model import AnnouncementVO, SuggestVO
 
 sys_api = Blueprint("sys", __name__, url_prefix='/api/sys_api')
-
-
-@sys_api.route('/get_verify_code', methods=['GET'])
-def get_verify_code():
-    code, img_bytes = verification_code_util.get_verify_code()
-    response = make_response(img_bytes)
-    response.headers['Content-Type'] = 'image/gif'
-    redisDB.set(code, code, ex=60)
-    return response
-
-
-@sys_api.route('/login', methods=['POST'])
-def login():
-    data = request.get_json()
-    username = data.get('username', '')
-    password = data.get('password', '')
-    user = UserVO.query.filter_by(username=username).first()
-    if user and user.check_password(password):
-        log_table_service.log_table(user.id, "登录系统", "登录")
-        return res_util.json_success(service.user_service.get_token(user))
-    else:
-        return res_util.fail("账号密码不匹配")
-
-
-@sys_api.route('/logout', methods=['GET'])
-def logout():
-    # 单点登录, redis 删除
-    log_table_service.log_table(service.user_service.get_id_by_token(), "退出", "退出")
-    return res_util.json_success()
-
-
-@sys_api.route('/register', methods=['POST'])
-def register():
-    data = request.get_json()
-    username = data.get('username', '')
-    code = data.get('code')
-    if not code:
-        return res_util.fail("验证码错误")
-    cache_code = redisDB.get(code)
-    if not (code and cache_code and code.upper() == cache_code.upper()):
-        return res_util.fail("验证码错误")
-    exist = UserVO.query.filter_by(username=username).first()
-    if exist:
-        return jsonify(res_util.fail("用户名已经存在"))
-    password = data.get('password', '')
-    vo = UserVO(username=username, password=password)
-    db.session.add(vo)
-    db.session.commit()
-    return res_util.json_success()
 
 
 class AnnouncementApi(Resource):

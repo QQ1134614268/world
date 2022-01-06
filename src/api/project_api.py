@@ -12,7 +12,8 @@ from sqlalchemy.orm import sessionmaker, make_transient
 from config.mysql_db import db
 from util import res_util
 from util.video_util import get_first_frame_loc
-from vo.table_model import WorksVO, ProveVO, StoryVO
+from vo.tree_model import ProveVO, StoryVO
+from vo.video_model import WorksVO
 
 
 def ref_first_frame_loc():
