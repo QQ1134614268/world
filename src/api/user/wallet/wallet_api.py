@@ -11,6 +11,7 @@ from service import wallet_service
 from util import res_util
 from vo.member_model import WalletVO
 
+# todo
 wallet_field = {
     "id": fields.Integer,
     "store_id": fields.Integer,

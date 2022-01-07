@@ -27,7 +27,7 @@ class ConfigApi(Resource):
             EnumConfig.parent_code == parent_code,
             EnumConfig.group_code == group_code
         ).all()
-        return res_util.json_success(vos)
+        return res_util.success(vos)
 
     def post(self, _id):
         data = request.get_json()
@@ -35,15 +35,15 @@ class ConfigApi(Resource):
         vo.create_by = service.user_service.get_id_by_token()
         db.session.add(vo)
         db.session.commit()
-        return res_util.json_success(vo.id)
+        return res_util.success(vo.id)
 
     def put(self, _id):
         data = request.get_json()
         EnumConfig.query.filter(EnumConfig.id == _id).update(data)
         db.session.commit()
-        return res_util.json_success(_id)
+        return res_util.success(_id)
 
     def delete(self, _id):
         EnumConfig.query.filter(EnumConfig.id == _id).delete()
         db.session.commit()
-        return res_util.json_success(_id)
+        return res_util.success(_id)

@@ -5,10 +5,10 @@ from util.db_util import row_to_dic
 
 
 def success(data="success"):
-    return {
+    return jsonify({
         "code": ExceptionCode.SUCCESS.value,
         "data": data,
-    }
+    })
 
 
 def page_success(data="success"):
@@ -31,22 +31,15 @@ def page_success_row(data="success"):
     })
 
 
-def json_success(data="success"):
+def fail(data="", code=ExceptionCode.FAIL.value):
     return jsonify({
-        "code": ExceptionCode.SUCCESS.value,
+        "code": code,
         "data": data,
     })
 
 
-def fail(data="", code=ExceptionCode.FAIL.value):
-    return {
-        "code": code,
-        "data": data,
-    }
-
-
 def exception(data=""):
-    return {
+    return jsonify({
         "code": ExceptionCode.EXCEPTION.value,
         "data": data,
-    }
+    })

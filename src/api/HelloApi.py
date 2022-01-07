@@ -28,20 +28,20 @@ hello_api = Blueprint("hello", __name__, url_prefix='/api/hello_api')
 def hello():
     from app import app
     logger.info(app.config["DEBUG"])
-    return jsonify(res_util.success("hello world!"))
+    return res_util.success("hello world!")
 
 
 @hello_api.route('/test_sleep', methods=["GET"])
 def test_sleep():
     start = get_now_str()
     time.sleep(5)
-    return jsonify(res_util.success(f'sleep test;I slept from {start} to {get_now_str()} '))
+    return res_util.success(f'sleep test;I slept from {start} to {get_now_str()} ')
 
 
 @hello_api.route('/exception', methods=["GET"])
 def exception():
     result = 1 / 0
-    return jsonify(res_util.success(result))
+    return res_util.success(result)
 
 
 @hello_api.route('/download_excel', methods=['GET'])
@@ -105,7 +105,7 @@ def post_json():
     data = request.get_json()
     name = data.get("name", None)
     age = data.get("age", None)
-    return jsonify(res_util.success({"name": name, "age": age}))
+    return res_util.success({"name": name, "age": age})
 
 
 @hello_api.route('/post_form_data', methods=['POST'])
@@ -113,7 +113,7 @@ def post_form_data():
     name = request.form["name"]
     file1 = request.files["file1"]
     file2 = request.files["file2"]
-    return jsonify(res_util.success({"name": name, "file_name1": file1.filename, "file_name2": file2.filename, }))
+    return res_util.success({"name": name, "file_name1": file1.filename, "file_name2": file2.filename, })
 
 
 @hello_api.route('/test_thread', methods=['GET'])
@@ -131,7 +131,7 @@ def test_thread():
     thr = Thread(target=task_a, args=args, kwargs=kwargs)
     thr.start()
     print("结束", get_now_str())
-    return jsonify(res_util.success("开始{},结束{},异步任务时长5秒".format(start, get_now_str())))
+    return res_util.success("开始{},结束{},异步任务时长5秒".format(start, get_now_str()))
 
 
 @hello_api.route('/test_asyncio', methods=['GET'])
@@ -145,4 +145,4 @@ def test_asyncio():
 
     asyncio.run(test_asyncio_sleep())
     print("结束", get_now_str())
-    return jsonify(res_util.success("开始{},结束{},异步任务时长5秒".format(start, get_now_str())))
+    return res_util.success("开始{},结束{},异步任务时长5秒".format(start, get_now_str()))

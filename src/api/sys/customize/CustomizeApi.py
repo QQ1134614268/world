@@ -32,7 +32,7 @@ def add_model():
     data["userId"] = service.user_service.get_id_by_token()
     collection = mongoDB.models
     collection.insert_one(data)
-    return jsonify(res_util.success("success"))
+    return res_util.success()
 
 
 @customize_api.route('/getModel', methods=['POST'])
@@ -43,7 +43,7 @@ def get_model():
     }))
     for i in res:
         i["_id"] = str(i["_id"])
-    return jsonify(res_util.success(res))
+    return res_util.success(res)
 
 
 @customize_api.route('/model_eval', methods=['POST'])
@@ -54,4 +54,4 @@ def model_eval():
     :return:
     """
     pass
-    return jsonify(res_util.success("model_eval"))
+    return res_util.success("model_eval")

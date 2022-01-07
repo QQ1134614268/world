@@ -1,7 +1,6 @@
 # -- coding:UTF-8 --
-
-from flask import Blueprint, request, jsonify, make_response
-from flask_restful import marshal, Resource
+from flask import Blueprint, request, make_response
+from flask_restful import Resource
 
 import service.user_service
 from config.mysql_db import db
@@ -18,7 +17,7 @@ def getUserByName():
     username = request.args.get("username")
     user = UserVO.query.filter_by(username=username).first()
     if user:
-        return res_util.json_success(user)
+        return res_util.success(user)
     return res_util.fail("找不到用户")
 
 
@@ -26,27 +25,27 @@ def getUserByName():
 def getUserById():
     userId = request.args.get("userId")
     user = UserVO.query.filter_by(id=userId).first()
-    return res_util.json_success(user)
+    return res_util.success(user)
 
 
 @user_api.route('/getUserInfo', methods=['GET'])
 def getUserInfo():
     userId = service.user_service.get_id_by_token()
     user = UserVO.query.filter_by(id=userId).first()
-    return res_util.json_success(user)
+    return res_util.success(user)
 
 
 @user_api.route('/getUserByDict', methods=['GET'])
 def getUserByDict():
     data = request.get_json()
     user = UserVO.query.filter_by(**data).all()
-    return res_util.json_success(user)
+    return res_util.success(user)
 
 
 @user_api.route('/getUserAll', methods=['GET'])
 def getUserAll():
     user = list(UserVO.query.limit(10))
-    return res_util.json_success(user)
+    return res_util.success(user)
 
 
 class UserApi(Resource):
@@ -59,8 +58,25 @@ class UserApi(Resource):
         return res_util.success(vo.id)
 
     def get(self, _id):
-        vo = UserVO.query.filter(UserVO.id == _id).first()
-        return res_util.success(marshal(vo, UserVO.get_video_user_field()))
+        vo = UserVO.query.with_entities(
+            UserVO.id,
+            UserVO.username,
+            UserVO.phone,
+            UserVO.avatar,
+            UserVO.email,
+            UserVO.userType,
+            UserVO.describe,
+            UserVO.id_card,
+            UserVO.business_license,
+            UserVO.brand,
+            UserVO.resume,
+            UserVO.tiktok_number,
+            UserVO.video_number,
+            UserVO.wechat_number,
+            UserVO.role
+        ).first()
+        # vo = UserVO.query.filter(UserVO.id == _id).first()
+        return res_util.success(vo)
 
     def put(self, _id):
         data = request.get_json()
@@ -83,7 +99,7 @@ def login():
     user = UserVO.query.filter_by(username=username).first()
     if user and user.check_password(password):
         log_table_service.log_table(user.id, "登录系统", "登录")
-        return res_util.json_success(service.user_service.get_token(user))
+        return res_util.success(service.user_service.get_token(user))
     else:
         return res_util.fail("账号密码不匹配")
 
@@ -92,7 +108,7 @@ def login():
 def logout():
     # 单点登录, redis 删除
     log_table_service.log_table(service.user_service.get_id_by_token(), "退出", "退出")
-    return res_util.json_success()
+    return res_util.success()
 
 
 @user_api.route('/register', methods=['POST'])
@@ -107,12 +123,12 @@ def register():
         return res_util.fail("验证码错误")
     exist = UserVO.query.filter_by(username=username).first()
     if exist:
-        return jsonify(res_util.fail("用户名已经存在"))
+        return res_util.fail("用户名已经存在")
     password = data.get('password', '')
     vo = UserVO(username=username, password=password)
     db.session.add(vo)
     db.session.commit()
-    return res_util.json_success()
+    return res_util.success()
 
 
 @user_api.route('/get_verify_code', methods=['GET'])

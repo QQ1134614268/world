@@ -56,7 +56,7 @@ def clear_id():
     if ret:
         ProveVO.query.filter(ProveVO.id.notin_(ret)).delete(synchronize_session=False)
         db.session.commit()
-    return res_util.json_success(ret)
+    return res_util.success(ret)
 
 
 class ProjectInit(Resource):

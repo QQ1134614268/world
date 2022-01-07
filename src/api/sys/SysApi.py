@@ -19,7 +19,7 @@ class AnnouncementApi(Resource):
         vo = AnnouncementVO(userid=user_id, **data)
         db.session.add(vo)
         db.session.commit()
-        return res_util.json_success()
+        return res_util.success()
 
     def get(self, _id):
         query_filter = []
@@ -28,7 +28,7 @@ class AnnouncementApi(Resource):
         if announcement_id:
             query_filter.append(AnnouncementVO.id == announcement_id)
         message_list = AnnouncementVO.query.filter(query_filter).order_by(AnnouncementVO.create_time).all()
-        return res_util.json_success(message_list)
+        return res_util.success(message_list)
 
 
 class SuggestApi(Resource):
@@ -39,11 +39,11 @@ class SuggestApi(Resource):
         vo = SuggestVO(**data)
         db.session.add(vo)
         db.session.commit()
-        return res_util.json_success()
+        return res_util.success()
 
     def get(self, _id):
         message_list = SuggestVO.query.filter_by(id=_id).order_by(SuggestVO.create_time).all()
-        return res_util.json_success(message_list)
+        return res_util.success(message_list)
 
 
 class AllApi(Resource):

@@ -204,7 +204,7 @@ class WorkTimeAnalyseApi(Resource):
             item["days"] = (item.get("morning") * 4.5 + item.get("noon") * 2 + item.get("afternoon") * 4.5 + item.get(
                 "night") * 4.5) / 9
             item["money"] = item["days"] * item["pay"]
-        return res_util.json_success(data)
+        return res_util.success(data)
 
     @staticmethod
     @work_time_analyse_api.route('/get_day_report/<int:_id>', methods=['GET'])
@@ -267,4 +267,4 @@ class WorkTimeAnalyseApi(Resource):
             })
 
         ret = sorted(ret, key=lambda x: x["area"])
-        return res_util.json_success(ret)
+        return res_util.success(ret)

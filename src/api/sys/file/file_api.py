@@ -25,7 +25,8 @@ class FileApi2(Resource):
 
     def post(self):
         file = request.files["file"]
-        f_name = get_file_name_by_uuid() + "_" + file.filename  # todo
+        file_type = file.filename.split('.')[-1]
+        f_name = get_file_name_by_uuid() + "." + file_type
         full_path = os.path.join(UPLOAD_FILE_PATH2, f_name)
         file.save(full_path)
         return res_util.success("upload_file/" + f_name)

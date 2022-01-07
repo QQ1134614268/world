@@ -20,7 +20,7 @@ cloud_space_api = Blueprint("cloud_space_api", __name__, url_prefix='/api/cloud_
 def init():
     user_id = service.user_service.get_id_by_token()
     os.makedirs(os.path.join(UPLOAD_FILE_PATH, str(user_id)))
-    return jsonify(res_util.success("cloud_space init success"))
+    return res_util.success("cloud_space init success")
 
 
 @cloud_space_api.route('/create_dir', methods=['POST'])
@@ -29,7 +29,7 @@ def create_dir():
     name = data.get('name')
     user_id = service.user_service.get_id_by_token()
     os.makedirs(os.path.join(UPLOAD_FILE_PATH, str(user_id)), name)
-    return jsonify(res_util.success("操作成功"))
+    return res_util.success()
 
 
 @cloud_space_api.route('/get_filename_list_v2', methods=['POST'])
@@ -38,7 +38,7 @@ def get_filename_list_v2():
     name = data.get('name')
     file_dir = getDirName(name)
     ret = getFiles(file_dir)
-    return jsonify(res_util.success(ret))
+    return res_util.success(ret)
 
 
 def getDirName(file_dir):
@@ -56,7 +56,7 @@ def get_filename_list():
     user_id = service.user_service.get_id_by_token()
     vo_list = UserCloudSpaceVO.query.filter(UserCloudSpaceVO.user_id == user_id).all()
     name_list = [vo.file_name for vo in vo_list]
-    return jsonify(res_util.success(name_list))
+    return res_util.success(name_list)
 
 
 @cloud_space_api.route('/file_upload', methods=['POST'])
@@ -76,7 +76,7 @@ def file_upload():
         vo = UserCloudSpaceVO(user_id=user_id, file_name=file1.filename, file_path=file_path)
         db.session.add(vo)
         db.session.commit()
-    return jsonify(res_util.success("success"))
+    return res_util.success()
 
 
 @cloud_space_api.route('/file_download', methods=['GET'])
@@ -99,7 +99,7 @@ def delete_file():
     os.remove(vo.file_path)
     db.session.delete(vo)
     db.session.commit()
-    return jsonify(res_util.success("success"))
+    return res_util.success()
 
 
 class FileApi(Resource):

@@ -5,7 +5,6 @@
 """
 from flask import request
 from flask_restful import Resource
-from flask_restful import fields, marshal
 
 import service.user_service
 from config.mysql_db import db
@@ -13,26 +12,6 @@ from service import wallet_service
 from util import res_util
 from vo.member_model import StoreVO, StoreMemberTable, WalletVO, GoodsVO, OrderVO
 from vo.table_model import UserVO
-
-goods_field = {
-    "id": fields.Integer,
-    "price": fields.Float,
-    "duration": fields.Float,
-    "describe": fields.String,
-    "images": fields.String,
-    "name": fields.String,
-    "create_time": fields.String,
-}
-store_field = {
-    "id": fields.Integer,
-    "user_id": fields.Integer,
-    "name": fields.String,
-    "create_time": fields.String,
-}
-user_member_field = {
-    "id": fields.Integer,
-    "username": fields.String,
-}
 
 
 class StoreApi(Resource):
@@ -43,11 +22,11 @@ class StoreApi(Resource):
         vo = StoreVO(**data)
         db.session.add(vo)
         db.session.commit()
-        return res_util.success(marshal(vo, store_field))
+        return res_util.success()
 
     def get(self, _id):
         vo = StoreVO.query.filter(StoreVO.id == request.args.get("id")).first()
-        return res_util.success(marshal(vo, store_field))
+        return res_util.success(vo)
 
     def put(self, _id):
         data = request.get_json()
@@ -83,8 +62,6 @@ class GoodsApi(Resource):
 
     def put(self, _id):
         data = request.get_json()
-        # GoodsVO(id=_id).update(_id, data)
-        # db.session.query().filter(GoodsVO.id == _id).update(data)
         GoodsVO.query.filter(GoodsVO.id == _id).update(data)
         db.session.commit()
         return res_util.success(_id)
@@ -105,9 +82,9 @@ class StoreMemberApi(Resource):
         db.session.commit()
         return res_util.success(vo.id)
 
-    # def get(self, _id):
-    #     vo = StoreMemberTable.query.filter(StoreVO.id == _id).first()
-    #     return res_util.success(marshal(vo, store_member_field))
+    def get(self, _id):
+        vo = StoreMemberTable.query.filter(StoreVO.id == _id).first()
+        return res_util.success(vo)
 
     def put(self, _id):
         data = request.get_json()
@@ -127,13 +104,13 @@ class StoreMemberListApi(Resource):
     def get(self):
         query = [StoreMemberTable.store_id == request.args.get("store_id")]
         vos = UserVO.query.outerjoin(StoreMemberTable, UserVO.id == StoreMemberTable.user_id).filter(*query).all()
-        return res_util.success([marshal(vo, user_member_field) for vo in vos])
+        return res_util.success(vos)
 
 
 class StoreListApi(Resource):
     def get(self):
-        vo = StoreVO.query.all()
-        return res_util.success(marshal(vo, store_field))
+        vos = StoreVO.query.all()
+        return res_util.success(vos)
 
 
 class GoodsListApi(Resource):
@@ -141,7 +118,7 @@ class GoodsListApi(Resource):
     def get(self):
         query = [GoodsVO.store_id == request.args.get("store_id")]
         goods_list = GoodsVO.query.filter(*query).all()
-        return res_util.success([marshal(vo, goods_field) for vo in goods_list])
+        return res_util.success(goods_list)
 
 
 class OrderApi(Resource):

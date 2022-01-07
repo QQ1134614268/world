@@ -26,14 +26,14 @@ class ProveBlueprintApi:
         # hierarchy = hierarchy.union_all(db.session.query(children).filter(children.parent_id == parent.c.id))
         cte_all = cte_part.union_all(db.session.query(ProveVO).filter(ProveVO.parent_id == cte_part.c.id))
         result = ProveVO.query.select_entity_from(cte_all).all()
-        return res_util.json_success(result)
+        return res_util.success(result)
 
     @staticmethod
     @prove_api.route('/prove_parent/<int:_id>', methods=['GET'])
     def prove_parent(_id):
         # cte 根据id 获取父节点
         result = ProveBlueprintApi._prove_parent(_id)
-        return res_util.json_success(result)
+        return res_util.success(result)
 
     @staticmethod
     @prove_api.route('/get_key_word/<int:_id>', methods=['GET'])
@@ -51,7 +51,7 @@ class ProveBlueprintApi:
                 counts[word] = counts.get(word, 0) + 1
         result = sorted(counts.items(), key=lambda x: x[1], reverse=True)
         result = [{"name": item[0], "count": item[1]} for item in result if item[1] > 3]
-        return res_util.json_success(result)
+        return res_util.success(result)
 
     @staticmethod
     def _prove_parent(_id):
@@ -68,14 +68,14 @@ class ProveBlueprintApi:
         value = request.args.get("value", "")
         vos = ProveVO.query.filter(ProveVO.value.contains(value)).all()
         result = [ProveBlueprintApi._prove_parent(vo.id) for vo in vos]
-        return res_util.json_success(result)
+        return res_util.success(result)
 
     @staticmethod
     @prove_api.route('/contain_value/<int:_id>', methods=['GET'])
     def get(_id):
         value = request.args.get("value", "")
         vos = ProveVO.query.filter(ProveVO.value.contains(value)).all()
-        return jsonify(res_util.success(vos))
+        return res_util.success(vos)
 
     @staticmethod
     @prove_api.route('/much_children/<int:_id>', methods=['GET'])
@@ -104,13 +104,13 @@ class ProveBlueprintApi:
         #     ProveVO.parent_id.desc()
         # ).limit(10).all()
         ret = db_util.row_to_dic(res)
-        return jsonify(res_util.success(ret))
+        return res_util.success(ret)
 
     @staticmethod
     @prove_api.route('/popular_word/<int:_id>', methods=['GET'])
     def popular_word(_id):
         vos = ProveVO.query.order_by(ProveVO.wight.desc()).limit(10).all()
-        return jsonify(res_util.success(vos))
+        return res_util.success(vos)
 
 
 def count_prove(function):

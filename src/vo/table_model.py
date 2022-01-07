@@ -61,7 +61,6 @@ class EnumConfig(BaseTable):
 class UserVO(BaseTable):
     __tablename__ = 'user'
     username = Column(String(255), index=True, unique=True, nullable=False)
-    _password = db.Column('password', db.String(255), nullable=False)
     phone = Column(String(11))
     avatar = Column(String(255))
 
@@ -77,6 +76,8 @@ class UserVO(BaseTable):
     video_number = Column(String(255))  # 视频号
     wechat_number = Column(String(255))  # 微信号
     role = Column(String(255))
+
+    _password = db.Column('password', db.String(255), nullable=False)
 
     # 设置访问密码的方法,并用装饰器@property设置为属性,调用时不用加括号
     @property

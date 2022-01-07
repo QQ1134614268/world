@@ -31,7 +31,7 @@ class WorksApi(Resource):
 
     def get(self, _id):
         vo = WorksVO.query.filter(WorksVO.id == _id).first()
-        return res_util.json_success(vo)
+        return res_util.success(vo)
 
     def put(self, _id):
         data = request.get_json()
@@ -67,7 +67,7 @@ class WorksRankListApi(Resource):
     def get(self, _id):
         obj_filter = []
         results = WorksVO.query.filter(*obj_filter).order_by(WorksVO.create_time.desc()).limit(10).all()
-        return jsonify(res_util.success(results))
+        return res_util.success(results)
 
 
 class MarketWorksListApi(Resource):
@@ -108,7 +108,7 @@ class TargetApi(Resource):
 
     def get(self, _id):
         vo = TargetVO.query.filter(TargetVO.id == _id).first()
-        return res_util.json_success(vo)
+        return res_util.success(vo)
 
     def put(self, _id):
         data = request.get_json()
@@ -144,7 +144,7 @@ class TargetRankListApi(Resource):
     def get(self, _id):
         obj_filter = []
         results = TargetVO.query.filter(*obj_filter).order_by(TargetVO.create_time.desc()).limit(10).all()
-        return jsonify(res_util.success(results))
+        return res_util.success(results)
 
 
 class MarketTargetListApi(Resource):

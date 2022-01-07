@@ -17,7 +17,7 @@ class Res:
         vo = obj(**data)
         db.session.add(vo)
         db.session.commit()
-        return jsonify(res_util.success(vo.id))
+        return res_util.success(vo.id)
 
     @staticmethod
     def update(_id, obj, data):
@@ -25,14 +25,14 @@ class Res:
             return ResList.update_list(obj, data)
         obj.query.filter(obj.id == _id).update(data)
         db.session.commit()
-        return jsonify(res_util.success(_id))
+        return res_util.success(_id)
 
     @staticmethod
     def get(_id, obj):
         if not _id:
             return ResList.get_list(obj, request.args)
         vo = obj.query.filter(obj.id == _id).first()
-        return jsonify(res_util.success(vo))
+        return res_util.success(vo)
 
     @staticmethod
     def delete(_id, obj):
@@ -42,7 +42,7 @@ class Res:
         vo = obj.query.filter(obj.id == _id).first()
         db.session.delete(vo)
         db.session.commit()
-        return jsonify(res_util.success())
+        return res_util.success()
 
 
 class ResList:
@@ -52,18 +52,18 @@ class ResList:
         vos = [obj(**data) for data in data_list]
         db.session.add_all(vos)
         db.session.commit()
-        return jsonify(res_util.success())
+        return res_util.success()
 
     @staticmethod
     def update_list(obj, data_list):
         for data in data_list:
             Res.update(data.get("id"), obj, data)
-        return jsonify(res_util.success())
+        return res_util.success()
 
     @staticmethod
     def get_list(obj, data):
         vos = obj.query.filter_by(**data).all()
-        return jsonify(res_util.success(vos))
+        return res_util.success(vos)
 
     @staticmethod
     def delete_list(obj):
@@ -71,4 +71,4 @@ class ResList:
         for vo in vos:
             db.session.delete(vo)
         db.session.commit()
-        return jsonify(res_util.success())
+        return res_util.success()
