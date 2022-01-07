@@ -1,55 +1,31 @@
 <template>
-  <div style="display: flex;">
-    <div style="width: 20rem">
-      <div>
-        <el-button @click="showCtl('a')"> 商品列表</el-button>
-      </div>
-      <div>
-        <el-button @click="showCtl('b')"> 会员列表</el-button>
-      </div>
-    </div>
-    <div style="width: 100%">
-      <div v-if="ctl.a">
+  <div>
+    <el-tabs :tab-position="'left'" style="height: 200px;">
+      <el-tab-pane label="商品列表">
         <Goods></Goods>
-      </div>
-      <div v-if="ctl.b">
-        <el-table :data="memberList">
-
-        </el-table>
-      </div>
-    </div>
+      </el-tab-pane>
+      <el-tab-pane label="会员列表">
+        <Member></Member>
+      </el-tab-pane>
+      <el-tab-pane label="订单列表">
+        <order></order>
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 
 <script>
 import Goods from "@/views/member/Goods";
+import Order from "@/views/member/order";
+import Member from "@/views/member/Member";
 
 export default {
   name: "Store",
-  components: {Goods},
+  components: {Member, Order, Goods},
   data() {
-    return {
-      memberList: [],
-      form: {},
-      tableData: [],
-      ctl: {
-        a: true
-      },
-      store_id: ""
-    };
+    return {};
   },
-  methods: {
-    showCtl(arg) {
-      this.ctl = {}
-      this.ctl[arg] = true
-    },
-    async handleEdit(index, row) {
-      this.showCtl('b')
-      this.form = row
-    },
-  },
-  created() {
-  }
+  methods: {},
 }
 </script>
 

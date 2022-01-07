@@ -1,5 +1,7 @@
 <template>
     <div>
+      店内钱包-- 网吧 todo
+      接入三方支付
       <div v-for="(item,k) in memberList" style="display: flex">
         <div>{{ item.user_id }}</div>
         <div>

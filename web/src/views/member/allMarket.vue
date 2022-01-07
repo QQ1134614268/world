@@ -1,7 +1,7 @@
 <template>
   <div>
-    店内商品
-    <div v-for="(o,index) in tableData " class="p_c_flexbox">
+    平台商品
+    <div v-for="(o,index) in data " class="p_c_flexbox">
       <div style="width: 20rem;">
         <div>
           <img :src="o.img" style="object-fit: cover">
@@ -37,13 +37,11 @@
 </template>
 
 <script>
-import {GoodsApi} from "@/api/api";
-
 export default {
   name: "market",
   data() {
     return {
-      tableData: [],
+      data: [],
       drawer: false,
       order_list: [],
     }
@@ -51,13 +49,9 @@ export default {
   methods: {
     buy() {
     },
-    async init() {
-      let data = {
-        store_id: 1
-      }
-      let response = await this.$get2(GoodsApi, 1, data);
-      this.tableData = response.data.data
-    },
+    init() {
+
+    }
   },
   created() {
     this.init()

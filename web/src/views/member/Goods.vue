@@ -28,10 +28,8 @@
               :show-file-list="false"
               :on-success="handleAvatarSuccess"
               style="width:10rem;  height:10rem ">
-            <!--                          :before-upload="beforeAvatarUpload"-->
-
             <img :key="imageUrl" v-if="imageUrl" :src="FilePathApi+imageUrl" style="width:10rem;
-                 height:10rem ;object-fit: cover"
+                 height:10rem;object-fit: cover"
             >
             <i v-else class="el-icon-plus avatar-uploader-icon" style="width:10rem;  height:10rem "></i>
           </el-upload>
@@ -56,7 +54,7 @@
 </template>
 
 <script>
-import {FileApi, FilePathApi} from '@/api/api';
+import {FileApi, FilePathApi, GoodsApi} from '@/api/api';
 
 export default {
   name: "Goods",
@@ -76,11 +74,10 @@ export default {
       this.imageUrl = res.data;
     },
     async init() {
-      let url = "/api/goods_api/GoodsApi"
       let data = {
         storeId: 1
       }
-      let response = await this.$get2(url, 1, data);
+      let response = await this.$get2(GoodsApi, 1, data);
       this.tableData = response.data.data
     },
     async handleEdit(index, row) {
@@ -88,24 +85,22 @@ export default {
       this.dialogVisible = true
     },
     async handleDelete(index, row) {
-      let url = "api/goods" + "/" + row.id
-      let response = await this.$deleteJson(url);
+      let response = await this.$deleteJson2(GoodsApi,row.id);
       if (response.data.code != 1) {
         return
       }
       this.tableData.splice(index, 1)
     },
     async onSubmit() {
-      let url = "/api/goods_api/GoodsApi"
       this.form.store_id = this.store_id
-      let response = await this.$ppJson(url, this.form.id, this.form);
+      let response = await this.$ppJson(GoodsApi, this.form.id, this.form);
       if (response.data.code != 1) {
         this.$message('操作失败');
       } else {
         this.$message('操作成功');
       }
       this.dialogVisible = false
-      this.init()
+      await this.init()
     },
     cancel() {
 
