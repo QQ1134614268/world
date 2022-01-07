@@ -77,8 +77,6 @@ export default {
     },
   },
   created() {
-    this.getMyAttention()
-    this.getUserAll()
   },
 }
 </script>

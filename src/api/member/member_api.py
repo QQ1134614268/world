@@ -51,7 +51,7 @@ class GoodsApi(Resource):
             query_filter.append(GoodsVO.store_id == request.args.get("store_id"))
 
         vos = GoodsVO.query.filter(*query_filter).all()
-        return res_util.json_success(vos)
+        return res_util.success(vos)
 
     def post(self, _id):
         data = request.get_json()
