@@ -42,7 +42,6 @@ def _handle(data):
 
 
 # todo
-@DeprecationWarning
 def page_success(data="success"):
     return jsonify({
         "code": ExceptionCode.SUCCESS.value,
