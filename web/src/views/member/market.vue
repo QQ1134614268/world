@@ -4,22 +4,22 @@
     <div v-for="(o,index) in tableData " class="p_c_flexbox">
       <div style="width: 20rem;">
         <div>
-          <img :src="o.img" style="object-fit: cover">
+          <img :src="o.images" style="object-fit: cover">
         </div>
         <div>
           <div>
-            价格{{ o.price }}
+            价格{{ o.price }}yaun
           </div>
           <div>
-            介绍
+            {{ o.name }}
           </div>
           <div>
-            <el-button>caozuo</el-button>
+            <el-button @click="">caozuo</el-button>
           </div>
         </div>
       </div>
     </div>
-    <div>
+    <div v-if="order_list.length">
       <el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
         购物车
       </el-button>

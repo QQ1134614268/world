@@ -29,10 +29,6 @@ export default {
     };
   },
   methods: {
-    showCtl(arg = "a") {
-      this.ctl = {}
-      this.ctl[arg] = true
-    },
     async handleDelete(index, row) {
       let url = "api/goods" + "/" + row.id
       let response = await this.$deleteJson(url);
