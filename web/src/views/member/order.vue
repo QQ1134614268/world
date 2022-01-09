@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import {OrderApi} from "@/api/api";
+
 export default {
   name: "order",
   data() {
@@ -19,7 +21,7 @@ export default {
   methods: {
     async init() {
       let data = {}
-      let res = await this.$get2(this.url, 0, data)
+      let res = await this.$get2(OrderApi, 0, data)
       if (res.data.code != 1) {
         this.$message('服务器异常');
         return

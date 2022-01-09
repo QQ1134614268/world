@@ -1,5 +1,6 @@
 <template>
   <div>
+    会员列表
     <div>
       <el-table :data="tableData" style="width: 100%">
         <el-table-column prop="img" label="头像"></el-table-column>
@@ -20,6 +21,8 @@
 
 <script>
 
+import {StoreMemberListApi} from "@/api/api";
+
 export default {
   name: "Member",
   data() {
@@ -29,22 +32,12 @@ export default {
     };
   },
   methods: {
-    async handleDelete(index, row) {
-      let url = "api/goods" + "/" + row.id
-      let response = await this.$deleteJson(url);
-      if (response.data.code != 1) {
-        return
-      }
-      this.tableData.splice(index, 1)
-    },
     async getStoreMember() {
-      let url = "/api/member/StoreMemberListApi"
       let data = {
         store_id: this.store_id,
       }
-      let response = await this.$get(url, data);
+      let response = await this.$get2(StoreMemberListApi, 0, data);
       if (response.data.code != 1) {
-        alert("2")
         return
       }
       this.tableData = response.data.data
@@ -72,7 +65,6 @@ export default {
       } else {
         this.$message("没有该用户")
       }
-
     },
   },
   created() {

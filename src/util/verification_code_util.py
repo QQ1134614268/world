@@ -9,7 +9,7 @@ from PIL import Image, ImageFont, ImageDraw, ImageFilter
 from config.conf import RESOURCE_DIR
 
 
-def rndColor():
+def rnd_color():
     """
     随机颜色
     :return:
@@ -55,7 +55,7 @@ def get_verify_code():
     # 绘制字符串
     for item in range(4):
         draw.text((5 + random.randint(-3, 3) + 23 * item, 5 + random.randint(-3, 3)),
-                  text=code[item], fill=rndColor(), font=font)
+                  text=code[item], fill=rnd_color(), font=font)
     # 划线
     draw_lines(draw, 2, width, height)
     # 高斯模糊

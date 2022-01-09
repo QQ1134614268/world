@@ -5,8 +5,12 @@
       <el-button @click="form={}; dialogVisible=true"> 新增</el-button>
     </div>
     <div>
-      <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="name" label="商品图片" width="180"></el-table-column>
+      <el-table :data="tableData" style="width: 100%;">
+        <el-table-column label="商品图片" width="180">
+          <template slot-scope="scope">
+            <el-image :src="FilePathApi+scope.row.images" style="height: 10rem"></el-image>
+          </template>
+        </el-table-column>
         <el-table-column prop="name" label="商品名" width="180"></el-table-column>
         <el-table-column prop="price" label="商品价格"></el-table-column>
         <el-table-column prop="describe" label="商品描述"></el-table-column>
@@ -77,7 +81,7 @@ export default {
       let data = {
         storeId: 1
       }
-      let response = await this.$get2(GoodsApi, 1, data);
+      let response = await this.$get2(GoodsApi, 0, data);
       this.tableData = response.data.data
     },
     async handleEdit(index, row) {
@@ -85,25 +89,26 @@ export default {
       this.dialogVisible = true
     },
     async handleDelete(index, row) {
-      let response = await this.$deleteJson2(GoodsApi,row.id);
+      let response = await this.$deleteJson2(GoodsApi, row.id);
       if (response.data.code != 1) {
         return
       }
       this.tableData.splice(index, 1)
     },
     async onSubmit() {
+      this.dialogVisible = false
       this.form.store_id = this.store_id
+      this.form.images = this.imageUrl;
       let response = await this.$ppJson(GoodsApi, this.form.id, this.form);
       if (response.data.code != 1) {
         this.$message('操作失败');
       } else {
         this.$message('操作成功');
       }
-      this.dialogVisible = false
       await this.init()
     },
     cancel() {
-
+      this.dialogVisible = false
     }
   },
   created() {

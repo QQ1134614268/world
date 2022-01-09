@@ -123,7 +123,7 @@ class GoodsListApi(Resource):
 
 class OrderApi(Resource):
 
-    def post(self):
+    def post(self, _id):
         data = request.get_json()
         goods = GoodsVO.query.filter(GoodsVO.id.in_([item["id"] for item in data])).all()
         price_dic = {item.id: item.price for item in goods}
@@ -136,6 +136,10 @@ class OrderApi(Resource):
         db.session.add_all(vos)
         db.session.commit()
         return res_util.success()
+
+    def get(self, _id):
+        vo = GoodsVO.query.filter(GoodsVO.id == _id).all()
+        return res_util.success(vo)
 
 
 class OrderListApi(Resource):

@@ -131,5 +131,10 @@ export default {
 .rank_2 {
   color: #ac4d60;
 }
+@media screen and (max-width:480px){
+ .ads {
+   display:none;
+  }
+}
 
 </style>

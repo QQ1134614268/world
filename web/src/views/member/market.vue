@@ -1,10 +1,10 @@
 <template>
   <div>
     店内商品
-    <div v-for="(o,index) in tableData " class="p_c_flexbox">
-      <div style="width: 20rem;">
+    <div class="p_c_flexbox">
+      <div v-for="(o,index) in tableData " style="width: 10rem;">
         <div>
-          <img :src="o.images" style="object-fit: cover">
+          <img :src="FilePathApi+o.images" style="object-fit: cover">
         </div>
         <div>
           <div>
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import {GoodsApi} from "@/api/api";
+import {FilePathApi, GoodsApi} from "@/api/api";
 
 export default {
   name: "market",
@@ -46,6 +46,7 @@ export default {
       tableData: [],
       drawer: false,
       order_list: [],
+      FilePathApi
     }
   },
   methods: {
@@ -55,7 +56,7 @@ export default {
       let data = {
         store_id: 1
       }
-      let response = await this.$get2(GoodsApi, 1, data);
+      let response = await this.$get2(GoodsApi, 0, data);
       this.tableData = response.data.data
     },
   },

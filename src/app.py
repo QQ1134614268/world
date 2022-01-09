@@ -7,9 +7,9 @@ import json
 import socket
 import traceback
 
-from flasgger import Swagger
 from flask import Flask, request
 from flask_cors import CORS
+from flask_migrate import Migrate
 from flask_restful import Api
 
 from api.HelloApi import hello_api
@@ -33,7 +33,7 @@ from api.video.video_api import TargetApi, TargetListApi, MarketTargetListApi, W
     TargetRankListApi, MarketWorksListApi
 from api.worker.work_api import WorkerApi, WorkerTimeApi, WorkerExcelApi, WorkTimeAnalyseApi, \
     work_time_analyse_api
-from config.conf import DEBUG, MAIL_TO, DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME, VERSION
+from config.conf import DEBUG, MAIL_TO, VERSION, SQLALCHEMY_DATABASE_URI
 from config.conf import MAIL_HOST_BLOCK_LIST
 from config.exception import WorldException
 from config.json_config import JSONEncoder
@@ -43,14 +43,14 @@ from util import res_util
 from util import socket_util
 from util.log_util import logger
 
+migrate = Migrate()
+
 app = Flask(__name__)
+
 api2 = Api(app)
 # 跨域
 CORS(app, supports_credentials=True)
-# swagger
-Swagger(app)
 
-SQLALCHEMY_DATABASE_URI = '{}+{}://{}:{}@{}:{}/{}'.format(DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME)
 app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
 app.config["SECRET_KEY"] = "session_key_world"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
@@ -65,6 +65,14 @@ app.config['JSON_AS_ASCII'] = False
 app.config.update(RESTFUL_JSON=dict(ensure_ascii=False))
 db.init_app(app)
 app.json_encoder = JSONEncoder
+
+# E:/world/venv/Scripts/flask db init
+# E:/world/venv/Scripts/flask db migrate
+# E:/world/venv/Scripts/flask db upgrade
+#
+# D:/workspace/world/venv/Scripts/flask db migrate
+# D:/workspace/world/venv/Scripts/flask db upgrade
+migrate.init_app(app, db)
 
 
 @app.before_request
@@ -218,7 +226,7 @@ api2.add_resource(StoreApi, "/api/member/StoreApi", "/api/member/StoreApi/<int:_
 api2.add_resource(StoreListApi, "/api/member/StoreListApi")
 api2.add_resource(StoreMemberApi, "/api/member/StoreMemberApi")
 api2.add_resource(StoreMemberListApi, "/api/member/StoreMemberListApi")
-api2.add_resource(OrderApi, "/api/member/OrderApi")
+api2.add_resource(OrderApi, "/api/member/OrderApi/<int:_id>")
 api2.add_resource(OrderListApi, "/api/member/OrderListApi")
 
 # 钱包

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <el-tabs :tab-position="'left'" style="height: 200px;">
+    <el-tabs :tab-position="'left'" >
       <el-tab-pane label="商品列表">
-        <Goods></Goods>
+        <Goods ></Goods>
       </el-tab-pane>
       <el-tab-pane label="会员列表">
         <Member></Member>

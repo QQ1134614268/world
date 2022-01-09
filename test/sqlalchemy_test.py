@@ -7,7 +7,7 @@ from sqlalchemy import Column, String, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-engine = create_engine('mysql+mysqlconnector://wg:123456@localhost:3306/test')
+engine = create_engine('mysql+mysqlconnector://root:123456@localhost:3306/test')
 Base = declarative_base()
 
 DBSession = sessionmaker(bind=engine)

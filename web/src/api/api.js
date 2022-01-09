@@ -39,3 +39,5 @@ export const TargetRankListApi = "/api/video_api/TargetRankListApi"
 
 // 会员
 export const GoodsApi = "/api/goods_api/GoodsApi"
+export const OrderApi = "/api/member/OrderApi"
+export const StoreMemberListApi = "/api/member/StoreMemberListApi"

@@ -70,24 +70,26 @@ Axios.interceptors.response.use(
         if (response.status === 200) {
             if (response.data.code === 1) {
                 return Promise.resolve(response);
-            } else if (response.data.code === 2) {
+            }
+            if (response.data.code === 2) {
                 Vue.prototype.$message.error(response.data.data)
-                return Promise.reject(response);
-            } else if (response.data.code === 4) {
+                return Promise.resolve(response);
+            }
+            if (response.data.code === 4) {
                 Vue.prototype.$message.error(response.data.data)
-                return Promise.reject(response);
-            } else if (response.data.code === 8) {
+                return Promise.resolve(response);
+            }
+            if (response.data.code === 8) {
                 Vue.prototype.$message.error('登录已过期，请重新登录')
                 router.replace(SYS_LOGIN_URL + "?from=" + router.currentRoute.fullPath).then(r => {
                     return r
                 })
                 return Promise.reject(response);
-            } else {
-                return Promise.resolve(response);
             }
-        } else {
-            return Promise.reject(response);
+
+            return Promise.resolve(response);
         }
+        return Promise.reject(response);
     },
     error => {
         // 响应错误处理

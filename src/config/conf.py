@@ -48,6 +48,7 @@ HOST = "127.0.0.1"  # 本地 dev
 # HOST = "ggok.top"  # 生产 ggok.top
 PORT = 3306
 DBNAME = "world"
+SQLALCHEMY_DATABASE_URI = '{}+{}://{}:{}@{}:{}/{}'.format(DIALCT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DBNAME)
 
 MONGO_HOST = "127.0.0.1"
 MONGO_PORT = 27017
