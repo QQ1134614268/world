@@ -15,6 +15,8 @@ export const VideoUrl = "/video/video"
 export const TargetInfoUrl = "/video/TargetInfo"
 export const WorksUrl = "/video/works"
 export const UserInfoUrl = "/video/UserInfo"
+export const VideoRegisterUrl = "/video/register"
+export const VideoLoginUrl = "/video/Login"
 
 //店铺
 export const MemberRootUrl = "/member/Store"

@@ -3,18 +3,92 @@
 @Time: 2021/3/6
 @Description:
 """
+import random
+import string
 
-from flask import jsonify
 from flask import request
 from flask_restful import Resource
-from sqlalchemy import or_
+from sqlalchemy import or_, insert
 
 from config.mysql_db import db
 from service.auth_service import set_model_user_id
+from service.user_service import get_id_by_token
 from util import res_util
 from util.video_util import get_first_frame_loc
 from vo.table_model import UserVO
-from vo.video_model import WorksVO, TargetVO
+from vo.video_model import WorksVO, TargetVO, InvitationCodeVO
+
+
+class InvitationCodeApi(Resource):
+    """
+    邀请码
+    """
+
+    def post(self, _id):
+        user_id = get_id_by_token()
+        data = {
+            "user_id": get_id_by_token()
+        }
+        user = UserVO.query.filter(UserVO.id == get_id_by_token()).first()
+        if user.role not in ["ADMIN", "SYS_ADMIN", ]:
+            return res_util.fail("权限不足!")
+        data['code'] = self.activation_code(user.id)
+        insert_stmt = insert(InvitationCodeVO).values(data)
+        on_duplicate_key_stmt = insert_stmt.on_duplicate_key_update(
+            user_id=insert_stmt.inserted.user_id,
+            code=insert_stmt.inserted.code,
+        )
+        db.session.execute(on_duplicate_key_stmt)
+        db.session.commit()
+        return res_util.success()
+
+    def put(self, _id):
+        user_id = get_id_by_token()
+        vo = InvitationCodeVO.query.filter(InvitationCodeVO.user_id == user_id).first()
+        vo.code = self.activation_code(vo.id)
+        db.session.commit()
+        return res_util.success(vo.id)
+
+    def get(self, _id):
+        user_id = get_id_by_token()
+        vo = InvitationCodeVO.query.filter(InvitationCodeVO.user_id == user_id).first()
+        return res_util.json_success(vo)
+
+    @staticmethod
+    def activation_code(_id, length=10):
+        """
+        id + L + 随机码
+        string模块中的3个函数：string.letters，string.printable，string.printable
+        """
+        prefix = hex(_id)[2:] + 'L'
+        length = length - len(prefix)
+        chars = string.ascii_letters + string.digits
+        return prefix + ''.join([random.choice(chars) for i in range(length)])
+
+
+class VideoUserApi(Resource):
+
+    def post(self, _id):
+        data = request.get_json()
+        code = data.pop("code")
+        code_vo = InvitationCodeVO.query.filter(InvitationCodeVO.code == code).first()
+        if not code_vo:
+            return res_util.fail("邀请码不正确!")
+        vo = UserVO(**data)
+        db.session.add(vo)
+        code_vo.code = ""
+        db.session.commit()
+        return res_util.success(vo.id)
+
+    def get(self, _id):
+        vo = UserVO.query.filter(UserVO.id == _id).first()
+        return vo
+
+    def put(self, _id):
+        data = request.get_json()
+        UserVO.query.filter(UserVO.id == _id).update(data)
+        db.session.commit()
+        return res_util.success(_id)
 
 
 class WorksApi(Resource):

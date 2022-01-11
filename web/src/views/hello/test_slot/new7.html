@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Slot</title>
+    <style type="text/css">
+        .panel {
+            width: 400px;
+            border: 1px solid #ccc;
+        }
+
+        .panel > * {
+            padding: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .footer {
+            border: none;
+        }
+
+        div {
+            display: flex;
+        }
+        /*工具*/
+        div {
+            border: red solid 1px;
+            display: flex;
+        }
+
+        body {
+            border: red solid 1px;
+            min-height: 100%;
+            display: flex;
+        }
+
+        html {
+            border: red solid 1px;
+            min-height: 100%;
+            display: flex;
+        }
+
+    </style>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body style="min-height: 100%">
+<div id="app" style="min-height: 100%">
+    1
+    <div style="min-height: 100%">
+        2
+    </div>
+</div>
+
+<template id="child">
+    <div>
+        <div class="panel">
+            <div class="title">这是标题</div>
+            <div class="content">
+                <slot name="content" :data="msg"></slot>
+            </div>
+            <div class="footer">这是页脚</div>
+        </div>
+    </div>
+</template>
+</body>
+<script type="text/javascript">
+    new Vue({
+        el: "#app",
+        data: {},
+        components: {
+            Child: {
+                template: "#child",
+                data() {
+                    return {
+                        msg: "这是Child内容 这是Child内容 这是Child内容"
+                    }
+                }
+            }
+        }
+    })
+</script>
+</html>
+

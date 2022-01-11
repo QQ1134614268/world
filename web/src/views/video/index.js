@@ -19,6 +19,14 @@ export const routes = [
                 name: 'Video',
                 component: () => import('@/views/video/expert/Video'),
             }, {
+                path: 'Register',
+                name: 'Register',
+                component: () => import('@/views/video/Register'),
+            }, {
+                path: 'Login',
+                name: 'Login',
+                component: () => import('@/views/video/Login'),
+            }, {
                 path: 'UserInfo2',
                 name: 'UserInfo2',
                 component: () => import('@/views/video/sponsor/UserInfo2'),

@@ -9,6 +9,13 @@ from service.user_service import get_id_by_token
 from vo.table_model import BaseTable
 
 
+class InvitationCodeVO(BaseTable):
+    __tablename__ = 'invitation_code_t'
+    user_id = Column(Integer)
+    code = Column(String(255))
+    invitation_user_id = Column(Integer)
+
+
 class WorksVO(BaseTable):
     __tablename__ = 'works_t'
     user_id = Column(Integer, index=True)

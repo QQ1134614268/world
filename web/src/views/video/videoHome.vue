@@ -20,7 +20,7 @@
               <a type="primary" :href="'/video/video_user?user_id='+user.id">用户空间</a>
             </el-dropdown-item>
             <el-dropdown-item>
-              <a type="primary" href="/video/works">我的作品</a>
+              <a type="primary" :href=WorksUrl>我的作品</a>
             </el-dropdown-item>
             <el-dropdown-item>
               <a type="primary" href="/video/Target">我的发布</a>
@@ -29,9 +29,9 @@
         </el-dropdown>
       </div>
       <div v-else>
-        <router-link tag="a" :to=SYS_LOGIN_URL> 登陆</router-link>
+        <router-link tag="a" :to=VideoLoginUrl> 登陆</router-link>
         |
-        <router-link tag="a" :to=SYS_REGISTER_URL> 注册</router-link>
+        <router-link tag="a" :to=VideoRegisterUrl> 注册</router-link>
       </div>
     </div>
 
@@ -51,7 +51,7 @@
 <script>
 import jwt_decode from 'jwt-decode';
 import {userLogout} from "@/api/user";
-import {SYS_LOGIN_URL, SYS_REGISTER_URL} from "@/api/routerUrl";
+import {VideoLoginUrl, VideoRegisterUrl, WorksUrl} from "@/api/routerUrl";
 import {FilePathApi} from "@/api/api";
 
 export default {
@@ -59,8 +59,9 @@ export default {
   data() {
     return {
       FilePathApi,
-      SYS_LOGIN_URL,
-      SYS_REGISTER_URL
+      VideoLoginUrl,
+      VideoRegisterUrl,
+      WorksUrl
     }
   },
   computed: {
