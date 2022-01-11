@@ -134,7 +134,7 @@ class WorksListApi(Resource):
         page_item = WorksVO.query.filter(*obj_filter).order_by(WorksVO.create_time.desc()).paginate(
             page=page, per_page=page_size)
 
-        return res_util.page_success(page_item)
+        return res_util.success(page_item)
 
 
 class WorksRankListApi(Resource):
@@ -168,7 +168,7 @@ class MarketWorksListApi(Resource):
             UserVO.username,
         ).paginate(page=page, per_page=page_size)
         page_item.items = [dict(zip(item.keys(), item)) for item in page_item.items]
-        return res_util.page_success(page_item)
+        return res_util.success(page_item)
 
 
 class TargetApi(Resource):
@@ -210,7 +210,7 @@ class TargetListApi(Resource):
         if user_id:
             obj_filter.append(TargetVO.user_id == user_id)
         page_item = TargetVO.query.filter(*obj_filter).paginate(page=page, per_page=page_size)
-        return res_util.page_success(page_item)
+        return res_util.success(page_item)
 
 
 class TargetRankListApi(Resource):
@@ -250,4 +250,4 @@ class MarketTargetListApi(Resource):
             UserVO.username,
         ).paginate(page=page, per_page=page_size)
         page_item.items = [dict(zip(item.keys(), item)) for item in page_item.items]
-        return res_util.page_success(page_item)
+        return res_util.success(page_item)

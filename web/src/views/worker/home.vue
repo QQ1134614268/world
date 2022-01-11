@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="p_c_HolyGrail-body">
     <div class="p_c_box-flex_row-center " style="height: 10rem">
       <div style="flex: 1" class="p_c_box-flex_row-center title2">工时系统</div>
       <div class="p_c_flexbox_row" style="width: 20rem">

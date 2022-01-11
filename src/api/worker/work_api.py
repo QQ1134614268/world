@@ -88,7 +88,7 @@ class WorkerApi(Resource):
         if request.args.get("endDate"):
             query_build.append(WorkerVO.start_time <= request.args.get("endDate"))
         vos = WorkerVO.query.filter(*query_build).paginate(page=page, per_page=page_size)
-        return res_util.page_success(vos)
+        return res_util.success(vos)
 
     def put(self, _id):
         data = request.get_json()

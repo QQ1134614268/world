@@ -22,5 +22,5 @@ class LogApi(Resource):
         ).order_by(
             LogVO.create_time.desc()
         ).paginate(page=page, per_page=page_size)
-        return res_util.page_success(vos)
+        return res_util.success(vos)
 

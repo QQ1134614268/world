@@ -4,7 +4,6 @@
     <div class="body">111</div>
     <footer>备案号:xxx</footer>
   </div>
-
 </template>
 
 <script>
@@ -14,10 +13,11 @@ export default {
 </script>
 
 <style scoped>
-.body2{
+.body2 {
   flex-direction: column;
-    flex: 1;
+  flex: 1;
 }
+
 .body {
   flex: 1;
 }

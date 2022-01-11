@@ -1,5 +1,5 @@
 <template>
-  <div style="min-height: 100%">
+  <div class="p_c_HolyGrail-body">
     <div id="header" class="p_c_box-flex_center">
       <div class="p_c_box-flex_center">
         <router-link to="/member">会员系统</router-link>
@@ -38,7 +38,7 @@ import {SYS_LOGIN_URL, SYS_REGISTER_URL} from "@/api/routerUrl";
 import {FilePathApi} from "@/api/api";
 
 export default {
-  name: "App",
+  name: "home",
   data() {
     return {
       FilePathApi,

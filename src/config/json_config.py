@@ -29,6 +29,13 @@ class JSONEncoder(_json.JSONEncoder):
             if "_sa_instance_state" in dic:
                 del dic["_sa_instance_state"]
             return dic
+        # if isinstance(o, Pagination):
+        #     return {
+        #         "data": o.items,
+        #         "total": o.total,
+        #         "page": o.page,
+        #         "page_size": o.per_page,
+        #     }
         if isinstance(o, datetime):
             return o.strftime(DATE_TIME_FORMAT)
         if isinstance(o, date):

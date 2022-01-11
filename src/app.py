@@ -222,12 +222,12 @@ app.register_blueprint(prove_api)
 api2.add_resource(ProveApi, "/api/model_api/ProveApi/<int:_id>")
 api2.add_resource(StoryApi, "/api/model_api/StoryApi/<int:_id>")
 # 会员
-api2.add_resource(StoreApi, "/api/member/StoreApi", "/api/member/StoreApi/<int:_id>")
-api2.add_resource(StoreListApi, "/api/member/StoreListApi")
-api2.add_resource(StoreMemberApi, "/api/member/StoreMemberApi")
-api2.add_resource(StoreMemberListApi, "/api/member/StoreMemberListApi")
+api2.add_resource(StoreApi,  "/api/member/StoreApi/<int:_id>")
+api2.add_resource(StoreListApi, "/api/member/StoreListApi/<int:_id>")
+api2.add_resource(StoreMemberApi, "/api/member/StoreMemberApi/<int:_id>")
+api2.add_resource(StoreMemberListApi, "/api/member/StoreMemberListApi/<int:_id>")
 api2.add_resource(OrderApi, "/api/member/OrderApi/<int:_id>")
-api2.add_resource(OrderListApi, "/api/member/OrderListApi")
+api2.add_resource(OrderListApi, "/api/member/OrderListApi/<int:_id>")
 
 # 钱包
 api2.add_resource(WalletApi, "/api/member/WalletApi")

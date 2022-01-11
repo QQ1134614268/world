@@ -1,12 +1,12 @@
 <template>
-  <div style="min-height: 100%">
+  <div class="p_c_HolyGrail-body">
     <div class="p_c_box-flex_row-center " style="height: 10rem">
       <div style="flex: 1" class="p_c_box-flex_row-center">真实之树</div>
-      <div class="p_c_flexbox_row p_c_test_border" style="width: 20rem" >
+      <div class="p_c_flexbox_row p_c_test_border" style="width: 20rem">
         <TreeUserIcon></TreeUserIcon>
       </div>
     </div>
-    <div id="body">
+    <div class="p_c_HolyGrail-body">
       <router-view/>
       <!--      <router-view  name="tree"/>-->
     </div>

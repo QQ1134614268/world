@@ -8,7 +8,7 @@
         </div>
         <div>
           <div>
-            价格{{ o.price }}yaun
+            价格: {{ o.price }} 元
           </div>
           <div>
             {{ o.name }}

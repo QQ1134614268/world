@@ -20,6 +20,11 @@ let routes = [
         name: '/Home2',
         component: () => import('@/views/Home2'),
     },
+    {
+        path: '/HolyGrail',
+        name: '/HolyGrail',
+        component: () => import('@/views/HolyGrail'),
+    },
 ]
 
 const router = new VueRouter({

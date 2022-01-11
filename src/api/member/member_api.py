@@ -101,7 +101,7 @@ class StoreMemberApi(Resource):
 
 class StoreMemberListApi(Resource):
 
-    def get(self):
+    def get(self, _id):
         query = [StoreMemberTable.store_id == request.args.get("store_id")]
         vos = UserVO.query.outerjoin(StoreMemberTable, UserVO.id == StoreMemberTable.user_id).filter(*query).all()
         return res_util.success(vos)

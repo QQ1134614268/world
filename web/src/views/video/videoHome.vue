@@ -1,5 +1,5 @@
 <template>
-  <div style="min-height: 100%">
+  <div class="p_c_HolyGrail-body">
     <div id="header" class="p_c_box-flex_center">
       <div class="p_c_box-flex_center">
         <a href="/">
@@ -35,7 +35,7 @@
       </div>
     </div>
 
-    <div id="body">
+    <div id="body" class="p_c_HolyGrail-body">
       <router-view/>
     </div>
     <div id="footer">
@@ -94,7 +94,6 @@ export default {
 
 #footer {
   text-align: center;
-  height: 10%;
 }
 
 @keyframes blink {
