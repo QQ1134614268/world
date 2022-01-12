@@ -137,7 +137,7 @@ class WorkerTimeApi(Resource):
             WorkerTimeVO.afternoon,
             WorkerTimeVO.night,
         ).filter(*query_filter).paginate(page=page, per_page=page_size)
-        return res_util.page_success_row(res)
+        return res_util.success(res)
 
     def put(self, _id):
         data = request.get_json()

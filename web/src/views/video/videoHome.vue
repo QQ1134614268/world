@@ -25,6 +25,9 @@
             <el-dropdown-item>
               <a type="primary" href="/video/Target">我的发布</a>
             </el-dropdown-item>
+            <el-dropdown-item>
+              <a type="primary" href="/video/InvitationCode" v-if="INVITATION_CODE">我的邀请码</a>
+            </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -61,7 +64,8 @@ export default {
       FilePathApi,
       VideoLoginUrl,
       VideoRegisterUrl,
-      WorksUrl
+      WorksUrl,
+      INVITATION_CODE:""
     }
   },
   computed: {

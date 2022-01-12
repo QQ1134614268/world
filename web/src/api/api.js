@@ -1,6 +1,7 @@
 // sys
 export const FilePathApi = "/api/file/FileApi2?path="
 export const FileApi = "/api/file/FileApi2"
+export const PermissionApi = "/api/user_api/PermissionApi"
 
 //工时系统
 export const LogApi = "/api/log_api/LogApi"
@@ -43,3 +44,4 @@ export const VideoUserLoginApi = "/api/video_api/VideoUserLoginApi"
 export const GoodsApi = "/api/goods_api/GoodsApi"
 export const OrderApi = "/api/member/OrderApi"
 export const StoreMemberListApi = "/api/member/StoreMemberListApi"
+

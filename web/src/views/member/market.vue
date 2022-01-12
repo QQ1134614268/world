@@ -1,9 +1,9 @@
 <template>
   <div>
-    店内商品
+    <div>店内商品</div>
     <div class="p_c_flexbox">
-      <div v-for="(o,index) in tableData " style="width: 10rem;">
-        <div>
+      <div v-for="(o,index) in tableData " class="col-1 p_c_test_border card">
+        <div class="p_c_test_border">
           <img :src="FilePathApi+o.images" style="object-fit: cover">
         </div>
         <div>
@@ -14,7 +14,8 @@
             {{ o.name }}
           </div>
           <div>
-            <el-button @click="">caozuo</el-button>
+            <el-input-number v-model="o.num" @change="handleChange(o)" :min="1" :max="10" size="small"
+                             label="描述文字"></el-input-number>
           </div>
         </div>
       </div>
@@ -43,14 +44,23 @@ export default {
   name: "market",
   data() {
     return {
+      num: 0,
       tableData: [],
       drawer: false,
       order_list: [],
+      orderMap: {},
       FilePathApi
     }
   },
   methods: {
     buy() {
+    },
+    handleChange(goodObj) {
+      this.orderMap[goodObj.id] = goodObj
+      this.order_list=[]
+      for (let i in this.orderMap) {
+        this.order_list.push(this.orderMap[i])
+      }
     },
     async init() {
       let data = {
@@ -67,5 +77,15 @@ export default {
 </script>
 
 <style scoped>
+@media (max-width: 768px) {
+  .card {
+    width: 100%;
+  }
+}
 
+@media (min-width: 768px) {
+  .card {
+    width: 8.3%;
+  }
+}
 </style>

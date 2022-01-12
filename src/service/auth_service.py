@@ -5,10 +5,9 @@
 """
 from functools import wraps
 
-from config.exception import WorldException
 from service import user_service
 from util.log_util import logger
-from vo.table_model import UserVO
+from vo.table_model import UserVO, UserRoleVO, RolePermissionVO
 
 
 def get_curr_user():
@@ -28,14 +27,24 @@ def get_curr_user_permission():
     return user_vo
 
 
-def permission_required(permission):
-    '''定义装饰器@permission_required(permission)'''
+def has_permission(permission):
+    user_id = get_curr_user()
+    db_permission = UserVO.query.outerjoin(
+        UserRoleVO, UserVO.id == UserRoleVO.user_id
+    ).outjoin(
+        RolePermissionVO, UserRoleVO, id == RolePermissionVO.role_id
+    ).filter(UserVO.id == user_id, RolePermissionVO.id == permission).first()
+    if db_permission:
+        return True
+    return False
 
+
+def permission_required(permission):
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
-            if permission not in get_curr_user_permission():
-                raise WorldException("无权限")
+            # if not has_permission(permission):
+            #     raise WorldException("无权限")
             return f(*args, **kwargs)
 
         return decorated_function

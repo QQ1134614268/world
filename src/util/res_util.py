@@ -20,6 +20,12 @@ def success(data="success"):
             "code": ExceptionCode.SUCCESS.value,
             "data": data._asdict(),
         })
+
+    if str(type(data)) == 'sqlalchemy.util._collections.result':
+        return jsonify({
+            "code": ExceptionCode.SUCCESS.value,
+            "data": data._asdict(),
+        })
     return jsonify({
         "code": ExceptionCode.SUCCESS.value,
         "data": data,

@@ -10,6 +10,7 @@ import uuid
 from datetime import date, datetime
 
 from itsdangerous import json as _json
+from sqlalchemy.engine import Row
 
 from config.conf import DATE_FORMAT, DATE_TIME_FORMAT
 from config.mysql_db import db
@@ -29,6 +30,8 @@ class JSONEncoder(_json.JSONEncoder):
             if "_sa_instance_state" in dic:
                 del dic["_sa_instance_state"]
             return dic
+        if isinstance(o, Row):
+            return dict(o)
         # if isinstance(o, Pagination):
         #     return {
         #         "data": o.items,

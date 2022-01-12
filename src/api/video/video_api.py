@@ -10,8 +10,9 @@ from flask import request
 from flask_restful import Resource
 from sqlalchemy import or_, insert
 
+from config.enum_conf import Permission
 from config.mysql_db import db
-from service.auth_service import set_model_user_id
+from service.auth_service import set_model_user_id, permission_required
 from service.user_service import get_id_by_token
 from util import res_util
 from util.video_util import get_first_frame_loc
@@ -24,15 +25,9 @@ class InvitationCodeApi(Resource):
     邀请码
     """
 
+    @permission_required(Permission.INVITATION_CODE.name)
     def post(self, _id):
-        user_id = get_id_by_token()
-        data = {
-            "user_id": get_id_by_token()
-        }
-        user = UserVO.query.filter(UserVO.id == get_id_by_token()).first()
-        if user.role not in ["ADMIN", "SYS_ADMIN", ]:
-            return res_util.fail("权限不足!")
-        data['code'] = self.activation_code(user.id)
+        data = {"user_id": get_id_by_token(), 'code': self.activation_code(get_id_by_token())}
         insert_stmt = insert(InvitationCodeVO).values(data)
         on_duplicate_key_stmt = insert_stmt.on_duplicate_key_update(
             user_id=insert_stmt.inserted.user_id,

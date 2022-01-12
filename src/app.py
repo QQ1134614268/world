@@ -27,6 +27,7 @@ from api.sys.log_api import LogApi
 from api.sys.scheduler.APScheduler import scheduler
 from api.sys.scheduler.SchedulerApi import scheduler_api
 from api.tree.tree_api import UploadDataApi, prove_api, ProveApi, StoryApi
+from api.user.permission_api import PermissionApi
 from api.user.user_api import user_api, UserApi
 from api.user.wallet.wallet_api import WalletApi
 from api.video.video_api import TargetApi, TargetListApi, MarketTargetListApi, WorksApi, WorksListApi, WorksRankListApi, \
@@ -215,6 +216,7 @@ api2.add_resource(AllApi, "/api/video_api/AllApi/<int:_id>")
 # 用户
 app.register_blueprint(user_api)
 api2.add_resource(UserApi, "/api/user_api/UserApi/<int:_id>")
+api2.add_resource(PermissionApi, "/api/user_api/PermissionApi/<int:_id>")
 
 # model
 api2.add_resource(UploadDataApi, "/api/model_api/UploadDataApi/<int:_id>")

@@ -19,7 +19,7 @@ export const VideoRegisterUrl = "/video/register"
 export const VideoLoginUrl = "/video/Login"
 
 //店铺
-export const MemberRootUrl = "/member/Store"
+export const MemberRootUrl = "/member"
 //测试
 export const HelloRootUrl = "/hello"
 //消息

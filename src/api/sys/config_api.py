@@ -13,7 +13,6 @@ from vo.table_model import EnumConfig
 
 
 class ConfigApi(Resource):
-    """工时"""
 
     def get(self, _id):
         parent_code = request.args.get("parent_code", '-1')
@@ -47,3 +46,10 @@ class ConfigApi(Resource):
         EnumConfig.query.filter(EnumConfig.id == _id).delete()
         db.session.commit()
         return res_util.success(_id)
+
+
+class ConfigListApi(Resource):
+
+    def get(self, _id):
+        return res_util.success()
+

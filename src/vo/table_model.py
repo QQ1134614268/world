@@ -5,9 +5,7 @@
 """
 import datetime
 
-from flask_restful import fields
-from sqlalchemy import Column, Text, String, Integer, Boolean, DateTime, Sequence, \
-    UniqueConstraint
+from sqlalchemy import Column, Text, String, Integer, Boolean, DateTime, Sequence, UniqueConstraint
 
 from config.mysql_db import db
 from util.password_util import get_sha256_salt_password
@@ -95,23 +93,19 @@ class UserVO(BaseTable):
             return True
         return False
 
-    @staticmethod
-    def get_video_user_field():
-        return {
-            'id': fields.Integer,
-            'avatar': fields.String,
-            "username": fields.String,
-            "describe": fields.String,
-            "id_card": fields.String,
-            "business_license": fields.String,
-            "brand": fields.String,
-            "resume": fields.String,
-            "phone": fields.String,
-            "tiktok_number": fields.String,
-            "video_number": fields.String,
-            "wechat_number": fields.String,
-            "role": fields.String,
-        }
+
+# todo 角色,权限 -- 使用枚举表
+# 角色 菜单
+class UserRoleVO(BaseTable):
+    __tablename__ = 'user_role_t'
+    user_id = Column(String(128))
+    role = Column(String(128))
+
+
+class RolePermissionVO(BaseTable):
+    __tablename__ = 'role_permission_t'
+    permission = Column(String(128))
+    role_id = Column(String(128))
 
 
 class AnnouncementVO(BaseTable):

@@ -6,7 +6,7 @@ import service.user_service
 from config.mysql_db import db
 from config.redis_db import redisDB
 from service import log_table_service
-from util import res_util, verification_code_util
+from util import res_util, verification_code_util, db_util
 from vo.table_model import UserVO
 
 user_api = Blueprint("user", __name__, url_prefix='/api/user_api')
