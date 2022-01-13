@@ -37,7 +37,7 @@ from api.worker.work_api import WorkerApi, WorkerTimeApi, WorkerExcelApi, WorkTi
 from config.conf import DEBUG, MAIL_TO, VERSION, SQLALCHEMY_DATABASE_URI
 from config.conf import MAIL_HOST_BLOCK_LIST
 from config.exception import WorldException
-from config.json_config import JSONEncoder, MyJSONEncoder
+from config.json_config import MyJSONEncoder
 from config.mysql_db import db
 from util import mail_util
 from util import res_util
@@ -91,6 +91,10 @@ def before_request():
         "User-Agent": user_agent,
         "action": "before_request"
     })
+    # 校验系统权限 -> 子网关
+
+    # 校验登录
+
     # # 需登录api, 没有登录 登录校验
     # allow_path=[]
     # if url_path not in [] and not check_token():
@@ -224,7 +228,7 @@ app.register_blueprint(prove_api)
 api2.add_resource(ProveApi, "/api/model_api/ProveApi/<int:_id>")
 api2.add_resource(StoryApi, "/api/model_api/StoryApi/<int:_id>")
 # 会员
-api2.add_resource(StoreApi,  "/api/member/StoreApi/<int:_id>")
+api2.add_resource(StoreApi, "/api/member/StoreApi/<int:_id>")
 api2.add_resource(StoreListApi, "/api/member/StoreListApi/<int:_id>")
 api2.add_resource(StoreMemberApi, "/api/member/StoreMemberApi/<int:_id>")
 api2.add_resource(StoreMemberListApi, "/api/member/StoreMemberListApi/<int:_id>")

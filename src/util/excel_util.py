@@ -12,6 +12,7 @@ from config.conf import LOG_DIR, RESOURCE_DIR, DATE_FORMAT
 from config.exception import WorldException
 from config.mysql_db import db
 from util import time_util
+# todo 优化整体
 
 
 class Convert:
@@ -61,7 +62,6 @@ class StrConvert(Convert):
         return str(value)
 
 
-# todo 重要
 class Field:
     def __init__(self, convert_handle: Convert, nullable=False, max_length=20, comment="姓名", index=None):
         self.convert_handle = convert_handle

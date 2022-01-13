@@ -12,8 +12,4 @@ class PermissionApi(Resource):
         permission = request.args.get('permission')
         if permission:
             return res_util.success(has_permission(permission))
-        # todo permission
         return res_util.success(False)
-
-    def post(self, _id):
-        return res_util.success(True)
