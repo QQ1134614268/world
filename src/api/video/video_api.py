@@ -42,10 +42,6 @@ class InvitationCodeApi(Resource):
             "code": code,
             "user_id": user_id
         }
-        # sql = insert(InvitationCodeVO).values(data).on_duplicate_key_update(
-        #     name=insert_stmt.inserted.name,
-        #     address=insert_stmt.inserted.uid,
-        # )
         db.session.add(InvitationCodeVO(**data))
         db.session.commit()
         return res_util.success(code)
