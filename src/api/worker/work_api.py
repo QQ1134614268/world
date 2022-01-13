@@ -8,7 +8,7 @@ from io import BytesIO
 
 from flask import request, Blueprint
 from flask_restful import Resource
-from sqlalchemy import and_, func
+from sqlalchemy import and_, func, asc, desc
 from sqlalchemy.dialects.mysql import insert
 
 from config.conf import DATE_FORMAT
@@ -18,8 +18,8 @@ from util import res_util, db_util, time_util
 from util.db_util import row_to_dic
 from util.dowmload_util import down_response
 from util.excel_util import ExcelHandler, check_excel_type
-from vo.worker_model import WorkerVO, WorkerTimeVO
 from vo.value_object import WorkerExcelVO
+from vo.worker_model import WorkerVO, WorkerTimeVO
 
 work_time_analyse_api = Blueprint("WorkTimeAnalyseApi", __name__, url_prefix='/api/work_api/WorkTimeAnalyseApi')
 
@@ -87,7 +87,13 @@ class WorkerApi(Resource):
             query_build.append(WorkerVO.start_time >= request.args.get("startDate"))
         if request.args.get("endDate"):
             query_build.append(WorkerVO.start_time <= request.args.get("endDate"))
-        vos = WorkerVO.query.filter(*query_build).paginate(page=page, per_page=page_size)
+        query = WorkerVO.query.filter(*query_build)
+        if request.args.get("sortBy"):
+            if request.args.get("order") == "descending":
+                query = query.order_by(asc(request.args.get("sortBy")))
+            if request.args.get("order") == "ascending":
+                query = query.order_by(desc(request.args.get("sortBy")))
+        vos = query.paginate(page=page, per_page=page_size)
         return res_util.success(vos)
 
     def put(self, _id):
@@ -176,9 +182,9 @@ class WorkTimeAnalyseApi(Resource):
     @work_time_analyse_api.route('/get_sum_time/<int:_id>', methods=['GET'])
     def get_sum_time(_id):
         query_filter = [WorkerVO.belong == get_id_by_token()]
-        date = request.args.getlist("date[]")
+        date_list = request.args.getlist("date[]")
         if date:
-            query_filter.extend([WorkerTimeVO.date >= date[0], WorkerTimeVO.date < date[1]])
+            query_filter.extend([WorkerTimeVO.date >= date_list[0], WorkerTimeVO.date < date_list[1]])
         name = request.args.get("name")
         if name:
             query_filter.append(WorkerVO.name.contains(name))

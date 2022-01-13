@@ -5,18 +5,10 @@
 """
 from flask import request
 from flask_restful import Resource
-from flask_restful import fields, marshal
 
 from service import wallet_service
 from util import res_util
 from vo.member_model import WalletVO
-
-# todo
-wallet_field = {
-    "id": fields.Integer,
-    "store_id": fields.Integer,
-    "user_id": fields.Integer,
-}
 
 
 class WalletApi(Resource):
@@ -29,7 +21,7 @@ class WalletApi(Resource):
     def get(self):
         if request.args.get("id"):
             vo = WalletVO.query.filter(WalletVO.id == request.args.get("id")).first()
-            return res_util.success(marshal(vo, wallet_field))
+            return res_util.success(vo)
         if request.args.get("user_id"):
             vo = WalletVO.query.filter(WalletVO.user_id == request.args.get("user_id")).first()
-            return res_util.success(marshal(vo, wallet_field))
+            return res_util.success(vo)

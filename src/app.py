@@ -31,13 +31,13 @@ from api.user.permission_api import PermissionApi
 from api.user.user_api import user_api, UserApi
 from api.user.wallet.wallet_api import WalletApi
 from api.video.video_api import TargetApi, TargetListApi, MarketTargetListApi, WorksApi, WorksListApi, WorksRankListApi, \
-    TargetRankListApi, MarketWorksListApi
+    TargetRankListApi, MarketWorksListApi, VideoUserApi, InvitationCodeApi
 from api.worker.work_api import WorkerApi, WorkerTimeApi, WorkerExcelApi, WorkTimeAnalyseApi, \
     work_time_analyse_api
 from config.conf import DEBUG, MAIL_TO, VERSION, SQLALCHEMY_DATABASE_URI
 from config.conf import MAIL_HOST_BLOCK_LIST
 from config.exception import WorldException
-from config.json_config import JSONEncoder
+from config.json_config import JSONEncoder, MyJSONEncoder
 from config.mysql_db import db
 from util import mail_util
 from util import res_util
@@ -65,7 +65,7 @@ app.config["DEBUG"] = DEBUG
 app.config['JSON_AS_ASCII'] = False
 app.config.update(RESTFUL_JSON=dict(ensure_ascii=False))
 db.init_app(app)
-app.json_encoder = JSONEncoder
+app.json_encoder = MyJSONEncoder
 
 # E:/world/venv/Scripts/flask db init
 # E:/world/venv/Scripts/flask db migrate
@@ -249,6 +249,8 @@ api2.add_resource(TargetApi, "/api/video_api/TargetApi/<int:_id>")
 api2.add_resource(TargetListApi, "/api/video_api/TargetListApi/<int:_id>")
 api2.add_resource(MarketTargetListApi, "/api/video_api/MarketTargetListApi/<int:_id>")
 
+api2.add_resource(InvitationCodeApi, "/api/video_api/InvitationCodeApi/<int:_id>")
+api2.add_resource(VideoUserApi, "/api/video_api/VideoUserApi/<int:_id>")
 api2.add_resource(WorksApi, "/api/video_api/WorksApi/<int:_id>")
 api2.add_resource(WorksListApi, "/api/video_api/WorksListApi/<int:_id>")
 api2.add_resource(WorksRankListApi, "/api/video_api/WorksRankListApi/<int:_id>")

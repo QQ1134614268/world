@@ -33,8 +33,8 @@
         </div>
       </div>
 
-      <el-table :data="data" style="width: 100%">
-        <el-table-column prop="name" label="姓名" sortable></el-table-column>
+      <el-table :data="data" style="width: 100%" @sort-change="sortChange">
+        <el-table-column prop="name" label="姓名" sortable="custom"></el-table-column>
         <el-table-column prop="id_card_number" label="身份证" sortable></el-table-column>
         <el-table-column prop="sex" label="性别" sortable></el-table-column>
         <el-table-column prop="pay" label="薪资" sortable></el-table-column>
@@ -153,7 +153,25 @@ export default {
         startDate: this.dateRange[0],
         endDate: this.dateRange[1],
       }
-      // todo  排序
+      let response = await this.$get2(WorkerApi, 0, data);
+      if (response.data.code != 1) {
+        this.$message(response.data.data);
+        return
+      }
+      this.data = response.data.data
+    },
+    async sortChange(column, prop, order) {
+      let data = {
+        page: this.currentPage,
+        pageSize: this.pageSize,
+        name: this.searchName,
+        idCard: this.searchIDCard,
+        phone: this.searchPhone,
+        startDate: this.dateRange[0],
+        endDate: this.dateRange[1],
+        sortBy:column.prop,
+        order:column.order
+      }
       let response = await this.$get2(WorkerApi, 0, data);
       if (response.data.code != 1) {
         this.$message(response.data.data);

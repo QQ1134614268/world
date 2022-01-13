@@ -1,14 +1,14 @@
 import json
 import os
 
-from config.conf import LOG_PATH, UPLOAD_FILE_PATH
+from config.conf import LOG_DIR, UPLOAD_FILE_PATH
 from util.log_util import logger
 
 
 def init_dir():
     logger.info("init_dir start")
-    if not os.path.exists(LOG_PATH):
-        os.makedirs(LOG_PATH)
+    if not os.path.exists(LOG_DIR):
+        os.makedirs(LOG_DIR)
     if not os.path.exists(UPLOAD_FILE_PATH):
         os.makedirs(UPLOAD_FILE_PATH)
     logger.info("init_dir end")

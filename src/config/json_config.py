@@ -17,7 +17,6 @@ from config.mysql_db import db
 
 
 # app JSONEncoder ->itsdangerous.json -json
-#
 
 # 类变量是不会存储到 dict中，只有实例变量才可以
 class JSONEncoder(_json.JSONEncoder):
@@ -32,13 +31,6 @@ class JSONEncoder(_json.JSONEncoder):
             return dic
         if isinstance(o, Row):
             return dict(o)
-        # if isinstance(o, Pagination):
-        #     return {
-        #         "data": o.items,
-        #         "total": o.total,
-        #         "page": o.page,
-        #         "page_size": o.per_page,
-        #     }
         if isinstance(o, datetime):
             return o.strftime(DATE_TIME_FORMAT)
         if isinstance(o, date):
@@ -58,6 +50,8 @@ class MyJSONEncoder(json.JSONEncoder):
             if "_sa_instance_state" in dic:
                 del dic["_sa_instance_state"]
             return dic
+        if isinstance(o, Row):
+            return dict(o)
         if isinstance(o, datetime):
             return o.strftime(DATE_TIME_FORMAT)
         if isinstance(o, date):

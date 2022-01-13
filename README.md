@@ -44,7 +44,7 @@ video
 [//]: # (视频用户-- 商店用户)
 [//]: # (移动端布局)
 
-Excel转文本 类似 xmind -> yaml , 并且 可以文本化 MD文档
+Excel转文本(CSV) 类似 xmind -> yaml , 并且 可以文本化 MD文档
 
 config 表 -dev环境才有
 

@@ -5,7 +5,7 @@
 """
 import datetime
 
-from sqlalchemy import Column, Text, String, Integer, Boolean, DateTime, Sequence, UniqueConstraint
+from sqlalchemy import Column, Text, String, Integer, Boolean, DateTime, Sequence, UniqueConstraint, ForeignKey
 
 from config.mysql_db import db
 from util.password_util import get_sha256_salt_password
@@ -99,13 +99,13 @@ class UserVO(BaseTable):
 class UserRoleVO(BaseTable):
     __tablename__ = 'user_role_t'
     user_id = Column(String(128))
-    role = Column(String(128))
+    role = Column(String(128), ForeignKey(EnumConfig.code))
 
 
 class RolePermissionVO(BaseTable):
     __tablename__ = 'role_permission_t'
-    permission = Column(String(128))
-    role_id = Column(String(128))
+    role = Column(String(128), ForeignKey(EnumConfig.code))
+    permission = Column(String(128), ForeignKey(EnumConfig.code))
 
 
 class AnnouncementVO(BaseTable):

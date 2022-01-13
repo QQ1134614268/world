@@ -21,9 +21,6 @@ from vo.video_model import WorksVO, TargetVO, InvitationCodeVO
 
 
 class InvitationCodeApi(Resource):
-    """
-    邀请码
-    """
 
     @permission_required(Permission.INVITATION_CODE.name)
     def post(self, _id):
@@ -37,6 +34,7 @@ class InvitationCodeApi(Resource):
         db.session.commit()
         return res_util.success()
 
+    @permission_required(Permission.INVITATION_CODE.name)
     def put(self, _id):
         user_id = get_id_by_token()
         vo = InvitationCodeVO.query.filter(InvitationCodeVO.user_id == user_id).first()
@@ -44,6 +42,7 @@ class InvitationCodeApi(Resource):
         db.session.commit()
         return res_util.success(vo.id)
 
+    @permission_required(Permission.INVITATION_CODE.name)
     def get(self, _id):
         user_id = get_id_by_token()
         vo = InvitationCodeVO.query.filter(InvitationCodeVO.user_id == user_id).first()

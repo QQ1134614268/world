@@ -3,22 +3,19 @@
 @Time: 2021/12/26
 @Description:
 """
+import os
 from datetime import datetime
 
 from openpyxl import load_workbook, Workbook
 
+from config.conf import LOG_DIR, RESOURCE_DIR, DATE_FORMAT
 from config.exception import WorldException
+from config.mysql_db import db
 from util import time_util
 
 
 class Convert:
-    # 读取excel类型
-    # empty
-    # string
-    # number
-    # date
-    # boolean
-    # Error
+    # 读取excel类型 empty string number date boolean Error
     def __init__(self, nullable=False, max_length=20, comment="姓名", index=None):
         self.nullable = nullable
         self.max_length = max_length
@@ -38,7 +35,7 @@ class DateConvert(Convert):
             return None
         if isinstance(value, datetime):
             return value
-        return time_util.get_datetime_by_str(value)
+        return time_util.get_datetime_by_str(value, DATE_FORMAT)
 
 
 class FloatConvert(Convert):
@@ -77,13 +74,6 @@ class Field:
         return self.convert_handle.convert(value, nullable=self.nullable, max_length=self.max_length)
 
 
-class User:
-    name = Field(StrConvert, nullable=False, max_length=20, comment="姓名", index=1)
-    sex = Field(StrConvert, nullable=False, max_length=20, comment="性别", index=2)
-    birthday = Field(DateConvert, nullable=False, max_length=20, comment="生日", index=3)
-    # pay = Field(FloatConvert, nullable=False, max_length=20, comment="薪资", index=3)
-
-
 class ExcelExceptionMsg:
     pass
 
@@ -96,10 +86,6 @@ def check_excel_type(file_name):
 
 
 class ExcelHandler:
-    # [姓名,生日]
-    # 字段 field
-    # convert
-    # 赋值
 
     @staticmethod
     def get_sheet(fp=None):
@@ -169,19 +155,32 @@ class ExcelHandler:
         return ret
 
     @classmethod
-    def to_file(cls, vos=[], cla_type=None, ):
+    def to_file(cls, data=[], cla_type=None, ):
         wb = Workbook()
         ws = wb.active
         attr_map = cls.get_attr_map(cla_type)
         for index, attr in enumerate(attr_map.items()):
-            ws.cell(row=1, column=(index + 1)).value = attr_map.get(attr).get("comment")
-
-        for row_index, vo in enumerate(vos):
+            ws.cell(row=1, column=(index + 1)).value = attr[1].comment
+        for row_index, item in enumerate(data):
             for col_index, attr in enumerate(attr_map.items()):
-                ws.cell(row=(row_index + 2), column=(col_index + 1)).value = getattr(vo, attr)
+                if isinstance(item, dict):
+                    ws.cell(row=(row_index + 2), column=(col_index + 1)).value = item.get(attr[0])
+                if isinstance(item, db.Model):
+                    ws.cell(row=(row_index + 2), column=(col_index + 1)).value = getattr(item, attr[0])
         return wb
 
 
 if __name__ == '__main__':
-    path = r'E:\world\resource\excel_download_test.xlsx'
-    print(ExcelHandler.from_file(fp=path, cla_type=User))
+    class User:
+        name = Field(StrConvert, nullable=False, max_length=20, comment="姓名", index=1)
+        sex = Field(StrConvert, nullable=False, max_length=20, comment="性别", index=2)
+        birthday = Field(DateConvert, nullable=False, max_length=20, comment="生日", index=3)
+        # pay = Field(FloatConvert, nullable=False, max_length=20, comment="薪资", index=3)
+
+
+    path = os.path.join(RESOURCE_DIR, "excel_download_test.xlsx")
+    dic_list = ExcelHandler.from_file(fp=path, cla_type=User)
+    print(dic_list)
+    # vos2 = [User(**dic) for dic in dic_list]
+    wb2 = ExcelHandler.to_file(data=dic_list, cla_type=User)
+    wb2.save(os.path.join(LOG_DIR, "test_excel_output.xlsx"))

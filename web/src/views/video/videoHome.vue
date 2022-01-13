@@ -56,6 +56,7 @@ import jwt_decode from 'jwt-decode';
 import {userLogout} from "@/api/user";
 import {VideoLoginUrl, VideoRegisterUrl, WorksUrl} from "@/api/routerUrl";
 import {FilePathApi} from "@/api/api";
+import {hasPermission, Permission} from "@/api/enum";
 
 export default {
   name: "App",
@@ -65,7 +66,7 @@ export default {
       VideoLoginUrl,
       VideoRegisterUrl,
       WorksUrl,
-      INVITATION_CODE:""
+      INVITATION_CODE: ""
     }
   },
   computed: {
@@ -80,8 +81,12 @@ export default {
   methods: {
     logout() {
       userLogout(this)
+    },
+    init() {
+      this.INVITATION_CODE = hasPermission(Permission.INVITATION_CODE)
     }
-  }
+  },
+
 }
 </script>
 <style>
