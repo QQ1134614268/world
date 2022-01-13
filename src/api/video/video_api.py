@@ -37,16 +37,24 @@ class InvitationCodeApi(Resource):
     @permission_required(Permission.INVITATION_CODE.name)
     def put(self, _id):
         user_id = get_id_by_token()
-        vo = InvitationCodeVO.query.filter(InvitationCodeVO.user_id == user_id).first()
-        vo.code = self.activation_code(vo.id)
+        code = self.activation_code(user_id)
+        data = {
+            "code": code,
+            "user_id": user_id
+        }
+        # sql = insert(InvitationCodeVO).values(data).on_duplicate_key_update(
+        #     name=insert_stmt.inserted.name,
+        #     address=insert_stmt.inserted.uid,
+        # )
+        db.session.add(InvitationCodeVO(**data))
         db.session.commit()
-        return res_util.success(vo.id)
+        return res_util.success(code)
 
     @permission_required(Permission.INVITATION_CODE.name)
     def get(self, _id):
         user_id = get_id_by_token()
         vo = InvitationCodeVO.query.filter(InvitationCodeVO.user_id == user_id).first()
-        return res_util.json_success(vo)
+        return res_util.success(vo)
 
     @staticmethod
     def activation_code(_id, length=10):
@@ -70,7 +78,7 @@ class VideoUserApi(Resource):
             return res_util.fail("邀请码不正确!")
         vo = UserVO(**data)
         db.session.add(vo)
-        code_vo.code = ""
+        db.session.remove(code_vo)
         db.session.commit()
         return res_util.success(vo.id)
 

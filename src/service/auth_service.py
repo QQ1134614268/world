@@ -8,33 +8,18 @@ from functools import wraps
 from config.exception import WorldException
 from service import user_service
 from util.log_util import logger
-from vo.table_model import UserVO, UserRoleVO, RolePermissionVO
+from vo.table_model import UserRoleVO, RolePermissionVO
 
 
-def get_curr_user():
+def _has_permission(permission):
     user_id = user_service.get_id_by_token()
-    user_vo = UserVO.query.filter(UserVO.id == user_id).one()
-    return user_vo
-
-
-def get_curr_user_role():
-    user_id = get_curr_user()
-    user_vo = UserVO.query.filter(UserVO.id == user_id).one()
-
-
-def get_curr_user_permission():
-    user_id = get_curr_user()
-    user_vo = UserVO.query.filter(UserVO.id == user_id).one()
-    return user_vo
-
-
-def has_permission(permission):
-    user_id = get_curr_user()
-    db_permission = UserVO.query(RolePermissionVO.permission).outerjoin(
-        UserRoleVO, UserVO.id == UserRoleVO.user_id
-    ).outjoin(
+    db_permission = UserRoleVO.query.outerjoin(
         RolePermissionVO, UserRoleVO.role == RolePermissionVO.role
-    ).filter(UserVO.id == user_id, RolePermissionVO.permission == permission).scalar()
+    ).filter(
+        UserRoleVO.user_id == user_id, RolePermissionVO.permission == permission
+    ).with_entities(
+        RolePermissionVO.permission
+    ).scalar()
     if db_permission:
         return True
     return False
@@ -44,7 +29,7 @@ def permission_required(permission):
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
-            if not has_permission(permission):
+            if not _has_permission(permission):
                 raise WorldException("无权限")
             return f(*args, **kwargs)
 
@@ -60,7 +45,6 @@ def own_resource(func):
     #     if permission not in get_curr_user_permission():
     #         raise WorldException("无权限")
     #     return func(*args, **kwargs)
-    #
     # return decorated_function
 
 

@@ -82,11 +82,13 @@ export default {
     logout() {
       userLogout(this)
     },
-    init() {
-      this.INVITATION_CODE = hasPermission(Permission.INVITATION_CODE)
+    async init() {
+      this.INVITATION_CODE = await hasPermission(Permission.INVITATION_CODE)
     }
   },
-
+  created() {
+    this.init()
+  }
 }
 </script>
 <style>
