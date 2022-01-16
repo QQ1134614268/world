@@ -1,8 +1,8 @@
 import json
 import unittest
 
-from src.app import app
-from src.util.data_util import create_data
+from app import app
+from util.data_util import create_data
 
 
 class UserApiTest(unittest.TestCase):

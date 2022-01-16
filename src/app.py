@@ -21,11 +21,10 @@ from api.project_api import ProjectInit
 from api.stone_game.StoneGameApi import stone_game_api
 from api.sys.SysApi import sys_api, AllApi, SuggestApi, AnnouncementApi
 from api.sys.config_api import ConfigApi
-from api.sys.customize.CustomizeApi import customize_api
+from api.sys.customize.customize_api import customize_api
 from api.sys.file.file_api import FileApi2
 from api.sys.log_api import LogApi
-from api.sys.scheduler.APScheduler import scheduler
-from api.sys.scheduler.SchedulerApi import scheduler_api
+from api.sys.scheduler.scheduler_api import scheduler_api
 from api.tree.tree_api import UploadDataApi, prove_api, ProveApi, StoryApi
 from api.user.permission_api import PermissionApi
 from api.user.user_api import user_api, UserApi
@@ -34,6 +33,7 @@ from api.video.video_api import TargetApi, TargetListApi, MarketTargetListApi, W
     TargetRankListApi, MarketWorksListApi, VideoUserApi, InvitationCodeApi
 from api.worker.work_api import WorkerApi, WorkerTimeApi, WorkerExcelApi, WorkTimeAnalyseApi, \
     work_time_analyse_api
+from config.apscheduler_conf import scheduler
 from config.conf import DEBUG, MAIL_TO, VERSION, SQLALCHEMY_DATABASE_URI
 from config.conf import MAIL_HOST_BLOCK_LIST
 from config.exception import WorldException

@@ -4,7 +4,7 @@ cd
 # git --git-dir /app/world/.git pull
 pip3.7 install -r /app/world/requirements.txt  > /var/log/world.log
 cd  /app/world/src
-flask db upgrade
+/usr/local/python3.7/bin/flask db upgrade
 
 pkill -f "python3.7 /app/world/src/app.py"
 nohup python3.7 /app/world/src/app.py &

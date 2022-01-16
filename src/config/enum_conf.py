@@ -22,7 +22,6 @@ class ExceptionCode(Enum):
 
 @unique
 class Role(Enum):  # 权限常量
-    # todo 枚举类与db类结构匹配, 自动化校验,生成,解决冲突,或当做初始化脚本
     ADMIN = "管理员"
     NORMAL_ROLE = "普通用户"
     NO_REGISTER = "非注册用户"
@@ -31,6 +30,10 @@ class Role(Enum):  # 权限常量
 
 class Permission(Enum):
     INVITATION_CODE = "邀请码权限"
+
+    # @classmethod
+    # def _missing_(cls, value):
+    #     return Permission.INVITATION_CODE
 
 
 # 用户分类(层级菜单(新浪微博,个人与公司)) 普通用户(vip,好友,同学,亲人,同事,商业伙伴,反馈者),公司(我的公司,伙伴公司),组织,团体, 陌生(其他,非通过,类似邮件消息)

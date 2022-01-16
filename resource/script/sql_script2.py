@@ -5,9 +5,8 @@
 """
 import os
 
-root_dir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+root_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "src")
 os.chdir(root_dir)
-py_path = os.path.join(os.path.dirname(root_dir), "venv/Scripts/python.exe")
-file_path = os.path.join(root_dir, "manage.py")
-order2 = "{} {} {}".format(py_path, file_path, "db upgrade")
+py_path = os.path.join(os.path.dirname(root_dir), "venv/Scripts/flask")
+order2 = "{} {}".format(py_path, "db upgrade")
 os.system(order2)

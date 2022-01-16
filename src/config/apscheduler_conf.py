@@ -1,17 +1,16 @@
+from apscheduler.schedulers.background import BackgroundScheduler
 from flask_apscheduler import APScheduler
 
-from api.sys.scheduler.SchedulerFunc import init_dir
-from api.sys.scheduler.SchedulerFunc import init_db
+from api.sys.scheduler.scheduler_func import init_dir, clear_code, init_enum_table
 
-
-scheduler = APScheduler()
+_scheduler = BackgroundScheduler(timezone="Asia/Shanghai")
+scheduler = APScheduler(scheduler=_scheduler)
 # https://blog.csdn.net/qq_40125653/article/details/103662019
 # https://www.cnblogs.com/zhaoyingjie/p/9664081.html
 # 1. 立即执行
 scheduler.add_job('init_dir', init_dir, trigger='date')
-scheduler.add_job("init_db", init_db, trigger='date')
-# scheduler.add_job("robot1", robot1, trigger='interval', hours=24)
-# scheduler.add_job("robot1_wg", robot1_wg, trigger='cron', hour=8, minute=30)
+scheduler.add_job('init_enum_table', init_enum_table, trigger='date')
+scheduler.add_job("clear_code", clear_code, trigger='cron', hour=0, minute=0)
 
 # 1. date 定时
 # scheduler.add_job("2",my_job, 'date', run_date='2009-11-06 16:30:05', args=['text'])

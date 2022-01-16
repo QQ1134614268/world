@@ -1,8 +1,10 @@
+# flask==2.0.2
 Flask==1.1.1
 Flask-Cors==3.0.10
 Flask-RESTful==0.3.7
 SQLAlchemy==1.4.29
 Flask-SQLAlchemy==2.5.1
+APScheduler==3.8.1
 Flask-APScheduler==1.11.0
 gevent-websocket==0.10.1
 concurrent-log-handler==0.9.16
