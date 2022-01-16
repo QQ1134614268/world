@@ -49,10 +49,6 @@
     flex: 1;
 }
 
-[class*="col-"] {
-    /*float: left;*/
-}
-
 /* For mobile phones: */
 [class*="col-"] {
     width: 100%;
@@ -167,26 +163,12 @@
     }
 }
 
-/*宽高 remember min 百分比*/
-/*边距 宽  上下左右*/
-/*媒体查询  响应式*/
 /*文本 换行 行高 长文本*/
 /*链接*/
 /*神奇数字  2 8 0.618*/
 
-/*todo*/
-/**/
-/*[class*="height-"] {*/
-/*    height: 100%;*/
-/*}*/
 
-/*@media only screen and (max-width: 600px) {*/
-/*    !* For mobile phones: *!*/
-/*    [class*="col-"] {*/
-/*        width: 100%;*/
-/*    }*/
-/*}*/
-
-/*@media only screen and (max-width: 768px) {*/
-/*    */
-/*}*/
+.p_c_box_ratio_16_9 {
+    height: 0;
+    padding-bottom: 178%;
+}
