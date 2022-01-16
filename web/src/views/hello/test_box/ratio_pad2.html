@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS实现固定宽高比响应式布局</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        .box2 {
+            width: 20%;
+            height: 0;
+            padding-top: 10%;
+            background-color: brown;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<!-- 通过 padding 百分比是根据宽高的值为基准 -->
+<div class="box2"></div>
+</body>
+</html>
