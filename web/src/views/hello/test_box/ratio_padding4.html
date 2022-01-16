@@ -29,46 +29,25 @@
         .item {
             width: 33%;
             height: 0;
-            padding-top: 11%;
-            margin-right: 0.5%;
-            margin-bottom: 0.5%;
-            box-sizing: border-box;
+            padding-bottom: 11%;
             border: 1px solid #999999;
-            position: relative;
         }
 
         .item:nth-child(3n) {
             margin-right: 0;
         }
 
-        .itemInner {
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            background: url('./ratio_2-1.png') center center no-repeat;
-            background-size: cover;
-            display: flex;
-            flex-direction: column-reverse;
-        }
-
-        .innerTxt {
-            margin: 0;
-            padding: 0 20px;
-            font-size: 14px;
-            line-height: 2;
-            color: #333;
-            background-color: rgba(255, 255, 255, 0.8);
+        .p_c_test_border {
+            border: red solid 1px;
         }
     </style>
 </head>
 <body>
 <div style="margin-top: 20px;">用一个宽度为80%的盒子代替右侧自适应宽度的布局</div>
-<div id="app" class="  testMain">
+<div id="app" class="testMain">
     <div class="item" v-for="i in 10">
-        <div class="itemInner">
-            <p class="innerTxt">这是一段测试标题</p>
+        <div>
+            这是一段测试标题
         </div>
     </div>
 </div>
