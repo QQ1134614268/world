@@ -1,14 +1,12 @@
 <template>
   <div class="col-12">
     <div class="p_c_flexbox">
-      <div v-for="o in tableData">
-        <div class="block">
-          <div>
-            <img :src="FilePathApi+o.thumbnail" style="width: 20rem;height: 11.25rem;object-fit: cover;">
-          </div>
-          <div class="p_c_long_txt_hidden">
-            {{ o.describe }}
-          </div>
+      <div v-for="o in tableData" class="ratio_box block">
+        <div class="ratio_box_img">
+          <img :src="FilePathApi+o.thumbnail">
+        </div>
+        <div class="p_c_long_txt_hidden">
+          {{ o.describe }}
         </div>
       </div>
     </div>
@@ -64,4 +62,28 @@ export default {
 
 <style scoped>
 
+@media screen and (max-width: 480px) {
+  .ratio_box {
+    width: 100%;
+  }
+
+  .ratio_box_img {
+    width: 100%;
+    height: 0;
+    padding-bottom: 75%;
+  }
+}
+
+@media screen and (min-width: 480px) {
+  .ratio_box {
+    width: 20%;
+  }
+
+  .ratio_box_img {
+    width: 100%;
+    height: 0;
+    padding-bottom: 75%;
+    /*border: #42b983 1px solid;*/
+  }
+}
 </style>

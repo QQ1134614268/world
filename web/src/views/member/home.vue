@@ -67,11 +67,7 @@ export default {
 #header {
   display: flex;
   justify-content: space-around;
-  height: 10%;
 }
 
-#body {
-  min-height: 80%
-}
 
 </style>

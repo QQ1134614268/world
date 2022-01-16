@@ -99,10 +99,6 @@ export default {
   height: 10%;
 }
 
-#body {
-  min-height: 80%
-}
-
 #footer {
   text-align: center;
 }

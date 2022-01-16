@@ -7,22 +7,20 @@
         </el-input>
       </div>
       <div class="p_c_flexbox">
-        <div v-for="o in tableData">
-          <div class="block">
+        <div v-for="o in tableData" class="ratio_box block">
+          <div class="ratio_box_img p_c_box-flex_col-center">
             <router-link :to="{path:VideoUrl,query: {video_id: o.id}}">
-              <div>
-                <img :src="'/api/file/FileApi2?path='+o.thumbnail" style="width: 20rem;height: 11.25rem;object-fit: cover;">
-              </div>
+              <img :src="FilePathApi+o.thumbnail">
             </router-link>
-            <div class="p_c_long_txt_hidden" style="width: 10rem">
-              {{ o.describe }}
-            </div>
-            <div>
-              <router-link :to="{path:UserInfoUrl,query: {video_id: o.user_id}}" class="p_c_box-flex_row-col-center ">
-                <el-avatar size="small" :src="FilePathApi+o.avatar"></el-avatar>
-                <span class="p_c_long_txt_hidden" style="width: 10rem">{{ o.username }}</span>
-              </router-link>
-            </div>
+          </div>
+          <div class="p_c_long_txt_hidden">
+            {{ o.describe }}
+          </div>
+          <div>
+            <router-link :to="{path:UserInfoUrl,query: {video_id: o.user_id}}" class="p_c_box-flex_row-col-center ">
+              <el-avatar size="small" :src="FilePathApi+o.avatar"></el-avatar>
+              <span class="p_c_long_txt_hidden" style="width: 10rem">{{ o.username }}</span>
+            </router-link>
           </div>
         </div>
       </div>
@@ -131,10 +129,29 @@ export default {
 .rank_2 {
   color: #ac4d60;
 }
-@media screen and (max-width:480px){
- .ads {
-   display:none;
+
+@media screen and (max-width: 480px) {
+  .ratio_box {
+    width: 100%;
+  }
+
+  .ratio_box_img {
+    width: 100%;
+    height: 0;
+    padding-bottom: 75%;
   }
 }
 
+@media screen and (min-width: 480px) {
+  .ratio_box {
+    width: 20%;
+  }
+
+  .ratio_box_img {
+    width: 100%;
+    height: 0;
+    padding-bottom: 75%;
+    /*border: #42b983 1px solid;*/
+  }
+}
 </style>

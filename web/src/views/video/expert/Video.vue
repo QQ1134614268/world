@@ -1,14 +1,10 @@
 <template>
-  <div class="p_c_box-flex_row-center">
-    <div class="col-6">
-      <div class="p_c_box-flex_row-center">
-        <video preload="true" controls v-if="video.file">
-          <source :src="FilePathApi+video.file" type="video/mp4">
-          您的浏览器不支持 HTML5 video 标签 。
-        </video>
-      </div>
-      <div class="p_c_word-break"> 主题: {{ video.describe }}</div>
-    </div>
+  <div class="box">
+    <div class="p_c_word-break"> 主题: {{ video.describe }}</div>
+    <video preload="true" controls v-if="video.file">
+      <source :src="FilePathApi+video.file" type="video/mp4">
+      您的浏览器不支持 HTML5 video 标签 。
+    </video>
   </div>
 </template>
 
@@ -50,5 +46,13 @@ export default {
 </script>
 
 <style scoped>
-
+.box {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  align-self: center;
+}
 </style>
