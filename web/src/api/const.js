@@ -1,6 +1,18 @@
-export const DATE_FMT = "YYYY-MM-DD"
+const CryptoJS = require('crypto-js');
 
-function detectOS() {
+export const DATE_FMT = "YYYY-MM-DD"
+export const SALT_WORK_FACTOR = "AAAA_BBBB_CCCC_DDDD"
+
+export function get_salt_pwd(pwd) {
+    let keyHex = CryptoJS.enc.Utf8.parse(SALT_WORK_FACTOR);
+    let encrypted = CryptoJS.DES.encrypt(pwd, keyHex, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7
+    });
+    return encrypted.toString();
+}
+
+export function detectOS() {
     let sUserAgent = navigator.userAgent;
     let isWin = (navigator.platform == "Win32") || (navigator.platform == "Windows");
     let isMac = (navigator.platform === "Mac68K") || (navigator.platform == "MacPPC") || (navigator.platform == "Macintosh") || (navigator.platform == "MacIntel");
@@ -24,7 +36,7 @@ function detectOS() {
     return "other";
 }
 
-function isApp() {
+export function isApp() {
     if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
         //alert(navigator.userAgent);
         alert('这是IOS');
@@ -34,5 +46,4 @@ function isApp() {
     } else {
         alert('这是PC');
     }
-    ;
 }

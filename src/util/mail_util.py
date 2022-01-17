@@ -7,7 +7,7 @@ from config.conf import SERVER_MAIL, SERVER_MAIL_HOST, SERVER_MAIL_PASS, SERVER_
 from util.log_util import logger as log
 
 
-# todo 1. 邮件依赖不稳定服务,, 2. 同时大量异常导致邮件多发--导致异常
+# remember 1. 邮件依赖不稳定服务,, 2. 同时大量异常导致邮件多发--导致异常
 # 策略: 长链接, 连接池, 生产消费者
 def send_email(mail_content, mail_to, subject="master,your mail"):
     message = MIMEText(mail_content, 'plain', 'utf-8')

@@ -94,8 +94,6 @@ class UserVO(BaseTable):
         return False
 
 
-# todo 角色,权限 -- 使用枚举表
-# 角色 菜单
 class UserRoleVO(BaseTable):
     __tablename__ = 'user_role_t'
     user_id = Column(String(128))

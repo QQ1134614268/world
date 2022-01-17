@@ -27,7 +27,6 @@ def task1(a, b):
     logger.info("结束--task1")
 
 
-# 清除code数据
 def clear_code():
     logger.info("开始--清除邀请码数据")
     InvitationCodeVO.query.filter(

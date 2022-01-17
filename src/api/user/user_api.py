@@ -5,8 +5,8 @@ from flask_restful import Resource
 import service.user_service
 from config.mysql_db import db
 from config.redis_db import redisDB
-from service import log_table_service
-from util import res_util, verification_code_util, db_util
+from service import log_table_service, user_service
+from util import res_util, verification_code_util
 from vo.table_model import UserVO
 
 user_api = Blueprint("user", __name__, url_prefix='/api/user_api')
@@ -16,7 +16,18 @@ class UserApi(Resource):
 
     def post(self, _id):
         data = request.get_json()
-        vo = UserVO(**data)
+        username = data.get('username', '')
+        code = data.get('code')
+        if not code:
+            return res_util.fail("验证码错误")
+        cache_code = redisDB.get(code)
+        if not (code and cache_code and code.upper() == cache_code.upper()):
+            return res_util.fail("验证码错误")
+        exist = UserVO.query.filter_by(username=username).first()
+        if exist:
+            return res_util.fail("用户名已经存在")
+        password = data.get('password', '')
+        vo = UserVO(username=username, password=password)
         db.session.add(vo)
         db.session.commit()
         return res_util.success(vo.id)
@@ -42,14 +53,9 @@ class UserApi(Resource):
         return res_util.success(vo)
 
     def put(self, _id):
+        user_id = user_service.get_id_by_token()
         data = request.get_json()
-        UserVO.query.filter(UserVO.id == _id).update(data)
-        db.session.commit()
-        return res_util.success(_id)
-
-    def delete(self, _id):
-        model = UserVO.query.filter(UserVO.id == _id).first()
-        db.session.delete(model)
+        UserVO.query.filter(UserVO.id == user_id).update(data)
         db.session.commit()
         return res_util.success(_id)
 
@@ -75,26 +81,6 @@ class UserBlueprintApi(Resource):
     def logout():
         # 单点登录, redis 删除
         log_table_service.log_table(service.user_service.get_id_by_token(), "退出", "退出")
-        return res_util.success()
-
-    @staticmethod
-    @user_api.route('/register', methods=['POST'])
-    def register():
-        data = request.get_json()
-        username = data.get('username', '')
-        code = data.get('code')
-        if not code:
-            return res_util.fail("验证码错误")
-        cache_code = redisDB.get(code)
-        if not (code and cache_code and code.upper() == cache_code.upper()):
-            return res_util.fail("验证码错误")
-        exist = UserVO.query.filter_by(username=username).first()
-        if exist:
-            return res_util.fail("用户名已经存在")
-        password = data.get('password', '')
-        vo = UserVO(username=username, password=password)
-        db.session.add(vo)
-        db.session.commit()
         return res_util.success()
 
     @staticmethod

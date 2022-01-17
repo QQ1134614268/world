@@ -26,7 +26,6 @@ export const ProveBlueprintApi_prove_value_parent = "/api/ProveBlueprintApi/prov
 export const UserApi = "/api/user_api/UserApi"
 export const UserApi_login = "/api/user_api/login"
 export const UserApi_logout = "/api/user_api/logout"
-export const UserApi_register = "/api/user_api/register"
 export const UserApi_get_verify_code = "/api/user_api/get_verify_code"
 //人人影
 export const WorksApi = "/api/video_api/WorksApi"

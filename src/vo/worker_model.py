@@ -46,14 +46,3 @@ class WorkerTimeVO(BaseTable):
     night = Column(Float, default=0)
     night_area = Column(String(255))
     night_content = Column(String(255))
-
-
-class WorkerTimeVO2(BaseTable):
-    # todo 上午 下午 晚上
-    __tablename__ = 'worker_time_t2'
-    __table_args__ = (UniqueConstraint('worker_id', 'date'),)
-    date = Column(Date)
-    time_type = Column(Enum('morning', 'noon', 'afternoon', 'night'))
-    worker_id = Column(Integer, index=True)
-    area = Column(String(255))
-    content = Column(String(255))

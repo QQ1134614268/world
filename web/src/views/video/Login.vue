@@ -16,6 +16,7 @@
 
 <script>
 import {VideoUserApi} from "@/api/api";
+import {get_salt_pwd} from "@/api/const";
 
 export default {
   name: "Home",
@@ -26,7 +27,8 @@ export default {
   },
   methods: {
     async onLogin() {
-      let result = await this.$get2(VideoUserApi,0, this.form)
+      // this.form.password = get_salt_pwd(this.form.password)
+      let result = await this.$get2(VideoUserApi, 0, this.form)
       if (result.data.code === 1) {
         localStorage.setItem("token", result.data.data);
         this.$store.commit('receiveUserInfo', {
