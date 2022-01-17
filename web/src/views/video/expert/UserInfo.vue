@@ -71,6 +71,7 @@ export default {
     width: 100%;
     height: 0;
     padding-bottom: 75%;
+    overflow: hidden;
   }
 }
 
@@ -84,6 +85,7 @@ export default {
     height: 0;
     padding-bottom: 75%;
     /*border: #42b983 1px solid;*/
+    overflow: hidden;
   }
 }
 </style>
