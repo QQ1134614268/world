@@ -38,7 +38,6 @@ export const MarketTargetListApi = "/api/video_api/MarketTargetListApi"
 export const WorksRankListApi = "/api/video_api/WorksRankListApi"
 export const TargetRankListApi = "/api/video_api/TargetRankListApi"
 export const VideoUserApi = "/api/video_api/VideoUserApi"
-export const VideoUserLoginApi = "/api/video_api/VideoUserLoginApi"
 export const InvitationCodeApi = "/api/video_api/InvitationCodeApi"
 
 // 会员

@@ -78,16 +78,6 @@ class VideoUserApi(Resource):
         db.session.commit()
         return res_util.success(vo.id)
 
-    def get(self, _id):
-        vo = UserVO.query.filter(UserVO.id == _id).first()
-        return vo
-
-    def put(self, _id):
-        data = request.get_json()
-        UserVO.query.filter(UserVO.id == _id).update(data)
-        db.session.commit()
-        return res_util.success(_id)
-
 
 class WorksApi(Resource):
 

@@ -66,7 +66,7 @@ export default {
       VideoLoginUrl,
       VideoRegisterUrl,
       WorksUrl,
-      INVITATION_CODE: ""
+      INVITATION_CODE: false
     }
   },
   computed: {
