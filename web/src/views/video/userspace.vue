@@ -1,5 +1,9 @@
 <template>
   <div style="display:flex; align-items:center ; flex-direction: column; ">
+    <div>
+      <!--      todo-->
+      <el-button @click="edit">编辑</el-button>
+    </div>
     <el-avatar :src="FilePathApi+form.avatar" :key="form.avatar"></el-avatar>
     <div> 手机号: {{ form.phone }}</div>
     <div> 签名: {{ form.describe }}</div>
@@ -154,6 +158,9 @@ export default {
         this.$message('');
       }
     },
+    async edit() {
+
+    }
   },
   created() {
     this.init()

@@ -4,6 +4,7 @@ export const DATE_FMT = "YYYY-MM-DD"
 export const SALT_WORK_FACTOR = "AAAA_BBBB_CCCC_DDDD"
 
 export function get_salt_pwd(pwd) {
+    // todo 密码明文
     let keyHex = CryptoJS.enc.Utf8.parse(SALT_WORK_FACTOR);
     let encrypted = CryptoJS.DES.encrypt(pwd, keyHex, {
         mode: CryptoJS.mode.ECB,

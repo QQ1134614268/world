@@ -26,7 +26,7 @@ import {
     putJson,
     putJson2
 } from "@/api/config";
-import {SYS_LOGIN_URL} from "@/api/routerUrl";
+import {SYS_LOGIN_URL, VideoLoginUrl} from "@/api/routerUrl";
 // 头像裁剪组件
 Vue.use(VueCropper)
 // 文本编辑器
@@ -81,12 +81,17 @@ Axios.interceptors.response.use(
             }
             if (response.data.code === 8) {
                 Vue.prototype.$message.error('登录已过期，请重新登录')
+                if (router.currentRoute.fullPath.startsWith("/video/")) {
+                    router.replace(VideoLoginUrl + "?from=" + router.currentRoute.fullPath).then(r => {
+                        return r
+                    })
+                    return Promise.reject(response);
+                }
                 router.replace(SYS_LOGIN_URL + "?from=" + router.currentRoute.fullPath).then(r => {
                     return r
                 })
                 return Promise.reject(response);
             }
-
             return Promise.resolve(response);
         }
         return Promise.reject(response);

@@ -17,7 +17,7 @@
             {{ o.describe }}
           </div>
           <div>
-            <router-link :to="{path:UserInfoUrl,query: {video_id: o.user_id}}" class="p_c_box-flex_row-col-center ">
+            <router-link :to="{path:UserInfoUrl,query: {user_id: o.user_id}}" class="p_c_box-flex_row-col-center ">
               <el-avatar size="small" :src="FilePathApi+o.avatar"></el-avatar>
               <span class="p_c_long_txt_hidden" style="width: 10rem">{{ o.username }}</span>
             </router-link>

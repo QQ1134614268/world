@@ -1,28 +1,35 @@
 <template>
-  <div>
-    <div class="p_c_box-flex">
-      <div class="col-9">
-        <div v-for="o in tableData">
-          <div class="block">
-            <div class="art_title">
-              {{ o.title }}
-            </div>
-            <div class="art_body">
-              {{ o.content }}
-            </div>
+  <div class="p_c_flexbox">
+    <div class="col-9">
+      <div v-for="o in tableData">
+        <div class="block">
+          <div class="art_title">
+            {{ o.title }}
           </div>
+          <div class="art_body">
+            {{ o.content }}
+          </div>
+        </div>
 
-        </div>
-        <div>
-          <el-pagination @size-change="handleSizeChange"
-                         @current-change="handleCurrentChange"
-                         :current-page="currentPage"
-                         :page-sizes="[5, 10, 20, 50]"
-                         :page-size="pageSize"
-                         layout="prev, pager, next"
-                         :total="totalNum">
-          </el-pagination>
-        </div>
+      </div>
+      <div>
+        <el-pagination @size-change="handleSizeChange"
+                       @current-change="handleCurrentChange"
+                       :current-page="currentPage"
+                       :page-sizes="[5, 10, 20, 50]"
+                       :page-size="pageSize"
+                       layout="prev, pager, next"
+                       :total="totalNum">
+        </el-pagination>
+      </div>
+    </div>
+    <div class="col-3">
+      <div>
+        <el-avatar :src="FilePathApi+userVO.avatar" :key="userVO.avatar"></el-avatar>
+        <span>{{ userVO.username }} </span>
+      </div>
+      <div>
+        {{ userVO.describe || '还没有签名呦!' }}
       </div>
     </div>
   </div>
@@ -30,7 +37,7 @@
 
 <script>
 
-import {MarketTargetListApi} from "@/api/api";
+import {FilePathApi, MarketTargetListApi, UserApi} from "@/api/api";
 import {TargetInfoUrl, VideoUrl} from "@/api/routerUrl";
 
 export default {
@@ -38,16 +45,24 @@ export default {
   data() {
     return {
       user_id: this.$route.query.user_id,
+      userVO: {},
       VideoUrl: VideoUrl,
       search: "",
       tableData: [],
       currentPage: 1,
       pageSize: 5,
       totalNum: 0,
+      FilePathApi,
       target_url: TargetInfoUrl,
     }
   },
   methods: {
+    async init_user() {
+      let result = await this.$get2(UserApi, this.user_id, {})
+      if (result.data.code) {
+        this.userVO = result.data.data
+      }
+    },
     async init() {
       let data = {
         page: this.currentPage,
@@ -81,6 +96,7 @@ export default {
   },
   created() {
     this.init()
+    this.init_user()
   }
 }
 </script>

@@ -57,7 +57,8 @@
     </div>
 
     <el-dialog title="上传Excel" :visible.sync="upDialog" width="30%">
-      <el-upload multiple :auto-upload="false" :action="worker_excel_url" :headers="headers" ref="upload">
+      <el-upload multiple :auto-upload="false" :action="worker_excel_url" :headers="headers" ref="upload"
+                 :on-success="handleSuccess">
 
         <i class="el-icon-upload"></i>
         <div class="el-upload__text">点击上传</div>
@@ -123,7 +124,7 @@ export default {
 
       //表格
       data: [],
-      worker_excel_url: WorkerExcelApi,
+      worker_excel_url: process.env.VUE_APP_BASE_URL + WorkerExcelApi,
       // 表单
       form: {},
 
@@ -132,6 +133,22 @@ export default {
     }
   },
   methods: {
+    async handleSuccess(res, file) {
+      if (res.code === 1) {
+        this.$message('操作成功')
+      }
+      if (res.code === 2) {
+        this.$message(res.data.data)
+      }
+      if (res.code === 4) {
+        let str = res.data.join(' <br/> ');
+        this.$message({
+          dangerouslyUseHTMLString: true,
+          message: str,
+          type: 'warning'
+        });
+      }
+    },
     async upLoad() {
       this.$refs.upload.submit();
     },
@@ -169,8 +186,8 @@ export default {
         phone: this.searchPhone,
         startDate: this.dateRange[0],
         endDate: this.dateRange[1],
-        sortBy:column.prop,
-        order:column.order
+        sortBy: column.prop,
+        order: column.order
       }
       let response = await this.$get2(WorkerApi, 0, data);
       if (response.data.code != 1) {

@@ -97,13 +97,13 @@ class UserVO(BaseTable):
 class UserRoleVO(BaseTable):
     __tablename__ = 'user_role_t'
     user_id = Column(String(128))
-    role = Column(String(128), ForeignKey(EnumConfig.code))
+    role = Column(String(128), ForeignKey(EnumConfig.code, onupdate='CASCADE'))
 
 
 class RolePermissionVO(BaseTable):
     __tablename__ = 'role_permission_t'
-    role = Column(String(128), ForeignKey(EnumConfig.code))
-    permission = Column(String(128), ForeignKey(EnumConfig.code))
+    role = Column(String(128), ForeignKey(EnumConfig.code, onupdate='CASCADE'))
+    permission = Column(String(128), ForeignKey(EnumConfig.code, onupdate='CASCADE'))
 
 
 class AnnouncementVO(BaseTable):

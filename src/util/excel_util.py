@@ -81,7 +81,7 @@ class ExcelExceptionMsg:
 def check_excel_type(file_name):
     arr = file_name.split(".")
     file_type = arr and arr[-1]
-    if file_type not in ["xlxs", "xls"]:
+    if file_type not in ["xlsx", "xls"]:
         raise WorldException("上传文件格式不正确!")
 
 

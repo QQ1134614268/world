@@ -10,7 +10,7 @@ scheduler = APScheduler(scheduler=_scheduler)
 # 1. 立即执行
 scheduler.add_job('init_dir', init_dir, trigger='date')
 scheduler.add_job('init_enum_table', init_enum_table, trigger='date')
-scheduler.add_job("clear_code", clear_code, trigger='cron', hour=0, minute=0)
+scheduler.add_job("clear_code", clear_code, trigger='cron', hour=23, minute=11)
 
 # 1. date 定时
 # scheduler.add_job("2",my_job, 'date', run_date='2009-11-06 16:30:05', args=['text'])
