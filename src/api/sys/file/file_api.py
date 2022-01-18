@@ -27,7 +27,7 @@ class FileApi2(Resource):
         f_name = get_file_name_by_uuid(file.filename)
         full_path = os.path.join(UPLOAD_FILE_PATH2, f_name)
         file.save(full_path)
-        return res_util.success("upload_file/" + f_name)
+        return res_util.success("/upload_file/" + f_name)
 
     def delete(self, _path):
         pass
