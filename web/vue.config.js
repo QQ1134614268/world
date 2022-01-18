@@ -16,12 +16,19 @@ module.exports = {
         https: false,
         hotOnly: false,
         disableHostCheck: true,
-        proxy: { //todo /upload/xxx.png
-            "/api": {
+        proxy: {
+            "/api/": {
                 target: process.env.VUE_APP_BASE_URL,
                 changeOrigin: true,
                 pathRewrite: { // 路径重写
-                    '^/api': '/api'
+                    '^/api/': '/api/'
+                }
+            },
+            "/upload_file/":  {
+                target: process.env.NGINX_FILE_SERVER_URL,
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/upload_file/': process.env.NGINX_FILE_SERVER_API
                 }
             }
         }

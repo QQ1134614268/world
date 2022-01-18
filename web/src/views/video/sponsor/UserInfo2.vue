@@ -25,7 +25,7 @@
     </div>
     <div class="col-3">
       <div>
-        <el-avatar :src="FilePathApi+userVO.avatar" :key="userVO.avatar"></el-avatar>
+        <el-avatar :src="userVO.avatar" :key="userVO.avatar"></el-avatar>
         <span>{{ userVO.username }} </span>
       </div>
       <div>
@@ -37,7 +37,7 @@
 
 <script>
 
-import {FilePathApi, MarketTargetListApi, UserApi} from "@/api/api";
+import {MarketTargetListApi, UserApi} from "@/api/api";
 import {TargetInfoUrl, VideoUrl} from "@/api/routerUrl";
 
 export default {
@@ -52,7 +52,6 @@ export default {
       currentPage: 1,
       pageSize: 5,
       totalNum: 0,
-      FilePathApi,
       target_url: TargetInfoUrl,
     }
   },

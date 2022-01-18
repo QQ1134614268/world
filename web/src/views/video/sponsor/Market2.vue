@@ -16,8 +16,9 @@
             </div>
             <div class="art_body"> {{ o.content }}</div>
             <div class="art_note">
-              <router-link :to="{path:'/video/UserInfo2',query: {user_id: o.user_id}}" class="p_c_box-flex_row-col-center">
-                <el-avatar :src="FilePathApi+o.avatar"></el-avatar>
+              <router-link :to="{path:'/video/UserInfo2',query: {user_id: o.user_id}}"
+                           class="p_c_box-flex_row-col-center">
+                <el-avatar :src="o.avatar"></el-avatar>
                 <span class="p_c_long_txt_hidden" style="width: 10rem">{{ o.username }}</span>
               </router-link>
             </div>
@@ -56,7 +57,7 @@
 
 <script>
 
-import {FilePathApi, MarketTargetListApi, TargetRankListApi} from "@/api/api";
+import {MarketTargetListApi, TargetRankListApi} from "@/api/api";
 import {TargetInfoUrl} from "@/api/routerUrl";
 
 export default {
@@ -69,7 +70,6 @@ export default {
       pageSize: 5,
       totalNum: 0,
       target_url: TargetInfoUrl,
-      FilePathApi,
       rankData: [],
     }
   },

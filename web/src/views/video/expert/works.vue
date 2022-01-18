@@ -13,7 +13,7 @@
         <div class="block">
           <a :href=VideoUrl>
             <div>
-              <img :src="FilePathApi+o.thumbnail" style="width: 25rem;height: 14rem;object-fit: cover;">
+              <img :src="o.thumbnail" style="width: 25rem;height: 14rem;object-fit: cover;">
             </div>
           </a>
           <div>
@@ -50,7 +50,7 @@
                      :show-file-list="false"
                      :action="FileApi"
                      :on-success="uploadLicense">
-            <img v-if="form.thumbnail" :src="FilePathApi +form.thumbnail">
+            <img v-if="form.thumbnail" :src="form.thumbnail">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
@@ -69,7 +69,7 @@
 <script>
 import jwt_decode from 'jwt-decode';
 import {VideoUrl} from "@/api/routerUrl";
-import {FileApi, FilePathApi, WorksApi, WorksListApi} from "@/api/api";
+import {FileApi, WorksApi, WorksListApi} from "@/api/api";
 
 export default {
   name: "works",
@@ -84,7 +84,6 @@ export default {
         ],
       },
       dialogVisible: false,
-      FilePathApi,
       FileApi,
       VideoUrl,
       user_id: jwt_decode(localStorage.getItem("token"))["id"],

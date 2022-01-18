@@ -6,7 +6,7 @@
       </div>
       <div v-if="user">
         <el-dropdown>
-          <el-avatar :src="FilePathApi+user.avatar" :key="user.avatar"></el-avatar>
+          <el-avatar :src="user.avatar" :key="user.avatar"></el-avatar>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>
               <a @click="logout">退出登录</a>
@@ -35,13 +35,11 @@
 import jwt_decode from 'jwt-decode';
 import {userLogout} from "@/api/user";
 import {SYS_LOGIN_URL, SYS_REGISTER_URL} from "@/api/routerUrl";
-import {FilePathApi} from "@/api/api";
 
 export default {
   name: "home",
   data() {
     return {
-      FilePathApi,
       SYS_LOGIN_URL,
       SYS_REGISTER_URL
     }

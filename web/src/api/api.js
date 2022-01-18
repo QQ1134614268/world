@@ -1,5 +1,5 @@
 // sys
-export const FilePathApi = "/api/file/FileApi2?path="
+export const FilePathApi = "/api/file/FileApi2/"
 export const FileApi = "/api/file/FileApi2"
 export const PermissionApi = "/api/user_api/PermissionApi"
 

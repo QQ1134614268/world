@@ -3,7 +3,7 @@
     <div v-if="user">
       <el-dropdown @command="handleCommand">
         <span class="el-dropdown-link">
-          <el-avatar :src="FilePathApi+user.avatar" :key="user.avatar"></el-avatar>
+          <el-avatar :src="user.avatar" :key="user.avatar"></el-avatar>
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="a">退出登录</el-dropdown-item>
@@ -19,15 +19,12 @@
 
 <script>
 import jwt_decode from "jwt-decode";
-import {FilePathApi} from "@/api/api";
 import {userLogout} from "@/api/user";
 
 export default {
   name: "TreeUserIcon",
   data() {
-    return {
-      FilePathApi
-    }
+    return {}
   },
   methods: {
 

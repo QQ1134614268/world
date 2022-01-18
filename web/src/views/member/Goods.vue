@@ -8,7 +8,7 @@
       <el-table :data="tableData" style="width: 100%;">
         <el-table-column label="商品图片" width="180">
           <template slot-scope="scope">
-            <el-image :src="FilePathApi+scope.row.images" style="height: 10rem"></el-image>
+            <el-image :src="scope.row.images" style="height: 10rem"></el-image>
           </template>
         </el-table-column>
         <el-table-column prop="name" label="商品名" width="180"></el-table-column>
@@ -32,7 +32,7 @@
               :show-file-list="false"
               :on-success="handleAvatarSuccess"
               style="width:10rem;  height:10rem ">
-            <img :key="imageUrl" v-if="imageUrl" :src="FilePathApi+imageUrl" style="width:10rem;
+            <img :key="imageUrl" v-if="imageUrl" :src="imageUrl" style="width:10rem;
                  height:10rem;object-fit: cover"
             >
             <i v-else class="el-icon-plus avatar-uploader-icon" style="width:10rem;  height:10rem "></i>
@@ -58,14 +58,13 @@
 </template>
 
 <script>
-import {FileApi, FilePathApi, GoodsApi} from '@/api/api';
+import {FileApi, GoodsApi} from '@/api/api';
 
 export default {
   name: "Goods",
   data() {
     return {
       FileApi,
-      FilePathApi,
       dialogVisible: false,
       form: {},
       imageUrl: "",

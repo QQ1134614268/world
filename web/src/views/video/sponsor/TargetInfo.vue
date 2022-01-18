@@ -10,7 +10,7 @@
 
 <script>
 
-import {FilePathApi, TargetApi, UserApi} from "@/api/api";
+import {TargetApi, UserApi} from "@/api/api";
 
 export default {
   name: "TargetInfo",
@@ -19,7 +19,6 @@ export default {
       target_id: this.$route.query.target_id,
       search: "",
       target: {},
-      FilePathApi,
       user: "",
     }
   },

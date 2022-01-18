@@ -4,7 +4,7 @@
     <div class="p_c_flexbox">
       <div v-for="(o,index) in tableData " class="col-1 p_c_test_border card">
         <div class="p_c_test_border">
-          <img :src="FilePathApi+o.images" style="object-fit: cover">
+          <img :src="o.images" style="object-fit: cover">
         </div>
         <div>
           <div>
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import {FilePathApi, GoodsApi} from "@/api/api";
+import {GoodsApi} from "@/api/api";
 
 export default {
   name: "market",
@@ -49,7 +49,6 @@ export default {
       drawer: false,
       order_list: [],
       orderMap: {},
-      FilePathApi
     }
   },
   methods: {
@@ -57,7 +56,7 @@ export default {
     },
     handleChange(goodObj) {
       this.orderMap[goodObj.id] = goodObj
-      this.order_list=[]
+      this.order_list = []
       for (let i in this.orderMap) {
         this.order_list.push(this.orderMap[i])
       }

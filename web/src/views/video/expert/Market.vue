@@ -10,7 +10,7 @@
         <div v-for="o in tableData" class="ratio_box block">
           <div class="ratio_box_img p_c_box-flex_col-center">
             <router-link :to="{path:VideoUrl,query: {video_id: o.id}}">
-              <img :src="FilePathApi+o.thumbnail">
+              <img :src="o.thumbnail">
             </router-link>
           </div>
           <div class="p_c_long_txt_hidden">
@@ -18,7 +18,7 @@
           </div>
           <div>
             <router-link :to="{path:UserInfoUrl,query: {user_id: o.user_id}}" class="p_c_box-flex_row-col-center ">
-              <el-avatar size="small" :src="FilePathApi+o.avatar"></el-avatar>
+              <el-avatar size="small" :src="o.avatar"></el-avatar>
               <span class="p_c_long_txt_hidden" style="width: 10rem">{{ o.username }}</span>
             </router-link>
           </div>
@@ -50,7 +50,7 @@
 <script>
 
 import {UserInfoUrl, VideoUrl} from "@/api/routerUrl";
-import {FilePathApi, MarketWorksListApi, WorksRankListApi} from "@/api/api";
+import {MarketWorksListApi, WorksRankListApi} from "@/api/api";
 
 export default {
   name: "market",
@@ -64,7 +64,6 @@ export default {
       VideoUrl: VideoUrl,
       UserInfoUrl: UserInfoUrl,
 
-      FilePathApi,
       tableData: [],
       rankData: [],
     }

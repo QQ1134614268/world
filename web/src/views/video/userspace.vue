@@ -4,7 +4,7 @@
       <!--      todo-->
       <el-button @click="edit">编辑</el-button>
     </div>
-    <el-avatar :src="FilePathApi+form.avatar" :key="form.avatar"></el-avatar>
+    <el-avatar :src="form.avatar" :key="form.avatar"></el-avatar>
     <div> 手机号: {{ form.phone }}</div>
     <div> 签名: {{ form.describe }}</div>
     <div> 微信号: {{ form.wechat_number }}</div>
@@ -12,15 +12,15 @@
     <div> 身份证: {{ form.id_card }}</div>
     <div>
       <div> 执照:</div>
-      <div><img width="125rem" height="70rem" :src="FilePathApi+form.business_license"></div>
+      <div><img width="125rem" height="70rem" :src="form.business_license"></div>
     </div>
     <div>
       <div> 商标:</div>
-      <div><img width="125rem" height="70rem" :src="FilePathApi+form.brand"></div>
+      <div><img width="125rem" height="70rem" :src="form.brand"></div>
     </div>
     <div>
       <div> 简历:</div>
-      <div><img width="125rem" height="70rem" :src="FilePathApi+form.resume"></div>
+      <div><img width="125rem" height="70rem" :src="form.resume"></div>
     </div>
     <el-dialog title="图片剪裁" :visible.sync="dialogVisible" append-to-body>
       <div class="cropper-content">
@@ -51,14 +51,13 @@
 </template>
 
 <script>
-import {FileApi, FilePathApi, UserApi} from "@/api/api";
+import {FileApi, UserApi} from "@/api/api";
 
 export default {
   name: "video_user",
   data() {
     return {
       user_id: this.$route.query.user_id,
-      FilePathApi,
       form: {},
       rules: {
         phone: [{required: true, message: '手机号不能为空', trigger: 'blur'}],

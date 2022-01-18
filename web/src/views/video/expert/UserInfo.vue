@@ -4,7 +4,7 @@
       <div class="p_c_flexbox">
         <div v-for="o in tableData" class="ratio_box block">
           <div class="ratio_box_img">
-            <img :src="FilePathApi+o.thumbnail">
+            <img :src="o.thumbnail">
           </div>
           <div class="p_c_long_txt_hidden">
             {{ o.describe }}
@@ -20,11 +20,11 @@
     </div>
     <div class="col-1" style="background-color: rgba(238,234,234,0.95); height: 20rem">
       <div>
-        <el-avatar :src="FilePathApi+userVO.avatar" :key="userVO.avatar"></el-avatar>
+        <el-avatar :src="userVO.avatar" :key="userVO.avatar"></el-avatar>
         <span>{{ userVO.username }} </span>
       </div>
       <div>
-        {{ userVO.describe || '还没有签名呦!'}}
+        {{ userVO.describe || '还没有签名呦!' }}
       </div>
     </div>
   </div>
@@ -33,7 +33,7 @@
 
 <script>
 import {VideoUrl} from "@/api/routerUrl";
-import {FilePathApi, UserApi, WorksListApi} from "@/api/api";
+import {UserApi, WorksListApi} from "@/api/api";
 
 export default {
   name: "UserInfo",
@@ -44,7 +44,6 @@ export default {
       search: this.$route,
       currentPage: 1,
       pageSize: 10,
-      FilePathApi,
       VideoUrl: VideoUrl,
       tableData: [],
       totalNum: 0,

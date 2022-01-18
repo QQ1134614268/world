@@ -4,8 +4,8 @@ import shutil
 from util.unique_util import get_uuid
 
 
-def get_file_name_by_uuid():
-    return get_uuid()
+def get_file_name_by_uuid(file_name):
+    return get_uuid() + "." + file_name.split('.')[-1]
 
 
 def prepare_path(file_path, remove=False):

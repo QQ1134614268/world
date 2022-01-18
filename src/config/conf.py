@@ -18,6 +18,8 @@ LOG_DIR = path.join(DATA_DIR, "log")
 
 UPLOAD_FILE_PATH = path.join(DATA_DIR, "upload")
 UPLOAD_FILE_PATH2 = path.join(DATA_DIR, "upload_file")
+VIDEO_FILE_PATH = path.join(DATA_DIR, "video")
+SINGLE_DIR_PATH = path.join(DATA_DIR, "single")
 
 DEFAULT_TIME_STR = '%Y-%m-%d %H:%M:%S.%f'
 # dev  不发邮件的主机

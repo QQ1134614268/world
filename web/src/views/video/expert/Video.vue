@@ -2,14 +2,14 @@
   <div class="box">
     <div class="p_c_word-break"> 主题: {{ video.describe }}</div>
     <video preload="true" controls v-if="video.file">
-      <source :src="FilePathApi+video.file" type="video/mp4">
+      <source :src="video.file" type="video/mp4">
       您的浏览器不支持 HTML5 video 标签 。
     </video>
   </div>
 </template>
 
 <script>
-import {FilePathApi, UserApi, WorksApi} from "@/api/api";
+import {UserApi, WorksApi} from "@/api/api";
 
 export default {
   name: "Video",
@@ -18,7 +18,6 @@ export default {
       video_id: this.$route.query.video_id,
       search: "",
       video: {},
-      FilePathApi,
       user: {},
     }
   },

@@ -2,7 +2,7 @@ import datetime
 import os
 
 from sqlalchemy.dialects.mysql import insert
-from flask import current_app
+
 from config.conf import LOG_DIR, UPLOAD_FILE_PATH
 from config.enum_conf import Permission, Role
 from config.mysql_db import db
@@ -38,8 +38,10 @@ def clear_code():
         logger.info("完成--清除邀请码数据")
 
 
-def clear_log_data():
-    # 清除邀请码数据 清除log日志 todo
+def clear_data():
+    # todo
+    # clear_log_data 清除邀请码数据 清除log日志
+    # clear_file 清除过期文件
     pass
 
 
@@ -53,25 +55,28 @@ def classname_to_const(name):
 
 
 def init_enum_table():
+    logger.info("开始--同步枚举数据")
+    group = [Role, Permission]
+    data = []
+    for cla in group:
+        for index, item in enumerate(cla):
+            sql_data = {
+                'group_code': classname_to_const(cla.__name__),
+                'code': item.name,
+                'value': item.value,
+                'sort': index + 1
+            }
+            data.append(sql_data)
+
     from app import app
     with app.app_context():
-        logger.info("开始--同步枚举数据")
-        data = [Role, Permission]
-        for cla in data:
-            for index, item in enumerate(cla):
-                sql_data = {
-                    'group_code': classname_to_const(cla.__name__),
-                    'code': item.name,
-                    'value': item.value,
-                    'sort': index + 1
-                }
-                insert_stmt = insert(EnumConfig).values(sql_data)
-                on_duplicate_key_stmt = insert_stmt.on_duplicate_key_update(
-                    group_code=insert_stmt.inserted.group_code,
-                    code=insert_stmt.inserted.code,
-                    value=insert_stmt.inserted.value,
-                    sort=insert_stmt.inserted.sort,
-                )
-                db.session.execute(on_duplicate_key_stmt)
-                db.session.commit()
-        logger.info("完成--同步枚举数据")
+        insert_stmt = insert(EnumConfig).values(data)
+        on_duplicate_key_stmt = insert_stmt.on_duplicate_key_update(
+            group_code=insert_stmt.inserted.group_code,
+            code=insert_stmt.inserted.code,
+            value=insert_stmt.inserted.value,
+            sort=insert_stmt.inserted.sort,
+        )
+        db.session.execute(on_duplicate_key_stmt)
+        db.session.commit()
+    logger.info("完成--同步枚举数据")
