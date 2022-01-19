@@ -15,8 +15,7 @@
 </template>
 
 <script>
-import {VideoUserApi} from "@/api/api";
-import {get_salt_pwd} from "@/api/const";
+import {UserApi_login} from "@/api/api";
 
 export default {
   name: "Home",
@@ -28,15 +27,13 @@ export default {
   methods: {
     async onLogin() {
       // this.form.password = get_salt_pwd(this.form.password)
-      let result = await this.$get2(VideoUserApi, 0, this.form)
+      let result = await this.$get(UserApi_login, this.form)
       if (result.data.code === 1) {
         localStorage.setItem("token", result.data.data);
         this.$store.commit('receiveUserInfo', {
           token: result.data.data
         })
         await this.$router.push({path: '/video/Market'})
-      } else {
-        this.$message('登陆失败,请重新检查账号密码');
       }
     },
   }

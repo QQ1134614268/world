@@ -64,11 +64,10 @@ class UserBlueprintApi(Resource):
     """工时统计"""
 
     @staticmethod
-    @user_api.route('/login', methods=['POST'])
+    @user_api.route('/login', methods=['GET'])
     def login():
-        data = request.get_json()
-        username = data.get('username', '')
-        password = data.get('password', '')
+        username = request.args.get('username', '')
+        password = request.args.get('password', '')
         user = UserVO.query.filter_by(username=username).first()
         if user and user.check_password(password):
             log_table_service.log_table(user.id, "登录系统", "登录")

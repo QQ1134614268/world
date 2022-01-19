@@ -81,7 +81,9 @@ export default {
       userLogout(this)
     },
     async init() {
-      this.INVITATION_CODE = await hasPermission(Permission.INVITATION_CODE)
+      if (this.user && this.user.id) {
+        this.INVITATION_CODE = await hasPermission(Permission.INVITATION_CODE)
+      }
     }
   },
   created() {

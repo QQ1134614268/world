@@ -19,7 +19,6 @@ export async function userLogout(that) {
     that.$store.commit('receiveUserInfo', {
         token: ""
     })
-    return res
 }
 
 // 注册
