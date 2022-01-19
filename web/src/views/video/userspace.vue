@@ -5,23 +5,10 @@
       <el-button @click="edit">编辑</el-button>
     </div>
     <el-avatar :src="form.avatar" :key="form.avatar"></el-avatar>
-    <div> 手机号: {{ form.phone }}</div>
     <div> 签名: {{ form.describe }}</div>
+    <div> 手机号: {{ form.phone }}</div>
     <div> 微信号: {{ form.wechat_number }}</div>
     <div> 抖音号: {{ form.tiktok_number }}</div>
-    <div> 身份证: {{ form.id_card }}</div>
-    <div>
-      <div> 执照:</div>
-      <div><img width="125rem" height="70rem" :src="form.business_license"></div>
-    </div>
-    <div>
-      <div> 商标:</div>
-      <div><img width="125rem" height="70rem" :src="form.brand"></div>
-    </div>
-    <div>
-      <div> 简历:</div>
-      <div><img width="125rem" height="70rem" :src="form.resume"></div>
-    </div>
     <el-dialog title="图片剪裁" :visible.sync="dialogVisible" append-to-body>
       <div class="cropper-content">
         <div class="cropper" style="text-align:center">
