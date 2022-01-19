@@ -16,10 +16,10 @@ class BaseTable(db.Model):
     __abstract__ = True  # 加了该属性后生成表的时候不会生成该表
     id = Column(Integer, primary_key=True, autoincrement=True, comment="主键")
     create_time = Column(DateTime, default=datetime.datetime.now)
-    update_time = db.Column(db.DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
+    update_time = Column(DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
 
-    # create_user = db.Column(db.Integer, default=user_service.get_id_by_token, onupdate=user_service.get_id_by_token)
-    # update_user = db.Column(db.Integer, default=user_service.get_id_by_token, onupdate=user_service.get_id_by_token)
+    # create_user = Column(Integer, default=user_service.get_id_by_token, onupdate=user_service.get_id_by_token)
+    # update_user = Column(Integer, default=user_service.get_id_by_token, onupdate=user_service.get_id_by_token)
 
 
 class EnumConfig(BaseTable):
@@ -75,7 +75,7 @@ class UserVO(BaseTable):
     wechat_number = Column(String(255))  # 微信号
     role = Column(String(255))
 
-    _password = db.Column('password', db.String(255), nullable=False)
+    _password = Column('password', String(255), nullable=False)
 
     # 设置访问密码的方法,并用装饰器@property设置为属性,调用时不用加括号
     @property
@@ -124,8 +124,8 @@ class SuggestVO(BaseTable):
 class UserCloudSpaceVO(BaseTable):
     __tablename__ = 'user_cloud_space'
     user_id = Column(Integer)
-    file_name = Column(String(150), comment='xxx.txt')
-    file_path = Column(String(150), comment='/xxx/xxx.txt')
+    file_name = Column(String(150), comment='文件原始名称')
+    file_path = Column(String(150), comment='文件路径')
 
 
 class LogVO(BaseTable):
