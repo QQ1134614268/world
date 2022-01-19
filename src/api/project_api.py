@@ -79,6 +79,8 @@ def clear_path():
         {"class": UserCloudSpaceVO, "field": UserCloudSpaceVO.file_path},
         {"class": GoodsVO, "field": GoodsVO.images},
         {"class": SuggestVO, "field": SuggestVO.image},
+        {"class": WorksVO, "field": WorksVO.file},
+        {"class": WorksVO, "field": WorksVO.thumbnail},
     ]
     for item in data:
         _handle_path(item["class"], item["field"], )
