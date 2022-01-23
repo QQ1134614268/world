@@ -44,8 +44,6 @@ from util import res_util
 from util import socket_util
 from util.log_util import logger
 
-migrate = Migrate()
-
 app = Flask(__name__)
 
 api2 = Api(app)
@@ -73,6 +71,7 @@ app.json_encoder = MyJSONEncoder
 #
 # D:/workspace/world/venv/Scripts/flask db migrate
 # D:/workspace/world/venv/Scripts/flask db upgrade
+migrate = Migrate()
 migrate.init_app(app, db)
 
 

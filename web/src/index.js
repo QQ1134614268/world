@@ -6,6 +6,7 @@ import video_routes from "@/views/video/index";
 import worker_routes from "@/views/worker/index";
 import member_routes from "@/views/member/index";
 import model_routes from "@/views/tree";
+import admin_routes from "@/views/admin/index";
 
 let total = []
 total = total.concat(HelloRoutes)
@@ -13,6 +14,7 @@ total = total.concat(video_routes)
 total = total.concat(worker_routes)
 total = total.concat(member_routes)
 total = total.concat(model_routes)
+total = total.concat(admin_routes)
 
 Vue.use(VueRouter)
 
