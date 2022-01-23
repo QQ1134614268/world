@@ -29,3 +29,4 @@ export const UserSpaceRootUrl = "/user/UserSpace"
 //注册
 export const RegisterRootUrl = "/sys/register"
 
+export const AdminUrl = "/admin"

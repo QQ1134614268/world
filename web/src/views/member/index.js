@@ -5,21 +5,28 @@ const routes = [{
     redirect: "/member/market",
     children: [
         {
-            path: '/member/market',
-            name: '/member/market',
+            path: 'market',
+            name: 'market',
             component: () => import('@/views/member/market')
         }, {
-            path: '/member/Goods',
-            name: '/member/Goods',
-            component: () => import('@/views/member/Goods')
-        }, {
-            path: '/member/Store',
-            name: '/member/Store',
-            component: () => import('@/views/member/Store'),
-        }, {
-            path: '/member/Member',
-            name: '/member/Member',
-            component: () => import('@/views/member/Member')
+            path: 'Store',
+            name: 'Store',
+            component: () => import('@/views/member/admin/Store'),
+            children: [
+                {
+                    path: 'Member',
+                    name: 'Member',
+                    component: () => import('@/views/member/admin/Member')
+                }, {
+                    path: 'order',
+                    name: 'order',
+                    component: () => import('@/views/member/admin/order')
+                }, {
+                    path: 'Goods',
+                    name: 'Goods',
+                    component: () => import('@/views/member/admin/Goods')
+                },
+            ]
         },
     ]
 }

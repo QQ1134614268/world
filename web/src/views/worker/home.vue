@@ -38,7 +38,7 @@ export default {
         {
           menuName: "考勤打卡",
           menuPath: "/worker/workTimeRecord",
-          menuIcon: "el-icon-setting",
+          menuIcon: "el-icon-connection",
         },
         {
           menuName: "考勤信息",
@@ -63,7 +63,7 @@ export default {
         {
           menuName: "配置",
           menuPath: "/worker/config",
-          menuIcon: "el-icon-connection",
+          menuIcon: "el-icon-setting",
         },
         {
           menuName: "操作日志",

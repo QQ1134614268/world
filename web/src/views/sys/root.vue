@@ -24,6 +24,7 @@
 <script>
 
 import {
+  AdminUrl,
   HelloRootUrl,
   MemberRootUrl,
   messageRootUrl,
@@ -45,6 +46,7 @@ export default {
         {url: RenrenRootUrl, name: "人人影"},
         {url: WorkerRootUrl, name: "工时"},
         {url: MemberRootUrl, name: "店铺"},
+        {url: AdminUrl, name: "后台系统"},
         {url: HelloRootUrl, name: "测试"},
         {url: messageRootUrl, name: "消息"},
         {url: UserSpaceRootUrl, name: "用户空间"},
