@@ -1,5 +1,19 @@
 <template>
-  <div class="p_c_box-flex">
+  <div class="p_c_flexbox">
+    <div class="col-1" style="background-color: rgba(238,234,234,0.95); height: 10rem">
+      <div>
+        <el-avatar :src="userVO.avatar" :key="userVO.avatar"></el-avatar>
+        <span>{{ userVO.username }} </span>
+      </div>
+      <div>
+        {{ userVO.describe || '还没有签名呦!' }}
+      </div>
+      <div>
+        <span>微信</span>
+        <span v-if="user"> {{ userVO.weixin }} </span>
+        <span v-else> 登录后查看 </span>
+      </div>
+    </div>
     <div class="col-11">
       <div class="p_c_flexbox">
         <div v-for="o in tableData" class="ratio_box block">
@@ -18,15 +32,6 @@
                      :total="totalNum">
       </el-pagination>
     </div>
-    <div class="col-1" style="background-color: rgba(238,234,234,0.95); height: 20rem">
-      <div>
-        <el-avatar :src="userVO.avatar" :key="userVO.avatar"></el-avatar>
-        <span>{{ userVO.username }} </span>
-      </div>
-      <div>
-        {{ userVO.describe || '还没有签名呦!' }}
-      </div>
-    </div>
   </div>
 
 </template>
@@ -39,6 +44,7 @@ export default {
   name: "UserInfo",
   data() {
     return {
+      user:this.$store.state.token,
       user_id: this.$route.query.user_id,
       userVO: {},
       search: this.$route,

@@ -1,6 +1,20 @@
 <template>
   <div class="p_c_flexbox">
-    <div class="col-9">
+    <div class="col-1">
+      <div>
+        <el-avatar :src="userVO.avatar" :key="userVO.avatar"></el-avatar>
+        <span>{{ userVO.username }} </span>
+      </div>
+      <div>
+        {{ userVO.describe || '还没有签名呦!' }}
+      </div>
+      <div>
+        <span>微信</span>
+        <span v-if="user"> {{ userVO.weixin }} </span>
+        <span v-else> 登录后查看 </span>
+      </div>
+    </div>
+    <div class="col-11">
       <div v-for="o in tableData">
         <div class="block">
           <div class="art_title">
@@ -23,15 +37,6 @@
         </el-pagination>
       </div>
     </div>
-    <div class="col-3">
-      <div>
-        <el-avatar :src="userVO.avatar" :key="userVO.avatar"></el-avatar>
-        <span>{{ userVO.username }} </span>
-      </div>
-      <div>
-        {{ userVO.describe || '还没有签名呦!' }}
-      </div>
-    </div>
   </div>
 </template>
 
@@ -39,6 +44,7 @@
 
 import {MarketTargetListApi, UserApi} from "@/api/api";
 import {TargetInfoUrl, VideoUrl} from "@/api/routerUrl";
+import jwt_decode from "jwt-decode";
 
 export default {
   name: "UserInfo2",
@@ -87,6 +93,16 @@ export default {
       this.currentPage = val;
       this.init();
     },
+  },
+  computed: {
+    user() {
+      // todo
+      // 这里存储从store里获取的token的数据
+      if (this.$store.state.token) {
+        let user = jwt_decode(this.$store.state.token)
+        return user
+      }
+    }
   },
   watch: {
     search: function (val, oldVal) {
