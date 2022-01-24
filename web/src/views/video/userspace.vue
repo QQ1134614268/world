@@ -1,39 +1,13 @@
 <template>
   <div style="display:flex; align-items:center ; flex-direction: column; ">
     <div>
-      <!--      todo-->
-      <el-button @click="edit">编辑</el-button>
+      <router-link to="Setting">编辑</router-link>
     </div>
     <el-avatar :src="form.avatar" :key="form.avatar"></el-avatar>
     <div> 签名: {{ form.describe }}</div>
     <div> 手机号: {{ form.phone }}</div>
     <div> 微信号: {{ form.wechat_number }}</div>
-    <div> 抖音号: {{ form.tiktok_number }}</div>
-    <el-dialog title="图片剪裁" :visible.sync="dialogVisible" append-to-body>
-      <div class="cropper-content">
-        <div class="cropper" style="text-align:center">
-          <VueCropper
-              ref="cropper"
-              :img="option.img"
-              :outputSize="option.size"
-              :outputType="option.outputType"
-              :info="true"
-              :full="option.full"
-              :canMove="option.canMove"
-              :canMoveBox="option.canMoveBox"
-              :original="option.original"
-              :autoCrop="option.autoCrop"
-              :autoCropWidth="option.autoCropWidth"
-              :autoCropHeight="option.autoCropHeight"
-              :fixedBox="option.fixedBox"
-          ></VueCropper>
-        </div>
-      </div>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false;">取 消</el-button>
-        <el-button type="primary" @click="finish" :loading="loading">确认</el-button>
-      </div>
-    </el-dialog>
+
   </div>
 </template>
 
@@ -49,7 +23,6 @@ export default {
       rules: {
         phone: [{required: true, message: '手机号不能为空', trigger: 'blur'}],
       },
-      user_role: "",
       dialogVisible: false,
       // 裁剪组件的基础配置option
       option: {

@@ -10,7 +10,7 @@
       </div>
       <div>
         <span>微信</span>
-        <span v-if="user"> {{ userVO.weixin }} </span>
+        <span v-if="user"> {{ userVO.wechat_number }} </span>
         <span v-else> 登录后查看 </span>
       </div>
     </div>

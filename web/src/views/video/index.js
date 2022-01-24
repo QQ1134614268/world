@@ -14,6 +14,11 @@ export const routes = [
                 path: 'InvitationCode',
                 name: 'InvitationCode',
                 component: () => import('@/views/video/InvitationCode'),
+            },
+            {
+                path: 'Setting',
+                name: 'Setting',
+                component: () => import('@/views/video/Setting'),
             }, {
                 path: 'UserInfo',
                 name: 'UserInfo',
