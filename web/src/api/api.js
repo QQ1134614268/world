@@ -2,12 +2,12 @@
 export const FilePathApi = "/api/file/FileApi2/"
 export const FileApi = "/api/file/FileApi2"
 export const PermissionApi = "/api/user_api/PermissionApi"
+export const ConfigApi = "/api/config_api/ConfigApi";
+export const LogApi = "/api/log_api/LogApi"
 
 //工时系统
-export const LogApi = "/api/log_api/LogApi"
 export const WorkerApi = "/api/work_api/WorkerApi"
 export const WorkerTimeApi = "/api/work_api/WorkerTimeApi"
-export const ConfigApi = "/api/config_api/ConfigApi";
 export const WorkerExcelApi = "/api/work_api/WorkerExcelApi"
 export const WorkTimeAnalyseApi_get_sum_time = "/api/work_api/WorkTimeAnalyseApi/get_sum_time"
 export const WorkTimeAnalyseApi_get_day_report = "/api/work_api/WorkTimeAnalyseApi/get_day_report"
