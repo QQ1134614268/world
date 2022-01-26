@@ -13,6 +13,8 @@ video
 -[ ] 权限-- 资源所有者权限校验
 -[ ] message系统
 
+https://www.cnblogs.com/zzz01/p/15655196.html
+
 # 代码很耗时 -- 策略,指令 ,智能推断, 复用
 
 # mapreduce-filter 状态迁移-- 歌曲,收藏, 节日, 猜喜欢-每日推荐,  上一日的猜喜欢
