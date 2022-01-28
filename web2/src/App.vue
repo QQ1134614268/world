@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="p_c_HolyGrail-body container">
     <RouterView></RouterView>
   </div>
 </template>
@@ -8,7 +8,9 @@
 
 export default {
   name: 'App',
-  components: {}
+  components: {
+
+  }
 }
 </script>
 
@@ -20,8 +22,5 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-
-  flex: 1;
-  flex-direction: column;
 }
 </style>
