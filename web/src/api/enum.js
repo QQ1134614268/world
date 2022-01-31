@@ -6,9 +6,9 @@ export const Permission = {
 }
 
 
-export async function hasPermission(permission) {
+export async function hasPermission(userId, permission) {
     let data = {permission: permission}
-    let res = await get2(PermissionApi, 0, data);
+    let res = await get2(PermissionApi, userId, data);
     if (res.data.code == 1) {
         return res.data.data
     }

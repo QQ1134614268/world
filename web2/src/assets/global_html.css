@@ -20,7 +20,11 @@ img, video {
     object-fit: cover;
 }
 
-
+.p_c_HolyGrail-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
 /*工具*/
 .p_c_test_border {
     border: red solid 1px;

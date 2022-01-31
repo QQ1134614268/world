@@ -12,14 +12,13 @@
 
       </ul>
     </div>
-    <div>
+    <div class="p_c_HolyGrail-body p_c_test_border">
       商品信息
-      <div v-for="(obj, index) in goodList ">
-        obj
-      </div>
-      <a name="miao"></a><!--设置锚点方法1-->
-
-      <h3 id="miao">喵星人基地</h3><!--设置锚点方法2-->
+<!--      <div :key=index v-for="(obj, index) in goodList ">-->
+<!--        obj-->
+<!--      </div>-->
+      <a id="miao"></a><!--设置锚点方法1-->
+      <h3 id="miao2">喵星人基地</h3><!--设置锚点方法2-->
 
       <p>喵喵喵~</p>
 
@@ -48,7 +47,7 @@
 
       <p>汪汪汪~</p>
 
-      <a name="meng"></a>
+      <a id="meng"></a>
 
       <p>萌萌萌~</p>
 
@@ -124,12 +123,14 @@ export default {
       // ]
     }
   },
-  methods() {
+  methods:{
 
   }
 }
 </script>
 
 <style scoped>
-
+p{
+  height: 20rem;
+}
 </style>

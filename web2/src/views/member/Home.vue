@@ -5,7 +5,7 @@
     </div>
     <div>
       <div>
-        <img src="@/assert/logo.png">
+        <img src="@/assets/logo.png">
       </div>
     </div>
   </div>
@@ -14,9 +14,7 @@
 <script>
 export default {
   name: "Home",
-  methods: {
-
-  }
+  methods: {}
 }
 </script>
 

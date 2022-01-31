@@ -82,7 +82,7 @@ export default {
     },
     async init() {
       if (this.user && this.user.id) {
-        this.INVITATION_CODE = await hasPermission(Permission.INVITATION_CODE)
+        this.INVITATION_CODE = await hasPermission(this.user.id, Permission.INVITATION_CODE)
       }
     }
   },
