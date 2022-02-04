@@ -8,33 +8,43 @@ let routes = [
     {
         path: '/',
         name: '/',
+        redirect: 'Store',
         component: () => import('@/views/Home'),
-    },
-    {
-        path: '/member',
-        name: '/member',
-        component: () => import('@/views/member/Home'),
-    },
-    {
-        path: '/Store',
-        name: '/Store',
-        component: () => import('@/views/member/Store'),
-    },
-    {
-        path: '/Home',
-        name: '/Home',
-        component: () => import('@/views/Home'),
-    },
-    {
-        path: '/Home2',
-        name: '/Home2',
-        component: () => import('@/views/Home2'),
-    },
-    {
-        path: '/HolyGrail',
-        name: '/HolyGrail',
-        component: () => import('@/views/HolyGrail'),
-    },
+        children: [
+            {
+                path: 'Store',
+                name: 'Store',
+                component: () => import('@/views/member/Store'),
+            },
+            {
+                path: 'admin',
+                name: 'admin',
+                redirect: '/admin/GoodList',
+                children: [
+                    {
+                        path: 'GoodList',
+                        name: 'GoodList',
+                        component: () => import('@/views/member/admin/GoodList'),
+                    },
+                    {
+                        path: 'GoodsAdd',
+                        name: 'GoodsAdd',
+                        component: () => import('@/views/member/admin/GoodsAdd'),
+                    },
+                    {
+                        path: 'GoodsEdit',
+                        name: 'GoodsEdit',
+                        component: () => import('@/views/member/admin/GoodsEdit'),
+                    },
+                ]
+            },
+            {
+                path: 'TestHref',
+                name: 'TestHref',
+                component: () => import('@/views/test/TestHref'),
+            },
+        ]
+    }
 ]
 
 const router = new VueRouter({

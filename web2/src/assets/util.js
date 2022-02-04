@@ -1,10 +1,12 @@
 export function toTree(arr) {
-    let ret = {}
+    let ret = []
+    let tree = {}
     for (let i = 0; i < arr.length; i++) {
-        if (ret[arr[i].type]) {
-            ret[arr[i].type].push(arr[i])
-        } else {
-            ret[arr[i].type] = [arr[i]]
+        let obj = arr[i]
+        if (tree[obj.type] != undefined) {
+            tree[obj.type].push(obj)
+        }else {
+            ret.push(arr[i].type)
         }
     }
 }

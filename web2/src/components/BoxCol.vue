@@ -1,10 +1,12 @@
 <template>
+  <div style="display: flex; flex-direction: column">
 
+  </div>
 </template>
 
 <script>
 export default {
-  name: "Member"
+  name: "BoxCol"
 }
 </script>
 

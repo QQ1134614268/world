@@ -1,0 +1,9 @@
+.p_c_HolyGrail-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.p_c_HolyGrail-content {
+    flex: 1;
+}

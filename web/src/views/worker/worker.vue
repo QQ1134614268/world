@@ -48,7 +48,7 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination hide-on-single-page
+      <el-pagination
                      @size-change="handleSizeChange" @current-change="handleCurrentChange"
                      :current-page="currentPage" :page-size="pageSize" :total="totalNum"
                      layout=" prev, pager, next">
@@ -176,6 +176,7 @@ export default {
         return
       }
       this.data = response.data.data
+      this.totalNum=response.data.total
     },
     async sortChange(column, prop, order) {
       let data = {

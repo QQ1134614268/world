@@ -9,23 +9,14 @@ html {
 }
 
 
-div {
-    display: flex;
-}
-
-
 img, video {
     max-width: 100%;
     height: auto;
     object-fit: cover;
 }
 
-.p_c_HolyGrail-body {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-}
 /*工具*/
 .p_c_test_border {
     border: red solid 1px;
 }
+

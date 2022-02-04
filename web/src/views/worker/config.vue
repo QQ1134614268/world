@@ -69,10 +69,10 @@ export default {
     async save() {
       let res;
       this.form["group_code"] = this.group
-      if (this.form.id) {
-        res = await this.$putJson2(ConfigApi, 0, this.form)
+      if (this.form.id != undefined) {
+        res = await this.$putJson2(ConfigApi, this.form.id, this.form)
       } else {
-        res = await this.$postJson2(ConfigApi, this.form.id, this.form)
+        res = await this.$postJson2(ConfigApi, 0, this.form)
       }
       if (res.data.code == 1) {
         this.$message.info("操作成功")

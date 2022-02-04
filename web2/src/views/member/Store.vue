@@ -1,65 +1,33 @@
 <template>
-  <div class="container p_c_HolyGrail-content">
-    <div class="">
-      菜单分类
-      <ul>
-
-        <li><a href="#miao">去找喵星人</a></li>
-
-        <li><a href="#wang">去找汪星人</a></li>
-
-        <li><a href="#meng">其他萌物</a></li>
-
-      </ul>
+  <div>
+    <div>
+      <router-link to="/member/admin/GoodList"> 菜单列表</router-link>
     </div>
-    <div class="p_c_HolyGrail-body p_c_test_border">
-      商品信息
-<!--      <div :key=index v-for="(obj, index) in goodList ">-->
-<!--        obj-->
-<!--      </div>-->
-      <a id="miao"></a><!--设置锚点方法1-->
-      <h3 id="miao2">喵星人基地</h3><!--设置锚点方法2-->
-
-      <p>喵喵喵~</p>
-
-      <p>喵喵喵~</p>
-
-      <p>喵喵喵~</p>
-
-      <p>喵喵喵~</p>
-
-      <p>喵喵喵~</p>
-
-      <p>喵喵喵~</p>
-
-
-      <a name="wang"></a>
-
-      <p>汪汪汪~</p>
-
-      <p>汪汪汪~</p>
-
-      <p>汪汪汪~</p>
-
-      <p>汪汪汪~</p>
-
-      <p>汪汪汪~</p>
-
-      <p>汪汪汪~</p>
-
-      <a id="meng"></a>
-
-      <p>萌萌萌~</p>
-
-      <p>萌萌萌~</p>
-
-      <p>萌萌萌~</p>
-
-      <p>萌萌萌~</p>
-
-      <p>萌萌萌~</p>
-
-      <p>萌萌萌~</p>
+    <div style="display: flex">
+      <div class="p_c_HolyGrail-body">
+        <span>
+          菜单分类
+        </span>
+        <div :key="index" v-for="(obj,index) in goodList ">
+          <li><a :href="'#'+obj.type">{{ obj.type }}</a></li>
+        </div>
+      </div>
+      <div class="p_c_HolyGrail-body p_c_test_border">
+        商品信息
+        <div :key="index" v-for="(obj,index) in goodList " style="height: 50rem" class="p_c_HolyGrail-body" >
+          <a :id="obj.type"></a>
+          <div :key="index2" v-for="(obj2 , index2) in obj.data">
+            <div class="p_c_HolyGrail-body">
+              <el-image :src="obj2.img">
+              </el-image>
+              <div>
+                {{ obj2.name }}
+                {{ obj2.price }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -72,28 +40,37 @@ export default {
       goodList: [
         {
           type: "主食",
-          name: "大米",
-          img: "",
-          price: "",
-        },
-        {
-          type: "主食",
-          name: "馒头",
-          img: "",
-          price: "",
+          data: [
+            {
+              type: "主食",
+              name: "大米",
+              img: "",
+              price: "",
+            },
+            {
+              type: "主食",
+              name: "馒头",
+              img: "",
+              price: "",
+            },
+          ]
         },
         {
           type: "饮料",
-          name: "青岛",
-          img: "",
-          price: "",
-        },
-        {
-          type: "饮料",
-          name: "矿泉水",
-          img: "",
-          price: "",
-        },
+          data: [
+            {
+              name: "青岛",
+              img: "",
+              price: "",
+            },
+            {
+              type: "饮料",
+              name: "矿泉水",
+              img: "",
+              price: "",
+            },
+          ]
+        }
       ],
       // goodList2: [
       //   {
@@ -123,14 +100,12 @@ export default {
       // ]
     }
   },
-  methods:{
-
-  }
+  methods: {}
 }
 </script>
 
 <style scoped>
-p{
+p {
   height: 20rem;
 }
 </style>

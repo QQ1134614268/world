@@ -11,7 +11,7 @@ const routes = [
                 component: () => import('@/views/admin/Approve'),
             },
             {
-                path: 'Setting',
+                path: 'Setting2',
                 name: 'Setting',
                 component: () => import('@/views/admin/Setting'),
             },

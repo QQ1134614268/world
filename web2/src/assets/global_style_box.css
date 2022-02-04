@@ -1,0 +1,8 @@
+.p_c_box-flex {
+    display: flex;
+}
+
+.p_c_box-flex_col {
+    display: flex;
+    flex-direction: column;
+}

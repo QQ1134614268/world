@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="p_c_HolyGrail-body container">
+  <div id="app" class="p_c_HolyGrail-body">
     <RouterView></RouterView>
   </div>
 </template>
@@ -8,9 +8,7 @@
 
 export default {
   name: 'App',
-  components: {
-
-  }
+  components: {}
 }
 </script>
 
@@ -19,8 +17,5 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
