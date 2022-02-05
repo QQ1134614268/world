@@ -3,7 +3,7 @@
     考勤打卡
     <div>
       <span>日期:</span>
-      <el-date-picker v-model="date" type="date"></el-date-picker>
+      <el-date-picker v-model="date" value-format="yyyy-MM-dd" type="date"></el-date-picker>
       <el-select v-model="time" placeholder="请选择">
         <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
       </el-select>
@@ -26,7 +26,8 @@
       </el-table-column>
       <el-table-column label="签到">
         <template slot-scope="scope">
-          <el-checkbox @change="change(scope.row)" v-model="scope.row.flag" :true-label="1" :false-label="0"></el-checkbox>
+          <el-checkbox @change="change(scope.row)" v-model="scope.row.flag" :true-label="1"
+                       :false-label="0"></el-checkbox>
         </template>
       </el-table-column>
     </el-table>

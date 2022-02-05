@@ -2,9 +2,9 @@
   <div>
     <div>
       <div>
-        <el-button type="primary" plain @click="handleAdd">增加</el-button>
-        <el-button type="primary" plain @click="upDialog=true">导入</el-button>
-        <el-button type="primary" plain @click="exportExcel">导出</el-button>
+        <el-button type="primary" size="mini" plain @click="handleAdd">增加</el-button>
+        <el-button type="primary" size="mini" plain @click="upDialog=true">导入</el-button>
+        <el-button type="primary" size="mini" plain @click="exportExcel">导出</el-button>
       </div>
       <div class="p_c_flexbox">
         <div class="col-3">
@@ -49,9 +49,9 @@
         </el-table-column>
       </el-table>
       <el-pagination
-                     @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                     :current-page="currentPage" :page-size="pageSize" :total="totalNum"
-                     layout=" prev, pager, next">
+          @size-change="handleSizeChange" @current-change="handleCurrentChange"
+          :current-page="currentPage" :page-size="pageSize" :total="totalNum"
+          layout=" prev, pager, next">
       </el-pagination>
 
     </div>
@@ -119,7 +119,7 @@ export default {
       },
       //分页
       currentPage: 1,
-      pageSize: 6,
+      pageSize: 10,
       totalNum: 0,
 
       //表格
@@ -162,7 +162,7 @@ export default {
     },
     async init() {
       let data = {
-        page: this.currentPage,
+        currentPage: this.currentPage,
         pageSize: this.pageSize,
         name: this.searchName,
         idCard: this.searchIDCard,
@@ -176,7 +176,7 @@ export default {
         return
       }
       this.data = response.data.data
-      this.totalNum=response.data.total
+      this.totalNum = response.data.total
     },
     async sortChange(column, prop, order) {
       let data = {
