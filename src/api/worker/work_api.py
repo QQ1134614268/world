@@ -3,7 +3,6 @@
 @Time: 2020/7/5
 @Description: pass
 """
-from datetime import date
 from io import BytesIO
 
 from flask import request, Blueprint
@@ -11,7 +10,6 @@ from flask_restful import Resource
 from sqlalchemy import and_, func, asc, desc
 from sqlalchemy.dialects.mysql import insert
 
-from config.conf import DATE_FORMAT
 from config.mysql_db import db
 from service.user_service import get_id_by_token
 from util import res_util, db_util, time_util
@@ -118,19 +116,18 @@ class WorkerTimeApi(Resource):
         return res_util.success()
 
     def get(self, _id):
-        date = request.args.get("date")
         name = request.args.get("name")
-        page = request.args.get("currentPage", 1, int)
-        page_size = request.args.get("pageSize", 15, int)
         user_id = get_id_by_token()
-
         query_filter = [WorkerVO.belong == user_id]
         if name:
             query_filter.append(WorkerVO.name.contains(name))
-
         join_filter = [WorkerTimeVO.worker_id == WorkerVO.id]
-        if date:
-            join_filter.append(WorkerTimeVO.date == date)
+        start_date = request.args.get("startDate")
+        if start_date:
+            query_filter.append(WorkerTimeVO.date >= start_date)
+        end_date = request.args.get("endDate")
+        if end_date:
+            query_filter.append(WorkerTimeVO.date <= end_date)
         res = WorkerVO.query.outerjoin(
             WorkerTimeVO,
             and_(*join_filter)
@@ -142,7 +139,8 @@ class WorkerTimeApi(Resource):
             WorkerTimeVO.noon,
             WorkerTimeVO.afternoon,
             WorkerTimeVO.night,
-        ).filter(*query_filter).paginate(page=page, per_page=page_size)
+        ).filter(*query_filter).order_by(
+            WorkerTimeVO.date).all()
         return res_util.success(res)
 
     def put(self, _id):
@@ -182,12 +180,12 @@ class WorkTimeAnalyseApi(Resource):
     @work_time_analyse_api.route('/get_sum_time/<int:_id>', methods=['GET'])
     def get_sum_time(_id):
         query_filter = [WorkerVO.belong == get_id_by_token()]
-        date_list = request.args.getlist("date[]")
-        if date:
-            query_filter.extend([WorkerTimeVO.date >= date_list[0], WorkerTimeVO.date < date_list[1]])
-        name = request.args.get("name")
-        if name:
-            query_filter.append(WorkerVO.name.contains(name))
+        if request.args.get("startDate"):
+            query_filter.append(WorkerVO.start_time >= request.args.get("startDate"))
+        if request.args.get("endDate"):
+            query_filter.append(WorkerVO.start_time <= request.args.get("endDate"))
+        if request.args.get("name"):
+            query_filter.append(WorkerVO.name.contains(request.args.get("name")))
 
         res = WorkerVO.query.outerjoin(
             WorkerTimeVO,
@@ -216,13 +214,9 @@ class WorkTimeAnalyseApi(Resource):
     @work_time_analyse_api.route('/get_day_report/<int:_id>', methods=['GET'])
     def get_day_report(_id):
         # 日报模式
-        page = request.args.get("currentPage", 1, int)
-        page_size = request.args.get("pageSize", 15, int)
         user_id = get_id_by_token()
-        query_filter = [WorkerVO.belong == user_id]
+        query_filter = [WorkerVO.belong == user_id, WorkerTimeVO.date == time_util.get_now_str()]
         join_filter = [WorkerTimeVO.worker_id == WorkerVO.id]
-        if date:
-            join_filter.append(WorkerTimeVO.date == time_util.get_now_str(DATE_FORMAT))
         res = WorkerVO.query.outerjoin(
             WorkerTimeVO,
             and_(*join_filter)
@@ -243,10 +237,10 @@ class WorkTimeAnalyseApi(Resource):
             WorkerTimeVO.night_area,
             WorkerTimeVO.night_content,
         ).filter(*query_filter).order_by(
-            WorkerTimeVO.afternoon_area,
-        ).paginate(page=page, per_page=page_size)
+            WorkerVO.name,
+        ).all()
         ret = []
-        for item in row_to_dic(res.items):
+        for item in row_to_dic(res):
             ret.append({
                 "area": item["morning_area"] or '',
                 "time": "morning",

@@ -1,9 +1,7 @@
 <template>
   <div class="p_c_HolyGrail-body">
     <div>
-      <el-button @click="handleDelete">
-        增加
-      </el-button>
+      <router-link to="/admin/GoodsAdd"> 增加</router-link>
     </div>
     <div>
       <el-table :data="data">
@@ -13,7 +11,7 @@
         <el-table-column prop="create_time" label="上架时间"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+            <router-link to="/admin/GoodsEdit"> 编辑</router-link>
             <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
           </template>
         </el-table-column>
@@ -24,12 +22,20 @@
 
 <script>
 export default {
-  name: "GoodList",
+  name: "GoodsList",
   data() {
     return {
-      data: [],
+      data: [{
+        type: "主食",
+        name: "大米",
+        img: "",
+        price: "",
+      },],
+      form: {},
+
     }
-  }, methods: {
+  },
+  methods: {
     handleEdit() {
     },
     handleDelete() {

@@ -19,12 +19,13 @@ let routes = [
             {
                 path: 'admin',
                 name: 'admin',
+                component: () => import('@/views/member/admin/Home'),
                 redirect: '/admin/GoodList',
                 children: [
                     {
-                        path: 'GoodList',
-                        name: 'GoodList',
-                        component: () => import('@/views/member/admin/GoodList'),
+                        path: 'GoodsList',
+                        name: 'GoodsList',
+                        component: () => import('@/views/member/admin/GoodsList'),
                     },
                     {
                         path: 'GoodsAdd',

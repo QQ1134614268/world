@@ -7,26 +7,23 @@
                          :trigger-on-focus="false">
         </el-autocomplete>
       </div>
-      <div class="col-3">
+      <div class="col-6">
         <span>日期:</span>
-        <el-date-picker v-model="date" type="date" value-format="yyyy-MM-dd" placeholder="选择日期"></el-date-picker>
+        <el-date-picker  value-format="yyyy-MM-dd" v-model="dateRange"
+                        type="daterange" range-separator="至 " start-placeholder="开始日期" end-placeholder="结束日期">
+        </el-date-picker>
       </div>
       <div class="col-3">
         <el-button @click="init">搜索</el-button>
       </div>
     </div>
     <el-table :data="data" style="width: 100%">
+      <el-table-column prop="date" label="日期"></el-table-column>
       <el-table-column prop="name" label="姓名"></el-table-column>
       <el-table-column prop="morning" label="上午" :formatter="formatter"></el-table-column>
       <el-table-column prop="noon" label="中午" :formatter="formatter"></el-table-column>
       <el-table-column prop="afternoon" label="下午" :formatter="formatter"></el-table-column>
       <el-table-column prop="night" label="晚上" :formatter="formatter"></el-table-column>
-      <el-table-column label="操作">
-        <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-          <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-        </template>
-      </el-table-column>
     </el-table>
   </div>
 </template>
@@ -40,14 +37,15 @@ export default {
   data() {
     return {
       name: "",
-      date: getDateY_M_D(),
+      dateRange: [getDateY_M_D(), getDateY_M_D()],
       data: [],
     }
   },
   methods: {
     async init() {
       let data = {
-        date: this.date,
+        startDate: this.dateRange[0],
+        endDate: this.dateRange[1],
         name: this.name
       }
       let res = await this.$get2(WorkerTimeApi, 0, data)
@@ -75,15 +73,6 @@ export default {
         })
       }
       cb(suggest)
-    },
-    handleSelect() {
-
-    },
-    handleEdit() {
-
-    },
-    handleDelete() {
-
     },
   },
   created() {

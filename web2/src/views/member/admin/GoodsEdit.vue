@@ -1,20 +1,94 @@
 <template>
   <div>
-    <el-form>
-      <el-form-item label="账号">
-        <el-input v-model="form.username"></el-input>
+    <el-form ref="form" :model="form" label-width="80px">
+      <el-form-item label="商品图片">
+        <el-upload
+            class="avatar-uploader"
+            :action="FileApi"
+            :show-file-list="false"
+            :on-success="handleAvatarSuccess"
+            style="width:10rem;  height:10rem ">
+          <img :key="imageUrl" v-if="imageUrl" :src="imageUrl" style="width:10rem;
+                 height:10rem;object-fit: cover"
+          >
+          <i v-else class="el-icon-plus avatar-uploader-icon" style="width:10rem;  height:10rem "></i>
+        </el-upload>
+      </el-form-item>
+      <el-form-item label="商品名">
+        <el-input v-model="form.name"></el-input>
+      </el-form-item>
+      <el-form-item label="商品价格">
+        <el-input v-model="form.price" :value="null"></el-input>
+      </el-form-item>
+      <el-form-item label="商品描述">
+        <el-input v-model="form.describe"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit">完成</el-button>
+        <el-button @click="cancel">取消</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
+
+import {FileApi, GoodsApi} from "@/api/api";
+
 export default {
   name: "GoodsEdit",
   data() {
     return {
-      form: {}
+      FileApi,
+      dialogVisible: false,
+      form: {},
+      imageUrl: "",
+      tableData: [],
+      store_id: 1,
+      GoodsApi: "/api/goods_api/GoodsApi"
+    };
+  },
+
+  methods: {
+    handleAvatarSuccess(res) {
+      this.imageUrl = res.data;
+    },
+    async init() {
+      let data = {
+        storeId: 1
+      }
+      let response = await this.$get2(GoodsApi, 0, data);
+      this.tableData = response.data.data
+    },
+    async handleEdit(index, row) {
+      this.form = row
+      this.dialogVisible = true
+    },
+    async handleDelete(index, row) {
+      let response = await this.$deleteJson2(GoodsApi, row.id);
+      if (response.data.code != 1) {
+        return
+      }
+      this.tableData.splice(index, 1)
+    },
+    async onSubmit() {
+      this.dialogVisible = false
+      this.form.store_id = this.store_id
+      this.form.images = this.imageUrl;
+      let response = await this.$ppJson(GoodsApi, this.form.id, this.form);
+      if (response.data.code != 1) {
+        this.$message('操作失败');
+      } else {
+        this.$message('操作成功');
+      }
+      await this.init()
+    },
+    cancel() {
+      this.dialogVisible = false
     }
+  },
+  created() {
+    this.init()
   }
 }
 </script>

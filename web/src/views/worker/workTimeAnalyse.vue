@@ -10,7 +10,7 @@
       </div>
       <div>
         <el-date-picker
-            v-model="date"
+            v-model="dateRange"
             value-format="yyyy-MM-dd"
             type="daterange"
             range-separator="至"
@@ -39,7 +39,7 @@ export default {
   data() {
     return {
       name: '',
-      date: this.get_month_day(),
+      dateRange: this.get_month_day(),
       data: []
     }
   },
@@ -51,7 +51,8 @@ export default {
     async init() {
       let data = {
         name: this.name,
-        date: this.date,
+        startDate: this.dateRange[0],
+        endDate: this.dateRange[1],
       }
       let result = await this.$get2(WorkTimeAnalyseApi_get_sum_time, 0, data);
       this.data = result.data.data

@@ -166,8 +166,8 @@ def flask_global_assertion_handler(exception):
     :param exception:
     :return:
     """
-    print(exception)
-    print(str(exception))
+    # print(exception)
+    # print(str(exception))
     return res_util.fail(str(exception))
 
 

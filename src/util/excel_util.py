@@ -12,16 +12,19 @@ from config.conf import LOG_DIR, RESOURCE_DIR, DATE_FORMAT
 from config.exception import WorldException
 from config.mysql_db import db
 from util import time_util
+
+
 # todo 优化整体
 
 
 class Convert:
     # 读取excel类型 empty string number date boolean Error
-    def __init__(self, nullable=False, max_length=20, comment="姓名", index=None):
+    def __init__(self, nullable=False, max_length=20, comment="姓名", index=None, default=None):
         self.nullable = nullable
         self.max_length = max_length
         self.comment = comment
         self.index = index
+        self.default = default
 
     @staticmethod
     def convert(value):
@@ -44,7 +47,9 @@ class FloatConvert(Convert):
     @staticmethod
     def convert(value, **kwargs):
         if value is None:
-            return None
+            if not kwargs.get("nullable"):
+                raise WorldException("转换类型异常")
+            return kwargs.get("default")
         if isinstance(value, float):
             return value
         return float(value)
@@ -63,15 +68,19 @@ class StrConvert(Convert):
 
 
 class Field:
-    def __init__(self, convert_handle: Convert, nullable=False, max_length=20, comment="姓名", index=None):
+    def __init__(self, convert_handle: Convert, nullable=False, min_length=0, max_length=20, comment=None, index=None,
+                 default=None):
         self.convert_handle = convert_handle
         self.comment = comment
         self.nullable = nullable
+        self.min_length = min_length
         self.max_length = max_length
         self.index = index
+        self.default = default
 
     def convert(self, value):
-        return self.convert_handle.convert(value, nullable=self.nullable, max_length=self.max_length)
+        return self.convert_handle.convert(value, nullable=self.nullable, max_length=self.max_length,
+                                           default=self.default)
 
 
 class ExcelExceptionMsg:
