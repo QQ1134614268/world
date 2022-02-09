@@ -10,6 +10,7 @@ from flask_restful import Resource
 from sqlalchemy import and_, func, asc, desc
 from sqlalchemy.dialects.mysql import insert
 
+from config.conf import DATE_FORMAT
 from config.mysql_db import db
 from service.user_service import get_id_by_token
 from util import res_util, db_util, time_util
@@ -111,9 +112,12 @@ class WorkerTimeApi(Resource):
 
     def post(self, _id):
         data = request.get_json()
-        db.session.add(WorkerTimeVO(**data))
+        if "name" in data:
+            data.pop("name")  # todo vue修改
+        vo = WorkerTimeVO(**data)
+        db.session.add(vo)
         db.session.commit()
-        return res_util.success()
+        return res_util.success(vo.id)
 
     def get(self, _id):
         name = request.args.get("name")
@@ -125,6 +129,9 @@ class WorkerTimeApi(Resource):
         start_date = request.args.get("startDate")
         if start_date:
             query_filter.append(WorkerTimeVO.date >= start_date)
+        date = request.args.get("date")
+        if date:
+            join_filter.append(WorkerTimeVO.date == date)
         end_date = request.args.get("endDate")
         if end_date:
             query_filter.append(WorkerTimeVO.date <= end_date)
@@ -132,7 +139,8 @@ class WorkerTimeApi(Resource):
             WorkerTimeVO,
             and_(*join_filter)
         ).with_entities(
-            WorkerVO.id,
+            WorkerTimeVO.id,
+            WorkerVO.id.label("worker_id"),
             WorkerVO.name,
             WorkerTimeVO.date,
             WorkerTimeVO.morning,
@@ -153,29 +161,11 @@ class WorkerTimeApi(Resource):
 
     def put(self, _id):
         data = request.get_json()
-        update_data = {
-            'date': data.get("date"),
-            'worker_id': data.get("worker_id"),
-        }
-        if data.get("type") == 'morning':
-            update_data['morning'] = data.get("flag")
-            update_data['morning_area'] = data.get("area")
-            update_data['morning_content'] = data.get("content")
-        if data.get("type") == 'noon':
-            update_data['noon'] = data.get("flag")
-            update_data['noon_area'] = data.get("area")
-            update_data['noon_content'] = data.get("content")
-        if data.get("type") == 'afternoon':
-            update_data['afternoon'] = data.get("flag")
-            update_data['afternoon_area'] = data.get("area")
-            update_data['afternoon_content'] = data.get("content")
-        if data.get("type") == 'night':
-            update_data['night'] = data.get("flag")
-            update_data['night_area'] = data.get("area")
-            update_data['night_content'] = data.get("content")
-        u_list = [(k, v) for k, v in update_data.items()]
-        insert_stmt = insert(WorkerTimeVO).values(update_data)
-        on_duplicate_key_stmt = insert_stmt.on_duplicate_key_update(u_list)
+        if "name" in data:
+            data.pop("name")  # todo vue修改
+        WorkerTimeVO.query.filter(WorkerTimeVO.id)
+        insert_stmt = insert(WorkerTimeVO).values(data)
+        on_duplicate_key_stmt = insert_stmt.on_duplicate_key_update(data)
         db.session.execute(on_duplicate_key_stmt)
         db.session.commit()
         return res_util.success()
@@ -189,12 +179,11 @@ class WorkTimeAnalyseApi(Resource):
     def get_sum_time(_id):
         query_filter = [WorkerVO.belong == get_id_by_token()]
         if request.args.get("startDate"):
-            query_filter.append(WorkerVO.start_time >= request.args.get("startDate"))
+            query_filter.append(WorkerTimeVO.date >= request.args.get("startDate"))
         if request.args.get("endDate"):
-            query_filter.append(WorkerVO.start_time <= request.args.get("endDate"))
+            query_filter.append(WorkerTimeVO.date <= request.args.get("endDate"))
         if request.args.get("name"):
             query_filter.append(WorkerVO.name.contains(request.args.get("name")))
-
         res = WorkerVO.query.outerjoin(
             WorkerTimeVO,
             and_(WorkerTimeVO.worker_id == WorkerVO.id)
@@ -213,8 +202,8 @@ class WorkTimeAnalyseApi(Resource):
         ).all()
         data = db_util.row_to_dic(res)
         for item in data:
-            item["days"] = (item.get("morning") * 4.5 + item.get("noon") * 2 + item.get("afternoon") * 4.5 + item.get(
-                "night") * 4.5) / 9
+            item["days"] = (item.get("morning", 0) + item.get("noon", 0) + item.get("afternoon", 0) + item.get("night",
+                                                                                                               0)) / 9
             item["money"] = item["days"] * item["pay"]
         return res_util.success(data)
 
@@ -223,7 +212,7 @@ class WorkTimeAnalyseApi(Resource):
     def get_day_report(_id):
         # 日报模式
         user_id = get_id_by_token()
-        query_filter = [WorkerVO.belong == user_id, WorkerTimeVO.date == time_util.get_now_str()]
+        query_filter = [WorkerVO.belong == user_id, WorkerTimeVO.date == time_util.get_now_str(DATE_FORMAT)]
         join_filter = [WorkerTimeVO.worker_id == WorkerVO.id]
         res = WorkerVO.query.outerjoin(
             WorkerTimeVO,
@@ -251,25 +240,25 @@ class WorkTimeAnalyseApi(Resource):
         for item in row_to_dic(res):
             ret.append({
                 "area": item["morning_area"] or '',
-                "time": "morning",
+                "time": "上午",
                 "content": item["morning_content"],
                 "name": item["name"],
             })
             ret.append({
                 "area": item["noon_area"] or '',
-                "time": "noon",
+                "time": "中午",
                 "content": item["noon_content"],
                 "name": item["name"],
             })
             ret.append({
                 "area": item["afternoon_area"] or '',
-                "time": "night",
+                "time": "下午",
                 "content": item["afternoon_area"],
                 "name": item["name"],
             })
             ret.append({
                 "area": item["night_area"] or '',
-                "time": "morning",
+                "time": "晚上",
                 "content": item["night_content"],
                 "name": item["name"],
             })

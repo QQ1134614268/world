@@ -50,9 +50,7 @@ class EnumApi(Resource):
     def get(self, _id):
         parent_code = request.args.get("parent_code", '-1')
         group_code = request.args.get("group_code", None)
-        create_by = request.args.get("create_by", -1)
         vos = EnumConfig.query.filter(
-            EnumConfig.create_by == create_by,
             EnumConfig.parent_code == parent_code,
             EnumConfig.group_code == group_code
         ).all()

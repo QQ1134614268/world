@@ -65,9 +65,9 @@ app.config.update(RESTFUL_JSON=dict(ensure_ascii=False))
 db.init_app(app)
 app.json_encoder = MyJSONEncoder
 
-# E:/world/venv/Scripts/flask db init
-# E:/world/venv/Scripts/flask db migrate
-# E:/world/venv/Scripts/flask db upgrade
+# E:/workspace/world/venv/Scripts/flask db init
+# E:/workspace/world/venv/Scripts/flask db migrate
+# E:/workspace/world/venv/Scripts/flask db upgrade
 #
 # D:/workspace/world/venv/Scripts/flask db migrate
 # D:/workspace/world/venv/Scripts/flask db upgrade

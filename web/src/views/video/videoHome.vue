@@ -28,6 +28,9 @@
             <el-dropdown-item>
               <a type="primary" href="/video/InvitationCode" v-if="INVITATION_CODE">我的邀请码</a>
             </el-dropdown-item>
+            <el-dropdown-item>
+              <a type="primary" href="/videoAdmin" v-if="VIDEO_REVIEW">审核</a>
+            </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -64,7 +67,8 @@ export default {
       VideoLoginUrl,
       VideoRegisterUrl,
       WorksUrl,
-      INVITATION_CODE: false
+      INVITATION_CODE: false,
+      VIDEO_REVIEW:false
     }
   },
   computed: {
@@ -83,6 +87,9 @@ export default {
     async init() {
       if (this.user && this.user.id) {
         this.INVITATION_CODE = await hasPermission(this.user.id, Permission.INVITATION_CODE)
+      }
+      if (this.user && this.user.id) {
+        this.VIDEO_REVIEW = await hasPermission(this.user.id, Permission.VIDEO_REVIEW)
       }
     }
   },

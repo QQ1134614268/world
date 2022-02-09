@@ -5,99 +5,103 @@
       <span>日期:</span>
       <el-date-picker v-model="date" value-format="yyyy-MM-dd" type="date"></el-date-picker>
       <el-select v-model="time" placeholder="请选择">
-        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+        <el-option v-for="item in options" :label="item.label" :value="item.value"></el-option>
       </el-select>
     </div>
     <el-table :data="data" style="width: 100%">
       <!--      todo 设计 一天的( 优化), 取消点击flag(触发保存?),  测试
-                    签到: 创建条目 可搜索 可清空单选
+                    工作时长(小时): 创建条目 可搜索 可清空单选
                     api 优化(连表的数据,单独接口)
                         log记录修改
                         当天数据与上一个有数据的(每次点击获取? 根据时间button触发最大日期),
                         微信扫码,记录工作内容
       -->
-      <el-table-column prop="name" label="姓名"></el-table-column>
-      <el-table-column prop="name" label="位置" v-if='this.time=="morning"'>
+      <el-table-column key="name" prop="name" label="姓名"></el-table-column>
+      <el-table-column key="morning_area" label="位置" v-if='this.time=="morning"'>
         <template slot-scope="scope">
-          <el-select v-model="scope.row.morning_area" placeholder="请选择">
-            <el-option v-for="item in config1" :key="item.value" :label="item.code" :value="item.value"></el-option>
+          <el-select v-model="scope.row.morning_area" placeholder="请选择" @change="change(scope.row)">
+            <el-option v-for="item in config1" :label="item.code" :value="item.value"></el-option>
           </el-select>
         </template>
       </el-table-column>
-      <el-table-column prop="name" label="工作内容" v-if='this.time=="morning"'>
+      <el-table-column key="morning_content" label="工作内容" v-if='this.time=="morning"'>
         <template slot-scope="scope">
-          <el-select v-model="scope.row.morning_content" placeholder="请选择">
-            <el-option v-for="item in config2" :key="item.value" :label="item.code" :value="item.value"></el-option>
+          <el-select v-model="scope.row.morning_content" placeholder="请选择" @change="change(scope.row)">
+            <el-option v-for="item in config2" :label="item.code" :value="item.value"></el-option>
           </el-select>
         </template>
       </el-table-column>
-      <el-table-column label="签到" v-if='this.time=="morning"'>
+      <el-table-column key="morning" label="工作时长(小时)" v-if='this.time=="morning"'>
         <template slot-scope="scope">
-          <el-select v-model="scope.row.morning" filterable allow-create default-first-option placeholder="请选择文章标签">
-            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          <el-select v-model="scope.row.morning" filterable allow-create default-first-option placeholder="请选择"
+                     @change="change(scope.row)">
+            <el-option v-for="item in time1" :key="item.label" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </template>
       </el-table-column>
-      <el-table-column prop="name" label="位置" v-if='this.time=="noon"'>
+      <el-table-column key="noon_area" label="位置" v-if='this.time=="noon"'>
         <template slot-scope="scope">
-          <el-select v-model="scope.row.noon_area" placeholder="请选择">
-            <el-option v-for="item in config1" :key="item.value" :label="item.code" :value="item.value"></el-option>
+          <el-select v-model="scope.row.noon_area" placeholder="请选择" @change="change(scope.row)">
+            <el-option v-for="item in config1" :label="item.code" :value="item.value"></el-option>
           </el-select>
         </template>
       </el-table-column>
-      <el-table-column prop="name" label="工作内容" v-if='this.time=="noon"'>
+      <el-table-column key="noon_content" label="工作内容" v-if='this.time=="noon"'>
         <template slot-scope="scope">
-          <el-select v-model="scope.row.noon_content" placeholder="请选择">
-            <el-option v-for="item in config2" :key="item.value" :label="item.code" :value="item.value"></el-option>
+          <el-select v-model="scope.row.noon_content" placeholder="请选择" @change="change(scope.row)">
+            <el-option v-for="item in config2" :label="item.code" :value="item.value"></el-option>
           </el-select>
         </template>
       </el-table-column>
-      <el-table-column label="签到" v-if='this.time=="noon"'>
+      <el-table-column key="noon" label="工作时长(小时)" v-if='this.time=="noon"'>
         <template slot-scope="scope">
-          <el-select v-model="scope.row.noon" filterable allow-create default-first-option placeholder="请选择文章标签">
-            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          <el-select v-model="scope.row.noon" filterable allow-create default-first-option placeholder="请选择"
+                     @change="change(scope.row)">
+            <el-option v-for="item in time1" :key="item.label" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </template>
       </el-table-column>
-      <el-table-column prop="name" label="位置" v-if='this.time=="afternoon"'>
+      <el-table-column key="afternoon_area" label="位置" v-if='this.time=="afternoon"'>
         <template slot-scope="scope">
-          <el-select v-model="scope.row.afternoon_area" placeholder="请选择">
-            <el-option v-for="item in config1" :key="item.value" :label="item.code" :value="item.value"></el-option>
+          <el-select v-model="scope.row.afternoon_area" placeholder="请选择" @change="change(scope.row)">
+            <el-option v-for="item in config1" :label="item.code" :value="item.value"></el-option>
           </el-select>
         </template>
       </el-table-column>
-      <el-table-column prop="name" label="工作内容" v-if='this.time=="afternoon"'>
+      <el-table-column key="afternoon_content" label="工作内容" v-if='this.time=="afternoon"'>
         <template slot-scope="scope">
-          <el-select v-model="scope.row.afternoon_content" placeholder="请选择">
-            <el-option v-for="item in config2" :key="item.value" :label="item.code" :value="item.value"></el-option>
+          <el-select v-model="scope.row.afternoon_content" placeholder="请选择" @change="change(scope.row)">
+            <el-option v-for="item in config2" :label="item.code" :value="item.value"></el-option>
           </el-select>
         </template>
       </el-table-column>
-      <el-table-column label="签到" v-if='this.time=="afternoon"'>
+      <el-table-column key="afternoon" label="工作时长(小时)" v-if='this.time=="afternoon"'>
         <template slot-scope="scope">
-          <el-select v-model="scope.row.afternoon" filterable allow-create default-first-option placeholder="请选择文章标签">
-            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          <el-select v-model="scope.row.afternoon" filterable allow-create default-first-option placeholder="请选择"
+                     @change="change(scope.row)">
+            <el-option v-for="item in time1" :key="item.label" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </template>
       </el-table-column>
-      <el-table-column prop="name" label="位置" v-if='this.time=="night"'>
+      <el-table-column key="afternoon" label="位置" v-if='this.time=="night"'>
         <template slot-scope="scope">
-          <el-select v-model="scope.row.night_area" placeholder="请选择">
-            <el-option v-for="item in config1" :key="item.value" :label="item.code" :value="item.value"></el-option>
+          <el-select v-model="scope.row.night_area" placeholder="请选择" @change="change(scope.row)">
+            <el-option v-for="item in config1" :label="item.code" :value="item.value"></el-option>
           </el-select>
         </template>
       </el-table-column>
-      <el-table-column prop="name" label="工作内容" v-if='this.time=="night"'>
+      <el-table-column key="night_content" label="工作内容" v-if='this.time=="night"'>
         <template slot-scope="scope">
-          <el-select v-model="scope.row.night_content" placeholder="请选择">
-            <el-option v-for="item in config2" :key="item.value" :label="item.code" :value="item.value"></el-option>
+          <el-select v-model="scope.row.night_content" placeholder="请选择" @change="change(scope.row)">
+            <el-option v-for="item in config2" :label="item.code" :value="item.value"></el-option>
           </el-select>
         </template>
       </el-table-column>
-      <el-table-column label="签到" v-if='this.time=="night"'>
+      <el-table-column key="night" label="工作时长(小时)" v-if='this.time=="night"'>
         <template slot-scope="scope">
-          <el-select v-model="scope.row.night" filterable allow-create default-first-option placeholder="请选择文章标签">
-            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          <el-select v-model="scope.row.night" filterable allow-create default-first-option placeholder="请选择"
+                     @change="change(scope.row)">
+            <el-option v-for="item in time1" :key="item.label" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </template>
       </el-table-column>
@@ -106,7 +110,7 @@
 </template>
 
 <script>
-import {ConfigApi, WorkerApi, WorkerTimeApi} from "@/api/api";
+import {ConfigApi, WorkerTimeApi} from "@/api/api";
 import {getDateY_M_D} from "@/api/util";
 
 export default {
@@ -124,7 +128,7 @@ export default {
         {value: 'afternoon', label: '下午'},
         {value: 'night', label: '晚上'},
       ],
-      timeSelect: [
+      time1: [
         {
           value: '4.5',
           label: '4.5'
@@ -138,7 +142,7 @@ export default {
           label: '0'
         },
       ],
-      timeSelect2: [
+      time2: [
         {
           value: '2',
           label: '2'
@@ -156,8 +160,10 @@ export default {
   },
   methods: {
     async init() {
-      let data = {}
-      let res = await this.$get2(WorkerApi, 0, data)
+      let data = {
+        date: this.date
+      }
+      let res = await this.$get2(WorkerTimeApi, 0, data)
       if (res.data.code != 1) {
         this.$message('服务器异常');
         return
@@ -188,15 +194,8 @@ export default {
       }
     },
     async change(row) {
-      let data = {
-        'worker_id': row.id,
-        date: this.date,
-        type: this.time,
-        area: row.area,
-        content: row.content,
-        flag: row.flag,
-      }
-      let response = await this.$putJson2(WorkerTimeApi, 0, data)
+      row.date = this.date
+      let response = await this.$ppJson(WorkerTimeApi, row.id, row)
     },
   },
 

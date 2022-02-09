@@ -4,7 +4,7 @@ const routes = [
         path: '/videoAdmin',
         name: '/videoAdmin',
         component: () => import('@/views/videoAdmin/Home'),
-        redirect: "/videoAdmin/Approve",
+        redirect:'/videoAdmin/ReviewWorks',
         children: [
             {
                 path: 'ReviewWorks',

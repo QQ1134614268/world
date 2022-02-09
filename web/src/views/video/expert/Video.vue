@@ -16,7 +16,6 @@ export default {
   data() {
     return {
       video_id: this.$route.query.video_id,
-      search: "",
       video: {},
       user: {},
     }

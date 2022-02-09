@@ -7,6 +7,7 @@ import decimal
 import json
 import uuid
 from datetime import date, datetime
+from enum import Enum
 
 from sqlalchemy.engine import Row
 
@@ -23,6 +24,8 @@ class MyJSONEncoder(json.JSONEncoder):
             return dic
         if isinstance(o, Row):
             return dict(o)
+        if isinstance(o, Enum):
+            return o.name
         if isinstance(o, datetime):
             return o.strftime(DATE_TIME_FORMAT)
         if isinstance(o, date):

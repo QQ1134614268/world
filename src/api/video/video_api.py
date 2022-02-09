@@ -298,18 +298,16 @@ class ReviewWorksApi(Resource):
         if search:
             query.filter(or_(WorksVO.title.contains(search), WorksVO.content.contains(search)))
         # 日期
-        state = request.args.get("state")
+        state = request.args.get("state", ReviewEnum.NONE.name)
         if state:
             query.filter(WorksVO.state == state)
-
         page_item = query.with_entities(
-            TargetVO.id,
-            TargetVO.title,
-            TargetVO.content,
-            TargetVO.price,
-            TargetVO.user_id,
-            TargetVO.create_time,
-            UserVO.avatar,
+            WorksVO.id,
+            WorksVO.describe,
+            WorksVO.thumbnail,
+            WorksVO.user_id,
+            WorksVO.create_time,
+            WorksVO.state,
             UserVO.username,
         ).paginate(page=page, per_page=page_size)
         page_item.items = [dict(zip(item.keys(), item)) for item in page_item.items]
