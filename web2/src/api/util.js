@@ -5,8 +5,13 @@ export function toTree(arr) {
         let obj = arr[i]
         if (tree[obj.type] != undefined) {
             tree[obj.type].push(obj)
-        }else {
-            ret.push(arr[i].type)
+        } else {
+            tree[obj.type] = [obj]
+            ret.push({
+                type: obj.type,
+                data: tree[obj.type]
+            })
         }
     }
+    return ret
 }

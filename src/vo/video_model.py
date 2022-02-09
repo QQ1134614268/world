@@ -3,8 +3,10 @@
 @Time: 2022/1/6
 @Description:
 """
-from sqlalchemy import Column, Integer, String, Float
 
+from sqlalchemy import Column, Integer, String, Float, Enum
+
+from config.enum_conf import ReviewEnum
 from service.user_service import get_id_by_token
 from vo.table_model import BaseTable
 
@@ -23,6 +25,8 @@ class WorksVO(BaseTable):
     file = Column(String(255))
     start = Column(Integer, default=0)
     thumbnail = Column(String(255))
+    state = Column(Enum(ReviewEnum), default=ReviewEnum.NONE.name, comment="枚举值: " + " ".join(
+        [f'{name}:{member.value};' for name, member in ReviewEnum.__members__.items()]))
 
 
 class TargetVO(BaseTable):
@@ -31,3 +35,5 @@ class TargetVO(BaseTable):
     title = Column(String(255))
     content = Column(String(1000))
     price = Column(Float)
+    state = Column(Enum(ReviewEnum), comment="枚举值: " + " ".join(
+        [f'{name}:{member.value};' for name, member in ReviewEnum.__members__.items()]))

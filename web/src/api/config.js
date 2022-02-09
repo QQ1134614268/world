@@ -1,111 +1,14 @@
-import Axios from "axios";
+import {getEnum} from "@/api/enum_api";
 
-export const get = (url, params) => {
-    return Axios({
-        method: 'get',
-        url: url,
-        params: params
-    })
-};
-export const get2 = (url, id, params) => {
-    if (id == undefined) {
-        id = 0
-    }
-    return Axios({
-        method: 'get',
-        url: url + "/" + id,
-        params: params
-    })
-};
-export const postJson = (url, data = {}) => {
-    return Axios({
-        method: 'POST',
-        url,
-        data: data
-    })
-};
-export const postJson2 = (url, id, data = {}) => {
-    if (id == undefined) {
-        id = 0
-    }
-    return Axios({
-        method: 'POST',
-        url: url + "/" + id,
-        data: data
-    })
-};
-export const putJson = (url, data = {}) => {
-    return Axios({
-        method: 'PUT',
-        url,
-        data: data
-    })
-};
-export const putJson2 = (url, id, data = {}) => {
-    if (id == undefined) {
-        id = 0
-    }
-    return Axios({
-        method: 'PUT',
-        url: url + "/" + id,
-        data: data
-    })
-};
-export const deleteJson = (url, data = {}) => {
-    return Axios({
-        method: 'DELETE',
-        url,
-        data: data
-    })
-};
-export const deleteJson2 = (url, id, data = {}) => {
-    if (id == undefined) {
-        id = 0
-    }
-    return Axios({
-        method: 'DELETE',
-        url: url + "/" + id,
-        data: data
-    })
-};
-export const postForm = (url, data = {}) => {
-    return Axios({
-        method: 'POST',
-        url,
-        data: data,
-        headers: {
-            'Content-Type': 'multipart/form-data;'
-        }
-    })
-};
-export const postForm2 = (url, id, data = {}) => {
-    if (id == undefined) {
-        id = 0
-    }
-    return Axios({
-        method: 'POST',
-        url: url + "/" + id,
-        data: data,
-        headers: {
-            'Content-Type': 'multipart/form-data;'
-        }
-    })
-};
-export const ppJson = (url, id, data) => {
-    if (typeof (id) == "undefined" || id == null) {
-        return postJson2(url, 0, data)
-    }
-    return putJson2(url, id, data)
-};
-
-export async function querySearch(queryString, cb, url) {
-    let data = {name: queryString}
-    let res = await get2(url, 0, data)
-    let suggest = []
-    for (let i = 0; i < res.data.data.length; i++) {
-        suggest.push({
-            value: res.data.data[i].name
-        })
-    }
-    cb(suggest)
+export const TIME_TIME = {
+    MORNING: 4.5, NOON: 2, AFTERNOON: 2, NIGHT: 2,
 }
+
+export const REVIEW_ENUM = "REVIEW_ENUM"
+
+export const DATE_FMT = "YYYY-MM-DD"
+export const SALT_WORK_FACTOR = "AAAA_BBBB_CCCC_DDDD"
+export const Permission = {
+    INVITATION_CODE: "INVITATION_CODE"
+}
+export const ReviewEnum = getEnum({group_code: REVIEW_ENUM})

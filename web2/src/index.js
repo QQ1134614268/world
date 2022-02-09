@@ -17,10 +17,10 @@ let routes = [
                 component: () => import('@/views/member/Store'),
             },
             {
-                path: 'admin',
-                name: 'admin',
+                path: 'videoAdmin',
+                name: 'videoAdmin',
                 component: () => import('@/views/member/admin/Home'),
-                redirect: '/admin/GoodList',
+                redirect: '/videoAdmin/GoodList',
                 children: [
                     {
                         path: 'GoodsList',

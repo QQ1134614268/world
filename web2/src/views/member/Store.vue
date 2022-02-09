@@ -69,32 +69,6 @@ export default {
           ]
         }
       ],
-      // goodList2: [
-      //   {
-      //     type: "主食",
-      //     name: "大米",
-      //     img: "",
-      //     price: "",
-      //   },
-      //   {
-      //     type: "主食",
-      //     name: "馒头",
-      //     img: "",
-      //     price: "",
-      //   },
-      //   {
-      //     type: "饮料",
-      //     name: "青岛",
-      //     img: "",
-      //     price: "",
-      //   },
-      //   {
-      //     type: "饮料",
-      //     name: "矿泉水",
-      //     img: "",
-      //     price: "",
-      //   },
-      // ]
     }
   },
   methods: {}

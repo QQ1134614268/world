@@ -48,7 +48,6 @@ export default {
 .box {
   display: flex;
   flex-direction: column;
-  width: 50%;
   justify-content: center;
   align-content: center;
   align-items: center;

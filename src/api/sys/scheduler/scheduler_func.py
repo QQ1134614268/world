@@ -4,7 +4,7 @@ import os
 from sqlalchemy.dialects.mysql import insert
 
 from config.conf import LOG_DIR, UPLOAD_FILE_PATH
-from config.enum_conf import Permission, Role
+from config.enum_conf import Permission, Role, ReviewEnum, SexEnum
 from config.mysql_db import db
 from util import time_util
 from util.log_util import logger
@@ -38,6 +38,11 @@ def clear_code():
         logger.info("完成--清除邀请码数据")
 
 
+def clear_approve():
+    # todo 审核字段 直接置为 通过??
+    pass
+
+
 def clear_data():
     # todo
     # clear_log_data 清除邀请码数据 清除log日志
@@ -56,7 +61,8 @@ def classname_to_const(name):
 
 def init_enum_table():
     logger.info("开始--同步枚举数据")
-    group = [Role, Permission]
+    # 清除删掉的枚举(create_by == -1 )?? todo 手动?  用户输入的枚举
+    group = [Role, Permission, ReviewEnum, SexEnum]
     data = []
     for cla in group:
         for index, item in enumerate(cla):
@@ -70,6 +76,7 @@ def init_enum_table():
 
     from app import app
     with app.app_context():
+        # 重复直接更新?? bug todo
         insert_stmt = insert(EnumConfig).values(data)
         on_duplicate_key_stmt = insert_stmt.on_duplicate_key_update(
             group_code=insert_stmt.inserted.group_code,

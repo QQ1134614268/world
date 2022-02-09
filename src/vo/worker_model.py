@@ -5,6 +5,7 @@
 """
 from sqlalchemy import Column, Integer, String, Date, Enum, Float, UniqueConstraint
 
+from config.enum_conf import SexEnum
 from vo.table_model import BaseTable
 
 
@@ -17,11 +18,13 @@ class WorkerVO(BaseTable):
         'mysql_charset': 'utf8mb4',
         'comment': '工人详情',
     }
-    belong = Column(Integer)
+    belong = Column(Integer, )
     name = Column(String(255))
     birthday = Column(Date)
     id_card_number = Column(String(255))  # , unique=True
-    sex = Column(Enum('男', '女'))
+    # todo 优化 枚举 导入导出,vue 工人列表 表格
+    sex = Column(Enum('男', '女'), comment="枚举值: " + " ".join(
+        [f'{name}:{member.value};' for name, member in SexEnum.__members__.items()]))
     pay = Column(Float, default=0)
     start_time = Column(Date)
     phone = Column(String(11))

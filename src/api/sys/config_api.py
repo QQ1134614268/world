@@ -16,11 +16,8 @@ class ConfigApi(Resource):
 
     def get(self, _id):
         parent_code = request.args.get("parent_code", '-1')
-        group_code = request.args.get("group_code", "BUILD")
-        if request.args.get("create_by") == "-1":
-            create_by = "-1"
-        else:
-            create_by = service.user_service.get_id_by_token()
+        group_code = request.args.get("group_code", None)
+        create_by = request.args.get("create_by", service.user_service.get_id_by_token())
         vos = EnumConfig.query.filter(
             EnumConfig.create_by == create_by,
             EnumConfig.parent_code == parent_code,
@@ -48,8 +45,15 @@ class ConfigApi(Resource):
         return res_util.success(_id)
 
 
-class ConfigListApi(Resource):
+class EnumApi(Resource):
 
     def get(self, _id):
-        return res_util.success()
-
+        parent_code = request.args.get("parent_code", '-1')
+        group_code = request.args.get("group_code", None)
+        create_by = request.args.get("create_by", -1)
+        vos = EnumConfig.query.filter(
+            EnumConfig.create_by == create_by,
+            EnumConfig.parent_code == parent_code,
+            EnumConfig.group_code == group_code
+        ).all()
+        return res_util.success(vos)

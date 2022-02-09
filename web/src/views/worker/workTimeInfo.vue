@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import {getDateY_M_D} from "@/api/timeUtil";
 import {WorkerApi, WorkerTimeApi} from "@/api/api";
+import {getDateY_M_D} from "@/api/util";
 
 export default {
   name: "workTimeInfo",

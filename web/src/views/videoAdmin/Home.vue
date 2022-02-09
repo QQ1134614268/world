@@ -21,13 +21,18 @@ export default {
       isCollapse: true,
       menuList: [
         {
-          menuName: "审批",
-          menuPath: "/admin/Approve",
+          menuName: "审批作品",
+          menuPath: "/videoAdmin/ReviewWorks",
+          menuIcon: "el-icon-location",
+        },
+        {
+          menuName: "审批发布消息",
+          menuPath: "/videoAdmin/ReviewTarget",
           menuIcon: "el-icon-location",
         },
         {
           menuName: "设置",
-          menuPath: "/admin/Setting",
+          menuPath: "/videoAdmin/Setting",
           menuIcon: "el-icon-location",
         }
       ],

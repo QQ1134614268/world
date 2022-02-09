@@ -13,10 +13,10 @@ import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
+import {SYS_LOGIN_URL, VideoLoginUrl} from "@/api/routerUrl";
 import {
     deleteJson,
-    deleteJson2,
-    get,
+    deleteJson2, get,
     get2,
     postForm,
     postForm2,
@@ -25,8 +25,7 @@ import {
     ppJson,
     putJson,
     putJson2
-} from "@/api/config";
-import {SYS_LOGIN_URL, VideoLoginUrl} from "@/api/routerUrl";
+} from "@/api/util";
 // 头像裁剪组件
 Vue.use(VueCropper)
 // 文本编辑器

@@ -42,30 +42,6 @@ export default {
       }
       this.tableData = response.data.data
     },
-    async addStoreMember() {
-      this.$route.params
-      let url = "/api/member/StoreMemberApi"
-      let data = {
-        user_id: this.userVO.id,
-        store_id: this.store_id,
-      }
-      let response = await this.$postJson(url, data);
-      this.userVO = response.data.data
-      this.dialogVisible = false
-    },
-    async searchUser() {
-      let url = "/api/user_api/getUserByName"
-      let data = {
-        username: this.user_name,
-      }
-      let response = await this.$get(url, data);
-      if (response.data.code == 1) {
-        this.userVO = response.data.data
-        this.dialogVisible = true
-      } else {
-        this.$message("没有该用户")
-      }
-    },
   },
   created() {
     this.getStoreMember()

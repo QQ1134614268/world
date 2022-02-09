@@ -20,9 +20,9 @@ from api.my_cloud_space.CloudSpaceApi import cloud_space_api, FileApi
 from api.project_api import ProjectInit
 from api.stone_game.StoneGameApi import stone_game_api
 from api.sys.SysApi import sys_api, AllApi, SuggestApi, AnnouncementApi
-from api.sys.config_api import ConfigApi
+from api.sys.config_api import ConfigApi, EnumApi
 from api.sys.customize.customize_api import customize_api
-from api.sys.file.file_api import FileApi2, SingleDirFileApi
+from api.sys.file.file_api import FileApi2, FileApi3
 from api.sys.log_api import LogApi
 from api.sys.scheduler.scheduler_api import scheduler_api
 from api.tree.tree_api import UploadDataApi, prove_api, ProveApi, StoryApi
@@ -30,7 +30,7 @@ from api.user.permission_api import PermissionApi
 from api.user.user_api import user_api, UserApi
 from api.user.wallet.wallet_api import WalletApi
 from api.video.video_api import TargetApi, TargetListApi, MarketTargetListApi, WorksApi, WorksListApi, WorksRankListApi, \
-    TargetRankListApi, MarketWorksListApi, VideoUserApi, InvitationCodeApi
+    TargetRankListApi, MarketWorksListApi, VideoUserApi, InvitationCodeApi, ReviewTargetApi, ReviewWorksApi
 from api.worker.work_api import WorkerApi, WorkerTimeApi, WorkerExcelApi, WorkTimeAnalyseApi, \
     work_time_analyse_api
 from config.apscheduler_conf import scheduler
@@ -205,12 +205,14 @@ app.register_blueprint(scheduler_api)
 # sys
 api2.add_resource(ProjectInit, "/help")
 api2.add_resource(ConfigApi, "/api/config_api/ConfigApi/<int:_id>")
+api2.add_resource(EnumApi, "/api/config_api/EnumApi/<int:_id>")
 api2.add_resource(SuggestApi, "/api/sys_api/SuggestApi/<int:_id>")
 api2.add_resource(AnnouncementApi, "/api/sys_api/AnnouncementApi/<int:_id>")
 
-api2.add_resource(FileApi, "/api/file/FileApi")
+api2.add_resource(FileApi, "/api/file/FileApi")  # todo 删除?? 优化??
 api2.add_resource(FileApi2, "/api/file/FileApi2", "/api/file/FileApi2/upload_file/<string:path>")
-api2.add_resource(SingleDirFileApi, "/api/file/SingleDirFileApi", "/api/file/SingleDirFileApi/<string:path>")
+api2.add_resource(FileApi3, "/api/file/FileApi3/<string:file_dir>",
+                  "/api/file/FileApi3/FILE_SERVE/<string:file_dir>/<string:file_name>")
 
 api2.add_resource(LogApi, "/api/log_api/LogApi/<int:_id>")
 
@@ -259,6 +261,10 @@ api2.add_resource(WorksListApi, "/api/video_api/WorksListApi/<int:_id>")
 api2.add_resource(WorksRankListApi, "/api/video_api/WorksRankListApi/<int:_id>")
 api2.add_resource(TargetRankListApi, "/api/video_api/TargetRankListApi/<int:_id>")
 api2.add_resource(MarketWorksListApi, "/api/video_api/MarketWorksListApi/<int:_id>")
+
+api2.add_resource(ReviewTargetApi, "/api/video_api/ReviewTargetApi/<int:_id>")
+api2.add_resource(ReviewWorksApi, "/api/video_api/ReviewWorksApi/<int:_id>")
+
 
 if __name__ == '__main__':
     scheduler.init_app(app)

@@ -27,10 +27,7 @@
     </div>
     <el-dialog :title="form.id?'编辑':'新增'" :visible.sync="editDialog" width="30%">
       <el-form v-model="form">
-        <el-form-item label="编码">
-          <el-input class="col-6" v-model="form.code"></el-input>
-        </el-form-item>
-        <el-form-item label="枚举值">
+        <el-form-item label="取值">
           <el-input class="col-6" v-model="form.value"></el-input>
         </el-form-item>
         <el-form-item label="备注">
@@ -72,7 +69,12 @@ export default {
       if (this.form.id != undefined) {
         res = await this.$putJson2(ConfigApi, this.form.id, this.form)
       } else {
-        res = await this.$postJson2(ConfigApi, 0, this.form)
+        let data = {
+          group_code: this.form["group_code"],
+          value: this.form["value"],
+          comment: this.form["comment"],
+        }
+        res = await this.$postJson2(ConfigApi, 0, data)
       }
       if (res.data.code == 1) {
         this.$message.info("操作成功")
@@ -83,9 +85,6 @@ export default {
     },
     async add() {
       this.form = {}
-    },
-    async handleChange() {
-
     },
     handleEdit(index, row) {
       this.form = row;

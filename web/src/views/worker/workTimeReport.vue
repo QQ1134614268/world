@@ -1,6 +1,7 @@
 <template>
   <div>
     每日报表
+    <!--    todo 优化(数据量巨大),整理合并 发邮件 -->
     <el-table :data="data">
       <el-table-column prop="area" label="地点"></el-table-column>
       <el-table-column prop="content" label="工作内容"></el-table-column>
@@ -9,7 +10,7 @@
       <el-table-column prop="value" label="时间(小时)"></el-table-column>
       <el-table-column prop="value" label="总人数"></el-table-column>
     </el-table>
-    总工时--0小时
+    总工时--x 小时
   </div>
 </template>
 

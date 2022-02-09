@@ -3,6 +3,7 @@ export const FilePathApi = "/api/file/FileApi2/"
 export const FileApi = "/api/file/FileApi2"
 export const PermissionApi = "/api/user_api/PermissionApi"
 export const ConfigApi = "/api/config_api/ConfigApi";
+export const EnumApi = "/api/config_api/EnumApi";
 export const LogApi = "/api/log_api/LogApi"
 
 //工时系统
@@ -38,9 +39,15 @@ export const WorksRankListApi = "/api/video_api/WorksRankListApi"
 export const TargetRankListApi = "/api/video_api/TargetRankListApi"
 export const VideoUserApi = "/api/video_api/VideoUserApi"
 export const InvitationCodeApi = "/api/video_api/InvitationCodeApi"
+export const ReviewTargetApi = "/api/video_api/ReviewTargetApi"
+export const ReviewWorksApi = "/api/video_api/ReviewWorksApi"
+
 
 // 会员
 export const GoodsApi = "/api/goods_api/GoodsApi"
 export const OrderApi = "/api/member/OrderApi"
 export const StoreMemberListApi = "/api/member/StoreMemberListApi"
+
+// 钱包
+export const WalletApi = "/api/member/WalletApi"
 

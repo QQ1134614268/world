@@ -12,6 +12,7 @@ from util.password_util import get_sha256_salt_password
 from util.unique_util import get_uuid
 
 
+# todo 都要有注释
 class BaseTable(db.Model):
     __abstract__ = True  # 加了该属性后生成表的时候不会生成该表
     id = Column(Integer, primary_key=True, autoincrement=True, comment="主键")

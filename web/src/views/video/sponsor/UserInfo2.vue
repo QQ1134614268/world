@@ -96,8 +96,6 @@ export default {
   },
   computed: {
     user() {
-      // todo
-      // 这里存储从store里获取的token的数据
       if (this.$store.state.token) {
         let user = jwt_decode(this.$store.state.token)
         return user

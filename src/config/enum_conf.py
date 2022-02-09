@@ -27,6 +27,7 @@ class Role(Enum):
 
 class Permission(Enum):
     INVITATION_CODE = "邀请码权限"
+    VIDEO_REVIEW = "video系统的审批权限"
 
     # @classmethod
     # def _missing_(cls, value):
@@ -42,6 +43,22 @@ class UserType(Enum):
     organization = 4
     group = 8
     strange = 16
+
+
+class ReviewEnum(Enum):
+    APPROVE = "通过"
+    NOT_APPROVE = "未通过"
+    NONE = "待审核"
+    NEXT = "待评审"
+
+
+class FileServeDirEnum(Enum):
+    AVATAR = "头像"
+
+
+class SexEnum(Enum):
+    MALE = "男性"
+    FEMALE = "女性"
 
 
 Month = Enum('Month', ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'))

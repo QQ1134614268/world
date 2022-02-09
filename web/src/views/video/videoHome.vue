@@ -53,9 +53,9 @@
 </template>
 <script>
 import jwt_decode from 'jwt-decode';
-import {userLogout} from "@/api/user";
+import {hasPermission, userLogout} from "@/api/user";
 import {VideoLoginUrl, VideoRegisterUrl, WorksUrl} from "@/api/routerUrl";
-import {hasPermission, Permission} from "@/api/enum";
+import {Permission} from "@/api/config";
 
 export default {
   name: "App",

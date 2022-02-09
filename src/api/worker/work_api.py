@@ -136,9 +136,17 @@ class WorkerTimeApi(Resource):
             WorkerVO.name,
             WorkerTimeVO.date,
             WorkerTimeVO.morning,
+            WorkerTimeVO.morning_area,
+            WorkerTimeVO.morning_content,
             WorkerTimeVO.noon,
+            WorkerTimeVO.noon_area,
+            WorkerTimeVO.noon_content,
             WorkerTimeVO.afternoon,
+            WorkerTimeVO.afternoon_area,
+            WorkerTimeVO.afternoon_content,
             WorkerTimeVO.night,
+            WorkerTimeVO.night_area,
+            WorkerTimeVO.night_content,
         ).filter(*query_filter).order_by(
             WorkerTimeVO.date).all()
         return res_util.success(res)

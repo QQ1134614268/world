@@ -10,7 +10,7 @@ from flask import request
 from flask_restful import Resource
 from sqlalchemy import or_, insert
 
-from config.enum_conf import Permission
+from config.enum_conf import Permission, ReviewEnum
 from config.mysql_db import db
 from service.auth_service import set_model_user_id, permission_required
 from service.user_service import get_id_by_token
@@ -137,7 +137,7 @@ class MarketWorksListApi(Resource):
         page = request.args.get("page", 1, int)
         page_size = request.args.get("pageSize", 15, int)
         search = request.args.get("search")
-        obj_filter = []
+        obj_filter = [WorksVO.state == ReviewEnum.APPROVE.name]
         if search:
             obj_filter.append(WorksVO.describe.contains(search))
         page_item = WorksVO.query.join(
@@ -216,7 +216,7 @@ class MarketTargetListApi(Resource):
         page_size = request.args.get("pageSize", 15, int)
         search = request.args.get("search")
         user_id = request.args.get("user_id")
-        obj_filter = []
+        obj_filter = [TargetVO.state == ReviewEnum.APPROVE.name]
         if user_id:
             obj_filter.append(TargetVO.user_id == user_id)
 
@@ -239,3 +239,84 @@ class MarketTargetListApi(Resource):
         ).paginate(page=page, per_page=page_size)
         page_item.items = [dict(zip(item.keys(), item)) for item in page_item.items]
         return res_util.success(page_item)
+
+
+class ReviewTargetApi(Resource):
+    @permission_required(Permission.VIDEO_REVIEW.name)
+    def get(self, _id):
+        page = request.args.get("page", 1, int)
+        page_size = request.args.get("pageSize", 15, int)
+        search = request.args.get("search")
+        user_id = request.args.get("user_id")
+        query = TargetVO.query.join(
+            UserVO, TargetVO.user_id == UserVO.id
+        )
+        if user_id:
+            query.filter(TargetVO.user_id == user_id)
+
+        if search:
+            query.filter(or_(TargetVO.title.contains(search), TargetVO.content.contains(search)))
+        # 日期
+        state = request.args.get("state")
+        if state:
+            query.filter(TargetVO.state == state)
+
+        page_item = query.with_entities(
+            TargetVO.id,
+            TargetVO.title,
+            TargetVO.content,
+            TargetVO.price,
+            TargetVO.user_id,
+            TargetVO.create_time,
+            UserVO.avatar,
+            UserVO.username,
+        ).paginate(page=page, per_page=page_size)
+        page_item.items = [dict(zip(item.keys(), item)) for item in page_item.items]
+        return res_util.success(page_item)
+
+    @permission_required(Permission.VIDEO_REVIEW.name)
+    def put(self, _id):
+        data = request.get_json()
+        TargetVO.query.filter(TargetVO.id == _id).update(data)
+        db.session.commit()
+
+
+class ReviewWorksApi(Resource):
+
+    @permission_required(Permission.VIDEO_REVIEW.name)
+    def get(self, _id):
+        page = request.args.get("page", 1, int)
+        page_size = request.args.get("pageSize", 15, int)
+        search = request.args.get("search")
+        user_id = request.args.get("user_id")
+        query = WorksVO.query.join(
+            UserVO, WorksVO.user_id == UserVO.id
+        )
+        if user_id:
+            query.filter(WorksVO.user_id == user_id)
+
+        if search:
+            query.filter(or_(WorksVO.title.contains(search), WorksVO.content.contains(search)))
+        # 日期
+        state = request.args.get("state")
+        if state:
+            query.filter(WorksVO.state == state)
+
+        page_item = query.with_entities(
+            TargetVO.id,
+            TargetVO.title,
+            TargetVO.content,
+            TargetVO.price,
+            TargetVO.user_id,
+            TargetVO.create_time,
+            UserVO.avatar,
+            UserVO.username,
+        ).paginate(page=page, per_page=page_size)
+        page_item.items = [dict(zip(item.keys(), item)) for item in page_item.items]
+        return res_util.success(page_item)
+
+    @permission_required(Permission.VIDEO_REVIEW.name)
+    def put(self, _id):
+        data = request.get_json()
+        WorksVO.query.filter(WorksVO.id == _id).update(data)
+        db.session.commit()

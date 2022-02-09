@@ -4,8 +4,9 @@ from flask import request
 from flask import send_file
 from flask_restful import Resource
 
-from config.conf import SINGLE_DIR_PATH
 from config.conf import UPLOAD_FILE_PATH2
+from config.enum_conf import FileServeDirEnum
+from config.exception import WorldException
 from util import res_util
 from util.file_util import get_file_name_by_uuid
 from util.log_util import logger
@@ -29,27 +30,26 @@ class FileApi2(Resource):
         file.save(full_path)
         return res_util.success("/upload_file/" + f_name)
 
-    def delete(self, _path):
-        pass
 
+class FileApi3(Resource):
 
-class SingleDirFileApi(Resource):
-    # 全局唯一
-    base_dir = SINGLE_DIR_PATH
-
-    def get(self, file_name):
-        path = os.path.join(self.base_dir, file_name)
-        if os.path.isfile(path):
-            return send_file(path, as_attachment=True, attachment_filename=file_name,
+    def get(self, file_dir, file_name):
+        full_path = os.path.join(UPLOAD_FILE_PATH2, file_dir, file_name)
+        if os.path.isfile(full_path):
+            return send_file(full_path, as_attachment=True,
+                             attachment_filename=full_path.split('/')[-1],
                              mimetype='application/octet-stream')
-        logger.info("文件不存在: " + path)
+        logger.info("文件不存在: " + full_path)
         return res_util.fail("参数异常")
 
-    def post(self):
+    def post(self, file_dir):
+        if file_dir not in FileServeDirEnum.__members__:
+            raise WorldException("不存在路径")
         file = request.files["file"]
         f_name = get_file_name_by_uuid(file.filename)
-        file.save(os.path.join(self.base_dir, f_name))
-        return res_util.success(f_name)
+        full_path = os.path.join(UPLOAD_FILE_PATH2, file_dir, f_name)
+        file.save(full_path)
+        return res_util.success(f"/FILE_SERVE/{file_dir}/{f_name}")
 
 
 if __name__ == '__main__':

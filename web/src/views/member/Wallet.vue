@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import {WalletApi} from "@/api/api";
+
 export default {
   name: "Wallet",
   data() {
@@ -42,11 +44,10 @@ export default {
   },
   methods:{
     async getWallet(item) {
-      let url = "/api/member/WalletApi"
       let data = {
         id: item.id
       }
-      let response = await this.$get(url, data);
+      let response = await this.$get(WalletApi, data);
       if (response.data.code != 1) {
         alert("2")
         return
@@ -54,12 +55,11 @@ export default {
       this.$set(item, "wallet", response.data.data)
     },
     async addMoney(item) {
-      let url = "/api/member/WalletApi"
       let data = {
         id: item.id,
         money: this.addMoneyNum,
       }
-      let response = await this.$putJson(url, data);
+      let response = await this.$putJson(WalletApi, data);
       if (response.data.code != 1) {
         alert("2")
         return
@@ -67,12 +67,11 @@ export default {
       item["money"] = response.data.data
     },
     async payMoney(item) {
-      let url = "/api/member/WalletApi"
       let data = {
         id: item.id,
         money: -this.payMoneyNum,
       }
-      let response = await this.$putJson(url, data);
+      let response = await this.$putJson(WalletApi, data);
       if (response.data.code != 1) {
         alert("2")
         return

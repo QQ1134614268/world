@@ -3,14 +3,18 @@
 @Time: 2020/12/14
 @Description: 
 """
+import os
 
 from flask import request
 from flask_restful import Resource
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, make_transient
 
+from config.conf import DATA_DIR
+from config.enum_conf import FileServeDirEnum
 from config.mysql_db import db
 from util import res_util
+from util.log_util import logger
 from util.video_util import get_first_frame_loc
 from vo.member_model import GoodsVO
 from vo.table_model import UserVO, UserCloudSpaceVO, SuggestVO
@@ -86,17 +90,37 @@ def clear_path():
         _handle_path(item["class"], item["field"], )
 
 
+class ProjectScript:
+
+    @staticmethod
+    def init_dir():
+        logger.info("开始--创建文件目录")
+        for item in FileServeDirEnum.__members__.keys():
+            path = os.path.join(DATA_DIR, item)
+            if not os.path.exists(path):
+                os.makedirs(path)
+        logger.info("结束--创建文件目录")
+
+    @staticmethod
+    def clean_file_serve():
+        # todo vue上传的需要配合修改 迁移文件
+        pass
+
+
 class ProjectInit(Resource):
+    # todo 优化 类似表结构  反射
     code = {
         "video": "更新视频缩略图",
         "sync_prove_api": "同步ProveVO数据",
         "clear_ProveVO_id": "清除ProveVO没有父节点数据",
-        "clear_path": "整理filepath"
+        "clear_path": "整理filepath",
+        "init_dir": "创建文件服务器dir"
     }
     code2 = {
         "video": ref_first_frame_loc,
         "clear_ProveVO_id": clear_id,
-        "clear_path": clear_path
+        "clear_path": clear_path,
+        "init_dir": ProjectScript.init_dir
     }
 
     def get(self):

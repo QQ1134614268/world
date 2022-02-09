@@ -32,7 +32,7 @@
 
 <script>
 import {WorkerApi, WorkTimeAnalyseApi_get_sum_time} from "@/api/api";
-import {fmtDateY_M_D} from "@/api/timeUtil";
+import {fmtDateY_M_D} from "@/api/util";
 
 export default {
   name: "workTimeAnalyse",
