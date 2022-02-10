@@ -11,7 +11,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 // import {Flexbox, FlexboxItem} from '@/components/flexbox'
 // Vue.component('Flexbox', Flexbox)
 // Vue.component('FlexboxItem', FlexboxItem)
-import BoxFlex from '@/components/BoxFlex'
+import BoxFlex from '@/components/flexbox2/BoxFlex'
 
 Vue.component('BoxFlex', BoxFlex)
 

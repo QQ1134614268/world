@@ -1,3 +1,5 @@
+//todo 所有的路由
+
 //系统
 export const SYS_HOME = '/'
 export const SYS_LOGIN_URL = "/sys/login"

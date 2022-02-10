@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <router-link to="/admin/GoodsList"> 菜单列表</router-link>
+      <router-link to="/videoAdmin/GoodsList"> 菜单列表</router-link>
     </div>
     <BoxFlex>
       <div>
@@ -71,7 +71,8 @@ export default {
       ],
     }
   },
-  methods: {}
+  methods: {
+  }
 }
 </script>
 

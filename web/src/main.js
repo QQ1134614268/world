@@ -31,6 +31,9 @@ Vue.use(VueCropper)
 // 文本编辑器
 Vue.use(VueQuillEditor);
 // Vue.use(ElementUI)
+import BoxFlex from '@/components/flexbox2/BoxFlex'
+
+Vue.component('BoxFlex', BoxFlex)
 
 Vue.prototype.$axios = Axios;
 Vue.prototype.$get = get;

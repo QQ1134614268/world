@@ -9,12 +9,12 @@
       </div>
       <div class="col-6">
         <span>日期:</span>
-        <el-date-picker  value-format="yyyy-MM-dd" v-model="dateRange"
+        <el-date-picker value-format="yyyy-MM-dd" v-model="dateRange"
                         type="daterange" range-separator="至 " start-placeholder="开始日期" end-placeholder="结束日期">
         </el-date-picker>
       </div>
       <div class="col-3">
-        <el-button @click="init">搜索</el-button>
+        <el-button type="primary" @click="init">搜索</el-button>
       </div>
     </div>
     <el-table :data="data" style="width: 100%">
@@ -24,6 +24,11 @@
       <el-table-column prop="noon" label="中午"></el-table-column>
       <el-table-column prop="afternoon" label="下午"></el-table-column>
       <el-table-column prop="night" label="晚上"></el-table-column>
+      <el-table-column label="合计">
+        <template slot-scope="scope">
+          {{ ((scope.row.morning + scope.row.noon + scope.row.afternoon + scope.row.night) / 9).toFixed(2) }}
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>

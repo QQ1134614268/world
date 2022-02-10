@@ -22,12 +22,6 @@
           <span class="col-3">联系电话:</span>
           <el-input class="col-9" v-model="searchPhone"></el-input>
         </div>
-        <div class="col-6">
-          <span>入职时间:</span>
-          <el-date-picker class="col-6" value-format="yyyy-MM-dd" v-model="dateRange"
-                          type="daterange" range-separator="至 " start-placeholder="开始日期" end-placeholder="结束日期">
-          </el-date-picker>
-        </div>
         <div>
           <el-button type="primary" @click="init">搜索</el-button>
         </div>
@@ -110,7 +104,6 @@ export default {
   data() {
     return {
       //搜索
-      dateRange: [],
       searchName: "",
       searchIDCard: "",
       searchPhone: "",
