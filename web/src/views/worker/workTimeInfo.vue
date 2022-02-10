@@ -20,10 +20,10 @@
     <el-table :data="data" style="width: 100%">
       <el-table-column prop="date" label="日期"></el-table-column>
       <el-table-column prop="name" label="姓名"></el-table-column>
-      <el-table-column prop="morning" label="上午" :formatter="formatter"></el-table-column>
-      <el-table-column prop="noon" label="中午" :formatter="formatter"></el-table-column>
-      <el-table-column prop="afternoon" label="下午" :formatter="formatter"></el-table-column>
-      <el-table-column prop="night" label="晚上" :formatter="formatter"></el-table-column>
+      <el-table-column prop="morning" label="上午"></el-table-column>
+      <el-table-column prop="noon" label="中午"></el-table-column>
+      <el-table-column prop="afternoon" label="下午"></el-table-column>
+      <el-table-column prop="night" label="晚上"></el-table-column>
     </el-table>
   </div>
 </template>
@@ -55,13 +55,6 @@ export default {
         return
       }
       this.data = res.data.data
-    },
-    formatter(row, column, cellValue, index) {
-      if (cellValue === 1) {
-        return "上班";
-      } else {
-        return "未上班"
-      }
     },
     async querySearch(queryString, cb) {
       let data = {name: queryString}
