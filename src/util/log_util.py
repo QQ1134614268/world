@@ -15,7 +15,7 @@ def create_logger(log_dir=LOG_DIR):
     log = logging.getLogger(__name__)
     log.setLevel(logging.DEBUG)
 
-    err_handler = ConcurrentRotatingFileHandler(os.path.join(log_dir, "err.log"), maxBytes=3 * 1024 * 1024,
+    err_handler = ConcurrentRotatingFileHandler(os.path.join(log_dir, "err.log.json"), maxBytes=3 * 1024 * 1024,
                                                 backupCount=10, encoding="utf_8")
     err_handler.setLevel(logging.INFO)
     err_handler.setFormatter(JSONFormatter())
@@ -23,7 +23,7 @@ def create_logger(log_dir=LOG_DIR):
     err_filter.filter = lambda record: record.levelno >= logging.ERROR
     err_handler.addFilter(err_filter)
 
-    warn_handler = ConcurrentRotatingFileHandler(os.path.join(log_dir, "warn.log"), maxBytes=3 * 1024 * 1024,
+    warn_handler = ConcurrentRotatingFileHandler(os.path.join(log_dir, "warn.log.json"), maxBytes=3 * 1024 * 1024,
                                                  backupCount=10, encoding="utf_8")
     warn_handler.setLevel(logging.INFO)
     warn_handler.setFormatter(JSONFormatter())
@@ -31,7 +31,7 @@ def create_logger(log_dir=LOG_DIR):
     warn_filter.filter = lambda record: record.levelno == logging.WARN
     warn_handler.addFilter(warn_filter)
 
-    info_handler = ConcurrentRotatingFileHandler(os.path.join(log_dir, "info.log"), maxBytes=3 * 1024 * 1024,
+    info_handler = ConcurrentRotatingFileHandler(os.path.join(log_dir, "info.log.json"), maxBytes=3 * 1024 * 1024,
                                                  backupCount=10, encoding="utf_8")
     info_handler.setLevel(logging.INFO)
     info_handler.setFormatter(JSONFormatter())
