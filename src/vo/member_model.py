@@ -43,14 +43,14 @@ class WalletVO(BaseTable):
     __tablename__ = 'wallet_t'
     user_id = Column(Integer)
     store_id = Column(Integer, index=True)
-    money = Column(Float, default=0)
+    money = Column(Float(precision="14,2"), comment="余额", default=0)
 
 
 class GoodsVO(BaseTable):
     __tablename__ = 'goods_t'
     name = Column(String(256))
-    price = Column(Float)
-    duration = Column(Float)
+    price = Column(Float(precision="14,2"), comment="价格")
+    duration = Column(Float(precision="14,2"), comment="折扣?")
     describe = Column(String(256))
     images = Column(String(256))
     store_id = Column(Integer, index=True)
@@ -63,4 +63,4 @@ class OrderVO(BaseTable):
     user_id = Column(Integer, index=True)
     num = Column(Integer)
     status = Column(String(255))  # 状态
-    total_price = Column(Float)
+    total_price = Column(Float(precision="14,2"), comment="总价")

@@ -49,7 +49,6 @@ export default {
       }
       let response = await this.$get(WalletApi, data);
       if (response.data.code != 1) {
-        alert("2")
         return
       }
       this.$set(item, "wallet", response.data.data)
@@ -61,7 +60,6 @@ export default {
       }
       let response = await this.$putJson(WalletApi, data);
       if (response.data.code != 1) {
-        alert("2")
         return
       }
       item["money"] = response.data.data
@@ -73,7 +71,6 @@ export default {
       }
       let response = await this.$putJson(WalletApi, data);
       if (response.data.code != 1) {
-        alert("2")
         return
       }
       item["money"] = response.data.data

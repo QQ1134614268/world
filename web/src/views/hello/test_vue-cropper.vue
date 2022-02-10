@@ -103,7 +103,6 @@ export default {
           this.dialogVisible = false
           //   this.picsList.push(result.url)
         } else {
-          alert(result.data.data)
         }
       })
     }

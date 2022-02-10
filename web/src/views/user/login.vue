@@ -10,7 +10,7 @@
     </div>
     <div class="p_c_para">
       <el-button type="primary" @click="login">登陆</el-button>
-      <router-link :to="{path:this.registerUrl,query: {from: this.from}}">
+      <router-link :to="{path:this.SYS_REGISTER_URL,query: {from: this.from}}">
         <el-button>注册</el-button>
       </router-link>
     </div>
@@ -30,7 +30,7 @@ export default {
   },
   data() {
     return {
-      registerUrl: SYS_REGISTER_URL,
+      SYS_REGISTER_URL,
       from: this.$route.query.from,
       err_message: "",
       err_flag: false,

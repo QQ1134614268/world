@@ -8,6 +8,7 @@ from sqlalchemy import Column, Integer, String, Float, Enum
 
 from config.enum_conf import ReviewEnum
 from service.user_service import get_id_by_token
+from util.dev_util import get_comment
 from vo.table_model import BaseTable
 
 
@@ -25,8 +26,7 @@ class WorksVO(BaseTable):
     file = Column(String(255))
     start = Column(Integer, default=0)
     thumbnail = Column(String(255))
-    state = Column(Enum(ReviewEnum), default=ReviewEnum.NONE.name, comment="枚举值: " + " ".join(
-        [f'{name}:{member.value};' for name, member in ReviewEnum.__members__.items()]))
+    state = Column(Enum(ReviewEnum), default=ReviewEnum.NONE.name, comment=get_comment(ReviewEnum))
 
 
 class TargetVO(BaseTable):
@@ -34,6 +34,5 @@ class TargetVO(BaseTable):
     user_id = Column(Integer, index=True, default=get_id_by_token)
     title = Column(String(255))
     content = Column(String(1000))
-    price = Column(Float)
-    state = Column(Enum(ReviewEnum), comment="枚举值: " + " ".join(
-        [f'{name}:{member.value};' for name, member in ReviewEnum.__members__.items()]))
+    price = Column(Float(precision="14,2"), comment="价格")
+    state = Column(Enum(ReviewEnum), default=ReviewEnum.NONE.name, comment=get_comment(ReviewEnum))

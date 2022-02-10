@@ -1,12 +1,13 @@
-# -*- coding: utf-8 -*-
-"""
-# @Time    : 2019/8/7 18:44
-
-"""
 import random
 import string
+from enum import Enum
 
 from util.time_util import get_now_str
+
+
+def get_comment(t_enum: Enum):
+    return "枚举值: " + " ".join(
+        [f'{name}:{member.value};' for name, member in t_enum.__members__.items()])
 
 
 def create_data(datatype, length):

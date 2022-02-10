@@ -6,6 +6,7 @@
 from sqlalchemy import Column, Integer, String, Date, Enum, Float, UniqueConstraint
 
 from config.enum_conf import SexEnum
+from util.dev_util import get_comment
 from vo.table_model import BaseTable
 
 
@@ -23,8 +24,7 @@ class WorkerVO(BaseTable):
     birthday = Column(Date)
     id_card_number = Column(String(255))  # , unique=True
     # todo 优化 枚举 导入导出,vue 工人列表 表格
-    sex = Column(Enum('男', '女'), comment="枚举值: " + " ".join(
-        [f'{name}:{member.value};' for name, member in SexEnum.__members__.items()]))
+    sex = Column(Enum('男', '女'), comment=get_comment(SexEnum))
     pay = Column(Float(precision="10,2"), default=0, comment="日薪资(元)")
 
     # 10 总长度为10  2 小数点后保留2位

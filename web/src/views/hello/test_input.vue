@@ -71,7 +71,6 @@
 <script>
 // import { isSpace } from '存放函数的路径'
 function isSpace(str) {
-  alert(999)
   const reg = /(^\s+)|(\s+$)|\s+/g
   return reg.test(str)
 }

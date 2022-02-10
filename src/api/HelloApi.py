@@ -11,6 +11,8 @@ from flask import Response
 from flask import request
 from time import sleep
 
+from flask_restful import reqparse
+
 from config.conf import RESOURCE_DIR
 from util import file_config
 from util import res_util
@@ -26,6 +28,10 @@ hello_api = Blueprint("hello", __name__, url_prefix='/api/hello_api')
 # response
 @hello_api.route('/hello', methods=["GET"])
 def hello():
+    # parse = reqparse.RequestParser()
+    # parse.add_argument('department_id', help='部门id不正确', type=int, required=True)
+    # parse.add_argument('type', help='类型不正确', type=int, required=True)
+    # args = parse.parse_args()
     from app import app
     logger.info(app.config["DEBUG"])
     return res_util.success("hello world!")

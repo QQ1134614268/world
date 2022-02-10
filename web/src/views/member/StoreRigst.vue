@@ -29,7 +29,6 @@ export default {
       let url = "/api/member/StoreApi"
       let response = await this.$postJson(url, this.form);
       if (response.data.code != 1) {
-        alert("2")
         return
       }
       this.store = response.data.data

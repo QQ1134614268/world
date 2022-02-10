@@ -4,13 +4,12 @@
     <div>
       <span>日期:</span>
       <el-date-picker v-model="date" value-format="yyyy-MM-dd" type="date"></el-date-picker>
-      <el-select v-model="time" placeholder="请选择">
+      <el-select v-model="time" placeholder="请选择" @change="init">
         <el-option v-for="item in options" :label="item.label" :value="item.value"></el-option>
       </el-select>
     </div>
     <el-table :data="data" style="width: 100%">
       <!--      todo 设计 一天的( 优化), 取消点击flag(触发保存?),  测试
-                    工作时长(小时): 创建条目 可搜索 可清空单选
                     api 优化(连表的数据,单独接口)
                         log记录修改
                         当天数据与上一个有数据的(每次点击获取? 根据时间button触发最大日期),

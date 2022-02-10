@@ -38,11 +38,6 @@ def clear_code():
         logger.info("完成--清除邀请码数据")
 
 
-def clear_approve():
-    # todo 审核字段 直接置为 通过??
-    pass
-
-
 def clear_data():
     # todo
     # clear_log_data 清除邀请码数据 清除log日志
