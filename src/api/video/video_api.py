@@ -74,7 +74,7 @@ class VideoUserApi(Resource):
             return res_util.fail("邀请码不正确!")
         vo = UserVO(**data)
         db.session.add(vo)
-        db.session.remove(code_vo)
+        db.session.delete(code_vo)
         db.session.commit()
         return res_util.success(vo.id)
 
