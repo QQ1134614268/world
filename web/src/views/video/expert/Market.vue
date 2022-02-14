@@ -58,7 +58,7 @@ export default {
     return {
       search: "",
       currentPage: 1,
-      pageSize: 10,
+      pageSize: 12,
       totalNum: 0,
 
       VideoUrl: VideoUrl,

@@ -5,6 +5,7 @@
 }
 
 html {
+    /*todo font-size设置 1rem=16px 等*/
     font-size: 62.5%;
     font-family: "Lucida Sans", sans-serif;
     background-color: #FFFFFF;
@@ -13,6 +14,7 @@ html {
 }
 
 body {
+    /*todo 删除body*/
     font-size: 1.6rem;
     height: 100%;
     /*超出body范围部分隐藏*/

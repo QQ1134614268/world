@@ -4,6 +4,7 @@
       <div class="p_c_box-flex_center">
         <router-link to="/member">会员系统</router-link>
       </div>
+      <router-link to="/videoAdmin/GoodsList"> 菜单列表</router-link>
       <div v-if="user">
         <el-dropdown>
           <el-avatar :src="user.avatar" :key="user.avatar"></el-avatar>
@@ -26,8 +27,25 @@
         <router-link tag="a" :to=SYS_REGISTER_URL> 注册</router-link>
       </div>
     </div>
-    <div id="body">
+    <div id="body" class="p_c_HolyGrail-body">
       <router-view/>
+    </div>
+    <div class="p_c_HolyGrail-content">
+      <div>
+        首页
+      </div>
+      <div>
+        活动
+      </div>
+      <div>
+        点餐
+      </div>
+      <div>
+        消息
+      </div>
+      <div>
+        我的
+      </div>
     </div>
   </div>
 </template>

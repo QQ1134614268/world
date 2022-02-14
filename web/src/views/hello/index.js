@@ -10,6 +10,11 @@ const routes = [
         component: () => import('@/views/hello/BgColor')
     },
     {
+        path: '/hello/test_navmenu',
+        name: '/hello/test_navmenu',
+        component: () => import('@/views/hello/test_navmenu')
+    },
+    {
         path: '/hello/testHeader',
         name: '/hello/testHeader',
         component: () => import('@/views/hello/testHeader')

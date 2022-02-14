@@ -1,27 +1,24 @@
 <template>
-  <div>
-    <div>店内商品</div>
-    <div>
+  <div class="p_c_HolyGrail-body">
+    <div class="p_c_HolyGrail-content">
       <div>
-        <router-link to="/videoAdmin/GoodsList"> 菜单列表</router-link>
-      </div>
-      <div class="p_c_flexbox">
-        <div>
-          <div :key="index" v-for="(obj,index) in goodsList">
-            <li><a :href="'#'+obj.type">{{ obj.type }}</a></li>
-          </div>
+        <div :key="index" v-for="(obj,index) in goodsList">
+          <a :href="'#'+obj.type">{{ obj.type }}</a>
         </div>
-        <div>
-          <div :key="index" v-for="(obj,index) in goodsList" style="height: 50rem">
-            <a :id="obj.type" style="height: 1.6rem; font-weight: bold">{{ obj.type }}</a>
-            <div :key="index2" v-for="(obj2, index2) in obj.data">
+      </div>
+      <div>
+        <div :key="index" v-for="(obj,index) in goodsList" style="height: 50rem">
+          <a :id="obj.type" style="height: 1.6rem; font-weight: bold">{{ obj.type }}</a>
+          <div :key="index2" v-for="(obj2, index2) in obj.data">
+            <div class="p_c_box-flex">
+              <el-image :src="obj2.img"></el-image>
               <div>
-                <el-image :src="obj2.img"></el-image>
                 <div>
                   {{ obj2.name }}
                 </div>
                 <div>
                   售价: {{ obj2.price }}
+                  <el-input-number>el-input-number</el-input-number>
                 </div>
               </div>
             </div>
@@ -29,20 +26,20 @@
         </div>
       </div>
     </div>
-    <div v-if="order_list.length">
+    <div>
       <el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
         购物车
       </el-button>
-      <el-button @click="buy"> 结算</el-button>
-    </div>
-    <el-drawer title="购物车" :visible.sync="drawer" direction='btt'>
-      <el-table :data="order_list" style="width: 100%">
+      <el-table :data="order_list" style="width: 100%" v-show="drawer">
         <el-table-column prop="name" label="商品名" width="180"></el-table-column>
         <el-table-column prop="price" label="商品价格"></el-table-column>
         <el-button @click="buy"> 结算</el-button>
         <el-table-column prop="num" label="数量" width="180"></el-table-column>
       </el-table>
-    </el-drawer>
+      <!--        <el-drawer title="购物车" :visible.sync="drawer" direction='btt'>-->
+      <!--         -->
+      <!--        </el-drawer>-->
+    </div>
   </div>
 </template>
 
@@ -120,15 +117,4 @@ export default {
 </script>
 
 <style scoped>
-@media (max-width: 768px) {
-  .card {
-    width: 100%;
-  }
-}
-
-@media (min-width: 768px) {
-  .card {
-    width: 8.3%;
-  }
-}
 </style>
