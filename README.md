@@ -28,6 +28,13 @@ video
     后台系统
         审核字段 or 单独表?
 
+docker 镜像化,目录挂载,用户隔离 防止黑客
+docker run 
+cd /app/world
+git pull xx.git
+docker run  -v $PWD/myapp:/usr/src/myapp  -w /usr/src/myapp python:3.5 python helloworld.py
+python3 -m venv /world/to/new/virtual/environment
+
 反思 -- 乱糟糟的bug -- 测试
     测试流程--少bug -- 检查试卷-- 不停的看，逻辑验证
     所有数据，另一个方案验证，最终方案验证
