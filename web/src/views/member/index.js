@@ -7,7 +7,7 @@ const routes = [{
         {
             path: 'market',
             name: 'market',
-            component: () => import('@/views/member/market')
+            component: () => import('@/views/member/Store')
         }, {
             path: 'Store',
             name: 'Store',

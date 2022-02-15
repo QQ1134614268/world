@@ -1,5 +1,5 @@
 <template>
-  <div class="p_c_HolyGrail-body">
+  <div id="container" class="p_c_box-flex_col">
     <div id="header" class="p_c_box-flex_center">
       <div class="p_c_box-flex_center">
         <router-link to="/member">会员系统</router-link>
@@ -27,10 +27,10 @@
         <router-link tag="a" :to=SYS_REGISTER_URL> 注册</router-link>
       </div>
     </div>
-    <div id="body" class="p_c_HolyGrail-body">
+    <div id="body">
       <router-view/>
     </div>
-    <div class="p_c_HolyGrail-content">
+    <footer class="p_c_box-flex">
       <div>
         首页
       </div>
@@ -46,7 +46,7 @@
       <div>
         我的
       </div>
-    </div>
+    </footer>
   </div>
 </template>
 <script>
@@ -85,5 +85,21 @@ export default {
   justify-content: space-around;
 }
 
+#container {
+  height: 100vh;
+}
+
+#body {
+  flex: 1;
+  height: 100vh;
+  width: 100%;
+  overflow-y: scroll;
+}
+
+footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
 
 </style>

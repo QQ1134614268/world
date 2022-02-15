@@ -242,6 +242,7 @@ class MarketTargetListApi(Resource):
 
 
 class ReviewTargetApi(Resource):
+
     @permission_required(Permission.VIDEO_REVIEW.name)
     def get(self, _id):
         page = request.args.get("page", 1, int)
@@ -296,7 +297,7 @@ class ReviewWorksApi(Resource):
             query.filter(WorksVO.user_id == user_id)
 
         if search:
-            query.filter(or_(WorksVO.title.contains(search), WorksVO.content.contains(search)))
+            query.filter(or_(WorksVO.title.contains(search), WorksVO.describe.contains(search)))
         # 日期
         state = request.args.get("state", ReviewEnum.NONE.name)
         if state:

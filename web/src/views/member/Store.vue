@@ -1,6 +1,6 @@
 <template>
-  <div class="p_c_HolyGrail-body">
-    <div class="p_c_HolyGrail-content">
+  <div class="p_c_HolyGrail-body" style="height: 100%; ">
+    <div class="p_c_box-flex" style="overflow-y: scroll">
       <div>
         <div :key="index" v-for="(obj,index) in goodsList">
           <a :href="'#'+obj.type">{{ obj.type }}</a>
@@ -18,8 +18,10 @@
                 </div>
                 <div>
                   售价: {{ obj2.price }}
-                  <el-input-number>el-input-number</el-input-number>
+                  <el-input-number v-model="obj2.num" @change="handleChange(obj2)" :min="1" :max="10" size="small"
+                                   label="描述文字"></el-input-number>
                 </div>
+
               </div>
             </div>
           </div>
@@ -47,7 +49,7 @@
 import {GoodsApi} from "@/api/api";
 
 export default {
-  name: "market",
+  name: "Store",
   data() {
     return {
       goodsList: [
