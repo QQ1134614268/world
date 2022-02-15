@@ -3,7 +3,7 @@
 @Time: 2021/10/23
 @Description:
 """
-from flask import jsonify, request
+from flask import request
 
 from config.mysql_db import db
 from util import res_util

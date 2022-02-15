@@ -1,17 +1,15 @@
 # encoding: utf-8
 import asyncio
+import time
 import zipfile
 from io import BytesIO
 from threading import Thread
-
-import pandas
-import time
-from flask import Blueprint, send_file, jsonify
-from flask import Response
-from flask import request
 from time import sleep
 
-from flask_restful import reqparse
+import pandas
+from flask import Blueprint, send_file
+from flask import Response
+from flask import request
 
 from config.conf import RESOURCE_DIR
 from util import file_config

@@ -1,13 +1,13 @@
 <template>
-    <div>
+  <div>
 
-    </div>
+  </div>
 </template>
 
 <script>
-    export default {
-        name: "space"
-    }
+export default {
+  name: "space"
+}
 </script>
 
 <style scoped>

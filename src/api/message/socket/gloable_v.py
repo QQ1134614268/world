@@ -1,1 +1,1 @@
-user_id_socket={}
+user_id_socket = {}

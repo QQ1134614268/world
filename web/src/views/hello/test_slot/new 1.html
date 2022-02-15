@@ -1,57 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Slot</title>
-	<style type="text/css">
-		.panel{
-			width: 400px;
-			border: 1px solid #ccc;	
-		}
-		.panel>*{
-			padding: 15px;
-			border-bottom: 1px solid #ccc;
-		}
-		.footer{
-			border: none;
-		}
-	</style>
-	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <meta charset="UTF-8">
+    <title>Slot</title>
+    <style type="text/css">
+        .panel {
+            width: 400px;
+            border: 1px solid #ccc;
+        }
+
+        .panel > * {
+            padding: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .footer {
+            border: none;
+        }
+    </style>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
 </head>
 <body>
-	<div id="app">
-		<Child>
-            <span>hello world</span>
-        </Child>
-	</div>
+<div id="app">
+    <Child>
+        <span>hello world</span>
+    </Child>
+</div>
 
-	<template id="child">
-		<div>
-			
-			<!-- <div class="panel">
-				<div class="title">这是标题</div>
-				<div class="content">这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容</div>
-				<div class="footer">这是页脚</div>
-			</div> -->
-			<div class="panel">
-				<div class="title">这是标题</div>
-				<div class="content">这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容</div>
-				<div class="footer">这是页脚</div>
-			</div>
-		</div>
-	</template>
+<template id="child">
+    <div>
+
+        <!-- <div class="panel">
+    <div class="title">这是标题</div>
+    <div class="content">这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容</div>
+    <div class="footer">这是页脚</div>
+  </div> -->
+        <div class="panel">
+            <div class="title">这是标题</div>
+            <div class="content">
+                这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容
+            </div>
+            <div class="footer">这是页脚</div>
+        </div>
+    </div>
+</template>
 </body>
 <script type="text/javascript">
-	new Vue({
-		el:"#app",
-		data:{
-
-		},
-		components:{
-			Child:{
-				template:"#child"
-			}
-		}
-	})
+    new Vue({
+        el: "#app",
+        data: {},
+        components: {
+            Child: {
+                template: "#child"
+            }
+        }
+    })
 </script>
 </html>

@@ -24,7 +24,7 @@ module.exports = {
                     '^/api/': '/api/'
                 }
             },
-            "/upload_file/":  {
+            "/upload_file/": {
                 target: process.env.NGINX_FILE_SERVER_URL,
                 changeOrigin: true,
                 pathRewrite: {

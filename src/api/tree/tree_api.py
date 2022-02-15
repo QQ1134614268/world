@@ -1,7 +1,7 @@
 from io import BytesIO
 
 import jieba
-from flask import jsonify, request, send_file, Blueprint
+from flask import request, send_file, Blueprint
 from flask_restful import Resource
 from sqlalchemy import func, desc
 from sqlalchemy.orm import aliased

@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, request
 
 import service.user_service
 from config.mongodb import mongoDB

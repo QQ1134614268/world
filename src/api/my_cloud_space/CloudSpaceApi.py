@@ -2,9 +2,9 @@
 import os
 import random
 import shutil
-
 import time
-from flask import Blueprint, send_file, jsonify, make_response, request
+
+from flask import Blueprint, send_file, make_response, request
 from flask_restful import Resource
 
 import service.user_service

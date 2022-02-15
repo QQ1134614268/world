@@ -44,7 +44,7 @@ export default {
   name: "UserInfo",
   data() {
     return {
-      user:this.$store.state.token,
+      user: this.$store.state.token,
       user_id: this.$route.query.user_id,
       userVO: {},
       search: this.$route,

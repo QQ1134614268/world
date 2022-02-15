@@ -265,7 +265,6 @@ api2.add_resource(MarketWorksListApi, "/api/video_api/MarketWorksListApi/<int:_i
 api2.add_resource(ReviewTargetApi, "/api/video_api/ReviewTargetApi/<int:_id>")
 api2.add_resource(ReviewWorksApi, "/api/video_api/ReviewWorksApi/<int:_id>")
 
-
 if __name__ == '__main__':
     scheduler.init_app(app)
     scheduler.start()

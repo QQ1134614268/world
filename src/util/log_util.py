@@ -11,7 +11,6 @@ from config.conf import LOG_DIR
 
 
 def create_logger(log_dir=LOG_DIR):
-
     log = logging.getLogger(__name__)
     log.setLevel(logging.DEBUG)
 

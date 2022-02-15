@@ -16,17 +16,17 @@
             socket.emit("message_response", {"data": "666"});
             socket.emit("json", JSON.stringify({"data": "666"}));
             socket.emit("json", 1);
-            socket.emit("event2", 1,2,3);
+            socket.emit("event2", 1, 2, 3);
             socket.emit("event3", 222);
 
             socket.on('message_response', function (data) {
-                  console.log(88888)
+                console.log(88888)
                 socket.emit('message', {'data': 'I\'m 666666!'});
-                                  socket.emit('message', {'data': 'I\'m 96963963!'});
+                socket.emit('message', {'data': 'I\'m 96963963!'});
 
             });
             socket.on('response', function (data) {
-                  console.log(88888)
+                console.log(88888)
                 socket.emit('message', {'data': 'I\'m 666666!'});
             });
             // socket.on('response', function (data) {

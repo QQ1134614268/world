@@ -1,9 +1,9 @@
 <template>
-  <div >
+  <div>
     <el-form ref="form" :model="form" label-width="8rem" :rules="rules" style="padding: 1rem">
       <el-form-item label="头像">
         <el-upload style="width: 10%;height: 10%" :show-file-list="false" :action="FileApi" :on-success="uploadAvatar">
-          <img v-if="avatar" :src="avatar">
+          <img v-if="form.avatar" :src="form.avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon">点击上传</i>
         </el-upload>
       </el-form-item>
@@ -51,14 +51,14 @@
 <script>
 
 import jwt_decode from "jwt-decode";
-import {FileApi, VideoUserApi} from "@/api/api";
+import {FileApi, UserApi} from "@/api/api";
 
 export default {
   name: "video_user",
   data() {
     return {
-      avatar:"",
-      user_id: this.$route.query.user_id,
+      avatar: "",
+      user_id: jwt_decode(localStorage.getItem("token"))["id"],
       form: {},
       FileApi: FileApi,
       rules: {
@@ -110,12 +110,12 @@ export default {
       })
     },
     uploadAvatar(res, file, fileList) {
-      this.avatar=res.data
+      this.avatar = res.data
       this.form.avatar = res.data
     },
     async init() {
       let user = jwt_decode(localStorage.getItem("token"))
-      let result = await this.$get2(VideoUserApi, this.user_id)
+      let result = await this.$get2(UserApi, this.user_id)
       if (result.data.code == 1) {
         this.form = result.data.data
       } else {
@@ -123,7 +123,7 @@ export default {
       }
     },
     async save() {
-      let result = await this.$putJson2(VideoUserApi, this.form.id, this.form)
+      let result = await this.$putJson2(UserApi, this.form.id, this.form)
       if (result.data.code == 1) {
         this.$message('修改成功!');
       } else {

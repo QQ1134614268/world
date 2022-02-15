@@ -1,7 +1,7 @@
 import json
 import unittest
 
-from  app import app
+from app import app
 
 
 class WbApiTest(unittest.TestCase):

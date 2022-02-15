@@ -29,7 +29,7 @@
       </router-link>
 
     </div>
-    <div  class="block">
+    <div class="block">
       <el-autocomplete class="inline-input" v-model="search" placeholder="请输入内容" :fetch-suggestions="querySearch"
                        :trigger-on-focus="false" @select="handleSelect">
       </el-autocomplete>

@@ -1,7 +1,7 @@
-from sqlalchemy import create_engine, Column, String, Integer, text, Table, select, delete
-from sqlalchemy.orm import declarative_base
-from sqlalchemy.orm import Session
 from sqlalchemy import MetaData
+from sqlalchemy import create_engine, Column, String, Integer, text, Table, select, delete
+from sqlalchemy.orm import Session
+from sqlalchemy.orm import declarative_base
 
 Base = declarative_base()
 engine = create_engine("mysql+mysqlconnector://wg:123456@127.0.0.1:3306/test", echo=True, future=True)

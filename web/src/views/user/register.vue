@@ -47,7 +47,7 @@ export default {
       this.url = UserApi_get_verify_code + "?t=" + Math.random()
     },
     async register() {
-      let result = await this.$postJson2(UserApi,0,{
+      let result = await this.$postJson2(UserApi, 0, {
         username: this.username,
         password: this.password,
         code: this.code

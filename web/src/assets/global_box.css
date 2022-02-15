@@ -50,17 +50,17 @@
 }
 
 .p_c_HolyGrail-content {
-  flex: 1;
+    flex: 1;
 }
 
 .p_c_HolyGrail-nav, .p_c_HolyGrail-ads {
-  /* 两个边栏的宽度设为12em */
-  flex: 0 0 20rem;
+    /* 两个边栏的宽度设为12em */
+    flex: 0 0 20rem;
 }
 
 .HolyGrail-nav {
-  /* 导航放到最左边 */
-  order: -1;
+    /* 导航放到最左边 */
+    order: -1;
 }
 
 /* For mobile phones: */

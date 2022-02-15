@@ -1,23 +1,23 @@
 <template>
-    <div>
-      店内钱包-- 网吧 todo
-      接入三方支付
-      <div v-for="(item,k) in memberList" style="display: flex">
-        <div>{{ item.user_id }}</div>
-        <div>
-          <el-button type="success" @click="getWallet(item)">获取余额</el-button>
-          <div v-if="item.wallet">余额:{{ item.wallet.money }}</div>
-        </div>
-        <div style="display: flex">
-          <input v-model.number="addMoneyNum"></input>
-          <el-button type="success" @click="addMoney(item)">充值</el-button>
-        </div>
-        <div style="display: flex">
-          <input v-model.number="payMoneyNum"></input>
-          <el-button type="success" @click="payMoney(item)">消费</el-button>
-        </div>
+  <div>
+    店内钱包-- 网吧 todo
+    接入三方支付
+    <div v-for="(item,k) in memberList" style="display: flex">
+      <div>{{ item.user_id }}</div>
+      <div>
+        <el-button type="success" @click="getWallet(item)">获取余额</el-button>
+        <div v-if="item.wallet">余额:{{ item.wallet.money }}</div>
+      </div>
+      <div style="display: flex">
+        <input v-model.number="addMoneyNum"></input>
+        <el-button type="success" @click="addMoney(item)">充值</el-button>
+      </div>
+      <div style="display: flex">
+        <input v-model.number="payMoneyNum"></input>
+        <el-button type="success" @click="payMoney(item)">消费</el-button>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -42,7 +42,7 @@ export default {
       payMoneyNum: "",
     };
   },
-  methods:{
+  methods: {
     async getWallet(item) {
       let data = {
         id: item.id

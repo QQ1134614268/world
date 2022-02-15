@@ -16,7 +16,8 @@ import 'quill/dist/quill.bubble.css'
 import {SYS_LOGIN_URL, VideoLoginUrl} from "@/api/routerUrl";
 import {
     deleteJson,
-    deleteJson2, get,
+    deleteJson2,
+    get,
     get2,
     postForm,
     postForm2,
@@ -26,12 +27,12 @@ import {
     putJson,
     putJson2
 } from "@/api/util";
+// Vue.use(ElementUI)
+import BoxFlex from '@/components/flexbox2/BoxFlex'
 // 头像裁剪组件
 Vue.use(VueCropper)
 // 文本编辑器
 Vue.use(VueQuillEditor);
-// Vue.use(ElementUI)
-import BoxFlex from '@/components/flexbox2/BoxFlex'
 
 Vue.component('BoxFlex', BoxFlex)
 

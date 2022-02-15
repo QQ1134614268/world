@@ -1,5 +1,5 @@
 <template>
-  <div class="p_c_box-flex_row-center col-12" >
+  <div class="p_c_box-flex_row-center col-12">
     <el-form ref="form" :model="form" label-width="8rem">
       <el-form-item label="账号">
         <el-input v-model="form.username"></el-input>

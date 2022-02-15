@@ -52,19 +52,19 @@
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer" style="text-align:center">
-            <el-button @click="dialogAdd=false">取 消</el-button>
-<!--            <el-button-->
-<!--                v-if="dialogStatus=='create'"-->
-<!--                type="primary"-->
-<!--                @click="createData"-->
-<!--            >提交-->
-<!--            </el-button>-->
-<!--            <el-button-->
-<!--                v-else-if="dialogStatus=='update'"-->
-<!--                type="primary"-->
-<!--                @click="updateData"-->
-<!--            >提交-->
-<!--            </el-button>-->
+      <el-button @click="dialogAdd=false">取 消</el-button>
+      <!--            <el-button-->
+      <!--                v-if="dialogStatus=='create'"-->
+      <!--                type="primary"-->
+      <!--                @click="createData"-->
+      <!--            >提交-->
+      <!--            </el-button>-->
+      <!--            <el-button-->
+      <!--                v-else-if="dialogStatus=='update'"-->
+      <!--                type="primary"-->
+      <!--                @click="updateData"-->
+      <!--            >提交-->
+      <!--            </el-button>-->
     </div>
   </div>
 </template>

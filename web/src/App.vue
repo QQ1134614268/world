@@ -1,5 +1,5 @@
 <template>
-  <div id="app"  class="p_c_HolyGrail-body">
+  <div id="app" class="p_c_HolyGrail-body">
     <router-view/>
   </div>
 </template>

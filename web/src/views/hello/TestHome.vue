@@ -9,6 +9,7 @@
 
 <script>
 import routes from "./index"
+
 export default {
   name: "TestHome",
   data() {

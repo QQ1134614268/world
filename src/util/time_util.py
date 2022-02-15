@@ -1,6 +1,5 @@
-from datetime import datetime
-
 import time
+from datetime import datetime
 
 from config.conf import DATE_TIME_FORMAT
 
