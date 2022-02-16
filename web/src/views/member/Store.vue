@@ -1,15 +1,14 @@
 <template>
   <div class="p_c_HolyGrail-body" style="height: 100%; ">
-    {{ tableData }}
     <div class="p_c_box-flex" style="overflow-y: scroll">
       <div>
-        <div :key="index" v-for="(obj,index) in goodsList">
-          <a :href="'#'+obj.type">{{ obj.type }}</a>
+        <div :key="index" v-for="(obj,index) in tableData">
+          <a :href="'#'+obj.label">{{ obj.label }}</a>
         </div>
       </div>
       <div>
-        <div :key="index" v-for="(obj,index) in goodsList" style="height: 50rem">
-          <a :id="obj.type" style="height: 1.6rem; font-weight: bold">{{ obj.type }}</a>
+        <div :key="index" v-for="(obj,index) in tableData" style="height: 50rem">
+          <a :id="obj.label" style="height: 1.6rem; font-weight: bold">{{ obj.label }}</a>
           <div :key="index2" v-for="(obj2, index2) in obj.data">
             <div class="p_c_box-flex">
               <el-image :src="obj2.img"></el-image>
@@ -53,41 +52,6 @@ export default {
   name: "Store",
   data() {
     return {
-      goodsList: [
-        {
-          type: "主食",
-          data: [
-            {
-              type: "主食",
-              name: "大米",
-              img: "",
-              price: "",
-            },
-            {
-              type: "主食",
-              name: "馒头",
-              img: "",
-              price: "",
-            },
-          ]
-        },
-        {
-          type: "饮料",
-          data: [
-            {
-              name: "青岛",
-              img: "",
-              price: "",
-            },
-            {
-              type: "饮料",
-              name: "矿泉水",
-              img: "",
-              price: "",
-            },
-          ]
-        }
-      ],
       num: 0,
       tableData: [],
       drawer: false,
@@ -111,7 +75,7 @@ export default {
       }
       let response = await this.$get2(GoodsApi, 0, data);
       this.tableData = response.data.data
-      this.tableData = toTree(tableData)
+      this.tableData = toTree(this.tableData)
     },
   },
   created() {

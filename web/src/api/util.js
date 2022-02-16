@@ -68,6 +68,7 @@ export function getDateY_M_D() {
     let date = new Date()
     return fmtDateY_M_D(date)
 }
+
 export const get2 = (url, id, params) => {
     if (id == undefined) {
         id = 0
@@ -155,16 +156,20 @@ export function toTree(arr) {
     let tree = {}
     for (let i = 0; i < arr.length; i++) {
         let obj = arr[i]
-        if (tree[obj.type] != undefined) {
-            tree[obj.type].push(obj)
+        if (obj.label == undefined) {
+            obj.label = 'other'
+        }
+        if (tree[obj.label] != undefined) {
+            tree[obj.label].push(obj)
         } else {
-            tree[obj.type] = [obj]
+            tree[obj.label] = [obj]
             ret.push({
-                type: obj.type,
-                data: tree[obj.type]
+                label: obj.label,
+                data: tree[obj.label]
             })
         }
     }
+
     return ret
 }
 

@@ -50,7 +50,7 @@ class GoodsApi(Resource):
         if request.args.get("store_id"):
             query_filter.append(GoodsVO.store_id == request.args.get("store_id"))
 
-        vos = GoodsVO.query.filter(*query_filter).all()
+        vos = GoodsVO.query.filter(*query_filter).order_by(GoodsVO.label).all()  # todo 标签排序 连表
         return res_util.success(vos)
 
     def post(self, _id):
