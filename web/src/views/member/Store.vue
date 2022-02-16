@@ -1,5 +1,6 @@
 <template>
   <div class="p_c_HolyGrail-body" style="height: 100%; ">
+    {{ tableData }}
     <div class="p_c_box-flex" style="overflow-y: scroll">
       <div>
         <div :key="index" v-for="(obj,index) in goodsList">
@@ -46,6 +47,7 @@
 
 <script>
 import {GoodsApi} from "@/api/api";
+import {toTree} from "@/api/util";
 
 export default {
   name: "Store",
@@ -109,6 +111,7 @@ export default {
       }
       let response = await this.$get2(GoodsApi, 0, data);
       this.tableData = response.data.data
+      this.tableData = toTree(tableData)
     },
   },
   created() {

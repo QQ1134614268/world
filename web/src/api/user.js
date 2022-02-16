@@ -14,7 +14,7 @@ export async function userLogin(data, store) {
 
 // 登出
 export async function userLogout(that) {
-    await get(UserApi_logout);// 单点登录
+    await get2(UserApi_logout,0);// 单点登录
     localStorage.removeItem("token")
     that.$store.commit('receiveUserInfo', {
         token: ""
@@ -24,6 +24,16 @@ export async function userLogout(that) {
 // 注册
 export async function userRegister(data) {
     let res = await get2(UserApi, 0, data);
+    return res
+}
+
+// 注册
+export async function updateUserInfo() {
+    // todo  用户空间修改 更新用户信息 token,username avatar头像信息
+    let res = await get2(UserApi, 0, data);
+    //  that.$store.commit('receiveUserInfo', {
+    //     token: ""
+    // })
     return res
 }
 

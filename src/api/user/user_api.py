@@ -64,7 +64,7 @@ class UserBlueprintApi(Resource):
     """工时统计"""
 
     @staticmethod
-    @user_api.route('/login/<string:_id>', methods=['GET'])
+    @user_api.route('/login/<int:_id>', methods=['GET'])
     def login(_id):
         username = request.args.get('username', '')
         password = request.args.get('password', '')
@@ -76,8 +76,8 @@ class UserBlueprintApi(Resource):
             return res_util.fail("账号密码不匹配")
 
     @staticmethod
-    @user_api.route('/logout', methods=['GET'])
-    def logout():
+    @user_api.route('/logout/<int:_id>', methods=['GET'])
+    def logout(_id):
         # 单点登录, redis 删除
         log_table_service.log_table(service.user_service.get_id_by_token(), "退出", "退出")
         return res_util.success()

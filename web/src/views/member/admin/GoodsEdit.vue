@@ -45,7 +45,7 @@ export default {
       imageUrl: "",
       tableData: [],
       store_id: 1,
-      GoodsApi: "/api/goods_api/GoodsApi"
+      GoodsApi
     };
   },
 
@@ -59,17 +59,6 @@ export default {
       }
       let response = await this.$get2(GoodsApi, 0, data);
       this.tableData = response.data.data
-    },
-    async handleEdit(index, row) {
-      this.form = row
-      this.dialogVisible = true
-    },
-    async handleDelete(index, row) {
-      let response = await this.$deleteJson2(GoodsApi, row.id);
-      if (response.data.code != 1) {
-        return
-      }
-      this.tableData.splice(index, 1)
     },
     async onSubmit() {
       this.dialogVisible = false

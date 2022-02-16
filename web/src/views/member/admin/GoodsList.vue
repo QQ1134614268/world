@@ -1,18 +1,18 @@
 <template>
   <div class="p_c_HolyGrail-body">
     <div>
-      <router-link to="/videoAdmin/GoodsAdd"> 增加</router-link>
+      <router-link :to=GoodsAdd> 增加</router-link>
     </div>
     <div>
-      <el-table :data="data">
+      <el-table :data="tableData">
         <el-table-column prop="name" label="商品名"></el-table-column>
         <el-table-column prop="describe" label="商品描述"></el-table-column>
         <el-table-column prop="price" label="商品价格"></el-table-column>
         <el-table-column prop="create_time" label="上架时间"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <router-link to="/admin/GoodsEdit"> 编辑</router-link>
-            <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            <router-link :to=GoodsEdit> 编辑</router-link>
+            <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -21,11 +21,16 @@
 </template>
 
 <script>
+import {GoodsAdd, GoodsEdit} from "@/views/member";
+import {GoodsApi} from "@/api/api";
+
 export default {
   name: "GoodsList",
   data() {
     return {
-      data: [{
+      GoodsEdit,
+      GoodsAdd,
+      tableData: [{
         type: "主食",
         name: "大米",
         img: "",
@@ -36,12 +41,16 @@ export default {
     }
   },
   methods: {
-    handleEdit() {
+    async init() {
+      let res = await this.$get2(GoodsApi, 0, {})
+      this.tableData = res.data.data
     },
-    handleDelete() {
-    },
-    exportExcel() {
+    async handleDelete(id) {
+      let res = await this.$deleteJson2(GoodsApi, id, {})
     }
+  },
+  created() {
+    this.init()
   }
 }
 </script>

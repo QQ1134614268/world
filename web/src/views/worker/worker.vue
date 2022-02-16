@@ -4,7 +4,7 @@
       <div>
         <el-button type="primary" size="mini" plain @click="handleAdd">增加</el-button>
         <el-button type="primary" size="mini" plain @click="upDialog=true">导入</el-button>
-        <el-button type="primary" size="mini" plain @click="export">导出</el-button>
+        <el-button type="primary" size="mini" plain @click="exportExcel">导出</el-button>
       </div>
       <div class="p_c_flexbox">
         <div class="col-3">
@@ -204,7 +204,7 @@ export default {
       await this.init();
     },
 
-    async export() {
+    async exportExcel() {
       await exportExcelByHeader(this.worker_excel_url, this.headers)
     },
     handleAdd() {

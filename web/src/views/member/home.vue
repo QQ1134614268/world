@@ -4,7 +4,7 @@
       <div class="p_c_box-flex_center">
         <router-link to="/member">会员系统</router-link>
       </div>
-      <router-link to="/videoAdmin/GoodsList"> 菜单列表</router-link>
+      <router-link :to=GoodsList> 菜单列表</router-link>
       <div v-if="user">
         <el-dropdown>
           <el-avatar :src="user.avatar" :key="user.avatar"></el-avatar>
@@ -53,13 +53,15 @@
 import jwt_decode from 'jwt-decode';
 import {userLogout} from "@/api/user";
 import {SYS_LOGIN_URL, SYS_REGISTER_URL} from "@/api/routerUrl";
+import {GoodsList} from "@/views/member/index";
 
 export default {
   name: "home",
   data() {
     return {
       SYS_LOGIN_URL,
-      SYS_REGISTER_URL
+      SYS_REGISTER_URL,
+      GoodsList
     }
   },
   computed: {
