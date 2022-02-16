@@ -32,7 +32,7 @@
 
 <script>
 import {WorkerApi, WorkTimeAnalyseApi_get_sum_time} from "@/api/api";
-import {fmtDateY_M_D} from "@/api/util";
+import {fmtDateY_M_D, querySearch} from "@/api/util";
 
 export default {
   name: "workTimeAnalyse",
@@ -59,14 +59,7 @@ export default {
     },
     async querySearch(queryString, cb) {
       let data = {name: queryString}
-      let res = await this.$get2(WorkerApi, 0, data)
-      let suggest = []
-      for (let i = 0; i < res.data.data.length; i++) {
-        suggest.push({
-          value: res.data.data[i].name
-        })
-      }
-      cb(suggest)
+      await querySearch(data, cb, WorkerApi)
     },
   },
   created() {

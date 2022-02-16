@@ -64,8 +64,8 @@ class UserBlueprintApi(Resource):
     """工时统计"""
 
     @staticmethod
-    @user_api.route('/login', methods=['GET'])
-    def login():
+    @user_api.route('/login/<string:_id>', methods=['GET'])
+    def login(_id):
         username = request.args.get('username', '')
         password = request.args.get('password', '')
         user = UserVO.query.filter_by(username=username).first()

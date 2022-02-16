@@ -16,6 +16,7 @@
 </template>
 <script>
 import jwt_decode from 'jwt-decode';
+import Axios from "axios";
 
 export default {
 
@@ -28,7 +29,11 @@ export default {
   methods: {
     async getData() {
       let url = '/api/hello_api/hello';
-      let result = await this.$get(url, {name: 'cat'});
+      let result = await Axios({
+        method: 'get',
+        url: url,
+        params: {name: 'cat'}
+      })
       this.message = result.data.data;
     },
     script() {
@@ -38,7 +43,11 @@ export default {
     async postJson() {
       let url = '/api/hello_api/post_json';
       let data = {"name": 'tom', "age": 1}
-      let result = await this.$postJson(url, data);
+      let result = await Axios({
+        method: 'POST',
+        url,
+        data: data
+      });
       this.message = result.data.data;
     },
     async postFormData() {
@@ -49,7 +58,14 @@ export default {
       data.append('file1', file1);
       data.append('file2', file2);
       data.append('name', 'cat');
-      let result = await this.$postForm(url, data)
+      let result = await Axios({
+        method: 'POST',
+        url,
+        data: data,
+        headers: {
+          'Content-Type': 'multipart/form-data;'
+        }
+      })
       this.message = result.data.data;
     },
     getData2: function () {
@@ -57,7 +73,7 @@ export default {
       let url = '/api/hello_api/hello';
       // url='http://127.0.0.1/api/hello_api/post_json?name=1'
       // let requestData = {};
-      this.$axios.get(url)
+      Axios.get(url)
           .then(function (res) {
             that.message = res.data.data;
           })
@@ -70,7 +86,7 @@ export default {
       let url = '/api/hello_api/post_json';
       let requestData = {name: 'tom', age: 11};
       requestData = JSON.stringify(requestData);
-      this.$axios.post(url, requestData)
+      Axios.post(url, requestData)
           .then(function (res) {
             that.message = res.data.data;
           })

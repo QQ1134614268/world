@@ -1,10 +1,10 @@
-import {SYS_LOGIN_URL, SYS_REGISTER_URL} from "@/api/routerUrl";
-import {PermissionApi, UserApi_logout} from "@/api/api";
+import {PermissionApi, UserApi, UserApi_login, UserApi_logout} from "@/api/api";
 import {get, get2} from "@/api/util";
 
 /*登录*/
 export async function userLogin(data, store) {
-    let res = await get2(SYS_LOGIN_URL, 0, data);
+    // todo
+    let res = await get2(UserApi_login, 0, data);
     localStorage.setItem("token", res.data)
     store.commit('receiveUserInfo', {
         token: res.data
@@ -23,7 +23,7 @@ export async function userLogout(that) {
 
 // 注册
 export async function userRegister(data) {
-    let res = await get2(SYS_REGISTER_URL, 0, data);
+    let res = await get2(UserApi, 0, data);
     return res
 }
 

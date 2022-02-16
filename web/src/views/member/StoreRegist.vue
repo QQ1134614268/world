@@ -17,6 +17,8 @@
 
 <script>
 
+import {StoreApi} from "@/api/api";
+
 export default {
   name: "Store",
   data() {
@@ -26,8 +28,7 @@ export default {
   },
   methods: {
     async createStore() {
-      let url = "/api/member/StoreApi"
-      let response = await this.$postJson(url, this.form);
+      let response = await this.$postJson2(StoreApi,0, this.form);
       if (response.data.code != 1) {
         return
       }
@@ -35,8 +36,7 @@ export default {
       await this.$router.push({path: '/member/StoreList'})
     },
     async onSubmit() {
-      let url = "/api/member/StoreApi"
-      let response = await this.$ppJson(url, this.form.id, this.form);
+      let response = await this.$ppJson(StoreApi, this.form.id, this.form);
       if (response.data.code != 1) {
         this.$message('操作失败');
       } else {

@@ -1,7 +1,7 @@
 <template>
   <div>
-    订单(搜索)
-    <el-table>
+    订单(搜索) (商家, 后台, 用户)
+    <el-table :data="tableData">
 
     </el-table>
   </div>
@@ -15,7 +15,7 @@ export default {
   data() {
     return {
       url: "",
-      data: [],
+      tableData: [],
     }
   },
   methods: {
@@ -26,7 +26,7 @@ export default {
         this.$message('服务器异常');
         return
       }
-      this.data = res.data.data
+      this.tableData = res.data.data
     }
   },
   created() {

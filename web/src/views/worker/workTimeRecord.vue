@@ -179,7 +179,7 @@ export default {
       let res = await this.$get2(ConfigApi, 0, data)
       this.config2 = res.data.data
     },
-    async get() {
+    async getTime() {
       let myDate = new Date();
       let myHour = myDate.getHours(); //获取当前小时数(0-23)
       if (myHour <= 12) {
@@ -200,7 +200,7 @@ export default {
 
   created() {
     this.init()
-    this.get()
+    this.getTime()
     this.initArea()
     this.initWorkContent()
   },

@@ -21,7 +21,6 @@
                   <el-input-number v-model="obj2.num" @change="handleChange(obj2)" :min="1" :max="10" size="small"
                                    label="描述文字"></el-input-number>
                 </div>
-
               </div>
             </div>
           </div>

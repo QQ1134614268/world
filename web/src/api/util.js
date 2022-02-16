@@ -1,6 +1,7 @@
 import CryptoJS from "crypto-js";
 import Axios from "axios";
 import {SALT_WORK_FACTOR} from "@/api/config";
+import Vue from "vue";
 
 export function get_salt_pwd(pwd) {
     // todo 密码明文
@@ -67,14 +68,6 @@ export function getDateY_M_D() {
     let date = new Date()
     return fmtDateY_M_D(date)
 }
-
-export const get = (url, params) => {
-    return Axios({
-        method: 'get',
-        url: url,
-        params: params
-    })
-};
 export const get2 = (url, id, params) => {
     if (id == undefined) {
         id = 0
@@ -83,13 +76,6 @@ export const get2 = (url, id, params) => {
         method: 'get',
         url: url + "/" + id,
         params: params
-    })
-};
-export const postJson = (url, data = {}) => {
-    return Axios({
-        method: 'POST',
-        url,
-        data: data
     })
 };
 export const postJson2 = (url, id, data = {}) => {
@@ -102,13 +88,6 @@ export const postJson2 = (url, id, data = {}) => {
         data: data
     })
 };
-export const putJson = (url, data = {}) => {
-    return Axios({
-        method: 'PUT',
-        url,
-        data: data
-    })
-};
 export const putJson2 = (url, id, data = {}) => {
     if (id == undefined) {
         id = 0
@@ -116,13 +95,6 @@ export const putJson2 = (url, id, data = {}) => {
     return Axios({
         method: 'PUT',
         url: url + "/" + id,
-        data: data
-    })
-};
-export const deleteJson = (url, data = {}) => {
-    return Axios({
-        method: 'DELETE',
-        url,
         data: data
     })
 };
@@ -194,4 +166,32 @@ export function toTree(arr) {
         }
     }
     return ret
+}
+
+export async function exportExcelByHeader(url, headers) {
+    let res = await Axios.get(url, {
+        responseType: 'arraybuffer', // 或者responseType: 'blob'
+        xsrfHeaderName: 'Authorization',
+        headers: headers
+    })
+    try {
+        let data = JSON.parse(res.data)
+        if (data.code != 1) {
+            Vue.prototype.$message.error(data.data)
+        }
+    } catch (err) {
+        // const {data, headers} = res;
+        // const fileName = headers['content-disposition'].replace(/\w+;filename=(.*)/, '$1');
+        const link = document.createElement('a');  // 创建元素
+        link.style.display = 'none';
+        let blob = new Blob([res.data]);
+        link.style.display = 'none';
+        link.href = URL.createObjectURL(blob);   // 创建下载的链接
+        let fileName = "工人列表.xlsx"
+        link.setAttribute('download', fileName);  // 给下载后的文件命名 fileName文件名  type文件格式
+        document.body.appendChild(link);
+        link.click();  // 点击下载
+        document.body.removeChild(link);  //  下载完成移除元素
+        window.URL.revokeObjectURL(link.href);  // 释放掉blob对象
+    }
 }

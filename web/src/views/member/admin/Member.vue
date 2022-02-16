@@ -1,7 +1,7 @@
 <template>
   <div>
-    会员列表
-    <div>
+    <title>会员列表</title>
+    <main>
       <el-table :data="tableData" style="width: 100%">
         <el-table-column prop="img" label="头像"></el-table-column>
         <el-table-column prop="username" label="用户名" width="180"></el-table-column>
@@ -11,11 +11,7 @@
           </template>
         </el-table-column>
       </el-table>
-    </div>
-    <div>
-      <!--      <el-dialog>-->
-      <!--      </el-dialog>-->
-    </div>
+    </main>
   </div>
 </template>
 

@@ -14,34 +14,24 @@ import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 import {SYS_LOGIN_URL, VideoLoginUrl} from "@/api/routerUrl";
-import {
-    deleteJson,
-    deleteJson2,
-    get,
-    get2,
-    postForm,
-    postForm2,
-    postJson,
-    postJson2,
-    ppJson,
-    putJson,
-    putJson2
-} from "@/api/util";
+import {deleteJson2, get2, postForm, postForm2, postJson2, ppJson, putJson2} from "@/api/util";
 // Vue.use(ElementUI)
 import BoxFlex from '@/components/flexbox2/BoxFlex'
 // 头像裁剪组件
 Vue.use(VueCropper)
 // 文本编辑器
 Vue.use(VueQuillEditor);
+// todo errorHandler 汇报js异常
+// Vue.config.errorHandler = function (err, vm, info) {
+//   console.error('error---', err)
+//   console.info('vm---', vm)
+//   console.info('info---', info)
+// }
 
 Vue.component('BoxFlex', BoxFlex)
 
 Vue.prototype.$axios = Axios;
-Vue.prototype.$get = get;
-Vue.prototype.$postJson = postJson;
-Vue.prototype.$putJson = putJson;
-Vue.prototype.$deleteJson = deleteJson;
-Vue.prototype.$postForm = postForm;
+Vue.prototype.$postForm = postForm;//todo
 
 Vue.prototype.$get2 = get2;
 Vue.prototype.$postJson2 = postJson2;

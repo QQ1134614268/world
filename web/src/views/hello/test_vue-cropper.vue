@@ -92,6 +92,7 @@ export default {
     },
     // 点击裁剪，这一步是可以拿到处理后的地址
     async finish() {
+      // todo 优化 抽方法
       let formData = new FormData();
       this.$refs.cropper.getCropBlob(async (data) => {
         let img = window.URL.createObjectURL(data)

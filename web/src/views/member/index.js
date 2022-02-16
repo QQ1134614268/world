@@ -1,17 +1,21 @@
+export const member = "/member"
+export const GoodsList = "/member/Home/GoodsList"
+export const Store = "/member/Store"
+
 const routes = [{
-    path: '/member',
-    name: '/member',
+    path: member,
+    name: member,
     component: () => import('@/views/member/home'),
     redirect: "/member/market",
     children: [
         {
-            path: 'market',
-            name: 'market',
+            path: Store,
+            name: Store,
             component: () => import('@/views/member/Store')
         }, {
-            path: 'Store',
-            name: 'Store',
-            component: () => import('@/views/member/admin/Store'),
+            path: 'Home',
+            name: 'Home',
+            component: () => import('@/views/member/admin/Home'),
             children: [
                 {
                     path: 'Member',
@@ -20,11 +24,19 @@ const routes = [{
                 }, {
                     path: 'order',
                     name: 'order',
-                    component: () => import('@/views/member/admin/order')
+                    component: () => import('@/views/member/order')
                 }, {
-                    path: 'Goods',
-                    name: 'Goods',
-                    component: () => import('@/views/member/admin/Goods')
+                    path: 'GoodsList',
+                    name: 'GoodsList',
+                    component: () => import('@/views/member/admin/GoodsList')
+                }, {
+                    path: 'GoodsAdd',
+                    name: 'GoodsAdd',
+                    component: () => import('@/views/member/admin/GoodsAdd')
+                }, {
+                    path: 'GoodsEdit',
+                    name: 'GoodsEdit',
+                    component: () => import('@/views/member/admin/GoodsEdit')
                 },
             ]
         },

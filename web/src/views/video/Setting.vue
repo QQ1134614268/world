@@ -23,6 +23,7 @@
     <el-dialog title="图片剪裁" :visible.sync="dialogVisible" append-to-body>
       <div class="cropper-content">
         <div class="cropper p_c_test_border" style="text-align:center">
+          <!--          todo func finish, VueCropper参数-->
           <VueCropper
               ref="cropper"
               :img="option.img"
@@ -93,7 +94,8 @@ export default {
 
   methods: {
     async finish() {
-      let file_url = process.env.VUE_APP_BASE_URL + '/api/file/FileApi2'
+      // todo 优化 抽方法
+      let file_url = process.env.VUE_APP_BASE_URL + FileApi
       let formData = new FormData();
       this.$refs.cropper.getCropBlob(async (data) => {
         let img = window.URL.createObjectURL(data)

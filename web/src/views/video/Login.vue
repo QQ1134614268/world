@@ -27,7 +27,7 @@ export default {
   methods: {
     async onLogin() {
       // this.form.password = get_salt_pwd(this.form.password)
-      let result = await this.$get(UserApi_login, this.form)
+      let result = await this.$get2(UserApi_login, 0, this.form)
       if (result.data.code === 1) {
         localStorage.setItem("token", result.data.data);
         this.$store.commit('receiveUserInfo', {

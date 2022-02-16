@@ -44,7 +44,7 @@ export default {
         "username": this.username,
         "password": this.password,
       }
-      let result = await this.$get(UserApi_login, data)
+      let result = await this.$get2(UserApi_login, 0, data)
 
       if (result.data.code == 1) {
         Axios.defaults.headers.common['token'] = result.data.data

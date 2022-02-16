@@ -4,13 +4,13 @@
       <div>
         <el-button type="primary" size="mini" plain @click="handleAdd">增加</el-button>
         <el-button type="primary" size="mini" plain @click="upDialog=true">导入</el-button>
-        <el-button type="primary" size="mini" plain @click="exportExcel">导出</el-button>
+        <el-button type="primary" size="mini" plain @click="export">导出</el-button>
       </div>
       <div class="p_c_flexbox">
         <div class="col-3">
           <span class="col-3">姓名:</span>
           <el-autocomplete class="inline-input" v-model="searchName" placeholder="请输入内容"
-                           :fetch-suggestions="querySearch"
+                           :fetch-suggestions="query"
                            :trigger-on-focus="false">
           </el-autocomplete>
         </div>
@@ -96,8 +96,8 @@
 </template>
 
 <script>
-import Axios from "axios";
 import {WorkerApi, WorkerExcelApi} from "@/api/api";
+import {exportExcelByHeader, querySearch} from "@/api/util";
 
 export default {
   name: "MyWorker",
@@ -190,59 +190,22 @@ export default {
       }
       this.data = response.data.data
     },
-    async querySearch(queryString, cb) {
+    async query(queryString, cb) {
       let data = {name: queryString}
-      let res = await this.$get2(WorkerApi, 0, data)
-      let suggest = []
-      for (let i = 0; i < res.data.data.length; i++) {
-        suggest.push({
-          value: res.data.data[i].name
-        })
-      }
-      cb(suggest)
+      await querySearch(data, cb, WorkerApi)
     },
     async save() {
-      let response;
-      if (this.form.id) {
-        response = await this.$putJson2(WorkerApi, this.form.id, this.form);
-      } else {
-        response = await this.$postJson2(WorkerApi, 0, this.form);
-      }
+      let response = await this.$ppJson(WorkerApi, this.form.id, this.form);
       if (response.data.code != 1) {
         this.$message(response.data.data);
         return
       }
       this.$message('success');
-
       await this.init();
     },
 
-    async exportExcel() {
-      let res = await Axios.get(this.worker_excel_url, {
-        responseType: 'arraybuffer', // 或者responseType: 'blob'
-        xsrfHeaderName: 'Authorization',
-        headers: this.headers
-      })
-      try {
-        let data = JSON.parse(res.data)
-        if (data.code != 1) {
-          this.$message(data.data)
-        }
-      } catch (err) {
-        // const {data, headers} = res;
-        // const fileName = headers['content-disposition'].replace(/\w+;filename=(.*)/, '$1');
-        const link = document.createElement('a');  // 创建元素
-        link.style.display = 'none';
-        let blob = new Blob([res.data]);
-        link.style.display = 'none';
-        link.href = URL.createObjectURL(blob);   // 创建下载的链接
-        let fileName = "工人列表.xlsx"
-        link.setAttribute('download', fileName);  // 给下载后的文件命名 fileName文件名  type文件格式
-        document.body.appendChild(link);
-        link.click();  // 点击下载
-        document.body.removeChild(link);  //  下载完成移除元素
-        window.URL.revokeObjectURL(link.href);  // 释放掉blob对象
-      }
+    async export() {
+      await exportExcelByHeader(this.worker_excel_url, this.headers)
     },
     handleAdd() {
       this.form = {};
@@ -255,7 +218,7 @@ export default {
     async handleDelete(index, row) {
       let response = await this.$deleteJson2(WorkerApi, row.id);
       await this.init();
-    }
+    },
   },
   created() {
     this.init()
