@@ -9,7 +9,7 @@
       </span>
     </div>
     <div class="p_c_flexbox">
-      <div v-for="o in tableData">
+      <div v-for="(o, index)  in tableData">
         <div class="block">
           <a :href=VideoUrl>
             <div>

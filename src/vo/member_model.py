@@ -54,7 +54,7 @@ class GoodsVO(BaseTable):
     describe = Column(String(256))
     images = Column(String(256))
     store_id = Column(Integer, index=True)
-    label = Column(String(256), comment="分类")  # todo 树节点 详情:颜色,材料,气味等
+    label = Column(String(256), comment="分类")  # todo 树节点 详情:颜色,材料,气味等 用户自定义
 
 
 class OrderVO(BaseTable):
@@ -65,3 +65,4 @@ class OrderVO(BaseTable):
     num = Column(Integer)
     status = Column(String(255))  # 状态
     total_price = Column(Float(precision="14,2"), comment="总价")
+    # info = Column(String(256), comment="详情,size,冷热, ")  # todo 详情:颜色,材料,气味等
