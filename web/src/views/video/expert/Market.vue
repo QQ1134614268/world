@@ -110,8 +110,8 @@ export default {
 
 <style scoped>
 .rank_base {
-  width: 2.4rem;
-  height: 2.4rem;
+  width: 1.4rem;
+  height: 1.4rem;
   background-size: 25px 24px;
   color: #c1abab;
 }

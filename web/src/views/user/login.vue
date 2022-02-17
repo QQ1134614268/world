@@ -1,7 +1,7 @@
 <template>
-  <div style="width: 50rem;margin: auto;">
+  <div style="width: 36rem;margin: auto;">
     <div>
-      <span style="width: 200rem">账号</span>
+      <span style="width: 120rem">账号</span>
       <el-input placeholder="请输入内容" v-model="username" clearable style="width: 20em"></el-input>
     </div>
     <div>

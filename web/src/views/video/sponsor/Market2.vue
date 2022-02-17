@@ -19,7 +19,7 @@
               <router-link :to="{path:'/video/UserInfo2',query: {user_id: o.user_id}}"
                            class="p_c_box-flex_row-col-center">
                 <el-avatar :src="o.avatar"></el-avatar>
-                <span class="p_c_long_txt_hidden" style="width: 10rem">{{ o.username }}</span>
+                <span class="p_c_long_txt_hidden" style="width: 6rem">{{ o.username }}</span>
               </router-link>
             </div>
           </div>
@@ -117,8 +117,8 @@ export default {
 
 <style scoped>
 .rank_base {
-  width: 2.4rem;
-  height: 2.4rem;
+  width: 1.4rem;
+  height: 1.4rem;
   background-size: 25px 24px;
   color: #c1abab;
 }

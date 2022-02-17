@@ -3,7 +3,7 @@
     <div id="header" class="p_c_box-flex_center">
       <div class="p_c_box-flex_center">
         <a href="/">
-          <img src="@/assets/icon/favicon2.jpg" style="width: 4rem; border-radius: 45rem">
+          <img src="@/assets/icon/favicon2.jpg" style="width: 2.5rem; border-radius: 28rem">
         </a>人人影
       </div>
       <router-link tag="a" :to=VIDEO_MARKET> 达人</router-link>

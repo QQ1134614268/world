@@ -9,13 +9,13 @@
         </el-upload>
       </el-form-item>
       <el-form-item label="手机号" prop="phone" :required="true">
-        <el-input v-model="form.phone" style="width: 16rem"></el-input>
+        <el-input v-model="form.phone" style="width: 10rem"></el-input>
       </el-form-item>
       <el-form-item label="签名">
-        <el-input v-model="form.describe" style="width: 16rem"></el-input>
+        <el-input v-model="form.describe" style="width: 10rem"></el-input>
       </el-form-item>
       <el-form-item label="微信号">
-        <el-input v-model="form.wechat_number" style="width: 16rem"></el-input>
+        <el-input v-model="form.wechat_number" style="width: 10rem"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="save">保存</el-button>

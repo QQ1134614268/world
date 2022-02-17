@@ -17,12 +17,12 @@
         <td>验证码</td>
         <td>
           <el-input placeholder="请输入内容" size="small" v-model="code" clearable style="width: 10em"></el-input>
-          <img :src="url" @click="updateCode" alt="验证码" title="点击换一张" style="width: 8rem ;height: 3rem">
+          <img :src="url" @click="updateCode" alt="验证码" title="点击换一张" style="width: 4rem ;height: 2rem">
         </td>
       </tr>
       <tr>
         <td>
-          <el-button type="primary" @click="register" style="width: 10rem">注册</el-button>
+          <el-button type="primary" @click="register" style="width: 6rem">注册</el-button>
         </td>
       </tr>
     </table>

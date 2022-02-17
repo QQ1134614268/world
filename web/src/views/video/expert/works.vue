@@ -13,7 +13,7 @@
         <div class="block">
           <a :href=VideoUrl>
             <div>
-              <img :src="o.thumbnail" style="width: 25rem;height: 14rem;object-fit: cover;">
+              <img :src="o.thumbnail" style="width: 16rem;height: 9rem;object-fit: cover;">
             </div>
           </a>
           <div>
@@ -24,8 +24,8 @@
           </div>
           <div>
               <span>
-                <i class="el-icon-edit" @click="handleEdit(o)" style="margin-right: 1.6rem;">编辑</i>
-                <i class="el-icon-delete" @click="del(index,o.id)" style="margin-right: 1.6rem;">删除</i>
+                <i class="el-icon-edit" @click="handleEdit(o)" style="margin-right: 1rem;">编辑</i>
+                <i class="el-icon-delete" @click="del(index,o.id)" style="margin-right: 1rem;">删除</i>
               </span>
           </div>
         </div>
