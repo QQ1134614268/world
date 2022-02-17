@@ -1,7 +1,10 @@
+//测试
+export const HelloRootUrl = "/hello"
+
 const routes = [
     {
-        path: '/hello',
-        name: '/hello',
+        path: HelloRootUrl,
+        name: HelloRootUrl,
         component: () => import('@/views/hello/TestHome')
     },
     {
@@ -48,11 +51,6 @@ const routes = [
         path: '/hello/test_component',
         name: '/hello/test_component',
         component: () => import('@/views/hello/test_component')
-    },
-    {
-        path: '/hello/test_vuex',
-        name: '/hello/test_vuex',
-        component: () => import('@/views/hello/vuex_test/Parent')
     },
     {
         path: '/hello/test_popup',

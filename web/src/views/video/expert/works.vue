@@ -67,9 +67,9 @@
 </template>
 
 <script>
-import jwt_decode from 'jwt-decode';
-import {VideoUrl} from "@/api/routerUrl";
 import {FileApi, WorksApi, WorksListApi} from "@/api/api";
+import {VideoUrl} from "@/views/video";
+import {getUserIdByToken} from "@/api/user";
 
 export default {
   name: "works",
@@ -86,7 +86,7 @@ export default {
       dialogVisible: false,
       FileApi,
       VideoUrl,
-      user_id: jwt_decode(localStorage.getItem("token"))["id"],
+      user_id: getUserIdByToken(),
       fileList: [],
       file_path: null,
       form: {},

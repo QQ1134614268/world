@@ -20,8 +20,11 @@
 <script>
 import errDialog from "@/components/err.vue"
 import Axios from 'axios'
-import {SYS_HOME, SYS_REGISTER_URL} from "@/api/routerUrl";
 import {UserApi_login} from "@/api/api";
+import {SYS_HOME, SYS_REGISTER_URL} from "@/views/sys";
+import {RECEIVE_TOKEN, TOKEN} from "@/api/config";
+import store from "@/store/store";
+import {storeToken} from "@/api/user";
 
 export default {
   name: "login",
@@ -47,11 +50,7 @@ export default {
       let result = await this.$get2(UserApi_login, 0, data)
 
       if (result.data.code == 1) {
-        Axios.defaults.headers.common['token'] = result.data.data
-        localStorage.setItem("token", result.data.data);
-        this.$store.commit('receiveUserInfo', {
-          token: result.data.data
-        })
+        storeToken(result.data.data)
         this.$message('登录成功');
         // 弹框式登录
         if (this.from != null) {

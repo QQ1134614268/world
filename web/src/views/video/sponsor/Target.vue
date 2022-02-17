@@ -38,15 +38,15 @@
 </template>
 
 <script>
-import jwt_decode from "jwt-decode";
 import {TargetApi, TargetListApi} from "@/api/api";
+import {getUserIdByToken} from "@/api/user";
 
 export default {
   name: "Target",
   data() {
     return {
       dialogVisible: false,
-      user_id: jwt_decode(localStorage.getItem("token"))["id"],
+      user_id: getUserIdByToken(),
       form: {},
       tableData: [],
       rules: {

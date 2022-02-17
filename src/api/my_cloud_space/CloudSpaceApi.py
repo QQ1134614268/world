@@ -102,7 +102,7 @@ def delete_file():
     return res_util.success()
 
 
-class FileApi(Resource):
+class CloudSpaceApi(Resource):
 
     def get(self):
         path = request.args.get("path", "")

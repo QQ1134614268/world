@@ -1,3 +1,13 @@
+//工时系统
+export const WorkerRootUrl = "/worker"
+export const workTimeInfo = "/worker/workTimeInfo"
+export const workConfig = "/worker/config"
+export const workLog = "/worker/log"
+export const workTimeAnalyse = "/worker/workTimeAnalyse"
+export const workTimeReport = "/worker/workTimeReport"
+export const worker = "/worker/worker"
+export const workTimeRecord = "/worker/workTimeRecord"
+
 export const routes = [
     // {
     //     path: '/worker/home',
@@ -5,50 +15,48 @@ export const routes = [
     //     component: () => import('@/views/worker/home'),
     // },
     {
-        path: '/worker',
-        name: '/worker',
+        path: WorkerRootUrl,
+        name: WorkerRootUrl,
         component: () => import('@/views/worker/home'),
-        redirect: "/worker/workTimeInfo",
+        redirect: workTimeInfo,
         // redirect: "/worker/home",
         children: [
             {
-                path: 'workTimeInfo',
-                name: 'workTimeInfo',
+                path: workTimeInfo,
+                name: workTimeInfo,
                 component: () => import('@/views/worker/workTimeInfo'),
             },
             {
-                path: 'config',
-                name: 'config',
+                path: workConfig,
+                name: workConfig,
                 component: () => import('@/views/worker/config'),
             },
             {
-                path: 'log',
-                name: 'log',
+                path: workLog,
+                name: workLog,
                 component: () => import('@/views/worker/log'),
             },
             {
-                path: 'workTimeAnalyse',
-                name: 'workTimeAnalyse',
+                path: workTimeAnalyse,
+                name: workTimeAnalyse,
                 component: () => import('@/views/worker/workTimeAnalyse')
             },
             {
-                path: 'workTimeReport',
-                name: 'workTimeReport',
+                path: workTimeReport,
+                name: workTimeReport,
                 component: () => import('@/views/worker/workTimeReport')
             },
             {
-                path: 'worker',
-                name: 'worker',
+                path: worker,
+                name: worker,
                 component: () => import('@/views/worker/worker'),
             },
             {
-                path: 'workTimeRecord',
-                name: 'workTimeRecord',
+                path: workTimeRecord,
+                name: workTimeRecord,
                 component: () => import('@/views/worker/workTimeRecord'),
             },
         ]
     },
 ]
 export default routes
-
-

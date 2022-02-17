@@ -43,10 +43,7 @@ export default {
   },
   computed: {
     user() {
-      if (this.$store.state.token) {
-        let user = jwt_decode(this.$store.state.token)
-        return user
-      }
+      return this.$store.state.userInfo
     }
   },
 }
@@ -58,14 +55,4 @@ export default {
   color: #409EFF;
 }
 
-.el-icon-arrow-down {
-  font-size: 12px;
-}
-
-.demonstration {
-  display: block;
-  color: #8492a6;
-  font-size: 14px;
-  margin-bottom: 20px;
-}
 </style>

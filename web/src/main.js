@@ -7,16 +7,18 @@ import Axios from 'axios'
 import "@/assets/global_box.css"
 import "@/assets/global_article.css"
 import "@/assets/global_html.css"
-import store from "./views/hello/vuex_test/store"
+import store from "@/store/store"
 import VueCropper from 'vue-cropper'
 import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
-import {SYS_LOGIN_URL, VideoLoginUrl} from "@/api/routerUrl";
 import {deleteJson2, get2, postForm, postForm2, postJson2, ppJson, putJson2} from "@/api/util";
 // Vue.use(ElementUI)
 import BoxFlex from '@/components/flexbox2/BoxFlex'
+import {VideoLoginUrl} from "@/views/video";
+import {SYS_LOGIN_URL} from "@/views/sys";
+import {TOKEN} from "@/api/config";
 // 头像裁剪组件
 Vue.use(VueCropper)
 // 文本编辑器
@@ -48,8 +50,8 @@ Axios.defaults.headers.common['Content-Type'] = 'application/json;';
 // 请求拦截器（在请求之前进行一些配置）
 Axios.interceptors.request.use(
     config => {
-        if (localStorage.getItem('token')) {
-            config.headers['token'] = localStorage.getItem('token')
+        if (localStorage.getItem(TOKEN)) {
+            config.headers[TOKEN] = localStorage.getItem(TOKEN)
         }
         return config;
     },
@@ -96,7 +98,7 @@ Axios.interceptors.response.use(
 );
 router.beforeEach((to, from, next) => {
     if (to.meta.login) {
-        let token = localStorage.getItem('token');
+        let token = localStorage.getItem(TOKEN);
         if (token === null || token === '') {
             next(SYS_LOGIN_URL);
         } else {

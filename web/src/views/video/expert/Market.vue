@@ -49,8 +49,8 @@
 
 <script>
 
-import {UserInfoUrl, VideoUrl} from "@/api/routerUrl";
 import {MarketWorksListApi, WorksRankListApi} from "@/api/api";
+import {UserInfoUrl, VideoUrl} from "@/views/video";
 
 export default {
   name: "market",

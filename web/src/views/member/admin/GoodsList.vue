@@ -30,14 +30,8 @@ export default {
     return {
       GoodsEdit,
       GoodsAdd,
-      tableData: [{
-        type: "主食",
-        name: "大米",
-        img: "",
-        price: "",
-      },],
+      tableData: [],
       form: {},
-
     }
   },
   methods: {

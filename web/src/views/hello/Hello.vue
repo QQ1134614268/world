@@ -17,6 +17,7 @@
 <script>
 import jwt_decode from 'jwt-decode';
 import Axios from "axios";
+import {TOKEN} from "@/api/config";
 
 export default {
 
@@ -37,7 +38,7 @@ export default {
       this.message = result.data.data;
     },
     script() {
-      const decoded = jwt_decode(localStorage.getItem("token"));
+      const decoded = jwt_decode(localStorage.getItem(TOKEN));
       console.log(decoded);
     },
     async postJson() {

@@ -16,7 +16,7 @@ from api.HelloApi import hello_api
 from api.member.member_api import StoreMemberListApi, StoreListApi, StoreMemberApi, StoreApi, OrderApi, OrderListApi, \
     GoodsApi, GoodsListApi
 from api.message.socket.SocketApi import socket_api
-from api.my_cloud_space.CloudSpaceApi import cloud_space_api, FileApi
+from api.my_cloud_space.CloudSpaceApi import cloud_space_api, CloudSpaceApi
 from api.project_api import ProjectInit
 from api.stone_game.StoneGameApi import stone_game_api
 from api.sys.SysApi import sys_api, AllApi, SuggestApi, AnnouncementApi
@@ -209,7 +209,8 @@ api2.add_resource(EnumApi, "/api/config_api/EnumApi/<int:_id>")
 api2.add_resource(SuggestApi, "/api/sys_api/SuggestApi/<int:_id>")
 api2.add_resource(AnnouncementApi, "/api/sys_api/AnnouncementApi/<int:_id>")
 
-api2.add_resource(FileApi, "/api/file/FileApi")  # todo 删除?? 优化??
+api2.add_resource(CloudSpaceApi, "/api/file/CloudSpaceApi")
+
 api2.add_resource(FileApi2, "/api/file/FileApi2", "/api/file/FileApi2/upload_file/<string:path>")
 api2.add_resource(FileApi3, "/api/file/FileApi3/<string:file_dir>",
                   "/api/file/FileApi3/FILE_SERVE/<string:file_dir>/<string:file_name>")

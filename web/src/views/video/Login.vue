@@ -16,6 +16,9 @@
 
 <script>
 import {UserApi_login} from "@/api/api";
+import {RECEIVE_TOKEN, TOKEN} from "@/api/config";
+import {VIDEO_MARKET} from "@/views/video/index";
+import {storeToken} from "@/api/user";
 
 export default {
   name: "Home",
@@ -29,11 +32,8 @@ export default {
       // this.form.password = get_salt_pwd(this.form.password)
       let result = await this.$get2(UserApi_login, 0, this.form)
       if (result.data.code === 1) {
-        localStorage.setItem("token", result.data.data);
-        this.$store.commit('receiveUserInfo', {
-          token: result.data.data
-        })
-        await this.$router.push({path: '/video/Market'})
+        storeToken(result.data.data)
+        await this.$router.push({path:VIDEO_MARKET})
       }
     },
   }

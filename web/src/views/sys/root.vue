@@ -23,19 +23,16 @@
 
 <script>
 
-import {
-  AdminUrl,
-  HelloRootUrl,
-  MemberRootUrl,
-  messageRootUrl,
-  RegisterRootUrl,
-  RenrenRootUrl,
-  SYS_LOGIN_URL,
-  TreeRootUrl,
-  UserSpaceRootUrl,
-  WorkerRootUrl
-} from "@/api/routerUrl";
 import {userLogout} from "@/api/user";
+import {RenrenRootUrl} from "@/views/video";
+import {WorkerRootUrl} from "@/views/worker";
+import {MemberRootUrl} from "@/views/member";
+import {messageRootUrl} from "@/views/message";
+import {AdminUrl} from "@/views/videoAdmin";
+import {HelloRootUrl} from "@/views/hello";
+import {TreeRootUrl} from "@/views/tree";
+import {UserSpaceRootUrl} from "@/views/user";
+import {RegisterRootUrl, SYS_LOGIN_URL} from "@/views/sys/index";
 
 export default {
   name: "root",

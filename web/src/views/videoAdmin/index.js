@@ -1,19 +1,22 @@
+export const AdminUrl = "/videoAdmin"
+export const ReviewWorks = "/videoAdmin/ReviewWorks"
+export const ReviewTarget = "/videoAdmin/ReviewTarget"
+
 const routes = [
     {
-        //todo video/admin??
-        path: '/videoAdmin',
-        name: '/videoAdmin',
+        path: AdminUrl,
+        name: AdminUrl,
         component: () => import('@/views/videoAdmin/Home'),
-        redirect: '/videoAdmin/ReviewWorks',
+        redirect: ReviewWorks,
         children: [
             {
-                path: 'ReviewWorks',
-                name: 'ReviewWorks',
+                path: ReviewWorks,
+                name: ReviewWorks,
                 component: () => import('@/views/videoAdmin/ReviewWorks'),
             },
             {
-                path: 'ReviewTarget',
-                name: 'ReviewTarget',
+                path: ReviewTarget,
+                name: ReviewTarget,
                 component: () => import('@/views/videoAdmin/ReviewTarget'),
             },
         ]

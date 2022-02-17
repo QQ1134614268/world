@@ -6,7 +6,7 @@
 from io import BytesIO
 
 from flask import request, Blueprint
-from flask_restful import Resource
+from flask_restful import Resource, reqparse
 from sqlalchemy import and_, func, asc, desc
 from sqlalchemy.dialects.mysql import insert
 
@@ -111,6 +111,10 @@ class WorkerTimeApi(Resource):
     """工时"""
 
     def post(self, _id):
+        # parse = reqparse.RequestParser()
+        # parse.add_argument('stack_list', action='append', required=True)
+        # args = parse.parse_args()
+
         data = request.get_json()
         if "name" in data:
             data.pop("name")  # todo vue修改

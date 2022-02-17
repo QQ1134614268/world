@@ -1,3 +1,5 @@
+//真实之树
+export const TreeRootUrl = "/tree"
 let ADD_PROVE = '/tree/AddProve'
 let ADD_STORY = '/tree/AddStory'
 let EDIT_STORY = '/tree/EditStory'
@@ -86,4 +88,3 @@ const routes = [
 
 
 export default routes
-

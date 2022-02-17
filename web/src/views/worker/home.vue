@@ -28,6 +28,7 @@
 
 <script>
 import WorkerUserIcon from "@/components/WorkerUserIcon";
+import {worker, workTimeAnalyse, workTimeInfo, workTimeRecord, workTimeReport,workConfig,workLog} from "@/views/worker/index";
 
 export default {
   name: "home",
@@ -37,37 +38,37 @@ export default {
       menuList: [
         {
           menuName: "考勤打卡",
-          menuPath: "/worker/workTimeRecord",
+          menuPath: workTimeRecord,
           menuIcon: "el-icon-connection",
         },
         {
           menuName: "考勤信息",
-          menuPath: "/worker/workTimeInfo",
+          menuPath:workTimeInfo,
           menuIcon: "el-icon-info",
         },
         {
           menuName: "工人列表",
-          menuPath: "/worker/worker",
+          menuPath: worker,
           menuIcon: "el-icon-location ",
         },
         {
           menuName: "报表看板",
-          menuPath: "/worker/workTimeAnalyse",
+          menuPath: workTimeAnalyse,
           menuIcon: "el-icon-data-analysis",
         },
         {
           menuName: "统计看板",
-          menuPath: "/worker/workTimeReport",
+          menuPath: workTimeReport,
           menuIcon: "el-icon-data-analysis",
         },
         {
           menuName: "配置",
-          menuPath: "/worker/config",
+          menuPath: workConfig,
           menuIcon: "el-icon-setting",
         },
         {
           menuName: "操作日志",
-          menuPath: "/worker/log",
+          menuPath: workLog,
           menuIcon: "el-icon-document",
         }
       ]

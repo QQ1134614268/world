@@ -1,11 +1,9 @@
 <template>
   <div class="p_c_HolyGrail-body" style="height: 100%; ">
     <div class="p_c_box-flex" style="overflow-y: scroll">
-      <div>
-        <div :key="index" v-for="(obj,index) in tableData">
-          <a :href="'#'+obj.label">{{ obj.label }}</a>
-        </div>
-      </div>
+      <nav class="p_c_box-flex_col">
+        <a :href="'#'+obj.label" key="index" v-for="(obj,index) in tableData">{{ obj.label }}</a>
+      </nav>
       <div>
         <div :key="index" v-for="(obj,index) in tableData" style="height: 50rem">
           <a :id="obj.label" style="height: 1.6rem; font-weight: bold">{{ obj.label }}</a>
@@ -34,12 +32,9 @@
       <el-table :data="order_list" style="width: 100%" v-show="drawer">
         <el-table-column prop="name" label="商品名" width="180"></el-table-column>
         <el-table-column prop="price" label="商品价格"></el-table-column>
-        <el-button @click="buy"> 结算</el-button>
+        <el-button @click="buy">结算</el-button>
         <el-table-column prop="num" label="数量" width="180"></el-table-column>
       </el-table>
-      <!--        <el-drawer title="购物车" :visible.sync="drawer" direction='btt'>-->
-      <!--         -->
-      <!--        </el-drawer>-->
     </div>
   </div>
 </template>

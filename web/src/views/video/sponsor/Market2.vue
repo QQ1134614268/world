@@ -58,7 +58,7 @@
 <script>
 
 import {MarketTargetListApi, TargetRankListApi} from "@/api/api";
-import {TargetInfoUrl} from "@/api/routerUrl";
+import {TargetInfoUrl} from "@/views/video";
 
 export default {
   name: "market",

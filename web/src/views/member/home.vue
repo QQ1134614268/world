@@ -2,9 +2,9 @@
   <div id="container" class="p_c_box-flex_col">
     <div id="header" class="p_c_box-flex_center">
       <div class="p_c_box-flex_center">
-        <router-link to="/member">会员系统</router-link>
+        <router-link :to=MemberRootUrl>会员系统</router-link>
       </div>
-      <router-link :to=GoodsList> 菜单列表</router-link>
+      <router-link :to=GoodsList>菜单列表</router-link>
       <div v-if="user">
         <el-dropdown>
           <el-avatar :src="user.avatar" :key="user.avatar"></el-avatar>
@@ -13,10 +13,10 @@
               <a @click="logout">退出登录</a>
             </el-dropdown-item>
             <el-dropdown-item>
-              <a type="primary" href="/member/Store">设置</a>
+              <a type="primary" :href=Store>设置</a>
             </el-dropdown-item>
             <el-dropdown-item>
-              <a type="primary" href="/member/Store">店铺</a>
+              <a type="primary" :href=Store>店铺</a>
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -31,34 +31,24 @@
       <router-view/>
     </div>
     <footer class="p_c_box-flex">
-      <div>
-        首页
-      </div>
-      <div>
-        活动
-      </div>
-      <div>
-        点餐
-      </div>
-      <div>
-        消息
-      </div>
-      <div>
-        我的
-      </div>
+      <div>首页</div>
+      <div>点餐</div>
+      <div>消息</div>
+      <div>我的</div>
     </footer>
   </div>
 </template>
 <script>
-import jwt_decode from 'jwt-decode';
 import {userLogout} from "@/api/user";
-import {SYS_LOGIN_URL, SYS_REGISTER_URL} from "@/api/routerUrl";
-import {GoodsList} from "@/views/member/index";
+import {GoodsList, MemberRootUrl, Store} from "@/views/member/index";
+import {SYS_LOGIN_URL, SYS_REGISTER_URL} from "@/views/sys";
 
 export default {
   name: "home",
   data() {
     return {
+      MemberRootUrl,
+      Store,
       SYS_LOGIN_URL,
       SYS_REGISTER_URL,
       GoodsList
@@ -66,11 +56,7 @@ export default {
   },
   computed: {
     user() {
-      // 这里存储从store里获取的token的数据
-      if (this.$store.state.token) {
-        let user = jwt_decode(this.$store.state.token)
-        return user
-      }
+      return this.$store.state.userInfo
     }
   },
   methods: {

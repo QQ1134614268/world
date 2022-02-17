@@ -1,4 +1,4 @@
-export const member = "/member"
+export const MemberRootUrl = "/member"
 export const member2 = "/member/Member"
 export const GoodsList = "/member/Home/GoodsList"
 export const GoodsAdd = "/member/Home/GoodsAdd"
@@ -8,8 +8,8 @@ export const order = "/member/Home/order"
 export const Home = "/member/Home"
 
 const routes = [{
-    path: member,
-    name: member,
+    path: MemberRootUrl,
+    name: MemberRootUrl,
     component: () => import('@/views/member/home'),
     redirect: Store,
     children: [
@@ -17,9 +17,10 @@ const routes = [{
             path: Store,
             name: Store,
             component: () => import('@/views/member/Store')
-        }, {
-            path: 'Home',
-            name: 'Home',
+        },
+        {
+            path: Home,
+            name: Home,
             component: () => import('@/views/member/admin/Home'),
             children: [
                 {

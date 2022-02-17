@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import {VideoUrl} from "@/api/routerUrl";
 import {UserApi, WorksListApi} from "@/api/api";
+import {VideoUrl} from "@/views/video";
 
 export default {
   name: "UserInfo",

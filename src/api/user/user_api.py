@@ -90,3 +90,9 @@ class UserBlueprintApi(Resource):
         response.headers['Content-Type'] = 'image/gif'
         redisDB.set(code, code, ex=60)
         return response
+
+    @staticmethod
+    @user_api.route('/update_token/<int:_id>', methods=['GET'])
+    def update_token(_id):
+        user = UserVO.query.filter_by(UserVO.id == service.get_id_by_token()).first()
+        return res_util.success(service.user_service.get_token(user))

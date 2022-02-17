@@ -3,7 +3,6 @@
     <div class="p_c_flexbox_row  p_c_box-flex_center" style="height: 6rem">
       <div style="flex: 1" class="p_c_box-flex_row-center">test</div>
       <div class="p_c_flexbox_row p_c_test_border" style="width: 20rem">
-        <UserIconCMPO></UserIconCMPO>
       </div>
     </div>
     <div id="body">
@@ -16,9 +15,6 @@
 </template>
 
 <script>
-
-import UserIconCMPO from "@/components/UserIconCMPO";
-
 export default {
   name: "test",
   data() {
@@ -28,9 +24,6 @@ export default {
       imgUrl: "upload_file/963e329ab7f411eb849580fa5b6c6ed4_movie.jpg",
       imgUrl2: "upload_file/1b337502917011ebb2b580fa5b6c6ed4_小程序.jpg",
     }
-  },
-  components: {
-    UserIconCMPO
   },
   methods: {
     async change() {

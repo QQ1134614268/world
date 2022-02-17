@@ -25,7 +25,7 @@
 import {ReviewWorksApi} from "@/api/api";
 import {getEnum} from "@/api/enum_api";
 import {REVIEW_ENUM} from "@/api/config";
-import {VideoUrl} from "@/api/routerUrl";
+import {VideoUrl} from "@/views/video";
 
 export default {
   name: "Approve",

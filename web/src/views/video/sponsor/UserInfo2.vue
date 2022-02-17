@@ -43,8 +43,8 @@
 <script>
 
 import {MarketTargetListApi, UserApi} from "@/api/api";
-import {TargetInfoUrl, VideoUrl} from "@/api/routerUrl";
 import jwt_decode from "jwt-decode";
+import {TargetInfoUrl, VideoUrl} from "@/views/video";
 
 export default {
   name: "UserInfo2",
@@ -96,10 +96,7 @@ export default {
   },
   computed: {
     user() {
-      if (this.$store.state.token) {
-        let user = jwt_decode(this.$store.state.token)
-        return user
-      }
+      return this.$store.state.userInfo
     }
   },
   watch: {

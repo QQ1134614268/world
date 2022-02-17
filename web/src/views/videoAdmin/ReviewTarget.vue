@@ -26,7 +26,7 @@
 import {ReviewTargetApi, ReviewWorksApi} from "@/api/api";
 import {getEnum} from "@/api/enum_api";
 import {REVIEW_ENUM} from "@/api/config";
-import {TargetInfoUrl} from "@/api/routerUrl";
+import {TargetInfoUrl} from "@/views/video";
 
 export default {
   name: "ReviewTarget",

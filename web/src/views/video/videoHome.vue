@@ -6,7 +6,7 @@
           <img src="@/assets/icon/favicon2.jpg" style="width: 4rem; border-radius: 45rem">
         </a>人人影
       </div>
-      <router-link tag="a" to="/video/Market"> 达人</router-link>
+      <router-link tag="a" :to=VIDEO_MARKET> 达人</router-link>
       <router-link tag="a" to="/video/Market2"> 赞助商</router-link>
 
       <div v-if="user">
@@ -57,13 +57,14 @@
 <script>
 import jwt_decode from 'jwt-decode';
 import {hasPermission, userLogout} from "@/api/user";
-import {VideoLoginUrl, VideoRegisterUrl, WorksUrl} from "@/api/routerUrl";
 import {Permission} from "@/api/config";
+import {VIDEO_MARKET, VideoLoginUrl, VideoRegisterUrl, WorksUrl} from "@/views/video/index";
 
 export default {
   name: "App",
   data() {
     return {
+      VIDEO_MARKET,
       VideoLoginUrl,
       VideoRegisterUrl,
       WorksUrl,
@@ -73,11 +74,7 @@ export default {
   },
   computed: {
     user() {
-      // 这里存储从store里获取的token的数据
-      if (this.$store.state.token) {
-        let user = jwt_decode(this.$store.state.token)
-        return user
-      }
+      return this.$store.state.userInfo
     }
   },
   methods: {
