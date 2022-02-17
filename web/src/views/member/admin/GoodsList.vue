@@ -6,6 +6,11 @@
     <div>
       <el-table :data="tableData">
         <el-table-column prop="name" label="商品名"></el-table-column>
+        <el-table-column prop="images" label="商品图片">
+          <template slot-scope="scope">
+           <el-image style="width: 5rem" :src="scope.row.images"/>
+          </template>
+        </el-table-column>
         <el-table-column prop="describe" label="商品描述"></el-table-column>
         <el-table-column prop="price" label="商品价格"></el-table-column>
         <el-table-column prop="create_time" label="上架时间"></el-table-column>

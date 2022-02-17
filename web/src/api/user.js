@@ -45,14 +45,14 @@ export function getUserIdByToken() {
 
 export async function userRegister(data) {
     let res = await get2(UserApi, 0, data);
-    return res.data
+    return res.data.data
 }
 
 export async function updateTokenAndInfo() {
     let res = await get2(UserApi_update_token, 0, {});
-    storeToken(res.data)
+    storeToken(res.data.data)
     storeUserInfo(jwt_decode(localStorage.getItem(TOKEN)))
-    return res.data
+    return res.data.data
 }
 
 export async function hasPermission(userId, permission) {

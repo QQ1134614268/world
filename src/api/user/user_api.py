@@ -6,6 +6,7 @@ import service.user_service
 from config.mysql_db import db
 from config.redis_db import redisDB
 from service import log_table_service, user_service
+from service.user_service import get_id_by_token
 from util import res_util, verification_code_util
 from vo.table_model import UserVO
 
@@ -94,5 +95,5 @@ class UserBlueprintApi(Resource):
     @staticmethod
     @user_api.route('/update_token/<int:_id>', methods=['GET'])
     def update_token(_id):
-        user = UserVO.query.filter_by(UserVO.id == service.get_id_by_token()).first()
+        user = UserVO.query.filter(UserVO.id == get_id_by_token()).first()
         return res_util.success(service.user_service.get_token(user))

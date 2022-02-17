@@ -11,13 +11,8 @@ export const VIDEO_MARKET2 = "/video/Market2"
 export const video_user = "/video/video_user"
 export const InvitationCode = "/video/InvitationCode"
 export const Setting = "/video/Setting"
-export const UserInfo = "/video/UserInfo"
 export const VideoUrl = "/video/video"
-export const Video = "/video/Video"
-export const Register = "/video/Register"
-export const Login = "/video/Login"
 export const UserInfo2 = "/video/UserInfo2"
-export const TargetInfo = "/video/TargetInfo"
 export const Target = "/video/Target"
 
 export const routes = [
@@ -27,39 +22,44 @@ export const routes = [
     },
     {
         path: RenrenRootUrl,
-        name: RenrenRootUrl,
         component: () => import('@/views/video/videoHome'),
         redirect: VIDEO_MARKET,
         children: [
             {
                 path: InvitationCode,
-                name: InvitationCode,
                 component: () => import('@/views/video/InvitationCode'),
             },
             {
                 path: Setting,
                 name: Setting,
                 component: () => import('@/views/video/Setting'),
-            }, {
-                path: UserInfo,
-                name: UserInfo,
+            },
+            {
+                path: UserInfoUrl,
+                name: UserInfoUrl,
                 component: () => import('@/views/video/expert/UserInfo'),
-            }, {
-                path: Video,
+            },
+            {
+                path: VideoUrl,
                 component: () => import('@/views/video/expert/Video'),
-            }, {
-                path: Register,
+            },
+            {
+                path: VideoRegisterUrl,
                 component: () => import('@/views/video/Register'),
-            }, {
-                path: Login,
+            },
+            {
+                path: VideoLoginUrl,
                 component: () => import('@/views/video/Login'),
-            }, {
+            },
+            {
                 path: UserInfo2,
                 component: () => import('@/views/video/sponsor/UserInfo2'),
-            }, {
-                path: TargetInfo,
+            },
+            {
+                path: TargetInfoUrl,
                 component: () => import('@/views/video/sponsor/TargetInfo'),
-            }, {
+            },
+            {
                 path: WorksUrl,
                 component: () => import('@/views/video/expert/works'),
                 meta: {
@@ -67,35 +67,36 @@ export const routes = [
                     login: true,
                     roles: ['VIDEO',],
                 }
-            }, {
-                path:Target,
+            },
+            {
+                path: Target,
                 component: () => import('@/views/video/sponsor/Target'),
                 meta: {
                     keepAlive: false,
                     login: true,
                     roles: ['VIDEO',],
                 }
-            }, {
+            },
+            {
                 path: VIDEO_MARKET,
-                name: VIDEO_MARKET,
                 component: () => import('@/views/video/expert/Market'),
                 meta: {
                     keepAlive: false,
                     // login: true,
                     roles: ['VIDEO',],
                 }
-            }, {
+            },
+            {
                 path: VIDEO_MARKET2,
-                name: VIDEO_MARKET2,
                 component: () => import('@/views/video/sponsor/Market2'),
                 meta: {
                     keepAlive: false,
                     // login: true,
                     roles: ['VIDEO',],
                 }
-            }, {
+            },
+            {
                 path: video_user,
-                name:video_user,
                 component: () => import('@/views/video/userspace'),
                 meta: {
                     keepAlive: false,

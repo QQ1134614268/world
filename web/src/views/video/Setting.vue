@@ -2,7 +2,8 @@
   <div>
     <el-form ref="form" :model="form" label-width="8rem" :rules="rules" style="padding: 1rem">
       <el-form-item label="头像">
-        <el-upload :show-file-list="false" :action="FileApi" :key="form.avatar" :on-success="uploadAvatar">
+        <el-upload style="width: 10%;height: 10%" :show-file-list="false" :action="FileApi" :key="form.avatar"
+                   :on-success="uploadAvatar">
           <img v-if="form.avatar" :src="form.avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon">点击上传</i>
         </el-upload>
@@ -58,7 +59,6 @@ export default {
   name: "video_user",
   data() {
     return {
-      avatar: "",
       user_id: getUserIdByToken(),
       form: {},
       FileApi: FileApi,
@@ -112,8 +112,6 @@ export default {
       })
     },
     uploadAvatar(res, file, fileList) {
-      // todo 利用 :key=form.avatar
-      this.avatar = res.data
       this.form.avatar = res.data
     },
     async init() {

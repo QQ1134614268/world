@@ -46,7 +46,7 @@
           {{ index + 1 }}
         </div>
         <div class="p_c_long_txt_hidden " style="width: 80%">
-          <router-link :to="{path:'/video/TargetInfo',query: {target_id: item.id}}" class="p_c_space">
+          <router-link :to="{path:TargetInfoUrl,query: {target_id: item.id}}" class="p_c_space">
             {{ item.content }}
           </router-link>
         </div>
@@ -56,7 +56,6 @@
 </template>
 
 <script>
-
 import {MarketTargetListApi, TargetRankListApi} from "@/api/api";
 import {TargetInfoUrl} from "@/views/video";
 
@@ -64,6 +63,7 @@ export default {
   name: "market",
   data() {
     return {
+      TargetInfoUrl,
       search: "",
       tableData: [],
       currentPage: 1,

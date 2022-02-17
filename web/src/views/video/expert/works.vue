@@ -101,7 +101,6 @@ export default {
       let result = await this.$get2(WorksListApi, 0, {user_id: this.user_id})
       if (result.data.code == 1) {
         this.tableData = result.data.data
-        // await this.$router.push({path: 'video/works'})
       } else {
         this.$message('失败');
       }

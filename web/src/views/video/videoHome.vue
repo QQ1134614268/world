@@ -7,7 +7,7 @@
         </a>人人影
       </div>
       <router-link tag="a" :to=VIDEO_MARKET> 达人</router-link>
-      <router-link tag="a" to="/video/Market2"> 赞助商</router-link>
+      <router-link tag="a" :to=VIDEO_MARKET2> 赞助商</router-link>
 
       <div v-if="user">
         <el-dropdown>
@@ -17,19 +17,19 @@
               <a @click="logout">退出登录</a>
             </el-dropdown-item>
             <el-dropdown-item>
-              <a type="primary" :href="'/video/video_user?user_id='+user.id">用户空间</a>
+              <a type="primary" :href="video_user+'?user_id='+user.id">用户空间</a>
             </el-dropdown-item>
             <el-dropdown-item>
               <a type="primary" :href=WorksUrl>我的作品</a>
             </el-dropdown-item>
             <el-dropdown-item>
-              <a type="primary" href="/video/Target">我的发布</a>
+              <a type="primary" :href=Target>我的发布</a>
             </el-dropdown-item>
             <el-dropdown-item>
-              <a type="primary" href="/video/InvitationCode" v-if="INVITATION_CODE">我的邀请码</a>
+              <a type="primary" :href=InvitationCode v-if="INVITATION_CODE">我的邀请码</a>
             </el-dropdown-item>
             <el-dropdown-item>
-              <a type="primary" href="/videoAdmin" v-if="VIDEO_REVIEW">审核</a>
+              <a type="primary" :href=AdminUrl v-if="VIDEO_REVIEW">审核</a>
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -55,15 +55,29 @@
   </div>
 </template>
 <script>
-import jwt_decode from 'jwt-decode';
 import {hasPermission, userLogout} from "@/api/user";
 import {Permission} from "@/api/config";
-import {VIDEO_MARKET, VideoLoginUrl, VideoRegisterUrl, WorksUrl} from "@/views/video/index";
+import {
+  InvitationCode,
+  Target,
+  VIDEO_MARKET,
+  VIDEO_MARKET2,
+  video_user,
+  VideoLoginUrl,
+  VideoRegisterUrl,
+  WorksUrl
+} from "@/views/video/index";
+import {AdminUrl} from "@/views/videoAdmin";
 
 export default {
   name: "App",
   data() {
     return {
+      Target,
+      AdminUrl,
+      InvitationCode,
+      video_user,
+      VIDEO_MARKET2,
       VIDEO_MARKET,
       VideoLoginUrl,
       VideoRegisterUrl,

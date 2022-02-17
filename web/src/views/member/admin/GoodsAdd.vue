@@ -8,7 +8,7 @@
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
             style="width:10rem;  height:10rem ">
-          <img :key="imageUrl" v-if="imageUrl" :src="imageUrl" style="width:10rem;
+          <img :key="form.images" v-if="form.images" :src="form.images" style="width:10rem;
                  height:10rem;object-fit: cover">
           <i v-else class="el-icon-plus avatar-uploader-icon" style="width:10rem;  height:10rem "></i>
         </el-upload>
@@ -40,16 +40,14 @@ export default {
   data() {
     return {
       FileApi,
-      dialogVisible: false,
       form: {},
-      imageUrl: "",
       tableData: [],
       store_id: 1,
     };
   },
   methods: {
     handleAvatarSuccess(res) {
-      this.imageUrl = res.data;
+      this.form.images = res.data;
     },
     async init() {
       let data = {
@@ -57,10 +55,6 @@ export default {
       }
       let response = await this.$get2(GoodsApi, 0, data);
       this.tableData = response.data.data
-    },
-    async handleEdit(index, row) {
-      this.form = row
-      this.dialogVisible = true
     },
     async handleDelete(index, row) {
       let response = await this.$deleteJson2(GoodsApi, row.id);
@@ -70,9 +64,7 @@ export default {
       this.tableData.splice(index, 1)
     },
     async onSubmit() {
-      this.dialogVisible = false
       this.form.store_id = this.store_id
-      this.form.images = this.imageUrl;
       let response = await this.$ppJson(GoodsApi, this.form.id, this.form);
       if (response.data.code != 1) {
         this.$message('操作失败');
@@ -82,7 +74,7 @@ export default {
       await this.init()
     },
     cancel() {
-      this.dialogVisible = false
+      this.$router.back()
     }
   },
   created() {

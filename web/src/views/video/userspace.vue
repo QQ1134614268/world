@@ -51,8 +51,4 @@ export default {
 </script>
 
 <style scoped>
-.cropper {
-  width: auto;
-  height: 300px;
-}
 </style>

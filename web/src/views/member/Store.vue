@@ -2,14 +2,14 @@
   <div class="p_c_HolyGrail-body" style="height: 100%; ">
     <div class="p_c_box-flex" style="overflow-y: scroll">
       <nav class="p_c_box-flex_col">
-        <a :href="'#'+obj.label" key="index" v-for="(obj,index) in tableData">{{ obj.label }}</a>
+        <a :href="'#'+obj.label" :key="index" v-for="(obj,index) in tableData">{{ obj.label }}</a>
       </nav>
       <div>
         <div :key="index" v-for="(obj,index) in tableData" style="height: 50rem">
           <a :id="obj.label" style="height: 1.6rem; font-weight: bold">{{ obj.label }}</a>
           <div :key="index2" v-for="(obj2, index2) in obj.data">
             <div class="p_c_box-flex">
-              <el-image :src="obj2.img"></el-image>
+              <el-image style="width: 5rem" :src="obj2.images"></el-image>
               <div>
                 <div>
                   {{ obj2.name }}
