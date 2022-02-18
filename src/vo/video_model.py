@@ -25,7 +25,7 @@ class WorksVO(BaseTable):
     describe = Column(String(255))
     file = Column(String(255))
     start = Column(Integer, default=0)
-    thumbnail = Column(String(255))
+    thumbnail = Column(String(128))
     state = Column(Enum(ReviewEnum), default=ReviewEnum.NONE.name, comment=get_comment(ReviewEnum))
 
 
