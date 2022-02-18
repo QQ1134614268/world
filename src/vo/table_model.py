@@ -21,9 +21,6 @@ class BaseTable(db.Model):
     create_by = Column(Integer, server_default="-1", comment="创建者id")
     update_by = Column(Integer, server_default="-1", comment="修改者id")
 
-    # create_user = Column(Integer, default=user_service.get_id_by_token, onupdate=user_service.get_id_by_token)
-    # update_user = Column(Integer, default=user_service.get_id_by_token, onupdate=user_service.get_id_by_token)
-
 
 class EnumConfig(BaseTable):
     """
