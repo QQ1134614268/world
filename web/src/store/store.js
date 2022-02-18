@@ -13,7 +13,7 @@ export function getUserInfoByToken() {
 
 const state = {
     token: localStorage.getItem(TOKEN) || '',
-    userInfo: getUserInfoByToken()|| {
+    userInfo: getUserInfoByToken() || {
         userId: '',
         username: '',
         avatar: '',
@@ -24,7 +24,9 @@ const state = {
 
 const mutations = {
     receiveToken(state, payload) {
+        localStorage.setItem(TOKEN, payload.token)
         state.token = payload.token
+        state.userInfo = jwt_decode(payload.token)
     },
     receiveUserInfo(state, payload) {
         state.userInfo = payload.userInfo

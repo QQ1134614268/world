@@ -30,28 +30,31 @@
     <div id="body">
       <router-view/>
     </div>
-    <footer class="p_c_box-flex">
-      <div>首页</div>
-      <div>点餐</div>
-      <div>消息</div>
-      <div>我的</div>
+    <footer>
+      <a :href="MemberRootUrl">点餐</a>
+      <a :href="UserSpace">我的</a>
     </footer>
   </div>
 </template>
 <script>
 import {userLogout} from "@/api/user";
-import {GoodsList, MemberRootUrl, Store} from "@/views/member/index";
+import {GoodsList, MemberRootUrl, Store, UserSpace} from "@/views/member/index";
 import {SYS_LOGIN_URL, SYS_REGISTER_URL} from "@/views/sys";
 
 export default {
-  name: "home",
+  name: "Home",
   data() {
     return {
       MemberRootUrl,
       Store,
       SYS_LOGIN_URL,
       SYS_REGISTER_URL,
-      GoodsList
+      GoodsList,
+      UserSpace,
+      menuList:[
+        {name:"首页",path:MemberRootUrl},
+        {name:"我的",path:UserSpace},
+      ]
     }
   },
   computed: {

@@ -29,12 +29,18 @@
       <el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
         购物车
       </el-button>
-      <el-table :data="order_list" style="width: 100%" v-show="drawer">
-        <el-table-column prop="name" label="商品名" width="180"></el-table-column>
-        <el-table-column prop="price" label="商品价格"></el-table-column>
+      <el-drawer title="购物车" :visible.sync="drawer" direction='btt'>
+        <el-table :data="order_list" style="width: 100%">
+          <el-table-column prop="name" label="商品名" width="180"></el-table-column>
+          <el-table-column prop="price" label="商品价格"></el-table-column>
+          <el-table-column prop="num" label="数量" width="180">
+            <template slot-scope="scope">
+              <el-input-number v-model="scope.row.num" :min="1" :max="10" size="small"></el-input-number>
+            </template>
+          </el-table-column>
+        </el-table>
         <el-button @click="buy">结算</el-button>
-        <el-table-column prop="num" label="数量" width="180"></el-table-column>
-      </el-table>
+      </el-drawer>
     </div>
   </div>
 </template>

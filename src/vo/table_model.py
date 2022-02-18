@@ -16,8 +16,10 @@ from util.unique_util import get_uuid
 class BaseTable(db.Model):
     __abstract__ = True  # 加了该属性后生成表的时候不会生成该表
     id = Column(Integer, primary_key=True, autoincrement=True, comment="主键")
-    create_time = Column(DateTime, default=datetime.datetime.now)
-    update_time = Column(DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
+    create_time = Column(DateTime, default=datetime.datetime.now, comment= "创建时间")
+    update_time = Column(DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now, comment= "修改时间")
+    create_by = Column(Integer, server_default="-1", comment="创建者id")
+    update_by = Column(Integer, server_default="-1", comment="修改者id")
 
     # create_user = Column(Integer, default=user_service.get_id_by_token, onupdate=user_service.get_id_by_token)
     # update_user = Column(Integer, default=user_service.get_id_by_token, onupdate=user_service.get_id_by_token)
@@ -39,7 +41,6 @@ class EnumConfig(BaseTable):
     北京/朝阳        区           北京
     """
     __tablename__ = 'enum_config'
-    create_by = Column(Integer, server_default="-1", comment="创建者id")
     parent_code = Column(String(255), Sequence('sort_seq'), comment="父级code", server_default='-1', default='-1')
 
     # 没父子级, 标识字段; eg: 深圳/龙华 北京/朝阳 都是区级
