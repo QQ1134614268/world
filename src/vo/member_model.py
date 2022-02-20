@@ -5,7 +5,9 @@
 """
 from sqlalchemy import Column, String, Integer, Float
 
+from config.enum_conf import StoreMemberType, OrderStatus
 from config.mysql_db import db
+from util.dev_util import get_comment
 from util.password_util import get_sha256_salt_password
 from vo.table_model import BaseTable
 
@@ -37,6 +39,8 @@ class StoreMemberTable(BaseTable):
     __tablename__ = 'store_member_t'
     store_id = Column(Integer, index=True)
     user_id = Column(Integer, index=True)
+    user_type = Column(String(256), index=True, default=StoreMemberType.NormalVip.name,
+                       comment=get_comment(StoreMemberType))  # todo 客户, 店员(后厨,店长,管理员, 普通店员)
 
 
 class WalletVO(BaseTable):
@@ -59,10 +63,12 @@ class GoodsVO(BaseTable):
 
 class OrderVO(BaseTable):
     __tablename__ = 'order_t'
+    store_id = Column(Integer, index=True)  # 单一后台?  平台
     goods_id = Column(Integer, index=True)
     goods_name = Column(Integer, index=True)
     user_id = Column(Integer, index=True)
     num = Column(Integer)
-    status = Column(String(255))  # 状态
-    total_price = Column(Float(precision="14,2"), comment="总价")
+    status = Column(String(255), default=OrderStatus, comment=get_comment(OrderStatus))  # 状态
+    total_price = Column(Float(precision="14,2"), comment="价格(每个)")  # todo price 仅扣费时
     # info = Column(String(256), comment="详情,size,冷热, ")  # todo 详情:颜色,材料,气味等
+    table_id = Column(String(255), comment="下单桌号")

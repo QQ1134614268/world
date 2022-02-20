@@ -7,10 +7,10 @@ from flask import request
 from flask_restful import Resource
 
 import service.user_service
+from config.enum_conf import StoreMemberType, OrderStatus
 from config.mysql_db import db
-from service import wallet_service
 from util import res_util
-from vo.member_model import StoreVO, StoreMemberTable, WalletVO, GoodsVO, OrderVO
+from vo.member_model import StoreVO, StoreMemberTable, GoodsVO, OrderVO
 from vo.table_model import UserVO
 
 
@@ -127,19 +127,62 @@ class OrderApi(Resource):
         data = request.get_json()
         goods = GoodsVO.query.filter(GoodsVO.id.in_([item["id"] for item in data])).all()
         price_dic = {item.id: item.price for item in goods}
-        money = sum([item["num"] * price_dic.get(item.id) for item in data])
         user_id = service.user_service.get_id_by_token()
-        wallet = WalletVO.query.filter(WalletVO.user_id == user_id).one()
-        wallet_service.pay(wallet.id, money)
+        for item in data:
+            new_data = {
+                'user_id': user_id,
+                'goods_id': item["id"],
+                'num': item["num"],
+                'store_id': item["store_id"],
+                'total_price': 0  # price_dic.get(item["id"], 0) * item.get("num"),
+            }
+            vo = OrderVO(**new_data)
+            db.session.add(vo)
 
-        vos = [OrderVO(user_id=user_id, goods_id=item["id"], num=item["num"]) for item in data]
-        db.session.add_all(vos)
+        # vos = [OrderVO(user_id=user_id, goods_id=item["id"], num=item["num"], store_id=item.get("store_id"),
+        #                total_price=price_dic.get(item["id"])) for item in data]
+        # for vo in vos:
+        #     db.session.add(vo)
         db.session.commit()
+        # db.session.add_all(vos)
+        # db.session.commit()
         return res_util.success()
 
     def get(self, _id):
-        vo = GoodsVO.query.filter(GoodsVO.id == _id).all()
-        return res_util.success(vo)
+        if _id:
+            vo = OrderVO.query.filter(OrderVO.id == _id).first()
+            return res_util.success(vo)
+        user_id = service.user_service.get_id_by_token()
+        # user_type 用户类型
+        store_id = request.args.get("store_id")
+
+        table_id = request.args.get("table_id")
+        if table_id:
+            order = OrderVO.query.filter(
+                OrderVO.table_id == table_id,
+                OrderVO.status == OrderStatus.UN_PAYMENT.UN_PAYMENT,
+                OrderVO.user_id == user_id,
+            ).order_by(OrderVO).first()
+            return res_util.success(order)
+        user_type = StoreMemberTable.query.filter(
+            StoreMemberTable.store_id == store_id, StoreMemberTable.user_id == user_id
+        ).with_entities(StoreMemberTable.user_type).scalar()  # 登陆用户角色? 店长,普通用户
+        # user_type = request.args.get('user_type')  # 登陆角色??todo
+        # user_type = request.args.get('user_type')  # 根据权限 厨师? 每个节点 厨房 集群
+        customer_list = [None, StoreMemberType.NormalVip.name, StoreMemberType.HighVip.name,
+                         StoreMemberType.TopVip.name]
+        if user_type in customer_list:
+            vos = OrderVO.query.filter(OrderVO.user_id == user_id, OrderVO.store_id == store_id).order_by(
+                OrderVO.create_time.desc()
+            ).all()
+            return res_util.success(vos)
+        worker_list = [None, StoreMemberType.Kitchen.name, StoreMemberType.Admin.name,
+                       StoreMemberType.NormalEmp.name, StoreMemberType.StoreAdmin.name]
+        if user_type in worker_list:
+            vos = OrderVO.query.filter(OrderVO.store_id == store_id).order_by(
+                OrderVO.create_time.desc()
+            ).all()
+            return res_util.success(vos)
 
 
 class OrderListApi(Resource):

@@ -53,7 +53,7 @@
 <script>
 
 import {FileApi, UserApi} from "@/api/api";
-import {getUserIdByToken, updateTokenAndInfo} from "@/api/user";
+import {getUserIdByToken, updateUser} from "@/api/user";
 
 export default {
   name: "video_user",
@@ -123,13 +123,7 @@ export default {
       }
     },
     async save() {
-      let result = await this.$putJson2(UserApi, this.form.id, this.form)
-      await updateTokenAndInfo()
-      if (result.data.code == 1) {
-        this.$message('修改成功!');
-      } else {
-        this.$message('');
-      }
+      await updateUser(this.form)
     },
   },
   created() {

@@ -9,5 +9,6 @@ root_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__
 os.chdir(root_dir)
 py_path = os.path.join(os.path.dirname(root_dir), "venv/Scripts/flask")
 order1 = "{} {}".format(py_path, "db migrate")
+os.system(order1)
 order2 = "{} {}".format(py_path, "db upgrade")
 os.system(order2)

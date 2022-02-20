@@ -16,10 +16,10 @@ from util.unique_util import get_uuid
 class BaseTable(db.Model):
     __abstract__ = True  # 加了该属性后生成表的时候不会生成该表
     id = Column(Integer, primary_key=True, autoincrement=True, comment="主键")
-    create_time = Column(DateTime, default=datetime.datetime.now, comment= "创建时间")
-    update_time = Column(DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now, comment= "修改时间")
-    create_by = Column(Integer, server_default="-1", comment="创建者id")
-    update_by = Column(Integer, server_default="-1", comment="修改者id")
+    create_time = Column(DateTime, default=datetime.datetime.now, comment="创建时间")
+    update_time = Column(DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now, comment="修改时间")
+    create_by = Column(Integer, default="-1", comment="创建者id")
+    update_by = Column(Integer, default="-1", comment="修改者id")
 
 
 class EnumConfig(BaseTable):

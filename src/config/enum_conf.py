@@ -67,3 +67,18 @@ class GoodsLabel(Enum):
 
 
 Month = Enum('Month', ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'))
+
+
+class StoreMemberType(Enum):
+    NormalVip = "普通Vip"
+    HighVip = "高级Vip"
+    TopVip = "顶级Vip"
+    Admin = "管理员"
+    Kitchen = "厨师"
+    NormalEmp = "店员"
+    StoreAdmin = "店长"
+
+
+class OrderStatus(Enum):
+    PAYMENT_SUCCESS="支付完成"
+    UN_PAYMENT = "未支付"
