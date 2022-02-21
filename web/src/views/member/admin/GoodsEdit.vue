@@ -53,7 +53,7 @@ export default {
     },
     async init() {
       let data = {
-        storeId: 1
+        store_id: this.store_id
       }
       let response = await this.$get2(GoodsApi, 0, data);
       this.tableData = response.data.data

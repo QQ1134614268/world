@@ -12,26 +12,6 @@ export function storeToken(token) {
 /*登录*/
 export async function userLogin(data) {
     let res = await get2(UserApi_login, 0, data);
-    //   if (res.data.code == 1) {
-    //     storeToken(res.data.data)
-    //     this.$message('登录成功');
-    //     // 弹框式登录
-    //     if (Vue.$route.query.from != null) {
-    //       await this.$router.push(this.from)
-    //     } else {
-    //       await this.$router.push({path: SYS_HOME})
-    //     }
-    //   } else {
-    //     this.$message('登陆失败,请重新检查账号密码');
-    //   }
-    // Vue.prototype.$message.error(response.data.data)
-
-    // // this.form.password = get_salt_pwd(this.form.password)
-    // let result = await this.$get2(UserApi_login, 0, this.form)
-    // if (result.data.code === 1) {
-    //   storeToken(result.data.data)
-    //   await this.$router.push({path:VIDEO_MARKET})
-    // }
     if (res.data.code == 1) {
         let token = res.data.data
         storeToken(token)

@@ -1,8 +1,12 @@
 <template>
   <div>
     开启传送门
-    <router-link :to=order>订单</router-link>
-    <router-link :to=order>优惠券</router-link>
+    <div>
+      <router-link :to=order>订单</router-link>
+    </div>
+    <div>
+      <router-link :to=order>优惠券</router-link>
+    </div>
 
     我的资源
     <el-tree :data="treeData">

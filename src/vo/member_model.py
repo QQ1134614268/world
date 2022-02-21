@@ -62,9 +62,10 @@ class GoodsVO(BaseTable):
 
 class OrderVO(BaseTable):
     __tablename__ = 'order_t'
+    order_code = Column(String(256), index=True, comment="订单编号")  # 单一后台?  平台
     store_id = Column(Integer, index=True)  # 单一后台?  平台
     goods_id = Column(Integer, index=True)
-    goods_name = Column(Integer, index=True)
+    goods_name = Column(String(256), index=True)
     user_id = Column(Integer, index=True)
     num = Column(Integer)
     status = Column(String(255), default=OrderStatus.UN_PAYMENT.name, comment=get_comment(OrderStatus))  # 状态

@@ -42,7 +42,7 @@ export default {
       FileApi,
       form: {images: ''},
       tableData: [],
-      store_id: 1,
+      store_id: this.$route.query.store_id,
     };
   },
   methods: {
@@ -51,7 +51,7 @@ export default {
     },
     async init() {
       let data = {
-        storeId: 1
+        store_id: 1
       }
       let response = await this.$get2(GoodsApi, 0, data);
       this.tableData = response.data.data

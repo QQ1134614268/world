@@ -16,8 +16,8 @@
       <tr>
         <td>验证码</td>
         <td>
-          <el-input placeholder="请输入内容" size="small" v-model="code" clearable style="width: 10em"></el-input>
-          <img :src="url" @click="updateCode" alt="验证码" title="点击换一张" style="width: 4rem ;height: 2rem">
+          <el-input placeholder="请输入内容" size="small" v-model="code" clearable style="width: 5rem"></el-input>
+          <img :src="url" @click="updateCode" alt="验证码" title="点击换一张" style="width: 6rem ;height: 2rem">
         </td>
       </tr>
       <tr>

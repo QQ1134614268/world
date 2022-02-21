@@ -16,7 +16,7 @@
                 </div>
                 <div>
                   售价: {{ obj2.price }}
-                  <el-input-number v-model="obj2.num" @change="handleChange(obj2)" :min="1" :max="10" size="small"
+                  <el-input-number v-model="obj2.num" @change="handleChange(obj2)" :min="0" :max="10" size="small"
                                    label="描述文字"></el-input-number>
                 </div>
               </div>
@@ -29,16 +29,18 @@
       <el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
         购物车
       </el-button>
-        <el-table v-show="drawer"  :data="order_list" style="width: 100%">
+      <section v-show="drawer">
+        <el-table :data="order_list" style="width: 100%">
           <el-table-column prop="name" label="商品名" width="180"></el-table-column>
           <el-table-column prop="price" label="商品价格"></el-table-column>
           <el-table-column prop="num" label="数量" width="180">
             <template slot-scope="scope">
-              <el-input-number v-model="scope.row.num" :min="1" :max="10" size="small"></el-input-number>
+              <el-input-number v-model="scope.row.num" :min="0" :max="10" size="small"></el-input-number>
             </template>
           </el-table-column>
         </el-table>
-        <el-button @click="buy">结算</el-button>
+        <el-button @click="buy">下单</el-button>
+      </section>
     </div>
   </div>
 </template>
@@ -57,6 +59,7 @@ export default {
       drawer: false,
       order_list: [],
       orderMap: {},
+      store_id: 1
     }
   },
   methods: {
@@ -72,7 +75,7 @@ export default {
     },
     async init() {
       let data = {
-        store_id: 1
+        store_id: this.store_id
       }
       let response = await this.$get2(GoodsApi, 0, data);
       this.tableData = response.data.data
@@ -86,4 +89,5 @@ export default {
 </script>
 
 <style scoped>
+
 </style>

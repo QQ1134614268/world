@@ -51,10 +51,11 @@ export default {
       SYS_REGISTER_URL,
       GoodsList,
       UserSpace,
-      menuList:[
-        {name:"首页",path:MemberRootUrl},
-        {name:"我的",path:UserSpace},
-      ]
+      menuList: [
+        {name: "首页", path: MemberRootUrl},
+        {name: "我的", path: UserSpace},
+      ],
+      store_id: 1,
     }
   },
   computed: {

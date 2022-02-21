@@ -46,8 +46,7 @@ export default {
       let result = await userLogin(data)
       if (result.data.code == 1) {
         this.$message('登录成功');
-        await this.$router.push({path: this.from})
-        // this.$router.back() # todo 使用back, main.js route video登录页面
+        await this.$router.back()
       } else {
         this.$message('登陆失败,请重新检查账号密码');
       }

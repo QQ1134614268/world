@@ -94,6 +94,7 @@ export default {
   methods: {
     async logout() {
       await userLogout()
+      this.$message.info("退出登陆")
     },
     async init() {
       if (this.user && this.user.id) {

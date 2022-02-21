@@ -130,6 +130,7 @@ class OrderApi(Resource):
         user_id = service.user_service.get_id_by_token()
         for item in data:
             new_data = {
+                'goods_name':item["name"],
                 'user_id': user_id,
                 'goods_id': item["id"],
                 'num': item["num"],

@@ -1,14 +1,14 @@
 <template>
   <div class="p_c_HolyGrail-body">
     <div>
-      <router-link :to=GoodsAdd> 增加</router-link>
+      <router-link :to="{path:GoodsAdd,query: {store_id:store_id }}"> 增加</router-link>
     </div>
     <div>
       <el-table :data="tableData">
         <el-table-column prop="name" label="商品名"></el-table-column>
         <el-table-column prop="images" label="商品图片">
           <template slot-scope="scope">
-           <el-image style="width: 5rem" :src="scope.row.images"/>
+            <el-image style="width: 5rem" :src="scope.row.images"/>
           </template>
         </el-table-column>
         <el-table-column prop="describe" label="商品描述"></el-table-column>
@@ -16,7 +16,7 @@
         <el-table-column prop="create_time" label="上架时间"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <router-link :to=GoodsEdit> 编辑</router-link>
+            <router-link :to="{path:GoodsEdit,query: {store_id:scope.row }}"  > 编辑</router-link>
             <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
@@ -37,11 +37,15 @@ export default {
       GoodsAdd,
       tableData: [],
       form: {},
+      store_id: 1,
     }
   },
   methods: {
     async init() {
-      let res = await this.$get2(GoodsApi, 0, {})
+      let data = {
+        store_id: this.store_id
+      }
+      let res = await this.$get2(GoodsApi, 0, data)
       this.tableData = res.data.data
     },
     async handleDelete(id) {

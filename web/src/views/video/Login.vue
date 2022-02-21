@@ -16,7 +16,6 @@
 
 <script>
 import {userLogin} from "@/api/user";
-import {SYS_HOME} from "@/views/sys";
 
 export default {
   name: "Home",
@@ -30,7 +29,7 @@ export default {
       let res = await userLogin(this.form)
       if (res.data.code == 1) {
         this.$message('登录成功');
-        await this.$router.push({path: SYS_HOME})
+        await this.$router.back()
       } else {
         this.$message('登陆失败,请重新检查账号密码');
       }
