@@ -6,9 +6,9 @@
             class="avatar-uploader"
             :action="FileApi"
             :show-file-list="false"
-            :on-success="handleAvatarSuccess"
+            :on-success="uploadFileSuccess"
             style="width:10rem;  height:10rem ">
-          <img :key="imageUrl" v-if="imageUrl" :src="imageUrl" style="width:10rem;
+          <img :key="form.images" v-if="form.images" :src="form.images" style="width:10rem;
                  height:10rem;object-fit: cover">
           <i v-else class="el-icon-plus avatar-uploader-icon" style="width:10rem;  height:10rem "></i>
         </el-upload>
@@ -40,8 +40,7 @@ export default {
     return {
       FileApi,
       dialogVisible: false,
-      form: {},
-      imageUrl: "",
+      form: {images: ""},
       tableData: [],
       store_id: 1,
       GoodsApi
@@ -49,8 +48,8 @@ export default {
   },
 
   methods: {
-    handleAvatarSuccess(res) {
-      this.imageUrl = res.data;
+    uploadFileSuccess(res) {
+      this.form.images = res.data;
     },
     async init() {
       let data = {
@@ -62,7 +61,6 @@ export default {
     async onSubmit() {
       this.dialogVisible = false
       this.form.store_id = this.store_id
-      this.form.images = this.imageUrl;
       let response = await this.$ppJson(GoodsApi, this.form.id, this.form);
       if (response.data.code != 1) {
         this.$message('操作失败');

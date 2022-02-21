@@ -6,7 +6,7 @@
           <el-avatar :src="user.avatar" :key="user.avatar"></el-avatar>
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="a">退出登录</el-dropdown-item>
+          <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import jwt_decode from "jwt-decode";
 import {userLogout} from "@/api/user";
 
 export default {
@@ -31,11 +30,8 @@ export default {
     async login() {
 
     },
-    async register() {
-
-    },
     async logout() {
-      await userLogout(this)
+      await userLogout()
     },
     handleCommand(command) {
       this.$message('click on item ' + command);

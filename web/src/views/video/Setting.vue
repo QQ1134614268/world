@@ -3,7 +3,7 @@
     <el-form ref="form" :model="form" label-width="8rem" :rules="rules" style="padding: 1rem">
       <el-form-item label="头像">
         <el-upload style="width: 10%;height: 10%" :show-file-list="false" :action="FileApi" :key="form.avatar"
-                   :on-success="uploadAvatar">
+                   :on-success="uploadFileSuccess">
           <img v-if="form.avatar" :src="form.avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon">点击上传</i>
         </el-upload>
@@ -53,14 +53,15 @@
 <script>
 
 import {FileApi, UserApi} from "@/api/api";
-import {getUserIdByToken, updateUser} from "@/api/user";
+import {updateUser} from "@/api/user";
+import {getUserIdByToken} from "@/api/util";
 
 export default {
   name: "video_user",
   data() {
     return {
       user_id: getUserIdByToken(),
-      form: {},
+      form: {avatar:''},
       FileApi: FileApi,
       rules: {
         phone: [{required: true, message: '手机号不能为空', trigger: 'blur'}],
@@ -111,7 +112,7 @@ export default {
         }
       })
     },
-    uploadAvatar(res, file, fileList) {
+    uploadFileSuccess(res, file, fileList) {
       this.form.avatar = res.data
     },
     async init() {

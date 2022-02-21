@@ -53,8 +53,8 @@ export default {
     }
   },
   methods: {
-    logOut() {
-      userLogout(this)
+    async logOut() {
+      await userLogout()
       this.$message("退出")
     }
   }

@@ -10,7 +10,7 @@
     </div>
     <div class="p_c_para">
       <el-button type="primary" @click="login">登陆</el-button>
-      <router-link :to="{path:this.SYS_REGISTER_URL,query: {from: this.from}}">
+      <router-link :to="{path:this.SYS_REGISTER_URL}">
         <el-button>注册</el-button>
       </router-link>
     </div>
@@ -19,12 +19,8 @@
 
 <script>
 import errDialog from "@/components/err.vue"
-import Axios from 'axios'
-import {UserApi_login} from "@/api/api";
 import {SYS_HOME, SYS_REGISTER_URL} from "@/views/sys";
-import {RECEIVE_TOKEN, TOKEN} from "@/api/config";
-import store from "@/store/store";
-import {storeToken} from "@/api/user";
+import {userLogin} from "@/api/user";
 
 export default {
   name: "login",
@@ -34,7 +30,7 @@ export default {
   data() {
     return {
       SYS_REGISTER_URL,
-      from: this.$route.query.from,
+      from: this.$route.query.from || SYS_HOME,
       err_message: "",
       err_flag: false,
       username: "",
@@ -47,17 +43,11 @@ export default {
         "username": this.username,
         "password": this.password,
       }
-      let result = await this.$get2(UserApi_login, 0, data)
-
+      let result = await userLogin(data)
       if (result.data.code == 1) {
-        storeToken(result.data.data)
         this.$message('登录成功');
-        // 弹框式登录
-        if (this.from != null) {
-          await this.$router.push(this.from)
-        } else {
-          await this.$router.push({path: SYS_HOME})
-        }
+        await this.$router.push({path: this.from})
+        // this.$router.back() # todo 使用back, main.js route video登录页面
       } else {
         this.$message('登陆失败,请重新检查账号密码');
       }

@@ -30,7 +30,8 @@
 </template>
 
 <script>
-import {UserApi, UserApi_get_verify_code} from "@/api/api";
+import {UserApi_get_verify_code} from "@/api/api";
+import {userRegister} from "@/api/user";
 
 export default {
   name: "register",
@@ -47,11 +48,7 @@ export default {
       this.url = UserApi_get_verify_code + "?t=" + Math.random()
     },
     async register() {
-      let result = await this.$postJson2(UserApi, 0, {
-        username: this.username,
-        password: this.password,
-        code: this.code
-      });
+      await userRegister()
     },
   },
   created() {

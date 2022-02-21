@@ -52,7 +52,7 @@
 
     <el-dialog title="上传Excel" :visible.sync="upDialog" width="30%">
       <el-upload multiple :auto-upload="false" :action="worker_excel_url" :headers="headers" ref="upload"
-                 :on-success="handleSuccess">
+                 :on-success="uploadFileSuccess">
 
         <i class="el-icon-upload"></i>
         <div class="el-upload__text">点击上传</div>
@@ -127,7 +127,7 @@ export default {
     }
   },
   methods: {
-    async handleSuccess(res, file) {
+    async uploadFileSuccess(res, file) {
       if (res.code === 1) {
         this.$message('操作成功')
       }

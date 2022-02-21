@@ -20,7 +20,7 @@
 
 <script>
 
-import {VideoUserApi} from "@/api/api";
+import {videoUserRegister} from "@/api/video";
 
 export default {
   name: "Register",
@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     async onSubmit() {
-      let result = await this.$postJson2(VideoUserApi, 0, this.form)
+      let result = await videoUserRegister(this.form)
       if (result.data.code == 1) {
         this.$message('注册成功');
         await this.$router.push({path: '/'})

@@ -2,23 +2,13 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import {TOKEN} from "@/api/config";
 import jwt_decode from "jwt-decode";
+import {getUserInfoByToken} from "@/api/util";
 
 Vue.use(Vuex)
 
-export function getUserInfoByToken() {
-    if (localStorage.getItem(TOKEN)) {
-        return jwt_decode(localStorage.getItem(TOKEN))
-    }
-}
-
 const state = {
     token: localStorage.getItem(TOKEN) || '',
-    userInfo: getUserInfoByToken() || {
-        userId: '',
-        username: '',
-        avatar: '',
-        loginTime: '',
-    },
+    userInfo: getUserInfoByToken() || '',
 }
 
 
@@ -26,7 +16,7 @@ const mutations = {
     receiveToken(state, payload) {
         localStorage.setItem(TOKEN, payload.token)
         state.token = payload.token
-        state.userInfo = jwt_decode(payload.token)
+        state.userInfo = getUserInfoByToken()
     },
     receiveUserInfo(state, payload) {
         state.userInfo = payload.userInfo

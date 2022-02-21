@@ -134,18 +134,10 @@ class OrderApi(Resource):
                 'goods_id': item["id"],
                 'num': item["num"],
                 'store_id': item["store_id"],
-                'total_price': 0  # price_dic.get(item["id"], 0) * item.get("num"),
+                'total_price':  price_dic.get(item["id"]) * item.get("num"),
             }
-            vo = OrderVO(**new_data)
-            db.session.add(vo)
-
-        # vos = [OrderVO(user_id=user_id, goods_id=item["id"], num=item["num"], store_id=item.get("store_id"),
-        #                total_price=price_dic.get(item["id"])) for item in data]
-        # for vo in vos:
-        #     db.session.add(vo)
+            db.session.add(OrderVO(**new_data))
         db.session.commit()
-        # db.session.add_all(vos)
-        # db.session.commit()
         return res_util.success()
 
     def get(self, _id):
@@ -153,7 +145,6 @@ class OrderApi(Resource):
             vo = OrderVO.query.filter(OrderVO.id == _id).first()
             return res_util.success(vo)
         user_id = service.user_service.get_id_by_token()
-        # user_type 用户类型
         store_id = request.args.get("store_id")
 
         table_id = request.args.get("table_id")
@@ -164,6 +155,7 @@ class OrderApi(Resource):
                 OrderVO.user_id == user_id,
             ).order_by(OrderVO).first()
             return res_util.success(order)
+        # user_type 用户类型
         user_type = StoreMemberTable.query.filter(
             StoreMemberTable.store_id == store_id, StoreMemberTable.user_id == user_id
         ).with_entities(StoreMemberTable.user_type).scalar()  # 登陆用户角色? 店长,普通用户

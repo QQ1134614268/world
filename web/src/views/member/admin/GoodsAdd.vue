@@ -6,7 +6,7 @@
             class="avatar-uploader"
             :action="FileApi"
             :show-file-list="false"
-            :on-success="handleAvatarSuccess"
+            :on-success="uploadFileSuccess"
             style="width:10rem;  height:10rem ">
           <img :key="form.images" v-if="form.images" :src="form.images" style="width:10rem;
                  height:10rem;object-fit: cover">
@@ -40,13 +40,13 @@ export default {
   data() {
     return {
       FileApi,
-      form: {},
+      form: {images: ''},
       tableData: [],
       store_id: 1,
     };
   },
   methods: {
-    handleAvatarSuccess(res) {
+    uploadFileSuccess(res) {
       this.form.images = res.data;
     },
     async init() {

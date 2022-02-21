@@ -39,7 +39,7 @@
 
 <script>
 import {TargetApi, TargetListApi} from "@/api/api";
-import {getUserIdByToken} from "@/api/user";
+import {getUserIdByToken} from "@/api/util";
 
 export default {
   name: "Target",

@@ -1,7 +1,8 @@
 import CryptoJS from "crypto-js";
 import Axios from "axios";
-import {SALT_WORK_FACTOR} from "@/api/config";
+import {SALT_WORK_FACTOR, TOKEN} from "@/api/config";
 import Vue from "vue";
+import jwt_decode from "jwt-decode";
 
 export function get_salt_pwd(pwd) {
     // todo 密码明文
@@ -199,4 +200,16 @@ export async function exportExcelByHeader(url, headers) {
         document.body.removeChild(link);  //  下载完成移除元素
         window.URL.revokeObjectURL(link.href);  // 释放掉blob对象
     }
+}
+export function getUserInfoByToken() {
+    if (localStorage.getItem(TOKEN) != undefined && localStorage.getItem(TOKEN) != '') {
+        return jwt_decode(localStorage.getItem(TOKEN))
+    }
+    return undefined
+}
+
+export function getUserIdByToken() {
+    let user = getUserInfoByToken()
+    if (user != undefined)
+        return getUserInfoByToken().id
 }

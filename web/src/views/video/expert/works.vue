@@ -39,7 +39,7 @@
               :show-file-list="false"
               :action="FileApi"
               :on-change="handleChange"
-              :on-success="handleAvatarSuccess"
+              :on-success="uploadFileSuccess"
               :before-upload="beforeAvatarUpload"
               :file-list="fileList">
             <el-button size="small" type="primary">点击上传</el-button>
@@ -49,7 +49,7 @@
           <el-upload style="width: 10%;height: 10%"
                      :show-file-list="false"
                      :action="FileApi"
-                     :on-success="uploadLicense">
+                     :on-success="uploadFileSuccess2">
             <img v-if="form.thumbnail" :src="form.thumbnail">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
@@ -69,16 +69,13 @@
 <script>
 import {FileApi, WorksApi, WorksListApi} from "@/api/api";
 import {VideoUrl} from "@/views/video";
-import {getUserIdByToken} from "@/api/user";
+import {getUserIdByToken} from "@/api/util";
 
 export default {
   name: "works",
   data() {
     return {
       rules: {
-        // file_path: [
-        //   {required: true, message: '不能为空', trigger: 'blur'}
-        // ],
         describe: [
           {required: true, message: '不能为空', trigger: 'blur'}
         ],
@@ -88,13 +85,15 @@ export default {
       VideoUrl,
       user_id: getUserIdByToken(),
       fileList: [],
-      file_path: null,
-      form: {},
+      form: {
+        thumbnail: '',
+        file: ''
+      },
       tableData: [],
     }
   },
   methods: {
-    uploadLicense(res, file, fileList) {
+    uploadFileSuccess2(res, file, fileList) {
       this.form.thumbnail = res.data
     },
     async init() {
@@ -106,9 +105,7 @@ export default {
       }
     },
     async onSubmit() {
-      if (this.file_path) {
-        this.form.file = this.file_path
-      } else {
+      if (!this.form.file) {
         this.$message('请上传视频');
         return
       }
@@ -153,8 +150,8 @@ export default {
         this.$message('');
       }
     },
-    handleAvatarSuccess(response, file, fileList) {
-      this.file_path = response.data
+    uploadFileSuccess(response, file, fileList) {
+      this.form.file = response.data
       this.$message.warning("上传成功");
     },
     handleChange(file, fileList) {

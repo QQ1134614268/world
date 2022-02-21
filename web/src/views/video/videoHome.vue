@@ -92,8 +92,8 @@ export default {
     }
   },
   methods: {
-    logout() {
-      userLogout(this)
+    async logout() {
+      await userLogout()
     },
     async init() {
       if (this.user && this.user.id) {

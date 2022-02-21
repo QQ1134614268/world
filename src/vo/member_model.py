@@ -6,7 +6,6 @@
 from sqlalchemy import Column, String, Integer, Float
 
 from config.enum_conf import StoreMemberType, OrderStatus
-from config.mysql_db import db
 from util.dev_util import get_comment
 from util.password_util import get_sha256_salt_password
 from vo.table_model import BaseTable
@@ -19,7 +18,7 @@ class StoreVO(BaseTable):
     phone = Column(String(11), index=True)
     user_id = Column(Integer, index=True)
 
-    _password = db.Column('password', db.String(255), nullable=False)
+    _password = Column('password', String(255), nullable=False)
 
     @property
     def password(self):
@@ -53,7 +52,7 @@ class WalletVO(BaseTable):
 class GoodsVO(BaseTable):
     __tablename__ = 'goods_t'
     name = Column(String(256))
-    price = Column(Float(precision="14,2"), comment="价格")
+    price = Column(Float(precision="14,2"), nullable=False, comment="价格")  # todo
     duration = Column(Float(precision="14,2"), comment="折扣?")
     describe = Column(String(256))
     images = Column(String(256))
@@ -68,7 +67,7 @@ class OrderVO(BaseTable):
     goods_name = Column(Integer, index=True)
     user_id = Column(Integer, index=True)
     num = Column(Integer)
-    status = Column(String(255), default=OrderStatus, comment=get_comment(OrderStatus))  # 状态
+    status = Column(String(255), default=OrderStatus.UN_PAYMENT.name, comment=get_comment(OrderStatus))  # 状态
     total_price = Column(Float(precision="14,2"), comment="价格(每个)")  # todo price 仅扣费时
     # info = Column(String(256), comment="详情,size,冷热, ")  # todo 详情:颜色,材料,气味等
     table_id = Column(String(255), comment="下单桌号")

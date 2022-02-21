@@ -76,10 +76,14 @@ Axios.interceptors.response.use(
             }
             if (response.data.code === 8) {
                 Vue.prototype.$message.error('登录已过期，请重新登录')
-                if (router.currentRoute.fullPath.startsWith("/video/")) {
+                if (router.currentRoute.fullPath.startsWith("/video/") || router.currentRoute.fullPath == "/" || router.currentRoute.fullPath == "/videoAdmin/") {
                     router.replace(VideoLoginUrl + "?from=" + router.currentRoute.fullPath).then(r => {
                         return r
                     })
+                    // 取消 from todo
+                    // router.push(VideoLoginUrl).then(r => {
+                    //     return r
+                    // })
                     return Promise.reject(response);
                 }
                 router.replace(SYS_LOGIN_URL + "?from=" + router.currentRoute.fullPath).then(r => {

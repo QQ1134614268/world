@@ -63,8 +63,8 @@ export default {
     }
   },
   methods: {
-    logout() {
-      userLogout(this)
+    async logout() {
+      await userLogout()
     }
   }
 }

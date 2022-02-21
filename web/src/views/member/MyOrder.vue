@@ -12,7 +12,7 @@
 
 <script>
 import {OrderApi} from "@/api/api";
-import {getUserIdByToken} from "@/api/user";
+import {getUserIdByToken} from "@/api/util";
 
 export default {
   name: "Order",

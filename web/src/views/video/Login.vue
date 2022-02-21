@@ -15,10 +15,8 @@
 </template>
 
 <script>
-import {UserApi_login} from "@/api/api";
-import {RECEIVE_TOKEN, TOKEN} from "@/api/config";
-import {VIDEO_MARKET} from "@/views/video/index";
-import {storeToken} from "@/api/user";
+import {userLogin} from "@/api/user";
+import {SYS_HOME} from "@/views/sys";
 
 export default {
   name: "Home",
@@ -29,11 +27,12 @@ export default {
   },
   methods: {
     async onLogin() {
-      // this.form.password = get_salt_pwd(this.form.password)
-      let result = await this.$get2(UserApi_login, 0, this.form)
-      if (result.data.code === 1) {
-        storeToken(result.data.data)
-        await this.$router.push({path:VIDEO_MARKET})
+      let res = await userLogin(this.form)
+      if (res.data.code == 1) {
+        this.$message('登录成功');
+        await this.$router.push({path: SYS_HOME})
+      } else {
+        this.$message('登陆失败,请重新检查账号密码');
       }
     },
   }
