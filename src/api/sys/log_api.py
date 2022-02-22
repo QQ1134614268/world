@@ -18,7 +18,7 @@ class LogApi(Resource):
         page_size = request.args.get("pageSize", 15, int)
 
         vos = LogVO.query.filter(
-            LogVO.userId == get_id_by_token(),
+            LogVO.user_id == get_id_by_token(),
         ).order_by(
             LogVO.create_time.desc()
         ).paginate(page=page, per_page=page_size)

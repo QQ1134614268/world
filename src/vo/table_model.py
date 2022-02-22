@@ -107,7 +107,7 @@ class RolePermissionVO(BaseTable):
 
 class AnnouncementVO(BaseTable):
     __tablename__ = 'announcement'
-    userid = Column(Integer, index=True)
+    user_id = Column(Integer, index=True)
     title = Column(String(128), index=True)
     content = Column(String(150), default='123456')
     images = Column(String(70), default='/')
@@ -115,8 +115,8 @@ class AnnouncementVO(BaseTable):
 
 class SuggestVO(BaseTable):
     __tablename__ = 'suggest_t'
-    content = Column(String(150), default='123456')
-    image = Column(String(70), default='default.jpg')
+    content = Column(String(150))
+    image = Column(String(70))
     announcement_id = Column(Integer)
 
 
@@ -130,7 +130,7 @@ class UserCloudSpaceVO(BaseTable):
 class LogVO(BaseTable):
     __tablename__ = 'log_t'
     # tag: 标签
-    userId = Column(Integer, index=True)
+    user_id = Column(Integer, index=True)
     message = Column(Text, default='')
     tag = Column(Text, default='')
     is_read = Column(Boolean, default=False)

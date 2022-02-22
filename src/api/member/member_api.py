@@ -130,12 +130,12 @@ class OrderApi(Resource):
         user_id = service.user_service.get_id_by_token()
         for item in data:
             new_data = {
-                'goods_name':item["name"],
+                'goods_name': item["name"],
                 'user_id': user_id,
                 'goods_id': item["id"],
                 'num': item["num"],
                 'store_id': item["store_id"],
-                'total_price':  price_dic.get(item["id"]) * item.get("num"),
+                'total_price': price_dic.get(item["id"]) * item.get("num"),
             }
             db.session.add(OrderVO(**new_data))
         db.session.commit()

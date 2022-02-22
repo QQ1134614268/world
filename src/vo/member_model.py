@@ -54,7 +54,7 @@ class GoodsVO(BaseTable):
     name = Column(String(256))
     price = Column(Float(precision="14,2"), nullable=False, comment="价格")  # todo
     duration = Column(Float(precision="14,2"), comment="折扣?")
-    describe = Column(String(256))
+    describe = Column(String(256), comment="介绍")
     images = Column(String(256))
     store_id = Column(Integer, index=True)
     label = Column(String(256), comment="分类")  # todo 树节点 详情:颜色,材料,气味等 用户自定义

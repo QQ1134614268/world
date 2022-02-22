@@ -9,6 +9,6 @@ from vo.table_model import LogVO
 
 
 def log_table(user_id, msg, tag):
-    vo = LogVO(userId=user_id, message=msg, tag=tag)
+    vo = LogVO(user_id=user_id, message=msg, tag=tag)
     db.session.add(vo)
     db.session.commit()
