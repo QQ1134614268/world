@@ -4,7 +4,6 @@
 @Description:
 """
 from config.mysql_db import db
-from vo.member_model import OrderVO
 from vo.table_model import LogVO
 
 

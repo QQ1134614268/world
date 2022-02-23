@@ -135,7 +135,7 @@ class OrderApi(Resource):
                 'goods_id': item["id"],
                 'num': item["num"],
                 'store_id': item["store_id"],
-                'total_price': price_dic.get(item["id"]) * item.get("num"),
+                'price': price_dic.get(item["id"]) * item.get("num"),
             }
             db.session.add(OrderVO(**new_data))
         db.session.commit()

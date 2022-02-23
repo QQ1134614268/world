@@ -62,13 +62,15 @@ class GoodsVO(BaseTable):
 
 class OrderVO(BaseTable):
     __tablename__ = 'order_t'
-    order_code = Column(String(256), index=True, comment="订单编号")  # 单一后台?  平台
     store_id = Column(Integer, index=True)  # 单一后台?  平台
     goods_id = Column(Integer, index=True)
     goods_name = Column(String(256), index=True)
     user_id = Column(Integer, index=True)
     num = Column(Integer)
-    status = Column(String(255), default=OrderStatus.UN_PAYMENT.name, comment=get_comment(OrderStatus))  # 状态
-    total_price = Column(Float(precision="14,2"), comment="价格(每个)")  # todo price 仅扣费时
+    price = Column(Float(precision="14,2"), comment="价格(每个)")  # todo price 仅扣费时
     # info = Column(String(256), comment="详情,size,冷热, ")  # todo 详情:颜色,材料,气味等
+
     table_id = Column(String(255), comment="下单桌号")
+    order_code = Column(String(256), index=True, comment="订单编号")  # 单一后台?  平台
+    status = Column(String(255), default=OrderStatus.UN_PAYMENT.name, comment=get_comment(OrderStatus))  # 状态
+    # 订单,  分组,(编号), # 状态依赖编号 还是需要另一张表?, table_id业务依赖
