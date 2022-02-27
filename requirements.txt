@@ -15,6 +15,7 @@ pandas==1.2.0
 openpyxl==3.0.5
 jieba==0.42.1
 python-dateutil==2.8.2
+qrcode==7.3.1
 
 PyJWT==1.7.1
 pycryptodome==3.9.0

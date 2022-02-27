@@ -3,10 +3,11 @@
 @Time: 2020/7/5
 @Description: pass
 """
-from flask import request
+from flask import request, Blueprint
 from flask_restful import Resource
 
 import service.user_service
+import util.unique_util
 from config.enum_conf import StoreMemberType, OrderStatus
 from config.mysql_db import db
 from util import res_util
@@ -107,20 +108,6 @@ class StoreMemberListApi(Resource):
         return res_util.success(vos)
 
 
-class StoreListApi(Resource):
-    def get(self):
-        vos = StoreVO.query.all()
-        return res_util.success(vos)
-
-
-class GoodsListApi(Resource):
-
-    def get(self):
-        query = [GoodsVO.store_id == request.args.get("store_id")]
-        goods_list = GoodsVO.query.filter(*query).all()
-        return res_util.success(goods_list)
-
-
 class OrderApi(Resource):
 
     def post(self, _id):
@@ -128,6 +115,8 @@ class OrderApi(Resource):
         goods = GoodsVO.query.filter(GoodsVO.id.in_([item["id"] for item in data])).all()
         price_dic = {item.id: item.price for item in goods}
         user_id = service.user_service.get_id_by_token()
+        order_code = util.unique_util.get_uuid()
+        # 判断 是否需要 order_code, 上一桌结束
         for item in data:
             new_data = {
                 'goods_name': item["name"],
@@ -136,60 +125,74 @@ class OrderApi(Resource):
                 'num': item["num"],
                 'store_id': item["store_id"],
                 'price': price_dic.get(item["id"]) * item.get("num"),
+                'order_code': order_code
             }
             db.session.add(OrderVO(**new_data))
         db.session.commit()
-        return res_util.success()
+        return res_util.success(order_code)
 
     def get(self, _id):
         if _id:
             vo = OrderVO.query.filter(OrderVO.id == _id).first()
             return res_util.success(vo)
+
+        order_code = request.args.get("order_code")
+        if order_code:
+            vos = OrderVO.query.filter(OrderVO.order_code == order_code).order_by(OrderVO.create_time.desc()).all()
+            return res_util.success(vos)
+
         user_id = service.user_service.get_id_by_token()
         store_id = request.args.get("store_id")
+        vos = OrderVO.query.filter(
+            OrderVO.user_id == user_id,
+            OrderVO.store_id == store_id,
+        ).order_by(
+            OrderVO.create_time.desc()
+        ).with_entities(
+            OrderVO.order_code,
+            OrderVO.status
+        ).group_by(
+            OrderVO.order_code,
+            OrderVO.status
+        ).all()
+        return res_util.success(vos)
 
+
+order_api = Blueprint("order", __name__, )
+
+
+class OrderBlueprintApi(Resource):
+
+    @staticmethod
+    @order_api.route('/get_order_by_type/<int:_id>', methods=['GET'])
+    def get_order_by_type(_id):
+        cur_id = service.user_service.get_id_by_token()
+        store_id = request.args.get("store_id")
+        user_type = StoreMemberTable.query.filter(
+            StoreMemberTable.store_id == store_id,
+            StoreMemberTable.user_id == cur_id
+        ).with_entities(StoreMemberTable.user_type).scalar()  # 登陆用户角色? 店长,普通用户
+        # user_type = request.args.get('user_type')  # 登陆角色??todo
+        # user_type = request.args.get('user_type')  # 根据权限 厨师? 每个节点 厨房 集群
+        worker_list = [None, StoreMemberType.Kitchen.name, StoreMemberType.Admin.name,
+                       StoreMemberType.NormalEmp.name, StoreMemberType.StoreAdmin.name]
+        if user_type in worker_list:  # todo  permission_required
+            query = OrderVO.query.filter(OrderVO.store_id == store_id)
+            user_id = request.args.get("user_id")
+            if user_id:
+                query.filter(OrderVO.store_id == store_id)
+            vos = query.order_by(OrderVO.create_time.desc()).all()
+            return res_util.success(vos)
+
+    @staticmethod
+    @order_api.route('/get_order_by_table_id/<int:_id>', methods=['GET'])
+    def get_order_by_table_id(_id):
+        store_id = request.args.get("store_id")
         table_id = request.args.get("table_id")
         if table_id:
             order = OrderVO.query.filter(
                 OrderVO.table_id == table_id,
+                OrderVO.store_id == store_id,
                 OrderVO.status == OrderStatus.UN_PAYMENT.UN_PAYMENT,
-                OrderVO.user_id == user_id,
-            ).order_by(OrderVO).first()
+            ).order_by(OrderVO.create_time.desc()).all()
             return res_util.success(order)
-        # user_type 用户类型
-        user_type = StoreMemberTable.query.filter(
-            StoreMemberTable.store_id == store_id, StoreMemberTable.user_id == user_id
-        ).with_entities(StoreMemberTable.user_type).scalar()  # 登陆用户角色? 店长,普通用户
-        # user_type = request.args.get('user_type')  # 登陆角色??todo
-        # user_type = request.args.get('user_type')  # 根据权限 厨师? 每个节点 厨房 集群
-        customer_list = [None, StoreMemberType.NormalVip.name, StoreMemberType.HighVip.name,
-                         StoreMemberType.TopVip.name]
-        if user_type in customer_list:
-            vos = OrderVO.query.filter(OrderVO.user_id == user_id, OrderVO.store_id == store_id).order_by(
-                OrderVO.create_time.desc()
-            ).all()
-            return res_util.success(vos)
-        worker_list = [None, StoreMemberType.Kitchen.name, StoreMemberType.Admin.name,
-                       StoreMemberType.NormalEmp.name, StoreMemberType.StoreAdmin.name]
-        if user_type in worker_list:
-            vos = OrderVO.query.filter(OrderVO.store_id == store_id).order_by(
-                OrderVO.create_time.desc()
-            ).all()
-            return res_util.success(vos)
-
-
-class OrderListApi(Resource):
-
-    def get(self):
-        # 获取用户订单
-        user_id = service.user_service.get_id_by_token()
-        res = OrderVO.query.outerjoin(
-            GoodsVO, OrderVO.goods_id == GoodsVO.id
-        ).filter(
-            OrderVO.user_id == user_id).with_entities(
-            GoodsVO.id,
-            GoodsVO.name,
-            OrderVO.num,
-        ).all()
-        ret = [dict(zip(item.keys(), item)) for item in res]
-        return res_util.success(ret)

@@ -13,8 +13,7 @@ from flask_migrate import Migrate
 from flask_restful import Api
 
 from api.HelloApi import hello_api
-from api.member.member_api import StoreMemberListApi, StoreListApi, StoreMemberApi, StoreApi, OrderApi, OrderListApi, \
-    GoodsApi, GoodsListApi
+from api.member.member_api import StoreMemberListApi, StoreMemberApi, StoreApi, OrderApi, GoodsApi, order_api
 from api.message.socket.SocketApi import socket_api
 from api.my_cloud_space.CloudSpaceApi import cloud_space_api, CloudSpaceApi
 from api.project_api import ProjectInit
@@ -124,14 +123,14 @@ def flask_global_exception_handler(err):
     :return:
     """
     # traceback.print_exc()  # str(e)  repr(e)  e.message
+    message = traceback.format_exc()
     try:
-        message = traceback.format_exc()
-        try:
-            host_name = socket.gethostname()
-            host_ip = socket.gethostbyname(host_name)
-        except:
-            host_name = "unknown hostname"
-            host_ip = "unknown ip"
+        host_name = socket.gethostname()
+        host_ip = socket.gethostbyname(host_name)
+    except:
+        host_name = "unknown hostname"
+        host_ip = "unknown ip"
+    try:
         data = {
             "remote_ip": request.remote_addr,
             "url": request.path,
@@ -140,20 +139,16 @@ def flask_global_exception_handler(err):
             "host_name": host_name
         }
         logger.error(message, data)  # 日志输出到控制台和日志文件
-        try:
-            traceback.print_exc()
-        except Exception as e:
-            # logger.exception(e)
-            logger.error(str(e))
-        # 邮件服务 发送异常通知邮件  邮件模板
-        try:
-            if not socket_util.get_host_name() in MAIL_HOST_BLOCK_LIST:
-                mail_util.send_email(json.dumps(data) + message, MAIL_TO)
-        except Exception as e:
-            # logger.exception(e)
-            logger.error(str(e))
+        traceback.print_exc()
     except:
         logger.error("global_exception_handler 发生异常")
+    # 邮件服务 发送异常通知邮件  邮件模板
+    try:
+        if not socket_util.get_host_name() in MAIL_HOST_BLOCK_LIST:
+            mail_util.send_email(json.dumps(data) + message, MAIL_TO)
+    except Exception as e:
+        # logger.exception(e)
+        logger.error(str(e))
     if app.config["DEBUG"]:
         return res_util.exception(message)
     return res_util.exception("服务器发生了一个错误")
@@ -231,18 +226,14 @@ api2.add_resource(ProveApi, "/api/model_api/ProveApi/<int:_id>")
 api2.add_resource(StoryApi, "/api/model_api/StoryApi/<int:_id>")
 # 会员
 api2.add_resource(StoreApi, "/api/member/StoreApi/<int:_id>")
-api2.add_resource(StoreListApi, "/api/member/StoreListApi/<int:_id>")
 api2.add_resource(StoreMemberApi, "/api/member/StoreMemberApi/<int:_id>")
 api2.add_resource(StoreMemberListApi, "/api/member/StoreMemberListApi/<int:_id>")
 api2.add_resource(OrderApi, "/api/member/OrderApi/<int:_id>")
-api2.add_resource(OrderListApi, "/api/member/OrderListApi/<int:_id>")
+app.register_blueprint(order_api, url_prefix='/api/member/order_api/<int:_id>')
+api2.add_resource(GoodsApi, "/api/goods_api/GoodsApi/<int:_id>")
 
 # 钱包
 api2.add_resource(WalletApi, "/api/member/WalletApi")
-
-# 会员
-api2.add_resource(GoodsApi, "/api/goods_api/GoodsApi/<int:_id>")
-api2.add_resource(GoodsListApi, "/api/goods_list")
 
 # 工时
 api2.add_resource(WorkerExcelApi, "/api/work_api/WorkerExcelApi")

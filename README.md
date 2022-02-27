@@ -60,6 +60,7 @@
     时间: 效率. 合适的时间
     暗面, 隐私, 欺诈与谎言
     日志记录
+    docs文档
     维度转换?? 委托模式 一维转二维?
     实体 被观察
         实体不能凭空产生, parent_id, 颜色,气球 是两个维度,人统一,观察时,气球的颜色, 创造: 绿色的气球
@@ -83,13 +84,7 @@ video
     视频播放页面 --同 编辑页面
     后台系统
         审核字段 or 单独表?
-
-docker 镜像化,目录挂载,用户隔离 防止黑客
-docker run 
-cd /app/world
-git pull xx.git
-docker run  -v $PWD/myapp:/usr/src/myapp  -w /usr/src/myapp python:3.5 python helloworld.py
-python3 -m venv /world/to/new/virtual/environment
+    视频 图片 压缩,控制大小
 
 反思 -- 乱糟糟的bug -- 测试
     测试流程--少bug -- 检查试卷-- 不停的看，逻辑验证

@@ -15,18 +15,10 @@ from config.enum_conf import FileServeDirEnum
 from config.mysql_db import db
 from util import res_util
 from util.log_util import logger
-from util.video_util import get_first_frame_loc
 from vo.member_model import GoodsVO
 from vo.table_model import UserVO, UserCloudSpaceVO, SuggestVO
 from vo.tree_model import ProveVO, StoryVO
 from vo.video_model import WorksVO
-
-
-def ref_first_frame_loc():
-    vos = WorksVO.query.all()
-    for vo in vos:
-        vo.thumbnail = get_first_frame_loc(vo.file)
-    db.session.commit()
 
 
 def sync_prove_api():
@@ -110,14 +102,12 @@ class ProjectScript:
 class ProjectInit(Resource):
     # todo 优化 类似表结构  反射
     code = {
-        "video": "更新视频缩略图",
         "sync_prove_api": "同步ProveVO数据",
         "clear_ProveVO_id": "清除ProveVO没有父节点数据",
         "clear_path": "整理filepath",
         "init_dir": "创建文件服务器dir"
     }
     code2 = {
-        "video": ref_first_frame_loc,
         "clear_ProveVO_id": clear_id,
         "clear_path": clear_path,
         "init_dir": ProjectScript.init_dir
