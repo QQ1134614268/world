@@ -5,12 +5,13 @@
 """
 from flask import request, Blueprint
 from flask_restful import Resource
+from sqlalchemy import func
 
 import service.user_service
 import util.unique_util
 from config.enum_conf import StoreMemberType, OrderStatus
 from config.mysql_db import db
-from util import res_util
+from util import res_util, time_util
 from vo.member_model import StoreVO, StoreMemberTable, GoodsVO, OrderVO
 from vo.table_model import UserVO
 
@@ -116,6 +117,7 @@ class OrderApi(Resource):
         price_dic = {item.id: item.price for item in goods}
         user_id = service.user_service.get_id_by_token()
         order_code = util.unique_util.get_uuid()
+        create_time = time_util.get_now_str()
         # 判断 是否需要 order_code, 上一桌结束
         for item in data:
             new_data = {
@@ -125,7 +127,9 @@ class OrderApi(Resource):
                 'num': item["num"],
                 'store_id': item["store_id"],
                 'price': price_dic.get(item["id"]) * item.get("num"),
-                'order_code': order_code
+                'order_code': order_code,
+                'table_id': item.get("store_id"),
+                'create_time': create_time
             }
             db.session.add(OrderVO(**new_data))
         db.session.commit()
@@ -143,22 +147,25 @@ class OrderApi(Resource):
 
         user_id = service.user_service.get_id_by_token()
         store_id = request.args.get("store_id")
+
         vos = OrderVO.query.filter(
             OrderVO.user_id == user_id,
             OrderVO.store_id == store_id,
-        ).order_by(
-            OrderVO.create_time.desc()
         ).with_entities(
             OrderVO.order_code,
-            OrderVO.status
+            OrderVO.status,
+            func.any_value(OrderVO.create_time).label('create_time')
         ).group_by(
             OrderVO.order_code,
-            OrderVO.status
+            OrderVO.status,
+            OrderVO.create_time,
+        ).order_by(
+            OrderVO.create_time.desc()
         ).all()
         return res_util.success(vos)
 
 
-order_api = Blueprint("order", __name__, )
+order_api = Blueprint("order", __name__, url_prefix='/api/member/order_api')
 
 
 class OrderBlueprintApi(Resource):

@@ -229,7 +229,7 @@ api2.add_resource(StoreApi, "/api/member/StoreApi/<int:_id>")
 api2.add_resource(StoreMemberApi, "/api/member/StoreMemberApi/<int:_id>")
 api2.add_resource(StoreMemberListApi, "/api/member/StoreMemberListApi/<int:_id>")
 api2.add_resource(OrderApi, "/api/member/OrderApi/<int:_id>")
-app.register_blueprint(order_api, url_prefix='/api/member/order_api/<int:_id>')
+app.register_blueprint(order_api)
 api2.add_resource(GoodsApi, "/api/goods_api/GoodsApi/<int:_id>")
 
 # 钱包
