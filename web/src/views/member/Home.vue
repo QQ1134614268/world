@@ -22,9 +22,9 @@
         </el-dropdown>
       </div>
       <div v-else>
-        <router-link tag="a" :to=SYS_LOGIN_URL> 登陆</router-link>
+        <router-link tag="a" :to=SYS_LOGIN_URL>登陆</router-link>
         |
-        <router-link tag="a" :to=SYS_REGISTER_URL> 注册</router-link>
+        <router-link tag="a" :to=SYS_REGISTER_URL>注册</router-link>
       </div>
     </div>
     <div id="body">

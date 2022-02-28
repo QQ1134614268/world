@@ -7,6 +7,7 @@ export const GoodsEdit = "/member/admin/GoodsEdit"
 export const order = "/member/admin/order"
 export const member2 = "/member/admin/Member"
 export const UserSpace = "/member/UserSpace"
+export const OrderInfo = "/member/admin/OrderInfo"
 
 const routes = [
     {
@@ -29,6 +30,9 @@ const routes = [
                     }, {
                         path: order,
                         component: () => import('@/views/member/MyOrder')
+                    }, {
+                        path: OrderInfo,
+                        component: () => import('@/views/member/OrderInfo')
                     }, {
                         path: GoodsList,
                         component: () => import('@/views/member/admin/GoodsList')

@@ -22,7 +22,6 @@
 </template>
 
 <script>
-
 import {userLogout} from "@/api/user";
 import {RenrenRootUrl} from "@/views/video";
 import {WorkerRootUrl} from "@/views/worker";
@@ -33,6 +32,7 @@ import {HelloRootUrl} from "@/views/hello";
 import {TreeRootUrl} from "@/views/tree";
 import {UserSpaceRootUrl} from "@/views/user";
 import {RegisterRootUrl, SYS_LOGIN_URL} from "@/views/sys/index";
+import {SystemLevel} from "@/views/level";
 
 export default {
   name: "root",
@@ -40,6 +40,7 @@ export default {
     return {
       sysUrls: [
         {url: TreeRootUrl, name: "真实之树"},
+        {url: SystemLevel, name: "等级系统"},
         {url: RenrenRootUrl, name: "人人影"},
         {url: WorkerRootUrl, name: "工时"},
         {url: MemberRootUrl, name: "店铺"},

@@ -12,15 +12,36 @@
       </el-tree>
     </nav>
     <main>
-      标签
-<!--      <section>-->
-<!--        <el-button v-for="list"> </el-button>-->
-<!--      </section>-->
+      <span>标签</span>
+      <!--      <section>-->
+      <!--        <el-button v-for="list"> </el-button>-->
+      <!--      </section>-->
 
       <section>
-
+        <el-table :data="list">
+          <el-table-column prop="name" sortable label="地点"></el-table-column>
+          <el-table-column prop="group_code" sortable label="分组"></el-table-column>
+          <el-table-column label="操作">
+            <template slot-scope="scope">
+              <el-button size="mini" type="danger" @click="dialogVisible=true;form={}">新增</el-button>
+              <el-button size="mini" type="danger" @click="handleEdit(scope.row)">编辑</el-button>
+              <el-button size="mini" type="danger" @click="handleDelete(scope.row)">删除</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
       </section>
     </main>
+    <el-dialog :title="form.id?'编辑':'新增'" :visible.sync="dialogVisible">
+      <el-form ref="form" :model="form" :rules="rules" label-width="8rem" style="padding: 1rem">
+        <el-form-item label="描述">
+          <el-input v-model="form.describe"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="onSubmit">立即创建</el-button>
+          <el-button type="primary" @click="onCancel">取消</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
@@ -31,7 +52,8 @@ export default {
   name: "SystemLevel",
   data() {
     return {
-
+      dialogVisible: false,
+      form: {},
       list: [],
       parent_id: -1,
 
@@ -46,6 +68,14 @@ export default {
     }
   },
   methods: {
+    onSubmit() {
+    },
+    onCancel() {
+    },
+    handleEdit() {
+    },
+    handleDelete() {
+    },
     async init() {
       let data = {
         parent_id: this.parent_id

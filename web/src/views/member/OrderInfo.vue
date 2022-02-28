@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="(orderInfoVO,index) in tableData" class="p_c_flexbox_row">
-      <img :src="orderInfoVO.img" class="p_c_img_normal" style=""/>
+      <img :src="orderInfoVO.goods_img" class="p_c_img_normal" style=""/>
       <div>
         {{ orderInfoVO.goods_name }}
       </div>
@@ -22,13 +22,14 @@ export default {
   name: "OrderInfo",
   data() {
     return {
-      tableData: []
+      tableData: [],
+      order_code:this.$route.query.order_code
     }
   },
   methods: {
     async init() {
       let data = {
-        store_id: this.store_id
+        order_code: this.order_code
       }
       let res = await this.$get2(OrderApi, 0, data)
       if (res.data.code != 1) {
