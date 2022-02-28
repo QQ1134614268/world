@@ -24,6 +24,7 @@ from api.sys.customize.customize_api import customize_api
 from api.sys.file.file_api import FileApi2, FileApi3
 from api.sys.log_api import LogApi
 from api.sys.scheduler.scheduler_api import scheduler_api
+from api.sys.system_level_api import SystemLevelApi
 from api.tree.tree_api import UploadDataApi, prove_api, ProveApi, StoryApi
 from api.user.permission_api import PermissionApi
 from api.user.user_api import user_api, UserApi
@@ -198,6 +199,8 @@ app.register_blueprint(socket_api)
 app.register_blueprint(customize_api)
 app.register_blueprint(scheduler_api)
 # sys
+api2.add_resource(SystemLevelApi, "/api/sys/SystemLevelApi/<int:_id>")
+
 api2.add_resource(ProjectInit, "/help")
 api2.add_resource(ConfigApi, "/api/config_api/ConfigApi/<int:_id>")
 api2.add_resource(EnumApi, "/api/config_api/EnumApi/<int:_id>")

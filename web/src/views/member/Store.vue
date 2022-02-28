@@ -7,18 +7,16 @@
       <div>
         <div :key="index" v-for="(obj,index) in tableData" style="height: 50rem">
           <a :id="obj.label" style="height: 1.6rem; font-weight: bold">{{ obj.label }}</a>
-          <div :key="index2" v-for="(obj2, index2) in obj.data">
-            <div class="p_c_box-flex">
-              <el-image style="width: 5rem" :src="obj2.images"></el-image>
+          <div :key="index2" v-for="(obj2, index2) in obj.data" class="p_c_box-flex">
+            <el-image style="width: 5rem" :src="obj2.images"></el-image>
+            <div>
               <div>
-                <div>
-                  {{ obj2.name }}
-                </div>
-                <div>
-                  售价: {{ obj2.price }}
-                  <el-input-number v-model="obj2.num" @change="handleChange(obj2)" :min="0" :max="10" size="small"
-                                   label="描述文字"></el-input-number>
-                </div>
+                {{ obj2.name }}
+              </div>
+              <div>
+                售价: {{ obj2.price }}
+                <el-input-number v-model="obj2.num" @change="handleChange(obj2)" :min="0" :max="10" size="small"
+                                 label="描述文字"></el-input-number>
               </div>
             </div>
           </div>

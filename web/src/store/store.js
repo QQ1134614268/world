@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import {TOKEN} from "@/api/config";
-import jwt_decode from "jwt-decode";
 import {getUserInfoByToken} from "@/api/util";
 
 Vue.use(Vuex)
@@ -9,6 +8,7 @@ Vue.use(Vuex)
 const state = {
     token: localStorage.getItem(TOKEN) || '',
     userInfo: getUserInfoByToken() || '',
+    shoppingCart: '',
 }
 
 
@@ -19,6 +19,9 @@ const mutations = {
         state.userInfo = getUserInfoByToken()
     },
     receiveUserInfo(state, payload) {
+        state.userInfo = payload.userInfo
+    },
+    receiveShoppingCart(state, payload) {
         state.userInfo = payload.userInfo
     },
 }

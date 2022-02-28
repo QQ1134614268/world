@@ -11,6 +11,7 @@ export const WorkerTimeApi = "/api/work_api/WorkerTimeApi"
 export const WorkerExcelApi = "/api/work_api/WorkerExcelApi"
 export const WorkTimeAnalyseApi_get_sum_time = "/api/work_api/WorkTimeAnalyseApi/get_sum_time"
 export const WorkTimeAnalyseApi_get_day_report = "/api/work_api/WorkTimeAnalyseApi/get_day_report"
+export const SystemLevelApi = "/api/sys/SystemLevelApi"
 
 
 //真实之树

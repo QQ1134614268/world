@@ -7,6 +7,7 @@ export const Permission = {
     VIDEO_REVIEW: "VIDEO_REVIEW"
 }
 export const RECEIVE_TOKEN = 'receiveToken'
+export const RECEIVE_SHOPPING_CART = 'receiveShoppingCart'
 export const TOKEN = 'token'
 
 export const RECEIVE_USER_INFO = 'receiveUserInfo'

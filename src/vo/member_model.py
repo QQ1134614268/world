@@ -64,6 +64,7 @@ class OrderVO(BaseTable):
     __tablename__ = 'order_t'
     store_id = Column(Integer, index=True)  # 单一后台?  平台
     goods_id = Column(Integer, index=True)
+    goods_img = Column(String(256))
     goods_name = Column(String(256), index=True)
     user_id = Column(Integer, index=True)
     num = Column(Integer)

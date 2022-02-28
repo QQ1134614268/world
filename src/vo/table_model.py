@@ -55,6 +55,24 @@ class EnumConfig(BaseTable):
     UniqueConstraint(parent_code, value)
 
 
+class SystemLevelVO(EnumConfig):
+    """
+    用户配置表,系统枚举,配置表
+
+    场景:
+        1. 枚举,常量 (系统,用户配置) ,,
+        2. 下拉菜单,类似list
+        3. 省市区级联下拉菜单
+
+    code(value)    group_code   parent_code
+    深圳            市           -1
+    北京            市           -1
+    深圳/龙华        区           深圳
+    北京/朝阳        区           北京
+    """
+    __tablename__ = 'system_level_vo'
+
+
 class UserVO(BaseTable):
     __tablename__ = 'user'
     username = Column(String(255), index=True, unique=True, nullable=False)

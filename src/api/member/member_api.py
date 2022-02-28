@@ -113,23 +113,22 @@ class OrderApi(Resource):
 
     def post(self, _id):
         data = request.get_json()
-        goods = GoodsVO.query.filter(GoodsVO.id.in_([item["id"] for item in data])).all()
-        price_dic = {item.id: item.price for item in goods}
         user_id = service.user_service.get_id_by_token()
         order_code = util.unique_util.get_uuid()
         create_time = time_util.get_now_str()
-        # 判断 是否需要 order_code, 上一桌结束
         for item in data:
+            goods = GoodsVO.query.filter(GoodsVO.id == item["id"]).first()
             new_data = {
                 'goods_name': item["name"],
                 'user_id': user_id,
                 'goods_id': item["id"],
                 'num': item["num"],
                 'store_id': item["store_id"],
-                'price': price_dic.get(item["id"]) * item.get("num"),
+                'price': goods.price * item.get("num"),
                 'order_code': order_code,
                 'table_id': item.get("store_id"),
-                'create_time': create_time
+                'create_time': create_time,
+                'goods_img': goods.images,
             }
             db.session.add(OrderVO(**new_data))
         db.session.commit()
