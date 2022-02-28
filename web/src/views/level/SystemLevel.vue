@@ -3,7 +3,6 @@
     <nav class="col-4">
       <el-tree ref="treeIn" :data="treeData" lazy :load="load" :props="props"
                node-key="id"
-               @node-drop="handleDrop"
                draggable
       >
       <span class="custom-tree-node" slot-scope="{ node, data }">
@@ -19,10 +18,11 @@
 
       <section>
         <el-button size="mini" type="danger" @click="dialogVisible=true;form={}">新增</el-button>
-
+        <el-button size="mini" type="danger" @click="dialogVisible=true;form={}">导出css</el-button>
         <el-table :data="list">
-          <el-table-column prop="name" sortable label="地点"></el-table-column>
+          <el-table-column prop="value" sortable label="取值"></el-table-column>
           <el-table-column prop="group_code" sortable label="分组"></el-table-column>
+          <el-table-column prop="" sortable label="函数表达式">50%(9)</el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
               <el-button size="mini" type="danger" @click="handleEdit(scope.row)">编辑</el-button>
@@ -34,8 +34,11 @@
     </main>
     <el-dialog :title="form.id?'编辑':'新增'" :visible.sync="dialogVisible">
       <el-form ref="form" :model="form" label-width="8rem" style="padding: 1rem">
-        <el-form-item label="描述">
-          <el-input v-model="form.describe"></el-input>
+        <el-form-item label="取值">
+          <el-input class="col-6" v-model="form.value"></el-input>
+        </el-form-item>
+        <el-form-item label="分组">
+          <el-input class="col-6" v-model="form.group_code"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">立即创建</el-button>
@@ -69,13 +72,20 @@ export default {
     }
   },
   methods: {
-    onSubmit() {
+    async onSubmit() {
+      let response = await this.$ppJson(SystemLevelApi, this.form.id, this.form);
+      this.$message("操作成功")
+      this.dialogVisible = false
     },
     onCancel() {
+      this.dialogVisible = false
     },
-    handleEdit() {
+    handleEdit(row) {
+      this.form = row
+      this.dialogVisible = true
     },
-    handleDelete() {
+    async handleDelete() {
+      let response = await this.$deleteJson2(SystemLevelApi, this.form.id);
     },
     async init() {
       let data = {
@@ -93,18 +103,6 @@ export default {
       }
       let res = await this.$get2(ProveApi, 0, paras)
       resolve(res.data.data)
-    },
-    async handleDrop(draggingNode, dropNode, dropType, ev) {
-      if (dropType == "inner") {
-        draggingNode.data.parent_id = dropNode.data.id
-      }
-      if (dropType == "after") {
-        draggingNode.data.parent_id = dropNode.data.parent_id
-      }
-      if (dropType == "before") {
-        draggingNode.data.parent_id = dropNode.data.parent_id
-      }
-      let res3 = await this.$putJson2(ProveApi, draggingNode.data.id, draggingNode.data);
     },
   },
   created() {

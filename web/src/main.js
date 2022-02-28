@@ -71,7 +71,12 @@ Axios.interceptors.response.use(
                 return Promise.resolve(response);
             }
             if (response.data.code === 4) {
-                Vue.prototype.$message.error(response.data.data)
+                // if (process.env.NODE_ENV == "development") {
+                //     Vue.prototype.$message.error(response.data.data)
+                // } else {
+                //     Vue.prototype.$message.error("服务器发生了错误! 请稍后再试!")
+                // }
+                Vue.prototype.$message.error("服务器发生了错误! 请稍后再试!")
                 return Promise.resolve(response);
             }
             if (response.data.code === 8) {

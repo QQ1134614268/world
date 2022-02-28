@@ -55,22 +55,23 @@ class EnumConfig(BaseTable):
     UniqueConstraint(parent_code, value)
 
 
-class SystemLevelVO(EnumConfig):
-    """
-    用户配置表,系统枚举,配置表
-
-    场景:
-        1. 枚举,常量 (系统,用户配置) ,,
-        2. 下拉菜单,类似list
-        3. 省市区级联下拉菜单
-
-    code(value)    group_code   parent_code
-    深圳            市           -1
-    北京            市           -1
-    深圳/龙华        区           深圳
-    北京/朝阳        区           北京
-    """
+class SystemLevelVO(BaseTable):
     __tablename__ = 'system_level_vo'
+    parent_code = Column(String(255), Sequence('sort_seq'), comment="父级code", server_default='-1', default='-1')
+
+    # 没父子级, 标识字段; eg: 深圳/龙华 北京/朝阳 都是区级
+    group_code = Column(String(255), comment="分组code")
+
+    # 生成唯一
+    code = Column(String(255), comment="枚举key值, 唯一(相当于自带路径)", default=get_uuid, nullable=False, unique=True)
+
+    value = Column(String(255), comment="枚举value数据", nullable=False)
+    # value_type = Column(String(255), comment="配置值类型", nullable=False)
+    comment = Column(String(255), comment="备注")
+    sort = Column(Integer, comment="排序字段")
+
+    # 分组下 唯一
+    UniqueConstraint(parent_code, value)
 
 
 class UserVO(BaseTable):
