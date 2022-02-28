@@ -11,19 +11,20 @@
       </span>
       </el-tree>
     </nav>
-    <main>
-      <span>标签</span>
+    <main class="col-8">
+      <!--      <span>标签</span>-->
       <!--      <section>-->
       <!--        <el-button v-for="list"> </el-button>-->
       <!--      </section>-->
 
       <section>
+        <el-button size="mini" type="danger" @click="dialogVisible=true;form={}">新增</el-button>
+
         <el-table :data="list">
           <el-table-column prop="name" sortable label="地点"></el-table-column>
           <el-table-column prop="group_code" sortable label="分组"></el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
-              <el-button size="mini" type="danger" @click="dialogVisible=true;form={}">新增</el-button>
               <el-button size="mini" type="danger" @click="handleEdit(scope.row)">编辑</el-button>
               <el-button size="mini" type="danger" @click="handleDelete(scope.row)">删除</el-button>
             </template>
@@ -32,7 +33,7 @@
       </section>
     </main>
     <el-dialog :title="form.id?'编辑':'新增'" :visible.sync="dialogVisible">
-      <el-form ref="form" :model="form" :rules="rules" label-width="8rem" style="padding: 1rem">
+      <el-form ref="form" :model="form" label-width="8rem" style="padding: 1rem">
         <el-form-item label="描述">
           <el-input v-model="form.describe"></el-input>
         </el-form-item>
