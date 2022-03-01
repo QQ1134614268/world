@@ -13,7 +13,7 @@ from flask_migrate import Migrate
 from flask_restful import Api
 
 from api.HelloApi import hello_api
-from api.member.member_api import StoreMemberListApi, StoreMemberApi, StoreApi, OrderApi, GoodsApi, order_api
+from api.member.member_api import StoreMemberListApi, StoreMemberApi, StoreApi, OrderApi, GoodsApi, order_api, QrCodeApi
 from api.message.socket.SocketApi import socket_api
 from api.my_cloud_space.CloudSpaceApi import cloud_space_api, CloudSpaceApi
 from api.project_api import ProjectInit
@@ -233,6 +233,7 @@ api2.add_resource(StoreMemberApi, "/api/member/StoreMemberApi/<int:_id>")
 api2.add_resource(StoreMemberListApi, "/api/member/StoreMemberListApi/<int:_id>")
 api2.add_resource(OrderApi, "/api/member/OrderApi/<int:_id>")
 app.register_blueprint(order_api)
+api2.add_resource(QrCodeApi, "/api/member/QrCodeApi/<int:_id>")
 api2.add_resource(GoodsApi, "/api/goods_api/GoodsApi/<int:_id>")
 
 # 钱包

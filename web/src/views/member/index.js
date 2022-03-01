@@ -8,6 +8,7 @@ export const order = "/member/admin/order"
 export const member2 = "/member/admin/Member"
 export const UserSpace = "/member/UserSpace"
 export const OrderInfo = "/member/admin/OrderInfo"
+export const UserAdmin = "/member/admin/UserAdmin"
 
 const routes = [
     {
@@ -24,6 +25,10 @@ const routes = [
                 component: () => import('@/views/member/admin/Home'),
                 redirect: member2,
                 children: [
+                    {
+                        path: UserAdmin,
+                        component: () => import('@/views/member/admin/UserAdmin')
+                    },
                     {
                         path: member2,
                         component: () => import('@/views/member/admin/Member')

@@ -17,9 +17,7 @@ class FileApi2(Resource):
     def get(self, path):
         full_path = os.path.join(UPLOAD_FILE_PATH2, path)
         if os.path.isfile(full_path):
-            return send_file(full_path, as_attachment=True,
-                             attachment_filename=full_path.split('/')[-1],
-                             mimetype='application/octet-stream')
+            return send_file(full_path, as_attachment=True, attachment_filename=full_path.split('/')[-1])
         logger.info("文件不存在: " + full_path)
         return res_util.fail("参数异常")
 
@@ -36,9 +34,7 @@ class FileApi3(Resource):
     def get(self, file_dir, file_name):
         full_path = os.path.join(UPLOAD_FILE_PATH2, file_dir, file_name)
         if os.path.isfile(full_path):
-            return send_file(full_path, as_attachment=True,
-                             attachment_filename=full_path.split('/')[-1],
-                             mimetype='application/octet-stream')
+            return send_file(full_path, as_attachment=True, attachment_filename=full_path.split('/')[-1])
         logger.info("文件不存在: " + full_path)
         return res_util.fail("参数异常")
 

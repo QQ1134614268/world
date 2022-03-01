@@ -3,7 +3,7 @@
 @Time: 2020/7/5
 @Description: pass
 """
-from flask import request, Blueprint
+from flask import request, Blueprint, send_file
 from flask_restful import Resource
 from sqlalchemy import func
 
@@ -12,7 +12,8 @@ import util.unique_util
 from config.enum_conf import StoreMemberType, OrderStatus
 from config.mysql_db import db
 from util import res_util, time_util
-from vo.member_model import StoreVO, StoreMemberTable, GoodsVO, OrderVO
+from util.tree_code_util import make_code
+from vo.member_model import StoreVO, StoreMemberTable, GoodsVO, OrderVO, QrCodeVO
 from vo.table_model import UserVO
 
 
@@ -101,6 +102,7 @@ class StoreMemberApi(Resource):
         return res_util.success(_id)
 
 
+# todo StoreMemberListApi 合并
 class StoreMemberListApi(Resource):
 
     def get(self, _id):
@@ -162,6 +164,29 @@ class OrderApi(Resource):
             OrderVO.create_time.desc()
         ).all()
         return res_util.success(vos)
+
+
+class QrCodeApi(Resource):
+
+    def post(self, _id):
+        data = request.get_json()
+        vo = QrCodeVO(**data)
+        db.session.add(vo)
+        db.session.commit()
+        return res_util.success(vo.id)
+
+    def get(self, _id):
+        vo = QrCodeVO.query.filter(QrCodeVO.id == _id).first()
+        if not vo:
+            return res_util.fail("资源不存在")
+        img = make_code(vo.url_dic, url=vo.url, img_path=vo.img_path, img_width=vo.img_width, img_height=vo.img_height)
+        return send_file(img, mimetype='image/png')
+
+    def put(self, _id):
+        data = request.get_json()
+        vo = QrCodeVO.query.filter(QrCodeVO.id == _id).update(data)
+        db.session.commit()
+        return res_util.success(vo.id)
 
 
 order_api = Blueprint("order", __name__, url_prefix='/api/member/order_api')

@@ -40,20 +40,21 @@ export default {
       username: "",
       password: "",
       code: "",
-      url: ""
+      url: UserApi_get_verify_code
     }
   },
   methods: {
     async updateCode() {
-      this.url = UserApi_get_verify_code + "?t=" + Math.random()
+      if (this.url == UserApi_get_verify_code) {
+        this.url = UserApi_get_verify_code + "?t=1"
+      } else {
+        this.url = UserApi_get_verify_code
+      }
     },
     async register() {
       await userRegister()
     },
   },
-  created() {
-    this.updateCode()
-  }
 }
 </script>
 

@@ -5,8 +5,8 @@
 """
 from io import BytesIO
 
-from flask import request, Blueprint
-from flask_restful import Resource, reqparse
+from flask import request, Blueprint, send_file
+from flask_restful import Resource
 from sqlalchemy import and_, func, asc, desc
 from sqlalchemy.dialects.mysql import insert
 
@@ -15,7 +15,6 @@ from config.mysql_db import db
 from service.user_service import get_id_by_token
 from util import res_util, db_util, time_util
 from util.db_util import row_to_dic
-from util.dowmload_util import down_response
 from util.excel_util import ExcelHandler, check_excel_type
 from vo.value_object import WorkerExcelVO
 from vo.worker_model import WorkerVO, WorkerTimeVO
@@ -57,7 +56,7 @@ class WorkerExcelApi(Resource):
         wb.save(byte_ios)
         byte_ios.seek(0)
         filename = "名单.xlsx"
-        return down_response(byte_ios, filename)
+        return send_file(byte_ios, as_attachment=True, attachment_filename=filename)
 
 
 class WorkerApi(Resource):

@@ -61,10 +61,11 @@ def get_verify_code():
     # 高斯模糊
     im = im.filter(ImageFilter.GaussianBlur(radius=1.5))
     # im = image.resize((100, 24))
-    # im.save(file_io, format="JPEG")
+    # im.save(bytes_io, format="JPEG")
     # import base64
-    # img_str = b"data:image/png;base64," + base64.b64encode(file_io.getvalue())
+    # img_str = b"data:image/png;base64," + base64.b64encode(bytes_io.getvalue()) #todo test
     # return code, img_str
-    file_io = io.BytesIO()
-    im.save(file_io, 'jpeg')
-    return code, file_io.getvalue()
+    bytes_io = io.BytesIO()
+    im.save(bytes_io, 'png')
+    bytes_io.seek(0)
+    return code, bytes_io

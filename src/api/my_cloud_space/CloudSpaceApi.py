@@ -2,9 +2,9 @@
 import os
 import random
 import shutil
-import time
 
-from flask import Blueprint, send_file, make_response, request
+import time
+from flask import Blueprint, send_file, request
 from flask_restful import Resource
 
 import service.user_service
@@ -84,10 +84,7 @@ def file_download():
     user_id = service.user_service.get_id_by_token()
     filename = request.args.get("filename")
     vo = UserCloudSpaceVO.query.filter_by(file_name=filename, user_id=user_id).first()
-    response = make_response(send_file(vo.file_path))
-    response.headers["Content-Disposition"] = "attachment; filename={};".format(filename).encode("utf_8").decode(
-        'latin-1')
-    return response
+    return send_file(vo.file_path, as_attachment=True, attachment_filename=filename)
 
 
 @cloud_space_api.route('/delete_file', methods=['POST'])
@@ -112,9 +109,7 @@ class CloudSpaceApi(Resource):
         if os.path.isdir(full_path):
             # root, dirs, files = os.walk(".").__next__()
             return res_util.success(os.listdir())
-        return send_file(full_path, as_attachment=True,
-                         attachment_filename=full_path.split('/')[-1],
-                         mimetype='application/octet-stream')
+        return send_file(full_path, as_attachment=True, attachment_filename=full_path)
 
     def post(self):
         path = request.form.get("path")

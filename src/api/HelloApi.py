@@ -1,15 +1,15 @@
 # encoding: utf-8
 import asyncio
-import time
 import zipfile
 from io import BytesIO
 from threading import Thread
-from time import sleep
 
 import pandas
+import time
 from flask import Blueprint, send_file
 from flask import Response
 from flask import request
+from time import sleep
 
 from config.conf import RESOURCE_DIR
 from util import file_config
@@ -52,17 +52,15 @@ def exception():
 def download_excel():
     byte_array_buffer = file_config.read_into_buffer(RESOURCE_DIR + "/excel_download_test.xlsx")
     file_name = "excel下载测试.xlsx"
-    return send_file(byte_array_buffer, as_attachment=True,
-                     attachment_filename=file_name.encode(encoding='utf_8', errors="ignore").decode('utf_8'),
-                     mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    return send_file(byte_array_buffer, as_attachment=True, attachment_filename=file_name)
 
 
-@hello_api.route('/test_download_buffer', methods=['GET'])
-def test_download_buffer():
-    buffer = BytesIO()
-    buffer.write(b'jJust some letters.')
-    buffer.seek(0)
-    return send_file(buffer, as_attachment=True, attachment_filename='a_file.txt', mimetype='text/csv')
+@hello_api.route('/test_download_bytes_io', methods=['GET'])
+def test_download_bytes_io():
+    bytes_io = BytesIO()
+    bytes_io.write(b'jJust some letters.')
+    bytes_io.seek(0)
+    return send_file(bytes_io, as_attachment=True, attachment_filename='a_file.txt')
 
 
 @hello_api.route('/test_download_zip', methods=['GET'])
@@ -83,8 +81,7 @@ def test_download_zip():
     with zipfile.ZipFile(byte_io, mode='w') as zipf:
         zipf.writestr("告警.csv".encode(encoding="utf_8").decode(encoding="utf_8"), result_csv)
     byte_io.seek(0)
-    return send_file(byte_io, mimetype='application/octet-stream', as_attachment=True,
-                     attachment_filename="告警.zip")
+    return send_file(byte_io, as_attachment=True, attachment_filename="告警.zip")
 
 
 @hello_api.route('/test_download_pandas', methods=['GET'])
@@ -99,9 +96,9 @@ def test_download_pandas():
     pandas_data.rename(columns=translate, inplace=True)
     result_csv = pandas_data.to_csv(encoding="utf_8_sig", index=False, mode="rw+")
     filename = '导出.csv'.encode().decode('latin-1')
-    filename = "attachment;filename=" + filename
-    # send_file(file, mimetype='application/octet-stream', as_attachment=True,  attachment_filename="告警.zip")
-    return Response(result_csv, mimetype="text/csv;charset=utf-8", headers={"Content-disposition": filename})
+    # send_file(file, as_attachment=True,  attachment_filename="告警.zip")
+    return Response(result_csv, mimetype="text/csv;charset=utf-8",
+                    headers={"Content-disposition": "attachment;filename=" + filename})
 
 
 @hello_api.route('/post_json', methods=['POST'])

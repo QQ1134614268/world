@@ -47,6 +47,7 @@ export const ReviewWorksApi = "/api/video_api/ReviewWorksApi"
 // 会员
 export const GoodsApi = "/api/goods_api/GoodsApi"
 export const OrderApi = "/api/member/OrderApi"
+export const StoreMemberApi = "/api/member/StoreMemberApi"
 export const StoreMemberListApi = "/api/member/StoreMemberListApi"
 export const StoreApi = "/api/member/StoreApi"
 

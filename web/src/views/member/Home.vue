@@ -38,7 +38,7 @@
 </template>
 <script>
 import {userLogout} from "@/api/user";
-import {GoodsList, MemberRootUrl, Store, UserSpace} from "@/views/member/index";
+import {GoodsList, MemberRootUrl, Store, UserAdmin, UserSpace} from "@/views/member/index";
 import {SYS_LOGIN_URL, SYS_REGISTER_URL} from "@/views/sys";
 
 export default {
@@ -50,6 +50,7 @@ export default {
       SYS_LOGIN_URL,
       SYS_REGISTER_URL,
       GoodsList,
+      UserAdmin,
       UserSpace,
       menuList: [
         {name: "首页", path: MemberRootUrl},

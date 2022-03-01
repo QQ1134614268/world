@@ -1,3 +1,4 @@
+import io
 import urllib
 
 import qrcode
@@ -13,28 +14,30 @@ def make_code(url_dic, url=None, img_path=None, is_show=None, img_width=None, im
     qr.make(fit=True)
     img = qr.make_image()
     img = img.convert("RGBA")
-    icon = Image.open("登录.png")
+    if img_path:
+        icon = Image.open(img_path)
+        # logo="D:/favicon.jpg"
+        img_w, img_h = img.size
+        factor = 4
+        size_w = int(img_w / factor)
+        size_h = int(img_h / factor)
 
-    # logo="D:/favicon.jpg"
-    img_w, img_h = img.size
-    factor = 4
-    size_w = int(img_w / factor)
-    size_h = int(img_h / factor)
+        icon_w, icon_h = icon.size
+        if icon_w > size_w:
+            icon_w = size_w
+        if icon_h > size_h:
+            icon_h = size_h
+        icon = icon.resize((icon_w, icon_h), Image.ANTIALIAS)
 
-    icon_w, icon_h = icon.size
-    if icon_w > size_w:
-        icon_w = size_w
-    if icon_h > size_h:
-        icon_h = size_h
-    icon = icon.resize((icon_w, icon_h), Image.ANTIALIAS)
+        w = int((img_w - icon_w) / 2)
+        h = int((img_h - icon_h) / 2)
+        icon = icon.convert("RGBA")
+        img.paste(icon, (w, h), icon)
 
-    w = int((img_w - icon_w) / 2)
-    h = int((img_h - icon_h) / 2)
-    icon = icon.convert("RGBA")
-    img.paste(icon, (w, h), icon)
-    # img.show()
-    img.save("tree.png")
-    return
+    file_io = io.BytesIO()
+    img.save(file_io, 'png')
+    file_io.seek(0)
+    return file_io
 
 
 if __name__ == '__main__':

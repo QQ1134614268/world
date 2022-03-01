@@ -1,5 +1,5 @@
 # -- coding:UTF-8 --
-from flask import Blueprint, request, make_response
+from flask import Blueprint, request, send_file, make_response
 from flask_restful import Resource
 
 import service.user_service
@@ -86,10 +86,10 @@ class UserBlueprintApi(Resource):
     @staticmethod
     @user_api.route('/get_verify_code', methods=['GET'])
     def get_verify_code():
-        code, img_bytes = verification_code_util.get_verify_code()
-        response = make_response(img_bytes)
-        response.headers['Content-Type'] = 'image/gif'
+        code, bytes_io = verification_code_util.get_verify_code()
         redisDB.set(code, code, ex=60)
+        response = make_response(send_file(bytes_io, mimetype="image/png"))
+        response.headers.add("Cache-Control", "no-store")
         return response
 
     @staticmethod

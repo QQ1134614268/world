@@ -10,7 +10,6 @@ from flask import request
 from flask_restful import Resource
 from sqlalchemy import or_, insert
 
-from config.conf import DATA_DIR
 from config.enum_conf import Permission, ReviewEnum
 from config.mysql_db import db
 from service.auth_service import set_model_user_id, permission_required
@@ -73,6 +72,8 @@ class VideoUserApi(Resource):
         code_vo = InvitationCodeVO.query.filter(InvitationCodeVO.code == code).first()
         if not code_vo:
             return res_util.fail("邀请码不正确!")
+        if UserVO.query.filter(UserVO.username == data.get("username")).first():
+            return res_util.fail("用户名已经存在!")
         vo = UserVO(**data)
         db.session.add(vo)
         db.session.delete(code_vo)

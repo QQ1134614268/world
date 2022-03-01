@@ -3,7 +3,7 @@
 @Time: 2022/1/6
 @Description:
 """
-from sqlalchemy import Column, String, Integer, Float
+from sqlalchemy import Column, String, Integer, Float, JSON
 
 from config.enum_conf import StoreMemberType, OrderStatus
 from util.dev_util import get_comment
@@ -75,3 +75,12 @@ class OrderVO(BaseTable):
     order_code = Column(String(256), index=True, comment="订单编号")  # 单一后台?  平台
     status = Column(String(255), default=OrderStatus.UN_PAYMENT.name, comment=get_comment(OrderStatus))  # 状态
     # 订单,  分组,(编号), # 状态依赖编号 还是需要另一张表?, table_id业务依赖
+
+
+class QrCodeVO(BaseTable):
+    __tablename__ = 'qr_code_t'
+    url_dic = Column(JSON, comment="url参数")
+    url = Column(String(255), comment="网址")
+    img_path = Column(String(255), comment="二维码中间头像")
+    img_width = Column(String(255), comment="二维码中间头像的宽度")
+    img_height = Column(String(255), comment="二维码中间头像的高度")
