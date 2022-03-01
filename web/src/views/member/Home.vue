@@ -5,6 +5,7 @@
         <router-link :to=MemberRootUrl>会员系统</router-link>
       </div>
       <router-link :to=GoodsList>菜单列表</router-link>
+      <router-link :to=UserAdmin>用户管理</router-link>
       <div v-if="user">
         <el-dropdown>
           <el-avatar :src="user.avatar" :key="user.avatar"></el-avatar>
@@ -31,8 +32,12 @@
       <router-view/>
     </div>
     <footer>
-      <a :href="MemberRootUrl">点餐</a>
-      <a :href="UserSpace">我的</a>
+      <a :href="MemberRootUrl" class="p_c_test_border p_c_HolyGrail-content">
+        <div>点餐</div>
+      </a>
+      <a :href="UserSpace" class="p_c_test_border p_c_HolyGrail-content">
+        <div>我的</div>
+      </a>
     </footer>
   </div>
 </template>
@@ -72,7 +77,6 @@ export default {
 }
 </script>
 <style>
-
 #header {
   display: flex;
   justify-content: space-around;
@@ -90,9 +94,21 @@ export default {
 }
 
 footer {
-  width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  height: 3rem;
+  background: linear-gradient(to top, #f3f3f3, #cccccc, #f3f3f3);
+}
+
+footer div {
+  flex: 1;
+  text-align: center;
+  line-height: 3rem;
+  color: #555555;
+}
+
+footer div:nth-child(n+2) {
+  border-left: solid 1px #cccccc;
 }
 
 </style>

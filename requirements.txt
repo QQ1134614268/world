@@ -33,3 +33,5 @@ gunicorn==20.1.0
 # 开发工具
 pylint==2.6.0
 # pipdeptree
+
+Scrapy~=2.6.1

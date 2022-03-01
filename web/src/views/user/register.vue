@@ -45,11 +45,7 @@ export default {
   },
   methods: {
     async updateCode() {
-      if (this.url == UserApi_get_verify_code) {
-        this.url = UserApi_get_verify_code + "?t=1"
-      } else {
-        this.url = UserApi_get_verify_code
-      }
+      this.url = UserApi_get_verify_code + "?t=" + Math.random()
     },
     async register() {
       await userRegister()

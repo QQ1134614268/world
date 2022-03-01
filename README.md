@@ -1,3 +1,5 @@
+StoreMemberApi 不同系统,不同用户? 鉴权token? _唯一系统
+
 统一样式
 众包脚本
 移动优先 -- 会员系统（小程序，） 小程序 web2 移动优先 Bootstrap5 vue3.0
