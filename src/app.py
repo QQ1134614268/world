@@ -13,7 +13,7 @@ from flask_migrate import Migrate
 from flask_restful import Api
 
 from api.HelloApi import hello_api
-from api.member.member_api import StoreMemberListApi, StoreMemberApi, StoreApi, OrderApi, GoodsApi, order_api, QrCodeApi
+from api.member.member_api import StoreMemberApi, StoreApi, OrderApi, GoodsApi, order_api, QrCodeApi
 from api.message.socket.SocketApi import socket_api
 from api.my_cloud_space.CloudSpaceApi import cloud_space_api, CloudSpaceApi
 from api.project_api import ProjectInit

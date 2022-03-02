@@ -4,8 +4,6 @@
       <div class="p_c_box-flex_center">
         <router-link :to=MemberRootUrl>会员系统</router-link>
       </div>
-      <router-link :to=GoodsList>菜单列表</router-link>
-      <router-link :to=UserAdmin>用户管理</router-link>
       <div v-if="user">
         <el-dropdown>
           <el-avatar :src="user.avatar" :key="user.avatar"></el-avatar>
@@ -54,8 +52,6 @@ export default {
       Store,
       SYS_LOGIN_URL,
       SYS_REGISTER_URL,
-      GoodsList,
-      UserAdmin,
       UserSpace,
       menuList: [
         {name: "首页", path: MemberRootUrl},
