@@ -13,8 +13,7 @@ from config.enum_conf import StoreMemberType, OrderStatus
 from config.mysql_db import db
 from util import res_util, time_util
 from util.tree_code_util import make_code
-from vo.member_model import StoreVO, StoreMemberTable, GoodsVO, OrderVO, QrCodeVO
-from vo.table_model import UserVO
+from vo.member_model import StoreVO, StoreMemberTable, GoodsVO, OrderVO, QrCodeVO, StoreRoleTable
 
 
 class StoreApi(Resource):
@@ -102,13 +101,14 @@ class StoreMemberApi(Resource):
         return res_util.success(_id)
 
 
-# todo StoreMemberListApi 合并
-class StoreMemberListApi(Resource):
+class StoreRoleApi(Resource):
 
-    def get(self, _id):
-        query = [StoreMemberTable.store_id == request.args.get("store_id")]
-        vos = UserVO.query.outerjoin(StoreMemberTable, UserVO.id == StoreMemberTable.user_id).filter(*query).all()
-        return res_util.success(vos)
+    def post(self):
+        data = request.get_json()
+        vo = StoreRoleTable(**data)
+        db.session.add(vo)
+        db.session.commit()
+        return res_util.success(vo.id)
 
 
 class OrderApi(Resource):

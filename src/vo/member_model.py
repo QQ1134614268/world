@@ -42,6 +42,11 @@ class StoreMemberTable(BaseTable):
                        comment=get_comment(StoreMemberType))  # todo 客户, 店员(后厨,店长,管理员, 普通店员)
 
 
+class StoreRoleTable(BaseTable):
+    __tablename__ = 'store_role_t'
+    role_name = Column(String(256), index=True, comment="角色,翻译")
+
+
 class WalletVO(BaseTable):
     __tablename__ = 'wallet_t'
     user_id = Column(Integer)

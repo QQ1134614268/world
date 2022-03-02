@@ -6,7 +6,6 @@ module.exports = {
             'vue-router': 'VueRouter',
             axios: 'axios',
             'echarts': 'echarts',
-
         }
     },
     devServer: {

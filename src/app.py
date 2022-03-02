@@ -230,7 +230,6 @@ api2.add_resource(StoryApi, "/api/model_api/StoryApi/<int:_id>")
 # 会员
 api2.add_resource(StoreApi, "/api/member/StoreApi/<int:_id>")
 api2.add_resource(StoreMemberApi, "/api/member/StoreMemberApi/<int:_id>")
-api2.add_resource(StoreMemberListApi, "/api/member/StoreMemberListApi/<int:_id>")
 api2.add_resource(OrderApi, "/api/member/OrderApi/<int:_id>")
 app.register_blueprint(order_api)
 api2.add_resource(QrCodeApi, "/api/member/QrCodeApi/<int:_id>")

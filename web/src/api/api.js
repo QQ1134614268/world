@@ -50,6 +50,7 @@ export const OrderApi = "/api/member/OrderApi"
 export const StoreMemberApi = "/api/member/StoreMemberApi"
 export const StoreMemberListApi = "/api/member/StoreMemberListApi"
 export const StoreApi = "/api/member/StoreApi"
+export const QrCodeApi = "/api/member/QrCodeApi"
 
 // 钱包
 export const WalletApi = "/api/member/WalletApi"
