@@ -1,9 +1,8 @@
 <template>
   <div class="box">
     <div class="p_c_word-break"> 主题: {{ video.describe }}</div>
-    <video preload="true" controls v-if="video.file">
+    <video id="myVideo" class="video-js vjs-default-skin vjs-big-play-centered" muted autoplay controls preload loop>
       <source :src="video.file" type="video/mp4">
-      您的浏览器不支持 HTML5 video 标签 。
     </video>
   </div>
 </template>

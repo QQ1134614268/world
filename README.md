@@ -9,7 +9,7 @@ StoreMemberApi 不同系统,不同用户? 鉴权token? _唯一系统
         前台
             微信登陆
             扫码绑定桌号  生成二维码
-            选择下单-- websocket
+            选择下单-- websocket https://flask-socketio.readthedocs.io/en/latest/
             购物车
             下单支付
             查看订单
@@ -24,6 +24,7 @@ StoreMemberApi 不同系统,不同用户? 鉴权token? _唯一系统
 用户管理->用户与商户?
 类似linux用户,一个表, 文件有所有者,管理者,, 管理者下 分组;
 
+动态监听kafka: https://www.hangge.com/blog/cache/detail_3109.html
 
 程序--映射人
 推荐:
@@ -94,6 +95,7 @@ video
     后台系统
         审核字段 or 单独表?
     视频 图片 压缩,控制大小
+    边下边播
 
 反思 -- 乱糟糟的bug -- 测试
     测试流程--少bug -- 检查试卷-- 不停的看，逻辑验证

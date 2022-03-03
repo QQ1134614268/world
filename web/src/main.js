@@ -30,6 +30,10 @@ Vue.use(VueQuillEditor);
 //   console.info('info---', info)
 // }
 
+// import Video from 'video.js'
+// import 'video.js/dist/video-js.css'
+// Vue.prototype.$video = Video
+
 Vue.component('BoxFlex', BoxFlex)
 
 Vue.prototype.$axios = Axios;
