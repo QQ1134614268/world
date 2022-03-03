@@ -1,17 +1,11 @@
 <template>
   <div>
-    <h1>{{ message }}</h1>
-    <button v-on:click="getData">get 测试连通性</button>
-    <button v-on:click="getData2">get 测试连通性2</button>
-    <button v-on:click="postJson">postJson 测试</button>
-    <div>
-      <input type="file" ref="file1">
-      <input type="file" ref="file2">
-      <button v-on:click="postFormData">FormData 提交文件</button>
-    </div>
-    <div>
-      <button v-on:click="script">script</button>
-    </div>
+       <el-tabs v-model="msg2" >
+        <el-tab-pane label="用户管理" name="first">用户管理</el-tab-pane>
+        <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
+        <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
+        <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 <script>
@@ -24,7 +18,8 @@ export default {
   name: 'hello',
   data() {
     return {
-      message: 'default'
+      message: 'default',
+      msg2:'first'
     }
   },
   methods: {

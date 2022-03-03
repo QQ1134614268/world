@@ -18,6 +18,9 @@
         <li>
           <router-link :to=RolePermission>权限管理</router-link>
         </li>
+        <li>
+          <router-link :to=Finance>权限管理</router-link>
+        </li>
       </nav>
       <router-view></router-view>
     </main>
@@ -26,7 +29,7 @@
 </template>
 
 <script>
-import {GoodsList, Qrcode, RolePermission, UserAdmin, UserRole} from "@/views/member";
+import {Finance, GoodsList, Qrcode, RolePermission, UserAdmin, UserRole} from "@/views/member";
 
 export default {
   name: "Home",
@@ -37,6 +40,7 @@ export default {
       Qrcode,
       UserRole,
       RolePermission,
+      Finance,
     }
   }
 }

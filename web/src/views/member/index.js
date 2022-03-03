@@ -11,6 +11,7 @@ export const OrderInfo = "/member/admin/OrderInfo"
 export const UserAdmin = "/member/admin/UserAdmin"
 export const UserRole = "/member/admin/UserRole"
 export const RolePermission = "/member/admin/RolePermission"
+export const Finance = "/member/admin/Finance"
 
 const routes = [
     {
@@ -40,6 +41,10 @@ const routes = [
             {
                 path: UserRole,
                 component: () => import('@/views/member/admin/UserRole')
+            },
+            {
+                path: Finance,
+                component: () => import('@/views/member/admin/Finance')
             },
             {
                 path: RolePermission,
