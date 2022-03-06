@@ -4,7 +4,7 @@ from flask import request
 from flask import send_file
 from flask_restful import Resource
 
-from config.conf import UPLOAD_FILE_PATH2
+from config.conf import UPLOAD_FILE_PATH2, UPLOAD_FILE_PATH
 from config.enum_conf import FileServeDirEnum
 from config.exception import WorldException
 from util import res_util

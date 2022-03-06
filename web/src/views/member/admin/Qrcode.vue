@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-button>增加</el-button>
+    <el-button @click="form={};dialogVisible=true">增加</el-button>
     <el-table :data="tableDate">
       <el-table-column label="桌号" prop="table_id"></el-table-column>
       <el-table-column label="操作">
@@ -12,11 +12,8 @@
     </el-table>
     <el-dialog :title="form.id?'编辑':'新增'" :visible.sync="dialogVisible">
       <el-form ref="form" :model="form" style="padding: 1rem">
-        <el-form-item label="取值">
-          <el-input v-model="form.value"></el-input>
-        </el-form-item>
-        <el-form-item label="分组">
-          <el-input v-model="form.group_code"></el-input>
+        <el-form-item label="桌号">
+          <el-input v-model="form.table_id"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">立即创建</el-button>
@@ -41,13 +38,23 @@ export default {
     }
   },
   methods: {
-    init() {
-      let res = this.$get2(QrCodeApi, 0, {})
-      this.tableDate = res.data.data
+    async init() {
+      let res = await this.$get2(QrCodeApi, 0, {})
+      for (let i = 0; i < res.data.data.length; i++) {
+        this.tableDate.push(res.data.data[i].url_dic)
+      }
     },
-    onSubmit() {
+    async onSubmit() {
+      let res = await this.$ppJson(QrCodeApi, this.form.id, {url_dic: this.form})
+      if (res.data.code == 1) {
+        this.dialogVisible = false
+        // this.$message.info("操作成功")
+        this.$message('操作成功');
+        await this.init()
+      }
     },
     onCancel() {
+      this.dialogVisible = false
     },
   },
   created() {

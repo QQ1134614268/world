@@ -34,21 +34,20 @@
     <el-dialog :title="form.id?'编辑':'新增'" :visible.sync="dialogVisible">
       <el-form ref="form" :model="form" :rules="rules" label-width="8rem" style="padding: 1rem">
         <el-form-item label="视频" prop="describe" required>
-          <el-upload
-              class="upload-demo"
-              :show-file-list="false"
-              :action="FileApi"
-              :on-change="handleChange"
-              :on-success="uploadFileSuccess"
-              :before-upload="beforeAvatarUpload"
-              :file-list="fileList">
-            <el-button size="small" type="primary">点击上传</el-button>
+          <!--          todo -->
+          <el-upload class="upload-demo" :show-file-list="false" :action="FileApi"
+                     :on-change="handleChange"
+                     :on-success="uploadFileSuccess"
+                     :before-upload="beforeAvatarUpload"
+                     :on-progress="uploadVideoProcess"
+                     :file-list="fileList">
+            <i v-if="!progressFlag" class="el-icon-plus avatar-uploader-icon"></i>
+            <el-progress v-if="progressFlag" type="line" :percentage="loadProgress" style="margin-top:10px;">
+            </el-progress>
           </el-upload>
         </el-form-item>
         <el-form-item label="视频封面" prop="describe" required>
-          <el-upload style="width: 10%;height: 10%"
-                     :show-file-list="false"
-                     :action="FileApi"
+          <el-upload style="width: 10%;height: 10%" :show-file-list="false" :action="FileApi"
                      :on-success="uploadFileSuccess2">
             <img v-if="form.thumbnail" :src="form.thumbnail">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -69,7 +68,7 @@
 <script>
 import {FileApi, WorksApi, WorksListApi} from "@/api/api";
 import {VideoUrl} from "@/views/video";
-import {getUserIdByToken} from "@/api/util";
+import {getUserIdByToken, videoBeforeUpload} from "@/api/util";
 
 export default {
   name: "works",
@@ -83,16 +82,25 @@ export default {
       dialogVisible: false,
       FileApi,
       VideoUrl,
+      progressFlag: false,
+      loadProgress: 0,
       user_id: getUserIdByToken(),
       fileList: [],
-      form: {
-        thumbnail: '',
-        file: ''
-      },
+      form: {},
       tableData: [],
     }
   },
   methods: {
+    uploadVideoProcess(event, file, fileList) {
+      this.progressFlag = true; // 显示进度条
+      this.loadProgress = parseInt(event.percent); // 动态获取文件上传进度
+      if (this.loadProgress >= 100) {
+        this.loadProgress = 100
+        setTimeout(() => {
+          this.progressFlag = false
+        }, 2000) // 一秒后关闭进度条
+      }
+    },
     uploadFileSuccess2(res, file, fileList) {
       this.form.thumbnail = res.data
     },
@@ -128,19 +136,6 @@ export default {
       this.dialogVisible = true
       this.form = row
     },
-    async onSubmit2() {
-      let result = await this.$putJson2(WorksApi, this.form2.id, this.form2)
-      if (result.data.code == 1) {
-        this.dialogVisible = false
-        this.form = {}
-      } else {
-        this.$message('失败');
-      }
-    },
-    onCancel2() {
-      this.dialogVisible = false
-      this.form = {}
-    },
     async del(index, id) {
       let result = await this.$deleteJson2(WorksApi, id)
       if (result.data.code == 1) {
@@ -158,17 +153,7 @@ export default {
       this.fileList = fileList.slice(-1);
     },
     beforeAvatarUpload(file) {
-      return 1
-      // const isJPG = file.type === 'image/jpeg';
-      // const isLt2M = file.size / 1024 / 1024 < 2;
-      //
-      // if (!isJPG) {
-      //   this.$message.error('上传头像图片只能是 JPG 格式!');
-      // }
-      // if (!isLt2M) {
-      //   this.$message.error('上传头像图片大小不能超过 2MB!');
-      // }
-      // return isJPG && isLt2M;
+      return videoBeforeUpload(file)
     }
   },
   created() {

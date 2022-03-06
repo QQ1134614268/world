@@ -1,5 +1,17 @@
 <template>
   <div>
+    <h1>{{ message }}</h1>
+    <button v-on:click="getData">get 测试连通性</button>
+    <button v-on:click="getData2">get 测试连通性2</button>
+    <button v-on:click="postJson">postJson 测试</button>
+    <div>
+      <input type="file" ref="file1">
+      <input type="file" ref="file2">
+      <button v-on:click="postFormData">FormData 提交文件</button>
+    </div>
+    <div>
+      <button v-on:click="script">script</button>
+    </div>
        <el-tabs v-model="msg2" >
         <el-tab-pane label="用户管理" name="first">用户管理</el-tab-pane>
         <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
@@ -93,3 +105,4 @@ export default {
   }
 }
 </script>
+

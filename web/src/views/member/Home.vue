@@ -12,10 +12,7 @@
               <a @click="logout">退出登录</a>
             </el-dropdown-item>
             <el-dropdown-item>
-              <a type="primary" :href=Store>设置</a>
-            </el-dropdown-item>
-            <el-dropdown-item>
-              <a type="primary" :href=Store>店铺</a>
+              <a type="primary" :href=Home>设置</a>
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -41,7 +38,7 @@
 </template>
 <script>
 import {userLogout} from "@/api/user";
-import {GoodsList, MemberRootUrl, Store, UserAdmin, UserSpace} from "@/views/member/index";
+import {MemberAdminHome, MemberRootUrl, Store, UserSpace} from "@/views/member/index";
 import {SYS_LOGIN_URL, SYS_REGISTER_URL} from "@/views/sys";
 
 export default {
@@ -50,6 +47,7 @@ export default {
     return {
       MemberRootUrl,
       Store,
+      Home: MemberAdminHome,
       SYS_LOGIN_URL,
       SYS_REGISTER_URL,
       UserSpace,

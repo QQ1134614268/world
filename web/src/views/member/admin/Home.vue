@@ -19,7 +19,7 @@
           <router-link :to=RolePermission>权限管理</router-link>
         </li>
         <li>
-          <router-link :to=Finance>权限管理</router-link>
+          <router-link :to=Finance>财务管理</router-link>
         </li>
       </nav>
       <router-view></router-view>

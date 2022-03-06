@@ -223,75 +223,47 @@ export function beforeImgUpload(file) {
     }
     const isLtSize = file.size / 1024 / 1024 < 5;
     if (!isLtSize) {
-        this.$message.error('上传图片大小不能超过 5MB!');
+        Vue.prototype.$message.error('上传图片大小不能超过 5MB!');
     }
 }
 
-export function beforeVideoUpload(file) {
-    // 获取视频时长
-    var url = URL.createObjectURL(file);
-    var audioElement = new Audio(url);
-    var duration;
-    this.durationNumber = audioElement.addEventListener(
-        "loadedmetadata",
-        function (_event) {
-            duration = audioElement.duration; //时长为秒，小数
-            return duration;
-        }
-    );
-    setTimeout(() => {
-        //视频大小（MB）
-        let fileSize = file.size / 1024 / 1024;
-        this.bandwidth = fileSize / duration;
-    }, 50);
-    if (
-        [
-            "video/mp4",
-            "video/ogg",
-            "video/flv",
-            "video/avi",
-            "video/wmv",
-            "video/rmvb",
-            "video/mov"
-        ].indexOf(file.type) == -1
-    ) {
-        // layer.msg("请上传正确的视频格式");
-        this.$message({
-            type: "info",
-            message: "请上传正确的视频格式"
-        });
-        return false;
-    }
-    if (this.bandwidth > 2) {
-        // 视频带宽不能超过2MB/s
-        this.$message.error('视频带宽过大，上传失败！');
-        return false;
-    }
-    this.isShowUploadVideo = false;
-}
 
 export function videoBeforeUpload(file) {
-    const self = this
-    const isLt30MB = file.size / 1024 / 1024 < 30;
-    const isSize = new Promise(function (resolve, reject) {
-        let _URL = window.URL || window.webkitURL;
-        let videoElement = document.createElement('video')
-        // 当指定的音频/视频的元数据已加载时，会发生 loadedmetadata 事件。 元数据包括：时长、尺寸（仅视频）以及文本轨道。
-        videoElement.addEventListener("loadedmetadata", function (_event) {
-            let width = videoElement.videoWidth
-            let height = videoElement.videoHeight
-            let duration = videoElement.duration; // 视频时长
-            if (!isLt30MB) return operatTip('error', '上传视频大小不能超过30MB！')
-            if (Math.floor(duration) >= 30) return operatTip('error', '上传视频时长不能超过 30S！')
-            let valid = `${width}*${height}` === '1280*720'
-            valid ? resolve() : reject();
-        })
-        videoElement.src = _URL.createObjectURL(file)
-    }).then(() => {
-        return file;
-    }, () => {
-        operatTip('error', '上传视频尺寸为 1280*720！')
-        return Promise.reject();
-    });
-    return isSize;
+
+    if ([
+        "video/mp4",
+        "video/ogg",
+        "video/flv",
+        "video/avi",
+        "video/wmv",
+        "video/rmvb",
+        "video/mov"
+    ].indexOf(file.type) == -1) {
+        Vue.prototype.$message.error("视频格式不正确！")
+        return false
+    }
+
+    const isLt10MB = file.size / 1024 / 1024 < 10;
+    if (!isLt10MB) {
+        Vue.prototype.$message.error("上传视频大小不能超过10M！")
+        return false
+    }
+    //todo
+
+    // const time_limit = new Promise(function (resolve, reject) {
+    //     let url = URL.createObjectURL(file);
+    //     let videoElement = new Audio(url);
+    //     //    当指定的音频/视频的元数据已加载时，会发生 loadedmetadata 事件。 元数据包括：时长、尺寸（仅视频）以及文本轨道。
+    //     videoElement.addEventListener("loadedmetadata", function (_event) {
+    //         let duration = videoElement.duration; // 视频时长
+    //         if (Math.floor(duration) >= 30) {
+    //             Vue.prototype.$message.error("上传视频时长不能超过 30S！")
+    //             return false
+    //         } else {
+    //             return true
+    //         }
+    //     })
+    // })
+    // return time_limit;
+    return true
 }

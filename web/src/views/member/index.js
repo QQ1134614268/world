@@ -1,7 +1,7 @@
 export const MemberRootUrl = "/member"
 export const UserSpace = "/member/UserSpace"
 export const Store = "/member/Store"
-export const Home = "/member/admin"
+export const MemberAdminHome = "/member/admin"
 export const GoodsList = "/member/admin/GoodsList"
 export const GoodsAdd = "/member/admin/GoodsAdd"
 export const GoodsEdit = "/member/admin/GoodsEdit"
@@ -30,7 +30,7 @@ const routes = [
         ],
     },
     {
-        path: Home,
+        path: MemberAdminHome,
         component: () => import('@/views/member/admin/Home'),
         redirect: UserAdmin,
         children: [
