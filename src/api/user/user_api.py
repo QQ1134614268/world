@@ -43,9 +43,6 @@ class UserApi(Resource):
             UserVO.userType,
             UserVO.describe,
             UserVO.id_card,
-            UserVO.business_license,
-            UserVO.brand,
-            UserVO.resume,
             UserVO.tiktok_number,
             UserVO.video_number,
             UserVO.wechat_number,
@@ -86,7 +83,8 @@ class UserBlueprintApi(Resource):
     @staticmethod
     @user_api.route('/get_verify_code', methods=['GET'])
     def get_verify_code():
-        code, bytes_io = verification_code_util.get_verify_code()
+        to_base64 = request.args.get("to_base64")  # todo
+        code, bytes_io = verification_code_util.get_verify_code(to_base64)
         redisDB.set(code, code, ex=60)
         response = make_response(send_file(bytes_io, mimetype="image/png"))
         response.headers.add("Cache-Control", "no-store")

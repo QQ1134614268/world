@@ -3,13 +3,17 @@
 @Time: 2021/3/6
 @Description:
 """
+import os.path
 import random
 import string
 
-from flask import request
+import cv2
+from flask import request, Blueprint
 from flask_restful import Resource
 from sqlalchemy import or_, insert
+from sqlalchemy.dialects.mysql import insert
 
+from config.conf import DATA_DIR
 from config.enum_conf import Permission, ReviewEnum
 from config.mysql_db import db
 from service.auth_service import set_model_user_id, permission_required
@@ -18,6 +22,29 @@ from util import res_util
 from util.video_util import get_first_frame_loc
 from vo.table_model import UserVO
 from vo.video_model import WorksVO, TargetVO, InvitationCodeVO
+
+video_blueprint_api = Blueprint("video_blueprint_api", __name__, url_prefix='/api/work_api/video_blueprint_api')
+
+
+class VideoBlueprintApi(Resource):
+    """工时统计"""
+
+    @staticmethod
+    @video_blueprint_api.route('/err_video/<int:_id>', methods=['GET'])
+    def get_sum_time(_id):
+        vos = WorksVO.query.filter()
+        for vo in vos:
+            path = os.path.join(DATA_DIR, vo.file[1:])
+
+            vo.size = os.path.getsize(path)
+
+            cap = cv2.VideoCapture(path)
+            if cap.isOpened():
+                rate = cap.get(5)
+                frame_num = cap.get(7)
+                duration = frame_num / rate
+                vo.duration = duration
+        return res_util.success(vos)
 
 
 class InvitationCodeApi(Resource):

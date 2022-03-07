@@ -85,9 +85,6 @@ class UserVO(BaseTable):
 
     describe = Column(String(255))
     id_card = Column(String(255))  # 身份证
-    business_license = Column(String(255))  # 营业执照
-    brand = Column(String(255))  # 商标
-    resume = Column(String(255))  # 简历
     tiktok_number = Column(String(255))  # 抖音号
     video_number = Column(String(255))  # 视频号
     wechat_number = Column(String(255))  # 微信号

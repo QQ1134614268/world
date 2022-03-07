@@ -12,8 +12,8 @@ def get_size(file):
 def get_outfile(infile, outfile):
     if outfile:
         return outfile
-    dir, suffix = os.path.splitext(infile)
-    outfile = '{}-out{}'.format(dir, suffix)
+    file_dir, suffix = os.path.splitext(infile)
+    outfile = '{}-out{}'.format(file_dir, suffix)
     return outfile
 
 

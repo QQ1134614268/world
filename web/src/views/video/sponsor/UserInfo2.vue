@@ -52,7 +52,7 @@ export default {
     return {
       user_id: this.$route.query.user_id,
       userVO: {},
-      VideoUrl: VideoUrl,
+      VideoUrl,
       search: "",
       tableData: [],
       currentPage: 1,

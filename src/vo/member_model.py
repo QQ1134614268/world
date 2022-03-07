@@ -57,7 +57,7 @@ class WalletVO(BaseTable):
 class GoodsVO(BaseTable):
     __tablename__ = 'goods_t'
     name = Column(String(256))
-    price = Column(Float(precision="14,2"), nullable=False, comment="价格")  # todo
+    price = Column(Float(precision="14,2"), nullable=False, comment="价格")
     duration = Column(Float(precision="14,2"), comment="折扣?")
     describe = Column(String(256), comment="介绍")
     images = Column(String(256))

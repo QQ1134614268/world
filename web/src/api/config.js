@@ -12,3 +12,6 @@ export const TOKEN = 'token'
 
 export const RECEIVE_USER_INFO = 'receiveUserInfo'
 export const STATE_USER_INFO = 'userInfo'
+
+export const VIDEO_TYPE = ["video/mp4", "video/ogg", "video/flv", "video/avi", "video/wmv", "video/rmvb", "video/mov"]
+export const IMG_TYPE =['image/jpeg', 'image/jpg', 'image/png']

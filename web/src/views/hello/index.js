@@ -13,11 +13,6 @@ const routes = [
         component: () => import('@/views/hello/BgColor')
     },
     {
-        path: '/hello/TestAudioTime',
-        name: '/hello/TestAudioTime',
-        component: () => import('@/views/hello/TestAudioTime')
-    },
-    {
         path: '/hello/test_navmenu',
         name: '/hello/test_navmenu',
         component: () => import('@/views/hello/test_navmenu')

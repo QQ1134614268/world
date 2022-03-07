@@ -50,7 +50,7 @@ export default {
       search: this.$route,
       currentPage: 1,
       pageSize: 10,
-      VideoUrl: VideoUrl,
+      VideoUrl,
       tableData: [],
       totalNum: 0,
     }

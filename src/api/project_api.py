@@ -62,16 +62,11 @@ def _handle_path(model, field):
     q = '/'
     db.session.query(model).filter(field.notlike(p)).update({field: q + field}, synchronize_session=False)
     db.session.commit()
-    # UserVO.query.filter(UserVO.business_license.notlike(p)).update(
-    #     UserVO.business_license == q + UserVO.business_license, synchronize_session=False)
 
 
 def clear_path():
     data = [
         {"class": UserVO, "field": UserVO.avatar},
-        {"class": UserVO, "field": UserVO.business_license},
-        {"class": UserVO, "field": UserVO.brand},
-        {"class": UserVO, "field": UserVO.resume},
         {"class": UserCloudSpaceVO, "field": UserCloudSpaceVO.file_path},
         {"class": GoodsVO, "field": GoodsVO.images},
         {"class": SuggestVO, "field": SuggestVO.image},
@@ -100,6 +95,15 @@ class ProjectScript:
 
 
 class ProjectInit(Resource):
+
+    class Schedule:
+        id = ""
+        name = ""
+        desc = ""
+
+        func = ""
+        arg = ""
+
     # todo 优化 类似表结构  反射
     code = {
         "sync_prove_api": "同步ProveVO数据",

@@ -1,38 +1,32 @@
 <template>
   <div>
-    <div class="p_c_flexbox" style="justify-content: space-between">
-      <span>
-          我的作品
-      </span>
-      <span>
-        <el-button @click="dialogVisible=true;form={}">上传作品</el-button>
-      </span>
-    </div>
-    <div class="p_c_flexbox">
-      <div v-for="(o, index)  in tableData">
-        <div class="block">
-          <a :href=VideoUrl>
-            <div>
-              <img :src="o.thumbnail" style="width: 16rem;height: 9rem;object-fit: cover;">
-            </div>
-          </a>
-          <div>
-            {{ o.describe }}
-          </div>
-          <div>
-            <span>{{ o.create_time }}</span>
-          </div>
-          <div>
-              <span>
-                <i class="el-icon-edit" @click="handleEdit(o)" style="margin-right: 1rem;">编辑</i>
-                <i class="el-icon-delete" @click="del(index,o.id)" style="margin-right: 1rem;">删除</i>
-              </span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <el-table :data="tableData">
+      <el-table-column prop="duration" label="异常信息">
+        <template slot-scope="scope">
+          <div v-if="scope.row.size>10">文件大于10M;</div>
+          <div v-if="scope.row.duration>15">时间太长</div>
+        </template>
+      </el-table-column>
+      <el-table-column prop="describe" label="主题"></el-table-column>
+      <el-table-column prop="thumbnail" label="封面">
+        <template slot-scope="scope">
+          <img href="scope.row.thumbnail">
+          <router-link :to="{path:VideoUrl,query: {video_id: scope.row.id}}">
+            <img :src="scope.row.thumbnail">
+          </router-link>
+        </template>
+      </el-table-column>
+      <el-table-column prop="size" label="大小"></el-table-column>
+      <el-table-column prop="duration" label="时长"></el-table-column>
+      <el-table-column prop="duration" label="操作">
+        <template slot-scope="scope">
+          <el-button edit="edit">编辑</el-button>
+          <el-button edit="del">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
     <el-dialog :title="form.id?'编辑':'新增'" :visible.sync="dialogVisible">
-      <el-form ref="form" :model="form" :rules="rules" label-width="8rem" style="padding: 1rem">
+      <el-form ref="form" :model="form" label-width="8rem" style="padding: 1rem">
         <el-form-item label="视频" prop="describe" required>
           <WrdElUpload :fileList="fileList" :before-avatar-upload="beforeAvatarUpload">
           </WrdElUpload>
@@ -57,43 +51,32 @@
 </template>
 
 <script>
-import {FileApi, WorksApi, WorksListApi} from "@/api/api";
+
+import {FileApi, WorksApi} from "@/api/api";
+import {videoBeforeUpload} from "@/api/util";
 import {VideoUrl} from "@/views/video";
-import {getUserIdByToken, videoBeforeUpload} from "@/api/util";
-import WrdElUpload from "@/components/WrdVideoUpload";
 
 export default {
-  name: "works",
-  components: {WrdElUpload},
+  name: "market",
   data() {
     return {
-      rules: {
-        describe: [
-          {required: true, message: '不能为空', trigger: 'blur'}
-        ],
-      },
-      dialogVisible: false,
-      FileApi,
       VideoUrl,
-      progressFlag: false,
-      loadProgress: 0,
-      user_id: getUserIdByToken(),
-      fileList: [],
-      form: {},
       tableData: [],
+      form: {},
+      dialogVisible: false,
+      fileList: [],
+      FileApi,
+
     }
   },
   methods: {
+    async init() {
+      let url = "/api/work_api/video_blueprint_api/err_video/"
+      let res = await this.$get2(url, 0)
+      this.tableData = res.data.data
+    },
     uploadFileSuccess2(res, file, fileList) {
       this.form.thumbnail = res.data
-    },
-    async init() {
-      let result = await this.$get2(WorksListApi, 0, {user_id: this.user_id})
-      if (result.data.code == 1) {
-        this.tableData = result.data.data
-      } else {
-        this.$message('失败');
-      }
     },
     async onSubmit() {
       if (!this.fileList) {
@@ -136,9 +119,5 @@ export default {
 </script>
 
 <style scoped>
-@media only screen and (max-width: 768px) {
-  /deep/ .el-dialog {
-    width: 100%;
-  }
-}
+
 </style>

@@ -61,8 +61,8 @@ export default {
       pageSize: 12,
       totalNum: 0,
 
-      VideoUrl: VideoUrl,
-      UserInfoUrl: UserInfoUrl,
+      VideoUrl,
+      UserInfoUrl,
 
       tableData: [],
       rankData: [],

@@ -1,6 +1,6 @@
 import CryptoJS from "crypto-js";
 import Axios from "axios";
-import {SALT_WORK_FACTOR, TOKEN} from "@/api/config";
+import {IMG_TYPE, SALT_WORK_FACTOR, TOKEN, VIDEO_TYPE} from "@/api/config";
 import Vue from "vue";
 import jwt_decode from "jwt-decode";
 
@@ -63,6 +63,24 @@ export function fmtDateY_M_D(date) {
         strDate = '0' + strDate
     }
     return year + char + month + char + strDate
+}
+
+export function fmtDateY_M_D_H_M_S(date) {
+    let char = '-'
+    let year = date.getFullYear()
+    let month = date.getMonth() + 1
+    let strDate = date.getDate()
+    let hours = date.getHours()
+    let minutes = date.getMinutes()
+    let seconds = date.getSeconds()
+
+    if (month >= 1 && month <= 9) {
+        month = '0' + month
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = '0' + strDate
+    }
+    return year + char + month + char + strDate + " " + hours + ":" + minutes + ":" + seconds
 }
 
 export function getDateY_M_D() {
@@ -216,10 +234,10 @@ export function getUserIdByToken() {
 }
 
 export function beforeImgUpload(file) {
-    let types = ['image/jpeg', 'image/jpg', 'image/png'];
-    const isImage = types.includes(file.type);
+    // todo
+    const isImage = IMG_TYPE.includes(file.type);
     if (!isImage) {
-        Vue.prototype.$message.error('上传图片只能是 JPG、JPEG、PNG 格式!');
+        Vue.prototype.$message.error('上传图片格式不正确!');
     }
     const isLtSize = file.size / 1024 / 1024 < 5;
     if (!isLtSize) {
@@ -230,15 +248,7 @@ export function beforeImgUpload(file) {
 
 export function videoBeforeUpload(file) {
 
-    if ([
-        "video/mp4",
-        "video/ogg",
-        "video/flv",
-        "video/avi",
-        "video/wmv",
-        "video/rmvb",
-        "video/mov"
-    ].indexOf(file.type) == -1) {
+    if (VIDEO_TYPE.indexOf(file.type) == -1) {
         Vue.prototype.$message.error("视频格式不正确！")
         return false
     }

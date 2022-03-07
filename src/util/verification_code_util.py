@@ -1,4 +1,5 @@
 # coding=utf-8
+import base64
 import io
 import os
 import random
@@ -38,7 +39,7 @@ def draw_lines(draw, num, width, height):
         draw.line(((x1, y1), (x2, y2)), fill='black', width=1)
 
 
-def get_verify_code():
+def get_verify_code(to_base64=False):
     """
        生成验证码图形
        :return:
@@ -60,12 +61,13 @@ def get_verify_code():
     draw_lines(draw, 2, width, height)
     # 高斯模糊
     im = im.filter(ImageFilter.GaussianBlur(radius=1.5))
-    # im = image.resize((100, 24))
-    # im.save(bytes_io, format="JPEG")
-    # import base64
-    # img_str = b"data:image/png;base64," + base64.b64encode(bytes_io.getvalue()) #todo test
-    # return code, img_str
+
     bytes_io = io.BytesIO()
     im.save(bytes_io, 'png')
+
+    if to_base64:
+        img_str = b"data:image/png;base64," + base64.b64encode(bytes_io.getvalue())
+        return code, img_str
+
     bytes_io.seek(0)
     return code, bytes_io
