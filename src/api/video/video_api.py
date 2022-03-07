@@ -23,20 +23,20 @@ from util.video_util import get_first_frame_loc
 from vo.table_model import UserVO
 from vo.video_model import WorksVO, TargetVO, InvitationCodeVO
 
-video_blueprint_api = Blueprint("video_blueprint_api", __name__, url_prefix='/api/work_api/video_blueprint_api')
+video_blueprint_api = Blueprint("video_blueprint_api", __name__, url_prefix='/api/video_blueprint_api')
 
 
-class VideoBlueprintApi(Resource):
+class VideoBlueprintApi():
     """工时统计"""
 
     @staticmethod
     @video_blueprint_api.route('/err_video/<int:_id>', methods=['GET'])
     def get_sum_time(_id):
-        vos = WorksVO.query.filter()
+        vos = WorksVO.query.filter().all()
         for vo in vos:
             path = os.path.join(DATA_DIR, vo.file[1:])
 
-            vo.size = os.path.getsize(path)
+            vo.size = os.path.getsize(path)/1024/1024
 
             cap = cv2.VideoCapture(path)
             if cap.isOpened():

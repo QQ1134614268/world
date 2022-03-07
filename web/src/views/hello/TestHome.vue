@@ -2,7 +2,7 @@
   <div>
     测试服务
     <div v-for="item in testUrls ">
-      <a :href=item.path>{{ item.name }}</a>
+      <a :href=item.path>{{ item.path }}</a>
     </div>
   </div>
 </template>

@@ -43,7 +43,7 @@ import {FileApi} from "@/api/api";
 import {TOKEN, VIDEO_TYPE} from "@/api/config";
 
 export default {
-  name:"WrdElUpload",
+  name:"WrdVideoUpload",
   props: {
     limit: {
       type: Number | String,
@@ -121,6 +121,8 @@ export default {
         return
       }
       this.$message.success("上传成功")
+      // todo BUG
+      this.$emit("getFileList",this.fileList)
       // let obj = {
       //   uid: file.uid,
       //   url: response.data,

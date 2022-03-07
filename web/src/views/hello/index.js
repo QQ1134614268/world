@@ -81,6 +81,12 @@ const routes = [
         path: '/hello/test',
         name: '/hello/test',
         component: () => import('@/views/hello/test')
+    },{
+        path: '/hello/test_upload',
+        component: () => import('@/views/hello/test_upload')
+    },{
+        path: '/hello/parent_child/Parent',
+        component: () => import('@/views/hello/parent_child/Parent')
     },
 ]
 export default routes

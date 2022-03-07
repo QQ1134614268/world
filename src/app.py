@@ -30,7 +30,8 @@ from api.user.permission_api import PermissionApi
 from api.user.user_api import user_api, UserApi
 from api.user.wallet.wallet_api import WalletApi
 from api.video.video_api import TargetApi, TargetListApi, MarketTargetListApi, WorksApi, WorksListApi, WorksRankListApi, \
-    TargetRankListApi, MarketWorksListApi, VideoUserApi, InvitationCodeApi, ReviewTargetApi, ReviewWorksApi
+    TargetRankListApi, MarketWorksListApi, VideoUserApi, InvitationCodeApi, ReviewTargetApi, ReviewWorksApi, \
+    video_blueprint_api
 from api.worker.work_api import WorkerApi, WorkerTimeApi, WorkerExcelApi, WorkTimeAnalyseApi, \
     work_time_analyse_api
 from config.apscheduler_conf import scheduler
@@ -256,6 +257,8 @@ api2.add_resource(WorksListApi, "/api/video_api/WorksListApi/<int:_id>")
 api2.add_resource(WorksRankListApi, "/api/video_api/WorksRankListApi/<int:_id>")
 api2.add_resource(TargetRankListApi, "/api/video_api/TargetRankListApi/<int:_id>")
 api2.add_resource(MarketWorksListApi, "/api/video_api/MarketWorksListApi/<int:_id>")
+
+app.register_blueprint(video_blueprint_api)
 
 api2.add_resource(ReviewTargetApi, "/api/video_api/ReviewTargetApi/<int:_id>")
 api2.add_resource(ReviewWorksApi, "/api/video_api/ReviewWorksApi/<int:_id>")

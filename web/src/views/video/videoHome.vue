@@ -26,7 +26,7 @@
               <a type="primary" :href=Target>我的发布</a>
             </el-dropdown-item>
             <el-dropdown-item>
-              <a type="primary" :href=ERR_VIDEO>我的发布</a>
+              <a type="primary" :href=ERR_VIDEO>告警信息</a>
             </el-dropdown-item>
             <el-dropdown-item>
               <a type="primary" :href=InvitationCode v-if="INVITATION_CODE">我的邀请码</a>

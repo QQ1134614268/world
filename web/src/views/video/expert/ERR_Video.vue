@@ -1,7 +1,7 @@
 <template>
   <div>
-    <el-table :data="tableData">
-      <el-table-column prop="duration" label="异常信息">
+    <el-table :data="tableData" :default-sort ="{prop:'duration',order:'descending'}">
+      <el-table-column prop="duration" label="异常信息" sortable>
         <template slot-scope="scope">
           <div v-if="scope.row.size>10">文件大于10M;</div>
           <div v-if="scope.row.duration>15">时间太长</div>
@@ -20,16 +20,17 @@
       <el-table-column prop="duration" label="时长"></el-table-column>
       <el-table-column prop="duration" label="操作">
         <template slot-scope="scope">
-          <el-button edit="edit">编辑</el-button>
-          <el-button edit="del">删除</el-button>
+          <el-button size="mini" @click="handleEdit( scope.row)">编辑</el-button>
+          <el-button size="mini" @click="handleEdit(scope.$index, scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
     <el-dialog :title="form.id?'编辑':'新增'" :visible.sync="dialogVisible">
+      {{fileList}}
       <el-form ref="form" :model="form" label-width="8rem" style="padding: 1rem">
-        <el-form-item label="视频" prop="describe" required>
-          <WrdElUpload :fileList="fileList" :before-avatar-upload="beforeAvatarUpload">
-          </WrdElUpload>
+        <el-form-item label="视频" prop="describe" required  >
+          <WrdVideoUpload :fileList="fileList" :before-avatar-upload="beforeAvatarUpload">
+          </WrdVideoUpload>
         </el-form-item>
         <el-form-item label="视频封面" prop="describe" required>
           <el-upload style="width: 10%;height: 10%" :show-file-list="false" :action="FileApi"
@@ -55,9 +56,11 @@
 import {FileApi, WorksApi} from "@/api/api";
 import {videoBeforeUpload} from "@/api/util";
 import {VideoUrl} from "@/views/video";
+import WrdVideoUpload from "@/components/WrdVideoUpload";
 
 export default {
   name: "market",
+  components: {WrdVideoUpload},
   data() {
     return {
       VideoUrl,
@@ -71,9 +74,13 @@ export default {
   },
   methods: {
     async init() {
-      let url = "/api/work_api/video_blueprint_api/err_video/"
+      let url = "/api/video_blueprint_api/err_video"
       let res = await this.$get2(url, 0)
       this.tableData = res.data.data
+    },
+    getFileList(fileList){
+      debugger
+      this.fileList=fileList
     },
     uploadFileSuccess2(res, file, fileList) {
       this.form.thumbnail = res.data
