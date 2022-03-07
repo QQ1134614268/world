@@ -113,7 +113,7 @@ class WorksApi(Resource):
     def post(self, _id):
         data = request.get_json()
         if not data.get("thumbnail"):
-            data["thumbnail"] = get_first_frame_loc(data["file"])
+            data["thumbnail"] = get_first_frame_loc(os.path.join(DATA_DIR, data["file"][1:]))
         vo = WorksVO(**data)
         set_model_user_id(vo)
         db.session.add(vo)

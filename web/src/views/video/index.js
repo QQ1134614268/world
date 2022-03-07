@@ -88,7 +88,7 @@ export const routes = [
                 }
             },
             {
-                path: ERR_Video,
+                path: ERR_VIDEO,
                 component: () => import('@/views/video/expert/ERR_Video'),
                 meta: {
                     keepAlive: false,

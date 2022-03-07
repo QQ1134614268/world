@@ -8,18 +8,17 @@ import os
 
 import cv2
 
-from config.conf import DATA_DIR
+import util.unique_util
+from config.conf import UPLOAD_FILE_PATH2, UPLOAD_FILE_DIR_NAME, JPG
 
 
-def get_first_frame_loc(mp4_loc):
-    if not isinstance(mp4_loc, str):
+def get_first_frame_loc(video_path):
+    if not os.path.exists(video_path):
         return
-    first_frame_loc = mp4_loc.rsplit(".", 1)[0] + ".jpg"  # todo jpg path
-    mp4_loc = os.path.join(DATA_DIR, mp4_loc[1:])  # todo
-    if not os.path.exists(mp4_loc):
-        return
-    video_capture = cv2.VideoCapture(mp4_loc)
+    file_name = util.unique_util.get_uuid() + JPG
+    save_path = os.path.join(UPLOAD_FILE_PATH2, file_name)
+    video_capture = cv2.VideoCapture(video_path)
     success, frame = video_capture.read()
     if success:
-        cv2.imwrite(os.path.join(DATA_DIR, first_frame_loc[1:]), frame)
-        return first_frame_loc
+        cv2.imwrite(save_path, frame)
+        return UPLOAD_FILE_DIR_NAME + file_name

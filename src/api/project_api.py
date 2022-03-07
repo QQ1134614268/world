@@ -7,7 +7,7 @@ import os
 
 from flask import request
 from flask_restful import Resource
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, func
 from sqlalchemy.orm import sessionmaker, make_transient
 
 from config.conf import DATA_DIR
@@ -58,9 +58,10 @@ def clear_id():
 
 
 def _handle_path(model, field):
-    p = '/%'
+    p = '/upload'
     q = '/'
-    db.session.query(model).filter(field.notlike(p)).update({field: q + field}, synchronize_session=False)
+    db.session.query(model).filter(field.like(p)).update({field: func.substring(field, 2)},
+                                                            synchronize_session=False)
     db.session.commit()
 
 
@@ -95,7 +96,6 @@ class ProjectScript:
 
 
 class ProjectInit(Resource):
-
     class Schedule:
         id = ""
         name = ""

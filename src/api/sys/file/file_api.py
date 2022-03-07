@@ -4,7 +4,7 @@ from flask import request
 from flask import send_file
 from flask_restful import Resource
 
-from config.conf import UPLOAD_FILE_PATH2, UPLOAD_FILE_PATH
+from config.conf import UPLOAD_FILE_PATH2, UPLOAD_FILE_PATH, UPLOAD_FILE_DIR_NAME
 from config.enum_conf import FileServeDirEnum
 from config.exception import WorldException
 from util import res_util
@@ -26,7 +26,7 @@ class FileApi2(Resource):
         f_name = get_file_name_by_uuid(file.filename)
         full_path = os.path.join(UPLOAD_FILE_PATH2, f_name)
         file.save(full_path)
-        return res_util.success("/upload_file/" + f_name)
+        return res_util.success(UPLOAD_FILE_DIR_NAME + f_name)
 
 
 class FileApi3(Resource):
