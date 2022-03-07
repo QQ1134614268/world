@@ -31,7 +31,7 @@ import {AdminUrl} from "@/views/videoAdmin";
 import {HelloRootUrl} from "@/views/hello";
 import {TreeRootUrl} from "@/views/tree";
 import {UserSpaceRootUrl} from "@/views/user";
-import {RegisterRootUrl, SYS_LOGIN_URL} from "@/views/sys/index";
+import {SYS_LOGIN_URL, SYS_REGISTER_URL} from "@/views/sys/index";
 import {SystemLevel} from "@/views/level";
 
 export default {
@@ -48,7 +48,7 @@ export default {
         {url: HelloRootUrl, name: "测试"},
         {url: messageRootUrl, name: "消息"},
         {url: UserSpaceRootUrl, name: "用户空间"},
-        {url: RegisterRootUrl, name: "注册"},
+        {url: SYS_REGISTER_URL, name: "注册"},
         {url: SYS_LOGIN_URL, name: "登录"},
       ],
     }

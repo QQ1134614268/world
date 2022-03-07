@@ -83,8 +83,7 @@ class UserBlueprintApi(Resource):
     @staticmethod
     @user_api.route('/get_verify_code', methods=['GET'])
     def get_verify_code():
-        to_base64 = request.args.get("to_base64")  # todo
-        code, bytes_io = verification_code_util.get_verify_code(to_base64)
+        code, bytes_io = verification_code_util.get_verify_code()
         redisDB.set(code, code, ex=60)
         response = make_response(send_file(bytes_io, mimetype="image/png"))
         response.headers.add("Cache-Control", "no-store")

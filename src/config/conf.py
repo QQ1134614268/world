@@ -19,7 +19,7 @@ UPLOAD_FILE_PATH = path.join(DATA_DIR, "upload")
 UPLOAD_FILE_PATH2 = path.join(DATA_DIR, "upload_file")
 VIDEO_FILE_PATH = path.join(DATA_DIR, "video")
 
-UPLOAD_FILE_DIR_NAME = "upload_file/"
+UPLOAD_FILE_DIR_NAME = "/upload_file/"
 JPG = ".jpg"
 DEFAULT_TIME_STR = '%Y-%m-%d %H:%M:%S.%f'
 # dev  不发邮件的主机

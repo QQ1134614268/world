@@ -58,10 +58,9 @@ def clear_id():
 
 
 def _handle_path(model, field):
-    p = '/upload'
+    p = '/%'
     q = '/'
-    db.session.query(model).filter(field.like(p)).update({field: func.substring(field, 2)},
-                                                            synchronize_session=False)
+    db.session.query(model).filter(field.notlike(p)).update({field: q + field}, synchronize_session=False)
     db.session.commit()
 
 

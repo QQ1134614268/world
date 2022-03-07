@@ -16,6 +16,7 @@ from util import file_config
 from util import res_util
 from util.log_util import logger
 from util.time_util import get_now_str
+from util.verification_code_util import get_verify_code
 
 hello_api = Blueprint("hello", __name__, url_prefix='/api/hello_api')
 
@@ -147,3 +148,9 @@ def test_asyncio():
     asyncio.run(test_asyncio_sleep())
     print("结束", get_now_str())
     return res_util.success("开始{},结束{},异步任务时长5秒".format(start, get_now_str()))
+
+
+@hello_api.route('/test_base64_img/<int:_id>', methods=['GET'])
+def test_base64_img(_id=None):
+    _, img_byte = get_verify_code(True)
+    return str(img_byte, encoding='utf-8')

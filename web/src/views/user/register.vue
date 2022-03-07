@@ -50,7 +50,15 @@ export default {
     async register() {
       await userRegister()
     },
+    // async init() {
+    //   let url = "/api/hello_api/test_base64_img"
+    //   let data = await this.$get2(url)
+    //   this.url = data.data
+    // },
   },
+  // created() {
+  //   this.updateCode()
+  // }
 }
 </script>
 

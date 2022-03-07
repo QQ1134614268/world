@@ -8,6 +8,7 @@ import member_routes from "@/views/member/index";
 import model_routes from "@/views/tree";
 import admin_routes from "@/views/videoAdmin/index";
 import level_routes from "@/views/level/index";
+import {ROOT, SYS_LOGIN_URL, SYS_REGISTER_URL, SYS_ROOT} from "@/views/sys";
 
 let total = []
 total = total.concat(HelloRoutes)
@@ -22,65 +23,48 @@ Vue.use(VueRouter)
 
 let routes = [
     {
-        path: '/root',
-        name: '/root',
+        path: ROOT,
         component: () => import('@/views/sys/root'),
     },
     {
-        path: '/sys',
-        name: '/sys',
-        component: () => import('@/views/sys/root'),
-    },
-    {
+        path: SYS_ROOT,
+        component: () => import('@/views/sys/root.vue')
+    }, {
         path: '/help',
-        name: '/help',
         component: () => import('@/views/sys/root'),
     },
     {
         path: '/h',
-        name: '/h',
         component: () => import('@/views/sys/root'),
     },
     {
         path: '/user/UserSpace',
-        name: '/user/UserSpace',
         component: () => import('@/views/user/UserSpace.vue')
     },
     {
-        path: '/sys/root',
-        name: '/sys/root',
-        component: () => import('@/views/sys/root.vue')
-    },
-    {
-        path: '/sys/login',
-        name: '/sys/login',
+        path: SYS_LOGIN_URL,
         component: () => import('@/views/user/login.vue')
     },
     {
-        path: '/sys/register',
-        name: '/sys/register',
+        path: SYS_REGISTER_URL,
         component: () => import('@/views/user/register.vue')
     },
     {
         path: '/user/attention',
-        name: '/user/attention',
         component: () => import('@/views/user/attention.vue')
     },
     {
         path: '/message/message',
-        name: '/message/message',
         component: message
     },
     {
         path: '/FeedBack',
-        name: '/FeedBack',
         component: function () {
             return import(  '@/views/FeedBack.vue')
         }
     },
     {
         path: '*',
-        name: '/error/404',
         component: function () {
             return import( '@/views/404.vue')
         }
