@@ -15,3 +15,5 @@ export const STATE_USER_INFO = 'userInfo'
 
 export const VIDEO_TYPE = ["video/mp4", "video/ogg", "video/flv", "video/avi", "video/wmv", "video/rmvb", "video/mov"]
 export const IMG_TYPE =['image/jpeg', 'image/jpg', 'image/png']
+export const IMG_TYPE_STR =IMG_TYPE.toString()
+

@@ -25,7 +25,7 @@ const routes = [
     {
         path: '/hello/test_vue-cropper',
         name: '/hello/test_vue-cropper',
-        component: () => import('@/views/hello/test_vue-cropper')
+        component: () => import('@/components/WrdVueCropper')
     },
     {
         path: '/hello/home',

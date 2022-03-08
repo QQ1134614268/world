@@ -23,7 +23,6 @@
               </router-link>
             </div>
           </div>
-
         </div>
       </div>
       <div class=" col-12">
@@ -38,13 +37,11 @@
       </div>
     </div>
     <div class="col-3">
-      <div style="line-height: 3">
-        品牌榜
-      </div>
+      <h3> 品牌榜</h3>
       <div v-for="(item,index) in rankData" class="p_c_flexbox_row">
-        <div :class="_getRankCls(index)">
+        <span class="rank_num">
           {{ index + 1 }}
-        </div>
+        </span>
         <div class="p_c_long_txt_hidden " style="width: 80%">
           <router-link :to="{path:TargetInfoUrl,query: {target_id: item.id}}" class="p_c_space">
             {{ item.content }}
@@ -74,13 +71,6 @@ export default {
     }
   },
   methods: {
-    _getRankCls(index) {
-      if (index <= 2) {
-        return `rank_base rank_${index}`
-      } else {
-        return 'rank_base'
-      }
-    },
     async init() {
       let data = {page: this.currentPage, pageSize: this.pageSize, search: this.search}
       let result = await this.$get2(MarketTargetListApi, 0, data)
@@ -116,24 +106,26 @@ export default {
 </script>
 
 <style scoped>
-.rank_base {
+
+.rank_num {
   width: 1.4rem;
   height: 1.4rem;
   background-size: 25px 24px;
   color: #c1abab;
+  display: inline-block;
 }
 
-/*rank_base rank_0*/
-.rank_0 {
+.rank_num :nth-child(1) {
   color: #f30303;
 }
 
-.rank_1 {
+.rank_num :nth-child(2) {
   color: #cb2e59;
 }
 
-.rank_2 {
+.rank_num :nth-child(3) {
   color: #ac4d60;
 }
+
 
 </style>

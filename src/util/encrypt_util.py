@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 import base64
 import hashlib
-from binascii import b2a_hex, a2b_hex
 
 import Crypto.Cipher as Cipher
 from Crypto.Cipher import AES
 from Crypto.Cipher import PKCS1_v1_5 as PKCS1_v1_5_cipper
 from Crypto.Hash import SHA1
 from Crypto.PublicKey import RSA
-from Crypto.Random import get_random_bytes
 from Crypto.Signature import PKCS1_v1_5 as PKCS1_v1_5_sign
 
 
@@ -45,10 +43,9 @@ class SHA256Util:
 
 
 class AESUtil:
-    def __int__(self):
-        self.key = get_random_bytes(16)
-
-    def add_to_16(self, text):
+    # todo
+    @staticmethod
+    def add_to_16(text):
         if len(text.encode('utf-8')) % 16:
             add = 16 - (len(text.encode('utf-8')) % 16)
         else:
@@ -56,30 +53,28 @@ class AESUtil:
         text = text + ('\0' * add)
         return text.encode('utf-8')
 
-    # 加密函数
-    def encrypt(self, text):
+    def encrypt(self, text, secret_key="123456"):
         # ECB没有偏移量
-        mode = AES.MODE_ECB
-        text = self.add_to_16(text)
-        cryptos = AES.new(self.key, mode)
-        cipher_text = cryptos.encrypt(text)
-        return str(b2a_hex(cipher_text), "utf-8")
+        secret_key2 = self.add_to_16(secret_key)
+        text2 = self.add_to_16(text)
+        ret_bytes = AES.new(secret_key2, AES.MODE_ECB).encrypt(text2)
+        string = base64.b64decode(ret_bytes)
+        return string
 
-    # 解密后，去掉补足的空格用strip() 去掉
-    def decrypt(self, text):
-        mode = AES.MODE_ECB
-        cryptor = AES.new(self.key, mode)
-        plain_text = cryptor.decrypt(a2b_hex(text))
-        return bytes.decode(plain_text).rstrip('\0')
+    def decrypt(self, text, secret_key="123456"):
+        secret_key2 = self.add_to_16(secret_key)
+        text2 = base64.b64encode(text)
+        plain_text = AES.new(secret_key2, AES.MODE_ECB).decrypt(text2)
+        return plain_text
 
 
 class RsaUtil:
     """RSA加解密签名类
     """
 
-    def __int__(self, ciper_lib=PKCS1_v1_5_cipper, sign_lib=PKCS1_v1_5_sign, hash_lib=SHA1,
-                pub_file=None, pri_file=None, pub_skey=None, pri_skey=None, pub_key=None, pri_key=None,
-                reversed_size=11):
+    def __init__(self, ciper_lib=PKCS1_v1_5_cipper, sign_lib=PKCS1_v1_5_sign, hash_lib=SHA1,
+                 pub_file=None, pri_file=None, pub_skey=None, pri_skey=None, pub_key=None, pri_key=None,
+                 reversed_size=11):
 
         # 加解密库
         self.ciper_lib = ciper_lib
@@ -190,3 +185,38 @@ class RsaUtil:
         except (ValueError, TypeError):
             ret = False
         return ret
+
+
+if __name__ == '__main__':
+    # js base64编码
+    # window.btoa('china is so nb') # 'Y2hpbmEgaXMgc28gbmI='
+    # base64.encodebytes 编码会多出换行符
+    b = base64.b64encode('china is so nb'.encode('utf8'))
+    s = base64.b64decode(b)
+    # s = str(b, encoding="utf8")
+    print(s == "Y2hpbmEgaXMgc28gbmI=")
+
+    source = "123456"
+    aes = AESUtil()
+    mi = aes.encrypt("123456")
+
+    result = aes.decrypt(mi)
+    print(mi, result == source)
+
+    # aes2 = AESUtil()
+    # result2 = aes2.decrypt(mi)
+    # print(mi, result2 == source)
+    # print()
+    #
+    key = AESUtil.add_to_16("123456")
+    aes = AES.new(key, AES.MODE_ECB)
+
+    text = "123456"
+    text_to16 = AESUtil.add_to_16(text)
+    jiami_byte = aes.encrypt(text_to16)
+
+    jiemi= aes.decrypt(jiami_byte)
+
+    print( jiemi == text_to16)
+
+

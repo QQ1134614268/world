@@ -9,8 +9,8 @@ from util.log_util import logger as log
 
 # remember 1. 邮件依赖不稳定服务,, 2. 同时大量异常导致邮件多发--导致异常
 # 策略: 长链接, 连接池, 生产消费者
-def send_email(mail_content, mail_to, subject="master,your mail"):
-    message = MIMEText(mail_content, 'plain', 'utf-8')
+def send_email(mail_content, mail_to, subject="master,your mail",mime_text_type='plain'):
+    message = MIMEText(mail_content, mime_text_type, 'utf-8')
     message['Subject'] = Header(subject, 'utf-8')
     message['From'] = Header("明宇致和", 'utf-8')
     message['To'] = Header("朋友", 'utf-8')

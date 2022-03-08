@@ -7,7 +7,7 @@ import os
 
 from flask import request
 from flask_restful import Resource
-from sqlalchemy import create_engine, func
+from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, make_transient
 
 from config.conf import DATA_DIR
@@ -74,7 +74,7 @@ def clear_path():
         {"class": WorksVO, "field": WorksVO.thumbnail},
     ]
     for item in data:
-        _handle_path(item["class"], item["field"], )
+        _handle_path(item["class"], item["field"])
 
 
 class ProjectScript:
@@ -95,29 +95,18 @@ class ProjectScript:
 
 
 class ProjectInit(Resource):
-    class Schedule:
-        id = ""
-        name = ""
-        desc = ""
-
-        func = ""
-        arg = ""
-
-    # todo 优化 类似表结构  反射
-    code = {
-        "sync_prove_api": "同步ProveVO数据",
-        "clear_ProveVO_id": "清除ProveVO没有父节点数据",
-        "clear_path": "整理filepath",
-        "init_dir": "创建文件服务器dir"
-    }
-    code2 = {
-        "clear_ProveVO_id": clear_id,
-        "clear_path": clear_path,
-        "init_dir": ProjectScript.init_dir
-    }
+    list_func = [
+        {"id": "clear_ProveVO_id", "desc": "清除ProveVO没有父节点数据", "func": clear_id},
+        {"id": "clear_path", "desc": "整理filepath", "func": clear_path},
+        {"id": "init_dir", "desc": "创建文件服务器dir", "func": ProjectScript.init_dir},
+        {"id": "sync_prove_api", "desc": "同步ProveVO数据", "func": sync_prove_api},
+    ]
 
     def get(self):
         func_code = request.args.get("code")
         if func_code:
-            return ProjectInit.code2[func_code]()
-        return ProjectInit.code
+            data = {item.id: item.func for item in self.list_func}
+            return data[func_code]()
+
+        data = [{"id": item.id, "desc": item.desc} for item in self.list_func]
+        return res_util.success(data)

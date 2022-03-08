@@ -3,14 +3,16 @@
 @Time: 2020/7/5
 @Description: pass
 """
+from functools import reduce
 from io import BytesIO
 
-from flask import request, Blueprint, send_file
+from flask import request, Blueprint, send_file, render_template_string
 from flask_restful import Resource
 from sqlalchemy import and_, func, asc, desc
 from sqlalchemy.dialects.mysql import insert
 
-from config.conf import DATE_FORMAT
+import util.mail_util
+from config.conf import DATE_FORMAT, DI
 from config.mysql_db import db
 from service.user_service import get_id_by_token
 from util import res_util, db_util, time_util
@@ -268,3 +270,16 @@ class WorkTimeAnalyseApi(Resource):
 
         ret = sorted(ret, key=lambda x: x["area"])
         return res_util.success(ret)
+
+
+class Schedule:
+    @staticmethod
+    @work_time_analyse_api.route('/test/<int:_id>', methods=['GET'])
+    def ana_worker_time():
+        # todo 定时任务
+        # GET http://127.0.0.1:9090/api/work_api/WorkTimeAnalyseApi/test/0
+        data = WorkTimeAnalyseApi.get_day_report(None)
+        ret = map(lambda x: x.get("time"), data)
+        total = reduce(lambda x, y: x + y)
+        html = render_template_string('signin-ok.html', username="username")
+        util.mail_util.send_email(html, DI, subject="工时统计", mime_text_type="html")

@@ -6,7 +6,7 @@
                   placeholder="请输入搜索内容">
         </el-input>
       </div>
-      <div class="p_c_flexbox">
+      <div class="p_c_flexbox container ">
         <div v-for="o in tableData" class="ratio_box block">
           <div class="ratio_box_img p_c_box-flex_col-center">
             <router-link :to="{path:VideoUrl,query: {video_id: o.id}}">
@@ -30,19 +30,19 @@
       </div>
     </div>
     <div class="col-3">
-      <div style="line-height: 3">
-        热度榜
-      </div>
-      <div v-for="(item,index) in rankData" class="p_c_flexbox_row">
-        <div :class="_getRankCls(index)">
-          {{ index + 1 }}
+      <h3> 热度榜</h3>
+      <section>
+        <div v-for="(item,index) in rankData" class="p_c_flexbox_row">
+          <span class="rank_num">
+            {{ index + 1 }}
+          </span>
+          <div style="width: 80%" class="p_c_long_txt_hidden ">
+            <router-link :to="{path:VideoUrl,query: {video_id: item.id}}" class="p_c_space">
+              {{ item.describe }}
+            </router-link>
+          </div>
         </div>
-        <div style="width: 80%" class="p_c_long_txt_hidden ">
-          <router-link :to="{path:VideoUrl,query: {video_id: item.id}}" class="p_c_space">
-            {{ item.describe }}
-          </router-link>
-        </div>
-      </div>
+      </section>
     </div>
   </div>
 </template>
@@ -69,13 +69,6 @@ export default {
     }
   },
   methods: {
-    _getRankCls(index) {
-      if (index <= 2) {
-        return `rank_base rank_${index}`
-      } else {
-        return 'rank_base'
-      }
-    },
     async init() {
       let data = {page: this.currentPage, pageSize: this.pageSize, search: this.search}
       let result = await this.$get2(MarketWorksListApi, 0, data)
@@ -109,23 +102,23 @@ export default {
 </script>
 
 <style scoped>
-.rank_base {
+.rank_num {
+  display: inline-block;
   width: 1.4rem;
   height: 1.4rem;
   background-size: 25px 24px;
   color: #c1abab;
 }
 
-/*rank_base rank_0*/
-.rank_0 {
+.rank_num:nth-child(1) {
   color: #f30303;
 }
 
-.rank_1 {
+.rank_num:nth-child(2) {
   color: #cb2e59;
 }
 
-.rank_2 {
+.rank_num:nth-child(3) {
   color: #ac4d60;
 }
 
@@ -155,4 +148,34 @@ export default {
     overflow: hidden;
   }
 }
+
+.container {
+
+}
+
+/*参考 https://blog.csdn.net/lbchenxy/article/details/100654731*/
+/* 使用伪元素辅助左对齐 */
+.container::after {
+  content: '';
+  flex: 1;
+}
+
+/*.list:last-child {*/
+/*    margin-right: auto;*/
+/*}*/
+
+
+/*.list:not(:nth-child(4n)) {*/
+/*    margin-right: calc(4% / 3);*/
+/*}*/
+
+/*方案4 */
+/*!* 如果最后一行是3个元素 *!*/
+/*.list:last-child:nth-child(4n - 1) {*/
+/*    margin-right: calc(24% + 4% / 3);*/
+/*}*/
+/*!* 如果最后一行是2个元素 *!*/
+/*.list:last-child:nth-child(4n - 2) {*/
+/*    margin-right: calc(48% + 8% / 3);*/
+/*}*/
 </style>

@@ -12,6 +12,12 @@ export function get_salt_pwd(pwd) {
         padding: CryptoJS.pad.Pkcs7
     });
     return encrypted.toString();
+
+    // console.log(window.btoa('china is so nb'))
+    // // 编码
+    // "Y2hpbmEgaXMgc28gbmI="
+    // window.atob("Y2hpbmEgaXMgc28gbmI=") // 解码
+    // "china is so nb"
 }
 
 export function detectOS() {
@@ -234,7 +240,6 @@ export function getUserIdByToken() {
 }
 
 export function beforeImgUpload(file) {
-    // todo
     const isImage = IMG_TYPE.includes(file.type);
     if (!isImage) {
         Vue.prototype.$message.error('上传图片格式不正确!');
