@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 import base64
+import binhex
 import hashlib
 
-import Crypto.Cipher as Cipher
+from Crypto.Random import get_random_bytes
+from binascii import a2b_hex, b2a_hex
+
 from Crypto.Cipher import AES
-from Crypto.Cipher import PKCS1_v1_5 as PKCS1_v1_5_cipper
-from Crypto.Hash import SHA1
-from Crypto.PublicKey import RSA
-from Crypto.Signature import PKCS1_v1_5 as PKCS1_v1_5_sign
 
 
 # base64 SHA256 直接调用
@@ -43,7 +42,9 @@ class SHA256Util:
 
 
 class AESUtil:
-    # todo
+    def __int__(self):
+        self.key = get_random_bytes(16)
+
     @staticmethod
     def add_to_16(text):
         if len(text.encode('utf-8')) % 16:
@@ -53,170 +54,62 @@ class AESUtil:
         text = text + ('\0' * add)
         return text.encode('utf-8')
 
-    def encrypt(self, text, secret_key="123456"):
+    # 加密函数
+    def encrypt(self, text):
         # ECB没有偏移量
-        secret_key2 = self.add_to_16(secret_key)
-        text2 = self.add_to_16(text)
-        ret_bytes = AES.new(secret_key2, AES.MODE_ECB).encrypt(text2)
-        string = base64.b64decode(ret_bytes)
-        return string
+        mode = AES.MODE_ECB
+        text = self.add_to_16(text)
+        cryptos = AES.new(self.key, mode)
+        cipher_text = cryptos.encrypt(text)
+        return str(b2a_hex(cipher_text), "utf-8")
 
-    def decrypt(self, text, secret_key="123456"):
-        secret_key2 = self.add_to_16(secret_key)
-        text2 = base64.b64encode(text)
-        plain_text = AES.new(secret_key2, AES.MODE_ECB).decrypt(text2)
-        return plain_text
-
-
-class RsaUtil:
-    """RSA加解密签名类
-    """
-
-    def __init__(self, ciper_lib=PKCS1_v1_5_cipper, sign_lib=PKCS1_v1_5_sign, hash_lib=SHA1,
-                 pub_file=None, pri_file=None, pub_skey=None, pri_skey=None, pub_key=None, pri_key=None,
-                 reversed_size=11):
-
-        # 加解密库
-        self.ciper_lib = ciper_lib
-        self.sign_lib = sign_lib
-        self.hash_lib = hash_lib
-
-        # 公钥密钥
-        if pub_key:
-            self.pub_key = pub_key
-        elif pub_skey:
-            self.pub_key = RSA.importKey(pub_skey)
-        elif pub_file:
-            self.pub_key = RSA.importKey(open(pub_file).read())
-
-        if pri_key:
-            self.pri_key = pri_key
-        elif pri_skey:
-            self.pri_key = RSA.importKey(pri_skey)
-        elif pri_file:
-            self.pri_key = RSA.importKey(open(pri_file).read())
-
-        # 分块保留长度
-        self.block_reversed_size = reversed_size
-
-    # 根据key长度计算分块大小
-    def get_block_size(self, rsa_key):
-        try:
-            # RSA仅支持限定长度内的数据的加解密，需要分块
-            # 分块大小
-            reserve_size = self.block_reversed_size
-            key_size = rsa_key.size_in_bits()
-            if (key_size % 8) != 0:
-                raise RuntimeError('RSA 密钥长度非法')
-
-            # 密钥用来解密，解密不需要预留长度
-            if rsa_key.has_private():
-                reserve_size = 0
-
-            bs = int(key_size / 8) - reserve_size
-        except Exception as err:
-            print('计算加解密数据块大小出错', rsa_key, err)
-        return bs
-
-    # 返回块数据
-    def block_data(self, data, rsa_key):
-        bs = self.get_block_size(rsa_key)
-        for i in range(0, len(data), bs):
-            yield data[i:i + bs]
-
-    # 加密
-    def enc_bytes(self, data, key=None):
-        text = b''
-        try:
-            rsa_key = self.pub_key
-            if key:
-                rsa_key = key
-
-            cipher = self.ciper_lib.new(rsa_key)
-            for dat in self.block_data(data, rsa_key):
-                cur_text = cipher.encrypt(dat)
-                text += cur_text
-        except Exception as err:
-            print('RSA加密失败', data, err)
-        return text
-
-    # 解密
-    def dec_bytes(self, data, key=None):
-        text = b''
-        try:
-            rsa_key = self.pri_key
-            if key:
-                rsa_key = key
-
-            cipher = self.ciper_lib.new(rsa_key)
-            for dat in self.block_data(data, rsa_key):
-                if type(self.ciper_lib) == Cipher.PKCS1_OAEP:
-                    cur_text = cipher.decrypt(dat)
-                else:
-                    cur_text = cipher.decrypt(dat, '解密异常')
-                text += cur_text
-        except Exception as err:
-            print('RSA解密失败', data, err)
-        return text
-
-    # RSA签名
-    def sign_bytes(self, data, key=None):
-        signature = ''
-        try:
-            rsa_key = self.pri_key
-            if key:
-                rsa_key = key
-
-            h = self.hash_lib.new(data)
-            signature = self.sign_lib.new(rsa_key).sign(h)
-        except Exception as err:
-            print('RSA签名失败', '', err)
-        return signature
-
-    # RSA签名验证
-    def sign_verify(self, data, sig, key=None):
-        try:
-            rsa_key = self.pub_key
-            if key:
-                rsa_key = key
-            h = self.hash_lib.new(data)
-            self.sign_lib.new(rsa_key).verify(h, sig)
-            ret = True
-        except (ValueError, TypeError):
-            ret = False
-        return ret
+    # 解密后，去掉补足的空格用strip() 去掉
+    def decrypt(self, text):
+        mode = AES.MODE_ECB
+        cryptor = AES.new(self.key, mode)
+        plain_text = cryptor.decrypt(a2b_hex(text))
+        return bytes.decode(plain_text).rstrip('\0')
 
 
 if __name__ == '__main__':
     # js base64编码
     # window.btoa('china is so nb') # 'Y2hpbmEgaXMgc28gbmI='
     # base64.encodebytes 编码会多出换行符
-    b = base64.b64encode('china is so nb'.encode('utf8'))
-    s = base64.b64decode(b)
-    # s = str(b, encoding="utf8")
+    origin = 'china is so nb'
+    b = base64.b64encode(origin.encode('utf8'))
+    s = str(b, encoding="utf8")
     print(s == "Y2hpbmEgaXMgc28gbmI=")
 
-    source = "123456"
-    aes = AESUtil()
-    mi = aes.encrypt("123456")
+    s = str(base64.b64decode(b), encoding="utf8")
+    print(s == origin)
 
-    result = aes.decrypt(mi)
-    print(mi, result == source)
+    key = "123456"
+    key_16 = AESUtil.add_to_16(key)
+    aes = AES.new(key_16, AES.MODE_ECB)
 
-    # aes2 = AESUtil()
-    # result2 = aes2.decrypt(mi)
-    # print(mi, result2 == source)
-    # print()
-    #
-    key = AESUtil.add_to_16("123456")
-    aes = AES.new(key, AES.MODE_ECB)
-
-    text = "123456"
-    text_to16 = AESUtil.add_to_16(text)
+    text_to16 = AESUtil.add_to_16(origin)
     jiami_byte = aes.encrypt(text_to16)
 
-    jiemi= aes.decrypt(jiami_byte)
+    jiemi = aes.decrypt(jiami_byte)
 
-    print( jiemi == text_to16)
+    print(jiemi == text_to16)
 
+    base64.encode
+    base64.decode
 
+    base64.encodebytes  # binascii.b2a_base64(chunk)
+    base64.decodebytes  # binascii.a2b_base64(s)
+
+    base64.b64encode
+    base64.b64decode
+
+    base64.urlsafe_b64decode
+    base64.urlsafe_b64encode
+
+    b = base64.b64encode(b"123")
+    ret = base64.b64decode(b)
+
+    # uu.encode()
+    # uu.decode()
+
+    binhex.Error

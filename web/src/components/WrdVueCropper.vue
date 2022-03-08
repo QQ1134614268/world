@@ -1,14 +1,17 @@
 <template>
   <div>
     <el-upload
+        action="FileApi2"
         accept=IMG_TYPE_STR
         :auto-upload="false"
         :show-file-list="false"
         :on-change='changeUpload'
         :before-upload='beforeUpload'
     >
-      <i class="el-icon-upload"></i>
-      <div class="el-upload__text">点击上传</div>
+      <!--      todo-->
+      <el-image v-if="url" :src="url" style="width: 150px;height: 150px"></el-image>
+      <i v-if="!url" class="el-icon-upload"></i>
+      <div v-if="!url" class="el-upload__text">点击上传</div>
     </el-upload>
     <el-dialog title="图片剪裁" :visible.sync="dialogVisible" append-to-body>
       <div class="cropper-content">
@@ -42,6 +45,9 @@ import {beforeImgUpload} from "@/api/util";
 import {IMG_TYPE_STR} from "@/api/config";
 
 export default {
+  props: {
+    url: String
+  },
   data() {
     return {
       option: { //参考网址 https://github.com/xyxiao001/vue-cropper
@@ -58,7 +64,7 @@ export default {
       },
       dialogVisible: false,
       IMG_TYPE_STR,
-      url: "",
+      FileApi,
     }
   },
   methods: {
@@ -75,6 +81,7 @@ export default {
       })
     },
     async finish() {
+      debugger
       let formData = new FormData();
       this.$refs.cropper.getCropBlob(async (data) => {
         formData.append("file", data, "cropper.png");
@@ -82,7 +89,8 @@ export default {
         if (result.data.code == 1) {
           this.dialogVisible = false
           this.url = result.data.data
-          this.$emit("getUrl", this.url)
+          debugger
+          this.$emit("getUrl", result.data.data)
         } else {
           this.$message.error("上传失败!")
         }

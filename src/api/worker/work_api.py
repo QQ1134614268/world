@@ -6,17 +6,18 @@
 from functools import reduce
 from io import BytesIO
 
-from flask import request, Blueprint, send_file, render_template_string
+import jinja2
+from flask import request, Blueprint, send_file
 from flask_restful import Resource
 from sqlalchemy import and_, func, asc, desc
 from sqlalchemy.dialects.mysql import insert
 
 import util.mail_util
-from config.conf import DATE_FORMAT, DI
+from config.conf import RESOURCE_DIR, MAIL_TO
 from config.mysql_db import db
+from service import work_service
 from service.user_service import get_id_by_token
-from util import res_util, db_util, time_util
-from util.db_util import row_to_dic
+from util import res_util, db_util
 from util.excel_util import ExcelHandler, check_excel_type
 from vo.value_object import WorkerExcelVO
 from vo.worker_model import WorkerVO, WorkerTimeVO
@@ -215,71 +216,30 @@ class WorkTimeAnalyseApi(Resource):
     @staticmethod
     @work_time_analyse_api.route('/get_day_report/<int:_id>', methods=['GET'])
     def get_day_report(_id):
-        # 日报模式
-        user_id = get_id_by_token()
-        query_filter = [WorkerVO.belong == user_id, WorkerTimeVO.date == time_util.get_now_str(DATE_FORMAT)]
-        join_filter = [WorkerTimeVO.worker_id == WorkerVO.id]
-        res = WorkerVO.query.outerjoin(
-            WorkerTimeVO,
-            and_(*join_filter)
-        ).with_entities(
-            WorkerVO.id,
-            WorkerVO.name,
-            WorkerTimeVO.date,
-            WorkerTimeVO.morning,
-            WorkerTimeVO.morning_area,
-            WorkerTimeVO.morning_content,
-            WorkerTimeVO.noon,
-            WorkerTimeVO.noon_area,
-            WorkerTimeVO.noon_content,
-            WorkerTimeVO.afternoon,
-            WorkerTimeVO.afternoon_area,
-            WorkerTimeVO.afternoon_content,
-            WorkerTimeVO.night,
-            WorkerTimeVO.night_area,
-            WorkerTimeVO.night_content,
-        ).filter(*query_filter).order_by(
-            WorkerVO.name,
-        ).all()
-        ret = []
-        for item in row_to_dic(res):
-            ret.append({
-                "area": item["morning_area"] or '',
-                "time": "上午",
-                "content": item["morning_content"],
-                "name": item["name"],
-            })
-            ret.append({
-                "area": item["noon_area"] or '',
-                "time": "中午",
-                "content": item["noon_content"],
-                "name": item["name"],
-            })
-            ret.append({
-                "area": item["afternoon_area"] or '',
-                "time": "下午",
-                "content": item["afternoon_area"],
-                "name": item["name"],
-            })
-            ret.append({
-                "area": item["night_area"] or '',
-                "time": "晚上",
-                "content": item["night_content"],
-                "name": item["name"],
-            })
-
-        ret = sorted(ret, key=lambda x: x["area"])
+        ret = work_service.get()
         return res_util.success(ret)
 
 
 class Schedule:
     @staticmethod
     @work_time_analyse_api.route('/test/<int:_id>', methods=['GET'])
-    def ana_worker_time():
+    def ana_worker_time(_id=None):
         # todo 定时任务
         # GET http://127.0.0.1:9090/api/work_api/WorkTimeAnalyseApi/test/0
-        data = WorkTimeAnalyseApi.get_day_report(None)
+        data = work_service.get()
         ret = map(lambda x: x.get("time"), data)
         total = reduce(lambda x, y: x + y)
-        html = render_template_string('signin-ok.html', username="username")
-        util.mail_util.send_email(html, DI, subject="工时统计", mime_text_type="html")
+        data = {
+            "list": ret,
+            "total": total
+        }
+
+        # 注意一点: 其中path需要为当前python文件所在目录的完整路径，get_template内部的参数为html模板相对于该python文件所在目录的路径(相对路径)。
+        template_loader = jinja2.FileSystemLoader(searchpath=RESOURCE_DIR)
+        template_env = jinja2.Environment(loader=template_loader)
+        template_file = "templete_worker_time.html"
+        template = template_env.get_template(template_file)
+        output_text = template.render(data)
+
+        util.mail_util.send_email(output_text, MAIL_TO, subject="工时统计", mime_text_type="html")
+        return res_util.success()

@@ -10,13 +10,13 @@
         <div v-for="(o, index) in tableData">
           <div class="block">
             <div class="art_title">
-              <router-link :to="{path:target_url,query: {target_id: o.id}}">
+              <router-link :to="{path:TargetInfoUrl,query: {target_id: o.id}}">
                 {{ o.title }}
               </router-link>
             </div>
             <div class="art_body"> {{ o.content }}</div>
             <div class="art_note">
-              <router-link :to="{path:'/video/UserInfo2',query: {user_id: o.user_id}}"
+              <router-link :to="{path:UserInfo2,query: {user_id: o.user_id}}"
                            class="p_c_box-flex_row-col-center">
                 <el-avatar :src="o.avatar"></el-avatar>
                 <span class="p_c_long_txt_hidden" style="width: 6rem">{{ o.username }}</span>
@@ -38,23 +38,25 @@
     </div>
     <div class="col-3">
       <h3> 品牌榜</h3>
-      <div v-for="(item,index) in rankData" class="p_c_flexbox_row">
+      <section class="rank">
+        <div v-for="(item,index) in rankData" class="p_c_flexbox_row">
         <span class="rank_num">
           {{ index + 1 }}
         </span>
-        <div class="p_c_long_txt_hidden " style="width: 80%">
-          <router-link :to="{path:TargetInfoUrl,query: {target_id: item.id}}" class="p_c_space">
-            {{ item.content }}
-          </router-link>
+          <div class="p_c_long_txt_hidden " style="width: 80%">
+            <router-link :to="{path:TargetInfoUrl,query: {target_id: item.id}}" class="p_c_space">
+              {{ item.content }}
+            </router-link>
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   </div>
 </template>
 
 <script>
 import {MarketTargetListApi, TargetRankListApi} from "@/api/api";
-import {TargetInfoUrl} from "@/views/video";
+import {TargetInfoUrl, UserInfo2} from "@/views/video";
 
 export default {
   name: "market",
@@ -66,8 +68,8 @@ export default {
       currentPage: 1,
       pageSize: 5,
       totalNum: 0,
-      target_url: TargetInfoUrl,
       rankData: [],
+      UserInfo2
     }
   },
   methods: {
@@ -106,24 +108,27 @@ export default {
 </script>
 
 <style scoped>
+.rank {
+
+}
 
 .rank_num {
+  display: inline-block;
   width: 1.4rem;
   height: 1.4rem;
   background-size: 25px 24px;
   color: #c1abab;
-  display: inline-block;
 }
 
-.rank_num :nth-child(1) {
+.rank > div:nth-child(1) > span {
   color: #f30303;
 }
 
-.rank_num :nth-child(2) {
+.rank > div:nth-child(2) > span {
   color: #cb2e59;
 }
 
-.rank_num :nth-child(3) {
+.rank > div:nth-child(3) > span {
   color: #ac4d60;
 }
 

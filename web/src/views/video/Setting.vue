@@ -2,7 +2,7 @@
   <div>
     <el-form ref="form" :model="form" label-width="8rem" :rules="rules" style="padding: 1rem">
       <el-form-item label="头像">
-        <WrdVueCropper></WrdVueCropper>
+        <WrdVueCropper :url="form.avatar"></WrdVueCropper>
       </el-form-item>
       <el-form-item label="手机号" prop="phone" :required="true">
         <el-input v-model="form.phone" style="width: 10rem"></el-input>
@@ -49,6 +49,7 @@ export default {
       }
     },
     getUrl(url) {
+      debugger
       this.form.avatar = url
     },
     async save() {

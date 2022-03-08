@@ -6,7 +6,7 @@
                   placeholder="请输入搜索内容">
         </el-input>
       </div>
-      <div class="p_c_flexbox container ">
+      <div class="p_c_flexbox container">
         <div v-for="o in tableData" class="ratio_box block">
           <div class="ratio_box_img p_c_box-flex_col-center">
             <router-link :to="{path:VideoUrl,query: {video_id: o.id}}">
@@ -31,7 +31,7 @@
     </div>
     <div class="col-3">
       <h3> 热度榜</h3>
-      <section>
+      <section class="rank">
         <div v-for="(item,index) in rankData" class="p_c_flexbox_row">
           <span class="rank_num">
             {{ index + 1 }}
@@ -48,7 +48,6 @@
 </template>
 
 <script>
-
 import {MarketWorksListApi, WorksRankListApi} from "@/api/api";
 import {UserInfoUrl, VideoUrl} from "@/views/video";
 
@@ -102,6 +101,10 @@ export default {
 </script>
 
 <style scoped>
+.rank {
+
+}
+
 .rank_num {
   display: inline-block;
   width: 1.4rem;
@@ -110,15 +113,15 @@ export default {
   color: #c1abab;
 }
 
-.rank_num:nth-child(1) {
+.rank > div:nth-child(1) > span {
   color: #f30303;
 }
 
-.rank_num:nth-child(2) {
+.rank > div:nth-child(2) > span {
   color: #cb2e59;
 }
 
-.rank_num:nth-child(3) {
+.rank > div:nth-child(3) > span {
   color: #ac4d60;
 }
 
