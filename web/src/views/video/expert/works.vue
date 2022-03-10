@@ -34,8 +34,8 @@
     <el-dialog :title="form.id?'编辑':'新增'" :visible.sync="dialogVisible">
       <el-form ref="form" :model="form" :rules="rules" label-width="8rem" style="padding: 1rem">
         <el-form-item label="视频" prop="describe" required>
-          <WrdElUpload :fileList="fileList" :before-avatar-upload="beforeAvatarUpload">
-          </WrdElUpload>
+          <WrdVideoUpload @getFileList="getFileList" :fileList="fileList" :before-avatar-upload="beforeAvatarUpload">
+          </WrdVideoUpload>
         </el-form-item>
         <el-form-item label="视频封面" prop="describe" required>
           <el-upload style="width: 10%;height: 10%" :show-file-list="false" :action="FileApi"
@@ -60,11 +60,11 @@
 import {FileApi, WorksApi, WorksListApi} from "@/api/api";
 import {VideoUrl} from "@/views/video";
 import {getUserIdByToken, videoBeforeUpload} from "@/api/util";
-import WrdElUpload from "@/components/WrdVideoUpload";
+import WrdVideoUpload from "@/components/WrdVideoUpload";
 
 export default {
   name: "works",
-  components: {WrdElUpload},
+  components: {WrdVideoUpload},
   data() {
     return {
       rules: {
@@ -94,6 +94,9 @@ export default {
       } else {
         this.$message('失败');
       }
+    },
+    getFileList(fileList) {
+      this.fileList = fileList
     },
     async onSubmit() {
       if (!this.fileList) {

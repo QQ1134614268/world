@@ -29,7 +29,7 @@
       {{fileList}}
       <el-form ref="form" :model="form" label-width="8rem" style="padding: 1rem">
         <el-form-item label="视频" prop="describe" required  >
-          <WrdVideoUpload :fileList="fileList" :before-avatar-upload="beforeAvatarUpload">
+          <WrdVideoUpload  @getFileList="getFileList"  :fileList="fileList" :before-avatar-upload="beforeAvatarUpload">
           </WrdVideoUpload>
         </el-form-item>
         <el-form-item label="视频封面" prop="describe" required>

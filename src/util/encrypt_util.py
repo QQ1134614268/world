@@ -1,18 +1,16 @@
 # -*- coding: utf-8 -*-
 import base64
+import binascii
 import binhex
 import hashlib
 
-from Crypto.Random import get_random_bytes
-from binascii import a2b_hex, b2a_hex
-
 from Crypto.Cipher import AES
+from binascii import a2b_hex, b2a_hex
 
 
 # base64 SHA256 直接调用
 # aes 对称加密
 # rsa 非堆成加密
-
 class Base64Util:
     # 加密
     @staticmethod
@@ -42,8 +40,10 @@ class SHA256Util:
 
 
 class AESUtil:
-    def __int__(self):
-        self.key = get_random_bytes(16)
+
+    @staticmethod
+    def get_key(secret_key=""):
+        return AESUtil.add_to_16(secret_key)[0:16]
 
     @staticmethod
     def add_to_16(text):
@@ -55,18 +55,20 @@ class AESUtil:
         return text.encode('utf-8')
 
     # 加密函数
-    def encrypt(self, text):
+    @staticmethod
+    def encrypt(secret_key, text):
         # ECB没有偏移量
         mode = AES.MODE_ECB
-        text = self.add_to_16(text)
-        cryptos = AES.new(self.key, mode)
+        cryptos = AES.new(AESUtil.get_key(secret_key), mode)
+        text = AESUtil.add_to_16(text)
         cipher_text = cryptos.encrypt(text)
         return str(b2a_hex(cipher_text), "utf-8")
 
     # 解密后，去掉补足的空格用strip() 去掉
-    def decrypt(self, text):
+    @staticmethod
+    def decrypt(secret_key, text):
         mode = AES.MODE_ECB
-        cryptor = AES.new(self.key, mode)
+        cryptor = AES.new(AESUtil.get_key(secret_key), mode)
         plain_text = cryptor.decrypt(a2b_hex(text))
         return bytes.decode(plain_text).rstrip('\0')
 
@@ -84,15 +86,11 @@ if __name__ == '__main__':
     print(s == origin)
 
     key = "123456"
-    key_16 = AESUtil.add_to_16(key)
-    aes = AES.new(key_16, AES.MODE_ECB)
+    jiami_byte = AESUtil.encrypt(key, origin)
 
-    text_to16 = AESUtil.add_to_16(origin)
-    jiami_byte = aes.encrypt(text_to16)
+    jiemi = AESUtil.decrypt(key, jiami_byte)
 
-    jiemi = aes.decrypt(jiami_byte)
-
-    print(jiemi == text_to16)
+    print(jiemi == origin)
 
     base64.encode
     base64.decode
@@ -106,6 +104,11 @@ if __name__ == '__main__':
     base64.urlsafe_b64decode
     base64.urlsafe_b64encode
 
+    binascii.a2b_hex
+    binascii.b2a_hex
+    binascii.a2b_base64
+    binascii.b2a_base64
+
     b = base64.b64encode(b"123")
     ret = base64.b64decode(b)
 
@@ -113,3 +116,4 @@ if __name__ == '__main__':
     # uu.decode()
 
     binhex.Error
+    b'\0'.hex
