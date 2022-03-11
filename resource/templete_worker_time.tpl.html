@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<head>
+    <title>工时统计</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<h1>工时统计</h1>
+<table border="5">
+    <tr>
+        <th>工作时间</th>
+        <th>姓名</th>
+        <th>地点</th>
+        <th>工作内容</th>
+        <th>时长</th>
+    </tr>
+    {% for row in list %}
+    <tr>
+        <td>{{ row["time"] }}</td>
+        <td>{{ row["name"] }}</td>
+        <td>{{ row["area"] }}</td>
+        <td>{{ row["content"] }}</td>
+        <td>{{ row["hours"] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<h3>一共时长: <span style="font-weight: bold">{{ total }}</span></h3>
+</body>

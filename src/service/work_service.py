@@ -12,7 +12,7 @@ from util.db_util import row_to_dic
 from vo.worker_model import WorkerVO, WorkerTimeVO
 
 
-def get():
+def get_day_report():
     # 日报模式
     user_id = get_id_by_token()
     query_filter = [WorkerVO.belong == user_id, WorkerTimeVO.date == time_util.get_now_str(DATE_FORMAT)]
@@ -44,27 +44,31 @@ def get():
         ret.append({
             "area": item["morning_area"] or '',
             "time": "上午",
+            "hours": item["morning"],
             "content": item["morning_content"],
             "name": item["name"],
         })
         ret.append({
             "area": item["noon_area"] or '',
             "time": "中午",
+            "hours": item["noon"],
             "content": item["noon_content"],
             "name": item["name"],
         })
         ret.append({
             "area": item["afternoon_area"] or '',
             "time": "下午",
+            "hours": item["afternoon"],
             "content": item["afternoon_area"],
             "name": item["name"],
         })
         ret.append({
             "area": item["night_area"] or '',
             "time": "晚上",
+            "hours": item["night"],
             "content": item["night_content"],
             "name": item["name"],
         })
 
-    ret = sorted(ret, key=lambda x: x["area"])
+    ret = sorted(ret, key=lambda x: x["name"])
     return ret

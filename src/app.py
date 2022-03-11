@@ -35,7 +35,7 @@ from api.video.video_api import TargetApi, TargetListApi, MarketTargetListApi, W
 from api.worker.work_api import WorkerApi, WorkerTimeApi, WorkerExcelApi, WorkTimeAnalyseApi, \
     work_time_analyse_api
 from config.apscheduler_conf import scheduler
-from config.conf import DEBUG, MAIL_TO, VERSION, SQLALCHEMY_DATABASE_URI
+from config.conf import DEBUG, DEVELOPER_MAIL, VERSION, SQLALCHEMY_DATABASE_URI
 from config.conf import MAIL_HOST_BLOCK_LIST
 from config.exception import WorldException
 from config.json_config import MyJSONEncoder
@@ -147,7 +147,7 @@ def flask_global_exception_handler(err):
     # 邮件服务 发送异常通知邮件  邮件模板
     try:
         if not socket_util.get_host_name() in MAIL_HOST_BLOCK_LIST:
-            mail_util.send_email(json.dumps(data) + message, MAIL_TO)
+            mail_util.send_email(json.dumps(data) + message, DEVELOPER_MAIL)
     except Exception as e:
         # logger.exception(e)
         logger.error(str(e))

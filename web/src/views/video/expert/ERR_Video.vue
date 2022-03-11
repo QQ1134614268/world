@@ -79,7 +79,6 @@ export default {
       this.tableData = res.data.data
     },
     getFileList(fileList){
-      debugger
       this.fileList=fileList
     },
     uploadFileSuccess2(res, file, fileList) {

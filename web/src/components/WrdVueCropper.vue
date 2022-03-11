@@ -8,7 +8,6 @@
         :on-change='changeUpload'
         :before-upload='beforeUpload'
     >
-      <!--      todo-->
       <el-image v-if="url" :src="url" style="width: 150px;height: 150px"></el-image>
       <i v-if="!url" class="el-icon-upload"></i>
       <div v-if="!url" class="el-upload__text">点击上传</div>
@@ -81,7 +80,6 @@ export default {
       })
     },
     async finish() {
-      debugger
       let formData = new FormData();
       this.$refs.cropper.getCropBlob(async (data) => {
         formData.append("file", data, "cropper.png");

@@ -12,7 +12,6 @@ from util.password_util import get_sha256_salt_password
 from util.unique_util import get_uuid
 
 
-# todo 都要有注释
 class BaseTable(db.Model):
     __abstract__ = True  # 加了该属性后生成表的时候不会生成该表
     id = Column(Integer, primary_key=True, autoincrement=True, comment="主键")
@@ -76,21 +75,21 @@ class SystemLevelVO(BaseTable):
 
 class UserVO(BaseTable):
     __tablename__ = 'user'
-    username = Column(String(255), index=True, unique=True, nullable=False)
-    phone = Column(String(11))
-    avatar = Column(String(255))
+    username = Column(String(255), index=True, unique=True, nullable=False, comment="用户名")
+    phone = Column(String(11), comment="手机号")
+    avatar = Column(String(255), comment="头像path")
 
-    email = Column(String(60))
-    userType = Column(Integer, default=1)
+    email = Column(String(60), comment="email")
+    userType = Column(Integer, default=1, comment="用户类型")
 
-    describe = Column(String(255))
-    id_card = Column(String(255))  # 身份证
-    tiktok_number = Column(String(255))  # 抖音号
-    video_number = Column(String(255))  # 视频号
-    wechat_number = Column(String(255))  # 微信号
-    role = Column(String(255))
+    describe = Column(String(255), comment="签名")
+    id_card = Column(String(255), comment="身份证")
+    tiktok_number = Column(String(255), comment="抖音号")
+    video_number = Column(String(255), comment="视频号")
+    wechat_number = Column(String(255), comment="微信号")
+    role = Column(String(255), comment="角色")
 
-    _password = Column('password', String(255), nullable=False)
+    _password = Column('password', String(255), nullable=False, comment="密码hash")
 
     # 设置访问密码的方法,并用装饰器@property设置为属性,调用时不用加括号
     @property
@@ -111,29 +110,29 @@ class UserVO(BaseTable):
 
 class UserRoleVO(BaseTable):
     __tablename__ = 'user_role_t'
-    user_id = Column(String(128))
-    role = Column(String(128), ForeignKey(EnumConfig.code, onupdate='CASCADE'))
+    user_id = Column(String(128), comment="用户id")
+    role = Column(String(128), ForeignKey(EnumConfig.code, onupdate='CASCADE'), comment="角色")
 
 
 class RolePermissionVO(BaseTable):
     __tablename__ = 'role_permission_t'
-    role = Column(String(128), ForeignKey(EnumConfig.code, onupdate='CASCADE'))
-    permission = Column(String(128), ForeignKey(EnumConfig.code, onupdate='CASCADE'))
+    role = Column(String(128), ForeignKey(EnumConfig.code, onupdate='CASCADE'), comment="角色")
+    permission = Column(String(128), ForeignKey(EnumConfig.code, onupdate='CASCADE'), comment="权限")
 
 
 class AnnouncementVO(BaseTable):
     __tablename__ = 'announcement'
-    user_id = Column(Integer, index=True)
-    title = Column(String(128), index=True)
-    content = Column(String(150), default='123456')
-    images = Column(String(70), default='/')
+    user_id = Column(Integer, index=True, comment="用户id")
+    title = Column(String(128), index=True, comment="标题")
+    content = Column(String(150), default='123456', comment="内容")
+    images = Column(String(70), default='/', comment="配图path")
 
 
 class SuggestVO(BaseTable):
     __tablename__ = 'suggest_t'
-    content = Column(String(150))
-    image = Column(String(70))
-    announcement_id = Column(Integer)
+    content = Column(String(150), comment="内容")
+    image = Column(String(70), comment="配图path")
+    announcement_id = Column(Integer, comment="反馈的公告id")
 
 
 class UserCloudSpaceVO(BaseTable):
@@ -146,7 +145,7 @@ class UserCloudSpaceVO(BaseTable):
 class LogVO(BaseTable):
     __tablename__ = 'log_t'
     # tag: 标签
-    user_id = Column(Integer, index=True)
-    message = Column(Text, default='')
-    tag = Column(Text, default='')
-    is_read = Column(Boolean, default=False)
+    user_id = Column(Integer, index=True, comment="用户id")
+    message = Column(Text, default='', comment="消息")
+    tag = Column(Text, default='', comment="标签")
+    is_read = Column(Boolean, default=False, comment="是否消费")

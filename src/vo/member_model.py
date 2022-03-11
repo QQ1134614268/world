@@ -13,12 +13,12 @@ from vo.table_model import BaseTable
 
 class StoreVO(BaseTable):
     __tablename__ = 'store_t'
-    name = Column(String(256), index=True)
-    store_name = Column(Integer, index=True)
-    phone = Column(String(11), index=True)
-    user_id = Column(Integer, index=True)
+    name = Column(String(256), index=True, comment="姓名")
+    store_name = Column(Integer, index=True, comment="店铺名")
+    phone = Column(String(11), index=True, comment="手机号")
+    user_id = Column(Integer, index=True, comment="用户id")
 
-    _password = Column('password', String(255), nullable=False)
+    _password = Column('password', String(255), nullable=False, comment="密码hash")
 
     @property
     def password(self):
@@ -36,8 +36,8 @@ class StoreVO(BaseTable):
 
 class StoreMemberTable(BaseTable):
     __tablename__ = 'store_member_t'
-    store_id = Column(Integer, index=True)
-    user_id = Column(Integer, index=True)
+    store_id = Column(Integer, index=True, comment="店铺id")
+    user_id = Column(Integer, index=True, comment="用户id")
     user_type = Column(String(256), index=True, default=StoreMemberType.NormalVip.name,
                        comment=get_comment(StoreMemberType))  # todo 客户, 店员(后厨,店长,管理员, 普通店员)
 
@@ -49,14 +49,14 @@ class StoreRoleTable(BaseTable):
 
 class WalletVO(BaseTable):
     __tablename__ = 'wallet_t'
-    user_id = Column(Integer)
-    store_id = Column(Integer, index=True)
+    user_id = Column(Integer, comment="用户id")
+    store_id = Column(Integer, index=True, comment="店铺id")
     money = Column(Float(precision="14,2"), comment="余额", default=0)
 
 
 class GoodsVO(BaseTable):
     __tablename__ = 'goods_t'
-    name = Column(String(256))
+    name = Column(String(256), comment="商品名")
     price = Column(Float(precision="14,2"), nullable=False, comment="价格")
     duration = Column(Float(precision="14,2"), comment="折扣?")
     describe = Column(String(256), comment="介绍")
@@ -67,12 +67,12 @@ class GoodsVO(BaseTable):
 
 class OrderVO(BaseTable):
     __tablename__ = 'order_t'
-    store_id = Column(Integer, index=True)  # 单一后台?  平台
-    goods_id = Column(Integer, index=True)
-    goods_img = Column(String(256))
-    goods_name = Column(String(256), index=True)
-    user_id = Column(Integer, index=True)
-    num = Column(Integer)
+    store_id = Column(Integer, index=True, comment="店铺id")  # 单一后台?  平台
+    goods_id = Column(Integer, index=True, comment="商品id")
+    goods_img = Column(String(256), comment="商品图片path")
+    goods_name = Column(String(256), index=True, comment="商品名")
+    user_id = Column(Integer, index=True, comment="用户id")
+    num = Column(Integer, comment="数量")
     price = Column(Float(precision="14,2"), comment="价格(每个)")  # todo price 仅扣费时
     # info = Column(String(256), comment="详情,size,冷热, ")  # todo 详情:颜色,材料,气味等
 

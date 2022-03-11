@@ -49,7 +49,6 @@ export default {
       }
     },
     getUrl(url) {
-      debugger
       this.form.avatar = url
     },
     async save() {

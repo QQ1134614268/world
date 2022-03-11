@@ -9,7 +9,6 @@ CONFIG_NAME_MAPPER = {
 }
 DEBUG = True
 
-DI = "2440024344@qq.com"
 ROOT_DIR = path.abspath(path.dirname(__file__))
 RESOURCE_DIR = path.join(path.dirname(path.dirname(ROOT_DIR)), "resource")
 DATA_DIR = path.join(path.dirname(path.dirname(ROOT_DIR)), "data")
@@ -28,17 +27,16 @@ DATE_FORMAT = "%Y-%m-%d"
 DATE_TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
 PUBLIC_KEY = "world"
 
-MAIL_TO = "1134614268@qq.com"
+DEVELOPER_MAIL = "1134614268@qq.com"
+DI = "2440024344@qq.com"
+ZERO_MAIL = "1134614268@qq.com"
+
 SERVER_MAIL = "1134614268@qq.com"
 SERVER_MAIL_HOST = "smtp.qq.com"
 SERVER_MAIL_PORT = 465
-SERVER_MAIL_PASS = "ragrmyytlnsuibih"
-
-APPID = "2019082466418136"
-ALI_PAY_AES_KEY = "U2LU6HVqOHkv7w7w5rZ2Ew=="
+SERVER_MAIL_PASS = "ijivowrottpbjfci"
 
 VERSION = "3.0.0"
-ROBOT_HOST = "http://127.0.0.1"
 
 SECRET = "secret"
 DIALCT = "mysql"

@@ -2,10 +2,11 @@
   <div>
     每日报表
     <el-table :data="data">
+      <el-table-column prop="time" sortable label="工作时间"></el-table-column>
+      <el-table-column prop="name" sortable label="姓名"></el-table-column>
       <el-table-column prop="area" sortable label="地点"></el-table-column>
       <el-table-column prop="content" sortable label="工作内容"></el-table-column>
-      <el-table-column prop="name" sortable label="人员"></el-table-column>
-      <el-table-column prop="time" sortable label="工作时间"></el-table-column>
+      <el-table-column prop="hours" sortable label="时长"></el-table-column>
     </el-table>
     总工时--{{ total }}小时
   </div>
