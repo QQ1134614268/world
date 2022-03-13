@@ -97,7 +97,7 @@
 
 <script>
 import {WorkerApi, WorkerExcelApi} from "@/api/api";
-import {exportExcelByHeader, querySearch} from "@/api/util";
+import {exportExcelByHeader, getToken, querySearch} from "@/api/util";
 import {TOKEN} from "@/api/config";
 
 export default {
@@ -109,7 +109,7 @@ export default {
       searchIDCard: "",
       searchPhone: "",
       headers: {
-        token: localStorage.getItem(TOKEN)
+        token: getToken
       },
       //分页
       currentPage: 1,

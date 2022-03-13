@@ -41,6 +41,7 @@
 <script>
 import {FileApi} from "@/api/api";
 import {TOKEN, VIDEO_TYPE} from "@/api/config";
+import {getToken} from "@/api/util";
 
 export default {
   name:"WrdVideoUpload",
@@ -53,11 +54,9 @@ export default {
       type: String,
       default: FileApi
     },
-    fileList: {
-      type: Array,
-      default: () => {
-        return []
-      }
+    file: {
+      type: String,
+      default: FileApi
     },
     accept: {
       type: String,
@@ -71,6 +70,7 @@ export default {
   },
   data() {
     return {
+      fileList:[],
       dialogImageUrl: '',
       dialogVisible: false,
       // fileLists:this.fileList,
@@ -79,7 +79,7 @@ export default {
       //   uid: null
       // },
       // editView: false,
-      token: localStorage.getItem(TOKEN),
+      token: getToken(),
       uploadPercentage: 0,
       showProgress: false,
       uploadUrl: '',
@@ -121,8 +121,7 @@ export default {
         return
       }
       this.$message.success("上传成功")
-      // todo BUG
-      this.$emit("getFileList",this.fileList)
+      this.$emit("getFileList",fileList)
       // let obj = {
       //   uid: file.uid,
       //   url: response.data,

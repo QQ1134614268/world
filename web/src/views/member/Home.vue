@@ -1,5 +1,5 @@
 <template>
-  <div id="container" class="p_c_box-flex_col">
+  <div id="container" class="p_c_box-flex_col p_c_HolyGrail-content">
     <div id="header" class="p_c_box-flex_center">
       <div class="p_c_box-flex_center">
         <router-link :to=MemberRootUrl>会员系统</router-link>
@@ -23,7 +23,7 @@
         <router-link tag="a" :to=SYS_REGISTER_URL>注册</router-link>
       </div>
     </div>
-    <div id="body">
+    <div id="body" class="p_c_HolyGrail-body">
       <router-view/>
     </div>
     <footer>
@@ -84,7 +84,6 @@ export default {
   flex: 1;
   height: 100vh;
   width: 100%;
-  overflow-y: scroll;
 }
 
 footer {

@@ -86,8 +86,7 @@ export default {
         let result = await this.$postForm(FileApi, formData)
         if (result.data.code == 1) {
           this.dialogVisible = false
-          this.url = result.data.data
-          debugger
+          // this.url = result.data.data
           this.$emit("getUrl", result.data.data)
         } else {
           this.$message.error("上传失败!")

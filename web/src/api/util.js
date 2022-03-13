@@ -228,9 +228,17 @@ export async function exportExcelByHeader(url, headers) {
 
 export function getUserInfoByToken() {
     if (localStorage.getItem(TOKEN) != undefined && localStorage.getItem(TOKEN) != '') {
-        return jwt_decode(localStorage.getItem(TOKEN))
+        try {
+            return jwt_decode(localStorage.getItem(TOKEN))
+        } catch (ex) {
+            console.log('捕获到异常：', ex);
+        }
     }
     return undefined
+}
+
+export function getToken() {
+    return localStorage.getItem(TOKEN)
 }
 
 export function getUserIdByToken() {

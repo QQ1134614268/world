@@ -22,8 +22,9 @@ export async function userLogin(data) {
 // 更新用户信息 -> 更新token -> 更新userInfo
 export async function updateUser(data) {
     let res = await putJson2(UserApi, data.id, data)
-    let token = res.data.data
-    storeToken(token)
+    // todo
+    // let token = res.data.data
+    // storeToken(token)
 }
 
 // 登出

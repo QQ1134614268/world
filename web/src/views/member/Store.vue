@@ -1,22 +1,22 @@
 <template>
-  <div class="p_c_HolyGrail-body" style="height: 100%; ">
-    <div class="p_c_box-flex" style="overflow-y: scroll">
+  <div class="p_c_HolyGrail-body" style="height: 100%;">
+    <div class="p_c_box-flex" style=" flex: 1">
       <nav class="p_c_box-flex_col">
         <a :href="'#'+obj.label" :key="index" v-for="(obj,index) in tableData">{{ obj.label }}</a>
       </nav>
-      <div>
-        <div :key="index" v-for="(obj,index) in tableData" style="height: 50rem">
-          <a :id="obj.label" style="height: 1.6rem; font-weight: bold">{{ obj.label }}</a>
-          <div :key="index2" v-for="(obj2, index2) in obj.data" class="p_c_box-flex">
-            <el-image style="width: 5rem" :src="obj2.images"></el-image>
-            <div>
-              <div>
+      <div >
+        <div :key="index" v-for="(obj,index) in tableData">
+          <a :id="obj.label" style="color:#cccccc; font-weight: lighter">{{ obj.label }}</a>
+          <div :key="index2" v-for="(obj2, index2) in obj.data" class="p_c_box-flex" style="margin-bottom: 0.5rem">
+            <el-image style="width: 3rem;height: 3rem" :src="obj2.images"></el-image>
+            <div class="p_c_box-flex_col" style="justify-content:space-between">
+              <span>
                 {{ obj2.name }}
-              </div>
-              <div>
-                售价: {{ obj2.price }}
-                <el-input-number v-model="obj2.num" @change="handleChange(obj2)" :min="0" :max="10" size="small"
-                                 label="描述文字"></el-input-number>
+              </span>
+              <div class="p_c_flexbox_row">
+                <span>售价: {{ obj2.price }}</span>
+                <i class="el-icon-plus" @click="add(obj2)"
+                   style="background-color: orangered; border-radius: 3rem;align-self: end"></i>
               </div>
             </div>
           </div>
@@ -54,6 +54,7 @@ export default {
     return {
       num: 0,
       tableData: [],
+      tableData2: [],
       drawer: false,
       order_list: [],
       orderMap: {},
@@ -61,23 +62,20 @@ export default {
     }
   },
   methods: {
+    add(obj) {
+      obj.num = (obj.num || 0) + 1
+      this.order_list = this.tableData2.filter((obj) => obj.num > 0)
+    },
     buy() {
       postOrder(this.order_list)
-    },
-    handleChange(goodObj) {
-      this.orderMap[goodObj.id] = goodObj
-      this.order_list = []
-      for (let i in this.orderMap) {
-        this.order_list.push(this.orderMap[i])
-      }
     },
     async init() {
       let data = {
         store_id: this.store_id
       }
       let response = await this.$get2(GoodsApi, 0, data);
-      this.tableData = response.data.data
-      this.tableData = toTree(this.tableData)
+      this.tableData2 = response.data.data
+      this.tableData = toTree(this.tableData2)
     },
   },
   created() {

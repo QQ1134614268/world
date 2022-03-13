@@ -2,11 +2,12 @@ export const MemberRootUrl = "/member"
 export const UserSpace = "/member/UserSpace"
 export const Store = "/member/Store"
 export const MemberAdminHome = "/member/admin"
+export const order = "/member/order"
+
 export const GoodsList = "/member/admin/GoodsList"
 export const GoodsAdd = "/member/admin/GoodsAdd"
 export const GoodsEdit = "/member/admin/GoodsEdit"
 export const Qrcode = "/member/admin/Qrcode"
-export const order = "/member/admin/order"
 export const OrderInfo = "/member/admin/OrderInfo"
 export const UserAdmin = "/member/admin/UserAdmin"
 export const UserRole = "/member/admin/UserRole"
@@ -26,7 +27,15 @@ const routes = [
             {
                 path: UserSpace,
                 component: () => import('@/views/member/UserSpace')
-            }
+            },
+            {
+                path: order,
+                component: () => import('@/views/member/MyOrder')
+            },
+            {
+                path: OrderInfo,
+                component: () => import('@/views/member/OrderInfo')
+            },
         ],
     },
     {
@@ -49,14 +58,6 @@ const routes = [
             {
                 path: RolePermission,
                 component: () => import('@/views/member/admin/RolePermission')
-            },
-            {
-                path: order,
-                component: () => import('@/views/member/MyOrder')
-            },
-            {
-                path: OrderInfo,
-                component: () => import('@/views/member/OrderInfo')
             },
             {
                 path: GoodsList,

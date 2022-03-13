@@ -34,7 +34,8 @@
     <el-dialog :title="form.id?'编辑':'新增'" :visible.sync="dialogVisible">
       <el-form ref="form" :model="form" :rules="rules" label-width="8rem" style="padding: 1rem">
         <el-form-item label="视频" prop="describe" required>
-          <WrdVideoUpload @getFileList="getFileList" :fileList="fileList" :before-avatar-upload="beforeAvatarUpload">
+<!--          todo-->
+          <WrdVideoUpload @getFileList="getFileList" :file="form.file" :before-avatar-upload="beforeAvatarUpload">
           </WrdVideoUpload>
         </el-form-item>
         <el-form-item label="视频封面" prop="describe" required>
@@ -99,11 +100,11 @@ export default {
       this.fileList = fileList
     },
     async onSubmit() {
-      if (!this.fileList) {
+      if (this.fileList.size()==0) {
         this.$message('请上传视频');
         return
       }
-      this.form.file = this.fileList[0].name
+      this.form.file = this.fileList[0].response.data
       let result = await this.$ppJson(WorksApi, this.form.id, this.form)
       if (result.data.code == 1) {
         this.dialogVisible = false

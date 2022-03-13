@@ -7,10 +7,6 @@
           <router-link :to="{path:OrderInfo,query:{'order_code':scope.row.order_code}}">{{scope.row.create_time}}</router-link>
         </template>
       </el-table-column>
-      <!--      <el-table-column prop="goods_name" label="商品名" width="180"></el-table-column>-->
-      <!--      <el-table-column prop="price" label="商品价格"></el-table-column>-->
-      <!--      <el-table-column prop="num" label="商品数量"></el-table-column>-->
-      <!--      <el-table-column prop="status" label="状态"></el-table-column>-->
     </el-table>
   </div>
 </template>
