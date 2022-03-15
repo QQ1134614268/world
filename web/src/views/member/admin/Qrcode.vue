@@ -16,7 +16,7 @@
           <el-input v-model="form.table_id"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit">立即创建</el-button>
+          <el-button type="primary" @click="onSubmit">确定</el-button>
           <el-button type="primary" @click="onCancel">取消</el-button>
         </el-form-item>
       </el-form>
@@ -49,7 +49,7 @@ export default {
       if (res.data.code == 1) {
         this.dialogVisible = false
         // this.$message.info("操作成功")
-        this.$message('操作成功');
+        this.$message.success('操作成功');
         await this.init()
       }
     },

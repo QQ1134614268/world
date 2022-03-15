@@ -126,6 +126,8 @@ class WorksApi(Resource):
 
     def put(self, _id):
         data = request.get_json()
+        data.pop("duration")
+        data.pop("size")
         WorksVO.query.filter(WorksVO.id == _id).update(data)
         db.session.commit()
         return res_util.success(_id)

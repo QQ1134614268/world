@@ -67,9 +67,9 @@ export default {
       this.form.store_id = this.store_id
       let response = await this.$ppJson(GoodsApi, this.form.id, this.form);
       if (response.data.code != 1) {
-        this.$message('操作失败');
+        this.$message.error('服务器异常');
       } else {
-        this.$message('操作成功');
+        this.$message.success('操作成功');
       }
       await this.init()
     },

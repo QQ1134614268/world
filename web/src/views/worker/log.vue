@@ -35,7 +35,7 @@ export default {
       }
       let res = await this.$get2(LogApi, 0, data)
       if (res.data.code != 1) {
-        this.$message('服务器异常');
+        this.$message.error('服务器异常');
         return
       }
       this.data = res.data.data

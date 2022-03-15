@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-upload
-        action="FileApi2"
+        action="#"
         accept=IMG_TYPE_STR
         :auto-upload="false"
         :show-file-list="false"
@@ -67,8 +67,8 @@ export default {
     }
   },
   methods: {
-    beforeUpload() {
-      beforeImgUpload()
+    beforeUpload(file) {
+      return beforeImgUpload(file)
     },
     // 上传按钮   限制图片大小
     changeUpload(file, fileList) {

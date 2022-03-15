@@ -6,10 +6,10 @@
       </div>
     </div>
     <div id="body">
-      <el-input v-model="from.imgUrl"></el-input>
-      <el-input v-model="from.imgUrl"></el-input>
+      <el-input v-model="form.imgUrl"></el-input>
+      <el-input v-model="form.imgUrl"></el-input>
       <el-button @click="change">改变</el-button>
-      <el-avatar :src="from.imgUrl" :key="from.imgUrl"></el-avatar>
+      <el-avatar :src="form.imgUrl" :key="form.imgUrl"></el-avatar>
     </div>
   </div>
 </template>
@@ -20,7 +20,7 @@ export default {
   data() {
     return {
       input: "",
-      from: {},
+      form: {},
       imgUrl: "upload_file/963e329ab7f411eb849580fa5b6c6ed4_movie.jpg",
       imgUrl2: "upload_file/1b337502917011ebb2b580fa5b6c6ed4_小程序.jpg",
     }
@@ -28,13 +28,13 @@ export default {
   methods: {
     async change() {
       await this.sleep(1000);
-      if (this.from.imgUrl == this.imgUrl) {
-        return this.from.imgUrl = this.imgUrl2
+      if (this.form.imgUrl == this.imgUrl) {
+        return this.form.imgUrl = this.imgUrl2
       }
-      if (this.from.imgUrl == this.imgUrl2) {
-        return this.from.imgUrl = ""
+      if (this.form.imgUrl == this.imgUrl2) {
+        return this.form.imgUrl = ""
       }
-      this.from.imgUrl = this.imgUrl
+      this.form.imgUrl = this.imgUrl
     },
     sleep(time) {
       return new Promise((resolve) => {

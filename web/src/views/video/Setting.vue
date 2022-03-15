@@ -45,7 +45,7 @@ export default {
       if (result.data.code == 1) {
         this.form = result.data.data
       } else {
-        this.$message('');
+        this.$message.error('操作失败');
       }
     },
     getUrl(url) {

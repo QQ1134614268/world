@@ -26,7 +26,7 @@ export default {
       let data = {}
       let res = await this.$putJson2(InvitationCodeApi, 0, data)
       if (res.data.code != 1) {
-        this.$message('服务器异常');
+        this.$message.error('服务器异常');
         return
       }
       this.code = res.data.data

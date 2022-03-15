@@ -32,15 +32,15 @@ export default {
       if (result.data.code == 1) {
         this.form = result.data.data
       } else {
-        this.$message('');
+        this.$message.success('操作成功');
       }
     },
     async save() {
       let result = await this.$putJson2(UserApi, this.form.id, this.form)
       if (result.data.code == 1) {
-        this.$message('修改成功!');
+        this.$message.success('操作成功');
       } else {
-        this.$message('');
+        this.$message.error('');
       }
     },
   },

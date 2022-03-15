@@ -32,7 +32,7 @@ export default {
       if (res3.data.code == 1) {
         this.story = res3.data.data
       } else {
-        this.$message('失败');
+        this.$message.error('失败');
       }
     }
   },

@@ -251,11 +251,14 @@ export function beforeImgUpload(file) {
     const isImage = IMG_TYPE.includes(file.type);
     if (!isImage) {
         Vue.prototype.$message.error('上传图片格式不正确!');
+        return false
     }
     const isLtSize = file.size / 1024 / 1024 < 5;
     if (!isLtSize) {
         Vue.prototype.$message.error('上传图片大小不能超过 5MB!');
+        return false
     }
+    return true
 }
 
 

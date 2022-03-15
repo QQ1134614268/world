@@ -129,10 +129,10 @@ export default {
   methods: {
     async uploadFileSuccess(res, file) {
       if (res.code === 1) {
-        this.$message('操作成功')
+        this.$message.success('操作成功')
       }
       if (res.code === 2) {
-        this.$message(res.data.data)
+        this.$message.error(res.data.data)
       }
       if (res.code === 4) {
         let str = res.data.join(' <br/> ');
@@ -166,7 +166,7 @@ export default {
       }
       let response = await this.$get2(WorkerApi, 0, data);
       if (response.data.code != 1) {
-        this.$message(response.data.data);
+        this.$message.error(response.data.data);
         return
       }
       this.data = response.data.data
@@ -186,7 +186,7 @@ export default {
       }
       let response = await this.$get2(WorkerApi, 0, data);
       if (response.data.code != 1) {
-        this.$message(response.data.data);
+        this.$message.error(response.data.data);
         return
       }
       this.data = response.data.data
@@ -198,7 +198,7 @@ export default {
     async save() {
       let response = await this.$ppJson(WorkerApi, this.form.id, this.form);
       if (response.data.code != 1) {
-        this.$message(response.data.data);
+        this.$message.error(response.data.data);
         return
       }
       this.$message('success');

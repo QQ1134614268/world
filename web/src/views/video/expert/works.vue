@@ -11,11 +11,11 @@
     <div class="p_c_flexbox">
       <div v-for="(o, index)  in tableData">
         <div class="block">
-          <a :href=VideoUrl>
+          <router-link :to="{path:VideoUrl,query: {video_id: o.id}}" class="p_c_space">
             <div>
               <img :src="o.thumbnail" style="width: 16rem;height: 9rem;object-fit: cover;">
             </div>
-          </a>
+          </router-link>
           <div>
             {{ o.describe }}
           </div>
@@ -34,22 +34,16 @@
     <el-dialog :title="form.id?'编辑':'新增'" :visible.sync="dialogVisible">
       <el-form ref="form" :model="form" :rules="rules" label-width="8rem" style="padding: 1rem">
         <el-form-item label="视频" prop="describe" required>
-<!--          todo-->
-          <WrdVideoUpload @getFileList="getFileList" :file="form.file" :before-avatar-upload="beforeAvatarUpload">
-          </WrdVideoUpload>
+          <WrdVideoUploadV2 @getUrl="getUrl" :fileUrl="form.file"></WrdVideoUploadV2>
         </el-form-item>
         <el-form-item label="视频封面" prop="describe" required>
-          <el-upload style="width: 10%;height: 10%" :show-file-list="false" :action="FileApi"
-                     :on-success="uploadFileSuccess2">
-            <img v-if="form.thumbnail" :src="form.thumbnail">
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
+          <WrdImgUpload @getUrl="getUrl2" :fileUrl="form.thumbnail"></WrdImgUpload>
         </el-form-item>
         <el-form-item label="描述">
           <el-input v-model="form.describe"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit">立即创建</el-button>
+          <el-button type="primary" @click="onSubmit">确定</el-button>
           <el-button type="primary" @click="onCancel">取消</el-button>
         </el-form-item>
       </el-form>
@@ -60,12 +54,13 @@
 <script>
 import {FileApi, WorksApi, WorksListApi} from "@/api/api";
 import {VideoUrl} from "@/views/video";
-import {getUserIdByToken, videoBeforeUpload} from "@/api/util";
-import WrdVideoUpload from "@/components/WrdVideoUpload";
+import {getUserIdByToken} from "@/api/util";
+import WrdVideoUploadV2 from "@/components/WrdVideoUploadV2";
+import WrdImgUpload from "@/components/WrdImgUpload";
 
 export default {
   name: "works",
-  components: {WrdVideoUpload},
+  components: {WrdImgUpload, WrdVideoUploadV2},
   data() {
     return {
       rules: {
@@ -85,31 +80,30 @@ export default {
     }
   },
   methods: {
-    uploadFileSuccess2(res, file, fileList) {
-      this.form.thumbnail = res.data
-    },
     async init() {
       let result = await this.$get2(WorksListApi, 0, {user_id: this.user_id})
       if (result.data.code == 1) {
         this.tableData = result.data.data
       } else {
-        this.$message('失败');
+        this.$message.error('失败');
       }
     },
-    getFileList(fileList) {
-      this.fileList = fileList
+    getUrl(fileUrl) {
+      this.form.file = fileUrl
+    },
+    getUrl2(fileUrl) {
+      this.form.thumbnail = fileUrl
     },
     async onSubmit() {
-      if (this.fileList.size()==0) {
-        this.$message('请上传视频');
+      if (!this.form.file) {
+        this.$message.warning('请上传视频');
         return
       }
-      this.form.file = this.fileList[0].response.data
       let result = await this.$ppJson(WorksApi, this.form.id, this.form)
       if (result.data.code == 1) {
         this.dialogVisible = false
       } else {
-        this.$message('失败');
+        this.$message.error('失败');
       }
     },
     async onCancel() {
@@ -123,15 +117,12 @@ export default {
     async del(index, id) {
       let result = await this.$deleteJson2(WorksApi, id)
       if (result.data.code == 1) {
-        this.$message('删除成功!');
+        this.$message.success('删除成功!');
         this.tableData.splice(index, 1)
       } else {
-        this.$message('');
+        this.$message.error('操作失败');
       }
     },
-    beforeAvatarUpload(file) {
-      return videoBeforeUpload(file)
-    }
   },
   created() {
     this.init()

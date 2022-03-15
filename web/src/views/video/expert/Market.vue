@@ -75,7 +75,7 @@ export default {
         this.tableData = result.data.data
         this.totalNum = result.data.total
       } else {
-        this.$message('失败');
+        this.$message.error('失败');
       }
       let result3 = await this.$get2(WorksRankListApi, 0)
       this.rankData = result3.data.data

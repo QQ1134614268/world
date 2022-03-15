@@ -11,7 +11,7 @@
         <el-input v-model="form.code"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">立即创建</el-button>
+        <el-button type="primary" @click="onSubmit">确定</el-button>
         <el-button type="primary" @click="onCancel">取消</el-button>
       </el-form-item>
     </el-form>
@@ -33,10 +33,10 @@ export default {
     async onSubmit() {
       let result = await videoUserRegister(this.form)
       if (result.data.code == 1) {
-        this.$message('注册成功');
+        this.$message.success('注册成功');
         await this.$router.push({path: '/'})
       } else {
-        this.$message('注册失败');
+        this.$message.error('注册失败');
       }
     },
     async onCancel() {

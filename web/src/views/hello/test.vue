@@ -1,8 +1,6 @@
 <template>
   <WrdVideoUpload @get-file-list="getFileList" :fileList="fileList" limit=2>
   </WrdVideoUpload>
-
-  <el
 </template>
 <script>
 import WrdVideoUpload from "@/components/WrdVideoUpload";

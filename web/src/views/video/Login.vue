@@ -28,10 +28,10 @@ export default {
     async onLogin() {
       let res = await userLogin(this.form)
       if (res.data.code == 1) {
-        this.$message('登录成功');
+        this.$message.success('登录成功');
         await this.$router.back()
       } else {
-        this.$message('登陆失败,请重新检查账号密码');
+        this.$message.error('登陆失败,请重新检查账号密码');
       }
     },
   }

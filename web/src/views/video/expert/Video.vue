@@ -1,8 +1,12 @@
 <template>
   <div class="box">
     <div class="p_c_word-break"> 主题: {{ video.describe }}</div>
-    <video id="myVideo" class="video-js vjs-default-skin vjs-big-play-centered" muted autoplay controls preload loop>
-      <source :src="video.file" type="video/mp4">
+    <!--    <video id="myVideo" class="video-js vjs-default-skin vjs-big-play-centered" muted autoplay  preload loop>-->
+    <!--      <source :src="video.file" type="video/mp4">-->
+    <!--    </video>-->
+    <video preload="true" controls v-if="video.file">
+      <source :src="video.file" :key="video.file" type="video/mp4">
+      您的浏览器不支持 HTML5 video 标签 。
     </video>
   </div>
 </template>
@@ -26,13 +30,13 @@ export default {
         this.video = result.data.data
         document.title = this.video.describe
       } else {
-        this.$message('失败');
+        this.$message.error('失败');
       }
       let result2 = await this.$get2(UserApi, this.video.user_id)
       if (result.data.code == 1) {
         this.user = result2.data.data
       } else {
-        this.$message('失败');
+        this.$message.error('失败');
       }
     },
   },

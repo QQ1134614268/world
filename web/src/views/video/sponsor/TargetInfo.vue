@@ -29,13 +29,13 @@ export default {
         this.target = result.data.data
         document.title = this.target.title
       } else {
-        this.$message('失败');
+        this.$message.error('失败');
       }
       let result2 = await this.$get2(UserApi, this.target.user_id)
       if (result.data.code == 1) {
         this.user = result2.data.data
       } else {
-        this.$message('失败');
+        this.$message.error('失败');
       }
     },
   },

@@ -29,7 +29,7 @@
           <el-input v-model="form.price" @input="form.price=form.price.replace(/[^\d.]/g,'')"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit">立即创建</el-button>
+          <el-button type="primary" @click="onSubmit">确定</el-button>
           <el-button type="primary" @click="onCancel">取消</el-button>
         </el-form-item>
       </el-form>
@@ -66,10 +66,10 @@ export default {
     async handleDelete(index, row) {
       let result = await this.$deleteJson2(TargetApi, row.id)
       if (result.data.code == 1) {
-        this.$message('删除成功!');
+        this.$message.success('删除成功!');
         this.tableData.splice(index, 1)
       } else {
-        this.$message('');
+        this.$message.error('操作失败');
       }
     },
     async onSubmit() {
@@ -80,9 +80,9 @@ export default {
         result = await this.$postJson2(TargetApi, 0, this.form)
       }
       if (result.data.code == 1) {
-        this.$message('成功');
+        this.$message.success('操作成功');
       } else {
-        this.$message('失败');
+        this.$message.error('操作失败');
       }
     },
     onCancel() {
@@ -97,7 +97,7 @@ export default {
       if (result.data.code == 1) {
         this.tableData = result.data.data
       } else {
-        this.$message('失败');
+        this.$message.error('失败');
       }
     },
 

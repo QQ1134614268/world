@@ -61,17 +61,17 @@ export default {
       if (res1.data.code == 1) {
         this.obj = res1.data.data
       } else {
-        this.$message('失败');
+        this.$message.error('失败');
       }
       if (res3.data.code == 1) {
         this.prove = res2.data.data
       } else {
-        this.$message('失败');
+        this.$message.error('失败');
       }
       if (res3.data.code == 1) {
         this.story = res3.data.data
       } else {
-        this.$message('失败');
+        this.$message.error('失败');
       }
     },
   },
