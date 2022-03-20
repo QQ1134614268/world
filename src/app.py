@@ -83,10 +83,10 @@ def before_request():
     :return:
     """
     url_path = request.path
-    ip_addr = request.remote_addr
+    ip_adder = request.remote_addr
     logger.info({
         "url_path": url_path,
-        "ip": ip_addr,
+        "ip": ip_adder,
         "action": "before_request"
     })
     # 校验系统权限 -> 子网关

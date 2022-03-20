@@ -1,9 +1,6 @@
 StoreMemberApi 不同系统,不同用户? 鉴权token? _唯一系统
 
 加密
-上传视频
-上传头像
-父子通信
 
 统一样式
 移动优先 -- 会员系统（小程序，） 小程序 web2 移动优先 Bootstrap5 vue3.0
@@ -29,6 +26,7 @@ StoreMemberApi 不同系统,不同用户? 鉴权token? _唯一系统
 类似linux用户,一个表, 文件有所有者,管理者,, 管理者下 分组;
 
 动态监听kafka: https://www.hangge.com/blog/cache/detail_3109.html
+https://gitee.com/mozping/total-learn/tree/master/mozping-msg-queue/msg-queue-consumer-
 
 程序--映射人
 推荐:
