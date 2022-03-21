@@ -25,9 +25,6 @@ StoreMemberApi 不同系统,不同用户? 鉴权token? _唯一系统
 用户管理->用户与商户?
 类似linux用户,一个表, 文件有所有者,管理者,, 管理者下 分组;
 
-动态监听kafka: https://www.hangge.com/blog/cache/detail_3109.html
-https://gitee.com/mozping/total-learn/tree/master/mozping-msg-queue/msg-queue-consumer-
-
 程序--映射人
 推荐:
     精品,大家喜欢,你喜欢,新,高评,周亮点,热搜,私人订制,大家都在用,分类-书籍,分类-视频

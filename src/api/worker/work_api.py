@@ -19,6 +19,7 @@ from service import work_service
 from service.user_service import get_id_by_token
 from util import res_util, db_util
 from util.excel_util import ExcelHandler, check_excel_type
+from util.log_util import logger
 from vo.value_object import WorkerExcelVO
 from vo.worker_model import WorkerVO, WorkerTimeVO
 
@@ -224,6 +225,7 @@ class Schedule:
     @staticmethod
     @work_time_analyse_api.route('/test/<int:_id>', methods=['GET'])
     def ana_worker_time(_id=None):
+        logger.info("统计工时-开始")
         data = work_service.get_day_report()
         tmp = list(map(lambda x: x.get("hours"), data))
         total = 0
@@ -242,4 +244,5 @@ class Schedule:
         output_text = template.render(data2)
 
         util.mail_util.send_email(output_text, DEVELOPER_MAIL, subject="工时统计", mime_text_type="html")
+        logger.info("统计工时-结束")
         return res_util.success()
