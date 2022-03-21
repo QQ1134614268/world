@@ -44,7 +44,8 @@ export default {
       this.ReviewEnum = await getEnum({group_code: REVIEW_ENUM})
     },
     async handleEdit(id, state) {
-      await this.$putJson2(ReviewWorksApi, id, {state: state})
+      debugger
+      await this.$putJson2(ReviewTargetApi, id, {state: state})
     }
   },
   created() {

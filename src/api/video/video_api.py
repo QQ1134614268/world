@@ -36,7 +36,7 @@ class VideoBlueprintApi():
         for vo in vos:
             path = os.path.join(DATA_DIR, vo.file[1:])
 
-            vo.size = os.path.getsize(path)/1024/1024
+            vo.size = os.path.getsize(path) / 1024 / 1024
 
             cap = cv2.VideoCapture(path)
             if cap.isOpened():
@@ -300,6 +300,7 @@ class ReviewTargetApi(Resource):
             TargetVO.price,
             TargetVO.user_id,
             TargetVO.create_time,
+            TargetVO.state,
             UserVO.avatar,
             UserVO.username,
         ).paginate(page=page, per_page=page_size)
@@ -311,6 +312,7 @@ class ReviewTargetApi(Resource):
         data = request.get_json()
         TargetVO.query.filter(TargetVO.id == _id).update(data)
         db.session.commit()
+        return res_util.success()
 
 
 class ReviewWorksApi(Resource):
@@ -350,3 +352,4 @@ class ReviewWorksApi(Resource):
         data = request.get_json()
         WorksVO.query.filter(WorksVO.id == _id).update(data)
         db.session.commit()
+        return res_util.success()
