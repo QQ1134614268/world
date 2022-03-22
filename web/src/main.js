@@ -66,7 +66,7 @@ Axios.interceptors.request.use(
 /** **** response 拦截器==>对响应做处理 ******/
 Axios.interceptors.response.use(
     response => {
-        if (response.status === 200) {
+        if (response.status === 200 && response.data != null) {
             if (response.data.code === 1) {
                 // todo response.data
                 return Promise.resolve(response);
