@@ -33,17 +33,9 @@
           <el-radio :label="item" v-for="(item,index) in align_items" :key="index">{{ item }}</el-radio>
         </el-radio-group>
       </div>
-
       <div class="row">
         <span>border</span>
         <el-radio-group v-model="show_border">
-          <el-radio :label=true>是</el-radio>
-          <el-radio :label=false>否</el-radio>
-        </el-radio-group>
-      </div>
-      <div class="row">
-        <span>成长</span>
-        <el-radio-group v-model="box_val.flex">
           <el-radio :label=true>是</el-radio>
           <el-radio :label=false>否</el-radio>
         </el-radio-group>
@@ -52,21 +44,28 @@
     <div class="btn_box">
       <div class="row">
         <span>align_self</span>
-        <el-radio-group v-model="item_val.align_self">
-          <el-radio label="true">是</el-radio>
-          <el-radio label="false">否</el-radio>
+        <el-radio-group v-model="align_self_attr">
+          <el-radio :label="item" v-for="(item,index) in align_self" :key="index">{{ item }}</el-radio>
         </el-radio-group>
+        <div class="row">
+          <span>flex成长</span>
+          <el-radio-group v-model="flex">
+            <el-radio label="0 0 auto">0 0 auto</el-radio>
+            <el-radio label="1 1 auto">1 1 auto</el-radio>
+          </el-radio-group>
+        </div>
       </div>
     </div>
-    <div>
-      <div v-for="(val ,key, index) of box_val" :key="index">
-        {{ key.replace("_", "-") }} : {{ val }}
-      </div>
-    </div>
+    <!--    <div>-->
+    <!--      <div v-for="(val ,key, index) of box_val" :key="index">-->
+    <!--        {{ key.replace("_", "-") }} : {{ val }}-->
+    <!--      </div>-->
+    <!--    </div>-->
     <div id="box">
-      <div :class="{p_c_test_border:show_border}" v-for="(item, index) in 20"
-           :style="{width:(index+1)+'rem', height:(index+1)+'rem'}">
+      <div v-for="(item, index) in 20" :class="{p_c_test_border:show_border}"
+           :style="{width:(index+1)+'rem', height:(index+1)+'rem','align-self':align_self_attr,'flex':flex}">
         {{ (index + 1) }}
+        白日依山尽,黄河入海流.
       </div>
     </div>
   </div>
@@ -84,6 +83,11 @@ export default {
       justify_content: ["flex-start", "flex-end", "center", "space-between", "baseline", "first baseline", "last baseline", "space-around", "space-evenly"],
       align_items: ["flex-start", "flex-end", "center", "baseline", "stretch"],
       align_content: ["flex-start", "flex-end", "center", "space-between", "space-around", "stretch"],
+
+      align_self: ["auto", "stretch", "center", "flex-start", "flex-end", "baseline", "initial", "inherit"],
+      align_self_attr: 'auto',
+      flex: '0 0 auto',
+
     }
   },
   created() {
@@ -95,8 +99,6 @@ export default {
 
       'align_content': 'stretch',
       'align_items': 'stretch',
-
-      'flex': '0 0  1',
     }
   },
   watch: {
@@ -114,7 +116,7 @@ export default {
         this.box = obj
       },
       deep: true
-    }
+    },
   }
 }
 </script>
@@ -137,7 +139,18 @@ export default {
   flex-grow: 0;
   flex-shrink: 0;
   flex-basis: auto;
-  flex: 0 0 1;
+
   align-self: center;
+}
+
+#box {
+  height: 60rem;
+  /*width: 100rem;*/
+  border: blue solid 1px;
+
+}
+
+.btn_box {
+  margin-left: 4rem
 }
 </style>

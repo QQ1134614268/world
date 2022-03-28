@@ -6,15 +6,13 @@
 from sqlalchemy import and_
 
 from config.conf import DATE_FORMAT
-from service.user_service import get_id_by_token
 from util import time_util
 from util.db_util import row_to_dic
 from vo.worker_model import WorkerVO, WorkerTimeVO
 
 
-def get_day_report():
+def get_day_report(user_id):
     # 日报模式
-    user_id = get_id_by_token()
     query_filter = [WorkerVO.belong == user_id, WorkerTimeVO.date == time_util.get_now_str(DATE_FORMAT)]
     join_filter = [WorkerTimeVO.worker_id == WorkerVO.id]
     res = WorkerVO.query.outerjoin(

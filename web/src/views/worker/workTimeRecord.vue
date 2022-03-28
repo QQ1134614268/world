@@ -5,7 +5,7 @@
       <span>日期:</span>
       <el-date-picker v-model="date" value-format="yyyy-MM-dd" type="date"></el-date-picker>
       <el-select v-model="time" placeholder="请选择" @change="init">
-        <el-option v-for="item in options" :label="item.label" :value="item.value"></el-option>
+        <el-option v-for="(item,index) in options" :label="item.label" :value="item.value" :key="index"></el-option>
       </el-select>
     </div>
     <el-table :data="data" style="width: 100%">
@@ -19,14 +19,14 @@
       <el-table-column key="morning_area" label="位置" v-if='this.time=="morning"'>
         <template slot-scope="scope">
           <el-select v-model="scope.row.morning_area" placeholder="请选择" @change="change(scope.row)">
-            <el-option v-for="item in config1" :label="item.code" :value="item.value"></el-option>
+            <el-option v-for="(item,index) in config1" :key="index" :label="item.code" :value="item.value"></el-option>
           </el-select>
         </template>
       </el-table-column>
       <el-table-column key="morning_content" label="工作内容" v-if='this.time=="morning"'>
         <template slot-scope="scope">
           <el-select v-model="scope.row.morning_content" placeholder="请选择" @change="change(scope.row)">
-            <el-option v-for="item in config2" :label="item.code" :value="item.value"></el-option>
+            <el-option v-for="(item,index) in config2" :label="item.code" :value="item.value" :key="index"></el-option>
           </el-select>
         </template>
       </el-table-column>
@@ -41,14 +41,14 @@
       <el-table-column key="noon_area" label="位置" v-if='this.time=="noon"'>
         <template slot-scope="scope">
           <el-select v-model="scope.row.noon_area" placeholder="请选择" @change="change(scope.row)">
-            <el-option v-for="item in config1" :label="item.code" :value="item.value"></el-option>
+            <el-option v-for="(item,index) in config1" :key="index" :label="item.code" :value="item.value"></el-option>
           </el-select>
         </template>
       </el-table-column>
       <el-table-column key="noon_content" label="工作内容" v-if='this.time=="noon"'>
         <template slot-scope="scope">
           <el-select v-model="scope.row.noon_content" placeholder="请选择" @change="change(scope.row)">
-            <el-option v-for="item in config2" :label="item.code" :value="item.value"></el-option>
+            <el-option v-for="(item,index) in config2" :label="item.code" :value="item.value" :key="index"></el-option>
           </el-select>
         </template>
       </el-table-column>
@@ -63,14 +63,14 @@
       <el-table-column key="afternoon_area" label="位置" v-if='this.time=="afternoon"'>
         <template slot-scope="scope">
           <el-select v-model="scope.row.afternoon_area" placeholder="请选择" @change="change(scope.row)">
-            <el-option v-for="item in config1" :label="item.code" :value="item.value"></el-option>
+            <el-option v-for="(item,index) in config1" :key="index" :label="item.code" :value="item.value"></el-option>
           </el-select>
         </template>
       </el-table-column>
       <el-table-column key="afternoon_content" label="工作内容" v-if='this.time=="afternoon"'>
         <template slot-scope="scope">
           <el-select v-model="scope.row.afternoon_content" placeholder="请选择" @change="change(scope.row)">
-            <el-option v-for="item in config2" :label="item.code" :value="item.value"></el-option>
+            <el-option v-for="(item,index) in config2" :label="item.code" :value="item.value" :key="index"></el-option>
           </el-select>
         </template>
       </el-table-column>
@@ -85,14 +85,14 @@
       <el-table-column key="afternoon" label="位置" v-if='this.time=="night"'>
         <template slot-scope="scope">
           <el-select v-model="scope.row.night_area" placeholder="请选择" @change="change(scope.row)">
-            <el-option v-for="item in config1" :label="item.code" :value="item.value"></el-option>
+            <el-option v-for="(item,index) in config1" :key="index" :label="item.code" :value="item.value"></el-option>
           </el-select>
         </template>
       </el-table-column>
       <el-table-column key="night_content" label="工作内容" v-if='this.time=="night"'>
         <template slot-scope="scope">
           <el-select v-model="scope.row.night_content" placeholder="请选择" @change="change(scope.row)">
-            <el-option v-for="item in config2" :label="item.code" :value="item.value"></el-option>
+            <el-option v-for="(item,index) in config2" :label="item.code" :value="item.value" :key="index"></el-option>
           </el-select>
         </template>
       </el-table-column>

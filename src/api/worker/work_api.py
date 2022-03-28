@@ -216,7 +216,8 @@ class WorkTimeAnalyseApi(Resource):
     @staticmethod
     @work_time_analyse_api.route('/get_day_report/<int:_id>', methods=['GET'])
     def get_day_report(_id):
-        ret = work_service.get_day_report()
+        user_id = get_id_by_token()
+        ret = work_service.get_day_report(user_id)
         return res_util.success(ret)
 
 
@@ -225,24 +226,24 @@ class Schedule:
     @work_time_analyse_api.route('/test/<int:_id>', methods=['GET'])
     def ana_worker_time(_id=None):
         logger.info("统计工时-开始")
-        data = work_service.get_day_report()
-        logger.info("统计工时-开始2")
-        tmp = list(map(lambda x: x.get("hours"), data))
-        total = 0
-        if tmp:
-            total = reduce(lambda x, y: x + y, tmp)
-        data2 = {
-            "list": data,
-            "total": total
-        }
+        # todo bug 定时任务 没有user_id , 1. 根据表,查找邮箱配置(很多用户,循环发送) 2. 捕获定时任务异常
+        for user_id in [1]:
+            data = work_service.get_day_report(user_id)
+            tmp = list(map(lambda x: x.get("hours"), data))
+            total = 0
+            if tmp:
+                total = reduce(lambda x, y: x + y, tmp)
+            data2 = {
+                "list": data,
+                "total": total
+            }
 
-        # 注意一点: 其中path需要为当前python文件所在目录的完整路径，get_template内部的参数为html模板相对于该python文件所在目录的路径(相对路径)。
-        template_loader = jinja2.FileSystemLoader(searchpath=RESOURCE_DIR)
-        template_env = jinja2.Environment(loader=template_loader)
-        template_file = "templete_worker_time.tpl.html"
-        template = template_env.get_template(template_file)
-        output_text = template.render(data2)
-        logger.info("统计工时-开始3", output_text)
-        mail_util.send_email(output_text, DEVELOPER_MAIL, subject="工时统计", mime_text_type="html")
+            # 注意一点: 其中path需要为当前python文件所在目录的完整路径，get_template内部的参数为html模板相对于该python文件所在目录的路径(相对路径)。
+            template_loader = jinja2.FileSystemLoader(searchpath=RESOURCE_DIR)
+            template_env = jinja2.Environment(loader=template_loader)
+            template_file = "templete_worker_time.tpl.html"
+            template = template_env.get_template(template_file)
+            output_text = template.render(data2)
+            mail_util.send_email(output_text, DEVELOPER_MAIL, subject="工时统计", mime_text_type="html")
         logger.info("统计工时-结束")
         return res_util.success()
