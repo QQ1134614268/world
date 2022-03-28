@@ -13,7 +13,7 @@ scheduler.add_job('init_dir', init_dir, trigger='date')
 scheduler.add_job('init_enum_table', init_enum_table, trigger='date')
 scheduler.add_job("clear_code", clear_code, trigger='cron', hour=23, minute=0)
 
-scheduler.add_job("ana_worker_time", Schedule.ana_worker_time, trigger='cron', hour=10, minute=35)
+scheduler.add_job("ana_worker_time", Schedule.ana_worker_time, trigger='cron', hour=16, minute=50)
 
 # 1. date 定时
 # scheduler.add_job("2",my_job, 'date', run_date='2009-11-06 16:30:05', args=['text'])

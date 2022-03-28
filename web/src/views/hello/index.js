@@ -33,12 +33,16 @@ const routes = [
         component: () => import('@/views/hello/TestHome')
     },
     {
-        path: '/hello/check',
-        component: () => import('@/views/hello/check')
+        path: '/hello/test_object_fit',
+        component: () => import('@/views/hello/test_object_fit')
+    },
+    {
+        path: '/hello/form_check',
+        component: () => import('@/views/hello/test_form_check')
     },
     {
         path: '/hello/test_input',
-        component: () => import('@/views/hello/test_input')
+        component: () => import('@/views/hello/test_form')
     },
     {
         path: '/hello/hello',
@@ -53,9 +57,6 @@ const routes = [
         component: () => import('@/views/hello/test_popup')
     },
     {
-        path: '/hello/TestWordStyle',
-        component: () => import("@/views/hello/TestWordStyle.vue")
-    }, {
         path: '/hello/test_echarts',
         component: () => import('@/views/hello/test_echarts')
     }, {
