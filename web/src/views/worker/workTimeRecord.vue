@@ -3,7 +3,7 @@
     考勤打卡
     <div>
       <span>日期:</span>
-      <el-date-picker v-model="date" value-format="yyyy-MM-dd" type="date"></el-date-picker>
+      <el-date-picker v-model="date" :value-format=DATE_FMT type="date"></el-date-picker>
       <el-select v-model="time" placeholder="请选择" @change="init">
         <el-option v-for="(item,index) in options" :label="item.label" :value="item.value" :key="index"></el-option>
       </el-select>
@@ -111,6 +111,7 @@
 <script>
 import {ConfigApi, WorkerTimeApi} from "@/api/api";
 import {getDateY_M_D} from "@/api/util";
+import {DATE_FMT} from "@/api/config";
 
 export default {
   name: "workTimeRecord",
@@ -118,6 +119,7 @@ export default {
     return {
       data: [],
       date: getDateY_M_D(),
+      DATE_FMT,
       time: "",
       config1: [],
       config2: [],

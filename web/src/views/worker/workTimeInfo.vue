@@ -9,7 +9,7 @@
       </div>
       <div class="col-6">
         <span>日期:</span>
-        <el-date-picker value-format="yyyy-MM-dd" v-model="dateRange"
+        <el-date-picker :value-format=DATE_FMT v-model="dateRange"
                         type="daterange" range-separator="至 " start-placeholder="开始日期" end-placeholder="结束日期">
         </el-date-picker>
       </div>
@@ -36,6 +36,7 @@
 <script>
 import {WorkerApi, WorkerTimeApi} from "@/api/api";
 import {getDateY_M_D} from "@/api/util";
+import {DATE_FMT} from "@/api/config";
 
 export default {
   name: "workTimeInfo",
@@ -44,6 +45,7 @@ export default {
       name: "",
       dateRange: [getDateY_M_D(), getDateY_M_D()],
       data: [],
+      DATE_FMT
     }
   },
   methods: {

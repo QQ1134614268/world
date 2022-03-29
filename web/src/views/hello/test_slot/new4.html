@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Slot</title>
@@ -18,13 +18,13 @@
             border: none;
         }
     </style>
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
 </head>
 <body>
 <div id="app">
     <Child>
-        这是Child内容 这是Child内容 这是Child内容
-        <slot style="color:red;">这是在slot上添加了样式</slot>
+        这是Child内容
+        <span style="color: red">这是在slot上添加了样式<br/></span>
     </Child>
 </div>
 

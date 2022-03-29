@@ -1,12 +1,10 @@
 <template>
-  <div>
+  <div class="p_c_box-flex_center">
     <div id="myChart" style="width: 50rem;height: 30rem"></div>
   </div>
 </template>
-
+<!--    <script src="https://cdn.bootcss.com/echarts/5.3.1/echarts.min.js"></script>-->
 <script>
-import echarts from 'echarts'
-
 export default {
   name: "test_echarts",
   data() {
@@ -18,7 +16,9 @@ export default {
     this.drawLine();
   },
   methods: {
-    drawLine() {
+    async drawLine() {
+      await this.init()
+
       // 基于准备好的dom，初始化echarts实例
       let myChart = echarts.init(document.getElementById('myChart'))
       // 绘制图表
@@ -35,8 +35,18 @@ export default {
           data: [5, 20, 36, 10, 10, 20]
         }]
       });
+    },
+    async init() {
+      let script = document.createElement("script");  //创建一个script标签
+      script.type = "text/javascript";
+      script.src = "https://cdn.bootcss.com/echarts/5.3.1/echarts.min.js";
+      document.getElementsByTagName('head')[0].appendChild(script);
+
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      // while (echarts == undefined) {
+      // }
     }
-  }
+  },
 }
 </script>
 

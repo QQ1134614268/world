@@ -1,28 +1,18 @@
 <template>
   <div>
-    <header>会员管理系统</header>
+    <h3 class="header">会员管理系统</h3>
     <main class="p_c_flexbox_row">
-      <nav class="col-1">
-        <li>
-          <router-link :to=GoodsList>菜单列表</router-link>
-        </li>
-        <li>
-          <router-link :to=Qrcode>二维码</router-link>
-        </li>
-        <li>
-          <router-link :to=UserAdmin>用户管理</router-link>
-        </li>
-        <li>
-          <router-link :to=UserRole>角色管理</router-link>
-        </li>
-        <li>
-          <router-link :to=RolePermission>权限管理</router-link>
-        </li>
-        <li>
-          <router-link :to=Finance>财务管理</router-link>
-        </li>
-      </nav>
-      <router-view></router-view>
+      <el-menu router :default-active="this.$route.fullPath" active-text-color="#409EFF">
+        <el-menu-item :index="item.menuPath" v-for="item in menuList">
+          <template slot="title">
+            <i :class="item.menuIcon"></i>
+            <span>
+                {{ item.menuName }}
+              </span>
+          </template>
+        </el-menu-item>
+      </el-menu>
+      <router-view class="p_c_flex_1"></router-view>
     </main>
 
   </div>
@@ -41,11 +31,44 @@ export default {
       UserRole,
       RolePermission,
       Finance,
+      menuList: [
+        {
+          menuName: "菜单",
+          menuPath: GoodsList,
+          menuIcon: "el-icon-connection",
+        },
+        {
+          menuName: "二维码",
+          menuPath: Qrcode,
+          menuIcon: "el-icon-connection",
+        },
+        {
+          menuName: "用户管理",
+          menuPath: UserAdmin,
+          menuIcon: "el-icon-connection",
+        },
+        {
+          menuName: "角色管理",
+          menuPath: UserRole,
+          menuIcon: "el-icon-connection",
+        },
+        {
+          menuName: "权限管理",
+          menuPath: RolePermission,
+          menuIcon: "el-icon-connection",
+        },
+        {
+          menuName: "财务管理",
+          menuPath: Finance,
+          menuIcon: "el-icon-connection",
+        },
+      ]
     }
   }
 }
 </script>
-
 <style scoped>
-
+.header{
+  text-align: center;
+}
 </style>

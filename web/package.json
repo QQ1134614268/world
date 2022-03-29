@@ -8,14 +8,13 @@
     "build": "vue-cli-service build --mode production"
   },
   "dependencies": {
+    "vue": "^2.6.11",
     "axios": "^0.19.2",
     "element-ui": "^2.13.2",
-    "qs": "^6.9.1",
-    "vue": "^2.6.11",
     "vue-router": "^3.1.5",
-    "jwt-decode": "^2.2.0",
-    "echarts": "^4.9.0",
     "vuex": "^2.4.1",
+    "qs": "^6.9.1",
+    "jwt-decode": "^2.2.0",
     "vue-cropper": "^0.4.9",
     "vue-quill-editor": "^3.0.6",
     "crypto-js": "^4.1.1"
@@ -24,7 +23,7 @@
     "@vue/cli-plugin-router": "~4.2.0",
     "@vue/cli-service": "~4.2.0",
     "vue-template-compiler": "^2.6.11",
-    "less-loader": "^5.0.0",
-    "less": "^4.1.1"
+    "less": "^4.1.1",
+    "less-loader": "^5.0.0"
   }
 }

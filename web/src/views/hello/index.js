@@ -59,22 +59,28 @@ const routes = [
     {
         path: '/hello/test_echarts',
         component: () => import('@/views/hello/test_echarts')
-    }, {
+    },
+    {
         path: '/hello/flex-test',
         component: () => import('@/views/hello/flex-test')
-    }, {
+    },
+    {
         path: '/hello/test_search',
         component: () => import('@/views/hello/test_search')
-    }, {
+    },
+    {
         path: '/hello/test_search_page',
         component: () => import('@/views/hello/test_search_page')
-    }, {
+    },
+    {
         path: '/hello/test',
         component: () => import('@/views/hello/test')
-    }, {
+    },
+    {
         path: '/hello/test_upload',
         component: () => import('@/views/hello/test_upload')
-    }, {
+    },
+    {
         path: '/hello/parent_child/Parent',
         component: () => import('@/views/hello/parent_child/Parent')
     },

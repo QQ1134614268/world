@@ -18,13 +18,13 @@
             border: none;
         }
     </style>
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
 </head>
 <body>
 <div id="app">
     <Child>
         <template slot="content" slot-scope="msg">
-            <div>{{ msg.data }}</div>
+            <div>{{ msg.data2 }}</div>
         </template>
     </Child>
 </div>
@@ -34,7 +34,7 @@
         <div class="panel">
             <div class="title">这是标题</div>
             <div class="content">
-                <slot name="content" :data="msg"></slot>
+                <slot name="content" :data2="msg"></slot>
             </div>
             <div class="footer">这是页脚</div>
         </div>

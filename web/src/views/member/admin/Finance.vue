@@ -3,13 +3,9 @@
     统计
     <div class="p_c_flexbox">
       <div>
-        <el-date-picker
-            v-model="dateRange"
-            value-format="yyyy-MM-dd"
-            type="daterange"
-            range-separator="至"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期">
+        <el-date-picker v-model="dateRange" :value-format=DATE_FMT type="daterange" range-separator="至"
+                        start-placeholder="开始日期"
+                        end-placeholder="结束日期">
         </el-date-picker>
       </div>
       <el-button type="primary" v-on:click="init">查询</el-button>
@@ -27,6 +23,7 @@
 <script>
 import {WorkerApi, WorkTimeAnalyseApi_get_sum_time} from "@/api/api";
 import {fmtDateY_M_D, querySearch} from "@/api/util";
+import {DATE_FMT} from "@/api/config";
 
 export default {
   name: "Finance",
@@ -34,7 +31,8 @@ export default {
     return {
       name: '',
       dateRange: this.get_month_day(),
-      data: []
+      data: [],
+      DATE_FMT
     }
   },
   methods: {

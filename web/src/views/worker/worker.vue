@@ -76,11 +76,11 @@
           <el-input class="col-6" v-model="form.phone"></el-input>
         </el-form-item>
         <el-form-item label="生日 : ">
-          <el-date-picker class="col-6" value-format="yyyy-MM-dd" v-model="form.birthday" type="date">
+          <el-date-picker class="col-6" :value-format=DATE_FMT v-model="form.birthday" type="date">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="入职日期 : ">
-          <el-date-picker class="col-6" value-format="yyyy-MM-dd" v-model="form.start_time" type="date">
+          <el-date-picker class="col-6" :value-format=DATE_FMT v-model="form.start_time" type="date">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="薪资 : ">
@@ -98,12 +98,14 @@
 <script>
 import {WorkerApi, WorkerExcelApi} from "@/api/api";
 import {exportExcelByHeader, getToken, querySearch} from "@/api/util";
-import {TOKEN} from "@/api/config";
+import {DATE_FMT, TOKEN} from "@/api/config";
 
 export default {
   name: "MyWorker",
   data() {
     return {
+      DATE_FMT,
+
       //搜索
       searchName: "",
       searchIDCard: "",

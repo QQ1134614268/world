@@ -1,46 +1,58 @@
 <template>
-  <div class="p_c_HolyGrail-body" style="height: 100%;">
-    <div class="p_c_box-flex" style=" flex: 1">
-      <nav class="p_c_box-flex_col">
-        <a :href="'#'+obj.label" :key="index" v-for="(obj,index) in tableData">{{ obj.label }}</a>
-      </nav>
-      <div >
-        <div :key="index" v-for="(obj,index) in tableData">
-          <a :id="obj.label" style="color:#cccccc; font-weight: lighter">{{ obj.label }}</a>
-          <div :key="index2" v-for="(obj2, index2) in obj.data" class="p_c_box-flex" style="margin-bottom: 0.5rem">
-            <el-image style="width: 3rem;height: 3rem" :src="obj2.images"></el-image>
-            <div class="p_c_box-flex_col" style="justify-content:space-between">
-              <span>
+  <BoxCol class="p_c_flex_1">
+    <BoxRow class="p_c_flex_1">
+      <BoxCol class="navTotal">
+        <!--        侧边导航栏-->
+        <a :href="'#'+obj.label" :key="index" v-for="(obj,index) in tableData">
+          <div class="nav">{{ obj.label }}</div>
+        </a>
+      </BoxCol>
+      <BoxCol class="p_c_flex_1">
+        <!--        主体-->
+        <BoxCol :key="index" v-for="(obj,index) in tableData">
+          <a :id="obj.label">
+            <div class="type_class">{{ obj.label }}</div>
+          </a>
+          <BoxRow :key="index2" v-for="(obj2, index2) in obj.data" class="info">
+            <el-image class="img" :src="obj2.images"></el-image>
+            <BoxCol class="infoTxt p_c_flex_1 ">
+              <div class="goodName ">
                 {{ obj2.name }}
-              </span>
-              <div class="p_c_flexbox_row">
-                <span>售价: {{ obj2.price }}</span>
-                <i class="el-icon-plus" @click="add(obj2)"
-                   style="background-color: orangered; border-radius: 3rem;align-self: end"></i>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
-        购物车
-      </el-button>
-      <section v-show="drawer">
-        <el-table :data="order_list" style="width: 100%">
+              <BoxRow class="price  ">
+                <div>售价: {{ obj2.price }}</div>
+                <i class="el-icon-circle-plus add_icon" @click="add(obj2)"></i>
+              </BoxRow>
+            </BoxCol>
+          </BoxRow>
+        </BoxCol>
+      </BoxCol>
+    </BoxRow>
+    <BoxCol>
+      <BoxRow class="btn">
+        <el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
+          购物车
+        </el-button>
+        <el-button @click="drawer = false" type="primary" style="margin-left: 16px;" v-if="drawer">
+          关闭
+        </el-button>
+      </BoxRow>
+      <BoxCol v-show="drawer">
+        <el-table :data="order_list" class="table">
           <el-table-column prop="name" label="商品名" width="180"></el-table-column>
           <el-table-column prop="price" label="商品价格"></el-table-column>
           <el-table-column prop="num" label="数量" width="180">
             <template slot-scope="scope">
-              <el-input-number v-model="scope.row.num" :min="0" :max="10" size="small"></el-input-number>
+              <el-input-number v-model="scope.row.num" size="small" @change="change"></el-input-number>
             </template>
           </el-table-column>
         </el-table>
-        <el-button @click="buy">下单</el-button>
-      </section>
-    </div>
-  </div>
+        <div class="btn2">
+          <el-button @click="buy" type="primary">下单</el-button>
+        </div>
+      </BoxCol>
+    </BoxCol>
+  </BoxCol>
 </template>
 
 <script>
@@ -66,8 +78,18 @@ export default {
       obj.num = (obj.num || 0) + 1
       this.order_list = this.tableData2.filter((obj) => obj.num > 0)
     },
-    buy() {
-      postOrder(this.order_list)
+    change() {
+      this.order_list = this.tableData2.filter((obj) => obj.num > 0)
+    },
+    async buy() {
+      let res = await postOrder(this.order_list)
+      if (res.data.code == 1) {
+        this.$message.success("下单成功")
+        this.order_list = this.order_list.map((obj) => obj.num = 0)
+      } else {
+        this.$message.error("下单失败")
+      }
+
     },
     async init() {
       let data = {
@@ -85,5 +107,61 @@ export default {
 </script>
 
 <style scoped>
+.navTotal {
+  width: 4rem;
+  margin: 1rem 1rem 0rem 1rem;
+  background: #e3e1e1;
+}
 
+.nav {
+  margin: 1rem 0rem;
+  background: #cccccc;
+}
+
+.type_class {
+  color: #cccccc;
+  font-weight: lighter;
+  line-height: 2rem;
+  margin-top: 1rem;
+}
+
+.img {
+  width: 5rem;
+  height: 5rem;
+  margin-right: 0.5rem;
+}
+
+.info {
+  margin-bottom: 0.5rem;
+}
+
+.infoTxt {
+  justify-content: space-between;
+}
+
+.goodName {
+}
+
+.price {
+  justify-content: space-between;
+  align-content: center;
+  width: 100%;
+}
+
+.add_icon {
+  margin-right: 2rem;
+}
+
+.btn {
+  justify-content: flex-end;
+}
+
+.btn2 {
+  align-self: flex-end;
+}
+
+.table {
+  width: 100%;
+  height: 6rem;
+}
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div id="container" class="p_c_box-flex_col p_c_HolyGrail-content">
+  <div id="container" class="p_c_box-flex_col p_c_flex_1">
     <div id="header" class="p_c_box-flex_center">
       <div class="p_c_box-flex_center">
         <router-link :to=MemberRootUrl>会员系统</router-link>
@@ -23,14 +23,14 @@
         <router-link tag="a" :to=SYS_REGISTER_URL>注册</router-link>
       </div>
     </div>
-    <div id="body" class="p_c_HolyGrail-body">
-      <router-view/>
-    </div>
+    <box-flex id="body" class="p_c_flex_1">
+      <router-view class="p_c_flex_1"/>
+    </box-flex>
     <footer>
-      <a :href="MemberRootUrl" class="p_c_test_border p_c_HolyGrail-content">
+      <a :href="MemberRootUrl" class="p_c_HolyGrail-content">
         <div>点餐</div>
       </a>
-      <a :href="UserSpace" class="p_c_test_border p_c_HolyGrail-content">
+      <a :href="UserSpace" class="p_c_HolyGrail-content">
         <div>我的</div>
       </a>
     </footer>
@@ -70,19 +70,14 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 #header {
   display: flex;
   justify-content: space-around;
 }
 
-#container {
-  height: 100vh;
-}
 
 #body {
-  flex: 1;
-  height: 100vh;
   width: 100%;
 }
 

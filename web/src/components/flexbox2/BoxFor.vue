@@ -1,12 +1,13 @@
 <template>
-  <div style="display: flex; flex-direction: row;width:100%">
+  <div style="display: flex; flex-direction: column">
     <slot></slot>
+
   </div>
 </template>
 
 <script>
 export default {
-  name: "BoxRow"
+  name: "BoxCol"
 }
 </script>
 

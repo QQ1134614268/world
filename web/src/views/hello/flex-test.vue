@@ -12,7 +12,7 @@
 </template>
 
 
-<style>
+<style scoped>
 
 .main {
   display: flex;
