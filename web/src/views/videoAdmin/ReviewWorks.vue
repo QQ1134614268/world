@@ -13,7 +13,7 @@
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-select v-model="scope.row.state" placeholder="请选择" @change="handleEdit(scope.row.id, scope.row.state)">
-            <el-option v-for="item in ReviewEnum" :label="item.value" :value="item.code"></el-option>
+            <el-option v-for="(item,index) in ReviewEnum" :key="index" :label="item.value" :value="item.code"></el-option>
           </el-select>
         </template>
       </el-table-column>

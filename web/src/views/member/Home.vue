@@ -12,7 +12,7 @@
               <a @click="logout">退出登录</a>
             </el-dropdown-item>
             <el-dropdown-item>
-              <a type="primary" :href=Home>设置</a>
+              <a type="primary" :href=MemberAdminHome>设置</a>
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -31,6 +31,9 @@
         <div>点餐</div>
       </a>
       <a :href="UserSpace" class="p_c_HolyGrail-content">
+        <div>购物车</div>
+      </a>
+      <a :href="UserSpace" class="p_c_HolyGrail-content">
         <div>我的</div>
       </a>
     </footer>
@@ -47,7 +50,7 @@ export default {
     return {
       MemberRootUrl,
       Store,
-      Home: MemberAdminHome,
+      MemberAdminHome,
       SYS_LOGIN_URL,
       SYS_REGISTER_URL,
       UserSpace,
@@ -75,7 +78,6 @@ export default {
   display: flex;
   justify-content: space-around;
 }
-
 
 #body {
   width: 100%;
