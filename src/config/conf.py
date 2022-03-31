@@ -1,6 +1,6 @@
+import os
+from datetime import timedelta
 from os import path
-
-# app.config.from_pyfile(config_name)
 
 CONFIG_NAME_MAPPER = {
     'dev': 'dev_config.py',
@@ -56,3 +56,39 @@ REDIS_HOST = "127.0.0.1"
 REDIS_PORT = 6379
 REDIS_DB = 0
 REDIS_PASSWORD = 1234567890
+
+
+class Config:
+    # todo 多环境
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+    # 定时任务配置
+    CELERY_BROKER_URL = 'redis://localhost:6379',
+    CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+    # CELERY_TIMEZONE = 'Asia/Shanghai'
+    CELERYBEAT_SCHEDULE = {
+        # ＃ 定义任务名称：import_data
+        # ＃ 执行规则：每10秒运行一次
+        'import_data': {
+            'task': 'import_data',
+            'schedule': timedelta(seconds=10)
+        },
+    }
+
+    @staticmethod
+    def init_app(app):
+        pass
+
+
+class DevelopmentConfig(Config):
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL')
+
+
+class ProductionConfig(Config):
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+
+
+config = {
+    'development': DevelopmentConfig,
+    'production': ProductionConfig,
+}

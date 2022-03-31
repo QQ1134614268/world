@@ -5,7 +5,7 @@ Flask-RESTful==0.3.7
 SQLAlchemy==1.4.31
 Flask-SQLAlchemy==2.5.1
 APScheduler==3.8.1
-Flask-APScheduler==1.11.0
+Flask-APScheduler==1.12.3
 alembic~=1.6.5
 Flask-Migrate==3.1.0
 gevent-websocket==0.10.1
