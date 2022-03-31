@@ -26,7 +26,7 @@ from vo.video_model import WorksVO, TargetVO, InvitationCodeVO
 video_blueprint_api = Blueprint("video_blueprint_api", __name__, url_prefix='/api/video_blueprint_api')
 
 
-class VideoBlueprintApi():
+class VideoBlueprintApi:
     """工时统计"""
 
     @staticmethod

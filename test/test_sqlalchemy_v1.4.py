@@ -2,6 +2,7 @@ from sqlalchemy import MetaData
 from sqlalchemy import create_engine, Column, String, Integer, text, Table, select, delete
 from sqlalchemy.orm import Session
 from sqlalchemy.orm import declarative_base
+from sqlalchemy import insert
 
 Base = declarative_base()
 engine = create_engine("mysql+mysqlconnector://wg:123456@127.0.0.1:3306/test", echo=True, future=True)
@@ -38,7 +39,6 @@ if __name__ == '__main__':
     # 建表
     metadata_obj.create_all(engine)
     # Base.metadata.create_all(engine)
-    from sqlalchemy import insert
 
     stmt = insert(user_table).values(name='spongebob', fullname="Spongebob Squarepants")
     compiled = stmt.compile()
