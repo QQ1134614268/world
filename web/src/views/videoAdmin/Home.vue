@@ -2,7 +2,7 @@
   <div class="p_c_box-flex">
     <el-menu router class="p_c_HolyGrail-nav col-2 " @open="handleOpen" @close="handleClose" :collapse="isCollapse"
              :default-active="this.$route.fullPath" active-text-color="#3B9DFC">
-      <el-menu-item :index="item.menuPath" v-for="(item,index) in menuList">
+      <el-menu-item :index="item.menuPath" v-for="(item, index) in menuList" :key="index">
         <i :class="item.menuIcon"></i>
         {{ item.menuName }}
       </el-menu-item>

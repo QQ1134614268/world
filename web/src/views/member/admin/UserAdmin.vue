@@ -2,7 +2,6 @@
   <div>
     <el-table :data="tableData">
       <el-table-column prop="username" label="姓名"></el-table-column>
-      <el-table-column prop="password" label="密码"></el-table-column>
       <el-table-column prop="role" label="角色"></el-table-column>
     </el-table>
   </div>

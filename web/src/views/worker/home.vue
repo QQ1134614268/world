@@ -9,7 +9,7 @@
     <div class="p_c_flexbox_row">
       <div class="col-2">
         <el-menu router :default-active="this.$route.fullPath" active-text-color="#409EFF">
-          <el-menu-item :index="item.menuPath" v-for="item in menuList">
+          <el-menu-item :index="item.menuPath" v-for="(item, index) in menuList" :key="index">
             <template slot="title">
               <i :class="item.menuIcon"></i>
               <span>
@@ -28,7 +28,15 @@
 
 <script>
 import WorkerUserIcon from "@/components/WorkerUserIcon";
-import {worker, workTimeAnalyse, workTimeInfo, workTimeRecord, workTimeReport,workConfig,workLog} from "@/views/worker/index";
+import {
+  workConfig,
+  worker,
+  workLog,
+  workTimeAnalyse,
+  workTimeInfo,
+  workTimeRecord,
+  workTimeReport
+} from "@/views/worker/index";
 
 export default {
   name: "home",
@@ -43,7 +51,7 @@ export default {
         },
         {
           menuName: "考勤信息",
-          menuPath:workTimeInfo,
+          menuPath: workTimeInfo,
           menuIcon: "el-icon-info",
         },
         {

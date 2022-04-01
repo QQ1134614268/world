@@ -3,7 +3,7 @@
     <h3 class="header">会员管理系统</h3>
     <main class="p_c_flexbox_row">
       <el-menu router :default-active="this.$route.fullPath" active-text-color="#409EFF">
-        <el-menu-item :index="item.menuPath" v-for="item in menuList">
+        <el-menu-item :index="item.menuPath" v-for="(item, index) in menuList" :key="index">
           <template slot="title">
             <i :class="item.menuIcon"></i>
             <span>
@@ -68,7 +68,7 @@ export default {
 }
 </script>
 <style scoped>
-.header{
+.header {
   text-align: center;
 }
 </style>

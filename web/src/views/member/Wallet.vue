@@ -27,17 +27,8 @@ export default {
   name: "Wallet",
   data() {
     return {
-      dialogVisible: false,
       store_id: this.$route.query.id,
-      userVO: "",
-      name: "",
-      password: "",
-      storeList: "",
-      store: "",
       memberList: "",
-      info: "",
-      user_id: "",
-      user_name: "",
       addMoneyNum: "",
       payMoneyNum: "",
     };
