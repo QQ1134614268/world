@@ -1,11 +1,9 @@
 <template>
   <div class="p_c_HolyGrail-body">
-    <div class="p_c_box-flex_row-center " style="height: 10rem">
-      <div style="flex: 1" class="p_c_box-flex_row-center">真实之树</div>
-      <div class="p_c_flexbox_row" style="width: 20rem">
-        <TreeUserIcon></TreeUserIcon>
-      </div>
-    </div>
+    <BoxRow class="header">
+      <h2 class="title">真实之树</h2>
+      <TreeUserIcon class="icon"></TreeUserIcon>
+    </BoxRow>
     <div class="p_c_HolyGrail-body">
       <router-view/>
       <!--      <router-view  name="tree"/>-->
@@ -17,7 +15,6 @@
 </template>
 
 <script>
-
 import TreeUserIcon from "@/components/TreeUserIcon";
 
 export default {
@@ -27,14 +24,21 @@ export default {
   },
 }
 </script>
-<style>
+<style scoped>
 
-#header {
-  display: flex;
-  justify-content: space-around;
-  height: 10%;
+.header {
+  justify-content: space-between;
+  align-items: center;
 }
 
+.icon {
+  width: 10rem;
+}
+
+.title {
+  text-align: center;
+  flex: 1;
+}
 
 #footer {
   text-align: center;
@@ -54,15 +58,5 @@ export default {
   100% {
     opacity: 0;
   }
-}
-
-.blink {
-  animation: blink .75s linear infinite;
-  /* 其它浏览器兼容性前缀 */
-  -webkit-animation: blink .75s linear infinite;
-  -moz-animation: blink .75s linear infinite;
-  -ms-animation: blink .75s linear infinite;
-  -o-animation: blink .75s linear infinite;
-  color: #dd4814;
 }
 </style>
