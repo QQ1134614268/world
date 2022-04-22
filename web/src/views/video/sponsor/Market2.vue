@@ -1,31 +1,24 @@
 <template>
   <div class="p_c_flexbox">
-    <div class="col-9 ">
-      <div class="p_c_box-flex_row-center">
-        <el-input v-model="search" prefix-icon="el-icon-search" :clearable=true class="col-6 p_c_box_padding"
+    <div class="col-9  p_c_box-flex_col-center">
+      <div class="p_c_box-flex_col-center  col-8">
+        <el-input v-model="search" prefix-icon="el-icon-search" :clearable=true class="p_c_box_padding"
                   placeholder="请输入搜索内容">
         </el-input>
-      </div>
-      <div>
-        <div v-for="(o, index) in tableData">
-          <div class="block">
-            <div class="art_title">
-              <router-link :to="{path:TargetInfoUrl,query: {target_id: o.id}}">
-                {{ o.title }}
-              </router-link>
-            </div>
-            <div class="art_body"> {{ o.content }}</div>
-            <div class="art_note">
-              <router-link :to="{path:UserInfo2,query: {user_id: o.user_id}}"
-                           class="p_c_box-flex_row-col-center">
-                <el-avatar :src="o.avatar"></el-avatar>
-                <span class="p_c_long_txt_hidden" style="width: 6rem">{{ o.username }}</span>
-              </router-link>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class=" col-12">
+        <BoxCol style="width: 100%;" class="t_list">
+          <BoxCol v-for="(o, index) in tableData" :key="index" class="target">
+            <router-link :to="{path:TargetInfoUrl,query: {target_id: o.id}}" class="target_title">
+              {{ o.title }}
+            </router-link>
+            <div> {{ o.content }}</div>
+            <router-link :to="{path:UserInfo2,query: {user_id: o.user_id}}"
+                         class="p_c_box-flex_row-col-center t_avatar">
+              <el-avatar :src="o.avatar" :size=16></el-avatar>
+              <span class="p_c_long_txt_hidden" style="width: 6rem">{{ o.username }}</span>
+            </router-link>
+          </BoxCol>
+        </BoxCol>
+
         <el-pagination @size-change="handleSizeChange"
                        @current-change="handleCurrentChange"
                        :current-page="currentPage"
@@ -39,7 +32,7 @@
     <div class="col-3">
       <h3> 品牌榜</h3>
       <section class="rank">
-        <div v-for="(item,index) in rankData" class="p_c_flexbox_row">
+        <div v-for="(item,index) in rankData" :key="index" class="p_c_flexbox_row">
         <span class="rank_num">
           {{ index + 1 }}
         </span>
@@ -131,6 +124,23 @@ export default {
 .rank > div:nth-child(3) > span {
   color: #ac4d60;
 }
+.t_list{
+  box-shadow: 0px 0px 1rem 0.1rem gray;
+  margin-bottom: 1rem;
+}
+.target_title {
+  color: black;
+  font-size: 1.2rem;
+  line-height: 1.8rem;
+}
 
+.target {
+  box-shadow: 0px 1px 5px 0px gray;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+}
 
+.t_avatar {
+  height: 1rem;
+}
 </style>

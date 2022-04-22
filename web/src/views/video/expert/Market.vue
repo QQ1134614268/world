@@ -7,7 +7,7 @@
         </el-input>
       </div>
       <div class="p_c_flexbox container">
-        <div v-for="o in tableData" class="ratio_box block">
+        <div v-for="(o, index) in tableData" :key="index" class="ratio_box block">
           <div class="ratio_box_img p_c_box-flex_col-center">
             <router-link :to="{path:VideoUrl,query: {video_id: o.id}}">
               <img :src="o.thumbnail">
@@ -32,7 +32,7 @@
     <div class="col-3">
       <h3> 热度榜</h3>
       <section class="rank">
-        <div v-for="(item,index) in rankData" class="p_c_flexbox_row">
+        <div v-for="(item,index) in rankData" :key="index" class="p_c_flexbox_row">
           <span class="rank_num">
             {{ index + 1 }}
           </span>

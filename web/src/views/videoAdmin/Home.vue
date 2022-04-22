@@ -1,6 +1,8 @@
 <template>
+<div>
+  <h1 style="text-align: center">人人影后台系统</h1>
   <div class="p_c_box-flex">
-    <el-menu router class="p_c_HolyGrail-nav col-2 " @open="handleOpen" @close="handleClose" :collapse="isCollapse"
+    <el-menu router class="menu" @open="handleOpen" @close="handleClose" :collapse="isCollapse"
              :default-active="this.$route.fullPath" active-text-color="#3B9DFC">
       <el-menu-item :index="item.menuPath" v-for="(item, index) in menuList" :key="index">
         <i :class="item.menuIcon"></i>
@@ -11,6 +13,7 @@
       <router-view></router-view>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -30,11 +33,11 @@ export default {
           menuPath: "/videoAdmin/ReviewTarget",
           menuIcon: "el-icon-location",
         },
-        {
-          menuName: "设置",
-          menuPath: "/videoAdmin/Setting",
-          menuIcon: "el-icon-location",
-        }
+        // {
+        //   menuName: "设置",
+        //   menuPath: "/videoAdmin/Setting",
+        //   menuIcon: "el-icon-location",
+        // }
       ],
     }
   },
@@ -50,5 +53,7 @@ export default {
 </script>
 
 <style scoped>
-
+.menu{
+  width: 10rem;
+}
 </style>

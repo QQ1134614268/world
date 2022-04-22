@@ -1,22 +1,17 @@
 <template>
-  <div class="p_c_flexbox">
-    <div v-for="item in sysUrls ">
-      <a :href=item.url>
-        <div class="p_c_box-flex_col-center">
-          <div style="width: 8rem">
-            <img src="@/assets/route.webp">
+  <div>
+    <h1 style="text-align: center">根节点</h1>
+    <div class="p_c_flexbox">
+      <div v-for="item in sysUrls ">
+        <a :href=item.url>
+          <div class="p_c_box-flex_col-center">
+            <div style="width: 8rem">
+              <img src="@/assets/route.webp">
+            </div>
+            <div>{{ item.name }}</div>
           </div>
-          <div>{{ item.name }}</div>
-        </div>
-      </a>
-    </div>
-    <div>
-      <a @click="logOut">
-        <div style="width: 6rem">
-          <img src="@/assets/route.webp">
-        </div>
-        <div>退出登录</div>
-      </a>
+        </a>
+      </div>
     </div>
   </div>
 </template>

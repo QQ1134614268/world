@@ -6,7 +6,7 @@
       <el-table-column label="视频" prop="thumbnail">
         <template slot-scope="scope">
           <router-link :to="{path:VideoUrl,query: {video_id: scope.row.id}}">
-            <el-image :src="scope.row.thumbnail"></el-image>
+            <el-image :src="scope.row.thumbnail" class="img"></el-image>
           </router-link>
         </template>
       </el-table-column>
@@ -53,5 +53,7 @@ export default {
 </script>
 
 <style scoped>
-
+.img{
+  width: 5rem;
+}
 </style>
