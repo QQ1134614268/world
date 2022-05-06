@@ -5,7 +5,7 @@
         <el-input v-model="search" prefix-icon="el-icon-search" :clearable=true class="p_c_box_padding"
                   placeholder="请输入搜索内容">
         </el-input>
-        <BoxCol style="width: 100%;" class="t_list">
+        <BoxCol class="t_list">
           <BoxCol v-for="(o, index) in tableData" :key="index" class="target">
             <router-link :to="{path:TargetInfoUrl,query: {target_id: o.id}}" class="target_title">
               {{ o.title }}
@@ -14,7 +14,7 @@
             <router-link :to="{path:UserInfo2,query: {user_id: o.user_id}}"
                          class="p_c_box-flex_row-col-center t_avatar">
               <el-avatar :src="o.avatar" :size=16></el-avatar>
-              <span class="p_c_long_txt_hidden" style="width: 6rem">{{ o.username }}</span>
+              <span class="p_c_long_txt_hidden name">{{ o.username }}</span>
             </router-link>
           </BoxCol>
         </BoxCol>
@@ -124,10 +124,14 @@ export default {
 .rank > div:nth-child(3) > span {
   color: #ac4d60;
 }
-.t_list{
+
+.t_list {
   box-shadow: 0px 0px 1rem 0.1rem gray;
   margin-bottom: 1rem;
+  width: 100%;
+  background-color: rgba(23, 47, 43, 0.07);
 }
+
 .target_title {
   color: black;
   font-size: 1.2rem;
@@ -142,5 +146,10 @@ export default {
 
 .t_avatar {
   height: 1rem;
+}
+
+.name {
+  width: 6rem;
+  color: black;
 }
 </style>

@@ -89,10 +89,10 @@ export default {
       }
     },
     getUrl(fileUrl) {
-      this.form.file = fileUrl
+      this.$set(this.form, 'file', fileUrl)
     },
     getUrl2(fileUrl) {
-      this.form.thumbnail = fileUrl
+      this.$set(this.form, 'thumbnail', fileUrl)
     },
     async onSubmit() {
       if (!this.form.file) {
