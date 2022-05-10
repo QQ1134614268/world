@@ -24,12 +24,11 @@ img, video {
     object-fit: cover;
 }
 
-a, a:hover, a:active, a:visited, a:link, a:focus {
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    -webkit-tap-highlight-color: transparent;
+a{
     outline: none;
     background: none;
     text-decoration: none;
+    color: black;
 }
 
 /*工具*/
