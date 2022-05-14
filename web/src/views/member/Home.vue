@@ -26,7 +26,21 @@
     <box-flex id="body" class="p_c_flex_1">
       <router-view class="p_c_flex_1"/>
     </box-flex>
-    <footer>
+    <footer class="footer131">
+
+      <div>
+        <a :href="MemberRootUrl" class="p_c_HolyGrail-content">
+          <BoxCol>
+            <div>
+              <!--              <img :src="home_icon">-->
+              <img src="@/assets/切图/首页/首页.png">
+
+            </div>
+            <div>首页</div>
+          </BoxCol>
+        </a>
+      </div>
+
       <a :href="MemberRootUrl" class="p_c_HolyGrail-content">
         <div>点餐</div>
       </a>
@@ -59,6 +73,7 @@ export default {
         {name: "我的", path: UserSpace},
       ],
       store_id: 1,
+      // home_icon: require('/assets/img/image1.jpeg')
     }
   },
   computed: {
@@ -74,6 +89,11 @@ export default {
 }
 </script>
 <style scoped>
+#container {
+  width: 47rem;
+  height: 102rem;
+}
+
 #header {
   display: flex;
   justify-content: space-around;
@@ -97,8 +117,24 @@ footer div {
   color: #555555;
 }
 
+.footer131 {
+  /*width: 23rem;*/
+  height: 5rem;
+  background-image: linear-gradient(
+      #ffffff,
+      #ffffff),
+  linear-gradient(
+      #ffffff,
+      #ffffff);
+  background-blend-mode: normal,
+  normal;
+  box-shadow: 0rem 0rem 0rem 0rem rgba(48, 45, 43, 0.21);
+}
+
 footer div:nth-child(n+2) {
   border-left: solid 1px #cccccc;
 }
+
+
 
 </style>

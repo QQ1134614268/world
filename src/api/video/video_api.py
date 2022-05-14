@@ -278,20 +278,21 @@ class ReviewTargetApi(Resource):
     def get(self, _id):
         page = request.args.get("page", 1, int)
         page_size = request.args.get("pageSize", 15, int)
-        search = request.args.get("search")
-        user_id = request.args.get("user_id")
         query = TargetVO.query.join(
             UserVO, TargetVO.user_id == UserVO.id
         )
-        if user_id:
-            query.filter(TargetVO.user_id == user_id)
+        user_name = request.args.get("user_name")
+        if user_name:
+            query.filter(TargetVO.user_name.contains(user_name))
 
-        if search:
-            query.filter(or_(TargetVO.title.contains(search), TargetVO.content.contains(search)))
-        # 日期
-        state = request.args.get("state")
+        state = request.args.get("state", ReviewEnum.NONE.name)
         if state:
             query.filter(TargetVO.state == state)
+        # 日期
+        if request.args.get("startDate"):
+            query.append(TargetVO.start_time >= request.args.get("startDate"))
+        if request.args.get("endDate"):
+            query.append(TargetVO.start_time <= request.args.get("endDate"))
 
         page_item = query.with_entities(
             TargetVO.id,
@@ -321,20 +322,22 @@ class ReviewWorksApi(Resource):
     def get(self, _id):
         page = request.args.get("page", 1, int)
         page_size = request.args.get("pageSize", 15, int)
-        search = request.args.get("search")
-        user_id = request.args.get("user_id")
         query = WorksVO.query.join(
             UserVO, WorksVO.user_id == UserVO.id
         )
-        if user_id:
-            query.filter(WorksVO.user_id == user_id)
+        user_name = request.args.get("user_name")
+        if user_name:
+            query.filter(WorksVO.user_name.contains(user_name))
 
-        if search:
-            query.filter(or_(WorksVO.title.contains(search), WorksVO.describe.contains(search)))
-        # 日期
         state = request.args.get("state", ReviewEnum.NONE.name)
         if state:
             query.filter(WorksVO.state == state)
+        # 日期
+        if request.args.get("startDate"):
+            query.append(WorksVO.start_time >= request.args.get("startDate"))
+        if request.args.get("endDate"):
+            query.append(WorksVO.start_time <= request.args.get("endDate"))
+
         page_item = query.with_entities(
             WorksVO.id,
             WorksVO.describe,
