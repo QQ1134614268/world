@@ -5,7 +5,7 @@ from config.enum_conf import ExceptionCode
 
 class WorldException(Exception):
 
-    def __init__(self, message="Exception", code=ExceptionCode.EXCEPTION.value):
+    def __init__(self, message="Exception", code=ExceptionCode.FAIL.value):
         self.code = code
         self.message = message
 

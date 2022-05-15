@@ -171,7 +171,6 @@ class WorkerTimeApi(Resource):
         data = request.get_json()
         if "name" in data:
             data.pop("name")  # todo vue修改
-        WorkerTimeVO.query.filter(WorkerTimeVO.id)
         insert_stmt = insert(WorkerTimeVO).values(data)
         on_duplicate_key_stmt = insert_stmt.on_duplicate_key_update(data)
         db.session.execute(on_duplicate_key_stmt)

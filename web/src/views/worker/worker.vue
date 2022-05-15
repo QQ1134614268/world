@@ -53,7 +53,6 @@
     <el-dialog title="上传Excel" :visible.sync="upDialog" width="30%">
       <el-upload multiple :auto-upload="false" :action="worker_excel_url" :headers="headers" ref="upload"
                  :on-success="uploadFileSuccess">
-
         <i class="el-icon-upload"></i>
         <div class="el-upload__text">点击上传</div>
         <div class="el-upload__tip">上传excel文件</div>
@@ -111,7 +110,7 @@ export default {
       searchIDCard: "",
       searchPhone: "",
       headers: {
-        token: getToken
+        token: getToken()
       },
       //分页
       currentPage: 1,
@@ -134,7 +133,7 @@ export default {
         this.$message.success('操作成功')
       }
       if (res.code === 2) {
-        this.$message.error(res.data.data)
+        this.$message.error(res.data)
       }
       if (res.code === 4) {
         let str = res.data.join(' <br/> ');
@@ -146,7 +145,7 @@ export default {
       }
     },
     async upLoad() {
-      this.$refs.upload.submit();
+      await this.$refs.upload.submit();
     },
     handleSizeChange(val) {
       this.pageSize = val;

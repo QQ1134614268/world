@@ -196,7 +196,7 @@ export default {
     },
     async change(row) {
       row.date = this.date
-      let response = await this.$ppJson(WorkerTimeApi, row.id, row)
+      let response = await this.$putJson2(WorkerTimeApi, 0, row)
     },
   },
 

@@ -11,8 +11,13 @@ class ExceptionCode(Enum):
     SUCCESS = 1
     # 失败, 一般参数问题, 反馈用户
     FAIL = 2
+
+    # 失败, 返回一个json数据  一般是 list str
+    JSON_DATA = 16
+
     # 未登录
     NO_LOGIN_FAIL = 8
+
     # 程序异常, 反馈eg: 服务器发生异常
     EXCEPTION = 4
 
@@ -80,5 +85,5 @@ class StoreMemberType(Enum):
 
 
 class OrderStatus(Enum):
-    PAYMENT_SUCCESS="支付完成"
+    PAYMENT_SUCCESS = "支付完成"
     UN_PAYMENT = "未支付"
