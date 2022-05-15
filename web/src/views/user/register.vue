@@ -48,6 +48,11 @@ export default {
       this.url = UserApi_get_verify_code + "?t=" + Math.random()
     },
     async register() {
+      let data = {
+        username: this.username,
+        password: this.password,
+        code: this.code,
+      }
       await userRegister()
     },
     // async init() {
