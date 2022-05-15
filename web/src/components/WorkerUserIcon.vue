@@ -6,7 +6,9 @@
           <el-avatar :src="user.avatar" :key="user.avatar"></el-avatar>
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
+          <el-dropdown-item>
+            <a @click="logout">退出登录</a>
+          </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -19,6 +21,7 @@
 
 <script>
 import {userLogout} from "@/api/user";
+import {SYS_LOGIN_URL, SYS_REGISTER_URL} from "@/views/sys";
 
 export default {
   name: "WorkerUserIcon",
@@ -28,11 +31,14 @@ export default {
   methods: {
 
     async login() {
-
+      await this.$router.push({path: SYS_LOGIN_URL})
     },
     async logout() {
       await userLogout()
       this.$message.success('退出登录');
+    },
+    async register() {
+      await this.$router.push({path: SYS_REGISTER_URL})
     },
   },
   computed: {
