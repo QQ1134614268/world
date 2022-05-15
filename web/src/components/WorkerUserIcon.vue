@@ -1,7 +1,7 @@
 <template>
   <div class="p_c_flexbox_row">
     <div v-if="user">
-      <el-dropdown @command="handleCommand">
+      <el-dropdown>
         <span class="el-dropdown-link">
           <el-avatar :src="user.avatar" :key="user.avatar"></el-avatar>
         </span>
@@ -32,10 +32,8 @@ export default {
     },
     async logout() {
       await userLogout()
+      this.$message.success('退出登录');
     },
-    handleCommand(command) {
-      this.$message('click on item ' + command);
-    }
   },
   computed: {
     user() {
