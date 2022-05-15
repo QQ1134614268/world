@@ -21,7 +21,7 @@ class UserApi(Resource):
         code = data.get('code')
         if not code:
             return res_util.fail("验证码错误")
-        cache_code = redisDB.get(code)
+        cache_code = redisDB.get(code.upper())
         if not (code and cache_code and code.upper() == cache_code.upper()):
             return res_util.fail("验证码错误")
         exist = UserVO.query.filter_by(username=username).first()
@@ -84,7 +84,7 @@ class UserBlueprintApi(Resource):
     @user_api.route('/get_verify_code', methods=['GET'])
     def get_verify_code():
         code, bytes_io = verification_code_util.get_verify_code()
-        redisDB.set(code, code, ex=60)
+        redisDB.set(code.upper(), code, ex=60)
         response = make_response(send_file(bytes_io, mimetype="image/png"))
         response.headers.add("Cache-Control", "no-store")
         return response

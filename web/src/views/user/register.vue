@@ -53,7 +53,7 @@ export default {
         password: this.password,
         code: this.code,
       }
-      await userRegister()
+      await userRegister(data)
     },
     // async init() {
     //   let url = "/api/hello_api/test_base64_img"
