@@ -51,8 +51,8 @@ export default {
   methods: {
     async init() {
       let data = {
-        startDate: this.dateRange[0],
-        endDate: this.dateRange[1],
+        startDate: this.dateRange && this.dateRange.length > 0 ? this.dateRange[0] : "",
+        endDate: this.dateRange && this.dateRange.length > 1 ? this.dateRange[1] : "",
         name: this.name
       }
       let res = await this.$get2(WorkerTimeApi, 0, data)

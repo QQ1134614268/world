@@ -98,7 +98,7 @@
 <script>
 import {WorkerApi, WorkerExcelApi} from "@/api/api";
 import {exportExcelByHeader, getToken, querySearch} from "@/api/util";
-import {DATE_FMT, TOKEN} from "@/api/config";
+import {DATE_FMT} from "@/api/config";
 
 export default {
   name: "MyWorker",
@@ -163,8 +163,8 @@ export default {
         name: this.searchName,
         idCard: this.searchIDCard,
         phone: this.searchPhone,
-        startDate: this.dateRange[0],
-        endDate: this.dateRange[1],
+        startDate: this.dateRange && this.dateRange.length > 0 ? this.dateRange[0] : "",
+        endDate: this.dateRange && this.dateRange.length > 1 ? this.dateRange[1] : "",
       }
       let response = await this.$get2(WorkerApi, 0, data);
       if (response.data.code != 1) {
@@ -181,8 +181,8 @@ export default {
         name: this.searchName,
         idCard: this.searchIDCard,
         phone: this.searchPhone,
-        startDate: this.dateRange[0],
-        endDate: this.dateRange[1],
+        startDate: this.dateRange && this.dateRange.length > 0 ? this.dateRange[0] : "",
+        endDate: this.dateRange && this.dateRange.length > 1 ? this.dateRange[1] : "",
         sortBy: column.prop,
         order: column.order
       }

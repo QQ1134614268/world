@@ -283,16 +283,16 @@ class ReviewTargetApi(Resource):
         )
         user_name = request.args.get("user_name")
         if user_name:
-            query.filter(TargetVO.user_name.contains(user_name))
+            query = query.filter(TargetVO.user_name.contains(user_name))
 
         state = request.args.get("state", ReviewEnum.NONE.name)
         if state:
-            query.filter(TargetVO.state == state)
+            query = query.filter(TargetVO.state == state)
         # 日期
         if request.args.get("startDate"):
-            query.append(TargetVO.start_time >= request.args.get("startDate"))
+            query = query.filter(TargetVO.create_time >= request.args.get("startDate"))
         if request.args.get("endDate"):
-            query.append(TargetVO.start_time <= request.args.get("endDate"))
+            query = query.filter(TargetVO.create_time <= request.args.get("endDate"))
 
         page_item = query.with_entities(
             TargetVO.id,
@@ -327,16 +327,16 @@ class ReviewWorksApi(Resource):
         )
         user_name = request.args.get("user_name")
         if user_name:
-            query.filter(WorksVO.user_name.contains(user_name))
+            query = query.filter(WorksVO.user_name.contains(user_name))
 
         state = request.args.get("state", ReviewEnum.NONE.name)
         if state:
-            query.filter(WorksVO.state == state)
+            query = query.filter(WorksVO.state == state)
         # 日期
         if request.args.get("startDate"):
-            query.append(WorksVO.start_time >= request.args.get("startDate"))
+            query = query.filter(WorksVO.create_time >= request.args.get("startDate"))
         if request.args.get("endDate"):
-            query.append(WorksVO.start_time <= request.args.get("endDate"))
+            query = query.filter(WorksVO.create_time <= request.args.get("endDate"))
 
         page_item = query.with_entities(
             WorksVO.id,

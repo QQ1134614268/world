@@ -165,6 +165,7 @@ def flask_global_assertion_handler(exception):
     """
     # print(exception)
     # print(str(exception))
+    traceback.print_exc()
     return res_util.fail(str(exception))
 
 
@@ -175,6 +176,7 @@ def flask_global_world_exception_handler(exception):
     :param exception:
     :return:
     """
+    traceback.print_exc()
     return res_util.fail(exception.message, exception.code)
 
 

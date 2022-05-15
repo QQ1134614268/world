@@ -70,8 +70,8 @@ export default {
       let data = {
         user_name: this.user_name,
         state: this.state,
-        startDate: this.dateRange[0],
-        endDate: this.dateRange[1],
+        startDate: this.dateRange && this.dateRange.length > 0 ? this.dateRange[0] : "",
+        endDate: this.dateRange && this.dateRange.length > 1 ? this.dateRange[1] : "",
       }
       let res = await this.$get2(ReviewWorksApi, 0, data)
       this.tableData = res.data.data
