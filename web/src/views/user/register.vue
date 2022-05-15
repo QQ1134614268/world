@@ -54,6 +54,8 @@ export default {
         code: this.code,
       }
       await userRegister(data)
+      this.$message.success("注册成功")
+      this.$router.back()
     },
     // async init() {
     //   let url = "/api/hello_api/test_base64_img"
