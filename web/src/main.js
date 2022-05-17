@@ -29,9 +29,9 @@ Vue.component('BoxRow', BoxRow)
 Vue.component('BoxCol', BoxCol)
 
 
-// import 'element-ui/lib/theme-chalk/index.css';
-// import ElementUI from 'element-ui'
-// Vue.use(ElementUI)
+import 'element-ui/lib/theme-chalk/index.css';
+import ElementUI from 'element-ui'
+Vue.use(ElementUI)
 Vue.use(VueCropper)
 Vue.use(VueQuillEditor);
 // todo errorHandler 汇报js异常

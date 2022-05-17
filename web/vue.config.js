@@ -2,10 +2,10 @@ module.exports = {
     publicPath: process.env.NODE_ENV === "development" ? "/" : "/",
     configureWebpack: {
         externals: {
-            vue: 'Vue',
-            'vue-router': 'VueRouter',
-            axios: 'axios',
-            'echarts': 'echarts',
+            // vue: 'Vue',
+            // 'vue-router': 'VueRouter',
+            // axios: 'axios',
+            echarts: 'echarts',
         }
     },
     devServer: {
