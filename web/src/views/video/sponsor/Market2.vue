@@ -126,10 +126,7 @@ export default {
 }
 
 .t_list {
-  box-shadow: 0px 0px 1rem 0.1rem gray;
-  margin-bottom: 1rem;
   width: 100%;
-  background-color: rgba(23, 47, 43, 0.07);
 }
 
 .target_title {
