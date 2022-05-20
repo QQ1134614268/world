@@ -31,11 +31,8 @@
       <div>
         <a :href="MemberRootUrl" class="p_c_HolyGrail-content">
           <BoxCol>
-            <div>
-              <!--              <img :src="home_icon">-->
-              <img src="@/assets/切图/首页/首页.png">
-
-            </div>
+            <!--              <img :src="home_icon">-->
+            <img src="@/assets/切图/首页/首页.png" height="35">
             <div>首页</div>
           </BoxCol>
         </a>
@@ -134,7 +131,6 @@ footer div {
 footer div:nth-child(n+2) {
   border-left: solid 1px #cccccc;
 }
-
 
 
 </style>

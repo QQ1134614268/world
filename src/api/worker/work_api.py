@@ -21,6 +21,7 @@ from service.user_service import get_id_by_token
 from util import res_util, db_util, mail_util
 from util.excel_util import ExcelHandler, check_excel_type
 from util.log_util import logger
+from vo.table_model import UserVO
 from vo.value_object import WorkerExcelVO
 from vo.worker_model import WorkerVO, WorkerTimeVO
 
@@ -228,10 +229,16 @@ class WorkerSchedule:
     def ana_worker_time():
         with scheduler.app.app_context():
             logger.info("统计工时-开始")
-            # todo bug 定时任务 没有user_id , 1. 根据表,查找邮箱配置(很多用户,循环发送) 2. 捕获定时任务异常
-            for user_id in [1]:
+            vos = UserVO.query.outerjoin(
+                WorkerVO, UserVO.id == WorkerVO.belong
+            ).filter(
+                and_(UserVO.email.isnot(None), WorkerVO.id.isnot(None))
+            ).distinct().all()
+            # .with_entities( UserVO.id, UserVO.email)
+            for vo in vos:
+                UserVO.query.filter()
                 try:
-                    data = work_service.get_day_report(user_id)
+                    data = work_service.get_day_report(vo.id)
                     tmp = list(map(lambda x: x.get("hours"), data))
                     total = 0
                     if tmp:
@@ -247,7 +254,7 @@ class WorkerSchedule:
                     template_file = "templete_worker_time.tpl.html"
                     template = template_env.get_template(template_file)
                     output_text = template.render(data2)
-                    mail_util.send_email(output_text, DEVELOPER_MAIL, subject="工时统计", mime_text_type="html")
+                    mail_util.send_email(output_text, vo.email, subject="工时统计", mime_text_type="html")
                 except Exception as e:
                     logger.exception(e)
                     message = traceback.format_exc()
