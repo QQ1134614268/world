@@ -23,8 +23,6 @@ export default {
   },
   methods: {
     handleSuccess(res, file) {
-      alert(123)
-      debugger
       this.url = res.data
     },
   }
