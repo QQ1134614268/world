@@ -1,47 +1,60 @@
 <template>
   <div>
-    <el-upload action="#" list-type="picture-card" :auto-upload="false">
-      <i slot="default" class="el-icon-plus"></i>
-      <div slot="file" slot-scope="{file}">
-        <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
-        <span class="el-upload-list__item-actions">
-        <span class="el-upload-list__item-preview" @click="handlePictureCardPreview(file)">
-          <i class="el-icon-zoom-in"></i>
-        </span>
-        <span v-if="!disabled" class="el-upload-list__item-delete" @click="handleDownload(file)">
-          <i class="el-icon-download"></i>
-        </span>
-        <span v-if="!disabled" class="el-upload-list__item-delete" @click="handleRemove(file)">
-          <i class="el-icon-delete"></i>
-        </span>
-      </span>
-      </div>
+    <el-upload :action="FileApi" :on-success="handleSuccess" class="avatar-uploader">
+      <video v-if="url" :src="url" class="avatar"></video>
+      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+      <div class="el-upload__tip" slot="tip">请上传视频，且不超过 10MB</div>
     </el-upload>
-    <el-dialog :visible.sync="dialogVisible">
-      <img width="100%" :src="dialogImageUrl" alt="">
-    </el-dialog>
+    <div>上传结果: {{ url }}</div>
   </div>
 </template>
 <script>
+import {FileApi} from "@/api/api";
+
 export default {
   data() {
     return {
+      FileApi,
       dialogImageUrl: '',
       dialogVisible: false,
-      disabled: false
+      disabled: false,
+      url: ""
     };
   },
   methods: {
-    handleRemove(file) {
-      console.log(file);
+    handleSuccess(res, file) {
+      alert(123)
+      debugger
+      this.url = res.data
     },
-    handlePictureCardPreview(file) {
-      this.dialogImageUrl = file.url;
-      this.dialogVisible = true;
-    },
-    handleDownload(file) {
-      console.log(file);
-    }
   }
 }
 </script>
+<style>
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.avatar-uploader .el-upload:hover {
+  border-color: #409EFF;
+}
+
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+}
+</style>
