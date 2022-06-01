@@ -1,5 +1,6 @@
 <template>
   <div>
+<!--    todo 删除-->
     <el-upload
         :action="action"
         list-type="picture-card"

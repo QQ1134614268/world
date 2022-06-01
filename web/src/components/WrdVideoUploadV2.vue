@@ -24,17 +24,18 @@ import {VIDEO_TYPE_STR} from "@/api/config";
 export default {
   name: "WrdImgUpload",
   components: {Video},
-  props: {
-    fileUrl: {
-      type: String,
-    },
-  },
+  // props: {
+  //   fileUrl: {
+  //     type: String,
+  //   },
+  // },
   data() {
     return {
       showProgress: false,
       uploadPercentage: "",
       FileApi,
-      accept: VIDEO_TYPE_STR
+      accept: VIDEO_TYPE_STR,
+      fileUrl: ""
     };
   },
   methods: {
@@ -48,6 +49,7 @@ export default {
         this.$message.error(res.data)
         return
       }
+      this.fileUrl = URL.createObjectURL(file.raw);
       this.$message.success("上传成功")
       this.$emit("getUrl", res.data)
     },

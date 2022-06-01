@@ -10,10 +10,8 @@
 </template>
 <script>
 import {FileApi} from "@/api/api";
-import Vue from "vue";
 
-const vConsole =new VConsole()
-Vue.use(vConsole)
+// const vConsole =new VConsole()
 
 export default {
   data() {
@@ -27,7 +25,7 @@ export default {
   },
   methods: {
     handleSuccess(res, file) {
-      this.url = res.data
+      this.url = URL.createObjectURL(file.raw);
     },
   }
 }
