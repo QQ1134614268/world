@@ -10,6 +10,10 @@
 </template>
 <script>
 import {FileApi} from "@/api/api";
+import Vue from "vue";
+
+const vConsole =new VConsole()
+Vue.use(vConsole)
 
 export default {
   data() {
