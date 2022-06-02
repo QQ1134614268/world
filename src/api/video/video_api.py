@@ -327,7 +327,7 @@ class ReviewWorksApi(Resource):
         )
         user_name = request.args.get("user_name")
         if user_name:
-            query = query.filter(WorksVO.user_name.contains(user_name))
+            query = query.filter(UserVO.username.contains(user_name))
 
         state = request.args.get("state", ReviewEnum.NONE.name)
         if state:
