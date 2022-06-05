@@ -12,6 +12,7 @@ from flask import request
 from time import sleep
 
 from config.conf import RESOURCE_DIR
+from service.auth_service import permission_required
 from util import file_config
 from util import res_util
 from util.log_util import logger
@@ -154,3 +155,9 @@ def test_asyncio():
 def test_base64_img(_id=None):
     _, img_byte = get_verify_code(True)
     return str(img_byte, encoding='utf-8')
+
+
+@hello_api.route('/permission_required', methods=['GET'])
+@permission_required("ADMIN")
+def test_permission_required():
+    return "hello"
