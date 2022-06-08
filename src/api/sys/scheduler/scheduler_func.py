@@ -29,14 +29,14 @@ def task1(a, b):
 
 
 def clear_code():
+    logger.info("开始--清除邀请码数据")
     from app import app
     with app.app_context():
-        logger.info("开始--清除邀请码数据")
         InvitationCodeVO.query.filter(
             InvitationCodeVO.create_time > time_util.get_now() - datetime.timedelta(days=7)
         ).delete()
         db.session.commit()
-        logger.info("完成--清除邀请码数据")
+    logger.info("完成--清除邀请码数据")
 
 
 def clear_data():
@@ -56,33 +56,29 @@ def classname_to_const(name):
 
 
 def init_enum_table():
-    logger.info("开始--同步枚举数据")
-    # 清除删掉的枚举(create_by == -1 )?? todo 手动?  用户输入的枚举
-    group = [Role, Permission, ReviewEnum, SexEnum]
-    data = []
-    for cla in group:
-        for index, item in enumerate(cla):
-            sql_data = {
-                'group_code': classname_to_const(cla.__name__),
-                'code': item.name,
-                'value': item.value,
-                'sort': index + 1
-            }
-            data.append(sql_data)
-
+    logger.info("开始--插入枚举数据")
+    # todo 验证枚举数据, 不一致告警,
     from app import app
     with app.app_context():
-        # 重复直接更新?? bug todo
-        insert_stmt = insert(EnumConfig).values(data)
-        on_duplicate_key_stmt = insert_stmt.on_duplicate_key_update(
-            group_code=insert_stmt.inserted.group_code,
-            code=insert_stmt.inserted.code,
-            value=insert_stmt.inserted.value,
-            sort=insert_stmt.inserted.sort,
-        )
-        db.session.execute(on_duplicate_key_stmt)
-        db.session.commit()
-    logger.info("完成--同步枚举数据")
+        group = [Role, Permission, ReviewEnum, SexEnum]
+        for cla in group:
+            group_code = classname_to_const(cla.__name__)
+            ex = EnumConfig.query.filter(EnumConfig.group_code == group_code).first()
+            if ex:
+                continue
+            data = [{'group_code': group_code, 'code': item.name, 'value': item.value, 'sort': index + 1} for
+                    index, item in enumerate(cla)]
+
+            insert_stmt = insert(EnumConfig).values(data)
+            on_duplicate_key_stmt = insert_stmt.on_duplicate_key_update(
+                group_code=insert_stmt.inserted.group_code,
+                code=insert_stmt.inserted.code,
+                value=insert_stmt.inserted.value,
+                sort=insert_stmt.inserted.sort,
+            )
+            db.session.execute(on_duplicate_key_stmt)
+            db.session.commit()
+    logger.info("完成--插入枚举数据")
 
 
 # @scheduler.task('interval', id='blah', seconds=10, misfire_grace_time=900)

@@ -66,14 +66,6 @@ class SexEnum(Enum):
     FEMALE = "女性"
 
 
-class GoodsLabel(Enum):
-    NOODLE_SOUP = "汤面"
-    DRINK = "饮料"
-
-
-Month = Enum('Month', ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'))
-
-
 class StoreMemberType(Enum):
     NormalVip = "普通Vip"
     HighVip = "高级Vip"

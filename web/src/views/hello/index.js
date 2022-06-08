@@ -84,6 +84,10 @@ const routes = [
         path: '/hello/parent_child/Parent',
         component: () => import('@/views/hello/parent_child/Parent')
     },
+    {
+        path: '/hello/test_img_highlight',
+        component: () => import('@/views/hello/test_img_highlight')
+    },
 ]
 export default routes
 
