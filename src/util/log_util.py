@@ -58,23 +58,21 @@ class JSONFormatter(logging.Formatter):
             'level': record.levelname,
             'pathname': record.pathname,
             'lineno': record.lineno,
-            'msg': self.to_json(record.msg)
+            'msg': record.msg
         }
+        # if record.args:
+        #     extra['msg'] = "'" + record.msg + "'," + str(record.args).strip('()')
+        # else:
+        #     extra['msg'] = record.msg
         if record.args:
-            extra['args'] = self.to_json(record.args)
+            extra['args'] = record.args
+            # extra['args'] = str(record.args)
         if record.exc_info:
             extra['exc_info'] = self.formatException(record.exc_info)
         if self._fmt == 'pretty':
             return json.dumps(extra, indent=2, ensure_ascii=False)
 
         return json.dumps(extra, ensure_ascii=False)
-
-    @staticmethod
-    def to_json(x):
-        try:
-            return json.dumps(x)
-        except (TypeError, OverflowError):
-            return str(x)
 
 
 logger = create_logger()
