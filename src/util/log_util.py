@@ -35,12 +35,12 @@ def create_logger(log_dir=LOG_DIR):
     info_handler.setLevel(logging.INFO)
     info_handler.setFormatter(JSONFormatter())
     info_filter = logging.Filter()
-    info_filter.filter = lambda record: record.levelno == logging.INFO
+    info_filter.filter = lambda record: record.levelno <= logging.INFO
     info_handler.addFilter(info_filter)
 
     # write log to console
     handler_console = logging.StreamHandler()
-    handler_console.setLevel(logging.INFO)
+    handler_console.setLevel(logging.NOTSET)
     handler_console.setFormatter(JSONFormatter())
 
     log.addHandler(err_handler)
@@ -78,6 +78,7 @@ class JSONFormatter(logging.Formatter):
 logger = create_logger()
 
 if __name__ == '__main__':
+    logger.debug({"a": 1})
     logger.info({"a": 1})
     logger.error("Do something")
     logger.error(1, 1, 1)
