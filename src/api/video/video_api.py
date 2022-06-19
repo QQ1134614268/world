@@ -19,6 +19,7 @@ from config.mysql_db import db
 from service.auth_service import set_model_user_id, permission_required
 from service.user_service import get_id_by_token
 from util import res_util
+from util.log_util import logger
 from util.video_util import get_first_frame_loc
 from vo.table_model import UserVO
 from vo.video_model import WorksVO, TargetVO, InvitationCodeVO
@@ -44,7 +45,10 @@ class VideoBlueprintApi:
                 frame_num = cap.get(7)
                 duration = frame_num / rate
                 vo.duration = duration
-        return res_util.success(vos)
+                logger.debug("时长", duration)
+            else:
+                logger.debug("cap is close")
+            return res_util.success(vos)
 
 
 class InvitationCodeApi(Resource):
@@ -346,8 +350,6 @@ class ReviewWorksApi(Resource):
             WorksVO.create_time,
             WorksVO.state,
             UserVO.username,
-
-
 
         ).paginate(page=page, per_page=page_size)
         page_item.items = [dict(zip(item.keys(), item)) for item in page_item.items]

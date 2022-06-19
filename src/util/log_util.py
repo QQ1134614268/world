@@ -57,12 +57,11 @@ class JSONFormatter(logging.Formatter):
             'time': datetime.datetime.fromtimestamp(record.created).strftime(DEFAULT_TIME_STR),
             'level': record.levelname,
             'pathname': record.pathname,
-            'lineno': record.lineno
+            'lineno': record.lineno,
+            'msg': self.to_json(record.msg)
         }
         if record.args:
-            extra['msg'] = "'" + record.msg + "'," + str(record.args).strip('()')
-        else:
-            extra['msg'] = record.msg
+            extra['args'] = self.to_json(record.args)
         if record.exc_info:
             extra['exc_info'] = self.formatException(record.exc_info)
         if self._fmt == 'pretty':
@@ -70,12 +69,22 @@ class JSONFormatter(logging.Formatter):
 
         return json.dumps(extra, ensure_ascii=False)
 
+    @staticmethod
+    def to_json(x):
+        try:
+            return json.dumps(x)
+        except (TypeError, OverflowError):
+            return str(x)
+
 
 logger = create_logger()
 
 if __name__ == '__main__':
     logger.info({"a": 1})
     logger.error("Do something")
+    logger.error(1, 1, 1)
+    logger.error(1, 1, 1, {"a": 1})
+    logger.error("Do something", "dd")
     logger.warning("Something maybe fail.")
     logger.exception("Something maybe fail.")
 

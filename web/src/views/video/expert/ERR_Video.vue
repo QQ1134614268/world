@@ -1,12 +1,6 @@
 <template>
   <div>
     <el-table :data="tableData" :default-sort="{prop:'duration',order:'descending'}">
-      <el-table-column prop="duration" label="异常信息" sortable>
-        <template slot-scope="scope">
-          <div v-if="scope.row.size>10">文件大于10M;</div>
-          <div v-if="scope.row.duration>15">时间太长</div>
-        </template>
-      </el-table-column>
       <el-table-column prop="describe" label="主题"></el-table-column>
       <el-table-column prop="thumbnail" label="封面">
         <template slot-scope="scope">
@@ -18,7 +12,14 @@
       </el-table-column>
       <el-table-column prop="size" label="大小"></el-table-column>
       <el-table-column prop="duration" label="时长"></el-table-column>
-      <el-table-column prop="duration" label="操作">
+      <el-table-column label="异常信息" sortable>
+        <template slot-scope="scope">
+          <div v-if="scope.row.size>10">文件大于10M;</div>
+          <div v-if="scope.row.duration>15">时间太长</div>
+          <div v-else>文件正常</div>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit( scope.row)">编辑</el-button>
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row.id)">删除</el-button>
@@ -56,7 +57,7 @@ import WrdVideoUploadV2 from "@/components/WrdVideoUploadV2";
 import WrdImgUpload from "@/components/WrdImgUpload";
 
 export default {
-  name: "market",
+  name: "ERR_Video",
   components: {WrdVideoUploadV2, WrdImgUpload},
   data() {
     return {
