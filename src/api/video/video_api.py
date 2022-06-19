@@ -4,10 +4,10 @@
 @Description:
 """
 import os.path
-import random
-import string
 
 import cv2
+import random
+import string
 from flask import request, Blueprint
 from flask_restful import Resource
 from sqlalchemy import or_, insert
@@ -46,7 +46,7 @@ class VideoBlueprintApi:
                 duration = frame_num / rate
                 vo.duration = duration
             else:
-                logger.debug("cv2 打开文件失败","文件路径: {}".format(path))
+                logger.debug("cv2 打开文件失败", "文件路径: {}".format(path))
         return res_util.success(vos)
 
 
