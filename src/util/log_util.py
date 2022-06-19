@@ -32,7 +32,7 @@ def create_logger(log_dir=LOG_DIR):
 
     info_handler = ConcurrentRotatingFileHandler(os.path.join(log_dir, "info.log.json"), maxBytes=3 * 1024 * 1024,
                                                  backupCount=10, encoding="utf_8")
-    info_handler.setLevel(logging.INFO)
+    info_handler.setLevel(logging.NOTSET)
     info_handler.setFormatter(JSONFormatter())
     info_filter = logging.Filter()
     info_filter.filter = lambda record: record.levelno <= logging.INFO
@@ -78,8 +78,8 @@ class JSONFormatter(logging.Formatter):
 logger = create_logger()
 
 if __name__ == '__main__':
-    logger.debug({"a": 1})
-    logger.info({"a": 1})
+    logger.debug({"aaaaaaaa": 1})
+    logger.info({"bbbbbbbb": 1})
     logger.error("Do something")
     logger.error(1, 1, 1)
     logger.error(1, 1, 1, {"a": 1})

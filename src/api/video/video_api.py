@@ -45,9 +45,8 @@ class VideoBlueprintApi:
                 frame_num = cap.get(7)
                 duration = frame_num / rate
                 vo.duration = duration
-                logger.debug("时长", duration)
             else:
-                logger.debug("cap is close")
+                logger.debug("cv2 打开文件失败","文件路径: {}".format(path))
         return res_util.success(vos)
 
 
