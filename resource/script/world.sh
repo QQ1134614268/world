@@ -7,7 +7,7 @@ cd  /app/world/src
 /usr/local/python3.7/bin/flask db upgrade
 
 pkill -f "python3.7 /app/world/src/app.py"
-nohup python3.7 /app/world/src/app.py &
+nohup python3.7 /app/world/src/app.py >/dev/null 2>&1 &
 
 
 cd  /app/world/web

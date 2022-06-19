@@ -33,7 +33,7 @@ class VideoBlueprintApi:
     @staticmethod
     @video_blueprint_api.route('/err_video/<int:_id>', methods=['GET'])
     def get_sum_time(_id):
-        vos = WorksVO.query.filter().all()
+        vos = WorksVO.query.all()
         for vo in vos:
             path = os.path.join(DATA_DIR, vo.file[1:])
 
@@ -48,7 +48,7 @@ class VideoBlueprintApi:
                 logger.debug("时长", duration)
             else:
                 logger.debug("cap is close")
-            return res_util.success(vos)
+        return res_util.success(vos)
 
 
 class InvitationCodeApi(Resource):
