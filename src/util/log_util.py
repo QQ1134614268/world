@@ -78,8 +78,8 @@ class JSONFormatter(logging.Formatter):
 logger = create_logger()
 
 if __name__ == '__main__':
-    logger.debug({"aaaaaaaa": 1})
-    logger.info({"bbbbbbbb": 1})
+    logger.debug({"aa": 1})
+    logger.info({"bb": 1})
     logger.error("Do something")
     logger.error(1, 1, 1)
     logger.error(1, 1, 1, {"a": 1})

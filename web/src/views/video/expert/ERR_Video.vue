@@ -16,7 +16,6 @@
         <template slot-scope="scope">
           <div v-if="scope.row.size>10">文件大于10M;</div>
           <div v-if="scope.row.duration>15">时间太长</div>
-          <div v-else>文件正常</div>
         </template>
       </el-table-column>
       <el-table-column label="操作">
