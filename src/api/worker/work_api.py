@@ -251,7 +251,7 @@ class WorkerSchedule:
                     # 注意一点: 其中path需要为当前python文件所在目录的完整路径，get_template内部的参数为html模板相对于该python文件所在目录的路径(相对路径)。
                     template_loader = jinja2.FileSystemLoader(searchpath=RESOURCE_DIR)
                     template_env = jinja2.Environment(loader=template_loader)
-                    template_file = "templete_worker_time.tpl.html"
+                    template_file = "template_worker_time.tpl.html"
                     template = template_env.get_template(template_file)
                     output_text = template.render(data2)
                     mail_util.send_email(output_text, vo.email, subject="工时统计", mime_text_type="html")
