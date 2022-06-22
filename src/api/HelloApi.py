@@ -11,9 +11,9 @@ from flask import Response
 from flask import request
 from time import sleep
 
+import util.file_util
 from config.conf import RESOURCE_DIR
 from service.auth_service import permission_required
-from util import file_config
 from util import res_util
 from util.log_util import logger
 from util.time_util import get_now_str
@@ -52,7 +52,7 @@ def exception():
 
 @hello_api.route('/download_excel', methods=['GET'])
 def download_excel():
-    byte_array_buffer = file_config.read_into_buffer(RESOURCE_DIR + "/excel_download_test.xlsx")
+    byte_array_buffer = util.file_util.read_into_buffer(RESOURCE_DIR + "/excel_download_test.xlsx")
     file_name = "excel下载测试.xlsx"
     return send_file(byte_array_buffer, as_attachment=True, attachment_filename=file_name)
 

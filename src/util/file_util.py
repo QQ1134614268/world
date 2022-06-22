@@ -21,3 +21,10 @@ def prepare_path(file_path, remove=False):
             shutil.rmtree(dic_path)
     else:
         os.makedirs(dic_path)
+
+
+def read_into_buffer(filename):
+    buf = bytearray(os.path.getsize(filename))
+    with open(filename, 'rb') as f:
+        f.readinto(buf)
+    return buf
