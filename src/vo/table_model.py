@@ -4,7 +4,7 @@
 @Description: 
 """
 
-from sqlalchemy import Column, Text, String, Integer, Boolean, DateTime, Sequence, UniqueConstraint, ForeignKey
+from sqlalchemy import Column, Text, String, Integer, Boolean, DateTime, Sequence, UniqueConstraint, ForeignKey, text
 
 from config.mysql_db import db
 from util.password_util import get_sha256_salt_password
@@ -16,9 +16,8 @@ class BaseTable(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True, comment="主键")
     # create_time = Column(DateTime, default=datetime.datetime.now, comment="创建时间", server_default="")
     # update_time = Column(DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now, comment="修改时间")
-    create_time = Column(DateTime, server_default="CURRENT_TIMESTAMP", comment="创建时间")
-    update_time = Column(DateTime, server_default="CURRENT_TIMESTAMP", server_onupdate="CURRENT_TIMESTAMP",
-                         comment="修改时间")
+    create_time = Column(DateTime, server_default=text("CURRENT_TIMESTAMP"), comment='创建时间')
+    update_time = Column(DateTime, server_default=text("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"), comment='修改时间')
     create_by = Column(Integer, default="-1", comment="创建者id")
     update_by = Column(Integer, default="-1", comment="修改者id")
 
