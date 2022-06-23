@@ -21,6 +21,8 @@ import BoxCol from '@/components/flexbox2/BoxCol'
 import VueCropper from 'vue-cropper'
 // 文本编辑器
 import VueQuillEditor from 'vue-quill-editor'
+import 'element-ui/lib/theme-chalk/index.css';
+import ElementUI from 'element-ui'
 
 Vue.component('BoxFlex', BoxFlex)
 
@@ -29,8 +31,6 @@ Vue.component('BoxRow', BoxRow)
 Vue.component('BoxCol', BoxCol)
 
 
-import 'element-ui/lib/theme-chalk/index.css';
-import ElementUI from 'element-ui'
 Vue.use(ElementUI)
 Vue.use(VueCropper)
 Vue.use(VueQuillEditor);
@@ -57,7 +57,7 @@ Vue.prototype.$postForm2 = postForm2;
 
 Vue.prototype.$ppJson = ppJson;
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 // Axios.defaults.baseURL = process.env.VUE_APP_BASE_URL
 Axios.defaults.headers.common['Content-Type'] = 'application/json;';
@@ -91,7 +91,7 @@ Axios.interceptors.response.use(
                 // } else {
                 //     Vue.prototype.$message.error("服务器发生了错误! 请稍后再试!")
                 // }
-                Vue.prototype.$message.error("服务器发生了错误! 请稍后再试!")
+                Vue.prototype.$message.error("服务器发生了错误! 请稍后再试!");
                 return Promise.resolve(response);
             }
             if (response.data.code === 8) {
@@ -99,12 +99,12 @@ Axios.interceptors.response.use(
                 if (router.currentRoute.fullPath.startsWith("/video/") || router.currentRoute.fullPath == "/" || router.currentRoute.fullPath == "/videoAdmin/") {
                     router.push({path: VideoLoginUrl}).then(r => {
                         return r
-                    })
+                    });
                     return Promise.reject(response);
                 }
                 router.push({path: SYS_LOGIN_URL}).then(r => {
-                    return r
-                })
+                    return r;
+                });
                 return Promise.reject(response);
             }
             return Promise.resolve(response);
@@ -134,9 +134,9 @@ router.beforeEach((to, from, next) => {
             next();
         }
     } else {
-        next()
+        next();
     }
-})
+});
 
 new Vue({
     router,

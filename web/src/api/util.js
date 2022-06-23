@@ -57,41 +57,41 @@ export function isApp() {
 }
 
 export function fmtDateY_M_D(date) {
-    let char = '-'
-    let year = date.getFullYear()
-    let month = date.getMonth() + 1
-    let strDate = date.getDate()
+    let char = '-';
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let strDate = date.getDate();
 
     if (month >= 1 && month <= 9) {
-        month = '0' + month
+        month = '0' + month;
     }
     if (strDate >= 0 && strDate <= 9) {
-        strDate = '0' + strDate
+        strDate = '0' + strDate;
     }
-    return year + char + month + char + strDate
+    return year + char + month + char + strDate;
 }
 
 export function fmtDateY_M_D_H_M_S(date) {
-    let char = '-'
-    let year = date.getFullYear()
-    let month = date.getMonth() + 1
-    let strDate = date.getDate()
-    let hours = date.getHours()
-    let minutes = date.getMinutes()
-    let seconds = date.getSeconds()
+    let char = '-';
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let strDate = date.getDate();
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
 
     if (month >= 1 && month <= 9) {
-        month = '0' + month
+        month = '0' + month;
     }
     if (strDate >= 0 && strDate <= 9) {
-        strDate = '0' + strDate
+        strDate = '0' + strDate;
     }
-    return year + char + month + char + strDate + " " + hours + ":" + minutes + ":" + seconds
+    return year + char + month + char + strDate + " " + hours + ":" + minutes + ":" + seconds;
 }
 
 export function getDateY_M_D() {
-    let date = new Date()
-    return fmtDateY_M_D(date)
+    let date = new Date();
+    return fmtDateY_M_D(date);
 }
 
 export const get2 = (url, id, params) => {
@@ -155,8 +155,23 @@ export const postForm2 = (url, id, data = {}) => {
         headers: {
             'Content-Type': 'multipart/form-data;'
         }
-    })
+    });
 };
+// export const getPageJson2 = (url, data = {}) => {
+//     return getJson2(url + PAGE_API, data);
+// };
+// export const crateJson2 = (url, data = {}) => {
+//     return postJson2(url + CREATE_API, data);
+// };
+// export const updateJson2 = (url, data = {}) => {
+//     return postJson2(url + UPDATE_API, data);
+// };
+// export const delete_Json2 = (url, data = {}) => {
+//     return postJson2(url + DELETE_API, data);
+// };
+// export const delete_BatchJson2 = (url, data = {}) => {
+//     return postJson2(url + DELETE_BATCH_API, data);
+// };
 export const ppJson = (url, id, data) => {
     if (typeof (id) == "undefined" || id == null) {
         return postJson2(url, 0, data)
@@ -165,37 +180,37 @@ export const ppJson = (url, id, data) => {
 };
 
 export async function querySearch(queryString, cb, url) {
-    let data = {name: queryString}
-    let res = await get2(url, 0, data)
-    let suggest = []
+    let data = {name: queryString};
+    let res = await get2(url, 0, data);
+    let suggest = [];
     for (let i = 0; i < res.data.data.length; i++) {
         suggest.push({
             value: res.data.data[i].name
-        })
+        });
     }
-    cb(suggest)
+    cb(suggest);
 }
 
 export function toTree(arr) {
-    let ret = []
-    let tree = {}
+    let ret = [];
+    let tree = {};
     for (let i = 0; i < arr.length; i++) {
-        let obj = arr[i]
-        if (obj.label == undefined) {
-            obj.label = 'other'
+        let obj = arr[i];
+        if (obj.label === undefined) {
+            obj.label = 'other';
         }
-        if (tree[obj.label] != undefined) {
-            tree[obj.label].push(obj)
+        if (tree[obj.label] !== undefined) {
+            tree[obj.label].push(obj);
         } else {
-            tree[obj.label] = [obj]
+            tree[obj.label] = [obj];
             ret.push({
                 label: obj.label,
                 data: tree[obj.label]
-            })
+            });
         }
     }
 
-    return ret
+    return ret;
 }
 
 export async function exportExcelByHeader(url, headers) {
@@ -203,11 +218,11 @@ export async function exportExcelByHeader(url, headers) {
         responseType: 'arraybuffer', // 或者responseType: 'blob'
         xsrfHeaderName: 'Authorization',
         headers: headers
-    })
+    });
     try {
-        let data = JSON.parse(res.data)
-        if (data.code != 1) {
-            Vue.prototype.$message.error(data.data)
+        let data = JSON.parse(res.data);
+        if (data.code !== 1) {
+            Vue.prototype.$message.error(data.data);
         }
     } catch (err) {
         // const {data, headers} = res;
@@ -217,7 +232,7 @@ export async function exportExcelByHeader(url, headers) {
         let blob = new Blob([res.data]);
         link.style.display = 'none';
         link.href = URL.createObjectURL(blob);   // 创建下载的链接
-        let fileName = "工人列表.xlsx"
+        let fileName = "工人列表.xlsx";
         link.setAttribute('download', fileName);  // 给下载后的文件命名 fileName文件名  type文件格式
         document.body.appendChild(link);
         link.click();  // 点击下载
@@ -227,52 +242,54 @@ export async function exportExcelByHeader(url, headers) {
 }
 
 export function getUserInfoByToken() {
-    if (localStorage.getItem(TOKEN) != undefined && localStorage.getItem(TOKEN) != '') {
+    if (localStorage.getItem(TOKEN) !== undefined && localStorage.getItem(TOKEN) !== '') {
         try {
-            return jwt_decode(localStorage.getItem(TOKEN))
+            return jwt_decode(localStorage.getItem(TOKEN));
         } catch (ex) {
             console.log('捕获到异常：', ex);
         }
     }
-    return undefined
+    return undefined;
 }
 
 export function getToken() {
-    return localStorage.getItem(TOKEN)
+    return localStorage.getItem(TOKEN);
 }
 
 export function getUserIdByToken() {
-    let user = getUserInfoByToken()
-    if (user != undefined)
-        return getUserInfoByToken().id
+    let user = getUserInfoByToken();
+    if (user === undefined) {
+        return user;
+    }
+    return getUserInfoByToken().id;
 }
 
 export function beforeImgUpload(file) {
     const isImage = IMG_TYPE.includes(file.type);
     if (!isImage) {
         Vue.prototype.$message.error('上传图片格式不正确!');
-        return false
+        return false;
     }
     const isLtSize = file.size / 1024 / 1024 < 5;
     if (!isLtSize) {
         Vue.prototype.$message.error('上传图片大小不能超过 5MB!');
-        return false
+        return false;
     }
-    return true
+    return true;
 }
 
 
 export function videoBeforeUpload(file) {
 
-    if (VIDEO_TYPE.indexOf(file.type) == -1) {
-        Vue.prototype.$message.error("视频格式不正确！")
-        return false
+    if (VIDEO_TYPE.indexOf(file.type) === -1) {
+        Vue.prototype.$message.error("视频格式不正确！");
+        return false;
     }
 
     const isLt10MB = file.size / 1024 / 1024 < 10;
     if (!isLt10MB) {
-        Vue.prototype.$message.error("上传视频大小不能超过10M！")
-        return false
+        Vue.prototype.$message.error("上传视频大小不能超过10M！");
+        return false;
     }
     //todo
 
@@ -288,8 +305,8 @@ export function videoBeforeUpload(file) {
     //         } else {
     //             return true
     //         }
-    //     })
+    //     });
     // })
     // return time_limit;
-    return true
+    return true;
 }
