@@ -157,21 +157,6 @@ export const postForm2 = (url, id, data = {}) => {
         }
     });
 };
-// export const getPageJson2 = (url, data = {}) => {
-//     return getJson2(url + PAGE_API, data);
-// };
-// export const crateJson2 = (url, data = {}) => {
-//     return postJson2(url + CREATE_API, data);
-// };
-// export const updateJson2 = (url, data = {}) => {
-//     return postJson2(url + UPDATE_API, data);
-// };
-// export const delete_Json2 = (url, data = {}) => {
-//     return postJson2(url + DELETE_API, data);
-// };
-// export const delete_BatchJson2 = (url, data = {}) => {
-//     return postJson2(url + DELETE_BATCH_API, data);
-// };
 export const ppJson = (url, id, data) => {
     if (typeof (id) == "undefined" || id == null) {
         return postJson2(url, 0, data)
