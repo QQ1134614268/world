@@ -1,53 +1,51 @@
 <template>
-  <div id="container" class="p_c_box-flex_col p_c_flex_1">
-    <div id="header" class="p_c_box-flex_center">
-      <div class="p_c_box-flex_center">
-        <router-link :to=MemberRootUrl>会员系统</router-link>
+  <div class="container">
+    <div class="header">
+      <div @click="goTo(MemberRootUrl)" class="title">
+        会员系统
       </div>
-      <div v-if="user">
-        <el-dropdown>
-          <el-avatar :src="user.avatar" :key="user.avatar"></el-avatar>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>
-              <a @click="logout">退出登录</a>
-            </el-dropdown-item>
-            <el-dropdown-item>
-              <a type="primary" :href=MemberAdminHome>设置</a>
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-      </div>
+      <el-dropdown v-if="user">
+        <el-avatar :src="user.avatar" :key="user.avatar"></el-avatar>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>
+            <div @click="logout">退出登录</div>
+          </el-dropdown-item>
+          <el-dropdown-item>
+            <div @click="goTo(MemberAdminHome)">设置</div>
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
       <div v-else>
-        <router-link tag="a" :to=SYS_LOGIN_URL>登陆</router-link>
-        |
-        <router-link tag="a" :to=SYS_REGISTER_URL>注册</router-link>
+        <span @click="goTo(SYS_LOGIN_URL)"> 登陆</span>
+        <span> | </span>
+        <span @click="goTo(SYS_REGISTER_URL)"> 登陆</span>
       </div>
     </div>
-    <box-flex id="body" class="p_c_flex_1">
+    <div class="body">
       <router-view class="p_c_flex_1"/>
-    </box-flex>
-    <footer class="footer131">
-
-      <div>
-        <a :href="MemberRootUrl" class="p_c_HolyGrail-content">
-          <BoxCol>
-            <!--              <img :src="home_icon">-->
-            <img src="@/assets/切图/首页/首页.png" height="35">
-            <div>首页</div>
-          </BoxCol>
-        </a>
+    </div>
+    <div class="footer">
+      <div @click="goTo(MemberRootUrl)">
+        <div style="height: 24px">
+          <img src="@/assets/切图/首页/首页.png">
+        </div>
+        <div>首页</div>
       </div>
-
-      <a :href="MemberRootUrl" class="p_c_HolyGrail-content">
+      <div @click="goTo(UserSpace)">
+        <div style="height: 24px">
+          <img src="@/assets/切图/首页/首页.png">
+        </div>
         <div>点餐</div>
-      </a>
-      <a :href="UserSpace" class="p_c_HolyGrail-content">
-        <div>购物车</div>
-      </a>
-      <a :href="UserSpace" class="p_c_HolyGrail-content">
+      </div>
+      <div @click="goTo(UserSpace)">
+        <div style="height: 24px">
+          <img src="@/assets/切图/首页/首页.png">
+          <!--          <img src="@/assets/切图/首页/首页.png" style="height: 24px">-->
+        </div>
+        <!--        <img src="@/assets/切图/首页/首页.png" style="height: 24px">-->
         <div>我的</div>
-      </a>
-    </footer>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -81,26 +79,46 @@ export default {
   methods: {
     async logout() {
       await userLogout()
+    },
+    goTo(url) {
+      this.$router.push(url)
     }
   }
 }
 </script>
-<style scoped>
-#container {
-  width: 47rem;
-  height: 102rem;
-}
-
-#header {
+<style scoped lang="less">
+.container {
+  height: 100vh;
   display: flex;
+  flex-direction: column;
+
+  @media only screen and (min-width: 768px) {
+    width: 678px;
+  }
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+div {
+  //border: 1px solid red;
+}
+
+.header {
+  display: flex;
+  flex: 0 0 1;
   justify-content: space-around;
+  height: 48px;
 }
 
-#body {
+.body {
   width: 100%;
+  display: flex;
+  flex-grow: 1;
+  overflow-y: auto;
 }
 
-footer {
+.footer {
   display: flex;
   justify-content: space-evenly;
   height: 3rem;
@@ -117,12 +135,7 @@ footer div {
 .footer131 {
   /*width: 23rem;*/
   height: 5rem;
-  background-image: linear-gradient(
-      #ffffff,
-      #ffffff),
-  linear-gradient(
-      #ffffff,
-      #ffffff);
+  background-image: linear-gradient(#ffffff, #ffffff), linear-gradient(#ffffff, #ffffff);
   background-blend-mode: normal,
   normal;
   box-shadow: 0rem 0rem 0rem 0rem rgba(48, 45, 43, 0.21);

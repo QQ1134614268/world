@@ -1,6 +1,6 @@
 <template>
   <div>
-<!--    todo 删除-->
+    <!--    todo 删除-->
     <el-upload
         :action="action"
         list-type="picture-card"
@@ -41,11 +41,11 @@
 
 <script>
 import {FileApi} from "@/api/api";
-import {TOKEN, VIDEO_TYPE} from "@/api/config";
+import {VIDEO_TYPE_STR} from "@/api/config";
 import {getToken} from "@/api/util";
 
 export default {
-  name:"WrdVideoUpload",
+  name: "WrdVideoUpload",
   props: {
     limit: {
       type: Number | String,
@@ -61,7 +61,7 @@ export default {
     },
     accept: {
       type: String,
-      default: VIDEO_TYPE.toString()
+      default: VIDEO_TYPE_STR
     },
     beforeAvatarUpload: {
       type: Function,
@@ -71,7 +71,7 @@ export default {
   },
   data() {
     return {
-      fileList:[],
+      fileList: [],
       dialogImageUrl: '',
       dialogVisible: false,
       // fileLists:this.fileList,
@@ -122,7 +122,7 @@ export default {
         return
       }
       this.$message.success("上传成功")
-      this.$emit("getFileList",fileList)
+      this.$emit("getFileList", fileList)
       // let obj = {
       //   uid: file.uid,
       //   url: response.data,
