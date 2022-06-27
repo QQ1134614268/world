@@ -2,17 +2,17 @@ import Axios from "axios";
 import {CREATE_API, DELETE_API, DELETE_BATCH_API, PAGE_API, UPDATE_API} from "@/api/config";
 
 export const getJson2 = (url, params) => {
-    return new Axios({
+    return Axios({
         method: 'get', url: url, params: params
     });
 };
 export const postJson2 = (url, data) => {
-    return new Axios({
+    return Axios({
         method: 'POST', url: url, data: data
     });
 };
 export const postForm2 = (url, data = {}) => {
-    return new Axios({
+    return Axios({
         method: 'POST', url: url, data: data, headers: {
             'Content-Type': 'multipart/form-data;'
         }
