@@ -1,5 +1,10 @@
 <template>
   <BoxCol class="p_c_flex_1">
+    <!--    <scroll-view :scroll-y="true" @scroll="productScroll" @scrolltolower="new_productToLower"-->
+    <!--                 :scroll-into-view="clickId">-->
+    <!--      <view v-for="(item_,index) in current_products" class="right_box" :key="index" :id="'po'+index">-->
+    <!--      </view>-->
+    <!--    </scroll-view>-->
     <BoxRow class="p_c_flex_1">
       <BoxCol class="navTotal">
         <!--        侧边导航栏-->
