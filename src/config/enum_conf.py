@@ -6,7 +6,7 @@
 from enum import Enum, unique
 
 
-class ExceptionCode(Enum):
+class ResponseCode(Enum):
     # 成功
     SUCCESS = 1
     # 失败, 一般参数问题, 反馈用户

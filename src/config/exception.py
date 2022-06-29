@@ -1,11 +1,11 @@
 # -- coding:UTF-8 --
 
-from config.enum_conf import ExceptionCode
+from config.enum_conf import ResponseCode
 
 
 class WorldException(Exception):
 
-    def __init__(self, message="Exception", code=ExceptionCode.FAIL.value):
+    def __init__(self, message="Exception", code=ResponseCode.FAIL.value):
         self.code = code
         self.message = message
 
@@ -15,7 +15,7 @@ class WorldException(Exception):
 
 class WorldNoLoginException(WorldException):
 
-    def __init__(self, message="Exception", code=ExceptionCode.NO_LOGIN_FAIL.value):
+    def __init__(self, message="Exception", code=ResponseCode.NO_LOGIN_FAIL.value):
         self.code = code
         self.message = message
 

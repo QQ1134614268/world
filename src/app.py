@@ -13,6 +13,7 @@ from flask_migrate import Migrate
 from flask_restful import Api
 
 from api.HelloApi import hello_api
+from api.code.code_api import code_blueprint_api
 from api.member.member_api import StoreMemberApi, StoreApi, OrderApi, GoodsApi, order_api, QrCodeApi
 from api.message.socket.SocketApi import socket_api
 from api.my_cloud_space.CloudSpaceApi import cloud_space_api, CloudSpaceApi
@@ -35,7 +36,7 @@ from api.video.video_api import TargetApi, TargetListApi, MarketTargetListApi, W
 from api.worker.work_api import WorkerApi, WorkerTimeApi, WorkerExcelApi, WorkTimeAnalyseApi, \
     work_time_analyse_api
 from config.apscheduler_conf import scheduler
-from config.conf import DEBUG, DEVELOPER_MAIL, VERSION, SQLALCHEMY_DATABASE_URI
+from config.conf import DEBUG, DEVELOPER_MAIL, VERSION, SQLALCHEMY_DATABASE_URI, SQLALCHEMY_BINDS
 from config.conf import MAIL_HOST_BLOCK_LIST
 from config.exception import WorldException
 from config.json_config import MyJSONEncoder
@@ -52,6 +53,7 @@ api2 = Api(app)
 CORS(app, supports_credentials=True)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
+app.config["SQLALCHEMY_BINDS"] = SQLALCHEMY_BINDS
 app.config["SECRET_KEY"] = "session_key_world"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 app.config["SQLALCHEMY_POOL_RECYCLE"] = 14400
@@ -65,6 +67,13 @@ app.config['JSON_AS_ASCII'] = False
 app.config.update(RESTFUL_JSON=dict(ensure_ascii=False))
 db.init_app(app)
 app.json_encoder = MyJSONEncoder
+
+# flask_env_mode = os.getenv('FLASK_ENV_MODE')
+# config = {
+#     'development': DevelopmentConfig,
+#     'production': ProductionConfig,
+# }
+# app.config.from_object(DevelopmentConfig)
 
 # E:/workspace/world/venv/Scripts/flask db init
 # E:/workspace/world/venv/Scripts/flask db migrate
@@ -264,6 +273,8 @@ app.register_blueprint(video_blueprint_api)
 
 api2.add_resource(ReviewTargetApi, "/api/video_api/ReviewTargetApi/<int:_id>")
 api2.add_resource(ReviewWorksApi, "/api/video_api/ReviewWorksApi/<int:_id>")
+
+app.register_blueprint(code_blueprint_api)
 
 if __name__ == '__main__':
     scheduler.init_app(app)
