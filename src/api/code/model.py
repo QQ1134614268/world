@@ -28,7 +28,7 @@ class MysqlTables(db.Model):
     CHECKSUM = Column(BIGINT(21))
     CREATE_OPTIONS = Column(String(256))
     TABLE_COMMENT = Column(Text)
-    PrimaryKeyConstraint(TABLE_CATALOG, TABLE_SCHEMA)
+    PrimaryKeyConstraint(TABLE_CATALOG, TABLE_SCHEMA, TABLE_NAME)
 
 
 class MysqlColumns(db.Model):
@@ -62,7 +62,7 @@ class MysqlColumns(db.Model):
     COLUMN_COMMENT = Column('COLUMN_COMMENT', Text, comment="字段注释")
     GENERATION_EXPRESSION = Column('GENERATION_EXPRESSION', LONGTEXT, comment="表名")
     SRS_ID = Column('SRS_ID', INTEGER(10), comment="")
-    PrimaryKeyConstraint(TABLE_CATALOG, TABLE_SCHEMA, COLUMN_NAME)
+    PrimaryKeyConstraint(TABLE_CATALOG, TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME)
 
 
 class JsForm(db.Model):
