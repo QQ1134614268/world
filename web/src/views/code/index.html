@@ -24,6 +24,7 @@
     常见字段,自动翻译,
     导出, 数据库,  日志
     项目数据迁移(学历,自动输入), 操作(hub, 标准hub, 推荐hub, 负责的hub, 自定义的hub, 指定的,搜索的,)
+    group path 与 嵌套对象 继承
     构建全部的,所有的表直接展示所有数据,(服务器生成解析yaml), 二维,一维, 模型展现,调整模型(权重)
     数据可以任意来源(从文件,从业务字段,从数据库),
     代码自动提示选项,并且记住(某个策略,多个策略,一切都是list(单个,set, 0 -- null -- 空串), 指定单个,枚举)
@@ -48,7 +49,7 @@
             <h2>翻译</h2>
             <h5>业务模型字段->历史数据自动输入 | 自动翻译</h5>
             <div class="main" style="display: flex">
-                <div class="args"> 翻译.args: {{fanyiFlow.args}}</div>
+                <div class="args"> 翻译.args: {{ fanyiFlow.args }}</div>
                 <div class="result">
                     翻译.结果:
                 </div>
@@ -68,36 +69,30 @@
                             <el-input v-model="scope.row.column_name"></el-input>
                         </template>
                     </el-table-column>
-                    </el-table-column>
                     <el-table-column prop="column_name" label="可为空(DB)|必需">
                         <template slot-scope="scope">
                             <el-input v-model="scope.row.nullable"></el-input>
                         </template>
-                    </el-table-column>
                     </el-table-column>
                     <el-table-column prop="column_name" label="字段注释">
                         <template slot-scope="scope">
                             <el-input v-model="scope.row.column_comment"></el-input>
                         </template>
                     </el-table-column>
-                    </el-table-column>
                     <el-table-column prop="column_name" label="示例">
                         <template slot-scope="scope">
                             <el-input v-model="scope.row.example"></el-input>
                         </template>
-                    </el-table-column>
                     </el-table-column>
                     <el-table-column prop="column_name" label="取值范围(正则)长度">
                         <template slot-scope="scope">
                             <el-input v-model="scope.row.regx"></el-input>
                         </template>
                     </el-table-column>
-                    </el-table-column>
                     <el-table-column prop="column_name" label="顺序">
                         <template slot-scope="scope">
                             <el-input v-model="scope.row.list_order"></el-input>
                         </template>
-                    </el-table-column>
                     </el-table-column>
                     <el-table-column prop="column_name" label="path(uid)">
                         <template slot-scope="scope">
@@ -128,16 +123,13 @@
             <div>读取本地文件(java,python,yaml,json)->解析处理->生成本地文件</div>
             <div>输出台</div>
             <el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
-              点我打开
+                点我打开
             </el-button>
         </el-tab-pane>
     </el-tabs>
-    <el-drawer
-      title="tree"
-      :visible.sync="drawer"
-      :direction="direction">
-       <el-tree>
-       </el-tree>
+    <el-drawer title="tree" :visible.sync="drawer" :direction="direction">
+        <el-tree>
+        </el-tree>
     </el-drawer>
 </div>
 <script src="https://unpkg.com/art-template/lib/template-web.js"></script>
@@ -146,8 +138,8 @@
         {
             el: '#app3',
             data: {
-                direction:"right",
-                drawer:false,
+                direction: "right",
+                drawer: false,
                 tabPosition: "left",
                 originFlow: {
                     args: "客户姓名,客户来源"
