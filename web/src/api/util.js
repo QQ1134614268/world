@@ -1,6 +1,6 @@
 import CryptoJS from "crypto-js";
 import Axios from "axios";
-import {IMG_TYPE, SALT_WORK_FACTOR, TOKEN, VIDEO_TYPE} from "@/api/config";
+import {IMG_TYPE, SALT_WORK_FACTOR, TOKEN, UPLOAD_FILE_SIZE_MAX, VIDEO_TYPE} from "@/api/config";
 import Vue from "vue";
 import jwt_decode from "jwt-decode";
 
@@ -267,11 +267,12 @@ export function beforeImgUpload(file) {
 export function videoBeforeUpload(file) {
 
     if (VIDEO_TYPE.indexOf(file.type) === -1) {
-        Vue.prototype.$message.error("视频格式不正确！");
+        Vue.prototype.$message.error(VIDEO_TYPE.toString());
+        Vue.prototype.$message.error("视频格式" + file.type + "不正确！");
         return false;
     }
 
-    const isLt10MB = file.size / 1024 / 1024 < 10;
+    const isLt10MB = file.size < UPLOAD_FILE_SIZE_MAX;
     if (!isLt10MB) {
         Vue.prototype.$message.error("上传视频大小不能超过10M！");
         return false;
