@@ -4,10 +4,10 @@
 @Description:
 """
 import os.path
-
-import cv2
 import random
 import string
+
+import cv2
 from flask import request, Blueprint
 from flask_restful import Resource
 from sqlalchemy import or_, insert
@@ -129,8 +129,11 @@ class WorksApi(Resource):
 
     def put(self, _id):
         data = request.get_json()
-        data.pop("duration")
-        data.pop("size")
+        if "duration" in data:
+            data.pop("duration")
+        if "size" in data:
+            data.pop("size")
+        #  todo work(**data)
         WorksVO.query.filter(WorksVO.id == _id).update(data)
         db.session.commit()
         return res_util.success(_id)
