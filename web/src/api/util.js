@@ -267,7 +267,6 @@ export function beforeImgUpload(file) {
 export function videoBeforeUpload(file) {
 
     if (VIDEO_TYPE.indexOf(file.type) === -1) {
-        Vue.prototype.$message.error(VIDEO_TYPE.toString());
         Vue.prototype.$message.error("视频格式" + file.type + "不正确！");
         return false;
     }

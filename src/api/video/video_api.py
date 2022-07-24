@@ -164,7 +164,7 @@ class WorksListApi(Resource):
 
 class WorksRankListApi(Resource):
     def get(self, _id):
-        obj_filter = []
+        obj_filter = [WorksVO.state == ReviewEnum.APPROVE.name]
         results = WorksVO.query.filter(*obj_filter).order_by(WorksVO.create_time.desc()).limit(10).all()
         return res_util.success(results)
 
@@ -241,7 +241,7 @@ class TargetListApi(Resource):
 class TargetRankListApi(Resource):
 
     def get(self, _id):
-        obj_filter = []
+        obj_filter = [TargetVO.state == ReviewEnum.APPROVE.name]
         results = TargetVO.query.filter(*obj_filter).order_by(TargetVO.create_time.desc()).limit(10).all()
         return res_util.success(results)
 
