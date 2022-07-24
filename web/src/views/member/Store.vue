@@ -1,18 +1,18 @@
 <template>
-  <BoxCol class="p_c_flex_1">
+  <BoxCol id="store">
     <!--    <scroll-view :scroll-y="true" @scroll="productScroll" @scrolltolower="new_productToLower"-->
     <!--                 :scroll-into-view="clickId">-->
     <!--      <view v-for="(item_,index) in current_products" class="right_box" :key="index" :id="'po'+index">-->
     <!--      </view>-->
     <!--    </scroll-view>-->
-    <BoxRow class="p_c_flex_1">
+    <BoxRow class="body">
       <BoxCol class="navTotal">
         <!--        侧边导航栏-->
         <a :href="'#'+obj.label" :key="index" v-for="(obj,index) in tableData">
           <div class="nav">{{ obj.label }}</div>
         </a>
       </BoxCol>
-      <BoxCol class="p_c_flex_1">
+      <BoxCol class="p_c_flex_1 menu">
         <!--        主体-->
         <BoxCol :key="index" v-for="(obj,index) in tableData">
           <a :id="obj.label">
@@ -33,7 +33,7 @@
         </BoxCol>
       </BoxCol>
     </BoxRow>
-    <BoxCol>
+    <BoxCol class="chart">
       <BoxRow class="btn">
         <el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
           购物车
@@ -112,6 +112,17 @@ export default {
 </script>
 
 <style scoped>
+.body {
+  width: 100%;
+  display: flex;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.chart {
+
+}
+
 .navTotal {
   width: 4rem;
   margin: 1rem 1rem 0rem 1rem;
