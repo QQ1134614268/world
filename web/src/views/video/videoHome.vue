@@ -26,9 +26,6 @@
               <a type="primary" :href=Target>我的发布</a>
             </el-dropdown-item>
             <el-dropdown-item>
-              <a type="primary" :href=ERR_VIDEO>告警信息</a>
-            </el-dropdown-item>
-            <el-dropdown-item>
               <a type="primary" :href=InvitationCode v-if="INVITATION_CODE">我的邀请码</a>
             </el-dropdown-item>
             <el-dropdown-item>
@@ -61,7 +58,6 @@
 import {hasPermission, userLogout} from "@/api/user";
 import {Permission} from "@/api/config";
 import {
-  ERR_VIDEO,
   InvitationCode,
   Target,
   VIDEO_MARKET,
@@ -84,7 +80,6 @@ export default {
       VIDEO_MARKET2,
       VIDEO_MARKET,
       VideoLoginUrl,
-      ERR_VIDEO,
       VideoRegisterUrl,
       WorksUrl,
       INVITATION_CODE: false,

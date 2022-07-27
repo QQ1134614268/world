@@ -7,7 +7,6 @@ export const TargetInfoUrl = "/video/TargetInfo"
 export const WorksUrl = "/video/works"
 export const VideoLoginUrl = "/video/Login"
 export const VIDEO_MARKET = "/video/market"
-export const ERR_VIDEO = "/video/ERR_Video"
 export const VIDEO_MARKET2 = "/video/Market2"
 export const video_user = "/video/video_user"
 export const InvitationCode = "/video/InvitationCode"
@@ -81,15 +80,6 @@ export const routes = [
             {
                 path: VIDEO_MARKET,
                 component: () => import('@/views/video/expert/Market'),
-                meta: {
-                    keepAlive: false,
-                    // login: true,
-                    roles: ['VIDEO',],
-                }
-            },
-            {
-                path: ERR_VIDEO,
-                component: () => import('@/views/video/expert/ERR_Video'),
                 meta: {
                     keepAlive: false,
                     // login: true,
