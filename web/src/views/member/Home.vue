@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <div class="header">
+  <div class="member_container">
+    <div class="member_header">
       <div @click="goTo(MemberRootUrl)" class="title">
         会员系统
       </div>
@@ -21,10 +21,10 @@
         <span @click="goTo(SYS_REGISTER_URL)"> 登陆</span>
       </div>
     </div>
-    <div class="body">
-      <router-view class="p_c_flex_1"/>
+    <div class="member_body">
+      <router-view/>
     </div>
-    <div class="footer">
+    <div class="member_footer">
       <div @click="goTo(MemberRootUrl)">
         <div style="height: 24px">
           <img src="@/assets/切图/首页/首页.png">
@@ -87,7 +87,7 @@ export default {
 }
 </script>
 <style scoped lang="less">
-.container {
+.member_container {
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -104,21 +104,20 @@ div {
   //border: 1px solid red;
 }
 
-.header {
+.member_header {
   display: flex;
   flex: 0 0 1;
   justify-content: space-around;
   height: 48px;
 }
 
-.body {
+.member_body {
   width: 100%;
   display: flex;
   flex-grow: 1;
-  overflow-y: auto;
 }
 
-.footer {
+.member_footer {
   display: flex;
   justify-content: space-evenly;
   height: 3rem;

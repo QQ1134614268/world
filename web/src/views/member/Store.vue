@@ -1,18 +1,18 @@
 <template>
-  <BoxCol id="store">
+  <BoxCol class="store">
     <!--    <scroll-view :scroll-y="true" @scroll="productScroll" @scrolltolower="new_productToLower"-->
     <!--                 :scroll-into-view="clickId">-->
     <!--      <view v-for="(item_,index) in current_products" class="right_box" :key="index" :id="'po'+index">-->
     <!--      </view>-->
     <!--    </scroll-view>-->
-    <BoxRow class="body">
+    <BoxRow class="store_body">
       <BoxCol class="navTotal">
         <!--        侧边导航栏-->
         <a :href="'#'+obj.label" :key="index" v-for="(obj,index) in tableData">
           <div class="nav">{{ obj.label }}</div>
         </a>
       </BoxCol>
-      <BoxCol class="p_c_flex_1 menu">
+      <BoxCol class="store_menu">
         <!--        主体-->
         <BoxCol :key="index" v-for="(obj,index) in tableData">
           <a :id="obj.label">
@@ -33,7 +33,7 @@
         </BoxCol>
       </BoxCol>
     </BoxRow>
-    <BoxCol class="chart">
+    <BoxCol class="store_chart">
       <BoxRow class="btn">
         <el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
           购物车
@@ -112,14 +112,29 @@ export default {
 </script>
 
 <style scoped>
-.body {
+
+.store {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.store_body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 10rem;
+}
+
+.store_menu {
   width: 100%;
   display: flex;
   flex-grow: 1;
   overflow-y: auto;
+  /*border: red 1px solid;*/
 }
 
-.chart {
+.store_chart {
 
 }
 
@@ -127,6 +142,9 @@ export default {
   width: 4rem;
   margin: 1rem 1rem 0rem 1rem;
   background: #e3e1e1;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .nav {
