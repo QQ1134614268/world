@@ -28,7 +28,6 @@ video_blueprint_api = Blueprint("video_blueprint_api", __name__, url_prefix='/ap
 
 
 class VideoBlueprintApi:
-    """工时统计"""
 
     @staticmethod
     @video_blueprint_api.route('/err_video/<int:_id>', methods=['GET'])
