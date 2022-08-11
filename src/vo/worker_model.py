@@ -19,15 +19,13 @@ class WorkerVO(BaseTable):
         'mysql_charset': 'utf8mb4',
         'comment': '工人详情',
     }
-    belong = Column(Integer, comment='所属id' )
+    belong = Column(Integer, comment='所属id')
     name = Column(String(255), comment='姓名')
     birthday = Column(Date, comment='出生日期')
     id_card_number = Column(String(255), comment='身份证id')  # , unique=True
     # todo 优化 枚举 导入导出,vue 工人列表 表格
     sex = Column(Enum('男', '女'), comment=get_comment(SexEnum))
-    pay = Column(Float(precision="10,2"), default=0, comment="日薪资(元)")
-
-    # 10 总长度为10  2 小数点后保留2位
+    pay = Column(Float(precision="12,4"), default=0, comment="日薪资(元)")  # 12: 总长度为12;  4: 小数点后保留4位
     start_time = Column(Date, comment='入职日期')
     phone = Column(String(11), comment='手机号')
 
