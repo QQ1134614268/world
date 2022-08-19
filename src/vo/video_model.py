@@ -4,7 +4,7 @@
 @Description:
 """
 
-from sqlalchemy import Column, Integer, String, Float, Enum
+from sqlalchemy import Column, Integer, String, Float, Enum, Text
 
 from config.enum_conf import ReviewEnum
 from service.user_service import get_id_by_token
@@ -33,6 +33,6 @@ class TargetVO(BaseTable):
     __tablename__ = 'target_t'
     user_id = Column(Integer, index=True, default=get_id_by_token, comment='用户 id')
     title = Column(String(255), comment='标题')
-    content = Column(String(1000), comment='内容')
+    content = Column(Text, comment='内容')
     price = Column(Float(precision="14,2"), comment="价格")
     state = Column(Enum(ReviewEnum), default=ReviewEnum.NONE.name, comment=get_comment(ReviewEnum))

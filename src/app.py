@@ -123,7 +123,19 @@ def handle_404_error(err_msg):
             "err_msg": str(err_msg)
         }
     })
-    return res_util.exception(u"server error：%s" % err_msg)
+    return res_util.fail(err_msg)
+
+
+@app.errorhandler(405)
+def handle_405_error(err_msg):
+    url_path = request.path
+    logger.error({
+        "405": {
+            "url_path": url_path,
+            "err_msg": str(err_msg)
+        }
+    })
+    return res_util.fail(err_msg)
 
 
 @app.errorhandler(Exception)

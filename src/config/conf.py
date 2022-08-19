@@ -102,6 +102,7 @@ class ProductionConfig(Config):
     }
 
 
+# todo 多环境
 config = {
     'development': DevelopmentConfig,
     'production': ProductionConfig,

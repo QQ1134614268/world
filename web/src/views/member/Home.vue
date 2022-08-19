@@ -122,6 +122,10 @@ div {
   justify-content: space-evenly;
   height: 3rem;
   background: linear-gradient(to top, #f3f3f3, #cccccc, #f3f3f3);
+
+  div {
+    border: black 1px solid;
+  }
 }
 
 footer div {
@@ -135,8 +139,7 @@ footer div {
   /*width: 23rem;*/
   height: 5rem;
   background-image: linear-gradient(#ffffff, #ffffff), linear-gradient(#ffffff, #ffffff);
-  background-blend-mode: normal,
-  normal;
+  background-blend-mode: normal, normal;
   box-shadow: 0rem 0rem 0rem 0rem rgba(48, 45, 43, 0.21);
 }
 

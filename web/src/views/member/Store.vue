@@ -26,9 +26,11 @@
               </div>
               <BoxRow class="price  ">
                 <div>售价: {{ obj2.price }}</div>
-                <i class="el-icon-circle-plus add_icon" @click="add(obj2)"></i>
+
               </BoxRow>
             </BoxCol>
+            <el-input-number v-if="obj2.num" v-model="obj2.num" size="small" @change="change"></el-input-number>
+            <i v-else class="el-icon-circle-plus add_icon" @click="add(obj2)"></i>
           </BoxRow>
         </BoxCol>
       </BoxCol>
