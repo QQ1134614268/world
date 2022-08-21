@@ -51,6 +51,7 @@ export const StoreMemberApi = "/api/member/StoreMemberApi"
 export const StoreMemberListApi = "/api/member/StoreMemberListApi"
 export const StoreApi = "/api/member/StoreApi"
 export const QrCodeApi = "/api/member/QrCodeApi"
+export const get_cooker_order = "/api/member/cooker_order_api/get_cooker_order"
 
 // 钱包
 export const WalletApi = "/api/member/WalletApi"

@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import {Finance, GoodsList, Qrcode, RolePermission, UserAdmin, UserRole} from "@/views/member";
+import {Finance, GoodsList, Order, Qrcode, RolePermission, UserAdmin, UserRole} from "@/views/member";
 
 export default {
   name: "Home",
@@ -35,6 +35,11 @@ export default {
         {
           menuName: "菜单",
           menuPath: GoodsList,
+          menuIcon: "el-icon-connection",
+        },
+        {
+          menuName: "订单",
+          menuPath: Order,
           menuIcon: "el-icon-connection",
         },
         {

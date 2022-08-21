@@ -12,7 +12,7 @@ import util.unique_util
 from config.enum_conf import StoreMemberType, OrderStatus
 from config.mysql_db import db
 from util import res_util, time_util
-from vo.member_model import StoreVO, StoreMemberTable, GoodsVO, OrderVO, QrCodeVO, StoreRoleTable
+from vo.member_model import StoreVO, StoreMemberTable, GoodsVO, OrderInfoVO, QrCodeVO, StoreRoleTable, OrderVO
 
 
 class StoreApi(Resource):
@@ -117,50 +117,57 @@ class OrderApi(Resource):
         user_id = service.user_service.get_id_by_token()
         order_code = util.unique_util.get_uuid()
         create_time = time_util.get_now_str()
+        order_vo = OrderVO(
+            store_id=data[0].get("store_id"),
+            table_id=data[0].get("table_id"),
+            order_code=order_code
+        )
+        db.session.add(order_vo)
+        db.session.flush()
         for item in data:
             goods = GoodsVO.query.filter(GoodsVO.id == item["id"]).first()
+
             new_data = {
                 'goods_name': item["name"],
                 'user_id': user_id,
                 'goods_id': item["id"],
                 'num': item["num"],
-                'store_id': item["store_id"],
+                'order_id': order_vo.id,
                 'price': goods.price * item.get("num"),
-                'order_code': order_code,
-                'table_id': item.get("store_id"),
                 'create_time': create_time,
                 'goods_img': goods.images,
             }
-            db.session.add(OrderVO(**new_data))
+            db.session.add(OrderInfoVO(**new_data))
         db.session.commit()
         return res_util.success(order_code)
 
     def get(self, _id):
         if _id:
-            vo = OrderVO.query.filter(OrderVO.id == _id).first()
+            vo = OrderInfoVO.query.filter(OrderInfoVO.id == _id).first()
             return res_util.success(vo)
 
         order_code = request.args.get("order_code")
         if order_code:
-            vos = OrderVO.query.filter(OrderVO.order_code == order_code).order_by(OrderVO.create_time.desc()).all()
+            vos = OrderInfoVO.query.filter(OrderInfoVO.order_code == order_code).order_by(
+                OrderInfoVO.create_time.desc()).all()
             return res_util.success(vos)
 
         user_id = service.user_service.get_id_by_token()
         store_id = request.args.get("store_id")
 
-        vos = OrderVO.query.filter(
-            OrderVO.user_id == user_id,
-            OrderVO.store_id == store_id,
+        vos = OrderInfoVO.query.filter(
+            OrderInfoVO.user_id == user_id,
+            OrderInfoVO.store_id == store_id,
         ).with_entities(
-            OrderVO.order_code,
-            OrderVO.status,
-            func.any_value(OrderVO.create_time).label('create_time')
+            OrderInfoVO.order_code,
+            OrderInfoVO.status,
+            func.any_value(OrderInfoVO.create_time).label('create_time')
         ).group_by(
-            OrderVO.order_code,
-            OrderVO.status,
-            OrderVO.create_time,
+            OrderInfoVO.order_code,
+            OrderInfoVO.status,
+            OrderInfoVO.create_time,
         ).order_by(
-            OrderVO.create_time.desc()
+            OrderInfoVO.create_time.desc()
         ).all()
         return res_util.success(vos)
 
@@ -191,6 +198,9 @@ class QrCodeApi(Resource):
         return res_util.success(vo.id)
 
 
+# todo
+# 思考 订单, 厨师, 商家, 顾客,不同的页面,订单接口
+
 order_api = Blueprint("order", __name__, url_prefix='/api/member/order_api')
 
 
@@ -210,11 +220,11 @@ class OrderBlueprintApi(Resource):
         worker_list = [None, StoreMemberType.Kitchen.name, StoreMemberType.Admin.name,
                        StoreMemberType.NormalEmp.name, StoreMemberType.StoreAdmin.name]
         if user_type in worker_list:  # todo  permission_required
-            query = OrderVO.query.filter(OrderVO.store_id == store_id)
+            query = OrderInfoVO.query.filter(OrderInfoVO.store_id == store_id)
             user_id = request.args.get("user_id")
             if user_id:
-                query.filter(OrderVO.store_id == store_id)
-            vos = query.order_by(OrderVO.create_time.desc()).all()
+                query.filter(OrderInfoVO.store_id == store_id)
+            vos = query.order_by(OrderInfoVO.create_time.desc()).all()
             return res_util.success(vos)
 
     @staticmethod
@@ -223,9 +233,9 @@ class OrderBlueprintApi(Resource):
         store_id = request.args.get("store_id")
         table_id = request.args.get("table_id")
         if table_id:
-            order = OrderVO.query.filter(
-                OrderVO.table_id == table_id,
-                OrderVO.store_id == store_id,
-                OrderVO.status == OrderStatus.UN_PAYMENT.UN_PAYMENT,
-            ).order_by(OrderVO.create_time.desc()).all()
+            order = OrderInfoVO.query.filter(
+                OrderInfoVO.table_id == table_id,
+                OrderInfoVO.store_id == store_id,
+                OrderInfoVO.status == OrderStatus.UN_PAYMENT.UN_PAYMENT,
+            ).order_by(OrderInfoVO.create_time.desc()).all()
             return res_util.success(order)

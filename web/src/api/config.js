@@ -1,9 +1,3 @@
-export const CREATE_API = "/create";
-export const PAGE_API = "/getPage";
-export const UPDATE_API = "/updateById";
-export const DELETE_API = "/deleteById";
-export const DELETE_BATCH_API = "/deleteByIds";
-
 export const REVIEW_ENUM = "REVIEW_ENUM"
 export const DATE_FMT = "yyyy-MM-dd";
 export const SALT_WORK_FACTOR = "AAAA_BBBB_CCCC_DDDD";

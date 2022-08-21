@@ -1,5 +1,8 @@
 Itsdangerous==1.1.0
 flask==1.1.1
+jinja2==3.0.3
+werkzeug==0.16.1
+
 Flask-Cors==3.0.10
 Flask-RESTful==0.3.7
 SQLAlchemy==1.4.31
@@ -16,7 +19,6 @@ openpyxl==3.0.5
 jieba==0.42.1
 python-dateutil==2.8.2
 qrcode==7.3.1
-
 PyJWT==1.7.1
 pycryptodome==3.9.0
 
@@ -33,5 +35,3 @@ gunicorn==20.1.0
 # 开发工具
 pylint==2.6.0
 # pipdeptree
-
-Scrapy~=2.6.1

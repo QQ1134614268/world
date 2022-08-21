@@ -41,16 +41,16 @@ HOST = "127.0.0.1"  # 本地 dev
 # HOST = "ggok.top"  # 生产 ggok.top
 PORT = 3306
 WORLD_DB = "world"
-INFORMATION_SCHEMA_DB = 'information_schema'
-CODE_DB = 'information_schema'
+# INFORMATION_SCHEMA_DB = 'information_schema'
+# CODE_DB = 'information_schema'
 
 SQLALCHEMY_DATABASE_URI = f'{DIALECT}+{DRIVER}://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{WORLD_DB}?charset=utf8mb4'
-INFORMATION_SCHEMA_URI = f'{DIALECT}+{DRIVER}://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{INFORMATION_SCHEMA_DB}?charset=utf8mb4'
-CODE_URI = f'{DIALECT}+{DRIVER}://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{CODE_DB}?charset=utf8mb4'
-SQLALCHEMY_BINDS = {
-    'information_schema': INFORMATION_SCHEMA_URI,
-    'code': CODE_URI,
-}
+# INFORMATION_SCHEMA_URI = f'{DIALECT}+{DRIVER}://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{INFORMATION_SCHEMA_DB}?charset=utf8mb4'
+# CODE_URI = f'{DIALECT}+{DRIVER}://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{CODE_DB}?charset=utf8mb4'
+# SQLALCHEMY_BINDS = {
+#     'information_schema': INFORMATION_SCHEMA_URI,
+#     'code': CODE_URI,
+# }
 
 MONGO_HOST = "127.0.0.1"
 MONGO_PORT = 27017

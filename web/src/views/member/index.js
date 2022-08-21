@@ -5,6 +5,7 @@ export const MemberAdminHome = "/member/admin"
 export const order = "/member/order"
 
 export const GoodsList = "/member/admin/GoodsList"
+export const Order = "/member/admin/Order"
 export const GoodsAdd = "/member/admin/GoodsAdd"
 export const GoodsEdit = "/member/admin/GoodsEdit"
 export const Qrcode = "/member/admin/Qrcode"
@@ -62,6 +63,10 @@ const routes = [
             {
                 path: GoodsList,
                 component: () => import('@/views/member/admin/GoodsList')
+            },
+            {
+                path: Order,
+                component: () => import('@/views/member/admin/Order')
             },
             {
                 path: GoodsAdd,

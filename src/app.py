@@ -13,7 +13,7 @@ from flask_migrate import Migrate
 from flask_restful import Api
 
 from api.HelloApi import hello_api
-from api.code.code_api import code_blueprint_api
+from api.member.cooker_order_api import cooker_order_api
 from api.member.member_api import StoreMemberApi, StoreApi, OrderApi, GoodsApi, order_api, QrCodeApi
 from api.message.socket.SocketApi import socket_api
 from api.my_cloud_space.CloudSpaceApi import cloud_space_api, CloudSpaceApi
@@ -36,7 +36,7 @@ from api.video.video_api import TargetApi, TargetListApi, MarketTargetListApi, W
 from api.worker.work_api import WorkerApi, WorkerTimeApi, WorkerExcelApi, WorkTimeAnalyseApi, \
     work_time_analyse_api
 from config.apscheduler_conf import scheduler
-from config.conf import DEBUG, DEVELOPER_MAIL, VERSION, SQLALCHEMY_DATABASE_URI, SQLALCHEMY_BINDS
+from config.conf import DEBUG, DEVELOPER_MAIL, VERSION, SQLALCHEMY_DATABASE_URI
 from config.conf import MAIL_HOST_BLOCK_LIST
 from config.exception import WorldException
 from config.json_config import MyJSONEncoder
@@ -53,7 +53,7 @@ api2 = Api(app)
 CORS(app, supports_credentials=True)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
-app.config["SQLALCHEMY_BINDS"] = SQLALCHEMY_BINDS
+# app.config["SQLALCHEMY_BINDS"] = SQLALCHEMY_BINDS
 app.config["SECRET_KEY"] = "session_key_world"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 app.config["SQLALCHEMY_POOL_RECYCLE"] = 14400
@@ -75,9 +75,9 @@ app.json_encoder = MyJSONEncoder
 # }
 # app.config.from_object(DevelopmentConfig)
 
-# E:/workspace/world/venv/Scripts/flask db init
-# E:/workspace/world/venv/Scripts/flask db migrate
-# E:/workspace/world/venv/Scripts/flask db upgrade
+# E:/workspace/pythonSpace/world/venv/Scripts/flask db init
+# E:/workspace/pythonSpace/world/venv/Scripts/flask db migrate
+# E:/workspace/pythonSpace/world/venv/Scripts/flask db upgrade
 #
 # D:/workspace/world/venv/Scripts/flask db migrate
 # D:/workspace/world/venv/Scripts/flask db upgrade
@@ -136,6 +136,18 @@ def handle_405_error(err_msg):
         }
     })
     return res_util.fail(err_msg)
+
+
+@app.errorhandler(AssertionError)
+def handle_405_error(err):
+    url_path = request.path
+    logger.error({
+        "405": {
+            "url_path": url_path,
+            "err_msg": str(err)
+        }
+    })
+    return res_util.fail(err)
 
 
 @app.errorhandler(Exception)
@@ -286,7 +298,7 @@ app.register_blueprint(video_blueprint_api)
 api2.add_resource(ReviewTargetApi, "/api/video_api/ReviewTargetApi/<int:_id>")
 api2.add_resource(ReviewWorksApi, "/api/video_api/ReviewWorksApi/<int:_id>")
 
-app.register_blueprint(code_blueprint_api)
+app.register_blueprint(cooker_order_api)
 
 if __name__ == '__main__':
     scheduler.init_app(app)

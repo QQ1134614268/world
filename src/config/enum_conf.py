@@ -79,3 +79,8 @@ class StoreMemberType(Enum):
 class OrderStatus(Enum):
     PAYMENT_SUCCESS = "支付完成"
     UN_PAYMENT = "未支付"
+
+
+class CookerStatus(Enum):
+    PAYMENT_SUCCESS = ""
+    UN_PAYMENT = "未支付"
