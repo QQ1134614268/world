@@ -8,7 +8,7 @@
           <el-image style="width: 5rem" :src="scope.row.images"/>
         </template>
       </el-table-column>
-      <el-table-column prop="status" label="状态"></el-table-column>
+      <el-table-column prop="cooker_status" label="状态"></el-table-column>
     </el-table>
   </div>
 </template>
