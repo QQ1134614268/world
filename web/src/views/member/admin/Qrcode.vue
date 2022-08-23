@@ -3,6 +3,7 @@
     <el-button @click="form={};dialogVisible=true">增加</el-button>
     <el-table :data="tableDate">
       <el-table-column label="桌号" prop="table_id"></el-table-column>
+      <el-table-column label="二维码" prop="qr_code"></el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button>编辑</el-button>
