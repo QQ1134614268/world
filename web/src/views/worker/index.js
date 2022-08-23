@@ -23,12 +23,10 @@ export const routes = [
         children: [
             {
                 path: workTimeInfo,
-                name: workTimeInfo,
                 component: () => import('@/views/worker/workTimeInfo'),
             },
             {
                 path: workConfig,
-                name: workConfig,
                 component: () => import('@/views/worker/config'),
             },
             {
@@ -38,22 +36,18 @@ export const routes = [
             },
             {
                 path: workTimeAnalyse,
-                name: workTimeAnalyse,
                 component: () => import('@/views/worker/workTimeAnalyse')
             },
             {
                 path: workTimeReport,
-                name: workTimeReport,
                 component: () => import('@/views/worker/workTimeReport')
             },
             {
                 path: worker,
-                name: worker,
                 component: () => import('@/views/worker/worker'),
             },
             {
                 path: workTimeRecord,
-                name: workTimeRecord,
                 component: () => import('@/views/worker/workTimeRecord'),
             },
         ]
