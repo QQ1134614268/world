@@ -1,4 +1,4 @@
-echo 'cd  /app/world
+cd  /app/world
 git pull
 cd
 # git --git-dir /app/world/.git pull
@@ -14,6 +14,3 @@ cd  /app/world/web
 npm install >> /var/log/world.log
 pkill -f "node /app/world/web"
 nohup npm run production >/dev/null 2>&1 &
-'>world_update.sh
-
-chmod +x world_update.sh
