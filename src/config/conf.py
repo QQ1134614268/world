@@ -14,11 +14,9 @@ VIDEO_FILE_PATH = path.join(DATA_DIR, "video")
 
 UPLOAD_FILE_DIR_NAME = "/upload_file/"
 JPG = ".jpg"
-DEFAULT_TIME_STR = '%Y-%m-%d %H:%M:%S.%f'
+DEFAULT_TIME_STR = '%Y-%m-%d_%H-%M-%S_%f'
 # dev  不发邮件的主机
 MAIL_HOST_BLOCK_LIST = ["DESKTOP-4JJG0QE", "WGCOMPUTER", "DESKTOP-58DSV1D"]
-DATE_FORMAT = "%Y-%m-%d"
-DATE_TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
 PUBLIC_KEY = "world"
 
 DEVELOPER_MAIL = "1134614268@qq.com"

@@ -5,7 +5,7 @@
 """
 from sqlalchemy import and_
 
-from config.conf import DATE_FORMAT
+from config.time_conf import DATE_FORMAT
 from util import time_util
 from util.db_util import row_to_dic
 from vo.worker_model import WorkerVO, WorkerTimeVO

@@ -1,7 +1,8 @@
-import time
 from datetime import datetime
 
-from config.conf import DATE_TIME_FORMAT
+import time
+
+from config.time_conf import DATE_TIME_FORMAT
 
 
 # 字符串转时间

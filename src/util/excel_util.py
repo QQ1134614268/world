@@ -8,9 +8,10 @@ from datetime import datetime
 
 from openpyxl import load_workbook, Workbook
 
-from config.conf import LOG_DIR, RESOURCE_DIR, DATE_FORMAT
+from config.conf import LOG_DIR, RESOURCE_DIR
 from config.exception import WorldException
 from config.mysql_db import db
+from config.time_conf import DATE_FORMAT
 from util import time_util
 
 

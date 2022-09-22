@@ -11,8 +11,8 @@ from enum import Enum
 
 from sqlalchemy.engine import Row
 
-from config.conf import DATE_FORMAT, DATE_TIME_FORMAT
 from config.mysql_db import db
+from config.time_conf import DATE_FORMAT, DATE_TIME_FORMAT
 
 
 class MyJSONEncoder(json.JSONEncoder):
