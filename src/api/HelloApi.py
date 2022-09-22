@@ -12,7 +12,7 @@ from flask import request
 from time import sleep
 
 import util.file_util
-from config.conf import RESOURCE_DIR
+from config.dir_conf import RESOURCE_DIR
 from service.auth_service import permission_required
 from util import res_util
 from util.log_util import logger

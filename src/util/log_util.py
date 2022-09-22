@@ -6,8 +6,8 @@ import os
 
 from concurrent_log_handler import ConcurrentRotatingFileHandler
 
-from config.conf import DEFAULT_TIME_STR
-from config.conf import LOG_DIR
+from config.dir_conf import LOG_DIR
+from config.time_conf import DATE_TIME_FORMAT
 
 
 def create_logger(log_dir=LOG_DIR):
@@ -54,7 +54,7 @@ class JSONFormatter(logging.Formatter):
 
     def format(self, record):
         extra = {
-            'time': datetime.datetime.fromtimestamp(record.created).strftime(DEFAULT_TIME_STR),
+            'time': datetime.datetime.fromtimestamp(record.created).strftime(DATE_TIME_FORMAT),
             'level': record.levelname,
             'pathname': record.pathname,
             'lineno': record.lineno,

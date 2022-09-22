@@ -10,7 +10,7 @@ from flask_restful import Resource
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, make_transient
 
-from config.conf import DATA_DIR
+from config.dir_conf import DATA_DIR
 from config.enum_conf import FileServeDirEnum
 from config.mysql_db import db
 from util import res_util

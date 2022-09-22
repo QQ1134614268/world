@@ -13,7 +13,7 @@ from flask_restful import Resource
 from sqlalchemy import or_, insert
 from sqlalchemy.dialects.mysql import insert
 
-from config.conf import DATA_DIR
+from config.dir_conf import DATA_DIR
 from config.enum_conf import Permission, ReviewEnum
 from config.mysql_db import db
 from service.auth_service import set_model_user_id, permission_required

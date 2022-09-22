@@ -4,7 +4,7 @@ import os
 from sqlalchemy.dialects.mysql import insert
 
 from config.apscheduler_conf import scheduler
-from config.conf import LOG_DIR, UPLOAD_FILE_PATH
+from config.dir_conf import LOG_DIR, UPLOAD_FILE_PATH
 from config.enum_conf import Permission, Role, ReviewEnum, SexEnum
 from config.mysql_db import db
 from util import time_util
