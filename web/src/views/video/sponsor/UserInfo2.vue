@@ -11,7 +11,7 @@
       <div>
         <span>微信</span>
         <span v-if="user"> {{ userVO.wechat_number }} </span>
-        <span v-else> 登录后查看 </span>
+        <span v-else style="color: gainsboro"> 登录后查看 </span>
       </div>
     </div>
     <div class="col-11">
@@ -43,7 +43,6 @@
 <script>
 
 import {MarketTargetListApi, UserApi} from "@/api/api";
-import jwt_decode from "jwt-decode";
 import {TargetInfoUrl, VideoUrl} from "@/views/video";
 
 export default {
