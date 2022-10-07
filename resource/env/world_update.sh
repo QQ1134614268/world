@@ -7,9 +7,9 @@ cd  /app/world/src
 /usr/local/python3.7/bin/flask db upgrade
 
 pkill -f "python3.7 /app/world/src/app.py"
-nohup python3.7 /app/world/src/app.py >/var/log/world.log 2>&1 &
+nohup python3.7 /app/world/src/app.py >>/var/log/world.log 2>&1 &
 
 cd  /app/world/web
 npm install >> /var/log/world_web_install.log
 pkill -f "node /app/world/web"
-nohup npm run production >/var/log/world_web.log 2>&1 &
+nohup npm run production >>/var/log/world_web.log 2>&1 &
