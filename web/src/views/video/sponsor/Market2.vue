@@ -10,7 +10,7 @@
             <router-link :to="{path:TargetInfoUrl,query: {target_id: o.id}}" class="target_title">
               {{ o.title }}
             </router-link>
-            <div> {{ o.content }}</div>
+            <div class="target_content"> {{ o.content }}</div>
             <router-link :to="{path:UserInfo2,query: {user_id: o.user_id}}"
                          class="p_c_box-flex_row-col-center t_avatar">
               <el-avatar :src="o.avatar" :size=16></el-avatar>
@@ -135,18 +135,26 @@ export default {
   line-height: 1.8rem;
 }
 
+.target_content {
+  padding-top: 0.5rem;
+}
+
 .target {
-  box-shadow: 0px 1px 5px 0px gray;
+  box-shadow: 0 2px 10px 0 rgb(0 0 0 / 10%);
   margin-bottom: 1rem;
   margin-left: 1rem;
+  line-height: 1.6rem;
+  padding: 1rem;
+  border-radius: 0.8rem;
+  border-collapse: separate;
 }
 
 .t_avatar {
-  height: 1rem;
+  padding-top: 0.5rem;
 }
 
 .name {
-  width: 6rem;
+  width: 10rem;
   color: black;
 }
 </style>
