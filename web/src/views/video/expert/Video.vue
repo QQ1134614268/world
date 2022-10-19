@@ -54,5 +54,6 @@ export default {
   align-content: center;
   align-items: center;
   align-self: center;
+  height: 75%;
 }
 </style>
