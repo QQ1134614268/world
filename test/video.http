@@ -1,0 +1,38 @@
+###
+GET http://127.0.0.1:9090/api/video_api/VideoUserApi/0?username=wg&password=123456
+
+
+###
+POST http://127.0.0.1:9090/api/video_api/VideoUserApi/0
+Content-Type: application/json
+
+{
+  "username": "wg",
+  "password": 123456
+}
+
+###
+GET http://127.0.0.1:9090/api/video_api/VideoUserApi/0?userName=wg&password=123456
+
+###
+
+GET  http://127.0.0.1:9090/api/video_api/WorksApi/0
+
+###
+
+GET  http://127.0.0.1:9090/api/file/FileApi2?path=upload_file/5fdcfc88859611eba41f80fa5b6c6ed4_movie.mp4
+
+###
+
+POST http://127.0.0.1:9090/api/video_api/TargetApi/0
+Content-Type: application/json
+
+{
+  "title": "wg",
+  "content": "123456",
+  "price": 12
+}
+
+###
+GET http://127.0.0.1:9090/api/video_api/MarketWorksListApi/0
+
