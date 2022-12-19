@@ -1,0 +1,28 @@
+# -*- coding:utf-8 -*-
+mysql:
+  HOST: "127.0.0.1"  # 本地 dev
+  PORT: 3306
+  USERNAME: "wg"
+  PASSWORD: "123456"
+  DB: "world"
+redis:
+  HOST: "127.0.0.1"
+  PORT: 6379
+  DB: 0
+  PASSWORD: 1234567890
+mongo:
+  HOST: "127.0.0.1"
+  PORT: 27017
+app:
+  DEBUG: True
+  SECRET: "secret"
+  PUBLIC_KEY: "world"
+  MAIL_HOST_BLOCK_LIST: [ "DESKTOP-4JJG0QE", "WGCOMPUTER", "DESKTOP-58DSV1D" ]
+  dev-mail:
+    HOST: "smtp.qq.com"
+    PORT: 465
+    PASS: "ijivowrottpbjfci"
+
+    DEVELOPER_MAIL: "1134614268@qq.com"
+    ZERO_MAIL: "1134614268@qq.com"
+    SERVER_MAIL: "1134614268@qq.com"

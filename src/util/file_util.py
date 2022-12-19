@@ -51,7 +51,7 @@ class FileUtil:
             file.write(yaml.dump(dict_value, allow_unicode=True))
 
     @staticmethod
-    def from_yaml(yaml_path):  # 转类
+    def from_yaml(yaml_path) -> dict:  # 转类
         with open(yaml_path, encoding="utf-8") as file:
             dict_value = yaml.load(file, Loader=yaml.FullLoader)
             return dict_value
