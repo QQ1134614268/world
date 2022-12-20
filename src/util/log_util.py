@@ -7,7 +7,7 @@ import os
 from concurrent_log_handler import ConcurrentRotatingFileHandler
 
 from config.conf import DATE_TIME_FORMAT
-from config.dir_conf import LOG_DIR
+from config.env_default import LOG_DIR
 
 
 def create_logger(log_dir=LOG_DIR):

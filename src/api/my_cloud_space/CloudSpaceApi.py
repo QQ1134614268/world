@@ -8,7 +8,8 @@ from flask import Blueprint, send_file, request
 from flask_restful import Resource
 
 import service.user_service
-from config.dir_conf import DATA_DIR, UPLOAD_FILE_PATH
+from config.env_default import DATA_DIR
+from config.env_default import UPLOAD_FILE_PATH
 from config.mysql_db import db
 from util import res_util
 from vo.table_model import UserCloudSpaceVO

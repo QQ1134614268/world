@@ -10,7 +10,7 @@ import cv2
 
 import util.unique_util
 from config.conf import JPG
-from config.dir_conf import UPLOAD_FILE_PATH2, UPLOAD_FILE_DIR_NAME
+from config.env_default import UPLOAD_FILE_PATH2, UPLOAD_FILE_DIR_NAME
 
 
 def get_first_frame_loc(video_path):

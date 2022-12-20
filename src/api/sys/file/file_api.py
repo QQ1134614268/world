@@ -4,8 +4,8 @@ from flask import request
 from flask import send_file
 from flask_restful import Resource
 
-from config.dir_conf import UPLOAD_FILE_PATH2, UPLOAD_FILE_DIR_NAME
 from config.enum_conf import FileServeDirEnum
+from config.env_default import UPLOAD_FILE_PATH2, UPLOAD_FILE_DIR_NAME
 from config.exception import WorldException
 from util import res_util
 from util.file_util import get_file_name_by_uuid

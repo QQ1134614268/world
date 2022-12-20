@@ -26,25 +26,3 @@ app:
     DEVELOPER_MAIL: "1134614268@qq.com"
     ZERO_MAIL: "1134614268@qq.com"
     SERVER_MAIL: "1134614268@qq.com"
-
-DEBUG = env.get("app.DEBUG", True)
-MAIL_HOST_BLOCK_LIST = env.get("MAIL_HOST_BLOCK_LIST", ["DESKTOP-4JJG0QE", "WGCOMPUTER", "DESKTOP-58DSV1D"])
-PUBLIC_KEY = env.get("PUBLIC_KEY", "world")
-DEVELOPER_MAIL = env.get("DEVELOPER_MAIL", "1134614268@qq.com")
-ZERO_MAIL = env.get("ZERO_MAIL", "1134614268@qq.com")
-SERVER_MAIL = env.get("SERVER_MAIL", "1134614268@qq.com")
-SERVER_MAIL_HOST = env.get("SERVER_MAIL_HOST", "smtp.qq.com")
-SERVER_MAIL_PORT = env.get("SERVER_MAIL_PORT", 465)
-SERVER_MAIL_PASS = env.get("SERVER_MAIL_PASS", "ijivowrottpbjfci")
-SECRET = env.get("SECRET", "secret")
-USERNAME = env.get("USERNAME", "wg")
-PASSWORD = env.get("PASSWORD", "123456")
-HOST = env.get("HOST", "127.0.0.1")  # 本地 dev
-PORT = env.get("PORT", 3306)
-WORLD_DB = env.get("WORLD_DB", "world")
-MONGO_HOST = env.get("MONGO_HOST", "127.0.0.1")
-MONGO_PORT = env.get("MONGO_PORT", 27017)
-REDIS_HOST = env.get("REDIS_HOST", "127.0.0.1")
-REDIS_PORT = env.get("REDIS_PORT", 6379)
-REDIS_DB = env.get("REDIS_DB", 0)
-REDIS_PASSWORD = env.get("REDIS_PASSWORD", 1234567890)

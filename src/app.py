@@ -36,8 +36,8 @@ from api.video.video_api import TargetApi, TargetListApi, MarketTargetListApi, W
 from api.worker.work_api import WorkerApi, WorkerTimeApi, WorkerExcelApi, WorkTimeAnalyseApi, \
     work_time_analyse_api
 from config.apscheduler_conf import scheduler
-from config.conf import VERSION, SQLALCHEMY_DATABASE_URI
-from config.env_default import DEBUG, MAIL_HOST_BLOCK_LIST, DEVELOPER_MAIL
+from config.conf import VERSION
+from config.env_default import DEBUG, MAIL_HOST_BLOCK_LIST, DEVELOPER_MAIL, SQLALCHEMY_DATABASE_URI
 from config.exception import WorldNoLoginException, WorldException
 from config.json_config import MyJsonEncoder
 from config.mysql_db import db

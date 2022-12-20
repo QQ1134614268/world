@@ -1,17 +1,15 @@
 import json
 import os
 import shutil
-from os import path
+import uuid
 
 import yaml
 
-from config.dir_conf import DATA_DIR
 from config.json_config import MyJsonEncoder
-from util.unique_util import get_uuid
 
 
 def get_file_name_by_uuid(file_name):
-    return get_uuid() + "." + file_name.split('.')[-1]
+    return uuid.uuid1().hex + "." + file_name.split('.')[-1]
 
 
 def prepare_path(file_path, remove=False):
@@ -27,10 +25,6 @@ def prepare_path(file_path, remove=False):
             shutil.rmtree(dic_path)
     else:
         os.makedirs(dic_path)
-
-
-def get_data_dir(file_path):
-    return path.join(DATA_DIR, file_path)
 
 
 class FileUtil:

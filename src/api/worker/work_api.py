@@ -14,7 +14,7 @@ from sqlalchemy import and_, func, asc, desc
 from sqlalchemy.dialects.mysql import insert
 
 from config.apscheduler_conf import scheduler
-from config.dir_conf import RESOURCE_DIR
+from config.conf import RESOURCE_DIR
 from config.env_default import DEVELOPER_MAIL
 from config.mysql_db import db
 from service import work_service
