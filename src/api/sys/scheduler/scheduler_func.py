@@ -6,9 +6,9 @@ from sqlalchemy.dialects.mysql import insert
 from config.apscheduler_conf import scheduler
 from config.enum_conf import Permission, Role, ReviewEnum, SexEnum
 from config.env_default import LOG_DIR, UPLOAD_FILE_PATH
+from config.log_conf import logger
 from config.mysql_db import db
 from util import time_util
-from util.log_util import logger
 from vo.table_model import EnumConfig
 from vo.video_model import InvitationCodeVO
 

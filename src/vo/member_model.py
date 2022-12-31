@@ -6,8 +6,9 @@
 from sqlalchemy import Column, String, Integer, Float, JSON
 
 from config.enum_conf import StoreMemberType, OrderStatus
+from config.env_default import PUBLIC_KEY
+from util import encrypt_util
 from util.dev_util import get_comment
-from util.password_util import get_sha256_salt_password
 from vo.table_model import BaseTable
 
 
@@ -26,10 +27,10 @@ class StoreVO(BaseTable):
 
     @password.setter
     def password(self, value):
-        self._password = get_sha256_salt_password(value)
+        self._password = encrypt_util.SHA256Util.sha256_salt(value, PUBLIC_KEY)
 
     def check_password(self, user_pwd):
-        if user_pwd is not None and self._password == get_sha256_salt_password(user_pwd):
+        if user_pwd is not None and self._password == encrypt_util.SHA256Util.sha256_salt(user_pwd, PUBLIC_KEY):
             return True
         return False
 

@@ -1,8 +1,9 @@
 import random
 import string
+from datetime import datetime
 from enum import Enum
 
-from util.time_util import get_now_str
+from config.conf import DATE_TIME_FORMAT
 
 
 def get_comment(t_enum: Enum):
@@ -10,11 +11,11 @@ def get_comment(t_enum: Enum):
         [f'{name}:{member.value};' for name, member in t_enum.__members__.items()])
 
 
-def create_data(datatype, length):
+def create_data(datatype, length, fmt=DATE_TIME_FORMAT):
     if datatype == "String" or datatype == "string":
         return ''.join(random.sample(string.ascii_letters + string.digits, length))
     if datatype == "Time" or datatype == "time":
-        return get_now_str()
+        return datetime.now().strftime(fmt)
     if datatype == "Int" or datatype == "int":
         return random.randint(10 ** (length - 1), 10 ** length - 1)
     if datatype == "Float" or datatype == "float":

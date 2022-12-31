@@ -15,11 +15,11 @@ from sqlalchemy.dialects.mysql import insert
 
 from config.enum_conf import Permission, ReviewEnum
 from config.env_default import DATA_DIR
+from config.log_conf import logger
 from config.mysql_db import db
 from service.auth_service import set_model_user_id, permission_required
 from service.user_service import get_id_by_token
 from util import res_util
-from util.log_util import logger
 from util.video_util import get_first_frame_loc
 from vo.table_model import UserVO
 from vo.video_model import WorksVO, TargetVO, InvitationCodeVO

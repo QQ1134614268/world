@@ -12,7 +12,6 @@ from config.conf import DATE_FORMAT, RESOURCE_DIR
 from config.env_default import LOG_DIR
 from config.exception import WorldException
 from config.mysql_db import db
-from util import time_util
 
 
 # todo 优化整体
@@ -40,7 +39,7 @@ class DateConvert(Convert):
             return None
         if isinstance(value, datetime):
             return value
-        return time_util.get_datetime_by_str(value, DATE_FORMAT)
+        return datetime.strptime(value, DATE_FORMAT)
 
 
 class FloatConvert(Convert):

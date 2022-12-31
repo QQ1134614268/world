@@ -13,9 +13,9 @@ from flask import request
 from time import sleep
 
 from config.conf import RESOURCE_DIR
+from config.log_conf import logger
 from service.auth_service import permission_required
 from util import res_util
-from util.log_util import logger
 from util.time_util import get_now_str
 from util.verification_code_util import get_verify_code
 

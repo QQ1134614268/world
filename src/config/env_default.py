@@ -3,74 +3,147 @@
 @Time: 2022/12/8
 @Description:
 """
-import os
+import argparse
+import os.path
+from dataclasses import dataclass
 from os import path
 from urllib.parse import quote
 
 import yaml
 
-from config.conf import RESOURCE_DIR
+env = {}
+world_env = None
 
 
-def from_yaml(yaml_path) -> dict:  # 转类
-    with open(yaml_path, encoding="utf-8") as file:
+# 类属性 todo
+# @property  @dataclass name-tuple
+@dataclass()
+class WorldEnv:
+    def __init__(self):
+        self.data_dir = 1
+
+    @staticmethod
+    def init_env(args):
+        # WorldEnv.__dict__.update(args)
+        return WorldEnv().__dict__.update(args)
+
+    data_dir: str
+    debug: bool
+    secret: str
+
+    public_key: str
+
+    sqlalchemy_database_uri: str
+    log_dir: str
+    upload_file_path: str
+    upload_file_path2: str
+    upload_file_dir_name: str
+    mail_host_block_list: list
+
+    # 邮件配置
+    developer_mail: str
+    zero_mail: str
+    server_mail: str
+    server_mail_host: str
+    server_mail_port: str
+    server_mail_pass: str
+
+    # mysql配置
+    username: str
+    password: str
+    host: str
+    port: str
+    world_db: str
+
+    # mongo 配置
+    mongo_host: str
+    mongo_port: str
+
+    # redis配置
+    redis_host: str
+    redis_port: str
+    redis_db: str
+    redis_password: str
+
+    @property
+    def sqlalchemy_database_uri(self):
+        """获取用户名"""
+        return f'mysql+mysqlconnector://{quote(USERNAME)}:{quote(PASSWORD)}@{HOST}:{PORT}/{WORLD_DB}?charset=utf8mb4'
+
+    @property
+    def log_dir(self):
+        """获取用户名"""
+        return path.join(DATA_DIR, "log")
+
+    @property
+    def upload_file_path(self):
+        """获取用户名"""
+        return path.join(DATA_DIR, "upload")
+
+    @property
+    def upload_file_path2(self):
+        """获取用户名"""
+        return path.join(DATA_DIR, "upload_file")
+
+    @property
+    def upload_file_dir_name(self):
+        """获取用户名"""
+        return "/upload_file/"
+
+
+def get_config() -> dict:  # 转类
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--worldConfig', '-c', help='配置文件位置')
+    parser.add_argument('--worldMode', '-m', help='运行模式')
+    parser.add_argument('--worldData', '-d', help='数据文件位置')
+    cmd_args = parser.parse_args()
+
+    env_file_path = cmd_args.worldConfig or "config/env.yaml"  # 运行时指定
+
+    print(f"配置文件路径: {env_file_path}")
+
+    if not os.path.isfile(env_file_path):
+        raise Exception("配置文件不存在")
+    with open(env_file_path, encoding="utf-8") as file:
         dict_value = yaml.load(file, Loader=yaml.FullLoader)
-        return dict_value
+        env.update(dict_value)
+    # if cmd_args.worldMode:
+    #     env[debug] = cmd_args.worldMode
+    if cmd_args.worldData:
+        env["data_dir"] = cmd_args.worldData
+
+    print("激活配置:", env)
+    world_env = WorldEnv.init_env(env)
 
 
-# env_file_path = len(sys.argv) and sys.argv[0] or os.path.join(RESOURCE_DIR, "yaml_env_default.yaml")
-env_file_path = os.path.join(RESOURCE_DIR, "yaml_env_default.yaml")  # 运行时指定
+get_config()
+DEBUG = world_env.debug
+DATA_DIR = world_env.data_dir
+MAIL_HOST_BLOCK_LIST = world_env.mail_host_block_list
+PUBLIC_KEY = world_env.public_key
+DEVELOPER_MAIL = world_env.developer_mail
+ZERO_MAIL = world_env.zero_mail
+SERVER_MAIL = world_env.server_mail
+SERVER_MAIL_HOST = world_env.MAIL_HOST
+SERVER_MAIL_PORT = world_env.MAIL_PORT
+SERVER_MAIL_PASS = world_env.MAIL_PASS
+SECRET = world_env.SECRET1
+USERNAME = world_env.USERNAME1
 
-env = from_yaml(env_file_path)
+PASSWORD = world_env.PASSWORD1
+HOST = world_env.HOST1
+PORT = world_env.PORT1
+WORLD_DB = world_env.DB
+MONGO_HOST = world_env.MONGO_HOST1
+MONGO_PORT = world_env.MONGO_PORT1
+REDIS_HOST = world_env.REDIS_HOST1
+REDIS_PORT = world_env.REDIS_PORT1
+REDIS_DB = world_env.REDIS_DB1
+REDIS_PASSWORD = world_env.REDIS_PASSWORD1
 
-DATA_DIR1 = "DATA_DIR"
-REDIS_PASSWORD1 = "REDIS_PASSWORD"
-REDIS_DB1 = "REDIS_DB"
-REDIS_PORT1 = "REDIS_PORT"
-REDIS_HOST1 = "REDIS_HOST"
-MONGO_PORT1 = "MONGO_PORT"
-MONGO_HOST1 = "MONGO_HOST"
-DB = "WORLD_DB"
-PORT1 = "PORT"
-HOST1 = "HOST"
-PASSWORD1 = "PASSWORD"
-USERNAME1 = "USERNAME"
-SECRET1 = "SECRET"
-MAIL_PASS = "SERVER_MAIL_PASS"
-MAIL_PORT = "SERVER_MAIL_PORT"
-MAIL_HOST = "SERVER_MAIL_HOST"
-SERVER_MAIL1 = "SERVER_MAIL"
-MAIL = "ZERO_MAIL"
-S = "DEVELOPER_MAIL"
-KEY = "PUBLIC_KEY"
-HOST_BLOCK_LIST = "MAIL_HOST_BLOCK_LIST"
-debug = "DEBUG"
-
-DEBUG = env.get(debug, True)
-DATA_DIR = env.get(DATA_DIR1)
-MAIL_HOST_BLOCK_LIST = env.get(HOST_BLOCK_LIST, ["DESKTOP-4JJG0QE", "WGCOMPUTER", "DESKTOP-58DSV1D"])
-PUBLIC_KEY = env.get(KEY, "world")
-DEVELOPER_MAIL = env.get(S, "1134614268@qq.com")
-ZERO_MAIL = env.get(MAIL, "1134614268@qq.com")
-SERVER_MAIL = env.get(SERVER_MAIL1, "1134614268@qq.com")
-SERVER_MAIL_HOST = env.get(MAIL_HOST, "smtp.qq.com")
-SERVER_MAIL_PORT = env.get(MAIL_PORT, 465)
-SERVER_MAIL_PASS = env.get(MAIL_PASS, "ijivowrottpbjfci")
-SECRET = env.get(SECRET1, "secret")
-USERNAME = env.get(USERNAME1, "wg")
-PASSWORD = env.get(PASSWORD1, "123456")
-HOST = env.get(HOST1, "127.0.0.1")  # 本地 dev
-PORT = env.get(PORT1, 3306)
-WORLD_DB = env.get(DB, "world")
-MONGO_HOST = env.get(MONGO_HOST1, "127.0.0.1")
-MONGO_PORT = env.get(MONGO_PORT1, 27017)
-REDIS_HOST = env.get(REDIS_HOST1, "127.0.0.1")
-REDIS_PORT = env.get(REDIS_PORT1, 6379)
-REDIS_DB = env.get(REDIS_DB1, 0)
-REDIS_PASSWORD = env.get(REDIS_PASSWORD1, 1234567890)
-
-SQLALCHEMY_DATABASE_URI = f'mysql+mysqlconnector://{quote(USERNAME)}:{quote(PASSWORD)}@{HOST}:{PORT}/{WORLD_DB}?charset=utf8mb4'
-LOG_DIR = path.join(DATA_DIR, "log")
-UPLOAD_FILE_PATH = path.join(DATA_DIR, "upload")
-UPLOAD_FILE_PATH2 = path.join(DATA_DIR, "upload_file")
-UPLOAD_FILE_DIR_NAME = "/upload_file/"
+SQLALCHEMY_DATABASE_URI = world_env.sqlalchemy_database_uri
+LOG_DIR = world_env.log_dir
+UPLOAD_FILE_PATH = world_env.upload_file_path
+UPLOAD_FILE_PATH2 = world_env.upload_file_path2
+UPLOAD_FILE_DIR_NAME = world_env.upload_file_dir_name

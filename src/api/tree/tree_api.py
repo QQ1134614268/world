@@ -6,10 +6,10 @@ from flask_restful import Resource
 from sqlalchemy import func, desc
 from sqlalchemy.orm import aliased
 
-from config.mysql_db import db
+from config.log_conf import logger
 from config.model_config import Res, ResList
+from config.mysql_db import db
 from util import res_util, db_util
-from util.log_util import logger
 from vo.tree_model import ProveVO, StoryVO
 
 prove_api = Blueprint("ProveApi", __name__, url_prefix='/api/ProveBlueprintApi')

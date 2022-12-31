@@ -7,9 +7,9 @@ from flask_restful import Resource
 from config.enum_conf import FileServeDirEnum
 from config.env_default import UPLOAD_FILE_PATH2, UPLOAD_FILE_DIR_NAME
 from config.exception import WorldException
+from config.log_conf import logger
 from util import res_util
 from util.file_util import get_file_name_by_uuid
-from util.log_util import logger
 
 
 class FileApi2(Resource):

@@ -40,11 +40,11 @@ from config.conf import VERSION
 from config.env_default import DEBUG, MAIL_HOST_BLOCK_LIST, DEVELOPER_MAIL, SQLALCHEMY_DATABASE_URI
 from config.exception import WorldNoLoginException, WorldException
 from config.json_config import MyJsonEncoder
+from config.log_conf import logger
 from config.mysql_db import db
 from util import mail_util
 from util import res_util
 from util import socket_util
-from util.log_util import logger
 
 app = Flask(__name__)
 

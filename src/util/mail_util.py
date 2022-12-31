@@ -4,7 +4,7 @@ from email.header import Header
 from email.mime.text import MIMEText
 
 from config.env_default import SERVER_MAIL, SERVER_MAIL_HOST, SERVER_MAIL_PORT, SERVER_MAIL_PASS
-from util.log_util import logger as log
+from config.log_conf import logger
 
 
 # remember 1. 邮件依赖不稳定服务,, 2. 同时大量异常导致邮件多发--导致异常
@@ -19,7 +19,7 @@ def send_email(mail_content, mail_to, subject="master,your mail", mime_text_type
         # smtp_obj.set_debuglevel(1)
         smtp_obj.login(SERVER_MAIL, SERVER_MAIL_PASS)
         smtp_obj.sendmail(SERVER_MAIL, mail_to, message.as_string())
-        log.info("邮件发送成功")
+        logger.info("邮件发送成功")
 
 
 if __name__ == '__main__':

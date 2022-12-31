@@ -6,8 +6,8 @@
 from functools import wraps
 
 from config.exception import WorldException
+from config.log_conf import logger
 from service import user_service
-from util.log_util import logger
 from vo.table_model import UserRoleVO, RolePermissionVO
 
 

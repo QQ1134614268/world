@@ -6,11 +6,8 @@ import os
 
 from concurrent_log_handler import ConcurrentRotatingFileHandler
 
-from config.conf import DATE_TIME_FORMAT
-from config.env_default import LOG_DIR
 
-
-def create_logger(log_dir=LOG_DIR):
+def create_logger(log_dir=None):
     log = logging.getLogger(__name__)
     log.setLevel(logging.DEBUG)
 
@@ -54,7 +51,7 @@ class JSONFormatter(logging.Formatter):
 
     def format(self, record):
         extra = {
-            'time': datetime.datetime.fromtimestamp(record.created).strftime(DATE_TIME_FORMAT),
+            'time': datetime.datetime.fromtimestamp(record.created).strftime('%Y-%m-%d %H:%M:%S'),
             'level': record.levelname,
             'pathname': record.pathname,
             'lineno': record.lineno,
@@ -75,9 +72,8 @@ class JSONFormatter(logging.Formatter):
         return json.dumps(extra, ensure_ascii=False)
 
 
-logger = create_logger()
-
 if __name__ == '__main__':
+    logger = create_logger(".")
     logger.debug({"aa": 1})
     logger.info({"bb": 1})
     logger.error("Do something")

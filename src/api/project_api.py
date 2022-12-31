@@ -12,9 +12,9 @@ from sqlalchemy.orm import sessionmaker, make_transient
 
 from config.enum_conf import FileServeDirEnum
 from config.env_default import DATA_DIR
+from config.log_conf import logger
 from config.mysql_db import db
 from util import res_util
-from util.log_util import logger
 from vo.member_model import GoodsVO
 from vo.table_model import UserVO, UserCloudSpaceVO, SuggestVO
 from vo.tree_model import ProveVO, StoryVO

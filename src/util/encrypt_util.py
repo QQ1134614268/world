@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import base64
-import binascii
 import binhex
 import hashlib
 
@@ -104,10 +103,10 @@ if __name__ == '__main__':
     base64.urlsafe_b64decode
     base64.urlsafe_b64encode
 
-    binascii.a2b_hex
-    binascii.b2a_hex
-    binascii.a2b_base64
-    binascii.b2a_base64
+    # binascii.a2b_hex
+    # binascii.b2a_hex
+    # binascii.a2b_base64
+    # binascii.b2a_base64
 
     b = base64.b64encode(b"123")
     ret = base64.b64decode(b)

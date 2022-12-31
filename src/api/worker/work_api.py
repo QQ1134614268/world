@@ -16,12 +16,12 @@ from sqlalchemy.dialects.mysql import insert
 from config.apscheduler_conf import scheduler
 from config.conf import RESOURCE_DIR
 from config.env_default import DEVELOPER_MAIL
+from config.log_conf import logger
 from config.mysql_db import db
 from service import work_service
 from service.user_service import get_id_by_token
 from util import res_util, db_util, mail_util
 from util.excel_util import ExcelHandler, check_excel_type
-from util.log_util import logger
 from vo.table_model import UserVO
 from vo.value_object import WorkerExcelVO
 from vo.worker_model import WorkerVO, WorkerTimeVO
