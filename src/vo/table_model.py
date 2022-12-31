@@ -6,7 +6,7 @@
 
 from sqlalchemy import Column, Text, String, Integer, Boolean, DateTime, Sequence, UniqueConstraint, ForeignKey, text
 
-from config.env_default import PUBLIC_KEY
+from config.conf import world_env
 from config.mysql_db import db
 from util import encrypt_util
 from util.unique_util import get_uuid
@@ -101,11 +101,11 @@ class UserVO(BaseTable):
     # 设置加密的方法,传入密码,对类属性进行操作
     @password.setter
     def password(self, value):
-        self._password = encrypt_util.SHA256Util.sha256_salt(value, PUBLIC_KEY)
+        self._password = encrypt_util.SHA256Util.sha256_salt(value, world_env.public_key)
 
     # 设置验证密码的方法
-    def check_password(self, user_pwd):
-        if user_pwd is not None and self._password == encrypt_util.SHA256Util.sha256_salt(user_pwd, PUBLIC_KEY):
+    def check_password(self, pwd):
+        if pwd is not None and self._password == encrypt_util.SHA256Util.sha256_salt(pwd, world_env.public_key):
             return True
         return False
 

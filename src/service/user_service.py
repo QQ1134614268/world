@@ -4,7 +4,7 @@ import datetime
 import jwt
 from flask import request
 
-from config.env_default import SECRET
+from config.conf import world_env
 from config.exception import WorldNoLoginException
 from util import time_util
 from util.time_util import get_now_str
@@ -26,13 +26,13 @@ def get_token(user_vo):
         "role": user_vo.role,
         "start_time": get_now_str(),
     }
-    return str(jwt.encode(payload, SECRET, algorithm='HS256'), "utf_8")
+    return str(jwt.encode(payload, world_env.secret, algorithm='HS256'), "utf_8")
 
 
 def get_payload():
     jwt_token = request.headers.get("token")
     try:
-        return jwt.decode(bytes(jwt_token, "utf_8"), SECRET, algorithms=['HS256'])
+        return jwt.decode(bytes(jwt_token, "utf_8"), world_env.secret, algorithms=['HS256'])
     except:
         raise WorldNoLoginException("请重新登录")
 

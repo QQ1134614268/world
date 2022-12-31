@@ -8,8 +8,7 @@ from flask import Blueprint, send_file, request
 from flask_restful import Resource
 
 import service.user_service
-from config.env_default import DATA_DIR
-from config.env_default import UPLOAD_FILE_PATH
+from config.conf import world_env
 from config.mysql_db import db
 from util import res_util
 from vo.table_model import UserCloudSpaceVO
@@ -20,7 +19,7 @@ cloud_space_api = Blueprint("cloud_space_api", __name__, url_prefix='/api/cloud_
 @cloud_space_api.route('/init', methods=['GET'])
 def init():
     user_id = service.user_service.get_id_by_token()
-    os.makedirs(os.path.join(UPLOAD_FILE_PATH, str(user_id)))
+    os.makedirs(os.path.join(world_env.upload_file_path, str(user_id)))
     return res_util.success("cloud_space init success")
 
 
@@ -29,7 +28,7 @@ def create_dir():
     data = request.get_json()
     name = data.get('name')
     user_id = service.user_service.get_id_by_token()
-    os.makedirs(os.path.join(UPLOAD_FILE_PATH, str(user_id)), name)
+    os.makedirs(os.path.join(world_env.upload_file_path, str(user_id)), name)
     return res_util.success()
 
 
@@ -44,7 +43,7 @@ def get_filename_list_v2():
 
 def getDirName(file_dir):
     user_id = service.user_service.get_id_by_token()
-    return os.path.join(UPLOAD_FILE_PATH, str(user_id), file_dir)
+    return os.path.join(world_env.upload_file_path, str(user_id), file_dir)
 
 
 def getFiles(file_dir):
@@ -66,7 +65,7 @@ def file_upload():
     user_id = service.user_service.get_id_by_token()
     vo = UserCloudSpaceVO.query.filter_by(file_name=file1.filename, user_id=user_id).first()
     time_str = time.strftime('%Y%m%d_%H%M%S_') + str(random.randint(1000, 9999))
-    file_path = UPLOAD_FILE_PATH + '/' + time_str + "-" + file1.filename
+    file_path = world_env.upload_file_path + '/' + time_str + "-" + file1.filename
     file1.save(file_path)  # 保存文件到指定路径
     if vo:
         os.remove(vo.file_path)
@@ -104,7 +103,7 @@ class CloudSpaceApi(Resource):
 
     def get(self):
         path = request.args.get("path", "")
-        full_path = os.path.join(DATA_DIR, path)
+        full_path = os.path.join(world_env.data_dir, path)
         if not os.path.exists(full_path):
             return res_util.fail("参数异常")
         if os.path.isdir(full_path):

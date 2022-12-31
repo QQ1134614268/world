@@ -10,8 +10,8 @@ from flask_restful import Resource
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, make_transient
 
+from config.conf import world_env
 from config.enum_conf import FileServeDirEnum
-from config.env_default import DATA_DIR
 from config.log_conf import logger
 from config.mysql_db import db
 from util import res_util
@@ -83,7 +83,7 @@ class ProjectScript:
     def init_dir():
         logger.info("开始--创建文件目录")
         for item in FileServeDirEnum.__members__.keys():
-            path = os.path.join(DATA_DIR, item)
+            path = os.path.join(world_env.data_dir, item)
             if not os.path.exists(path):
                 os.makedirs(path)
         logger.info("结束--创建文件目录")

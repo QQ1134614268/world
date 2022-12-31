@@ -4,8 +4,8 @@ from flask import request
 from flask import send_file
 from flask_restful import Resource
 
+from config.conf import world_env
 from config.enum_conf import FileServeDirEnum
-from config.env_default import UPLOAD_FILE_PATH2, UPLOAD_FILE_DIR_NAME
 from config.exception import WorldException
 from config.log_conf import logger
 from util import res_util
@@ -15,7 +15,7 @@ from util.file_util import get_file_name_by_uuid
 class FileApi2(Resource):
 
     def get(self, path):
-        full_path = os.path.join(UPLOAD_FILE_PATH2, path)
+        full_path = os.path.join(world_env.upload_file_path2, path)
         if os.path.isfile(full_path):
             return send_file(full_path, as_attachment=True, attachment_filename=full_path.split('/')[-1])
         logger.info("文件不存在: " + full_path)
@@ -24,15 +24,15 @@ class FileApi2(Resource):
     def post(self):
         file = request.files["file"]
         f_name = get_file_name_by_uuid(file.filename)
-        full_path = os.path.join(UPLOAD_FILE_PATH2, f_name)
+        full_path = os.path.join(world_env.upload_file_path2, f_name)
         file.save(full_path)
-        return res_util.success(UPLOAD_FILE_DIR_NAME + f_name)
+        return res_util.success(world_env.upload_file_dir_name + f_name)
 
 
 class FileApi3(Resource):
 
     def get(self, file_dir, file_name):
-        full_path = os.path.join(UPLOAD_FILE_PATH2, file_dir, file_name)
+        full_path = os.path.join(world_env.upload_file_path2, file_dir, file_name)
         if os.path.isfile(full_path):
             return send_file(full_path, as_attachment=True, attachment_filename=full_path.split('/')[-1])
         logger.info("文件不存在: " + full_path)
@@ -43,7 +43,7 @@ class FileApi3(Resource):
             raise WorldException("不存在路径")
         file = request.files["file"]
         f_name = get_file_name_by_uuid(file.filename)
-        full_path = os.path.join(UPLOAD_FILE_PATH2, file_dir, f_name)
+        full_path = os.path.join(world_env.upload_file_path2, file_dir, f_name)
         file.save(full_path)
         return res_util.success(f"/FILE_SERVE/{file_dir}/{f_name}")
 

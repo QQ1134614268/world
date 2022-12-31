@@ -4,8 +4,8 @@ import os
 from sqlalchemy.dialects.mysql import insert
 
 from config.apscheduler_conf import scheduler
+from config.conf import world_env
 from config.enum_conf import Permission, Role, ReviewEnum, SexEnum
-from config.env_default import LOG_DIR, UPLOAD_FILE_PATH
 from config.log_conf import logger
 from config.mysql_db import db
 from util import time_util
@@ -15,10 +15,10 @@ from vo.video_model import InvitationCodeVO
 
 def init_dir():
     logger.info("开始--创建文件目录")
-    if not os.path.exists(LOG_DIR):
-        os.makedirs(LOG_DIR)
-    if not os.path.exists(UPLOAD_FILE_PATH):
-        os.makedirs(UPLOAD_FILE_PATH)
+    if not os.path.exists(world_env.log_dir):
+        os.makedirs(world_env.log_dir)
+    if not os.path.exists(world_env.upload_file_path):
+        os.makedirs(world_env.upload_file_path)
     logger.info("结束--创建文件目录")
 
 

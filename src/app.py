@@ -36,8 +36,7 @@ from api.video.video_api import TargetApi, TargetListApi, MarketTargetListApi, W
 from api.worker.work_api import WorkerApi, WorkerTimeApi, WorkerExcelApi, WorkTimeAnalyseApi, \
     work_time_analyse_api
 from config.apscheduler_conf import scheduler
-from config.conf import VERSION
-from config.env_default import DEBUG, MAIL_HOST_BLOCK_LIST, DEVELOPER_MAIL, SQLALCHEMY_DATABASE_URI
+from config.conf import VERSION, world_env
 from config.exception import WorldNoLoginException, WorldException
 from config.json_config import MyJsonEncoder
 from config.log_conf import logger
@@ -52,7 +51,7 @@ api2 = Api(app)
 # 跨域
 CORS(app, supports_credentials=True)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
+app.config["SQLALCHEMY_DATABASE_URI"] = world_env.sqlalchemy_database_uri
 # app.config["SQLALCHEMY_BINDS"] = SQLALCHEMY_BINDS
 app.config["SECRET_KEY"] = "session_key_world"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
@@ -61,8 +60,8 @@ app.config["SQLALCHEMY_POOL_SIZE"] = 20
 app.config["SQLALCHEMY_MAX_OVERFLOW"] = 10
 app.config["SQLALCHEMY_POOL_TIMEOUT"] = 30
 
-app.config["SQLALCHEMY_ECHO"] = DEBUG
-app.config["DEBUG"] = DEBUG
+app.config["SQLALCHEMY_ECHO"] = world_env.debug
+app.config["DEBUG"] = world_env.debug
 app.config['JSON_AS_ASCII'] = False
 app.config.update(RESTFUL_JSON=dict(ensure_ascii=False))
 db.init_app(app)
@@ -166,8 +165,8 @@ def flask_global_exception_handler(err):
         logger.error("global_exception_handler 发生异常")
     # 邮件服务 发送异常通知邮件  邮件模板
     try:
-        if not socket_util.get_host_name() in MAIL_HOST_BLOCK_LIST:
-            mail_util.send_email(json.dumps(data) + message, DEVELOPER_MAIL)
+        if not socket_util.get_host_name() in world_env.mail_host_block_list:
+            mail_util.send_email(json.dumps(data) + message, world_env.developer_mail)
     except Exception as e:
         # logger.exception(e)
         logger.error(str(e))

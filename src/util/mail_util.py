@@ -3,7 +3,7 @@ import smtplib
 from email.header import Header
 from email.mime.text import MIMEText
 
-from config.env_default import SERVER_MAIL, SERVER_MAIL_HOST, SERVER_MAIL_PORT, SERVER_MAIL_PASS
+from config.conf import world_env
 from config.log_conf import logger
 
 
@@ -15,10 +15,10 @@ def send_email(mail_content, mail_to, subject="master,your mail", mime_text_type
     message['From'] = Header("明宇致和", 'utf-8')
     message['To'] = Header("朋友", 'utf-8')
 
-    with smtplib.SMTP_SSL(SERVER_MAIL_HOST, SERVER_MAIL_PORT) as smtp_obj:
+    with smtplib.SMTP_SSL(world_env.server_mail_host, world_env.server_mail_port) as smtp_obj:
         # smtp_obj.set_debuglevel(1)
-        smtp_obj.login(SERVER_MAIL, SERVER_MAIL_PASS)
-        smtp_obj.sendmail(SERVER_MAIL, mail_to, message.as_string())
+        smtp_obj.login(world_env.server_mail, world_env.server_mail_pass)
+        smtp_obj.sendmail(world_env.server_mail, mail_to, message.as_string())
         logger.info("邮件发送成功")
 
 

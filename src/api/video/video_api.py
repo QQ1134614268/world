@@ -13,8 +13,8 @@ from flask_restful import Resource
 from sqlalchemy import or_, insert
 from sqlalchemy.dialects.mysql import insert
 
+from config.conf import world_env
 from config.enum_conf import Permission, ReviewEnum
-from config.env_default import DATA_DIR
 from config.log_conf import logger
 from config.mysql_db import db
 from service.auth_service import set_model_user_id, permission_required
@@ -34,7 +34,7 @@ class VideoBlueprintApi:
     def get_sum_time(_id):
         vos = WorksVO.query.all()
         for vo in vos:
-            path = os.path.join(DATA_DIR, vo.file[1:])
+            path = os.path.join(world_env.data_dir, vo.file[1:])
 
             vo.size = os.path.getsize(path) / 1024 / 1024
 
@@ -115,7 +115,7 @@ class WorksApi(Resource):
     def post(self, _id):
         data = request.get_json()
         if not data.get("thumbnail"):
-            data["thumbnail"] = get_first_frame_loc(os.path.join(DATA_DIR, data["file"][1:]))
+            data["thumbnail"] = get_first_frame_loc(os.path.join(world_env.data_dir, data["file"][1:]))
         vo = WorksVO(**data)
         set_model_user_id(vo)
         db.session.add(vo)

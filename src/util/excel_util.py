@@ -8,8 +8,7 @@ from datetime import datetime
 
 from openpyxl import load_workbook, Workbook
 
-from config.conf import DATE_FORMAT, RESOURCE_DIR
-from config.env_default import LOG_DIR
+from config.conf import DATE_FORMAT, RESOURCE_DIR, world_env
 from config.exception import WorldException
 from config.mysql_db import db
 
@@ -192,4 +191,4 @@ if __name__ == '__main__':
     print(dic_list)
     # vos2 = [User(**dic) for dic in dic_list]
     wb2 = ExcelHandler.to_file(data=dic_list, cla_type=User)
-    wb2.save(os.path.join(LOG_DIR, "test_excel_output.xlsx"))
+    wb2.save(os.path.join(world_env.log_dir, "test_excel_output.xlsx"))

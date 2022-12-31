@@ -1,12 +1,12 @@
 # -*- coding:utf-8 -*-
 import redis
 
-from config.env_default import REDIS_HOST, REDIS_PORT, REDIS_DB, REDIS_PASSWORD
+from config.conf import world_env
 
 
 def create_redis_db():
-    return redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB, password=REDIS_PASSWORD,
-                             decode_responses=True)
+    return redis.StrictRedis(host=world_env.redis_host, port=world_env.redis_port, db=world_env.redis_db,
+                             password=world_env.redis_password, decode_responses=True)
 
 
 redisDB = create_redis_db()

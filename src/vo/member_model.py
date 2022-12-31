@@ -5,8 +5,8 @@
 """
 from sqlalchemy import Column, String, Integer, Float, JSON
 
+from config.conf import world_env
 from config.enum_conf import StoreMemberType, OrderStatus
-from config.env_default import PUBLIC_KEY
 from util import encrypt_util
 from util.dev_util import get_comment
 from vo.table_model import BaseTable
@@ -27,10 +27,10 @@ class StoreVO(BaseTable):
 
     @password.setter
     def password(self, value):
-        self._password = encrypt_util.SHA256Util.sha256_salt(value, PUBLIC_KEY)
+        self._password = encrypt_util.SHA256Util.sha256_salt(value, world_env.public_key)
 
-    def check_password(self, user_pwd):
-        if user_pwd is not None and self._password == encrypt_util.SHA256Util.sha256_salt(user_pwd, PUBLIC_KEY):
+    def check_password(self, pwd):
+        if pwd is not None and self._password == encrypt_util.SHA256Util.sha256_salt(pwd, world_env.public_key):
             return True
         return False
 

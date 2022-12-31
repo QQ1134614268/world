@@ -14,8 +14,7 @@ from sqlalchemy import and_, func, asc, desc
 from sqlalchemy.dialects.mysql import insert
 
 from config.apscheduler_conf import scheduler
-from config.conf import RESOURCE_DIR
-from config.env_default import DEVELOPER_MAIL
+from config.conf import RESOURCE_DIR, world_env
 from config.log_conf import logger
 from config.mysql_db import db
 from service import work_service
@@ -259,6 +258,6 @@ class WorkerSchedule:
                 except Exception as e:
                     logger.exception(e)
                     message = traceback.format_exc()
-                    mail_util.send_email(message, DEVELOPER_MAIL)
+                    mail_util.send_email(message, world_env.developer_mail)
             logger.info("统计工时-结束")
             return res_util.success()
