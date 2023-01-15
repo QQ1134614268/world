@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --mode development",
-    "production": "vue-cli-service serve --mode production",
     "build": "vue-cli-service build --mode development",
-    "build-ying": "vue-cli-service build --mode lvying"
+    "production": "vue-cli-service serve --mode production",
+    "build-ying": "vue-cli-service build --mode lvying",
+    "build-ggok": "vue-cli-service build --mode ggok"
   },
   "dependencies": {
     "axios": "^0.19.2",
