@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import message from '@/views/message/message'
-import HelloRoutes from "@/views/hello/index";
 import video_routes from "@/views/video/index";
 import worker_routes from "@/views/worker/index";
 import member_routes from "@/views/member/index";
@@ -11,7 +10,6 @@ import level_routes from "@/views/level/index";
 import {ROOT, SYS_LOGIN_URL, SYS_REGISTER_URL, SYS_ROOT} from "@/views/sys";
 
 let total = []
-total = total.concat(HelloRoutes)
 total = total.concat(video_routes)
 total = total.concat(worker_routes)
 total = total.concat(member_routes)
