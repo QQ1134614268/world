@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 
-from api.model import MysqlTables, MysqlColumns
+from api.code.model import MysqlTables, MysqlColumns
 from config.mysql_db import db
 from util import res_util
 
