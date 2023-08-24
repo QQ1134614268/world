@@ -71,7 +71,7 @@ let routes = [
 routes = routes.concat(total)
 
 const router = new VueRouter({
-    mode: 'hash',
+    mode: 'history',
     routes: routes
 })
 
