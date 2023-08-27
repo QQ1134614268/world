@@ -13,15 +13,15 @@ import yaml
 
 
 class WorldEnv:
-
+    #     todo flask db 命令报错，失效
     def __init__(self):
-        parser = argparse.ArgumentParser()
-        parser.add_argument('--worldConfig', '-c', help='配置文件位置')
-        parser.add_argument('--worldMode', '-m', help='运行模式')
-        parser.add_argument('--worldData', '-d', help='数据文件位置')
-        cmd_args = parser.parse_args()
+        # parser = argparse.ArgumentParser()
+        # parser.add_argument('--worldConfig', '-c', help='配置文件位置')
+        # parser.add_argument('--worldMode', '-m', help='运行模式')
+        # parser.add_argument('--worldData', '-d', help='数据文件位置')
+        # cmd_args = parser.parse_args()
 
-        env_file_path = cmd_args.worldConfig or "config/env.yaml"  # 运行时指定
+        env_file_path = "config/env.yaml"  # 运行时指定
 
         if not os.path.isfile(env_file_path):
             raise Exception("配置文件不存在")
@@ -29,8 +29,8 @@ class WorldEnv:
         with open(env_file_path, encoding="utf-8") as file:
             dict_value: dict = yaml.load(file, Loader=yaml.FullLoader)
 
-        self.data_dir = cmd_args.worldData or dict_value.get("data_dir")
-        self.debug = cmd_args.worldMode or dict_value.get("debug")
+        self.data_dir = dict_value.get("data_dir")
+        self.debug = dict_value.get("debug")
         self.secret = dict_value.get("secret")
 
         self.public_key = dict_value.get("public_key")
