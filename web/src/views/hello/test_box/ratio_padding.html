@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS实现固定宽高比响应式布局</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        .testMain {
+            width: 80%;
+            height: 500px;
+            margin: 20px auto;
+            background-color: #fff;
+            display: flex;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+            align-content: flex-start;
+        }
+
+        .item {
+            width: 33%;
+            height: 0;
+            padding-bottom: 11%;
+            border: 1px solid #999999;
+        }
+    </style>
+</head>
+<body>
+<div style="margin-top: 20px;">用一个宽度为80%的盒子代替右侧自适应宽度的布局</div>
+<div id="app" class="testMain">
+    <div class="item" v-for="i in 10">
+        <div>
+            这是一段测试标题
+        </div>
+    </div>
+</div>
+</body>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+<script type="text/javascript">
+    new Vue({
+        el: "#app",
+        data: {}
+    })
+</script>
+
+</html>
