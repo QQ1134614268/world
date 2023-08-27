@@ -21,7 +21,7 @@ class WorldEnv:
         # parser.add_argument('--worldData', '-d', help='数据文件位置')
         # cmd_args = parser.parse_args()
 
-        env_file_path = "config/env.yaml"  # 运行时指定
+        env_file_path = os.path.join(path.dirname(__file__), "env.yaml")  # 运行时指定
 
         if not os.path.isfile(env_file_path):
             raise Exception("配置文件不存在")
