@@ -116,7 +116,7 @@ export default {
     },
     async del(index, id) {
       let result = await this.$deleteJson2(WorksApi, id)
-      if (result.data.code == 1) {
+      if (result.data.code === 1) {
         this.$message.success('删除成功!');
         this.tableData.splice(index, 1)
       } else {
