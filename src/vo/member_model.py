@@ -68,6 +68,7 @@ class GoodsVO(BaseTable):
 
 class OrderVO(BaseTable):
     __tablename__ = 'order_t'
+    user_id = Column(Integer, index=True, comment="用户id")
     store_id = Column(Integer, index=True, comment="店铺id")
     total_price = Column(Float(precision="14,2"), comment="总价")
     table_id = Column(String(255), comment="下单桌号")

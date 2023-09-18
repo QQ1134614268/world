@@ -21,7 +21,7 @@
 </template>
 <script>
 import {userLogout} from "@/api/user";
-import {HomeContent, MemberAdminHome, MemberRootUrl, OrderInfo, Store, UserSpace} from "@/views/member/index";
+import {HomeContent, MemberAdminHome, MemberRootUrl, FoodInfo, Store, UserSpace} from "@/views/member/index";
 import {SYS_LOGIN_URL, SYS_REGISTER_URL} from "@/views/sys";
 
 export default {
@@ -33,7 +33,7 @@ export default {
       MemberAdminHome,
       SYS_LOGIN_URL,
       SYS_REGISTER_URL,
-      OrderInfo,
+      OrderInfo: FoodInfo,
       UserSpace,
       HomeContent,
       menuList: [

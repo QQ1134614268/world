@@ -14,7 +14,7 @@
 
 <script>
 import {OrderApi} from "@/api/api";
-import {OrderInfo} from "@/views/member/index";
+import {FoodInfo} from "@/views/member/index";
 
 export default {
   name: "Order",
@@ -23,7 +23,7 @@ export default {
       url: "",
       store_id: 1,
       tableData: [],
-      OrderInfo
+      OrderInfo: FoodInfo
     }
   },
   methods: {

@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import {OrderApi} from "@/api/api";
+import {GoodsApi, OrderApi} from "@/api/api";
 
 export default {
   name: "OrderInfo",
@@ -82,7 +82,7 @@ export default {
       let data = {
         order_code: this.order_code
       }
-      let res = await this.$get2(OrderApi, 0, data)
+      let res = await this.$get2(GoodsApi, 0, data)
       if (res.data.code != 1) {
         this.$message.error('服务器异常');
         return
@@ -91,7 +91,7 @@ export default {
     }
   },
   created() {
-    // this.init()
+    this.init()
   },
 }
 </script>

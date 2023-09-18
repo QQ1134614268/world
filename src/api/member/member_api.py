@@ -155,19 +155,19 @@ class OrderApi(Resource):
         user_id = service.user_service.get_id_by_token()
         store_id = request.args.get("store_id")
 
-        vos = OrderInfoVO.query.filter(
-            OrderInfoVO.user_id == user_id,
-            OrderInfoVO.store_id == store_id,
+        vos = OrderVO.query.filter(
+            OrderVO.user_id == user_id,
+            OrderVO.store_id == store_id,
         ).with_entities(
-            OrderInfoVO.order_code,
-            OrderInfoVO.status,
+            OrderVO.order_code,
+            OrderVO.status,
             func.any_value(OrderInfoVO.create_time).label('create_time')
         ).group_by(
-            OrderInfoVO.order_code,
-            OrderInfoVO.status,
+            OrderVO.order_code,
+            OrderVO.status,
             OrderInfoVO.create_time,
         ).order_by(
-            OrderInfoVO.create_time.desc()
+            OrderVO.create_time.desc()
         ).all()
         return res_util.success(vos)
 

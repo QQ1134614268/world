@@ -10,7 +10,7 @@ export const Order = "/member/admin/Order"
 export const GoodsAdd = "/member/admin/GoodsAdd"
 export const GoodsEdit = "/member/admin/GoodsEdit"
 export const Qrcode = "/member/admin/Qrcode"
-export const OrderInfo = "/member/admin/OrderInfo"
+export const FoodInfo = "/member/admin/OrderInfo"
 export const UserAdmin = "/member/admin/UserAdmin"
 export const UserRole = "/member/admin/UserRole"
 export const RolePermission = "/member/admin/RolePermission"
@@ -39,8 +39,8 @@ const routes = [
                 component: () => import('@/views/member/MyOrder')
             },
             {
-                path: OrderInfo,
-                component: () => import('@/views/member/OrderInfo')
+                path: FoodInfo,
+                component: () => import('@/views/member/FoodInfo.vue')
             },
         ],
     },
