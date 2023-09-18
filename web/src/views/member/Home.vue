@@ -1,56 +1,27 @@
 <template>
   <div class="member_container">
-    <div class="member_header">
-      <div @click="goTo(MemberRootUrl)" class="title">
-        会员系统
-      </div>
-      <el-dropdown v-if="user">
-        <el-avatar :src="user.avatar" :key="user.avatar"></el-avatar>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>
-            <div @click="logout">退出登录</div>
-          </el-dropdown-item>
-          <el-dropdown-item>
-            <div @click="goTo(MemberAdminHome)">设置</div>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-      <div v-else>
-        <span @click="goTo(SYS_LOGIN_URL)"> 登陆</span>
-        <span> | </span>
-        <span @click="goTo(SYS_REGISTER_URL)"> 登陆</span>
-      </div>
-    </div>
     <div class="member_body">
       <router-view/>
     </div>
     <div class="member_footer">
-      <div @click="goTo(MemberRootUrl)">
-        <div style="height: 24px">
-          <img src="@/assets/切图/首页/首页.png">
-        </div>
-        <div>首页</div>
+      <div class="menuBox" @click="goTo(MemberRootUrl)">
+        <img class="menuImg" src="@/assets/切图/首页/首页.png">
+        <div class="menuText">首页</div>
       </div>
-      <div @click="goTo(UserSpace)">
-        <div style="height: 24px">
-          <img src="@/assets/切图/首页/首页.png">
-        </div>
-        <div>点餐</div>
+      <div class="menuBox" @click="goTo(OrderInfo)">
+        <img class="menuImg" src="@/assets/切图/首页/餐饮.png">
+        <div class="menuText">点餐</div>
       </div>
-      <div @click="goTo(UserSpace)">
-        <div style="height: 24px">
-          <img src="@/assets/切图/首页/首页.png">
-          <!--          <img src="@/assets/切图/首页/首页.png" style="height: 24px">-->
-        </div>
-        <!--        <img src="@/assets/切图/首页/首页.png" style="height: 24px">-->
-        <div>我的</div>
+      <div class="menuBox" @click="goTo(UserSpace)">
+        <img class="menuImg" src="@/assets/切图/首页/我的.png">
+        <div class="menuText">我的</div>
       </div>
     </div>
   </div>
 </template>
 <script>
 import {userLogout} from "@/api/user";
-import {MemberAdminHome, MemberRootUrl, Store, UserSpace} from "@/views/member/index";
+import {HomeContent, MemberAdminHome, MemberRootUrl, OrderInfo, Store, UserSpace} from "@/views/member/index";
 import {SYS_LOGIN_URL, SYS_REGISTER_URL} from "@/views/sys";
 
 export default {
@@ -62,9 +33,12 @@ export default {
       MemberAdminHome,
       SYS_LOGIN_URL,
       SYS_REGISTER_URL,
+      OrderInfo,
       UserSpace,
+      HomeContent,
       menuList: [
-        {name: "首页", path: MemberRootUrl},
+        {name: "首页", path: HomeContent},
+        {name: "点餐", path: HomeContent},
         {name: "我的", path: UserSpace},
       ],
       store_id: 1,
@@ -88,7 +62,7 @@ export default {
 </script>
 <style scoped lang="less">
 .member_container {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 
@@ -118,14 +92,43 @@ div {
 }
 
 .member_footer {
+  width: 750px;
+  height: 148px;
+  background-image: linear-gradient(#ffffff, #ffffff), linear-gradient(#ffffff, #ffffff);
+  background-blend-mode: normal, normal;
+  box-shadow: 0px -3px 8px 0px rgba(48, 45, 43, 0.21);
+
   display: flex;
   justify-content: space-evenly;
-  height: 3rem;
-  background: linear-gradient(to top, #f3f3f3, #cccccc, #f3f3f3);
 
-  div {
-    border: black 1px solid;
+  //height: 3rem;
+  //background: linear-gradient(to top, #f3f3f3, #cccccc, #f3f3f3);
+  .menuBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .menuImg {
+      width: 37px;
+      height: 35px;
+      //background-image: linear-gradient(-27deg,
+      //#9ad600 0%,
+      //#cffe58 100%);
+    }
+
+    .menuText {
+      //width: 43px;
+      height: 22px;
+      font-family: SourceHanSansCN-Medium;
+      font-size: 23px;
+      font-weight: normal;
+      font-stretch: normal;
+      line-height: 37px;
+      letter-spacing: 0px;
+      color: #9ad600;
+    }
   }
+
 }
 
 footer div {

@@ -9,11 +9,12 @@ module.exports = {
         }
     },
     devServer: {
+        hot: true,//浏览器重新刷新
+        // hotOnly: false,
         open: true,
         host: "0.0.0.0",
         port: process.env.PORT,
         https: false,
-        hotOnly: false,
         disableHostCheck: true,
         proxy: {
             "/api/": {
