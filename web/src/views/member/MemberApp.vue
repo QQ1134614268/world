@@ -67,7 +67,7 @@ export default {
   flex-direction: column;
 
   @media only screen and (min-width: 768px) {
-    width: 678px;
+    width: 768px;
   }
   @media only screen and (max-width: 768px) {
     width: 100%;
@@ -89,6 +89,7 @@ div {
   width: 100%;
   display: flex;
   flex-grow: 1;
+  overflow-y: scroll;
 }
 
 .member_footer {

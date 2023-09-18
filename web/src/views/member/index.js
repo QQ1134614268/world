@@ -19,12 +19,12 @@ export const Finance = "/member/admin/Finance"
 const routes = [
     {
         path: MemberRootUrl,
-        component: () => import('@/views/member/Home'),
+        component: () => import('@/views/member/MemberApp.vue'),
         redirect: HomeContent,
         children: [
             {
                 path: HomeContent,
-                component: () => import('@/views/member/HomeContent')
+                component: () => import('@/views/member/HomeInfo.vue')
             },
             {
                 path: Store,
