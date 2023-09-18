@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="row1">
       <div class="avtar">
         <img class="avtarImg" src="@/assets/icon/favicon2.jpg">
@@ -109,6 +109,13 @@ export default {
 </script>
 
 <style scoped lang="less">
+.container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 .row1 {
   width: 688px;
   height: 190px;

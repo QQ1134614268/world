@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="storeName">深圳方大城店</div>
     <div class="row1">
       <div class="row1Box">
@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import {GoodsApi, OrderApi} from "@/api/api";
+import {GoodsApi} from "@/api/api";
 
 export default {
   name: "OrderInfo",
@@ -97,6 +97,15 @@ export default {
 </script>
 
 <style scoped lang="less">
+.container {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .storeName {
   width: 210px;
   height: 33px;
@@ -205,7 +214,7 @@ export default {
 
   .menuGroup {
     width: 96px;
-    height: 884px;
+    //height: 884px;
     font-family: SourceHanSansCN-Bold;
     font-size: 24px;
     font-weight: normal;
