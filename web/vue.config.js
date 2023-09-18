@@ -9,7 +9,7 @@ module.exports = {
         }
     },
     devServer: {
-        hot: true,//浏览器重新刷新
+        hot: false,//浏览器重新刷新
         // hotOnly: false,
         open: true,
         host: "0.0.0.0",
@@ -31,7 +31,7 @@ module.exports = {
                     '^/upload_file/': process.env.NGINX_FILE_SERVER_API
                 }
             }
-        }
+        },
     },
     productionSourceMap: false,
 };
