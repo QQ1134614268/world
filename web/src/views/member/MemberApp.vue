@@ -74,10 +74,6 @@ export default {
   }
 }
 
-div {
-  //border: 1px solid red;
-}
-
 .member_header {
   display: flex;
   flex: 0 0 1;
@@ -129,27 +125,5 @@ div {
       color: #9ad600;
     }
   }
-
 }
-
-footer div {
-  flex: 1;
-  text-align: center;
-  line-height: 3rem;
-  color: #555555;
-}
-
-.footer131 {
-  /*width: 23rem;*/
-  height: 5rem;
-  background-image: linear-gradient(#ffffff, #ffffff), linear-gradient(#ffffff, #ffffff);
-  background-blend-mode: normal, normal;
-  box-shadow: 0rem 0rem 0rem 0rem rgba(48, 45, 43, 0.21);
-}
-
-footer div:nth-child(n+2) {
-  border-left: solid 1px #cccccc;
-}
-
-
 </style>
