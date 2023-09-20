@@ -170,7 +170,6 @@
       border-radius: 29px;
       display: flex;
       flex: 0 0 auto;
-      justify-content: center;
       align-items: center;
 
       font-family: SourceHanSansCN-Regular;

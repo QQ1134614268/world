@@ -93,7 +93,6 @@ export default {
   flex-direction: column;
   flex: 0 0 auto;
   align-items: center;
-  justify-content: center;
 }
 
 .storeName {

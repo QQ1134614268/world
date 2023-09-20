@@ -114,12 +114,12 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  //justify-content: center;
 
   .row1 {
     width: 688px;
-    height: 300px;
-    //display: flex;
+    height: 190px;
+    display: flex;
     align-items: flex-end;
     justify-content: space-between;
     flex-shrink: 0;
