@@ -12,9 +12,9 @@
           </div>
         </div>
       </div>
-      <img class="avtarLogo" src="@/assets/切图/我的/logo.png">
+      <img class="logo" src="@/assets/切图/我的/logo.png">
     </div>
-    <div class="row2">
+    <div class="row2 p_c_test_border">
       <span class="_77">
         77卡
       </span>
@@ -109,271 +109,272 @@ export default {
 </script>
 
 <style scoped lang="less">
-.container{
+.container {
   width: 100%;
   display: flex;
   flex-direction: column;
-  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-}
-.row1 {
-  width: 688px;
-  height: 190px;
-  display: flex;
-  flex: 0 0 auto;
-  align-items: flex-end;
-  justify-content: space-between
-}
 
-.avtar {
-  display: flex;
-  flex: 0 0 auto;
-  justify-content: center;
-  align-items: center;
-}
+  .row1 {
+    width: 688px;
+    height: 300px;
+    //display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-shrink: 0;
 
-.avtarImg {
-  width: 100px;
-  height: 100px;
-  background-color: #ffffff;
-  border: solid 3px #ffffff;
-  border-radius: 50%;
-}
+    .avtar {
+      display: flex;
+      flex: 0 0 auto;
+      justify-content: center;
+      align-items: center;
 
-.avtarName {
-  width: 108px;
-  height: 27px;
-  font-family: SourceHanSansCN-Medium;
-  font-size: 28px;
-  font-weight: normal;
-  font-stretch: normal;
-  line-height: 37px;
-  letter-spacing: -1px;
-  color: #000000;
-}
+      .avtarImg {
+        width: 100px;
+        height: 100px;
+        //background-color: #ffffff;
+        border: solid 3px #ffffff;
+        border-radius: 50%;
+      }
 
-.avtarId {
-  width: 152px;
-  height: 19px;
-  font-family: SourceHanSansCN-Regular;
-  font-size: 24px;
-  font-weight: normal;
-  font-stretch: normal;
-  line-height: 37px;
-  letter-spacing: 1px;
-  color: #b3b2b9;
-}
+      .avtarName {
+        width: 108px;
+        height: 27px;
+        font-family: SourceHanSansCN-Medium;
+        font-size: 28px;
+        font-weight: normal;
+        font-stretch: normal;
+        line-height: 37px;
+        letter-spacing: -1px;
+        //color: #000000;
+      }
 
-.avtarLogo {
-  width: 103px;
-  height: 158px;
-  margin-right: 100px;
-}
+      .avtarId {
+        width: 152px;
+        height: 19px;
+        font-family: SourceHanSansCN-Regular;
+        font-size: 24px;
+        font-weight: normal;
+        font-stretch: normal;
+        line-height: 37px;
+        letter-spacing: 1px;
+        color: #b3b2b9;
+      }
+    }
 
-.row2 {
-  width: 684px;
-  height: 85px;
-  background-image: linear-gradient(122deg,
-  #252745 0%,
-  #494d67 100%),
-  linear-gradient(#ffffff,
-  #ffffff);
-  background-blend-mode: normal,
-  normal;
-  border-radius: 12px 12px 0px 0px;
-  display: flex;
-  flex: 0 0 auto;
-  align-items: center;
-  justify-content: space-around;
+    .logo {
+      width: 103px;
+      height: 158px;
+    }
 
-  ._77 {
-    width: 73px;
-    height: 27px;
-    font-family: zihun54hao-xianhei;
-    font-size: 32px;
-    font-weight: normal;
-    font-style: italic;
-    font-stretch: normal;
-    line-height: 27px;
-    letter-spacing: -1px;
-    color: #ece1e1;
-    box-shadow: 0px 2px 5px 0px rgba(103, 63, 22, 0.7);
   }
 
-  ._77Text {
-    width: 258px;
-    height: 21px;
-    font-family: SourceHanSansCN-Normal;
-    font-size: 22px;
-    font-weight: normal;
-    font-stretch: normal;
-    line-height: 27px;
-    letter-spacing: 0px;
-    color: #ebe5c1;
-  }
-
-  ._77LoginBox {
-    width: 127px;
-    height: 47px;
-    background-image: linear-gradient(90deg,
-    #fbf1cb 0%,
-    #f6d7a7 100%),
-    linear-gradient(#9ad600,
-    #9ad600);
+  .row2 {
+    width: 684px;
+    height: 85px;
+    background-image: linear-gradient(122deg,
+    #252745 0%,
+    #494d67 100%),
+    linear-gradient(#ffffff,
+    #ffffff);
     background-blend-mode: normal,
     normal;
-    border-radius: 24px;
+    border-radius: 12px 12px 0px 0px;
     display: flex;
     flex: 0 0 auto;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
 
-    ._77Login {
-      width: 87px;
+    ._77 {
+      width: 73px;
+      height: 27px;
+      font-family: zihun54hao-xianhei;
+      font-size: 32px;
+      font-weight: normal;
+      font-style: italic;
+      font-stretch: normal;
+      line-height: 27px;
+      letter-spacing: -1px;
+      color: #ece1e1;
+      box-shadow: 0px 2px 5px 0px rgba(103, 63, 22, 0.7);
+    }
+
+    ._77Text {
+      width: 258px;
       height: 21px;
-      font-family: SourceHanSansCN-Medium;
-      font-size: 21px;
+      font-family: SourceHanSansCN-Normal;
+      font-size: 22px;
       font-weight: normal;
       font-stretch: normal;
       line-height: 27px;
       letter-spacing: 0px;
-      color: #494d67;
+      color: #ebe5c1;
+    }
+
+    ._77LoginBox {
+      width: 127px;
+      height: 47px;
+      background-image: linear-gradient(90deg,
+      #fbf1cb 0%,
+      #f6d7a7 100%),
+      linear-gradient(#9ad600,
+      #9ad600);
+      background-blend-mode: normal,
+      normal;
+      border-radius: 24px;
       display: flex;
       flex: 0 0 auto;
       align-items: center;
+      justify-content: center;
+
+      ._77Login {
+        width: 87px;
+        height: 21px;
+        font-family: SourceHanSansCN-Medium;
+        font-size: 21px;
+        font-weight: normal;
+        font-stretch: normal;
+        line-height: 27px;
+        letter-spacing: 0px;
+        color: #494d67;
+        display: flex;
+        flex: 0 0 auto;
+        align-items: center;
+      }
+
     }
-
-  }
-}
-
-.row3 {
-  width: 685px;
-  height: 150px;
-  background-color: #ffffff;
-  box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.15);
-  border-radius: 12px;
-
-  display: flex;
-  flex: 0 0 auto;
-  justify-content: space-evenly;
-  align-items: center;
-
-  .num {
-    width: 84px;
-    height: 24px;
-    font-family: SourceHanSansCN-Bold;
-    font-size: 32px;
-    font-weight: normal;
-    font-stretch: normal;
-    line-height: 27px;
-    letter-spacing: 0px;
-    color: #000000;
-    text-align: center;
   }
 
-  .numName {
-    //width: 50px;
-    height: 24px;
-    font-family: SourceHanSansCN-Regular;
-    font-size: 24px;
-    font-weight: normal;
-    font-stretch: normal;
-    line-height: 27px;
-    letter-spacing: 2px;
-    color: #969ab6;
-    text-align: center;
+  .row3 {
+    width: 685px;
+    height: 150px;
+    background-color: #ffffff;
+    box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
 
-  }
-}
-
-.row4 {
-  width: 683px;
-  height: 229px;
-  //background-image: linear-gradient(245deg,
-  //#6f7aad 0%,
-  //#5f6994 100%),
-  //linear-gradient(#ffffff,
-  //#ffffff);
-  background-image: url('~@/assets/切图/我的/会员卡.png');
-  background-blend-mode: normal,
-  normal;
-  border-radius: 12px;
-
-  .discountBox {
-    margin-left: 250px;
-  }
-
-  .discount {
-    width: 224px;
-    height: 50px;
-    font-family: SourceHanSansCN-Bold;
-    font-size: 36px;
-    font-weight: normal;
-    font-stretch: normal;
-    line-height: 27px;
-    //letter-spacing: 1px;
-    color: #ffffff;
-  }
-
-  .join {
-    width: 174px;
-    height: 23px;
-    font-family: SourceHanSansCN-Normal;
-    font-size: 24px;
-    font-weight: normal;
-    font-stretch: normal;
-    line-height: 27px;
-    //letter-spacing: 1px;
-    color: #ffffff;
-  }
-
-  .redEnvelope {
-    width: 310px;
-    height: 23px;
-    font-family: SourceHanSansCN-Bold;
-    font-size: 23px;
-    font-weight: normal;
-    font-stretch: normal;
-    line-height: 27px;
-    //letter-spacing: 0px;
-    color: #9fa2af;
-  }
-}
-
-.row5 {
-  width: 683px;
-  height: 409px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  display: flex;
-  flex: 0 0 auto;
-  flex-wrap: wrap;
-
-  .menu {
-    width: 25%;
     display: flex;
-    flex-direction: column;
     flex: 0 0 auto;
+    justify-content: space-evenly;
     align-items: center;
-    justify-content: center;
 
-    .icon {
-      width: 38px;
-      height: 48px;
-    }
-
-    .iconName {
-      width: 102px;
+    .num {
+      width: 84px;
       height: 24px;
-      font-family: SourceHanSansCN-Regular;
-      font-size: 26px;
+      font-family: SourceHanSansCN-Bold;
+      font-size: 32px;
       font-weight: normal;
       font-stretch: normal;
       line-height: 27px;
       letter-spacing: 0px;
       color: #000000;
+      text-align: center;
+    }
+
+    .numName {
+      //width: 50px;
+      height: 24px;
+      font-family: SourceHanSansCN-Regular;
+      font-size: 24px;
+      font-weight: normal;
+      font-stretch: normal;
+      line-height: 27px;
+      letter-spacing: 2px;
+      color: #969ab6;
+      text-align: center;
+
     }
   }
+
+  .row4 {
+    width: 683px;
+    height: 229px;
+    //background-image: linear-gradient(245deg,
+    //#6f7aad 0%,
+    //#5f6994 100%),
+    //linear-gradient(#ffffff,
+    //#ffffff);
+    background-image: url('~@/assets/切图/我的/会员卡.png');
+    background-blend-mode: normal,
+    normal;
+    border-radius: 12px;
+
+    .discountBox {
+      margin-left: 250px;
+    }
+
+    .discount {
+      width: 224px;
+      height: 50px;
+      font-family: SourceHanSansCN-Bold;
+      font-size: 36px;
+      font-weight: normal;
+      font-stretch: normal;
+      line-height: 27px;
+      //letter-spacing: 1px;
+      color: #ffffff;
+    }
+
+    .join {
+      width: 174px;
+      height: 23px;
+      font-family: SourceHanSansCN-Normal;
+      font-size: 24px;
+      font-weight: normal;
+      font-stretch: normal;
+      line-height: 27px;
+      //letter-spacing: 1px;
+      color: #ffffff;
+    }
+
+    .redEnvelope {
+      width: 310px;
+      height: 23px;
+      font-family: SourceHanSansCN-Bold;
+      font-size: 23px;
+      font-weight: normal;
+      font-stretch: normal;
+      line-height: 27px;
+      //letter-spacing: 0px;
+      color: #9fa2af;
+    }
+  }
+
+  .row5 {
+    width: 683px;
+    height: 409px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    display: flex;
+    flex: 0 0 auto;
+    flex-wrap: wrap;
+
+    .menu {
+      width: 25%;
+      display: flex;
+      flex-direction: column;
+      flex: 0 0 auto;
+      align-items: center;
+      justify-content: center;
+
+      .icon {
+        width: 38px;
+        height: 48px;
+      }
+
+      .iconName {
+        width: 102px;
+        height: 24px;
+        font-family: SourceHanSansCN-Regular;
+        font-size: 26px;
+        font-weight: normal;
+        font-stretch: normal;
+        line-height: 27px;
+        letter-spacing: 0px;
+        color: #000000;
+      }
+    }
+  }
+
 }
 </style>

@@ -79,7 +79,7 @@ export default {
   width: 100%;
   //height: 100%;
   display: flex;
-  flex: 0 1 auto;
+  flex: 1;
   overflow-y: scroll;
 }
 
