@@ -211,13 +211,12 @@ export default {
   flex: 0 0 auto;
 
   .menuGroup {
-    width: 96px;
-    //height: 884px;
+    width: 8rem;
     font-family: SourceHanSansCN-Bold;
-    font-size: 24px;
+    font-size: 1.6rem;
     font-weight: normal;
     font-stretch: normal;
-    line-height: 84px;
+    line-height: 2.4rem;
     letter-spacing: 0px;
     color: #000000;
   }
