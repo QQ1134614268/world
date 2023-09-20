@@ -17,8 +17,10 @@
         <span class="out">外卖</span>
       </div>
     </div>
-    <img class="banner" src="@/assets/切图/点餐2/banner.png">
-    <div class="foodBox">
+    <div class="banner">
+      <img src="@/assets/切图/点餐2/banner.png">
+    </div>
+    <div class="row3">
       <div class="menuGroup">
         <div>
           经典推荐
@@ -33,7 +35,7 @@
           早餐组合
         </div>
       </div>
-      <div>
+      <div class="foodList">
         <div class="group">经典推荐</div>
         <div class="foodBox">
           <img class="foodImg" src="@/assets/切图/首页/图层23.png">
@@ -50,19 +52,6 @@
         </div>
       </div>
     </div>
-    <!--    <div v-for="(orderInfoVO,index) in tableData" class="p_c_flexbox_row">-->
-    <!--      <img :src="orderInfoVO.goods_img" class="p_c_img_normal" style=""/>-->
-    <!--      <div>-->
-    <!--        {{ orderInfoVO.goods_name }}-->
-    <!--      </div>-->
-    <!--      <div>-->
-    <!--        {{ orderInfoVO.num }}-->
-    <!--      </div>-->
-    <!--      <div>-->
-    <!--        {{ orderInfoVO.price }}-->
-    <!--      </div>-->
-    <!--    </div>-->
-
   </div>
 </template>
 
@@ -121,6 +110,8 @@ export default {
 
 .row1 {
 
+  width: 100%;
+  padding: 1rem 3rem;
   display: flex;
   flex: 0 0 auto;
   justify-content: space-between;
@@ -132,7 +123,6 @@ export default {
     .positionIcon {
       width: 26px;
       height: 36px;
-      background-color: #9ed710;
     }
 
     .storeName2 {
@@ -150,7 +140,6 @@ export default {
     .moreIcon {
       width: 13px;
       height: 23px;
-      background-color: #969ab6;
     }
   }
 
@@ -208,13 +197,16 @@ export default {
 }
 
 .banner {
-  width: 679px;
-  height: 201px;
-  background-color: #9ed710;
+  width: 100%;
+  //height: 201px;
+  padding: 1rem 3rem;
+  //background-color: #9ed710;
   border-radius: 12px;
 }
 
-.foodBox {
+.row3 {
+  width: 100%;
+  padding: 0 3rem;
   display: flex;
   flex: 0 0 auto;
 
@@ -230,84 +222,93 @@ export default {
     color: #000000;
   }
 
-  .group {
-    width: 95px;
-    height: 23px;
-    font-family: SourceHanSansCN-Regular;
-    font-size: 24px;
-    font-weight: normal;
-    font-stretch: normal;
-    line-height: 84px;
-    letter-spacing: 0px;
-    color: #000000;
-  }
-
-  .foodImg {
-    width: 156px;
-    height: 156px;
-    background-color: #efedf6;
-    border-radius: 12px;
-  }
-
-  .foodDescBox {
+  .foodList {
+    width: 100%;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
-    flex: 0 0 auto;
-    justify-content: space-around;
+    flex: 1;
 
-    .foodName {
-      width: 104px;
-      height: 24px;
-      font-family: SourceHanSansCN-Regular;
-      font-size: 26px;
-      font-weight: normal;
-      font-stretch: normal;
-      line-height: 84px;
-      letter-spacing: 0px;
-      color: #000000;
-    }
 
-    .foodDesc {
-      width: 100%;
-      height: 24px;
+    .group {
+      width: 10rem;
+      height: 30px;
       font-family: SourceHanSansCN-Regular;
       font-size: 24px;
       font-weight: normal;
       font-stretch: normal;
-      line-height: 84px;
       letter-spacing: 0px;
-      color: #bbbbbb;
+      color: #000000;
     }
 
-    .priceBox {
-
+    .foodBox {
       display: flex;
       flex: 0 0 auto;
-      justify-content: space-between;
-      align-items: center;
+      padding: 1rem 0;
 
-      .foodPrice {
-        width: 59px;
-        //height: 23px;
-        font-family: SourceHanSansCN-Bold;
-        font-size: 30px;
-        font-weight: normal;
-        font-stretch: normal;
-        //line-height: 84px;
-        letter-spacing: -1px;
-        color: #ff0000;
-      }
-
-      .iconAdd {
-        width: 32px;
-        height: 32px;
-        background-color: #9ed710;
+      .foodImg {
+        width: 6rem;
+        height: 6rem;
         border-radius: 12px;
       }
+
+      .foodDescBox {
+        padding: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        justify-content: space-around;
+
+        .foodName {
+          //height: 2.5rem;
+          padding: 0.1rem 0.5rem;
+          font-family: SourceHanSansCN-Regular;
+          font-size: 1.5rem;
+          font-weight: normal;
+          font-stretch: normal;
+          letter-spacing: 0px;
+          color: #000000;
+        }
+
+        .foodDesc {
+          //height: 1rem;
+          padding: 0.1rem 0.5rem;
+          font-family: SourceHanSansCN-Regular;
+          font-weight: normal;
+          font-stretch: normal;
+          letter-spacing: 0px;
+          color: #bbbbbb;
+        }
+
+        .priceBox {
+          display: flex;
+          flex: 0 0 auto;
+          justify-content: space-between;
+          align-items: center;
+
+          .foodPrice {
+            //width: 59px;
+            //height: 23px;
+            font-family: SourceHanSansCN-Bold;
+            font-size: 1.8rem;
+            font-weight: normal;
+            font-stretch: normal;
+            //line-height: 84px;
+            letter-spacing: -1px;
+            color: #ff0000;
+          }
+
+          .iconAdd {
+            width: 32px;
+            height: 32px;
+            background-color: #9ed710;
+            border-radius: 12px;
+          }
+        }
+
+      }
     }
-
   }
-
 }
 
 </style>
