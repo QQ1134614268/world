@@ -118,12 +118,14 @@ export default {
 .store {
   display: flex;
   flex-direction: column;
+  flex: 0 0 auto;
   flex-grow: 1;
 }
 
 .store_body {
   display: flex;
   flex-direction: column;
+  flex: 0 0 auto;
   flex-grow: 1;
   height: 10rem;
 }
@@ -131,6 +133,7 @@ export default {
 .store_menu {
   width: 100%;
   display: flex;
+  flex: 0 0 auto;
   flex-grow: 1;
   overflow-y: auto;
   /*border: red 1px solid;*/
@@ -147,6 +150,7 @@ export default {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  flex: 0 0 auto;
 }
 
 .nav {

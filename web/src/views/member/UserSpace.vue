@@ -113,6 +113,7 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: column;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
 }
@@ -120,12 +121,14 @@ export default {
   width: 688px;
   height: 190px;
   display: flex;
+  flex: 0 0 auto;
   align-items: flex-end;
   justify-content: space-between
 }
 
 .avtar {
   display: flex;
+  flex: 0 0 auto;
   justify-content: center;
   align-items: center;
 }
@@ -180,6 +183,7 @@ export default {
   normal;
   border-radius: 12px 12px 0px 0px;
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: space-around;
 
@@ -221,6 +225,7 @@ export default {
     normal;
     border-radius: 24px;
     display: flex;
+    flex: 0 0 auto;
     align-items: center;
     justify-content: center;
 
@@ -235,6 +240,7 @@ export default {
       letter-spacing: 0px;
       color: #494d67;
       display: flex;
+      flex: 0 0 auto;
       align-items: center;
     }
 
@@ -249,6 +255,7 @@ export default {
   border-radius: 12px;
 
   display: flex;
+  flex: 0 0 auto;
   justify-content: space-evenly;
   align-items: center;
 
@@ -340,12 +347,14 @@ export default {
   background-color: #ffffff;
   border-radius: 12px;
   display: flex;
+  flex: 0 0 auto;
   flex-wrap: wrap;
 
   .menu {
     width: 25%;
     display: flex;
     flex-direction: column;
+    flex: 0 0 auto;
     align-items: center;
     justify-content: center;
 

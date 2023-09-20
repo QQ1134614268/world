@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="p_c_HolyGrail-body">
+  <div id="app">
     <router-view/>
   </div>
 </template>
@@ -21,8 +21,6 @@ export default {
 </script>
 <style>
 #app {
-  margin: auto;
-  height: 100%;
   /*页面文字可复制*/
   -webkit-user-select: text;
 }

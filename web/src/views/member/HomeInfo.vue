@@ -107,6 +107,7 @@
 .home {
   display: flex;
   flex-direction: column;
+  flex: 0 0 auto;
   align-items: center;
 }
 
@@ -116,6 +117,7 @@
   background-color: #9ad600;
   display: flex;
   flex-direction: column;
+  flex: 0 0 auto;
   justify-content: flex-end;
   align-items: center;
   background-image: url('~@/assets/切图/首页/banner.png');
@@ -127,6 +129,7 @@
     box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.15);
     border-radius: 12px;
     display: flex;
+    flex: 0 0 auto;
     align-items: center;
     justify-content: space-around;
 
@@ -166,6 +169,7 @@
       background-color: #9ad600;
       border-radius: 29px;
       display: flex;
+      flex: 0 0 auto;
       justify-content: center;
       align-items: center;
 
@@ -187,11 +191,13 @@
   box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.15);
   border-radius: 12px;
   display: flex;
+  flex: 0 0 auto;
   justify-content: space-around;
 
   .numBox {
     display: flex;
     flex-direction: column;
+    flex: 0 0 auto;
     justify-content: center;
     align-items: center;
 
@@ -230,6 +236,7 @@
 
 .row3 {
   display: flex;
+  flex: 0 0 auto;
 
   .orderBox {
     width: 334px;
@@ -238,10 +245,12 @@
     border-radius: 12px;
     display: flex;
     flex-direction: column;
+    flex: 0 0 auto;
     justify-content: center;
 
     .order {
       display: flex;
+      flex: 0 0 auto;
       align-items: center;
 
       .orderName {
@@ -273,11 +282,13 @@
 
 .row4 {
   display: flex;
+  flex: 0 0 auto;
 
   .activityTotal {
     width: 260px;
     display: flex;
     flex-direction: column;
+    flex: 0 0 auto;
 
     .activityBox {
       width: 260px;
@@ -285,6 +296,7 @@
       background-color: #ffffff;
       border-radius: 12px;
       display: flex;
+      flex: 0 0 auto;
       flex-direction: column;
       align-items: center;
 
@@ -321,9 +333,11 @@
 
     display: flex;
     flex-direction: column;
+    flex: 0 0 auto;
 
     .secText {
       display: flex;
+      flex: 0 0 auto;
 
       .time {
         width: 136px;
@@ -352,6 +366,7 @@
 
     .secTotal {
       display: flex;
+      flex: 0 0 auto;
 
       .secInfo {
         .secImg {
@@ -363,6 +378,7 @@
 
         .priceBox {
           display: flex;
+          flex: 0 0 auto;
 
           .secPrice {
             width: 69px;

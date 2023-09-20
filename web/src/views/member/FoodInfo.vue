@@ -102,6 +102,7 @@ export default {
 
   display: flex;
   flex-direction: column;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
 }
@@ -121,10 +122,12 @@ export default {
 .row1 {
 
   display: flex;
+  flex: 0 0 auto;
   justify-content: space-between;
 
   .storeBox {
     display: flex;
+    flex: 0 0 auto;
 
     .positionIcon {
       width: 26px;
@@ -165,6 +168,7 @@ export default {
 
   .way {
     display: flex;
+    flex: 0 0 auto;
     justify-self: center;
     align-items: center;
 
@@ -175,6 +179,7 @@ export default {
       border-radius: 24px;
 
       display: flex;
+      flex: 0 0 auto;
       justify-content: center;
       align-items: center;
 
@@ -211,6 +216,7 @@ export default {
 
 .foodBox {
   display: flex;
+  flex: 0 0 auto;
 
   .menuGroup {
     width: 96px;
@@ -246,6 +252,7 @@ export default {
   .foodDescBox {
     display: flex;
     flex-direction: column;
+    flex: 0 0 auto;
     justify-content: space-around;
 
     .foodName {
@@ -275,6 +282,7 @@ export default {
     .priceBox {
 
       display: flex;
+      flex: 0 0 auto;
       justify-content: space-between;
       align-items: center;
 

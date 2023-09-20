@@ -21,7 +21,7 @@
 </template>
 <script>
 import {userLogout} from "@/api/user";
-import {HomeContent, MemberAdminHome, MemberRootUrl, FoodInfo, Store, UserSpace} from "@/views/member/index";
+import {FoodInfo, HomeContent, MemberAdminHome, MemberRootUrl, Store, UserSpace} from "@/views/member/index";
 import {SYS_LOGIN_URL, SYS_REGISTER_URL} from "@/views/sys";
 
 export default {
@@ -62,9 +62,10 @@ export default {
 </script>
 <style scoped lang="less">
 .member_container {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  flex: 0 0 auto;
 
   @media only screen and (min-width: 768px) {
     width: 768px;
@@ -74,39 +75,32 @@ export default {
   }
 }
 
-div {
-  //border: 1px solid red;
-}
-
-.member_header {
-  display: flex;
-  flex: 0 0 1;
-  justify-content: space-around;
-  height: 48px;
-}
-
 .member_body {
   width: 100%;
+  //height: 100%;
   display: flex;
-  flex-grow: 1;
+  flex: 0 1 auto;
   overflow-y: scroll;
 }
 
 .member_footer {
-  width: 750px;
-  height: 148px;
+  width: 100%;
+  height: 5rem;
   background-image: linear-gradient(#ffffff, #ffffff), linear-gradient(#ffffff, #ffffff);
   background-blend-mode: normal, normal;
   box-shadow: 0px -3px 8px 0px rgba(48, 45, 43, 0.21);
 
   display: flex;
+  flex: 0 0 auto;
   justify-content: space-evenly;
+  align-items: center;
 
   //height: 3rem;
   //background: linear-gradient(to top, #f3f3f3, #cccccc, #f3f3f3);
   .menuBox {
     display: flex;
     flex-direction: column;
+    flex: 0 0 auto;
     align-items: center;
 
     .menuImg {
@@ -115,6 +109,7 @@ div {
       //background-image: linear-gradient(-27deg,
       //#9ad600 0%,
       //#cffe58 100%);
+      object-fit: scale-down;
     }
 
     .menuText {
@@ -132,24 +127,17 @@ div {
 
 }
 
-footer div {
-  flex: 1;
-  text-align: center;
-  line-height: 3rem;
-  color: #555555;
-}
+//.footer131 {
+//  /*width: 23rem;*/
+//  height: 5rem;
+//  background-image: linear-gradient(#ffffff, #ffffff), linear-gradient(#ffffff, #ffffff);
+//  background-blend-mode: normal, normal;
+//  box-shadow: 0rem 0rem 0rem 0rem rgba(48, 45, 43, 0.21);
+//}
 
-.footer131 {
-  /*width: 23rem;*/
-  height: 5rem;
-  background-image: linear-gradient(#ffffff, #ffffff), linear-gradient(#ffffff, #ffffff);
-  background-blend-mode: normal, normal;
-  box-shadow: 0rem 0rem 0rem 0rem rgba(48, 45, 43, 0.21);
-}
-
-footer div:nth-child(n+2) {
-  border-left: solid 1px #cccccc;
-}
+//footer div:nth-child(n+2) {
+//  border-left: solid 1px #cccccc;
+//}
 
 
 </style>
