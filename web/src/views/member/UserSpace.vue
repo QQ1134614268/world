@@ -117,8 +117,9 @@ export default {
   justify-content: center;
 
   .row1 {
-    width: 688px;
-    height: 190px;
+    width: 100%;
+    padding: 1rem 3rem;
+    height: 12rem;
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
