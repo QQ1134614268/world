@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="container">
     <div class="row1">
       <div class="row1Txt">
         <div>
@@ -104,7 +104,7 @@
 </script>
 
 <style scoped lang="less">
-.home {
+.container {
   display: flex;
   flex-direction: column;
   flex: 0 0 auto;

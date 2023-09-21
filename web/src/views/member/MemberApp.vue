@@ -77,9 +77,10 @@ export default {
 
 .member_body {
   width: 100%;
-  //height: 100%;
+  height: 100%;
   display: flex;
-  flex: 1;
+  flex-direction: column;
+  flex-shrink: 1;
   overflow-y: scroll;
 }
 

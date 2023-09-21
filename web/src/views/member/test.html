@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-<div class="container">
+<body class="app">
+<div class="container p_c_test_border">
     <div class="header">header</div>
     <div class="body">
         <div class="text">1</div>
@@ -17,18 +17,23 @@
 <style>
     .text {
         height: 500px;
+        flex-shrink: 0;
+    }
+
+    .app {
+        display: flex;
+        flex-direction: column;
     }
 
     .container {
-        width: 200px;
-        height: 98vh;
+        width: 300px;
+        height: 90vh;
+        border: red 1px solid;
         display: flex;
         flex-direction: column;
-
-        align-items: center;
         justify-content: center;
-        overflow-y: scroll;
-    // todo 溢出 ， 大小 与子元素
+        align-items: center;
+    // justify-content: 可变长或者保证足够空间； 强制所有内容在div显示， 若不够，两头会被隐藏
     }
 
     .header {
@@ -40,11 +45,12 @@
     }
 
     .body {
-        width: 100%;
+        width: 200px;
+        height: 100%;
         display: flex;
         flex-direction: column;
-    //flex-grow: 1; //flex-shrink: 1; //    overflow-y: scroll; // todo 溢出 ， 大小 与子元素
-
+        flex-shrink: 1;
+        overflow-y: scroll;
     }
 
     div {

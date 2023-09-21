@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container p_c_test_border">
     <div class="row1">
       <div class="avtar">
         <img class="avtarImg" src="@/assets/icon/favicon2.jpg">
@@ -14,7 +14,7 @@
       </div>
       <img class="logo" src="@/assets/切图/我的/logo.png">
     </div>
-    <div class="row2 p_c_test_border">
+    <div class="row2">
       <span class="_77">
         77卡
       </span>
@@ -114,7 +114,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  //justify-content: center;
+  justify-content: center;
 
   .row1 {
     width: 688px;
