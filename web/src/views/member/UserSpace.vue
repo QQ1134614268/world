@@ -1,5 +1,5 @@
 <template>
-  <div class="container p_c_test_border">
+  <div class="container">
     <div class="row1">
       <div class="avtar">
         <img class="avtarImg" src="@/assets/icon/favicon2.jpg">

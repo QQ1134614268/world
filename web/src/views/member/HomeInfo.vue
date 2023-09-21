@@ -170,6 +170,7 @@
       border-radius: 29px;
       display: flex;
       flex: 0 0 auto;
+      justify-content: center;
       align-items: center;
 
       font-family: SourceHanSansCN-Regular;
@@ -253,8 +254,9 @@
       align-items: center;
 
       .orderName {
-        width: 185px;
+        //width: 185px;
         height: 36px;
+        padding: 0.3rem;
         font-family: SourceHanSansCN-Medium;
         font-size: 38px;
         font-weight: normal;
@@ -267,7 +269,6 @@
       .moreIcon {
         width: 10px;
         height: 16px;
-        background-color: #9ad600;
       }
     }
 
