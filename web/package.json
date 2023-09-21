@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --mode development",
+    "local": "vue-cli-service serve --mode development",
     "build": "vue-cli-service build --mode development",
     "production": "vue-cli-service serve --mode production",
     "build-ying": "vue-cli-service build --mode lvying",
