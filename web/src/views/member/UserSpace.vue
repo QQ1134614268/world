@@ -111,6 +111,7 @@ export default {
 <style scoped lang="less">
 .container {
   width: 100%;
+  padding: 0 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -118,8 +119,8 @@ export default {
 
   .row1 {
     width: 100%;
-    padding: 1rem 3rem;
-    height: 12rem;
+    padding: 1rem 2rem;
+    height: 8rem;
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
@@ -132,22 +133,22 @@ export default {
       align-items: center;
 
       .avtarImg {
-        width: 100px;
-        height: 100px;
+        width: 6rem;
+        height: 6rem;
         //background-color: #ffffff;
         border: solid 3px #ffffff;
         border-radius: 50%;
       }
 
       .avtarName {
-        width: 108px;
-        height: 27px;
+        width: 15rem;
+        height: 2rem;
         font-family: SourceHanSansCN-Medium;
-        font-size: 28px;
+        font-size: 2rem;
         font-weight: normal;
         font-stretch: normal;
-        line-height: 37px;
-        letter-spacing: -1px;
+        line-height: 2.2rem;
+        letter-spacing: 0;
         //color: #000000;
       }
 
@@ -155,7 +156,7 @@ export default {
         width: 152px;
         height: 19px;
         font-family: SourceHanSansCN-Regular;
-        font-size: 24px;
+        font-size: 1.5rem;
         font-weight: normal;
         font-stretch: normal;
         line-height: 37px;
@@ -165,93 +166,86 @@ export default {
     }
 
     .logo {
-      width: 103px;
-      height: 158px;
+      width: 6rem;
+      height: 6rem;
+      object-fit: contain;
     }
-
   }
 
   .row2 {
-    width: 684px;
-    height: 85px;
-    background-image: linear-gradient(122deg,
-    #252745 0%,
-    #494d67 100%),
-    linear-gradient(#ffffff,
-    #ffffff);
-    background-blend-mode: normal,
-    normal;
-    border-radius: 12px 12px 0px 0px;
+    width: 100%;
+    height: 6rem;
+    margin-bottom: 1rem;
+    background-image: linear-gradient(122deg, #252745 0%, #494d67 100%), linear-gradient(#ffffff, #ffffff);
+    background-blend-mode: normal, normal;
+    border-radius: 0.8rem 0.8rem 0 0;
     display: flex;
     flex: 0 0 auto;
     align-items: center;
     justify-content: space-around;
 
     ._77 {
-      width: 73px;
-      height: 27px;
+      width: 5rem;
+      height: 1.6rem;
       font-family: zihun54hao-xianhei;
-      font-size: 32px;
+      font-size: 2rem;
       font-weight: normal;
       font-style: italic;
       font-stretch: normal;
-      line-height: 27px;
-      letter-spacing: -1px;
+      line-height: 2rem;
+      letter-spacing: 0;
       color: #ece1e1;
-      box-shadow: 0px 2px 5px 0px rgba(103, 63, 22, 0.7);
+      box-shadow: 0 2px 5px 0 rgba(103, 63, 22, 0.7);
     }
 
     ._77Text {
-      width: 258px;
-      height: 21px;
+      width: 20rem;
+      height: 1.6rem;
       font-family: SourceHanSansCN-Normal;
-      font-size: 22px;
+      font-size: 1.6rem;
       font-weight: normal;
       font-stretch: normal;
-      line-height: 27px;
-      letter-spacing: 0px;
+      line-height: 1.6rem;
+      letter-spacing: 0;
       color: #ebe5c1;
     }
 
     ._77LoginBox {
-      width: 127px;
+      width: 8rem;
       height: 47px;
-      background-image: linear-gradient(90deg,
-      #fbf1cb 0%,
-      #f6d7a7 100%),
-      linear-gradient(#9ad600,
-      #9ad600);
-      background-blend-mode: normal,
-      normal;
-      border-radius: 24px;
+      background-image: linear-gradient(90deg, #fbf1cb 0%, #f6d7a7 100%), linear-gradient(#9ad600, #9ad600);
+      background-blend-mode: normal, normal;
+      border-radius: 1.5rem;
       display: flex;
       flex: 0 0 auto;
       align-items: center;
       justify-content: center;
 
       ._77Login {
-        width: 87px;
-        height: 21px;
+        width: 8rem;
+        height: 1.4rem;
         font-family: SourceHanSansCN-Medium;
-        font-size: 21px;
+        font-size: 1.4rem;
         font-weight: normal;
         font-stretch: normal;
-        line-height: 27px;
-        letter-spacing: 0px;
+        line-height: 1.6rem;
+        letter-spacing: 0;
         color: #494d67;
         display: flex;
         flex: 0 0 auto;
         align-items: center;
+        justify-content: center;
       }
 
     }
   }
 
   .row3 {
-    width: 685px;
-    height: 150px;
+    width: 100%;
+    height: 10rem;
+    margin-bottom: 1rem;
     background-color: #ffffff;
-    box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.15);
     border-radius: 12px;
 
     display: flex;
@@ -260,27 +254,27 @@ export default {
     align-items: center;
 
     .num {
-      width: 84px;
-      height: 24px;
+      width: 6rem;
+      height: 1.5rem;
       font-family: SourceHanSansCN-Bold;
       font-size: 32px;
       font-weight: normal;
       font-stretch: normal;
-      line-height: 27px;
-      letter-spacing: 0px;
+      line-height: 1.6rem;
+      letter-spacing: 0;
       color: #000000;
       text-align: center;
     }
 
     .numName {
       //width: 50px;
-      height: 24px;
+      height: 1.5rem;
       font-family: SourceHanSansCN-Regular;
-      font-size: 24px;
+      font-size: 1.5rem;
       font-weight: normal;
       font-stretch: normal;
-      line-height: 27px;
-      letter-spacing: 2px;
+      line-height: 1.6rem;
+      letter-spacing: 0;
       color: #969ab6;
       text-align: center;
 
@@ -288,64 +282,63 @@ export default {
   }
 
   .row4 {
-    width: 683px;
-    height: 229px;
-    //background-image: linear-gradient(245deg,
-    //#6f7aad 0%,
-    //#5f6994 100%),
-    //linear-gradient(#ffffff,
-    //#ffffff);
+    width: 100%;
+    height: 14rem;
+    margin-bottom: 1rem;
     background-image: url('~@/assets/切图/我的/会员卡.png');
-    background-blend-mode: normal,
-    normal;
-    border-radius: 12px;
+    background-blend-mode: normal, normal;
+    border-radius: 0.8rem;
 
     .discountBox {
-      margin-left: 250px;
+      margin-left: 15rem;
+      display: flex;
+      flex-direction: column;
+      padding: 3rem 0;
     }
 
     .discount {
-      width: 224px;
-      height: 50px;
+      width: 15rem;
+      height: 3rem;
       font-family: SourceHanSansCN-Bold;
-      font-size: 36px;
+      font-size: 2rem;
       font-weight: normal;
       font-stretch: normal;
-      line-height: 27px;
+      line-height: 1.6rem;
       //letter-spacing: 1px;
       color: #ffffff;
     }
 
     .join {
-      width: 174px;
-      height: 23px;
+      width: 11rem;
+      height: 1.5rem;
       font-family: SourceHanSansCN-Normal;
-      font-size: 24px;
+      font-size: 1.5rem;
       font-weight: normal;
       font-stretch: normal;
-      line-height: 27px;
+      line-height: 1.6rem;
       //letter-spacing: 1px;
       color: #ffffff;
     }
 
     .redEnvelope {
-      width: 310px;
-      height: 23px;
+      width: 20rem;
+      height: 1.5rem;
       font-family: SourceHanSansCN-Bold;
-      font-size: 23px;
+      font-size: 1.5rem;
       font-weight: normal;
       font-stretch: normal;
-      line-height: 27px;
-      //letter-spacing: 0px;
+      line-height: 1.6rem;
+      //letter-spacing: 0;
       color: #9fa2af;
     }
   }
 
   .row5 {
-    width: 683px;
-    height: 409px;
-    background-color: #ffffff;
-    border-radius: 12px;
+    width: 100%;
+    height: 25rem;
+    margin-bottom: 1rem;
+    background-color: rgba(243, 239, 239, 0.43);
+    border-radius: 1rem;
     display: flex;
     flex: 0 0 auto;
     flex-wrap: wrap;
@@ -359,23 +352,22 @@ export default {
       justify-content: center;
 
       .icon {
-        width: 38px;
-        height: 48px;
+        width: 3rem;
+        height: 3rem;
       }
 
       .iconName {
-        width: 102px;
-        height: 24px;
+        width: 6rem;
+        height: 1.5rem;
         font-family: SourceHanSansCN-Regular;
-        font-size: 26px;
+        font-size: 1.6rem;
         font-weight: normal;
         font-stretch: normal;
-        line-height: 27px;
-        letter-spacing: 0px;
+        line-height: 1.6rem;
+        letter-spacing: 0;
         color: #000000;
       }
     }
   }
-
 }
 </style>

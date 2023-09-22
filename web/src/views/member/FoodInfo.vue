@@ -103,8 +103,8 @@ export default {
   font-size: 34px;
   font-weight: normal;
   font-stretch: normal;
-  line-height: 27px;
-  letter-spacing: 0px;
+  line-height:  1.6rem;
+  letter-spacing: 0;
   color: #000000;
 }
 
@@ -132,8 +132,8 @@ export default {
       font-size: 26px;
       font-weight: normal;
       font-stretch: normal;
-      line-height: 27px;
-      letter-spacing: 0px;
+      line-height:  1.6rem;
+      letter-spacing: 0;
       color: #000000;
     }
 
@@ -145,13 +145,13 @@ export default {
 
   .address {
     width: 330px;
-    height: 24px;
+    height:  1.5rem;
     font-family: SourceHanSansCN-Regular;
-    font-size: 24px;
+    font-size:  1.5rem;
     font-weight: normal;
     font-stretch: normal;
-    line-height: 27px;
-    letter-spacing: 0px;
+    line-height:  1.6rem;
+    letter-spacing: 0;
     color: #838383;
   }
 
@@ -165,7 +165,7 @@ export default {
       width: 85px;
       height: 47px;
       background-color: #333333;
-      border-radius: 24px;
+      border-radius:  1.5rem;
 
       display: flex;
       flex: 0 0 auto;
@@ -173,23 +173,23 @@ export default {
       align-items: center;
 
       font-family: SourceHanSansCN-Regular;
-      font-size: 24px;
+      font-size:  1.5rem;
       font-weight: normal;
       font-stretch: normal;
-      line-height: 27px;
-      letter-spacing: 0px;
+      line-height:  1.6rem;
+      letter-spacing: 0;
       color: #ffffff;
     }
 
     .out {
       width: 48px;
-      height: 24px;
+      height:  1.5rem;
       font-family: SourceHanSansCN-Regular;
-      font-size: 24px;
+      font-size:  1.5rem;
       font-weight: normal;
       font-stretch: normal;
-      line-height: 27px;
-      letter-spacing: 0px;
+      line-height:  1.6rem;
+      letter-spacing: 0;
       color: #838383;
     }
   }
@@ -217,7 +217,7 @@ export default {
     font-weight: normal;
     font-stretch: normal;
     line-height: 2.4rem;
-    letter-spacing: 0px;
+    letter-spacing: 0;
     color: #000000;
   }
 
@@ -233,10 +233,10 @@ export default {
       width: 10rem;
       height: 30px;
       font-family: SourceHanSansCN-Regular;
-      font-size: 24px;
+      font-size:  1.5rem;
       font-weight: normal;
       font-stretch: normal;
-      letter-spacing: 0px;
+      letter-spacing: 0;
       color: #000000;
     }
 
@@ -265,7 +265,7 @@ export default {
           font-size: 1.5rem;
           font-weight: normal;
           font-stretch: normal;
-          letter-spacing: 0px;
+          letter-spacing: 0;
           color: #000000;
         }
 
@@ -275,7 +275,7 @@ export default {
           font-family: SourceHanSansCN-Regular;
           font-weight: normal;
           font-stretch: normal;
-          letter-spacing: 0px;
+          letter-spacing: 0;
           color: #bbbbbb;
         }
 

@@ -89,7 +89,7 @@ export default {
   height: 5rem;
   background-image: linear-gradient(#ffffff, #ffffff), linear-gradient(#ffffff, #ffffff);
   background-blend-mode: normal, normal;
-  box-shadow: 0px -3px 8px 0px rgba(48, 45, 43, 0.21);
+  box-shadow: 0 -3px 8px 0 rgba(48, 45, 43, 0.21);
 
   display: flex;
   flex: 0 0 auto;
@@ -121,7 +121,7 @@ export default {
       font-weight: normal;
       font-stretch: normal;
       line-height: 37px;
-      letter-spacing: 0px;
+      letter-spacing: 0;
       color: #9ad600;
     }
   }

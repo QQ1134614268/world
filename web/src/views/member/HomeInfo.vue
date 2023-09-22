@@ -126,7 +126,7 @@
     width: 685px;
     height: 145px;
     background-color: #ffffff;
-    box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.15);
     border-radius: 12px;
     display: flex;
     flex: 0 0 auto;
@@ -135,13 +135,13 @@
 
     .join {
       width: 371px;
-      height: 24px;
+      height:  1.5rem;
       font-family: zihun54hao-xianhei;
-      font-size: 24px;
+      font-size:  1.5rem;
       font-weight: normal;
       font-stretch: normal;
-      line-height: 27px;
-      letter-spacing: 0px;
+      line-height:  1.6rem;
+      letter-spacing: 0;
       color: #000000;
     }
 
@@ -149,10 +149,10 @@
       width: 204px;
       height: 26px;
       font-family: SourceHanSansCN-Normal;
-      font-size: 27px;
+      font-size:  1.6rem;
       font-weight: normal;
       font-stretch: normal;
-      line-height: 27px;
+      line-height:  1.6rem;
       //letter-spacing: 3px;
       color: #000000;
 
@@ -177,8 +177,8 @@
       font-size: 26px;
       font-weight: normal;
       font-stretch: normal;
-      line-height: 27px;
-      letter-spacing: 0px;
+      line-height:  1.6rem;
+      letter-spacing: 0;
       color: #ffffff;
     }
   }
@@ -188,7 +188,7 @@
   width: 685px;
   height: 180px;
   background-color: #ffffff;
-  box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.15);
   border-radius: 12px;
   display: flex;
   flex: 0 0 auto;
@@ -208,12 +208,12 @@
 
     .numName {
       //width: 57px;
-      height: 27px;
+      height:  1.6rem;
       font-family: SourceHanSansCN-Medium;
       font-size: 28px;
       font-weight: normal;
       font-stretch: normal;
-      line-height: 27px;
+      line-height:  1.6rem;
       //letter-spacing: 3px;
       color: #000000;
       text-align: center;
@@ -223,11 +223,11 @@
       width: 65px;
       height: 20px;
       font-family: SourceHanSansCN-Regular;
-      font-size: 27px;
+      font-size:  1.6rem;
       font-weight: normal;
       font-stretch: normal;
-      line-height: 27px;
-      //letter-spacing: 0px;
+      line-height:  1.6rem;
+      //letter-spacing: 0;
       color: #838383;
       text-align: center;
     }
@@ -261,8 +261,8 @@
         font-size: 38px;
         font-weight: normal;
         font-stretch: normal;
-        line-height: 27px;
-        letter-spacing: 0px;
+        line-height:  1.6rem;
+        letter-spacing: 0;
         color: #000000;
       }
 
@@ -316,8 +316,8 @@
         font-size: 32px;
         font-weight: normal;
         font-stretch: normal;
-        line-height: 27px;
-        letter-spacing: 0px;
+        line-height:  1.6rem;
+        letter-spacing: 0;
         color: #000000;
       }
 
@@ -346,20 +346,20 @@
         font-size: 34px;
         font-weight: normal;
         font-stretch: normal;
-        line-height: 27px;
-        letter-spacing: 0px;
+        line-height:  1.6rem;
+        letter-spacing: 0;
         color: #000000;
       }
 
       .note {
         width: 120px;
-        height: 24px;
+        height:  1.5rem;
         font-family: SourceHanSansCN-Regular;
-        font-size: 24px;
+        font-size:  1.5rem;
         font-weight: normal;
         font-stretch: normal;
-        line-height: 27px;
-        letter-spacing: 0px;
+        line-height:  1.6rem;
+        letter-spacing: 0;
         color: #a3a3a3;
       }
     }
@@ -387,8 +387,8 @@
             font-size: 30px;
             font-weight: normal;
             font-stretch: normal;
-            line-height: 27px;
-            letter-spacing: 0px;
+            line-height:  1.6rem;
+            letter-spacing: 0;
             color: #ff0000
           }
 
@@ -396,11 +396,11 @@
             width: 32px;
             height: 18px;
             font-family: SourceHanSansCN-Regular;
-            font-size: 24px;
+            font-size:  1.5rem;
             font-weight: normal;
             font-stretch: normal;
-            line-height: 27px;
-            letter-spacing: 0px;
+            line-height:  1.6rem;
+            letter-spacing: 0;
             color: #a0a0a0;
           }
         }
