@@ -111,7 +111,7 @@ export default {
 <style scoped lang="less">
 .container {
   width: 100%;
-  padding: 0 3rem;
+  padding: 0 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -141,7 +141,7 @@ export default {
       }
 
       .avtarName {
-        width: 15rem;
+        width: 10rem;
         height: 2rem;
         font-family: SourceHanSansCN-Medium;
         font-size: 2rem;
@@ -290,7 +290,7 @@ export default {
     border-radius: 0.8rem;
 
     .discountBox {
-      margin-left: 15rem;
+      margin-left: 40%;
       display: flex;
       flex-direction: column;
       padding: 3rem 0;
