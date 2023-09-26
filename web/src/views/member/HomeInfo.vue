@@ -112,8 +112,8 @@
 }
 
 .row1 {
-  width: 60rem;
-  height: 35rem;
+  width: 100%;
+  height: 20rem;
   background-color: #9ad600;
   display: flex;
   flex-direction: column;
@@ -121,13 +121,14 @@
   justify-content: flex-end;
   align-items: center;
   background-image: url('~@/assets/切图/首页/banner.png');
+  //background-size: contain;
 
   .row1Txt {
     width: 42rem;
-    height:9rem;
+    height: 9rem;
     background-color: #ffffff;
     box-shadow: 0 0.2rem 1rem 0 rgba(0, 0, 0, 0.15);
-    border-radius:  0.75rem;
+    border-radius: 0.75rem;
     display: flex;
     flex: 0 0 auto;
     align-items: center;
