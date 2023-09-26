@@ -136,13 +136,13 @@ export default {
         width: 6rem;
         height: 6rem;
         //background-color: #ffffff;
-        border: solid 3px #ffffff;
+        border: solid 0.2rem #ffffff;
         border-radius: 50%;
       }
 
       .avtarName {
-        width: 10rem;
-        height: 2rem;
+        width: 20rem;
+        height: 3rem;
         font-family: SourceHanSansCN-Medium;
         font-size: 2rem;
         font-weight: normal;
@@ -153,14 +153,14 @@ export default {
       }
 
       .avtarId {
-        width: 152px;
-        height: 19px;
+        width: 20rem;
+        height: 2rem;
         font-family: SourceHanSansCN-Regular;
-        font-size: 1.5rem;
+        font-size: 1rem;
         font-weight: normal;
         font-stretch: normal;
-        line-height: 37px;
-        letter-spacing: 1px;
+        line-height: 2rem;
+        letter-spacing: 0;
         color: #b3b2b9;
       }
     }
@@ -195,7 +195,7 @@ export default {
       line-height: 2rem;
       letter-spacing: 0;
       color: #ece1e1;
-      box-shadow: 0 2px 5px 0 rgba(103, 63, 22, 0.7);
+      box-shadow: 0 0.1rem 0.3rem 0 rgba(103, 63, 22, 0.7);
     }
 
     ._77Text {
@@ -212,7 +212,7 @@ export default {
 
     ._77LoginBox {
       width: 8rem;
-      height: 47px;
+      height: 3rem;
       background-image: linear-gradient(90deg, #fbf1cb 0%, #f6d7a7 100%), linear-gradient(#9ad600, #9ad600);
       background-blend-mode: normal, normal;
       border-radius: 1.5rem;
@@ -245,8 +245,8 @@ export default {
     height: 10rem;
     margin-bottom: 1rem;
     background-color: #ffffff;
-    box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.15);
-    border-radius: 12px;
+    box-shadow: 0 0.2rem 1rem 0 rgba(0, 0, 0, 0.15);
+    border-radius: 0.8rem;
 
     display: flex;
     flex: 0 0 auto;
@@ -257,7 +257,7 @@ export default {
       width: 6rem;
       height: 1.5rem;
       font-family: SourceHanSansCN-Bold;
-      font-size: 32px;
+      font-size: 2rem;
       font-weight: normal;
       font-stretch: normal;
       line-height: 1.6rem;
@@ -267,7 +267,6 @@ export default {
     }
 
     .numName {
-      //width: 50px;
       height: 1.5rem;
       font-family: SourceHanSansCN-Regular;
       font-size: 1.5rem;
@@ -297,31 +296,29 @@ export default {
     }
 
     .discount {
-      width: 15rem;
+      width: 40rem;
       height: 3rem;
       font-family: SourceHanSansCN-Bold;
       font-size: 2rem;
       font-weight: normal;
       font-stretch: normal;
       line-height: 1.6rem;
-      //letter-spacing: 1px;
       color: #ffffff;
     }
 
     .join {
-      width: 11rem;
+      width: 20rem;
       height: 1.5rem;
       font-family: SourceHanSansCN-Normal;
       font-size: 1.5rem;
       font-weight: normal;
       font-stretch: normal;
       line-height: 1.6rem;
-      //letter-spacing: 1px;
       color: #ffffff;
     }
 
     .redEnvelope {
-      width: 20rem;
+      width: 40rem;
       height: 1.5rem;
       font-family: SourceHanSansCN-Bold;
       font-size: 1.5rem;

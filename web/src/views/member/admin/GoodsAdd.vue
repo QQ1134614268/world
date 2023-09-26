@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form ref="form" :model="form" label-width="80px">
+    <el-form ref="form" :model="form" label-width="5rem">
       <el-form-item label="商品图片">
         <el-upload
             class="avatar-uploader"

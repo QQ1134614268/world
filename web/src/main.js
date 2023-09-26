@@ -9,6 +9,7 @@ import {TOKEN} from "@/api/config";
 import "@/assets/global_box.css"
 import "@/assets/global_article.css"
 import "@/assets/global_html.css"
+import "@/assets/global_fontSize.css"
 import store from "@/store/store"
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'

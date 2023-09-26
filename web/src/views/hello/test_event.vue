@@ -62,7 +62,7 @@ export default {
 </script>
 <style type="text/css" scoped>
 .inner {
-  height: 150px;
+  height: 9.3rem;
   background-color: gray;
 }
 

@@ -37,10 +37,10 @@
     </BoxRow>
     <BoxCol class="store_chart">
       <BoxRow class="btn">
-        <el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
+        <el-button @click="drawer = true" type="primary" style="margin-left: 1rem;">
           购物车
         </el-button>
-        <el-button @click="drawer = false" type="primary" style="margin-left: 16px;" v-if="drawer">
+        <el-button @click="drawer = false" type="primary" style="margin-left: 1rem;" v-if="drawer">
           关闭
         </el-button>
       </BoxRow>
@@ -136,7 +136,6 @@ export default {
   flex: 0 0 auto;
   flex-grow: 1;
   overflow-y: auto;
-  /*border: red 1px solid;*/
 }
 
 .store_chart {

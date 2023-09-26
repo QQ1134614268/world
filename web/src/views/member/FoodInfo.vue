@@ -97,10 +97,10 @@ export default {
 }
 
 .storeName {
-  width: 210px;
-  height: 33px;
+  width: 20.625rem;
+  height: 2rem;
   font-family: SourceHanSansCN-Medium;
-  font-size: 34px;
+  font-size: 2rem;
   font-weight: normal;
   font-stretch: normal;
   line-height:  1.6rem;
@@ -121,15 +121,15 @@ export default {
     flex: 0 0 auto;
 
     .positionIcon {
-      width: 26px;
-      height: 36px;
+      width:  1.625rem;
+      height: 2.25rem;
     }
 
     .storeName2 {
-      width: 160px;
-      height: 25px;
+      width: 10rem;
+      height: 1.56rem;
       font-family: SourceHanSansCN-Medium;
-      font-size: 26px;
+      font-size:  1.625rem;
       font-weight: normal;
       font-stretch: normal;
       line-height:  1.6rem;
@@ -138,13 +138,13 @@ export default {
     }
 
     .moreIcon {
-      width: 13px;
-      height: 23px;
+      width: 0.8125rem;
+      height: 1.4rem;
     }
   }
 
   .address {
-    width: 330px;
+    width: 31.875rem;
     height:  1.5rem;
     font-family: SourceHanSansCN-Regular;
     font-size:  1.5rem;
@@ -162,8 +162,8 @@ export default {
     align-items: center;
 
     .self {
-      width: 85px;
-      height: 47px;
+      width: 5.3125rem;
+      height: 3rem;
       background-color: #333333;
       border-radius:  1.5rem;
 
@@ -182,7 +182,7 @@ export default {
     }
 
     .out {
-      width: 48px;
+      width: 3rem;
       height:  1.5rem;
       font-family: SourceHanSansCN-Regular;
       font-size:  1.5rem;
@@ -198,10 +198,9 @@ export default {
 
 .banner {
   width: 100%;
-  //height: 201px;
   padding: 1rem 3rem;
   //background-color: #9ed710;
-  border-radius: 12px;
+  border-radius:  0.75rem;
 }
 
 .row3 {
@@ -231,7 +230,7 @@ export default {
 
     .group {
       width: 10rem;
-      height: 30px;
+      height: 1.875rem;
       font-family: SourceHanSansCN-Regular;
       font-size:  1.5rem;
       font-weight: normal;
@@ -248,7 +247,7 @@ export default {
       .foodImg {
         width: 6rem;
         height: 6rem;
-        border-radius: 12px;
+        border-radius:  0.75rem;
       }
 
       .foodDescBox {
@@ -286,22 +285,18 @@ export default {
           align-items: center;
 
           .foodPrice {
-            //width: 59px;
-            //height: 23px;
             font-family: SourceHanSansCN-Bold;
             font-size: 1.8rem;
             font-weight: normal;
             font-stretch: normal;
-            //line-height: 84px;
-            letter-spacing: -1px;
             color: #ff0000;
           }
 
           .iconAdd {
-            width: 32px;
-            height: 32px;
+            width: 2rem;
+            height: 2rem;
             background-color: #9ed710;
-            border-radius: 12px;
+            border-radius:  0.75rem;
           }
         }
 

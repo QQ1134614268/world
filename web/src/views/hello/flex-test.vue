@@ -21,7 +21,7 @@
 .logo {
   width: 100px;
   height: 100px;
-  margin: 10px;
+  margin: 0.625rem;
 }
 
 .content {

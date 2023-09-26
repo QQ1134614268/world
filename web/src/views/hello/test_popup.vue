@@ -55,8 +55,8 @@ export default {
 .login {
   position: fixed;
   font-size: 24px;
-  height: 360px;
-  width: 240px;
+  height: 35rem;
+  width: 15rem;
   background-color: gold;
   border-radius: 0.25rem;
   left: 50%;

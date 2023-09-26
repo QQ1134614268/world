@@ -112,8 +112,8 @@
 }
 
 .row1 {
-  width: 750px;
-  height: 582px;
+  width: 60rem;
+  height: 35rem;
   background-color: #9ad600;
   display: flex;
   flex-direction: column;
@@ -123,18 +123,18 @@
   background-image: url('~@/assets/切图/首页/banner.png');
 
   .row1Txt {
-    width: 685px;
-    height: 145px;
+    width: 42rem;
+    height:9rem;
     background-color: #ffffff;
-    box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.15);
-    border-radius: 12px;
+    box-shadow: 0 0.2rem 1rem 0 rgba(0, 0, 0, 0.15);
+    border-radius:  0.75rem;
     display: flex;
     flex: 0 0 auto;
     align-items: center;
     justify-content: space-around;
 
     .join {
-      width: 371px;
+      width: 23rem;
       height:  1.5rem;
       font-family: zihun54hao-xianhei;
       font-size:  1.5rem;
@@ -146,35 +146,35 @@
     }
 
     .joinName {
-      width: 204px;
-      height: 26px;
+      width:  12.75rem;
+      height:  1.625rem;
       font-family: SourceHanSansCN-Normal;
       font-size:  1.6rem;
       font-weight: normal;
       font-stretch: normal;
       line-height:  1.6rem;
-      //letter-spacing: 3px;
+      //letter-spacing: 0.2rem;
       color: #000000;
 
     }
 
     .logo {
-      width: 71px;
-      height: 107px;
+      width: 4.5rem;
+      height: 6.8rem;
     }
 
     .joinGroup {
-      width: 157px;
-      height: 58px;
+      width: 10rem;
+      height: 3.625rem;
       background-color: #9ad600;
-      border-radius: 29px;
+      border-radius: 2rem;
       display: flex;
       flex: 0 0 auto;
       justify-content: center;
       align-items: center;
 
       font-family: SourceHanSansCN-Regular;
-      font-size: 26px;
+      font-size:  1.625rem;
       font-weight: normal;
       font-stretch: normal;
       line-height:  1.6rem;
@@ -185,11 +185,11 @@
 }
 
 .row2 {
-  width: 685px;
-  height: 180px;
+  width: 42rem;
+  height: 12rem;
   background-color: #ffffff;
-  box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.15);
-  border-radius: 12px;
+  box-shadow: 0 0.2rem 1rem 0 rgba(0, 0, 0, 0.15);
+  border-radius:  0.75rem;
   display: flex;
   flex: 0 0 auto;
   justify-content: space-around;
@@ -202,26 +202,25 @@
     align-items: center;
 
     .numIcon {
-      width: 42px;
-      height: 48px;
+      width: 2.625rem;
+      height: 3rem;
     }
 
     .numName {
-      //width: 57px;
       height:  1.6rem;
       font-family: SourceHanSansCN-Medium;
-      font-size: 28px;
+      font-size: 1.75rem;
       font-weight: normal;
       font-stretch: normal;
       line-height:  1.6rem;
-      //letter-spacing: 3px;
+      //letter-spacing: 0.2rem;
       color: #000000;
       text-align: center;
     }
 
     .num {
-      width: 65px;
-      height: 20px;
+      width: 4rem;
+      height: 1.25rem;
       font-family: SourceHanSansCN-Regular;
       font-size:  1.6rem;
       font-weight: normal;
@@ -239,10 +238,10 @@
   flex: 0 0 auto;
 
   .orderBox {
-    width: 334px;
-    height: 322px;
+    width: 20rem;
+    height: 20rem;
     background-color: #ffffff;
-    border-radius: 12px;
+    border-radius:  0.75rem;
     display: flex;
     flex-direction: column;
     flex: 0 0 auto;
@@ -254,11 +253,10 @@
       align-items: center;
 
       .orderName {
-        //width: 185px;
-        height: 36px;
+        height:2.25rem;
         padding: 0.3rem;
         font-family: SourceHanSansCN-Medium;
-        font-size: 38px;
+        font-size: 2.375rem;
         font-weight: normal;
         font-stretch: normal;
         line-height:  1.6rem;
@@ -267,14 +265,14 @@
       }
 
       .moreIcon {
-        width: 10px;
-        height: 16px;
+        width: 0.625rem;
+        height: 1rem;
       }
     }
 
     .orderImg {
-      width: 137px;
-      height: 150px;
+      width: 8.5rem;
+      height: 9.3rem;
       align-self: center;
     }
   }
@@ -285,24 +283,24 @@
   flex: 0 0 auto;
 
   .activityTotal {
-    width: 260px;
+    width: 16.25rem;
     display: flex;
     flex-direction: column;
     flex: 0 0 auto;
 
     .activityBox {
-      width: 260px;
-      height: 134px;
+      width: 16.25rem;
+      height: 8.5rem;
       background-color: #ffffff;
-      border-radius: 12px;
+      border-radius:  0.75rem;
       display: flex;
       flex: 0 0 auto;
       flex-direction: column;
       align-items: center;
 
       .activityImg {
-        width: 66px;
-        height: 60px;
+        width: 4.125rem;
+        height: 3.75rem;
         background-image: linear-gradient(-27deg,
         #a6e603 0%,
         #d1f302 50%,
@@ -310,10 +308,10 @@
       }
 
       .activityText {
-        width: 128px;
-        height: 31px;
+        width: 11.75rem;
+        height: 2rem;
         font-family: SourceHanSansCN-Regular;
-        font-size: 32px;
+        font-size: 2rem;
         font-weight: normal;
         font-stretch: normal;
         line-height:  1.6rem;
@@ -326,10 +324,10 @@
   }
 
   .secBox {
-    width: 407px;
-    height: 284px;
+    width: 25.5rem;
+    height: 17.8rem;
     background-color: #ffffff;
-    border-radius: 12px;
+    border-radius:  0.75rem;
 
     display: flex;
     flex-direction: column;
@@ -340,10 +338,10 @@
       flex: 0 0 auto;
 
       .time {
-        width: 136px;
-        height: 33px;
+        width: 8.5rem;
+        height: 2rem;
         font-family: SourceHanSansCN-Bold;
-        font-size: 34px;
+        font-size: 2rem;
         font-weight: normal;
         font-stretch: normal;
         line-height:  1.6rem;
@@ -352,7 +350,7 @@
       }
 
       .note {
-        width: 120px;
+        width: 7.5rem;
         height:  1.5rem;
         font-family: SourceHanSansCN-Regular;
         font-size:  1.5rem;
@@ -370,10 +368,10 @@
 
       .secInfo {
         .secImg {
-          width: 172px;
-          height: 130px;
+          width: 1.8rem;
+          height: 8.2rem;
           background-color: #e7ffdd;
-          border-radius: 10px;
+          border-radius: 0.625rem;
         }
 
         .priceBox {
@@ -381,10 +379,10 @@
           flex: 0 0 auto;
 
           .secPrice {
-            width: 69px;
-            height: 23px;
+            width: 4.5rem;
+            height: 1.4rem;
             font-family: SourceHanSansCN-Bold;
-            font-size: 30px;
+            font-size: 1.875rem;
             font-weight: normal;
             font-stretch: normal;
             line-height:  1.6rem;
@@ -393,8 +391,8 @@
           }
 
           .price {
-            width: 32px;
-            height: 18px;
+            width: 2rem;
+            height: 1.2rem;
             font-family: SourceHanSansCN-Regular;
             font-size:  1.5rem;
             font-weight: normal;

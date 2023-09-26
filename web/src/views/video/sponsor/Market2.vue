@@ -140,7 +140,7 @@ export default {
 }
 
 .target {
-  box-shadow: 0 2px 10px 0 rgb(0 0 0 / 10%);
+  box-shadow: 0 2px 0.625rem 0 rgb(0 0 0 / 10%);
   margin-bottom: 1rem;
   margin-left: 1rem;
   line-height: 1.6rem;

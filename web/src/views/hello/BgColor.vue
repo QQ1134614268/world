@@ -21,7 +21,7 @@ export default {
   width: 375px;
   float: left;
 
-  margin: 10px;
+  margin: 0.625rem;
 
   -webkit-background-size: 50px 50px;
   -moz-background-size: 50px 50px;

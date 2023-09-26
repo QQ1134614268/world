@@ -89,7 +89,7 @@ export default {
   height: 5rem;
   background-image: linear-gradient(#ffffff, #ffffff), linear-gradient(#ffffff, #ffffff);
   background-blend-mode: normal, normal;
-  box-shadow: 0 -3px 8px 0 rgba(48, 45, 43, 0.21);
+  box-shadow: 0 -0.1875rem 0.5rem 0 rgba(48, 45, 43, 0.21);
 
   display: flex;
   flex: 0 0 auto;
@@ -105,8 +105,8 @@ export default {
     align-items: center;
 
     .menuImg {
-      width: 37px;
-      height: 35px;
+      width: 2.3125rem;
+      height: 2.1875rem;
       //background-image: linear-gradient(-27deg,
       //#9ad600 0%,
       //#cffe58 100%);
@@ -114,13 +114,12 @@ export default {
     }
 
     .menuText {
-      //width: 43px;
-      height: 22px;
+      height: 1.3rem;
       font-family: SourceHanSansCN-Medium;
-      font-size: 23px;
+      font-size: 1.4rem;
       font-weight: normal;
       font-stretch: normal;
-      line-height: 37px;
+      line-height: 2.3125rem;
       letter-spacing: 0;
       color: #9ad600;
     }
@@ -137,7 +136,6 @@ export default {
 //}
 
 //footer div:nth-child(n+2) {
-//  border-left: solid 1px #cccccc;
 //}
 
 
