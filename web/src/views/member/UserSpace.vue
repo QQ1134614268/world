@@ -296,7 +296,7 @@ export default {
     }
 
     .discount {
-      width: 40rem;
+      width: 20rem;
       height: 3rem;
       font-family: SourceHanSansCN-Bold;
       font-size: 2rem;
@@ -318,7 +318,7 @@ export default {
     }
 
     .redEnvelope {
-      width: 40rem;
+      width: 20rem;
       height: 1.5rem;
       font-family: SourceHanSansCN-Bold;
       font-size: 1.5rem;
