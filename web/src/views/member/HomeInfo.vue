@@ -217,7 +217,7 @@
       height: 1.6rem;
       margin-top: 1rem;
       font-family: SourceHanSansCN-Medium;
-      font-size: 1.75rem;
+      font-size: 1.6rem;
       font-weight: normal;
       font-stretch: normal;
       line-height: 1.6rem;

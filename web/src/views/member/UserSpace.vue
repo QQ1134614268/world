@@ -3,7 +3,7 @@
     <div class="row1">
       <div class="avtar">
         <img class="avtarImg" src="@/assets/icon/favicon2.jpg">
-        <div>
+        <div class="avtarNameBox">
           <div class="avtarName">
             用户昵称
           </div>
@@ -127,6 +127,7 @@ export default {
     flex-shrink: 0;
 
     .avtar {
+      height: 6rem;
       display: flex;
       flex: 0 0 auto;
       justify-content: center;
@@ -134,34 +135,42 @@ export default {
 
       .avtarImg {
         width: 6rem;
-        height: 6rem;
+        height: 100%;
         //background-color: #ffffff;
         border: solid 0.2rem #ffffff;
         border-radius: 50%;
       }
 
-      .avtarName {
+      .avtarNameBox {
         width: 20rem;
-        height: 3rem;
-        font-family: SourceHanSansCN-Medium;
-        font-size: 2rem;
-        font-weight: normal;
-        font-stretch: normal;
-        line-height: 2.2rem;
-        letter-spacing: 0;
-        //color: #000000;
-      }
+        margin: 0 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
 
-      .avtarId {
-        width: 20rem;
-        height: 2rem;
-        font-family: SourceHanSansCN-Regular;
-        font-size: 1rem;
-        font-weight: normal;
-        font-stretch: normal;
-        line-height: 2rem;
-        letter-spacing: 0;
-        color: #b3b2b9;
+        .avtarName {
+          width: 100%;
+          height: 3rem;
+          font-family: SourceHanSansCN-Medium;
+          font-size: 2rem;
+          font-weight: normal;
+          font-stretch: normal;
+          line-height: 2.2rem;
+          letter-spacing: 0;
+          //color: #000000;
+        }
+
+        .avtarId {
+          width: 100%;
+          height: 1.5rem;
+          font-family: SourceHanSansCN-Regular;
+          font-size: 1rem;
+          font-weight: normal;
+          font-stretch: normal;
+          line-height: 2rem;
+          letter-spacing: 0;
+          color: #b3b2b9;
+        }
       }
     }
 
@@ -255,7 +264,7 @@ export default {
 
     .num {
       width: 6rem;
-      height: 1.5rem;
+      height: 3rem;
       font-family: SourceHanSansCN-Bold;
       font-size: 2rem;
       font-weight: normal;
@@ -267,12 +276,11 @@ export default {
     }
 
     .numName {
-      height: 1.5rem;
+      height: 2rem;
       font-family: SourceHanSansCN-Regular;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: normal;
       font-stretch: normal;
-      line-height: 1.6rem;
       letter-spacing: 0;
       color: #969ab6;
       text-align: center;
@@ -282,24 +290,26 @@ export default {
 
   .row4 {
     width: 100%;
-    height: 14rem;
+    height: 20rem;
     margin-bottom: 1rem;
     background-image: url('~@/assets/切图/我的/会员卡.png');
     background-blend-mode: normal, normal;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     border-radius: 0.8rem;
 
     .discountBox {
-      margin-left: 40%;
+      margin-left: 30%;
       display: flex;
       flex-direction: column;
       padding: 3rem 0;
     }
 
     .discount {
-      width: 20rem;
-      height: 3rem;
+      width: 100%;
+      height: 5rem;
       font-family: SourceHanSansCN-Bold;
-      font-size: 2rem;
+      font-size: 4rem;
       font-weight: normal;
       font-stretch: normal;
       line-height: 1.6rem;
@@ -307,10 +317,10 @@ export default {
     }
 
     .join {
-      width: 20rem;
-      height: 1.5rem;
+      width: 100%;
+      height: 3rem;
       font-family: SourceHanSansCN-Normal;
-      font-size: 1.5rem;
+      font-size: 2rem;
       font-weight: normal;
       font-stretch: normal;
       line-height: 1.6rem;
@@ -318,8 +328,8 @@ export default {
     }
 
     .redEnvelope {
-      width: 20rem;
-      height: 1.5rem;
+      width: 100%;
+      height: 2rem;
       font-family: SourceHanSansCN-Bold;
       font-size: 1.5rem;
       font-weight: normal;
