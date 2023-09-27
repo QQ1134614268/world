@@ -115,7 +115,7 @@
 
 .row1 {
   width: 100%;
-  height: 45rem;
+  height: 40rem;
   background-color: #9ad600;
   display: flex;
   flex-direction: column;
