@@ -62,7 +62,8 @@ export default {
 </script>
 <style scoped lang="less">
 .member_container {
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   flex: 0 0 auto;
