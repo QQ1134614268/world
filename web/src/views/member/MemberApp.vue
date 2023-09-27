@@ -87,7 +87,7 @@ export default {
 
 .member_footer {
   width: 100%;
-  height: 5rem;
+  height: 8rem;
   background-image: linear-gradient(#ffffff, #ffffff), linear-gradient(#ffffff, #ffffff);
   background-blend-mode: normal, normal;
   box-shadow: 0 -0.1875rem 0.5rem 0 rgba(48, 45, 43, 0.21);
@@ -106,8 +106,8 @@ export default {
     align-items: center;
 
     .menuImg {
-      width: 2.3125rem;
-      height: 2.1875rem;
+      width: 3rem;
+      height: 3rem;
       //background-image: linear-gradient(-27deg,
       //#9ad600 0%,
       //#cffe58 100%);
@@ -115,12 +115,12 @@ export default {
     }
 
     .menuText {
-      height: 1.3rem;
+      height: 2.4rem;
       font-family: SourceHanSansCN-Medium;
-      font-size: 1.4rem;
+      font-size: 2rem;
       font-weight: normal;
       font-stretch: normal;
-      line-height: 2.3125rem;
+      line-height: 2.4rem;
       letter-spacing: 0;
       color: #9ad600;
     }

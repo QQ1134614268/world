@@ -66,11 +66,11 @@
     <div class="row4">
       <div class="activityTotal">
         <div class="activityBox">
-          <img class="activityImg" src="@/assets/切图/首页/图层23.png">
+          <img class="activityImg" src="@/assets/切图/首页/券包.png">
           <div class="activityText">超值券包</div>
         </div>
         <div class="activityBox">
-          <img class="activityImg" src="@/assets/切图/首页/图层23.png">
+          <img class="activityImg" src="@/assets/切图/首页/团餐.png">
           <div class="activityText">企业团餐</div>
         </div>
       </div>
@@ -105,6 +105,8 @@
 
 <style scoped lang="less">
 .container {
+  width: 100%;
+  padding-bottom: 5rem;
   display: flex;
   flex-direction: column;
   flex: 0 0 auto;
@@ -113,7 +115,7 @@
 
 .row1 {
   width: 100%;
-  height: 20rem;
+  height: 45rem;
   background-color: #9ad600;
   display: flex;
   flex-direction: column;
@@ -121,7 +123,9 @@
   justify-content: flex-end;
   align-items: center;
   background-image: url('~@/assets/切图/首页/banner.png');
-  //background-size: contain;
+  background-repeat: no-repeat;
+  //background-size: cover;
+  background-size: 100% 100%;
 
   .row1Txt {
     width: 42rem;
@@ -188,9 +192,10 @@
 .row2 {
   width: 42rem;
   height: 12rem;
+  margin-top: 1rem;
   background-color: #ffffff;
   box-shadow: 0 0.2rem 1rem 0 rgba(0, 0, 0, 0.15);
-  border-radius:  0.75rem;
+  border-radius: 0.75rem;
   display: flex;
   flex: 0 0 auto;
   justify-content: space-around;
@@ -203,17 +208,19 @@
     align-items: center;
 
     .numIcon {
-      width: 2.625rem;
-      height: 3rem;
+      width: 4rem;
+      height: 4rem;
+      object-fit: contain;
     }
 
     .numName {
-      height:  1.6rem;
+      height: 1.6rem;
+      margin-top: 1rem;
       font-family: SourceHanSansCN-Medium;
       font-size: 1.75rem;
       font-weight: normal;
       font-stretch: normal;
-      line-height:  1.6rem;
+      line-height: 1.6rem;
       //letter-spacing: 0.2rem;
       color: #000000;
       text-align: center;
@@ -222,11 +229,12 @@
     .num {
       width: 4rem;
       height: 1.25rem;
+      margin-top: 1rem;
       font-family: SourceHanSansCN-Regular;
-      font-size:  1.6rem;
+      font-size: 1.6rem;
       font-weight: normal;
       font-stretch: normal;
-      line-height:  1.6rem;
+      line-height: 1.6rem;
       //letter-spacing: 0;
       color: #838383;
       text-align: center;
@@ -235,18 +243,22 @@
 }
 
 .row3 {
+  width: 42rem;
+  margin-top: 1rem;
   display: flex;
+  justify-content: space-between;
   flex: 0 0 auto;
 
   .orderBox {
     width: 20rem;
     height: 20rem;
     background-color: #ffffff;
-    border-radius:  0.75rem;
+    box-shadow: 0 0.2rem 1rem 0 rgba(0, 0, 0, 0.15);
+    border-radius: 0.75rem;
     display: flex;
     flex-direction: column;
     flex: 0 0 auto;
-    justify-content: center;
+    justify-content: space-evenly;
 
     .order {
       display: flex;
@@ -254,13 +266,13 @@
       align-items: center;
 
       .orderName {
-        height:2.25rem;
-        padding: 0.3rem;
+        height: 2.25rem;
+        margin: 0 1rem;
         font-family: SourceHanSansCN-Medium;
         font-size: 2.375rem;
         font-weight: normal;
         font-stretch: normal;
-        line-height:  1.6rem;
+        line-height: 1.6rem;
         letter-spacing: 0;
         color: #000000;
       }
@@ -280,11 +292,15 @@
 }
 
 .row4 {
+  width: 42rem;
+  margin-top: 1rem;
+  box-shadow: 0 0.2rem 1rem 0 rgba(0, 0, 0, 0.15);
   display: flex;
   flex: 0 0 auto;
 
   .activityTotal {
-    width: 16.25rem;
+    width: 50%;
+    height: 18rem;
     display: flex;
     flex-direction: column;
     flex: 0 0 auto;
@@ -293,19 +309,17 @@
       width: 16.25rem;
       height: 8.5rem;
       background-color: #ffffff;
-      border-radius:  0.75rem;
+      border-radius: 0.75rem;
       display: flex;
       flex: 0 0 auto;
-      flex-direction: column;
       align-items: center;
 
       .activityImg {
-        width: 4.125rem;
-        height: 3.75rem;
-        background-image: linear-gradient(-27deg,
-        #a6e603 0%,
-        #d1f302 50%,
-        #fcff00 100%);
+        width: 6rem;
+        height: 3rem;
+        margin: 1rem 2rem;
+        //background-image: url('~@/assets/切图/首页/券包.png');
+        object-fit: contain;
       }
 
       .activityText {
@@ -321,18 +335,18 @@
       }
 
     }
-
   }
 
   .secBox {
-    width: 25.5rem;
-    height: 17.8rem;
+    width: 50%;
+    height: 18rem;
     background-color: #ffffff;
-    border-radius:  0.75rem;
+    border-radius: 0.75rem;
 
     display: flex;
     flex-direction: column;
     flex: 0 0 auto;
+    justify-content: space-evenly;
 
     .secText {
       display: flex;
@@ -366,11 +380,14 @@
     .secTotal {
       display: flex;
       flex: 0 0 auto;
+      justify-content: space-around;
 
       .secInfo {
+        width: 100%;
+
         .secImg {
-          width: 1.8rem;
-          height: 8.2rem;
+          width: 8rem;
+          height: 8rem;
           background-color: #e7ffdd;
           border-radius: 0.625rem;
         }
@@ -398,7 +415,7 @@
             font-size:  1.5rem;
             font-weight: normal;
             font-stretch: normal;
-            line-height:  1.6rem;
+            line-height: 1.6rem;
             letter-spacing: 0;
             color: #a0a0a0;
           }
@@ -407,4 +424,8 @@
     }
   }
 }
+//
+//container div:last-child {
+//  margin-bottom: 3rem;
+//}
 </style>
