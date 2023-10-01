@@ -3,9 +3,9 @@ const productionGzipExtensions = ['js', 'css'];
 const isProduction = process.env.NODE_ENV === 'production';
 
 module.exports = {
-    publicPath: process.env.NODE_ENV === "development" ? "/" : "/",
+    publicPath: "/",
     devServer: {
-        hot: true,//浏览器重新刷新
+        hot: !isProduction,//浏览器重新刷新
         // hotOnly: false,
         open: true,
         host: "0.0.0.0",
@@ -29,7 +29,7 @@ module.exports = {
             }
         },
     },
-    productionSourceMap: false,
+    productionSourceMap: !isProduction,
     // 配置webpack
     configureWebpack: config => {
         config.optimization = {
