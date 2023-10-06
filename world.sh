@@ -20,7 +20,7 @@ cp world/world.dockerfile world.dockerfile
 
 docker build -t world-api:1.0 -f world.dockerfile .
 
-# 优化 环境变量 output目录清理; 挂载目录,log config upload todo
+# 优化 环境变量 output目录清理; 挂载目录,log config upload
 mkdir -m 644 -p /usr/local/world/data
 mkdir -m 644 -p /usr/local/world/log
 
@@ -41,7 +41,6 @@ curl http://127.0.0.1:9090
 # docker stop world && docker rm world
 
 # 一键打包部署 https://blog.csdn.net/qq_29170455/article/details/125558065
-# todo
 #每次更新--重新build,install依赖 -- 使用挂载模式 ?? 细小的优化,定制化?
 # 官方软件-- 稳定, 安装迅速, 意外情况少,可脱离docker
 # sdk工具包,稳定,可脱离docker

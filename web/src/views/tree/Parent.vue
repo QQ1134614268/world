@@ -38,7 +38,6 @@ export default {
     },
 
     async proveParent2(queryString, callback) {
-      //todo
       let paras = {value: queryString}
       let res = await this.$get2(ProveBlueprintApi_prove_value_parent, 0, paras)
       this.splitRules = []
