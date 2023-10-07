@@ -76,7 +76,7 @@ export default {
         search: this.search
       }
       let result = await get2(MarketTargetListApi, 0, data)
-      if (result.data.code == 1) {
+      if (result.data.code === 1) {
         this.tableData = result.data.data
         this.totalNum = result.data.total
       } else {
@@ -111,6 +111,16 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped>.art_title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+    margin-top: 0.8rem;
+    text-align: center;
+}
+.art_body {
+    margin-bottom: 0.8rem;
+    margin-top: 0.8rem;
+    font-size: 1.6rem;
+}
 </style>

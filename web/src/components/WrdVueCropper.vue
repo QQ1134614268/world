@@ -85,7 +85,7 @@ export default {
       this.$refs.cropper.getCropBlob(async (data) => {
         formData.append("file", data, "cropper.png");
         let result = await postForm(FileApi, formData)
-        if (result.data.code == 1) {
+        if (result.data.code === 1) {
           this.dialogVisible = false
           // this.url = result.data.data
           this.$emit("getUrl", result.data.data)

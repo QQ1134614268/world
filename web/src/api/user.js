@@ -13,7 +13,7 @@ export function storeToken(token) {
 /*登录*/
 export async function userLogin(data) {
     let res = await get2(UserApi_login, 0, data);
-    if (res.data.code == 1) {
+    if (res.data.code === 1) {
         let token = res.data.data
         storeToken(token)
     }
@@ -44,7 +44,7 @@ export async function userRegister(data) {
 export async function hasPermission(userId, permission) {
     let data = {permission: permission}
     let res = await get2(PermissionApi, userId, data);
-    if (res.data.code == 1) {
+    if (res.data.code === 1) {
         return res.data.data
     }
     return false

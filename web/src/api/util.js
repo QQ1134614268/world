@@ -24,8 +24,8 @@ export function get_salt_pwd(pwd) {
 
 export function detectOS() {
     let sUserAgent = navigator.userAgent;
-    let isWin = (navigator.platform === "Win32") || (navigator.platform == "Windows");
-    let isMac = (navigator.platform === "Mac68K") || (navigator.platform == "MacPPC") || (navigator.platform == "Macintosh") || (navigator.platform == "MacIntel");
+    let isWin = (navigator.platform === "Win32") || (navigator.platform === "Windows");
+    let isMac = (navigator.platform === "Mac68K") || (navigator.platform === "MacPPC") || (navigator.platform === "Macintosh") || (navigator.platform === "MacIntel");
     if (isMac) return "Mac";
     let isUnix = (navigator.platform === "X11") && !isWin && !isMac;
     if (isUnix) return "Unix";

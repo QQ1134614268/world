@@ -53,9 +53,3 @@ def resize_image(infile, outfile='', x_s=1376):
     out = im.resize((x_s, y_s), Image.ANTIALIAS)
     outfile = get_outfile(infile, outfile)
     out.save(outfile)
-
-
-if __name__ == '__main__':
-    # todo
-    compress_image(r'D:\learn\space.jpg')
-    resize_image(r'D:\learn\space.jpg')

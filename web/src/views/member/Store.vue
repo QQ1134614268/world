@@ -90,7 +90,7 @@ export default {
     },
     async buy() {
       let res = await postOrder(this.order_list)
-      if (res.data.code == 1) {
+      if (res.data.code === 1) {
         this.$message.success("下单成功")
         this.order_list = this.order_list.map((obj) => obj.num = 0)
       } else {

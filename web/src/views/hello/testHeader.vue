@@ -28,10 +28,10 @@ export default {
   methods: {
     async change() {
       await this.sleep(1000);
-      if (this.form.imgUrl == this.imgUrl) {
+      if (this.form.imgUrl === this.imgUrl) {
         return this.form.imgUrl = this.imgUrl2
       }
-      if (this.form.imgUrl == this.imgUrl2) {
+      if (this.form.imgUrl === this.imgUrl2) {
         return this.form.imgUrl = ""
       }
       this.form.imgUrl = this.imgUrl

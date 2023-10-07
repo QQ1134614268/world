@@ -30,7 +30,7 @@ export default {
   methods: {
     async init() {
       let result = await get2(UserApi, this.user_id)
-      if (result.data.code == 1) {
+      if (result.data.code === 1) {
         this.form = result.data.data
       } else {
         this.$message.success('操作成功');
@@ -38,7 +38,7 @@ export default {
     },
     async save() {
       let result = await putJson2(UserApi, this.form.id, this.form)
-      if (result.data.code == 1) {
+      if (result.data.code === 1) {
         this.$message.success('操作成功');
       } else {
         this.$message.error('');

@@ -33,7 +33,7 @@ export default {
         value: this.content
       }
       let result = await postJson2(ProveApi, 0, data);
-      if (result.data.code == 1) {
+      if (result.data.code === 1) {
         this.$message.success('操作成功');
         this.$router.back()
       }

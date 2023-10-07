@@ -32,7 +32,7 @@ export default {
   methods: {
     async onSubmit() {
       let result = await videoUserRegister(this.form)
-      if (result.data.code == 1) {
+      if (result.data.code === 1) {
         this.$message.success('注册成功');
         await this.$router.push({path: '/'})
       } else {

@@ -48,7 +48,7 @@ export default {
     },
     async onSubmit() {
       let res = await ppJson(QrCodeApi, this.form.id, {url_dic: this.form})
-      if (res.data.code == 1) {
+      if (res.data.code === 1) {
         this.dialogVisible = false
         // this.$message.info("操作成功")
         this.$message.success('操作成功');

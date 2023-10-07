@@ -8,7 +8,6 @@ from config.mysql_db import db
 from vo.member_model import WalletVO
 
 
-# todo
 class WeiXinPay:
 
     # 跳转支付

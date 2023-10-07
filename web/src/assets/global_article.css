@@ -1,37 +1,10 @@
-/*todo 文档总样式*/
-/*  <!--设置,布局,字体,伸缩,flex,float  -->*/
-/*布局,给人看的(大小--转评级), 主题,正文,配图, -- 可参考 world, h1-h6 */
-/*一些特殊的值, 0.618, 0.8*/
-/*文本 换行 行高 长文本*/
-/*链接*/
-/*神奇数字  2 8 0.618*/
-.p_c_title_size_level_1 {
-    font-size: 1.5rem;
-}
-
-.art_title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 0.8rem;
-    margin-top: 0.8rem;
-    text-align: center;
-}
-
+/*废弃？？ 样式太多*/
 .title {
     text-align: center;
 }
 
-.title2 {
-    font-size: 2rem;
-    color: black;
-}
-
 .block {
     margin: 1.6rem;
-}
-
-.index {
-
 }
 
 .p_c_space {
@@ -43,66 +16,9 @@
     rows: "10"
 }
 
-.art_body {
-    margin-bottom: 0.8rem;
-    margin-top: 0.8rem;
-    font-size: 1.6rem;
-}
-
-.art_note {
-    margin-bottom: 0.8rem;
-    margin-top: 0.8rem;
-    color: #72727f;
-    font-size: 1.6rem;
-}
-
-.p_c_line-height {
-    line-height: 1.5;
-}
-
-.p_c_box-shadow {
-    border-radius: 1rem;
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)
-}
-
-.p_c_box_padding {
-    padding: 0.8rem;
-}
-
-.p_c_box_margin {
-    margin: 0.8rem;
-}
-
 .p_c_long_txt_hidden {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
     min-width: 0;
-}
-
-.p_c_word-break {
-    white-space: normal;
-    word-break: break-all;
-    overflow: hidden;
-}
-
-/*img*/
-.p_c_img_normal {
-    width: 5rem;
-    height: 5rem;
-}
-
-/*传送门样式, 红色(1),绿色(0), 到处是传送门??  */
-.p_c_button_0 {
-    color: green;
-    background-color: aquamarine;
-}
-
-.p_c_button_1 {
-    color: red;
-    background-color: #e5c7ca;
-}
-
-.p_c_link_normal {
-
 }

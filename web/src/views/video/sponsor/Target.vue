@@ -66,7 +66,7 @@ export default {
   methods: {
     async handleDelete(index, row) {
       let result = await deleteJson2(TargetApi, row.id)
-      if (result.data.code == 1) {
+      if (result.data.code === 1) {
         this.$message.success('删除成功!');
         this.tableData.splice(index, 1)
       } else {
@@ -80,7 +80,7 @@ export default {
       } else {
         result = await postJson2(TargetApi, 0, this.form)
       }
-      if (result.data.code == 1) {
+      if (result.data.code === 1) {
         this.$message.success('操作成功');
       } else {
         this.$message.error('操作失败');
@@ -95,7 +95,7 @@ export default {
     },
     async init() {
       let result = await get2(TargetListApi, 0, {user_id: this.user_id})
-      if (result.data.code == 1) {
+      if (result.data.code === 1) {
         this.tableData = result.data.data
       } else {
         this.$message.error('失败');

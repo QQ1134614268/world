@@ -39,13 +39,6 @@ def clear_code():
     logger.info("完成--清除邀请码数据")
 
 
-def clear_data():
-    # todo
-    # clear_log_data 清除邀请码数据 清除log日志
-    # clear_file 清除过期文件
-    pass
-
-
 def classname_to_const(name):
     res = []
     for index, char in enumerate(name):

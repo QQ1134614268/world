@@ -26,14 +26,14 @@ export default {
   methods: {
     async init() {
       let result = await get2(TargetApi, this.target_id)
-      if (result.data.code == 1) {
+      if (result.data.code === 1) {
         this.target = result.data.data
         document.title = this.target.title
       } else {
         this.$message.error('失败');
       }
       let result2 = await get2(UserApi, this.target.user_id)
-      if (result.data.code == 1) {
+      if (result.data.code === 1) {
         this.user = result2.data.data
       } else {
         this.$message.error('失败');
@@ -47,4 +47,24 @@ export default {
 </script>
 
 <style scoped>
+.art_title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.8rem;
+  margin-top: 0.8rem;
+  text-align: center;
+}
+
+.art_note {
+  margin-bottom: 0.8rem;
+  margin-top: 0.8rem;
+  color: #72727f;
+  font-size: 1.6rem;
+}
+
+.art_body {
+  margin-bottom: 0.8rem;
+  margin-top: 0.8rem;
+  font-size: 1.6rem;
+}
 </style>

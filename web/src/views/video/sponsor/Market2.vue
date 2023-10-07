@@ -70,7 +70,7 @@ export default {
     async init() {
       let data = {page: this.currentPage, pageSize: this.pageSize, search: this.search}
       let result = await get2(MarketTargetListApi, 0, data)
-      if (result.data.code == 1) {
+      if (result.data.code === 1) {
         this.tableData = result.data.data
         this.totalNum = result.data.total
       } else {
@@ -128,6 +128,9 @@ export default {
 
 .t_list {
   width: 100%;
+}
+.p_c_box_padding {
+    padding: 0.8rem;
 }
 
 .target_title {

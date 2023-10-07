@@ -27,14 +27,14 @@ export default {
   methods: {
     async init() {
       let result = await get2(WorksApi, this.video_id)
-      if (result.data.code == 1) {
+      if (result.data.code === 1) {
         this.video = result.data.data
         document.title = this.video.describe
       } else {
         this.$message.error('失败');
       }
       let result2 = await get2(UserApi, this.video.user_id)
-      if (result.data.code == 1) {
+      if (result.data.code === 1) {
         this.user = result2.data.data
       } else {
         this.$message.error('失败');
@@ -57,4 +57,10 @@ export default {
   align-self: center;
   height: 75%;
 }
+.p_c_word-break {
+    white-space: normal;
+    word-break: break-all;
+    overflow: hidden;
+}
+
 </style>

@@ -43,7 +43,7 @@ export default {
       document.getElementsByTagName('head')[0].appendChild(script);
 
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      // while (echarts == undefined) {
+      // while (echarts === undefined) {
       // }
     }
   },

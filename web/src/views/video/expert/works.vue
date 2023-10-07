@@ -83,7 +83,7 @@ export default {
   methods: {
     async init() {
       let result = await get2(WorksListApi, 0, {user_id: this.user_id})
-      if (result.data.code == 1) {
+      if (result.data.code === 1) {
         this.tableData = result.data.data
       } else {
         this.$message.error('失败');
@@ -101,7 +101,7 @@ export default {
         return
       }
       let result = await ppJson(WorksApi, this.form.id, this.form)
-      if (result.data.code == 1) {
+      if (result.data.code === 1) {
         this.dialogVisible = false
       } else {
         this.$message.error('失败');

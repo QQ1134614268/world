@@ -44,7 +44,7 @@ export default {
         "password": this.password,
       }
       let result = await userLogin(data)
-      if (result.data.code == 1) {
+      if (result.data.code === 1) {
         this.$message.success('登录成功');
         await this.$router.back()
       } else {

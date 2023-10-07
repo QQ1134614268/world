@@ -1,10 +1,6 @@
 import Vue from 'vue'
 import App from '@/App.vue'
 import router from '@/index'
-import Axios from 'axios'
-import {VideoLoginUrl} from "@/views/video";
-import {SYS_LOGIN_URL} from "@/views/sys";
-import {TOKEN} from "@/api/config";
 
 import "@/assets/global_box.css"
 import "@/assets/global_article.css"
@@ -24,8 +20,6 @@ import VueQuillEditor from 'vue-quill-editor'
 import 'element-ui/lib/theme-chalk/index.css';
 import ElementUI from 'element-ui'
 
-import {deleteJson2, get2, postForm, postForm2, postJson2, ppJson, putJson2} from "@/api/http";
-
 Vue.component('BoxFlex', BoxFlex)
 
 Vue.component('BoxRow', BoxRow)
@@ -42,10 +36,6 @@ Vue.use(VueQuillEditor);
 //   console.info('vm---', vm)
 //   console.info('info---', info)
 // }
-
-// import Video from 'video.js'
-// import 'video.js/dist/video-js.css'
-// Vue.prototype.$video = Video
 
 new Vue({
     router,

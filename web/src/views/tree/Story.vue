@@ -30,7 +30,7 @@ export default {
   methods: {
     async init() {
       let res3 = await get2(StoryApi, 0, {});
-      if (res3.data.code == 1) {
+      if (res3.data.code === 1) {
         this.story = res3.data.data
       } else {
         this.$message.error('失败');

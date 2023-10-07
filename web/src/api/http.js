@@ -28,7 +28,7 @@ Axios.interceptors.response.use(response => {
             return Promise.resolve(response);
         }
         if (response.data.code === 4) {
-            // if (process.env.NODE_ENV == "development") {
+            // if (process.env.NODE_ENV === "development") {
             //     Vue.prototype.$message.error(response.data.data)
             // } else {
             //     Vue.prototype.$message.error("服务器发生了错误! 请稍后再试!")
@@ -38,7 +38,7 @@ Axios.interceptors.response.use(response => {
         }
         if (response.data.code === 8) {
             Vue.prototype.$message.error('登录已过期，请重新登录')
-            if (router.currentRoute.fullPath.startsWith("/video/") || router.currentRoute.fullPath == "/" || router.currentRoute.fullPath == "/videoAdmin/") {
+            if (router.currentRoute.fullPath.startsWith("/video/") || router.currentRoute.fullPath === "/" || router.currentRoute.fullPath === "/videoAdmin/") {
                 router.push({path: VideoLoginUrl}).then(r => {
                     return r
                 });
@@ -133,7 +133,7 @@ export const postForm2 = (url, id, data = {}) => {
     });
 };
 export const ppJson = (url, id, data) => {
-    if (typeof (id) == "undefined" || id == null) {
+    if (typeof (id) === "undefined" || id === null) {
         return postJson2(url, 0, data)
     }
     return putJson2(url, id, data)

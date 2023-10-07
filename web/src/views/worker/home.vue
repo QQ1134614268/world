@@ -90,4 +90,9 @@ export default {
 }
 </script>
 <style>
+.title2 {
+    font-size: 2rem;
+    color: black;
+}
+
 </style>

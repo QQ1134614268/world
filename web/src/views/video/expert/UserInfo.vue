@@ -60,7 +60,7 @@ export default {
     async init() {
       let data = {page: this.currentPage, pageSize: this.pageSize, user_id: this.user_id}
       let result = await get2(WorksListApi, this.user_id, data)
-      if (result.data.code == 1) {
+      if (result.data.code === 1) {
         this.tableData = result.data.data
         this.totalNum = result.data.total
       } else {

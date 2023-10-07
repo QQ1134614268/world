@@ -80,9 +80,6 @@ class ProveBlueprintApi:
     @staticmethod
     @prove_api.route('/much_children/<int:_id>', methods=['GET'])
     def much_children(_id):
-        # todo 函数 label aliased alias select_from join_from 右连接
-        #  https://docs.sqlalchemy.org/en/14/orm/queryguide.html#controlling-what-to-join-from
-
         prove_right = aliased(ProveVO, name='r')
         res = ProveVO.query.outerjoin(
             prove_right, ProveVO.parent_id == prove_right.id

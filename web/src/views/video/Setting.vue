@@ -43,7 +43,7 @@ export default {
     async init() {
       let user_id = getUserIdByToken()
       let result = await get2(UserApi, user_id, {})
-      if (result.data.code == 1) {
+      if (result.data.code === 1) {
         this.form = result.data.data
       } else {
         this.$message.error('操作失败');

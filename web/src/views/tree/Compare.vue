@@ -68,7 +68,7 @@ export default {
     },
     async load(node, resolve) {
       let paras = {}
-      if (node.level == 0) {
+      if (node.level === 0) {
         paras = {parent_id: this.parent_id}
       } else {
         paras = {parent_id: node.data.id}
@@ -78,7 +78,7 @@ export default {
     },
     async load2(node, resolve) {
       let paras = {}
-      if (node.level == 0) {
+      if (node.level === 0) {
         paras = {parent_id: this.parent_id2}
       } else {
         paras = {parent_id: node.data.id}
@@ -113,13 +113,13 @@ export default {
       })
     },
     async handleDrop(draggingNode, dropNode, dropType, ev) {
-      if (dropType == "inner") {
+      if (dropType === "inner") {
         draggingNode.data.parent_id = dropNode.data.id
       }
-      if (dropType == "after") {
+      if (dropType === "after") {
         draggingNode.data.parent_id = dropNode.data.parent_id
       }
-      if (dropType == "before") {
+      if (dropType === "before") {
         draggingNode.data.parent_id = dropNode.data.parent_id
       }
       let res3 = await putJson2(ProveApi, draggingNode.data.id, draggingNode.data);

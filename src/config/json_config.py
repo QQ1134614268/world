@@ -36,5 +36,5 @@ class MyJsonEncoder(json.JSONEncoder):
         try:
             return super().default(o)
         except:
-            logger.error(f"自定义序列化失败,数据类型: {str(type(o))}")  # todo 序列化异常
+            logger.error(f"自定义序列化失败,数据类型: {str(type(o))}")
             return str(o)

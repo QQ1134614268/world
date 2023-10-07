@@ -97,7 +97,7 @@ export default {
     },
     async load(node, resolve) {
       let paras = {}
-      if (node.level == 0) {
+      if (node.level === 0) {
         paras = {parent_id: this.parent_id}
       } else {
         paras = {parent_id: node.data.id}

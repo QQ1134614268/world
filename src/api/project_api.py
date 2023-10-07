@@ -88,11 +88,6 @@ class ProjectScript:
                 os.makedirs(path)
         logger.info("结束--创建文件目录")
 
-    @staticmethod
-    def clean_file_serve():
-        # todo vue上传的需要配合修改 迁移文件
-        pass
-
 
 class ProjectInit(Resource):
     list_func = [

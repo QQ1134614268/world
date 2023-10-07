@@ -9,7 +9,7 @@
     <!--              <span-->
     <!--                v-show="!item.edit"-->
     <!--                class="floatLeft"-->
-    <!--                :class="{ active: selectIndex == index }" >-->
+    <!--                :class="{ active: selectIndex === index }" >-->
     <!--                {{ item.groupName }}-->
     <!--             </span>-->
     <!--     li/> -->

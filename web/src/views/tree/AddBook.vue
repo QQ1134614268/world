@@ -47,17 +47,17 @@ export default {
       let res2 = await get2(ProveApi, 0, {"parent_id": this.id});
       let res3 = await get2(StoryApi, 0, {"parent_id": this.id});
 
-      if (res1.data.code == 1) {
+      if (res1.data.code === 1) {
         this.obj = res1.data.data
       } else {
         this.$message.error('失败');
       }
-      if (res3.data.code == 1) {
+      if (res3.data.code === 1) {
         this.prove = res2.data.data
       } else {
         this.$message.error('失败');
       }
-      if (res3.data.code == 1) {
+      if (res3.data.code === 1) {
         this.story = res3.data.data
       } else {
         this.$message.error('失败');

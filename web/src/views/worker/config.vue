@@ -87,7 +87,7 @@ export default {
         }
         res = await postJson2(ConfigApi, 0, data)
       }
-      if (res.data.code == 1) {
+      if (res.data.code === 1) {
         this.$message.info("操作成功")
       } else {
         this.$message.info("编辑失败")
@@ -103,7 +103,7 @@ export default {
     },
     async handleDelete(row) {
       let res = await deleteJson2(ConfigApi, 0, row.id)
-      if (res.data.code == 1) {
+      if (res.data.code === 1) {
         this.$message.info("操作成功")
       } else {
         this.$message.info(res.data.data)
