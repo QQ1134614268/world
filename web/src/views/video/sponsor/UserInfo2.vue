@@ -44,6 +44,7 @@
 
 import {MarketTargetListApi, UserApi} from "@/api/api";
 import {TargetInfoUrl, VideoUrl} from "@/views/video";
+import {get2} from "@/api/http";
 
 export default {
   name: "UserInfo2",
@@ -62,7 +63,7 @@ export default {
   },
   methods: {
     async init_user() {
-      let result = await this.$get2(UserApi, this.user_id, {})
+      let result = await get2(UserApi, this.user_id, {})
       if (result.data.code) {
         this.userVO = result.data.data
       }
@@ -74,7 +75,7 @@ export default {
         user_id: this.user_id,
         search: this.search
       }
-      let result = await this.$get2(MarketTargetListApi, 0, data)
+      let result = await get2(MarketTargetListApi, 0, data)
       if (result.data.code == 1) {
         this.tableData = result.data.data
         this.totalNum = result.data.total

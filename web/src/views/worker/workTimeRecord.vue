@@ -112,6 +112,7 @@
 import {ConfigApi, WorkerTimeApi} from "@/api/api";
 import {getDateY_M_D} from "@/api/util";
 import {DATE_FMT} from "@/api/config";
+import {get2, putJson2} from "@/api/http";
 
 export default {
   name: "workTimeRecord",
@@ -164,7 +165,7 @@ export default {
       let data = {
         date: this.date
       }
-      let res = await this.$get2(WorkerTimeApi, 0, data)
+      let res = await get2(WorkerTimeApi, 0, data)
       if (res.data.code != 1) {
         this.$message.error('服务器异常');
         return
@@ -173,12 +174,12 @@ export default {
     },
     async initArea() {
       let data = {"group_code": "BUILD"}
-      let res = await this.$get2(ConfigApi, 0, data)
+      let res = await get2(ConfigApi, 0, data)
       this.config1 = res.data.data
     },
     async initWorkContent() {
       let data = {"group_code": "WORK_TYPE"}
-      let res = await this.$get2(ConfigApi, 0, data)
+      let res = await get2(ConfigApi, 0, data)
       this.config2 = res.data.data
     },
     async getTime() {
@@ -196,7 +197,7 @@ export default {
     },
     async change(row) {
       row.date = this.date
-      let response = await this.$putJson2(WorkerTimeApi, 0, row)
+      let response = await putJson2(WorkerTimeApi, 0, row)
     },
   },
 

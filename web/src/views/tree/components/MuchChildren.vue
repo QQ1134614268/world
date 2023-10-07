@@ -14,6 +14,7 @@
 </template>
 <script>
 import {ProveBlueprintApi_much_children} from "@/api/api";
+import {get2} from "@/api/http";
 
 export default {
   name: "MuchChildren",
@@ -25,7 +26,7 @@ export default {
   methods: {
     async init() {
       let data = {}
-      let res = await this.$get2(ProveBlueprintApi_much_children, 0, data)
+      let res = await get2(ProveBlueprintApi_much_children, 0, data)
       if (res.data.code != 1) {
         this.$message.error('服务器异常');
         return

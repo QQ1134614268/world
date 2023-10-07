@@ -98,6 +98,7 @@
 import {WorkerApi, WorkerExcelApi} from "@/api/api";
 import {exportExcelByHeader, getToken, querySearch} from "@/api/util";
 import {DATE_FMT} from "@/api/config";
+import {deleteJson2, get2, ppJson} from "@/api/http";
 
 export default {
   name: "MyWorker",
@@ -165,7 +166,7 @@ export default {
         startDate: this.dateRange && this.dateRange.length > 0 ? this.dateRange[0] : "",
         endDate: this.dateRange && this.dateRange.length > 1 ? this.dateRange[1] : "",
       }
-      let response = await this.$get2(WorkerApi, 0, data);
+      let response = await get2(WorkerApi, 0, data);
       if (response.data.code != 1) {
         this.$message.error(response.data.data);
         return
@@ -185,7 +186,7 @@ export default {
         sortBy: column.prop,
         order: column.order
       }
-      let response = await this.$get2(WorkerApi, 0, data);
+      let response = await get2(WorkerApi, 0, data);
       if (response.data.code != 1) {
         this.$message.error(response.data.data);
         return
@@ -197,7 +198,7 @@ export default {
       await querySearch(data, cb, WorkerApi)
     },
     async save() {
-      let response = await this.$ppJson(WorkerApi, this.form.id, this.form);
+      let response = await ppJson(WorkerApi, this.form.id, this.form);
       if (response.data.code != 1) {
         this.$message.error(response.data.data);
         return
@@ -218,7 +219,7 @@ export default {
       this.editDialog = true
     },
     async handleDelete(index, row) {
-      let response = await this.$deleteJson2(WorkerApi, row.id);
+      let response = await deleteJson2(WorkerApi, row.id);
       await this.init();
     },
   },

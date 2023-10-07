@@ -1,5 +1,5 @@
 import {WorkerApi} from "@/api/api";
-import {get2} from "@/api/util";
+import {get2} from "@/api/http";
 
 
 /*获取工人列表*/

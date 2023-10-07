@@ -15,6 +15,7 @@
 <script>
 import {OrderApi} from "@/api/api";
 import {FoodInfo} from "@/views/member/index";
+import {get2} from "@/api/http";
 
 export default {
   name: "Order",
@@ -31,7 +32,7 @@ export default {
       let data = {
         store_id: this.store_id
       }
-      let res = await this.$get2(OrderApi, 0, data)
+      let res = await get2(OrderApi, 0, data)
       if (res.data.code !== 1) {
         this.$message.error('服务器异常');
         return

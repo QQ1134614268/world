@@ -28,6 +28,7 @@
 <script>
 import {GoodsAdd, GoodsEdit} from "@/views/member";
 import {GoodsApi} from "@/api/api";
+import {deleteJson2, get2} from "@/api/http";
 
 export default {
   name: "GoodsList",
@@ -45,11 +46,11 @@ export default {
       let data = {
         store_id: this.store_id
       }
-      let res = await this.$get2(GoodsApi, 0, data)
+      let res = await get2(GoodsApi, 0, data)
       this.tableData = res.data.data
     },
     async handleDelete(id) {
-      let res = await this.$deleteJson2(GoodsApi, id, {})
+      let res = await deleteJson2(GoodsApi, id, {})
     }
   },
   created() {

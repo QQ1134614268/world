@@ -13,6 +13,7 @@
 
 <script>
 import {UserApi, WorksApi} from "@/api/api";
+import {get2} from "@/api/http";
 
 export default {
   name: "Video",
@@ -25,14 +26,14 @@ export default {
   },
   methods: {
     async init() {
-      let result = await this.$get2(WorksApi, this.video_id)
+      let result = await get2(WorksApi, this.video_id)
       if (result.data.code == 1) {
         this.video = result.data.data
         document.title = this.video.describe
       } else {
         this.$message.error('失败');
       }
-      let result2 = await this.$get2(UserApi, this.video.user_id)
+      let result2 = await get2(UserApi, this.video.user_id)
       if (result.data.code == 1) {
         this.user = result2.data.data
       } else {

@@ -33,6 +33,7 @@
 <script>
 
 import {FileApi, GoodsApi} from "@/api/api";
+import {get2, ppJson} from "@/api/http";
 
 export default {
   name: "GoodsEdit",
@@ -55,13 +56,13 @@ export default {
       let data = {
         store_id: this.store_id
       }
-      let response = await this.$get2(GoodsApi, 0, data);
+      let response = await get2(GoodsApi, 0, data);
       this.tableData = response.data.data
     },
     async onSubmit() {
       this.dialogVisible = false
       this.form.store_id = this.store_id
-      let response = await this.$ppJson(GoodsApi, this.form.id, this.form);
+      let response = await ppJson(GoodsApi, this.form.id, this.form);
       if (response.data.code != 1) {
         this.$message.success('操作成功');
       } else {

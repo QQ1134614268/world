@@ -13,6 +13,7 @@
 
 <script>
 import {InvitationCodeApi} from "@/api/api";
+import {putJson2} from "@/api/http";
 
 export default {
   name: "InvitationCode",
@@ -24,7 +25,7 @@ export default {
   methods: {
     async update() {
       let data = {}
-      let res = await this.$putJson2(InvitationCodeApi, 0, data)
+      let res = await putJson2(InvitationCodeApi, 0, data)
       if (res.data.code != 1) {
         this.$message.error('服务器异常');
         return

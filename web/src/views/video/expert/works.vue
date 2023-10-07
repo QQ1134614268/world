@@ -57,6 +57,7 @@ import {VideoUrl} from "@/views/video";
 import {getUserIdByToken} from "@/api/util";
 import WrdVideoUploadV2 from "@/components/WrdVideoUploadV2";
 import WrdImgUpload from "@/components/WrdImgUpload";
+import {deleteJson2, get2, ppJson} from "@/api/http";
 
 export default {
   name: "works",
@@ -81,7 +82,7 @@ export default {
   },
   methods: {
     async init() {
-      let result = await this.$get2(WorksListApi, 0, {user_id: this.user_id})
+      let result = await get2(WorksListApi, 0, {user_id: this.user_id})
       if (result.data.code == 1) {
         this.tableData = result.data.data
       } else {
@@ -99,7 +100,7 @@ export default {
         this.$message.warning('请上传视频');
         return
       }
-      let result = await this.$ppJson(WorksApi, this.form.id, this.form)
+      let result = await ppJson(WorksApi, this.form.id, this.form)
       if (result.data.code == 1) {
         this.dialogVisible = false
       } else {
@@ -115,7 +116,7 @@ export default {
       this.form = row
     },
     async del(index, id) {
-      let result = await this.$deleteJson2(WorksApi, id)
+      let result = await deleteJson2(WorksApi, id)
       if (result.data.code === 1) {
         this.$message.success('删除成功!');
         this.tableData.splice(index, 1)

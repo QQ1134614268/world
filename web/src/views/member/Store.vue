@@ -65,6 +65,7 @@
 import {GoodsApi} from "@/api/api";
 import {toTree} from "@/api/util";
 import {postOrder} from "@/api/member_api";
+import {get2} from "@/api/http";
 
 export default {
   name: "Store",
@@ -101,7 +102,7 @@ export default {
       let data = {
         store_id: this.store_id
       }
-      let response = await this.$get2(GoodsApi, 0, data);
+      let response = await get2(GoodsApi, 0, data);
       this.tableData2 = response.data.data
       this.tableData = toTree(this.tableData2)
     },

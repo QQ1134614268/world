@@ -50,6 +50,7 @@
 <script>
 import {MarketWorksListApi, WorksRankListApi} from "@/api/api";
 import {UserInfoUrl, VideoUrl} from "@/views/video";
+import {get2} from "@/api/http";
 
 export default {
   name: "market",
@@ -70,14 +71,14 @@ export default {
   methods: {
     async init() {
       let data = {page: this.currentPage, pageSize: this.pageSize, search: this.search}
-      let result = await this.$get2(MarketWorksListApi, 0, data)
+      let result = await get2(MarketWorksListApi, 0, data)
       if (result.data.code == 1) {
         this.tableData = result.data.data
         this.totalNum = result.data.total
       } else {
         this.$message.error('失败');
       }
-      let result3 = await this.$get2(WorksRankListApi, 0)
+      let result3 = await get2(WorksRankListApi, 0)
       this.rankData = result3.data.data
     },
     handleSizeChange(val) {

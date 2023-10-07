@@ -40,6 +40,7 @@
 <script>
 import {TargetApi, TargetListApi} from "@/api/api";
 import {getUserIdByToken} from "@/api/util";
+import {deleteJson2, get2, postJson2, putJson2} from "@/api/http";
 
 export default {
   name: "Target",
@@ -64,7 +65,7 @@ export default {
   },
   methods: {
     async handleDelete(index, row) {
-      let result = await this.$deleteJson2(TargetApi, row.id)
+      let result = await deleteJson2(TargetApi, row.id)
       if (result.data.code == 1) {
         this.$message.success('删除成功!');
         this.tableData.splice(index, 1)
@@ -75,9 +76,9 @@ export default {
     async onSubmit() {
       let result;
       if (this.form.id) {
-        result = await this.$putJson2(TargetApi, this.form.id, this.form)
+        result = await putJson2(TargetApi, this.form.id, this.form)
       } else {
-        result = await this.$postJson2(TargetApi, 0, this.form)
+        result = await postJson2(TargetApi, 0, this.form)
       }
       if (result.data.code == 1) {
         this.$message.success('操作成功');
@@ -93,7 +94,7 @@ export default {
       this.dialogVisible = true
     },
     async init() {
-      let result = await this.$get2(TargetListApi, 0, {user_id: this.user_id})
+      let result = await get2(TargetListApi, 0, {user_id: this.user_id})
       if (result.data.code == 1) {
         this.tableData = result.data.data
       } else {

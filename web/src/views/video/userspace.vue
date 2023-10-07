@@ -12,6 +12,7 @@
 
 <script>
 import {UserApi} from "@/api/api";
+import {get2, putJson2} from "@/api/http";
 
 export default {
   name: "video_user",
@@ -28,7 +29,7 @@ export default {
 
   methods: {
     async init() {
-      let result = await this.$get2(UserApi, this.user_id)
+      let result = await get2(UserApi, this.user_id)
       if (result.data.code == 1) {
         this.form = result.data.data
       } else {
@@ -36,7 +37,7 @@ export default {
       }
     },
     async save() {
-      let result = await this.$putJson2(UserApi, this.form.id, this.form)
+      let result = await putJson2(UserApi, this.form.id, this.form)
       if (result.data.code == 1) {
         this.$message.success('操作成功');
       } else {

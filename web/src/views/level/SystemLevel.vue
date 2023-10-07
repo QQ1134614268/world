@@ -51,6 +51,7 @@
 
 <script>
 import {ProveApi, SystemLevelApi} from "@/api/api";
+import {deleteJson2, get2, ppJson} from "@/api/http";
 
 export default {
   name: "SystemLevel",
@@ -73,7 +74,7 @@ export default {
   },
   methods: {
     async onSubmit() {
-      let response = await this.$ppJson(SystemLevelApi, this.form.id, this.form);
+      let response = await ppJson(SystemLevelApi, this.form.id, this.form);
       this.$message("操作成功")
       this.dialogVisible = false
     },
@@ -85,13 +86,13 @@ export default {
       this.dialogVisible = true
     },
     async handleDelete() {
-      let response = await this.$deleteJson2(SystemLevelApi, this.form.id);
+      let response = await deleteJson2(SystemLevelApi, this.form.id);
     },
     async init() {
       let data = {
         parent_id: this.parent_id
       }
-      let response = await this.$get2(SystemLevelApi, 0, data);
+      let response = await get2(SystemLevelApi, 0, data);
       this.list = response.data.data
     },
     async load(node, resolve) {
@@ -101,7 +102,7 @@ export default {
       } else {
         paras = {parent_id: node.data.id}
       }
-      let res = await this.$get2(ProveApi, 0, paras)
+      let res = await get2(ProveApi, 0, paras)
       resolve(res.data.data)
     },
   },

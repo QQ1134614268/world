@@ -1,7 +1,8 @@
 import {PermissionApi, UserApi, UserApi_login, UserApi_logout} from "@/api/api";
-import {get2, postJson2, putJson2} from "@/api/util";
 import {RECEIVE_TOKEN} from "@/api/config";
 import store from "@/store/store"
+
+import {get2, postJson2, putJson2} from "@/api/http";
 
 export function storeToken(token) {
     store.commit(RECEIVE_TOKEN, {

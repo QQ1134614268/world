@@ -42,6 +42,7 @@
 import {FileApi} from "@/api/api";
 import {beforeImgUpload} from "@/api/util";
 import {IMG_TYPE_STR} from "@/api/config";
+import {postForm} from "@/api/http";
 
 export default {
   props: {
@@ -83,7 +84,7 @@ export default {
       let formData = new FormData();
       this.$refs.cropper.getCropBlob(async (data) => {
         formData.append("file", data, "cropper.png");
-        let result = await this.$postForm(FileApi, formData)
+        let result = await postForm(FileApi, formData)
         if (result.data.code == 1) {
           this.dialogVisible = false
           // this.url = result.data.data

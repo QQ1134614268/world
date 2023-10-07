@@ -25,6 +25,7 @@ import {FileApi, UserApi} from "@/api/api";
 import {updateUser} from "@/api/user";
 import {getUserIdByToken} from "@/api/util";
 import WrdVueCropper from "@/components/WrdVueCropper";
+import {get2} from "@/api/http";
 
 export default {
   name: "video_user",
@@ -41,7 +42,7 @@ export default {
   methods: {
     async init() {
       let user_id = getUserIdByToken()
-      let result = await this.$get2(UserApi, user_id, {})
+      let result = await get2(UserApi, user_id, {})
       if (result.data.code == 1) {
         this.form = result.data.data
       } else {

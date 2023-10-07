@@ -27,6 +27,7 @@
 
 <script>
 import {QrCodeApi} from "@/api/api";
+import {get2, ppJson} from "@/api/http";
 
 export default {
   name: "Qrcode",
@@ -40,13 +41,13 @@ export default {
   },
   methods: {
     async init() {
-      let res = await this.$get2(QrCodeApi, 0, {})
+      let res = await get2(QrCodeApi, 0, {})
       for (let i = 0; i < res.data.data.length; i++) {
         this.tableDate.push(res.data.data[i].url_dic)
       }
     },
     async onSubmit() {
-      let res = await this.$ppJson(QrCodeApi, this.form.id, {url_dic: this.form})
+      let res = await ppJson(QrCodeApi, this.form.id, {url_dic: this.form})
       if (res.data.code == 1) {
         this.dialogVisible = false
         // this.$message.info("操作成功")

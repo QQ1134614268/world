@@ -14,6 +14,7 @@
 
 <script>
 import {LogApi} from "@/api/api";
+import {get2} from "@/api/http";
 
 export default {
   name: "log",
@@ -33,7 +34,7 @@ export default {
         page: this.currentPage,
         pageSize: this.pageSize,
       }
-      let res = await this.$get2(LogApi, 0, data)
+      let res = await get2(LogApi, 0, data)
       if (res.data.code != 1) {
         this.$message.error('服务器异常');
         return

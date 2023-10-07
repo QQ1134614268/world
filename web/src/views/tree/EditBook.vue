@@ -25,6 +25,7 @@
 <script>
 import {ADD_PROVE, ADD_STORY} from "@/views/tree/index";
 import {ProveApi, StoryApi} from "@/api/api";
+import {deleteJson2, get2, putJson2} from "@/api/http";
 
 export default {
   name: "EditBook",
@@ -42,9 +43,9 @@ export default {
   },
   methods: {
     async get_data() {
-      let res1 = await this.$get2(ProveApi, this.id, {});
-      let res2 = await this.$get2(ProveApi, 0, {"parent_id": this.id});
-      let res3 = await this.$get2(StoryApi, 0, {"parent_id": this.id});
+      let res1 = await get2(ProveApi, this.id, {});
+      let res2 = await get2(ProveApi, 0, {"parent_id": this.id});
+      let res3 = await get2(StoryApi, 0, {"parent_id": this.id});
 
       if (res1.data.code == 1) {
         this.obj = res1.data.data
@@ -63,14 +64,14 @@ export default {
       }
     },
     async del() {
-      let res1 = await this.$deleteJson2(ProveApi, this.id, {});
+      let res1 = await deleteJson2(ProveApi, this.id, {});
       this.$router.back()
       this.$router.back()
     },
     async save() {
-      let res1 = await this.$putJson2(ProveApi, this.obj.id, this.obj);
-      let res2 = await this.$putJson2(ProveApi, 0, this.prove);
-      let res3 = await this.$putJson2(StoryApi, 0, this.story);
+      let res1 = await putJson2(ProveApi, this.obj.id, this.obj);
+      let res2 = await putJson2(ProveApi, 0, this.prove);
+      let res3 = await putJson2(StoryApi, 0, this.story);
       this.$router.back()
     },
   },

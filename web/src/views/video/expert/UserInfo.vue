@@ -39,6 +39,7 @@
 <script>
 import {UserApi, WorksListApi} from "@/api/api";
 import {VideoUrl} from "@/views/video";
+import {get2} from "@/api/http";
 
 export default {
   name: "UserInfo",
@@ -58,7 +59,7 @@ export default {
   methods: {
     async init() {
       let data = {page: this.currentPage, pageSize: this.pageSize, user_id: this.user_id}
-      let result = await this.$get2(WorksListApi, this.user_id, data)
+      let result = await get2(WorksListApi, this.user_id, data)
       if (result.data.code == 1) {
         this.tableData = result.data.data
         this.totalNum = result.data.total
@@ -67,7 +68,7 @@ export default {
       }
     },
     async init_user() {
-      let result = await this.$get2(UserApi, this.user_id, {})
+      let result = await get2(UserApi, this.user_id, {})
       if (result.data.code) {
         this.userVO = result.data.data
       }

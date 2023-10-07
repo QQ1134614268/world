@@ -31,6 +31,7 @@
 import {WorkerApi, WorkTimeAnalyseApi_get_sum_time} from "@/api/api";
 import {fmtDateY_M_D, querySearch} from "@/api/util";
 import {DATE_FMT} from "@/api/config";
+import {get2} from "@/api/http";
 
 export default {
   name: "workTimeAnalyse",
@@ -53,7 +54,7 @@ export default {
         startDate: this.dateRange && this.dateRange.length > 0 ? this.dateRange[0] : "",
         endDate: this.dateRange && this.dateRange.length > 1 ? this.dateRange[1] : "",
       }
-      let result = await this.$get2(WorkTimeAnalyseApi_get_sum_time, 0, data);
+      let result = await get2(WorkTimeAnalyseApi_get_sum_time, 0, data);
       this.data = result.data.data
     },
     async querySearch(queryString, cb) {

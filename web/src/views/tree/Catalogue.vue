@@ -67,6 +67,7 @@
 
 <script>
 import {ProveApi, ProveBlueprintApi_contain_value} from "@/api/api";
+import {get2, putJson2} from "@/api/http";
 
 export default {
   name: "Catalogue",
@@ -88,7 +89,7 @@ export default {
   methods: {
     async querySearch(queryString, callback) {
       let paras = {value: queryString}
-      let res = await this.$get2(ProveBlueprintApi_contain_value, 0, paras)
+      let res = await get2(ProveBlueprintApi_contain_value, 0, paras)
       this.splitRules = res.data.data
       callback(this.splitRules)
     },
@@ -104,7 +105,7 @@ export default {
       } else {
         paras = {parent_id: node.data.id}
       }
-      let res = await this.$get2(ProveApi, 0, paras)
+      let res = await get2(ProveApi, 0, paras)
       resolve(res.data.data)
     },
     async handleDrop(draggingNode, dropNode, dropType, ev) {
@@ -117,7 +118,7 @@ export default {
       if (dropType == "before") {
         draggingNode.data.parent_id = dropNode.data.parent_id
       }
-      let res3 = await this.$putJson2(ProveApi, draggingNode.data.id, draggingNode.data);
+      let res3 = await putJson2(ProveApi, draggingNode.data.id, draggingNode.data);
     },
   },
 }

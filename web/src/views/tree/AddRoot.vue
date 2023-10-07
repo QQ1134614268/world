@@ -15,6 +15,7 @@
 
 <script>
 import {ProveApi} from "@/api/api";
+import {postJson2} from "@/api/http";
 
 export default {
   name: "AddRoot",
@@ -31,7 +32,7 @@ export default {
         parent_id: this.id,
         value: this.content
       }
-      let result = await this.$postJson2(ProveApi, 0, data);
+      let result = await postJson2(ProveApi, 0, data);
       if (result.data.code == 1) {
         this.$message.success('操作成功');
         this.$router.back()

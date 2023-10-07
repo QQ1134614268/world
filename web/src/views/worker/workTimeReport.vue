@@ -14,6 +14,7 @@
 
 <script>
 import {WorkTimeAnalyseApi_get_day_report} from "@/api/api";
+import {get2} from "@/api/http";
 
 export default {
   name: "workTimeReport",
@@ -30,7 +31,7 @@ export default {
         dateType: this.dateType,
         date: this.date,
       }
-      let result = await this.$get2(WorkTimeAnalyseApi_get_day_report, 0, data);
+      let result = await get2(WorkTimeAnalyseApi_get_day_report, 0, data);
       this.data = result.data.data
 
       this.total = this.data.map((x) => {

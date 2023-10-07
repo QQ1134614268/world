@@ -34,6 +34,7 @@
 </template>
 <script>
 import {FileApi, GoodsApi} from "@/api/api";
+import {deleteJson2, get2, ppJson} from "@/api/http";
 
 export default {
   name: "GoodsAdd",
@@ -53,11 +54,11 @@ export default {
       let data = {
         store_id: 1
       }
-      let response = await this.$get2(GoodsApi, 0, data);
+      let response = await get2(GoodsApi, 0, data);
       this.tableData = response.data.data
     },
     async handleDelete(index, row) {
-      let response = await this.$deleteJson2(GoodsApi, row.id);
+      let response = await deleteJson2(GoodsApi, row.id);
       if (response.data.code != 1) {
         return
       }
@@ -65,7 +66,7 @@ export default {
     },
     async onSubmit() {
       this.form.store_id = this.store_id
-      let response = await this.$ppJson(GoodsApi, this.form.id, this.form);
+      let response = await ppJson(GoodsApi, this.form.id, this.form);
       if (response.data.code != 1) {
         this.$message.error('服务器异常');
       } else {

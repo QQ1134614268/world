@@ -11,6 +11,7 @@
 <script>
 
 import {TargetApi, UserApi} from "@/api/api";
+import {get2} from "@/api/http";
 
 export default {
   name: "TargetInfo",
@@ -24,14 +25,14 @@ export default {
   },
   methods: {
     async init() {
-      let result = await this.$get2(TargetApi, this.target_id)
+      let result = await get2(TargetApi, this.target_id)
       if (result.data.code == 1) {
         this.target = result.data.data
         document.title = this.target.title
       } else {
         this.$message.error('失败');
       }
-      let result2 = await this.$get2(UserApi, this.target.user_id)
+      let result2 = await get2(UserApi, this.target.user_id)
       if (result.data.code == 1) {
         this.user = result2.data.data
       } else {

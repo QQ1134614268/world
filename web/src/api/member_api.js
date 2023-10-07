@@ -1,5 +1,6 @@
-import {get2, postJson2} from "@/api/util";
 import {GoodsApi, OrderApi} from "@/api/api";
+
+import {get2, postJson2} from "@/api/http";
 
 export async function getWorkerApi(data) {
     let res = await get2(GoodsApi, data.id, data)

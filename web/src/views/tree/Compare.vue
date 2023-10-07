@@ -23,7 +23,8 @@
   </div>
 </template>
 <script>
-import {ProveBlueprintApi_contain_value} from "@/api/api";
+import {ProveApi, ProveBlueprintApi_contain_value} from "@/api/api";
+import {get2, putJson2} from "@/api/http";
 
 export default {
   data() {
@@ -47,13 +48,13 @@ export default {
   methods: {
     async querySearch(queryString, callback) {
       let paras = {value: queryString}
-      let res = await this.$get2(ProveBlueprintApi_contain_value, 0, paras)
+      let res = await get2(ProveBlueprintApi_contain_value, 0, paras)
       this.splitRules = res.data.data
       callback(this.splitRules)
     },
     async querySearch2(queryString, callback) {
       let paras = {value: queryString}
-      let res = await this.$get2(ProveBlueprintApi_contain_value, 0, paras)
+      let res = await get2(ProveBlueprintApi_contain_value, 0, paras)
       this.splitRules2 = res.data.data
       callback(this.splitRules2)
     },
@@ -72,7 +73,7 @@ export default {
       } else {
         paras = {parent_id: node.data.id}
       }
-      let res = await this.$get2(ProveApi, 0, paras)
+      let res = await get2(ProveApi, 0, paras)
       resolve(res.data.data)
     },
     async load2(node, resolve) {
@@ -82,7 +83,7 @@ export default {
       } else {
         paras = {parent_id: node.data.id}
       }
-      let res = await this.$get2(ProveApi, 0, paras)
+      let res = await get2(ProveApi, 0, paras)
       resolve(res.data.data)
     },
     //左侧节点触发拖拽
@@ -121,7 +122,7 @@ export default {
       if (dropType == "before") {
         draggingNode.data.parent_id = dropNode.data.parent_id
       }
-      let res3 = await this.$putJson2(ProveApi, draggingNode.data.id, draggingNode.data);
+      let res3 = await putJson2(ProveApi, draggingNode.data.id, draggingNode.data);
     },
   }
 };

@@ -22,6 +22,7 @@
 
 <script>
 import {WalletApi} from "@/api/api";
+import {get2, putJson2} from "@/api/http";
 
 export default {
   name: "Wallet",
@@ -38,7 +39,7 @@ export default {
       let data = {
         id: item.id
       }
-      let response = await this.$get2(WalletApi,data.id, data);
+      let response = await get2(WalletApi,data.id, data);
       if (response.data.code != 1) {
         return
       }
@@ -49,7 +50,7 @@ export default {
         id: item.id,
         money: this.addMoneyNum,
       }
-      let response = await this.$putJson2(WalletApi,data.id, data);
+      let response = await putJson2(WalletApi,data.id, data);
       if (response.data.code != 1) {
         return
       }
@@ -60,7 +61,7 @@ export default {
         id: item.id,
         money: -this.payMoneyNum,
       }
-      let response = await this.$putJson2(WalletApi,data.id, data);
+      let response = await putJson2(WalletApi,data.id, data);
       if (response.data.code != 1) {
         return
       }

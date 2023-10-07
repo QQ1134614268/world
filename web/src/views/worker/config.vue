@@ -54,6 +54,7 @@
 
 <script>
 import {ConfigApi} from "@/api/api";
+import {deleteJson2, get2, postJson2, putJson2} from "@/api/http";
 
 export default {
   name: "config",
@@ -70,21 +71,21 @@ export default {
   methods: {
     async init() {
       let data = {"group_code": this.group}
-      let res = await this.$get2(ConfigApi, 0, data)
+      let res = await get2(ConfigApi, 0, data)
       this.data = res.data.data
     },
     async save() {
       let res;
       this.form["group_code"] = this.group
       if (this.form.id != undefined) {
-        res = await this.$putJson2(ConfigApi, this.form.id, this.form)
+        res = await putJson2(ConfigApi, this.form.id, this.form)
       } else {
         let data = {
           group_code: this.form["group_code"],
           value: this.form["value"],
           comment: this.form["comment"],
         }
-        res = await this.$postJson2(ConfigApi, 0, data)
+        res = await postJson2(ConfigApi, 0, data)
       }
       if (res.data.code == 1) {
         this.$message.info("操作成功")
@@ -101,7 +102,7 @@ export default {
       this.editDialog = true
     },
     async handleDelete(row) {
-      let res = await this.$deleteJson2(ConfigApi, 0, row.id)
+      let res = await deleteJson2(ConfigApi, 0, row.id)
       if (res.data.code == 1) {
         this.$message.info("操作成功")
       } else {

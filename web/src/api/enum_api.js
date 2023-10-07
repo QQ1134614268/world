@@ -1,5 +1,6 @@
-import {get2} from "@/api/util";
 import {EnumApi} from "@/api/api";
+
+import {get2} from "@/api/http";
 
 
 /*获取枚举*/

@@ -9,6 +9,7 @@
 
 <script>
 import {StoreMemberApi} from "@/api/api";
+import {get2} from "@/api/http";
 
 export default {
   name: "UserAdmin",
@@ -19,7 +20,7 @@ export default {
   },
   methods: {
     async init() {
-      let res = await this.$get2(StoreMemberApi)
+      let res = await get2(StoreMemberApi)
       this.tableData = res.data.data
     }
   },

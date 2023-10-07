@@ -17,6 +17,7 @@
 
 <script>
 import {ProveBlueprintApi_prove_value_parent} from "@/api/api";
+import {get2} from "@/api/http";
 
 export default {
   name: " Parent",
@@ -33,13 +34,13 @@ export default {
     },
     async proveParent(queryString, callback) {
       let paras = {value: queryString}
-      let res = await this.$get2(ProveBlueprintApi_prove_value_parent, 0, paras)
+      let res = await get2(ProveBlueprintApi_prove_value_parent, 0, paras)
       this.splitRules = res.data.data
     },
 
     async proveParent2(queryString, callback) {
       let paras = {value: queryString}
-      let res = await this.$get2(ProveBlueprintApi_prove_value_parent, 0, paras)
+      let res = await get2(ProveBlueprintApi_prove_value_parent, 0, paras)
       this.splitRules = []
       let resData = res.data.data
 

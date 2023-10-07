@@ -37,6 +37,7 @@
 import {WorkerApi, WorkerTimeApi} from "@/api/api";
 import {getDateY_M_D} from "@/api/util";
 import {DATE_FMT} from "@/api/config";
+import {get2} from "@/api/http";
 
 export default {
   name: "workTimeInfo",
@@ -55,7 +56,7 @@ export default {
         endDate: this.dateRange && this.dateRange.length > 1 ? this.dateRange[1] : "",
         name: this.name
       }
-      let res = await this.$get2(WorkerTimeApi, 0, data)
+      let res = await get2(WorkerTimeApi, 0, data)
 
       if (res.data.code != 1) {
         this.$message.error('服务器异常');
@@ -65,7 +66,7 @@ export default {
     },
     async querySearch(queryString, cb) {
       let data = {name: queryString}
-      let res = await this.$get2(WorkerApi, 0, data)
+      let res = await get2(WorkerApi, 0, data)
       let suggest = []
       for (let i = 0; i < res.data.data.length; i++) {
         suggest.push({

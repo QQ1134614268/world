@@ -14,6 +14,7 @@
 
 <script>
 import {ProveBlueprintApi_get_key_word} from "@/api/api";
+import {get2} from "@/api/http";
 
 export default {
   name: "KeyWord",
@@ -25,7 +26,7 @@ export default {
   methods: {
     async init() {
       let data = {}
-      let res = await this.$get2(ProveBlueprintApi_get_key_word, 0, data)
+      let res = await get2(ProveBlueprintApi_get_key_word, 0, data)
       if (res.data.code != 1) {
         this.$message.error('服务器异常');
         return
