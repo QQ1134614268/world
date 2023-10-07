@@ -120,9 +120,9 @@ class WorkerTimeApi(Resource):
         # parse.add_argument('stack_list', action='append', required=True)
         # args = parse.parse_args()
 
-        data = request.get_json()
-        if "name" in data:
-            data.pop("name")  # todo vue修改
+        data: dict = request.get_json()
+        keys = WorkerTimeVO().__dict__.keys()
+        data = {k: v for k, v in data if k in keys}
         vo = WorkerTimeVO(**data)
         db.session.add(vo)
         db.session.commit()
@@ -169,9 +169,10 @@ class WorkerTimeApi(Resource):
         return res_util.success(res)
 
     def put(self, _id):
-        data = request.get_json()
-        if "name" in data:
-            data.pop("name")  # todo vue修改
+        data: dict = request.get_json()
+        keys = WorkerTimeVO().__dict__.keys()
+        data = {k: v for k, v in data if k in keys}
+
         insert_stmt = insert(WorkerTimeVO).values(data)
         on_duplicate_key_stmt = insert_stmt.on_duplicate_key_update(data)
         db.session.execute(on_duplicate_key_stmt)
