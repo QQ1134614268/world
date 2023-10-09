@@ -12,7 +12,7 @@ import util.unique_util
 from config.enum_conf import StoreMemberType, OrderStatus
 from config.mysql_db import db
 from util import res_util, time_util
-from vo.member_model import StoreVO, StoreMemberTable, GoodsVO, OrderInfoVO, QrCodeVO, StoreRoleTable, OrderVO
+from vo.member_model import StoreVO, StoreMemberTable, GoodsVO, OrderInfoVO, QrCodeVO, OrderVO
 
 
 class StoreApi(Resource):
@@ -72,42 +72,6 @@ class GoodsApi(Resource):
         db.session.delete(model)
         db.session.commit()
         return res_util.success(_id)
-
-
-class StoreMemberApi(Resource):
-
-    def post(self):
-        data = request.get_json()
-        vo = StoreMemberTable(**data)
-        db.session.add(vo)
-        db.session.commit()
-        return res_util.success(vo.id)
-
-    def get(self, _id):
-        vo = StoreMemberTable.query.filter(StoreVO.id == _id).first()
-        return res_util.success(vo)
-
-    def put(self, _id):
-        data = request.get_json()
-        StoreMemberTable.query.filter(StoreMemberTable.id == _id).update(data)
-        db.session.commit()
-        return res_util.success(_id)
-
-    def delete(self, _id):
-        model = StoreMemberTable.query.filter(StoreMemberTable.id == _id).first()
-        db.session.delete(model)
-        db.session.commit()
-        return res_util.success(_id)
-
-
-class StoreRoleApi(Resource):
-
-    def post(self):
-        data = request.get_json()
-        vo = StoreRoleTable(**data)
-        db.session.add(vo)
-        db.session.commit()
-        return res_util.success(vo.id)
 
 
 class OrderApi(Resource):
