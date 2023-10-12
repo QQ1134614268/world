@@ -31,19 +31,18 @@ class OrderVO(BaseTable):
     status = Column(String(255), default=OrderStatus.UN_PAYMENT.name, comment=get_comment(OrderStatus))  # 状态
     order_code = Column(String(256), index=True, comment="订单编号")  # 单一后台?  平台
     table_id = Column(String(255), comment="下单桌号")
+    infoList = []
 
 
 class OrderInfoVO(BaseTable):
     __tablename__ = 'order_info_t'
     order_id = Column(Integer, index=True, comment="订单id")  # 单一后台?  平台
     goods_id = Column(Integer, index=True, comment="商品id")
-    # goods_img = Column(String(256), comment="商品图片path")
-    # goods_name = Column(String(256), index=True, comment="商品名")
+    goods_img = Column(String(256), comment="商品图片path")
+    goods_name = Column(String(256), index=True, comment="商品名")
     num = Column(Integer, comment="数量")
-    price = Column(Float(precision="14,2"), comment="价格(每个)")  # todo price 仅扣费时
-    # info = Column(String(256), comment="详情,size,冷热, ")  # todo 详情:颜色,材料,气味等
+    price = Column(Float(precision="14,2"), comment="价格(每个)")
     cooker_status = Column(String(256), comment="是否做完菜")
-
 
 
 class StoreVO(BaseTable):

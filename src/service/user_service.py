@@ -11,11 +11,11 @@ from util.time_util import get_now_str
 
 
 def get_name_by_token():
-    return get_payload()["name"]  # dict的缺点,直接取值,且需要明白之前存的数据
+    return get_payload().get("name", "Sys")
 
 
 def get_id_by_token():
-    return get_payload()["id"]
+    return get_payload().get("id", -1)
 
 
 def get_token(user_vo):
@@ -30,17 +30,18 @@ def get_token(user_vo):
 
 
 def get_payload():
-    jwt_token = request.headers.get("token")
+    token_str = request.headers.get("token")
+    if not token_str:
+        return dict()
     try:
-        return jwt.decode(bytes(jwt_token, "utf_8"), world_env.secret, algorithms=['HS256'])
+        return jwt.decode(bytes(token_str, "utf_8"), world_env.secret, algorithms=['HS256'])
     except:
         raise WorldNoLoginException("请重新登录")
 
 
 def check_token():
-    token = request.headers.get("token")
-    if token:
-        start_time = get_payload().get("start_time")
+    start_time = get_payload().get("start_time")
+    if start_time:
         time = time_util.get_datetime_by_str(start_time)
         if time + datetime.timedelta(days=1) < time_util.get_now():
             return True
