@@ -45,8 +45,7 @@ class GoodsApi(Resource):
         return res_util.success(_id)
 
     def delete(self, _id):
-        model = GoodsVO.query.filter(GoodsVO.id == _id).first()
-        db.session.delete(model)
+        GoodsVO.query.filter(GoodsVO.id == _id).delete()
         db.session.commit()
         return res_util.success(_id)
 

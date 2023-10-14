@@ -41,10 +41,13 @@ export default {
   data() {
     return {
       FileApi,
-      form: {images: ''},
+      // form: {images: ''},
       tableData: [],
       store_id: this.$route.query.store_id,
     };
+  },
+  props: {
+    form: Object
   },
   methods: {
     uploadFileSuccess(res) {
@@ -75,7 +78,9 @@ export default {
       await this.init()
     },
     cancel() {
-      this.$router.back()
+      // this.$router.back()
+      this.form = {}
+      this.from.dialogVisible = false
     }
   },
   created() {

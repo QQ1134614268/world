@@ -8,7 +8,7 @@
             <i :class="item.menuIcon"></i>
             <span>
                 {{ item.menuName }}
-              </span>
+            </span>
           </template>
         </el-menu-item>
       </el-menu>

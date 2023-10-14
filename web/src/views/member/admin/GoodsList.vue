@@ -1,7 +1,7 @@
 <template>
   <div class="p_c_HolyGrail-body">
     <div>
-      <router-link :to="{path:GoodsAdd,query: {store_id:store_id }}"> 增加</router-link>
+        <el-button size="mini" type="danger" @click="handleEdit">增加</el-button>
     </div>
     <div>
       <el-table :data="tableData">
@@ -16,29 +16,36 @@
         <el-table-column prop="create_time" label="上架时间"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <router-link :to="{path:GoodsEdit,query: {store_id:scope.row }}"  > 编辑</router-link>
-            <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row.id)">删除</el-button>
+            <el-button size="mini" type="danger" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+            <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
+      <el-dialog :title="form.id?'编辑':'新增'" :visible.sync="form.dialogVisible">
+        <goods-add :form=form></goods-add>
+      </el-dialog>
     </div>
   </div>
 </template>
 
 <script>
-import {GoodsAdd, GoodsEdit} from "@/views/member";
 import {GoodsApi} from "@/api/api";
 import {deleteJson2, get2} from "@/api/http";
+import GoodsAdd from "@/views/member/admin/GoodsAdd.vue";
+import GoodsEdit from "@/views/member/admin/GoodsEdit.vue";
 
 export default {
   name: "GoodsList",
+  components: {
+    GoodsAdd,
+    GoodsEdit,
+  },
   data() {
     return {
-      GoodsEdit,
-      GoodsAdd,
       tableData: [],
       form: {},
       store_id: 1,
+      dialogVisible: false,
     }
   },
   methods: {
@@ -49,9 +56,14 @@ export default {
       let res = await get2(GoodsApi, 0, data)
       this.tableData = res.data.data
     },
-    async handleDelete(id) {
-      let res = await deleteJson2(GoodsApi, id, {})
-    }
+    async handleDelete(index, row) {
+      let res = await deleteJson2(GoodsApi, row.id, {})
+    },
+    async handleEdit(id, row) {
+      debugger
+      this.form = row
+      this.form.dialogVisible = true
+    },
   },
   created() {
     this.init()
