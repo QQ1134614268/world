@@ -37,7 +37,7 @@ class GoodsApi(Resource):
     def page():
         req = request.args
         page = req.get("currentPage", 1, int)
-        page_size = req.get("pageSize", 15, int)
+        page_size = req.get("pageSize", 10, int)
         query = GoodsVO.query
         page_data = query.order_by(GoodsVO.create_time.desc()).paginate(page=page, per_page=page_size)
         return res_util.success(page_data)
@@ -93,7 +93,7 @@ class OrderApi(Resource):
     def page():
         req = request.args
         page = request.args.get("currentPage", 1, int)
-        page_size = request.args.get("pageSize", 15, int)
+        page_size = request.args.get("pageSize", 10, int)
         query = OrderVO.query
         if req.get("user_id"):
             query.filter(OrderVO.user_id == req.get("user_id"))

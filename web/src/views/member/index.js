@@ -46,7 +46,7 @@ const routes = [
     },
     {
         path: MemberAdminHome,
-        component: () => import('@/views/member/admin/Home'),
+        component: () => import('@/views/member/admin/MemberAdminApp.vue'),
         redirect: UserAdmin,
         children: [
             {

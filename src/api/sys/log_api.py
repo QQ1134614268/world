@@ -15,7 +15,7 @@ class LogApi(Resource):
 
     def get(self, _id):
         page = request.args.get("currentPage", 1, int)
-        page_size = request.args.get("pageSize", 15, int)
+        page_size = request.args.get("pageSize", 10, int)
 
         vos = LogVO.query.filter(
             LogVO.user_id == get_id_by_token(),

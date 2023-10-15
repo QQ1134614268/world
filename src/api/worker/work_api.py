@@ -78,7 +78,7 @@ class WorkerApi(Resource):
 
     def get(self, _id):
         page = request.args.get("currentPage", 1, int)
-        page_size = request.args.get("pageSize", 15, int)
+        page_size = request.args.get("pageSize", 10, int)
         user_id = get_id_by_token()
         query_build = [WorkerVO.belong == user_id]
         if request.args.get("name"):

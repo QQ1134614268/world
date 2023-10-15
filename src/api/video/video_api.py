@@ -143,7 +143,7 @@ class WorksApi(Resource):
 class WorksListApi(Resource):
     def get(self, _id):
         page = request.args.get("page", 1, int)
-        page_size = request.args.get("pageSize", 15, int)
+        page_size = request.args.get("pageSize", 20, int)
         search = request.args.get("search")
         user_id = request.args.get("user_id")
         obj_filter = []
@@ -167,7 +167,7 @@ class WorksRankListApi(Resource):
 class MarketWorksListApi(Resource):
     def get(self, _id):
         page = request.args.get("page", 1, int)
-        page_size = request.args.get("pageSize", 15, int)
+        page_size = request.args.get("pageSize", 20, int)
         search = request.args.get("search")
         obj_filter = [WorksVO.state == ReviewEnum.APPROVE.name]
         if search:
@@ -221,7 +221,7 @@ class TargetListApi(Resource):
 
     def get(self, _id):
         page = request.args.get("page", 1, int)
-        page_size = request.args.get("pageSize", 15, int)
+        page_size = request.args.get("pageSize", 20, int)
         search = request.args.get("search")
         user_id = request.args.get("user_id")
         obj_filter = []
@@ -245,7 +245,7 @@ class MarketTargetListApi(Resource):
 
     def get(self, _id):
         page = request.args.get("page", 1, int)
-        page_size = request.args.get("pageSize", 15, int)
+        page_size = request.args.get("pageSize", 20, int)
         search = request.args.get("search")
         user_id = request.args.get("user_id")
         obj_filter = [TargetVO.state == ReviewEnum.APPROVE.name]
@@ -278,7 +278,7 @@ class ReviewTargetApi(Resource):
     @permission_required(Permission.VIDEO_REVIEW.name)
     def get(self, _id):
         page = request.args.get("page", 1, int)
-        page_size = request.args.get("pageSize", 15, int)
+        page_size = request.args.get("pageSize", 20, int)
         query = TargetVO.query.join(
             UserVO, TargetVO.user_id == UserVO.id
         )
@@ -322,7 +322,7 @@ class ReviewWorksApi(Resource):
     @permission_required(Permission.VIDEO_REVIEW.name)
     def get(self, _id):
         page = request.args.get("page", 1, int)
-        page_size = request.args.get("pageSize", 15, int)
+        page_size = request.args.get("pageSize", 20, int)
         query = WorksVO.query.join(
             UserVO, WorksVO.user_id == UserVO.id
         )

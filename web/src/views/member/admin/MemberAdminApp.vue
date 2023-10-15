@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <h3 class="header">会员管理系统</h3>
-    <main class="p_c_flexbox_row">
-      <el-menu router :default-active="this.$route.fullPath" active-text-color="#409EFF">
+  <div class="member_container">
+    <h3 class="member_header">会员管理系统</h3>
+    <main class="member_body">
+      <el-menu router :default-active="this.$route.fullPath" active-text-color="#409EFF" class="menuBox">
         <el-menu-item :index="item.menuPath" v-for="(item, index) in menuList" :key="index">
           <template slot="title">
             <i :class="item.menuIcon"></i>
@@ -12,9 +12,10 @@
           </template>
         </el-menu-item>
       </el-menu>
-      <router-view class="p_c_flex_1"></router-view>
+      <div class="viewBox">
+        <router-view/>
+      </div>
     </main>
-
   </div>
 </template>
 
@@ -72,8 +73,39 @@ export default {
   }
 }
 </script>
-<style scoped>
-.header {
-  text-align: center;
+<style scoped lang="less">
+.member_container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+
+  .member_header {
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    flex: 0 0 auto;
+  }
+
+  .member_body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-shrink: 1;
+    overflow-y: scroll;
+    /deep/ .menuBox {
+      height: 90%;
+    }
+  }
+
+  .viewBox {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 1;
+  }
 }
 </style>
