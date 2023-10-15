@@ -20,18 +20,14 @@
 </template>
 
 <script>
-import {Finance, GoodsList, Order, Qrcode, RolePermission, UserAdmin, UserRole} from "@/views/member";
+import {GoodsList, Order, Qrcode} from "@/views/member";
 
 export default {
   name: "Home",
   data() {
     return {
       GoodsList,
-      UserAdmin,
       Qrcode,
-      UserRole,
-      RolePermission,
-      Finance,
       menuList: [
         {
           menuName: "菜单",
@@ -46,26 +42,6 @@ export default {
         {
           menuName: "二维码",
           menuPath: Qrcode,
-          menuIcon: "el-icon-connection",
-        },
-        {
-          menuName: "用户管理",
-          menuPath: UserAdmin,
-          menuIcon: "el-icon-connection",
-        },
-        {
-          menuName: "角色管理",
-          menuPath: UserRole,
-          menuIcon: "el-icon-connection",
-        },
-        {
-          menuName: "权限管理",
-          menuPath: RolePermission,
-          menuIcon: "el-icon-connection",
-        },
-        {
-          menuName: "财务管理",
-          menuPath: Finance,
           menuIcon: "el-icon-connection",
         },
       ]

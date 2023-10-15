@@ -99,7 +99,7 @@ class OrderApi(Resource):
             query.filter(OrderVO.user_id == req.get("user_id"))
         page_data = query.order_by(OrderVO.create_time.desc()).paginate(page=page, per_page=page_size)
         for vo in page_data.items:
-            vo.infoList = OrderInfoVO.query.filter(OrderInfoVO.order_id == vo.id).all()
+            vo.info_list = OrderInfoVO.query.filter(OrderInfoVO.order_id == vo.id).all()
         return res_util.success(page_data)
 
     @staticmethod

@@ -5,6 +5,20 @@
     </div>
     <div class="tableBox">
       <el-table :data="page.data">
+        <el-table-column type="expand">
+          <template slot-scope="props">
+            <el-table :data="props.row.info_list">
+              <el-table-column prop="goods_img" label="图片">
+                <template slot-scope="scope">
+                  <image :src="scope.row.goods_img" alt="加载失败"></image>
+                </template>
+              </el-table-column>
+              <el-table-column prop="goods_name" label="商品名称"></el-table-column>
+              <el-table-column prop="num" label="数量"></el-table-column>
+              <el-table-column prop="price" label="单价"></el-table-column>
+            </el-table>
+          </template>
+        </el-table-column>
         <el-table-column prop="user_name" label="用户名"></el-table-column>
         <el-table-column prop="status" label="订单状态"></el-table-column>
         <el-table-column prop="total_price" label="总价"></el-table-column>
@@ -46,7 +60,12 @@ export default {
         store_id: this.store_id
       }
       let res = await getJson3(orderPage, data);
-      this.page = res.data
+      if (res.data.code === 1) {
+        this.$message.success('操作成功');
+        this.page = res.data
+      } else {
+        this.$message.error('服务器异常');
+      }
     },
   },
   created() {

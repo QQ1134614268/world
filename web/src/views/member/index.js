@@ -11,10 +11,6 @@ export const GoodsAdd = "/member/admin/GoodsAdd"
 export const GoodsEdit = "/member/admin/GoodsEdit"
 export const Qrcode = "/member/admin/Qrcode"
 export const FoodInfo = "/member/admin/OrderInfo"
-export const UserAdmin = "/member/admin/UserAdmin"
-export const UserRole = "/member/admin/UserRole"
-export const RolePermission = "/member/admin/RolePermission"
-export const Finance = "/member/admin/Finance"
 
 const routes = [
     {
@@ -47,24 +43,8 @@ const routes = [
     {
         path: MemberAdminHome,
         component: () => import('@/views/member/admin/MemberAdminApp.vue'),
-        redirect: UserAdmin,
+        redirect: GoodsList,
         children: [
-            {
-                path: UserAdmin,
-                component: () => import('@/views/member/admin/UserAdmin')
-            },
-            {
-                path: UserRole,
-                component: () => import('@/views/member/admin/UserRole')
-            },
-            {
-                path: Finance,
-                component: () => import('@/views/member/admin/Finance')
-            },
-            {
-                path: RolePermission,
-                component: () => import('@/views/member/admin/RolePermission')
-            },
             {
                 path: GoodsList,
                 component: () => import('@/views/member/admin/GoodsPage.vue')

@@ -71,7 +71,12 @@ export default {
         store_id: this.store_id
       }
       let res = await getJson3(goodsPage, data)
-      this.page = res.data
+      if (res.data.code === 1) {
+        this.$message.success('操作成功');
+        this.page = res.data
+      } else {
+        this.$message.error('服务器异常');
+      }
     },
     async handleDelete(index, row) {
       let res = await deleteJson2(GoodsApi, row.id, {})
