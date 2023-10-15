@@ -38,7 +38,7 @@ def create_logger(log_dir=None):
     # write log to console
     handler_console = logging.StreamHandler()
     handler_console.setLevel(logging.NOTSET)
-    handler_console.setFormatter(JSONFormatter())
+    # handler_console.setFormatter(JSONFormatter())
 
     log.addHandler(err_handler)
     log.addHandler(warn_handler)

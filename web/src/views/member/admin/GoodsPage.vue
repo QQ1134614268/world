@@ -1,10 +1,10 @@
 <template>
   <div class="p_c_HolyGrail-body">
     <div>
-        <el-button size="mini" type="danger" @click="handleEdit">增加</el-button>
+        <el-button size="mini" type="danger" @click="handleAdd">增加</el-button>
     </div>
     <div>
-      <el-table :data="tableData">
+      <el-table :data="page.data">
         <el-table-column prop="name" label="商品名"></el-table-column>
         <el-table-column prop="images" label="商品图片">
           <template slot-scope="scope">
@@ -13,6 +13,7 @@
         </el-table-column>
         <el-table-column prop="describe" label="商品描述"></el-table-column>
         <el-table-column prop="price" label="商品价格"></el-table-column>
+        <el-table-column prop="label" label="标签"></el-table-column>
         <el-table-column prop="create_time" label="上架时间"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
@@ -21,16 +22,23 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-dialog :title="form.id?'编辑':'新增'" :visible.sync="form.dialogVisible">
-        <goods-add :form=form></goods-add>
+      <el-pagination @size-change="init"
+                     @current-change="init"
+                     :current-page="page.page"
+                     :page-size="page.page_size"
+                     :total="page.total"
+                     layout=" prev, pager, next, total">
+      </el-pagination>
+      <el-dialog :title="form.id?'编辑':'新增'" :visible.sync="dialogForm.dialogVisible">
+        <goods-edit :form=form :dialogForm=dialogForm></goods-edit>
       </el-dialog>
     </div>
   </div>
 </template>
 
 <script>
-import {GoodsApi} from "@/api/api";
-import {deleteJson2, get2} from "@/api/http";
+import {GoodsApi, goodsPage} from "@/api/api";
+import {deleteJson2, getJson3} from "@/api/http";
 import GoodsAdd from "@/views/member/admin/GoodsAdd.vue";
 import GoodsEdit from "@/views/member/admin/GoodsEdit.vue";
 
@@ -42,10 +50,16 @@ export default {
   },
   data() {
     return {
-      tableData: [],
+      page: {
+        page: 1,
+        page_size: 10,
+        data: [],
+      },
       form: {},
+      dialogForm: {
+        dialogVisible: false,
+      },
       store_id: 1,
-      dialogVisible: false,
     }
   },
   methods: {
@@ -53,16 +67,18 @@ export default {
       let data = {
         store_id: this.store_id
       }
-      let res = await get2(GoodsApi, 0, data)
-      this.tableData = res.data.data
+      let res = await getJson3(goodsPage, data)
+      this.page = res.data
     },
     async handleDelete(index, row) {
       let res = await deleteJson2(GoodsApi, row.id, {})
     },
     async handleEdit(id, row) {
-      debugger
       this.form = row
-      this.form.dialogVisible = true
+      this.dialogForm.dialogVisible = true
+    },
+    async handleAdd() {
+      this.dialogForm.dialogVisible = true
     },
   },
   created() {

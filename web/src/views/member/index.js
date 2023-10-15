@@ -67,11 +67,11 @@ const routes = [
             },
             {
                 path: GoodsList,
-                component: () => import('@/views/member/admin/GoodsList')
+                component: () => import('@/views/member/admin/GoodsPage.vue')
             },
             {
                 path: Order,
-                component: () => import('@/views/member/admin/Order')
+                component: () => import('@/views/member/admin/OrderPage.vue')
             },
             {
                 path: GoodsAdd,

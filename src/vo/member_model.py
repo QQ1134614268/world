@@ -31,7 +31,7 @@ class OrderVO(BaseTable):
     status = Column(String(255), default=OrderStatus.UN_PAYMENT.name, comment=get_comment(OrderStatus))  # 状态
     order_code = Column(String(256), index=True, comment="订单编号")  # 单一后台?  平台
     table_id = Column(String(255), comment="下单桌号")
-    infoList = []
+    info_list = []
 
 
 class OrderInfoVO(BaseTable):

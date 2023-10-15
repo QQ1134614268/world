@@ -16,7 +16,8 @@ from vo.member_model import StoreVO, StoreMemberTable, GoodsVO, OrderInfoVO, QrC
 # todo
 # 思考 订单, 厨师, 商家, 顾客,不同的页面,订单接口
 
-order_api = Blueprint("order", __name__, url_prefix='/api/member/order_api')
+order_api = Blueprint("order", "order", url_prefix='/api/member/order_api')
+goods_api = Blueprint("goods", "goods", url_prefix='/api/member/goods_api')
 
 
 class GoodsApi(Resource):
@@ -28,8 +29,18 @@ class GoodsApi(Resource):
         if request.args.get("store_id"):
             query_filter.append(GoodsVO.store_id == request.args.get("store_id"))
 
-        vos = GoodsVO.query.filter(*query_filter).order_by(GoodsVO.label).all()
-        return res_util.success(vos)
+        vo = GoodsVO.query.filter(*query_filter).first()
+        return res_util.success(vo)
+
+    @staticmethod
+    @goods_api.route('/page', methods=['GET'])
+    def page():
+        req = request.args
+        page = req.get("currentPage", 1, int)
+        page_size = req.get("pageSize", 15, int)
+        query = GoodsVO.query
+        page_data = query.order_by(GoodsVO.create_time.desc()).paginate(page=page, per_page=page_size)
+        return res_util.success(page_data)
 
     def post(self, _id):
         data = request.get_json()
@@ -57,11 +68,11 @@ class OrderApi(Resource):
         user_id = service.user_service.get_id_by_token()
         data['user_id'] = user_id
         order_code = util.unique_util.get_uuid()
-        infoList = data.pop("infoList")
+        info_list = data.pop("info_list")
         order_vo = OrderVO(**data)
         db.session.add(order_vo)
         db.session.flush()
-        for info in infoList:
+        for info in info_list:
             info["order_id"] = order_vo.id
             db.session.add(OrderInfoVO(**info))
         db.session.commit()
@@ -83,13 +94,13 @@ class OrderApi(Resource):
         req = request.args
         page = request.args.get("currentPage", 1, int)
         page_size = request.args.get("pageSize", 15, int)
-        query = OrderInfoVO.query
+        query = OrderVO.query
         if req.get("user_id"):
             query.filter(OrderVO.user_id == req.get("user_id"))
-        vos = query.order_by(OrderVO.create_time.desc()).paginate(page=page, per_page=page_size)
-        for vo in vos:
+        page_data = query.order_by(OrderVO.create_time.desc()).paginate(page=page, per_page=page_size)
+        for vo in page_data.items:
             vo.infoList = OrderInfoVO.query.filter(OrderInfoVO.order_id == vo.id).all()
-        return res_util.success(vos)
+        return res_util.success(page_data)
 
     @staticmethod
     @order_api.route('/get_order_by_type/<int:_id>', methods=['GET'])

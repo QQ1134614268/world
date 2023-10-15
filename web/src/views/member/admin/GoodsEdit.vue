@@ -19,6 +19,9 @@
       <el-form-item label="商品价格">
         <el-input v-model="form.price" :value="null"></el-input>
       </el-form-item>
+      <el-form-item label="商品标签">
+        <el-input v-model="form.label"></el-input>
+      </el-form-item>
       <el-form-item label="商品描述">
         <el-input v-model="form.describe"></el-input>
       </el-form-item>
@@ -29,9 +32,7 @@
     </el-form>
   </div>
 </template>
-
 <script>
-
 import {FileApi, GoodsApi} from "@/api/api";
 import {get2, ppJson} from "@/api/http";
 
@@ -40,14 +41,15 @@ export default {
   data() {
     return {
       FileApi,
-      dialogVisible: false,
-      form: {images: ""},
-      tableData: [],
-      store_id: 1,
-      GoodsApi
+      store_id: this.$route.query.store_id,
     };
   },
-
+  props: {
+    form: {},
+    dialogForm: {
+      dialogVisible: true,
+    },
+  },
   methods: {
     uploadFileSuccess(res) {
       this.form.images = res.data;
@@ -60,18 +62,19 @@ export default {
       this.tableData = response.data.data
     },
     async onSubmit() {
-      this.dialogVisible = false
       this.form.store_id = this.store_id
       let response = await ppJson(GoodsApi, this.form.id, this.form);
-      if (response.data.code != 1) {
+      if (response.data.code === 1) {
         this.$message.success('操作成功');
+        this.cancel()
       } else {
-        this.$message.success('操作成功');
+        this.$message.error('服务器异常');
       }
       await this.init()
     },
     cancel() {
-      this.dialogVisible = false
+      this.form = {}
+      this.dialogForm.dialogVisible = false
     }
   },
   created() {

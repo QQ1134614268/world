@@ -34,25 +34,23 @@
 </template>
 <script>
 import {FileApi, GoodsApi} from "@/api/api";
-import {deleteJson2, get2, ppJson} from "@/api/http";
+import {get2, ppJson} from "@/api/http";
 
 export default {
   name: "GoodsAdd",
   data() {
     return {
       FileApi,
-      // form: {images: ''},
-      tableData: [],
       store_id: this.$route.query.store_id,
     };
   },
   props: {
-    form: Object
+    form: {},
+    dialogForm: {
+      dialogVisible: true,
+    },
   },
   methods: {
-    uploadFileSuccess(res) {
-      this.form.images = res.data;
-    },
     async init() {
       let data = {
         store_id: 1
@@ -60,27 +58,20 @@ export default {
       let response = await get2(GoodsApi, 0, data);
       this.tableData = response.data.data
     },
-    async handleDelete(index, row) {
-      let response = await deleteJson2(GoodsApi, row.id);
-      if (response.data.code != 1) {
-        return
-      }
-      this.tableData.splice(index, 1)
-    },
     async onSubmit() {
       this.form.store_id = this.store_id
       let response = await ppJson(GoodsApi, this.form.id, this.form);
-      if (response.data.code != 1) {
-        this.$message.error('服务器异常');
-      } else {
+      if (response.data.code === 1) {
         this.$message.success('操作成功');
+        this.cancel()
+      } else {
+        this.$message.error('服务器异常');
       }
       await this.init()
     },
     cancel() {
-      // this.$router.back()
       this.form = {}
-      this.from.dialogVisible = false
+      this.dialogForm.dialogVisible = false
     }
   },
   created() {
