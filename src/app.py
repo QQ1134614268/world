@@ -13,7 +13,6 @@ from flask_migrate import Migrate
 from flask_restful import Api
 
 from api.HelloApi import hello_api
-from api.member.cooker_order_api import cooker_order_api
 from api.member.member_api import StoreApi, OrderApi, GoodsApi, order_api, QrCodeApi, goods_api
 from api.message.socket.SocketApi import socket_api
 from api.my_cloud_space.CloudSpaceApi import cloud_space_api, CloudSpaceApi
@@ -291,8 +290,6 @@ app.register_blueprint(video_blueprint_api)
 
 api2.add_resource(ReviewTargetApi, "/api/video_api/ReviewTargetApi/<int:_id>")
 api2.add_resource(ReviewWorksApi, "/api/video_api/ReviewWorksApi/<int:_id>")
-
-app.register_blueprint(cooker_order_api)
 
 if __name__ == '__main__':
     scheduler.init_app(app)

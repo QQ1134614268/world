@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 
-from api.code.model import MysqlTables, MysqlColumns
+from api.code.model import MysqlTables, JsForm, MysqlColumns
 from config.mysql_db import db
 from util import res_util
 
@@ -13,9 +13,11 @@ class CodeApi:
     @staticmethod
     @code_blueprint_api.route('/get_tables', methods=['GET'])
     def get_tables():
-        vos = db.session.query(MysqlTables).filter(
-            MysqlTables.TABLE_SCHEMA == "oa",
-        ).with_entities(
+        table_schema = request.args.get("table_schema")
+        query = db.session.query(MysqlTables)
+        if table_schema:
+            query.filter(MysqlTables.TABLE_SCHEMA == table_schema)
+        vos = query.with_entities(
             MysqlTables.TABLE_NAME,
             MysqlTables.TABLE_SCHEMA,
             MysqlTables.TABLE_COMMENT
@@ -26,9 +28,10 @@ class CodeApi:
     @staticmethod
     @code_blueprint_api.route('/get_table_cols', methods=['GET'])
     def get_table_cols():
+        table_schema = request.args.get("table_schema")
         table_name = request.args.get("tableName")
         vos = db.session.query(MysqlColumns).filter(
-            MysqlColumns.TABLE_SCHEMA == "oa",
+            MysqlColumns.TABLE_SCHEMA == table_schema,
             MysqlColumns.TABLE_NAME == table_name
         ).all()
 
@@ -38,10 +41,10 @@ class CodeApi:
     @code_blueprint_api.route('/get_data', methods=['GET'])
     def get_data():
         # todo
-        #
-        # table_name = request.args.get("tableName")
-        # vos = db.session.query(JsForm).filter(
-        #     JsForm.TABLE_SCHEMA == "oa",
-        #     JsForm.TABLE_NAME == table_name
-        # ).all()
-        return res_util.success(None)
+        table_schema = request.args.get("table_schema")
+        table_name = request.args.get("table_name")
+        vos = db.session.query(JsForm).filter(
+            JsForm.TABLE_SCHEMA == table_schema,
+            JsForm.TABLE_NAME == table_name
+        ).all()
+        return res_util.success(vos)

@@ -13,9 +13,6 @@ from config.mysql_db import db
 from util import res_util
 from vo.member_model import StoreVO, StoreMemberTable, GoodsVO, OrderInfoVO, QrCodeVO, OrderVO
 
-# todo
-# 思考 订单, 厨师, 商家, 顾客,不同的页面,订单接口
-
 order_api = Blueprint("order", "order", url_prefix='/api/member/order_api')
 goods_api = Blueprint("goods", "goods", url_prefix='/api/member/goods_api')
 
@@ -111,8 +108,6 @@ class OrderApi(Resource):
             StoreMemberTable.store_id == store_id,
             StoreMemberTable.user_id == cur_id
         ).with_entities(StoreMemberTable.user_type).scalar()  # 登陆用户角色? 店长,普通用户
-        # user_type = request.args.get('user_type')  # 登陆角色??todo
-        # user_type = request.args.get('user_type')  # 根据权限 厨师? 每个节点 厨房 集群
         worker_list = [None, StoreMemberType.Kitchen.name, StoreMemberType.Admin.name,
                        StoreMemberType.NormalEmp.name, StoreMemberType.StoreAdmin.name]
         if user_type in worker_list:
