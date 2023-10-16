@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Slot</title>
+    <style type="text/css">
+        .panel {
+            width: 400px;
+            border: 1px solid #ccc;
+        }
+
+        .panel > * {
+            padding: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .footer {
+            border: none;
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <Child>
+        <div slot="title">这是页眉</div>
+        <div slot="content">
+            这是Child内容
+        </div>
+        <div slot="footer">这是页脚</div>
+    </Child>
+</div>
+
+<template id="child">
+    <div>
+        <div class="panel">
+            <div class="title">
+                <slot name="title"></slot>
+            </div>
+            <div class="content">
+                <slot name="content"></slot>
+            </div>
+            <div class="footer">
+                <slot name="footer"></slot>
+            </div>
+        </div>
+    </div>
+</template>
+
+</body>
+<script type="text/javascript">
+    new Vue({
+        el: "#app",
+        data: {},
+        components: {
+            Child: {
+                template: "#child"
+            }
+        }
+    })
+</script>
+</html>
