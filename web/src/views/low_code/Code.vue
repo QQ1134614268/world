@@ -1,7 +1,15 @@
 <template>
   <div style="display: flex;">
-    {{treeData}}
     <div style="width: 20%;border-left: #0a53be">
+      <div v-for="(item,index) in treeData" :key="item.SCHEMA_NAME">
+        <div>
+          {{ item.SCHEMA_NAME }}
+          <div v-for="(item2,index2) in item.table_list" :key="index" class="table">
+            {{ item2.TABLE_NAME }}
+          </div>
+        </div>
+      </div>
+
       <div>
         <div>最近操作</div>
         top,折叠
@@ -148,5 +156,7 @@ export default {
 </script>
 
 <style scoped>
-
+.table{
+  margin-left: 2rem;
+}
 </style>
