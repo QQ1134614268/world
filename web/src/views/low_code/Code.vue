@@ -1,5 +1,6 @@
 <template>
   <div style="display: flex;">
+    {{treeData}}
     <div style="width: 20%;border-left: #0a53be">
       <div>
         <div>最近操作</div>
@@ -92,11 +93,13 @@
 
 <script>
 import {getJson3} from "@/api/http";
-import Fmt from "@/views/code/Fmt";
+import Fmt from "@/views/low_code/Fmt.vue";
 
-let get_tables = "/api/code_api/code_blueprint_api/get_tables"
-let get_table_cols = "/api/code_api/code_blueprint_api/get_table_cols"
-let get_data = "/api/code_api/code_blueprint_api/get_data"
+let get_dbs = "/api/code_api/get_dbs"
+let get_tables = "/api/code_api/get_tables"
+let get_table_cols = "/api/code_api/get_table_cols"
+let get_table_tree = "/api/code_api/get_table_tree"
+let get_data = "/api/code_api/get_data"
 export default {
   name: "Code",
   components: {
@@ -116,7 +119,7 @@ export default {
   },
   methods: {
     async init() {
-      let res = await getJson3(get_tables)
+      let res = await getJson3(get_table_tree)
       this.treeData = res.data.data
     },
     async getTableCols(tableName) {

@@ -1,12 +1,30 @@
-from sqlalchemy import Column, Enum, String, Text, PrimaryKeyConstraint, TIMESTAMP, DateTime
+from sqlalchemy import Column, Enum, String, Text, PrimaryKeyConstraint, TIMESTAMP, DateTime, BINARY
 from sqlalchemy.dialects.mysql import BIGINT, INTEGER, LONGTEXT, MEDIUMTEXT
 
-from src.config.mysql_db import db
+from config.mysql_db import db
+
+
+class MysqlDb(db.Model):
+    __tablename__ = 'schemata'
+    # __bind_key__ = 'information_schema'
+    __table_args__ = {
+        'schema': 'information_schema'
+    }
+    CATALOG_NAME = Column(String(64))
+    SCHEMA_NAME = Column(String(64))
+    DEFAULT_CHARACTER_SET_NAME = Column(String(64))
+    DEFAULT_COLLATION_NAME = Column(String(64))
+    SQL_PATH = Column(BINARY)
+    DEFAULT_ENCRYPTION = Column(Enum('NO', 'YES'))
+    PrimaryKeyConstraint(SCHEMA_NAME)
 
 
 class MysqlTables(db.Model):
     __tablename__ = 'tables'
-    __bind_key__ = 'information_schema'
+    # __bind_key__ = 'information_schema'
+    __table_args__ = {
+        'schema': 'information_schema'
+    }
     TABLE_CATALOG = Column(String(64))
     TABLE_SCHEMA = Column(String(64))
     TABLE_NAME = Column(String(64))
@@ -33,10 +51,10 @@ class MysqlTables(db.Model):
 
 class MysqlColumns(db.Model):
     __tablename__ = 'columns'
-    __bind_key__ = 'information_schema'
-    # __table_args__ = {
-    #     'schema': 'information_schema'
-    # }
+    # __bind_key__ = 'information_schema'
+    __table_args__ = {
+        'schema': 'information_schema'
+    }
     # __mapper_args__ = {
     #     'primary_key': []
     # }

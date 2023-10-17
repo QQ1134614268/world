@@ -13,6 +13,7 @@ from flask_migrate import Migrate
 from flask_restful import Api
 
 from api.HelloApi import hello_api
+from api.code.code_api import code_blueprint_api
 from api.member.member_api import StoreApi, OrderApi, GoodsApi, order_api, QrCodeApi, goods_api
 from api.message.socket.SocketApi import socket_api
 from api.my_cloud_space.CloudSpaceApi import cloud_space_api, CloudSpaceApi
@@ -115,7 +116,7 @@ def handle_404_error(err_msg):
     """
     # 这个函数的返回值就是前端用户看到的最终结果 (404错误页面)
     url_path = request.path
-    logger.warn({
+    logger.warning({
         "404": {
             "url_path": url_path,
             "err_msg": str(err_msg)
@@ -127,7 +128,7 @@ def handle_404_error(err_msg):
 @app.errorhandler(405)
 def handle_405_error(err_msg):
     url_path = request.path
-    logger.warn({
+    logger.warning({
         "405": {
             "url_path": url_path,
             "err_msg": str(err_msg)
@@ -290,6 +291,9 @@ app.register_blueprint(video_blueprint_api)
 
 api2.add_resource(ReviewTargetApi, "/api/video_api/ReviewTargetApi/<int:_id>")
 api2.add_resource(ReviewWorksApi, "/api/video_api/ReviewWorksApi/<int:_id>")
+
+# code 低代码 自动化 效率
+app.register_blueprint(code_blueprint_api)
 
 if __name__ == '__main__':
     scheduler.init_app(app)

@@ -9,7 +9,7 @@ export const routes = [
         children: [
             {
                 path: CodeHome,
-                component: () => import('@/views/low_code/CodeHome.vue'),
+                component: () => import('@/views/low_code/Code.vue'),
             },
         ]
     },
