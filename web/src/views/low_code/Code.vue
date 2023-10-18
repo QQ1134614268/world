@@ -1,27 +1,20 @@
 <template>
   <div style="display: flex;">
     <div style="width: 20%;border-left: #0a53be">
-      <div v-for="(item,index) in treeData" :key="item.SCHEMA_NAME">
-        <div>
-          {{ item.SCHEMA_NAME }}
-          <div v-for="(item2,index2) in item.table_list" :key="index" class="table">
-            {{ item2.TABLE_NAME }}
-          </div>
-        </div>
-      </div>
-
       <div>
         <div>最近操作</div>
         top,折叠
       </div>
       <div>搜索</div>
       <h1>所有表</h1>
-      <el-tree :data="treeData">
-      <span class="custom-tree-node" slot-scope="{ node, data }">
-        <span @click="getTableCols( data.TABLE_NAME)">{{ data.TABLE_COMMENT }}
-          <span style="color: gray">({{ data.TABLE_NAME }})</span></span>
-      </span>
-      </el-tree>
+      <div v-for="(item,index) in treeData" :key="item.SCHEMA_NAME">
+        <div>
+          {{ item.SCHEMA_NAME }}
+          <div v-for="(item2, index2) in item.table_list" :key="index" class="table">
+            {{ item2.TABLE_NAME }}
+          </div>
+        </div>
+      </div>
     </div>
     <div style="display: flex">
       <div>
@@ -43,16 +36,6 @@
           </el-form-item>
         </el-form>
         <el-table ref="multipleTable" @selection-change="handleSelectionChange" :data="colData">
-          <el-table-column type="selection" width="55"></el-table-column>
-
-          <el-table-column prop="COLUMN_NAME" label="COLUMN_NAME"></el-table-column>
-          <el-table-column prop="COLUMN_COMMENT" label="COLUMN_COMMENT"></el-table-column>
-          <el-table-column prop="DATA_TYPE" label="DATA_TYPE"></el-table-column>
-          <el-table-column prop="COLUMN_TYPE" label="COLUMN_TYPE"></el-table-column>
-          <el-table-column prop="IS_NULLABLE" label="IS_NULLABLE"></el-table-column>
-          <el-table-column prop="TABLE_NAME" label="TABLE_NAME"></el-table-column>
-          <el-table-column prop="ORDINAL_POSITION" label="ORDINAL_POSITION"></el-table-column>
-          <el-table-column prop="NUMERIC_PRECISION" label="NUMERIC_PRECISION"></el-table-column>
           <el-table-column prop="NUMERIC_SCALE" label="NUMERIC_SCALE"></el-table-column>
 
           <!--          <el-table-column prop="NUMERIC_SCALE" label="jsForm example">-->
