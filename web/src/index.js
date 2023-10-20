@@ -9,7 +9,7 @@ import model_routes from "@/views/tree";
 import admin_routes from "@/views/videoAdmin/index";
 import level_routes from "@/views/level/index";
 import code_routes from "@/views/low_code/index";
-import {ROOT, SYS_LOGIN_URL, SYS_REGISTER_URL, SYS_ROOT} from "@/views/sys";
+import {ENUM_ROOT, ROOT, SYS_LOGIN_URL, SYS_REGISTER_URL, SYS_ROOT} from "@/views/sys";
 
 let total = []
 total = total.concat(HelloRoutes)
@@ -29,9 +29,14 @@ let routes = [
         component: () => import('@/views/sys/root'),
     },
     {
+        path: ENUM_ROOT,
+        component: () => import('@/views/sys/EnumPage.vue'),
+    },
+    {
         path: SYS_ROOT,
         component: () => import('@/views/sys/root.vue')
-    }, {
+    },
+    {
         path: '/help',
         component: () => import('@/views/sys/root'),
     },

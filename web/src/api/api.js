@@ -4,6 +4,7 @@ export const PermissionApi = "/api/user_api/PermissionApi"
 export const ConfigApi = "/api/config_api/ConfigApi";
 export const EnumApi = "/api/config_api/EnumApi";
 export const LogApi = "/api/log_api/LogApi"
+export const enum_api_page = "/api/enum_api/page";
 
 //工时系统
 export const WorkerApi = "/api/work_api/WorkerApi"

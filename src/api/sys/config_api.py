@@ -3,7 +3,7 @@
 @Time: 2021/12/5
 @Description:
 """
-from flask import request
+from flask import request, Blueprint
 from flask_restful import Resource
 
 import service.user_service
@@ -11,6 +11,7 @@ from config.mysql_db import db
 from util import res_util
 from vo.table_model import EnumConfig
 
+enum_api = Blueprint("enum", "enum", url_prefix='/api/enum_api')
 
 class ConfigApi(Resource):
 
@@ -43,6 +44,16 @@ class ConfigApi(Resource):
         EnumConfig.query.filter(EnumConfig.id == _id).delete()
         db.session.commit()
         return res_util.success(_id)
+
+    @staticmethod
+    @enum_api.route('/page', methods=['GET'])
+    def page():
+        req = request.args
+        page = req.get("currentPage", 1, int)
+        page_size = req.get("pageSize", 10, int)
+        query = EnumConfig.query
+        page_data = query.order_by(EnumConfig.create_time.desc()).paginate(page=page, per_page=page_size)
+        return res_util.success(page_data)
 
 
 class EnumApi(Resource):

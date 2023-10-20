@@ -26,7 +26,7 @@ import {AdminUrl} from "@/views/videoAdmin";
 import {HelloRootUrl} from "@/views/hello";
 import {TreeRootUrl} from "@/views/tree";
 import {UserSpaceRootUrl} from "@/views/user";
-import {SYS_LOGIN_URL, SYS_REGISTER_URL} from "@/views/sys/index";
+import {ENUM_ROOT, SYS_LOGIN_URL, SYS_REGISTER_URL} from "@/views/sys/index";
 import {SystemLevel} from "@/views/level";
 
 export default {
@@ -45,6 +45,7 @@ export default {
         {url: UserSpaceRootUrl, name: "用户空间"},
         {url: SYS_REGISTER_URL, name: "注册"},
         {url: SYS_LOGIN_URL, name: "登录"},
+        {url: ENUM_ROOT, name: "枚举"},
       ],
     }
   },
