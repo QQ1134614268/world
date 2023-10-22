@@ -47,7 +47,8 @@ class EnumConfig(BaseTable):
     # 生成唯一
     code = Column(String(255), comment="枚举key值, 唯一(相当于自带路径)", default=get_uuid, nullable=False, unique=True)
 
-    value = Column(String(255), comment="枚举value数据", nullable=False)
+    value = Column(String(255), comment="枚举value数据,一般映射成数字", nullable=False)
+    label = Column(String(255), comment="枚举value翻译", nullable=False)
     # value_type = Column(String(255), comment="配置值类型", nullable=False)
     comment = Column(String(255), comment="备注")
     sort = Column(Integer, comment="排序字段")

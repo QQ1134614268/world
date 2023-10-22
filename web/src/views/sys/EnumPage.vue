@@ -10,6 +10,7 @@
       <el-table :data="page.data">
         <el-table-column prop="id" label="id"></el-table-column>
         <el-table-column prop="value" label="value"></el-table-column>
+        <el-table-column prop="label" label="label"></el-table-column>
         <el-table-column prop="code" label="code"></el-table-column>
         <el-table-column prop="parent_code" label="parent_code"></el-table-column>
         <el-table-column prop="comment" label="comment"></el-table-column>

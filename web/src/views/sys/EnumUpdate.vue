@@ -4,6 +4,9 @@
       <el-form-item label="枚举值">
         <el-input v-model="form.value"></el-input>
       </el-form-item>
+      <el-form-item label="枚举值">
+        <el-input v-model="form.label"></el-input>
+      </el-form-item>
       <el-form-item label="编码">
         <el-input v-model="form.code"></el-input>
       </el-form-item>
