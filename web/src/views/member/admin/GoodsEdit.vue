@@ -17,10 +17,10 @@
         <el-input v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item label="商品价格">
-        <el-input v-model="form.price" :value="null"></el-input>
+        <el-input v-model="form.price"></el-input>
       </el-form-item>
-      <el-form-item label="商品标签">
-        <el-input v-model="form.label"></el-input>
+      <el-form-item label="商品分类">
+        <el-input v-model="form.type_name"></el-input>
       </el-form-item>
       <el-form-item label="商品描述">
         <el-input v-model="form.describe"></el-input>

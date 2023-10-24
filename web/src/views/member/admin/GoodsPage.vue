@@ -16,7 +16,7 @@
         </el-table-column>
         <el-table-column prop="describe" label="商品描述"></el-table-column>
         <el-table-column prop="price" label="商品价格"></el-table-column>
-        <el-table-column prop="label" label="标签"></el-table-column>
+        <el-table-column prop="type_name" label="分类"></el-table-column>
         <el-table-column prop="create_time" label="上架时间"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">

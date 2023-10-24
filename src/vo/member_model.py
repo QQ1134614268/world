@@ -14,13 +14,13 @@ from vo.table_model import BaseTable
 
 class GoodsVO(BaseTable):
     __tablename__ = 'goods_t'
+    type_id = Column(String(256), comment="分类")
     name = Column(String(256), comment="商品名")
     price = Column(Float(precision="14,2"), nullable=False, comment="价格")
     duration = Column(Float(precision="14,2"), comment="折扣?")
     describe = Column(String(256), comment="介绍")
     images = Column(String(256))
     store_id = Column(Integer, index=True)
-    label = Column(String(256), comment="分类")
 
 
 class OrderVO(BaseTable):
