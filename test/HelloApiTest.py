@@ -13,7 +13,7 @@ class HelloTest(unittest.TestCase):
 
     def test_hello(self):
         """测试用户名与密码为空的情况[当参数不全的话，返回errcode=-2]"""
-        response = app.test_client().get('/hello_api/hello', data={})
+        response = app.test_client().get('/api/hello_api/hello', data={})
         json_data = response.data
         json_dict = json.loads(json_data)
         self.assertEqual(json_dict['code'], 1, '有异常')
