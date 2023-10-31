@@ -10,8 +10,7 @@ class InitDbTest(unittest.TestCase):
     """ """
 
     def setUp(self):
-        app.testing = True
-        self.client = app.test_client()
+        ...
 
     def test_enum(self):
         with app.app_context():
