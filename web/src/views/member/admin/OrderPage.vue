@@ -24,8 +24,8 @@
         <el-table-column prop="total_price" label="总价"></el-table-column>
         <el-table-column prop="create_time" label="下单时间"></el-table-column>
         <el-table-column label="详情">
-          <el-button size="mini" type="danger" @click="init">详情</el-button>
-          <el-button size="mini" type="danger" @click="init">删除</el-button>
+          <el-button size="mini" type="danger" @click="info">详情</el-button>
+          <el-button size="mini" type="danger" @click="del">删除</el-button>
         </el-table-column>
       </el-table>
     </div>
@@ -66,6 +66,10 @@ export default {
       } else {
         this.$message.error('服务器异常');
       }
+    },
+    async info() {
+    },
+    async del() {
     },
   },
   created() {
