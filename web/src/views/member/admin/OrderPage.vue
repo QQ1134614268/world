@@ -61,7 +61,6 @@ export default {
       }
       let res = await getJson3(orderPage, data);
       if (res.data.code === 1) {
-        this.$message.success('操作成功');
         this.page = res.data
       } else {
         this.$message.error('服务器异常');
