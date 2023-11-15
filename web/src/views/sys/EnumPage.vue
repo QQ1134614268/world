@@ -68,6 +68,7 @@ export default {
       let param = {
         page: this.page.page,
         page_size: this.page.page_size,
+        parent_code: -1,
       }
       let res = await getJson3(enum_api_page, param)
       if (res.data.code === 1) {

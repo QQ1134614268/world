@@ -51,7 +51,13 @@ class ConfigApi(Resource):
         req = request.args
         page = req.get("currentPage", 1, int)
         page_size = req.get("pageSize", 10, int)
+        parent_code = req.get("parent_code")
+        group_code = req.get("group_code")
         query = EnumConfig.query
+        if parent_code:
+            query.filter(EnumConfig.parent_code == parent_code)
+        if group_code:
+            query.filter(EnumConfig.parent_code == group_code)
         page_data = query.order_by(EnumConfig.create_time.desc()).paginate(page=page, per_page=page_size)
         return res_util.success(page_data)
 
