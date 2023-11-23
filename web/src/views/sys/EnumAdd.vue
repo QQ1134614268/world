@@ -45,16 +45,6 @@ export default {
     },
   },
   methods: {
-    uploadFileSuccess(res) {
-      this.form.images = res.data;
-    },
-    async init() {
-      let data = {
-        store_id: this.store_id
-      }
-      let response = await get2(ConfigApi, 0, data);
-      this.tableData = response.data.data
-    },
     async onSubmit() {
       this.form.store_id = this.store_id
       let response = await ppJson(ConfigApi, this.form.id, this.form);

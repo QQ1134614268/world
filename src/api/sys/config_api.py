@@ -13,6 +13,7 @@ from vo.table_model import EnumConfig
 
 enum_api = Blueprint("enum", "enum", url_prefix='/api/enum_api')
 
+
 class ConfigApi(Resource):
 
     def get(self, _id):
@@ -55,20 +56,8 @@ class ConfigApi(Resource):
         group_code = req.get("group_code")
         query = EnumConfig.query
         if parent_code:
-            query.filter(EnumConfig.parent_code == parent_code)
+            query = query.filter(EnumConfig.parent_code == parent_code)
         if group_code:
-            query.filter(EnumConfig.parent_code == group_code)
+            query = query.filter(EnumConfig.group_code == group_code)
         page_data = query.order_by(EnumConfig.create_time.desc()).paginate(page=page, per_page=page_size)
         return res_util.success(page_data)
-
-
-class EnumApi(Resource):
-
-    def get(self, _id):
-        parent_code = request.args.get("parent_code", '-1')
-        group_code = request.args.get("group_code", None)
-        vos = EnumConfig.query.filter(
-            EnumConfig.parent_code == parent_code,
-            EnumConfig.group_code == group_code
-        ).all()
-        return res_util.success(vos)

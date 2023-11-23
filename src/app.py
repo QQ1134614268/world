@@ -20,7 +20,7 @@ from api.my_cloud_space.CloudSpaceApi import cloud_space_api, CloudSpaceApi
 from api.project_api import ProjectInit
 from api.stone_game.StoneGameApi import stone_game_api
 from api.sys.SysApi import sys_api, AllApi, SuggestApi, AnnouncementApi
-from api.sys.config_api import ConfigApi, EnumApi, enum_api
+from api.sys.config_api import ConfigApi, enum_api
 from api.sys.customize.customize_api import customize_api
 from api.sys.file.file_api import FileApi2, FileApi3
 from api.sys.log_api import LogApi
@@ -233,7 +233,6 @@ api2.add_resource(SystemLevelApi, "/api/sys/SystemLevelApi/<int:_id>")
 
 api2.add_resource(ProjectInit, "/help")
 api2.add_resource(ConfigApi, "/api/config_api/ConfigApi/<int:_id>")
-api2.add_resource(EnumApi, "/api/config_api/EnumApi/<int:_id>")
 api2.add_resource(SuggestApi, "/api/sys_api/SuggestApi/<int:_id>")
 api2.add_resource(AnnouncementApi, "/api/sys_api/AnnouncementApi/<int:_id>")
 app.register_blueprint(enum_api)
