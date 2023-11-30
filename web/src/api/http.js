@@ -122,16 +122,6 @@ export const postForm = (url, data = {}) => {
         }
     })
 };
-export const postForm2 = (url, id, data = {}) => {
-    if (id === undefined) {
-        id = 0
-    }
-    return Axios({
-        method: 'POST', url: url + "/" + id, data: data, headers: {
-            'Content-Type': 'multipart/form-data;'
-        }
-    });
-};
 export const ppJson = (url, id, data) => {
     if (typeof (id) === "undefined" || id === null) {
         return postJson2(url, 0, data)

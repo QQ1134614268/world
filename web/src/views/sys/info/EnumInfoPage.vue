@@ -20,9 +20,6 @@
         <el-table-column prop="sort" label="sort"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <a :href="ENUM_INFO+'?parent_code='+scope.row.id">
-              <el-button>详情</el-button>
-            </a>
             <el-button size="mini" type="danger" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
             <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
           </template>
@@ -43,10 +40,9 @@
 </template>
 
 <script>
-import {ConfigApi, enum_api_page} from "@/api/api";
+import {enum_api_page} from "@/api/api";
 import {deleteJson2, getJson3} from "@/api/http";
 import EnumUpdate from "@/views/sys/EnumUpdate.vue";
-import {ENUM_INFO} from "@/views/sys/index";
 
 export default {
   name: "GoodsList",
@@ -55,7 +51,6 @@ export default {
   },
   data() {
     return {
-      ENUM_INFO: ENUM_INFO,
       page: {
         page: 1,
         page_size: 10,
@@ -73,7 +68,7 @@ export default {
       let param = {
         page: this.page.page,
         page_size: this.page.page_size,
-        parent_code: -1,
+        parent_code: this.$route.query.parent_code,
       }
       let res = await getJson3(enum_api_page, param)
       if (res.data.code === 1) {
@@ -84,7 +79,7 @@ export default {
       }
     },
     async handleDelete(index, row) {
-      let res = await deleteJson2(ConfigApi, row.id, {})
+      let res = await deleteJson2(GoodsApi, row.id, {})
     },
     async handleEdit(id, row) {
       this.form = row
