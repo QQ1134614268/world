@@ -27,7 +27,7 @@
   </div>
 </template>
 <script>
-import {FileApi, ConfigApi} from "@/api/api";
+import {ConfigApi, FileApi} from "@/api/api";
 import {get2, ppJson} from "@/api/http";
 
 export default {
@@ -45,6 +45,15 @@ export default {
     },
   },
   methods: {
+    async init() {
+      let parent_code = this.$route.query.parent_code
+      debugger
+      if (parent_code) {
+        let dataRes = await get2(ConfigApi, this.$route.query.parent_code)
+        this.form.parent_code = parent_code
+        this.form.group_code = dataRes.data.data.value
+      }
+    },
     async onSubmit() {
       this.form.store_id = this.store_id
       let response = await ppJson(ConfigApi, this.form.id, this.form);

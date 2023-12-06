@@ -20,7 +20,9 @@
         <el-input v-model="form.price"></el-input>
       </el-form-item>
       <el-form-item label="商品分类">
-        <el-input v-model="form.type_name"></el-input>
+        <el-select v-model="form.type_id" placeholder="请选择" @change="init">
+          <el-option v-for="(item,index) in types" :label="item.label" :value="item.value" :key="index"></el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="商品描述">
         <el-input v-model="form.describe"></el-input>
@@ -33,8 +35,8 @@
   </div>
 </template>
 <script>
-import {FileApi, GoodsApi} from "@/api/api";
-import {get2, ppJson} from "@/api/http";
+import {enum_api_page, FileApi, GoodsApi} from "@/api/api";
+import {get2, getJson3, ppJson} from "@/api/http";
 
 export default {
   name: "GoodsEdit",
@@ -42,6 +44,7 @@ export default {
     return {
       FileApi,
       store_id: this.$route.query.store_id,
+      types: [],
     };
   },
   props: {
@@ -60,6 +63,8 @@ export default {
       }
       let response = await get2(GoodsApi, 0, data);
       this.tableData = response.data.data
+      let res2 = await getJson3(enum_api_page, {group_code: "FOOD_ENUM"})
+      this.types = res2.data.data
     },
     async onSubmit() {
       this.form.store_id = this.store_id

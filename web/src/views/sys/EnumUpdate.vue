@@ -27,7 +27,7 @@
   </div>
 </template>
 <script>
-import {FileApi, ConfigApi} from "@/api/api";
+import {ConfigApi, FileApi} from "@/api/api";
 import {get2, ppJson} from "@/api/http";
 
 export default {
@@ -45,15 +45,14 @@ export default {
     },
   },
   methods: {
-    uploadFileSuccess(res) {
-      this.form.images = res.data;
-    },
     async init() {
-      let data = {
-        store_id: this.store_id
+      let parent_code = this.$route.query.parent_code
+      if (parent_code) {
+        let dataRes = await get2(ConfigApi, this.$route.query.parent_code)
+        this.form.parent_code = parent_code
+        this.form.group_code = dataRes.data.data.value
+        console.log(this.form)
       }
-      let response = await get2(ConfigApi, 0, data);
-      this.tableData = response.data.data
     },
     async onSubmit() {
       this.form.store_id = this.store_id
@@ -64,7 +63,6 @@ export default {
       } else {
         this.$message.error('服务器异常');
       }
-      await this.init()
     },
     cancel() {
       this.form = {}

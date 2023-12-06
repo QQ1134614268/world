@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import {enum_api_page} from "@/api/api";
+import {ConfigApi, enum_api_page} from "@/api/api";
 import {deleteJson2, getJson3} from "@/api/http";
 import EnumUpdate from "@/views/sys/EnumUpdate.vue";
 
@@ -79,7 +79,7 @@ export default {
       }
     },
     async handleDelete(index, row) {
-      let res = await deleteJson2(GoodsApi, row.id, {})
+      let res = await deleteJson2(ConfigApi, row.id, {})
     },
     async handleEdit(id, row) {
       this.form = row

@@ -42,13 +42,11 @@
 <script>
 import {GoodsApi, goodsPage} from "@/api/api";
 import {deleteJson2, getJson3} from "@/api/http";
-import GoodsAdd from "@/views/member/admin/GoodsAdd.vue";
 import GoodsEdit from "@/views/member/admin/GoodsEdit.vue";
 
 export default {
   name: "GoodsList",
   components: {
-    GoodsAdd,
     GoodsEdit,
   },
   data() {
@@ -63,6 +61,7 @@ export default {
         dialogVisible: false,
       },
       store_id: 1,
+      types: []
     }
   },
   methods: {

@@ -17,6 +17,8 @@ enum_api = Blueprint("enum", "enum", url_prefix='/api/enum_api')
 class ConfigApi(Resource):
 
     def get(self, _id):
+        if _id:
+            return res_util.success(EnumConfig.query.filter(EnumConfig.id == _id).first())
         parent_code = request.args.get("parent_code", '-1')
         group_code = request.args.get("group_code", None)
         create_by = request.args.get("create_by", service.user_service.get_id_by_token())
