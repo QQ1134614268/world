@@ -35,7 +35,7 @@ export default {
         pageSize: this.pageSize,
       }
       let res = await get2(LogApi, 0, data)
-      if (res.data.code != 1) {
+      if (res.data.code !== 1) {
         this.$message.error('服务器异常');
         return
       }
