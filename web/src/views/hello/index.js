@@ -61,10 +61,6 @@ const routes = [
         component: () => import('@/views/hello/test_echarts')
     },
     {
-        path: '/hello/flex-test',
-        component: () => import('@/views/hello/flex-test')
-    },
-    {
         path: '/hello/test_search',
         component: () => import('@/views/hello/test_search')
     },
