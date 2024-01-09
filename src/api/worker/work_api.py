@@ -122,7 +122,7 @@ class WorkerTimeApi(Resource):
 
         data: dict = request.get_json()
         keys = WorkerTimeVO().__dict__.keys()
-        data = {k: v for k, v in data if k in keys}
+        data = {k: v for k, v in data.items() if k in keys}
         vo = WorkerTimeVO(**data)
         db.session.add(vo)
         db.session.commit()
@@ -171,7 +171,7 @@ class WorkerTimeApi(Resource):
     def put(self, _id):
         data: dict = request.get_json()
         keys = WorkerTimeVO().__dict__.keys()
-        data = {k: v for k, v in data if k in keys}
+        data = {k: v for k, v in data.items() if k in keys}
 
         insert_stmt = insert(WorkerTimeVO).values(data)
         on_duplicate_key_stmt = insert_stmt.on_duplicate_key_update(data)

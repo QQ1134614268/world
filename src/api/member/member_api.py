@@ -5,6 +5,7 @@
 """
 from flask import request, Blueprint
 from flask_restful import Resource
+from sqlalchemy import and_
 
 import service.user_service
 import util.unique_util
@@ -12,6 +13,7 @@ from config.enum_conf import StoreMemberType, OrderStatus
 from config.mysql_db import db
 from util import res_util
 from vo.member_model import StoreVO, StoreMemberTable, GoodsVO, OrderInfoVO, QrCodeVO, OrderVO
+from vo.table_model import EnumConfig
 
 order_api = Blueprint("order", "order", url_prefix='/api/member/order_api')
 goods_api = Blueprint("goods", "goods", url_prefix='/api/member/goods_api')
@@ -35,12 +37,19 @@ class GoodsApi(Resource):
         req = request.args
         page = req.get("currentPage", 1, int)
         page_size = req.get("pageSize", 10, int)
-        query = GoodsVO.query
+        query = GoodsVO.query \
+            .outerjoin(EnumConfig, and_(EnumConfig.value == GoodsVO.type_id, EnumConfig.group_code == 'FOOD_ENUM')) \
+            .add_entity(EnumConfig)
+        #            .add_columns(GoodsVO.id, EnumConfig.comment)\
         page_data = query.order_by(GoodsVO.create_time.desc()).paginate(page=page, per_page=page_size)
+        for vo1, vo2 in page_data.items:
+            vo1.type_name = vo2 and vo2.label
+        page_data.items = [vo1 for vo1, vo2 in page_data.items]
         return res_util.success(page_data)
 
     def post(self, _id):
         data = request.get_json()
+        data = GoodsVO().__dict__.update(data)
         model = GoodsVO(**data)
         db.session.add(model)
         db.session.commit()
@@ -48,6 +57,7 @@ class GoodsApi(Resource):
 
     def put(self, _id):
         data = request.get_json()
+        data = {k: v for k, v in data.items() if k in GoodsVO.__dict__.keys()}
         GoodsVO.query.filter(GoodsVO.id == _id).update(data)
         db.session.commit()
         return res_util.success(_id)

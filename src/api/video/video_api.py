@@ -128,7 +128,7 @@ class WorksApi(Resource):
 
     def put(self, _id):
         data = request.get_json()
-        data = {k: v for k, v in data if k in WorksVO.__dict__.keys()}
+        data = {k: v for k, v in data.items() if k in WorksVO.__dict__.keys()}
         WorksVO.query.filter(WorksVO.id == _id).update(data)
         db.session.commit()
         return res_util.success(_id)
