@@ -49,7 +49,7 @@ class GoodsApi(Resource):
 
     def post(self, _id):
         data = request.get_json()
-        data = GoodsVO().__dict__.update(data)
+        data = {k: v for k, v in data.items() if k in GoodsVO.__dict__.keys()}
         model = GoodsVO(**data)
         db.session.add(model)
         db.session.commit()

@@ -38,52 +38,13 @@
       <div class="foodList">
         <div class="foodTypeName">经典推荐</div>
         <div class="foodGroupList">
-          <div class="foodBox">
-            <img class="foodImg" src="@/assets/切图/首页/图层23.png">
+          <div class="foodBox" v-for="(food, index) in foodList">
+            <img class="foodImg" :src=food.img>
             <div class="foodDescBox">
-              <div class="foodName">鸡汁腊鱼</div>
-              <div class="foodDesc">【口味：酱香微辣】新鲜的...</div>
+              <div class="foodName">{{ food.foodName }}</div>
+              <div class="foodDesc">{{ food.foodDesc }}</div>
               <div class="priceBox">
-                <div class="foodPrice">￥15</div>
-                <div class="iconAdd">
-                  <img class="iconAdd" src="@/assets/切图/点餐2/+.png">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="foodBox">
-            <img class="foodImg" src="@/assets/切图/首页/图层23.png">
-            <div class="foodDescBox">
-              <div class="foodName">鸡汁腊鱼</div>
-              <div class="foodDesc">【口味：酱香微辣】新鲜的...</div>
-              <div class="priceBox">
-                <div class="foodPrice">￥15</div>
-                <div class="iconAdd">
-                  <img class="iconAdd" src="@/assets/切图/点餐2/+.png">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="foodBox">
-            <img class="foodImg" src="@/assets/切图/首页/图层23.png">
-            <div class="foodDescBox">
-              <div class="foodName">鸡汁腊鱼</div>
-              <div class="foodDesc">【口味：酱香微辣】新鲜的...</div>
-              <div class="priceBox">
-                <div class="foodPrice">￥15</div>
-                <div class="iconAdd">
-                  <img class="iconAdd" src="@/assets/切图/点餐2/+.png">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="foodBox">
-            <img class="foodImg" src="@/assets/切图/首页/图层23.png">
-            <div class="foodDescBox">
-              <div class="foodName">鸡汁腊鱼</div>
-              <div class="foodDesc">【口味：酱香微辣】新鲜的...</div>
-              <div class="priceBox">
-                <div class="foodPrice">￥15</div>
+                <div class="foodPrice">{{ food.foodPrice }}</div>
                 <div class="iconAdd">
                   <img class="iconAdd" src="@/assets/切图/点餐2/+.png">
                 </div>
@@ -105,7 +66,21 @@ export default {
   data() {
     return {
       tableData: [],
-      order_code:this.$route.query.order_code
+      order_code: this.$route.query.order_code,
+      foodList: [
+        {
+          img: '/upload_file/eec93318e47d11eebf4c80fa5b6c6ed4.png',
+          foodName: '鸡汁腊鱼',
+          foodDesc: '【口味：酱香微辣】新鲜的...',
+          foodPrice: '￥15'
+        },
+        {
+          img: '/upload_file/eec93318e47d11eebf4c80fa5b6c6ed4.png',
+          foodName: '鸡汁腊鱼',
+          foodDesc: '【口味：酱香微辣】新鲜的...',
+          foodPrice: '￥15'
+        }
+      ]
     }
   },
   methods: {
