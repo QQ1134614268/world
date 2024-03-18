@@ -1,5 +1,4 @@
 // const CompressionWebpackPlugin = require('compression-webpack-plugin');
-const productionGzipExtensions = ['js', 'css'];
 const isProduction = process.env.NODE_ENV === 'production';
 
 module.exports = {
@@ -29,7 +28,7 @@ module.exports = {
             }
         },
     },
-    productionSourceMap: !isProduction,
+    productionSourceMap: isProduction,
     // 配置webpack
     configureWebpack: config => {
         config.optimization = {

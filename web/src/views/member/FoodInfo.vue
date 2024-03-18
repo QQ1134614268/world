@@ -36,15 +36,15 @@
         </div>
       </div>
       <div class="foodList">
-        <div class="foodTypeName">经典推荐</div>
+        <div class="foodTypeName">经典推荐22</div>
         <div class="foodGroupList">
           <div class="foodBox" v-for="(food, index) in foodList">
-            <img class="foodImg" :src=food.img>
+            <img class="foodImg" :src=food.images>
             <div class="foodDescBox">
-              <div class="foodName">{{ food.foodName }}</div>
-              <div class="foodDesc">{{ food.foodDesc }}</div>
+              <div class="foodName">{{ food.name }}</div>
+              <div class="foodDesc">{{ food.describe }}</div>
               <div class="priceBox">
-                <div class="foodPrice">{{ food.foodPrice }}</div>
+                <div class="foodPrice">{{ food.price }}</div>
                 <div class="iconAdd">
                   <img class="iconAdd" src="@/assets/切图/点餐2/+.png">
                 </div>
@@ -58,8 +58,8 @@
 </template>
 
 <script>
-import {GoodsApi} from "@/api/api";
-import {get2} from "@/api/http";
+import {goodsPage} from "@/api/api";
+import {getJson3} from "@/api/http";
 
 export default {
   name: "OrderInfo",
@@ -67,20 +67,7 @@ export default {
     return {
       tableData: [],
       order_code: this.$route.query.order_code,
-      foodList: [
-        {
-          img: '/upload_file/eec93318e47d11eebf4c80fa5b6c6ed4.png',
-          foodName: '鸡汁腊鱼',
-          foodDesc: '【口味：酱香微辣】新鲜的...',
-          foodPrice: '￥15'
-        },
-        {
-          img: '/upload_file/eec93318e47d11eebf4c80fa5b6c6ed4.png',
-          foodName: '鸡汁腊鱼',
-          foodDesc: '【口味：酱香微辣】新鲜的...',
-          foodPrice: '￥15'
-        }
-      ]
+      foodList: []
     }
   },
   methods: {
@@ -88,12 +75,12 @@ export default {
       let data = {
         order_code: this.order_code
       }
-      let res = await get2(GoodsApi, 0, data)
-      if (res.data.code != 1) {
+      let res = await getJson3(goodsPage, data)
+      if (res.data.code !== 1) {
         this.$message.error('服务器异常');
         return
       }
-      this.tableData = res.data.data
+      this.foodList = res.data.data
     }
   },
   created() {
