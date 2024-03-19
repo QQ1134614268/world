@@ -1,57 +1,81 @@
 <template>
   <div class="container">
-    <div class="storeName">深圳方大城店</div>
-    <div class="row1">
-      <div class="storeBox">
-        <div class="storeInfoBox">
-          <img class="positionIcon" src="@/assets/切图/点餐2/位置.png">
-          <div class="storeName2">深圳方大城店</div>
-          <img class="moreIcon" src="@/assets/切图/点餐2/箭头.png">
+    <div style="overflow-y: scroll">
+      <div class="storeName">深圳方大城店</div>
+      <div class="row1">
+        <div class="storeBox">
+          <div class="storeInfoBox">
+            <img class="positionIcon" src="@/assets/切图/点餐2/位置.png">
+            <div class="storeName2">深圳方大城店</div>
+            <img class="moreIcon" src="@/assets/切图/点餐2/箭头.png">
+          </div>
+          <div class="address">
+            深圳市南山区桃源社区高发西...
+          </div>
         </div>
-        <div class="address">
-          深圳市南山区桃源社区高发西...
-        </div>
-      </div>
-      <div class="way">
-        <span class="self">自取</span>
-        <span class="out">外卖</span>
-      </div>
-    </div>
-    <div class="row2">
-      <img src="@/assets/切图/点餐2/banner.png">
-    </div>
-    <div class="row3">
-      <div class="menuGroup">
-        <div class="foodType">
-          经典推荐
-        </div>
-        <div class="foodType">
-          招牌鸡汤
-        </div>
-        <div class="foodType">
-          人气推荐
-        </div>
-        <div class="foodType">
-          早餐组合
+        <div class="way">
+          <span class="self">自取</span>
+          <span class="out">外卖</span>
         </div>
       </div>
-      <div class="foodList">
-        <div class="foodTypeName">经典推荐22</div>
-        <div class="foodGroupList">
-          <div class="foodBox" v-for="(food, index) in foodList">
-            <img class="foodImg" :src=food.images>
-            <div class="foodDescBox">
-              <div class="foodName">{{ food.name }}</div>
-              <div class="foodDesc">{{ food.describe }}</div>
-              <div class="priceBox">
-                <div class="foodPrice">{{ food.price }}</div>
-                <div class="iconAdd">
-                  <img class="iconAdd" src="@/assets/切图/点餐2/+.png">
+      <div class="row2">
+        <img src="@/assets/切图/点餐2/banner.png">
+      </div>
+      <div class="row3">
+        <div class="menuGroup">
+          <div class="foodType">
+            经典推荐
+          </div>
+          <div class="foodType">
+            招牌鸡汤
+          </div>
+          <div class="foodType">
+            人气推荐
+          </div>
+          <div class="foodType">
+            早餐组合
+          </div>
+        </div>
+        <div class="foodList">
+          <div class="foodTypeName">经典推荐22</div>
+          <div class="foodGroupList">
+            <div class="foodBox" v-for="(food, index) in foodList">
+              <img class="foodImg" :src=food.images>
+              <div class="foodDescBox">
+                <div class="foodName">{{ food.name }}</div>
+                <div class="foodDesc">{{ food.describe }}</div>
+                <div class="priceBox">
+                  <div class="foodPrice">{{ food.price }}</div>
+                  <div class="iconAdd">
+                    <img class="iconAdd" src="@/assets/切图/点餐2/+.png">
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="cart">
+<!--      <el-popover-->
+<!--          placement="right"-->
+<!--          width="400"-->
+<!--          trigger="click">-->
+<!--          <el-table :data="gridData">-->
+<!--            <el-table-column width="150" property="date" label="日期"></el-table-column>-->
+<!--            <el-table-column width="100" property="name" label="姓名"></el-table-column>-->
+<!--            <el-table-column width="300" property="address" label="地址"></el-table-column>-->
+<!--          </el-table>-->
+<!--          <el-button slot="reference">click 激活</el-button>-->
+<!--      </el-popover>-->
+      <div>
+        图标
+      </div>
+      <div>
+        18元
+      </div>
+      <div>
+        选好了
       </div>
     </div>
   </div>
@@ -93,6 +117,8 @@ export default {
 .container {
   width: 100%;
   padding: 1rem 3rem;
+  height: 100%;
+  max-height: 100%;
 
   display: flex;
   flex-direction: column;
@@ -222,6 +248,7 @@ export default {
   margin-top: 2rem;
   display: flex;
   flex: 0 0 auto;
+  height: 50%;
 
   .menuGroup {
     width: 8rem;
@@ -321,14 +348,22 @@ export default {
             width: 2rem;
             height: 2rem;
             background-color: #9ed710;
-            border-radius:  0.75rem;
+            border-radius: 0.75rem;
           }
         }
 
+        }
       }
-    }
     }
   }
 }
 
+.cart {
+  width: 100%;
+  margin-top: 2rem;
+  display: flex;
+  flex: 0 0 auto;
+  height: 4rem;
+  background-color: #b8b5b5;
+}
 </style>
