@@ -82,7 +82,7 @@ export default {
   display: flex;
   flex-direction: column;
   flex-shrink: 1;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .member_footer {

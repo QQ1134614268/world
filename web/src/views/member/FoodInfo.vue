@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div style="overflow-y: scroll">
+    <div style="overflow-y: auto">
       <div class="storeName">深圳方大城店</div>
       <div class="row1">
         <div class="storeBox">
@@ -37,7 +37,7 @@
           </div>
         </div>
         <div class="foodList">
-          <div class="foodTypeName">经典推荐22</div>
+          <div class="foodTypeName">经典推荐</div>
           <div class="foodGroupList">
             <div class="foodBox" v-for="(food, index) in foodList">
               <img class="foodImg" :src=food.images>
@@ -45,7 +45,7 @@
                 <div class="foodName">{{ food.name }}</div>
                 <div class="foodDesc">{{ food.describe }}</div>
                 <div class="priceBox">
-                  <div class="foodPrice">{{ food.price }}</div>
+                  <div class="foodPrice">¥{{ food.price }}</div>
                   <div class="iconAdd">
                     <img class="iconAdd" src="@/assets/切图/点餐2/+.png">
                   </div>
@@ -57,24 +57,23 @@
       </div>
     </div>
     <div class="cart">
-<!--      <el-popover-->
-<!--          placement="right"-->
-<!--          width="400"-->
-<!--          trigger="click">-->
-<!--          <el-table :data="gridData">-->
-<!--            <el-table-column width="150" property="date" label="日期"></el-table-column>-->
-<!--            <el-table-column width="100" property="name" label="姓名"></el-table-column>-->
-<!--            <el-table-column width="300" property="address" label="地址"></el-table-column>-->
-<!--          </el-table>-->
-<!--          <el-button slot="reference">click 激活</el-button>-->
-<!--      </el-popover>-->
-      <div>
-        图标
+      <!--      <el-popover-->
+      <!--          placement="right"-->
+      <!--          width="400"-->
+      <!--          trigger="click">-->
+      <!--          <el-table :data="gridData">-->
+      <!--            <el-table-column width="150" property="date" label="日期"></el-table-column>-->
+      <!--            <el-table-column width="100" property="name" label="姓名"></el-table-column>-->
+      <!--            <el-table-column width="300" property="address" label="地址"></el-table-column>-->
+      <!--          </el-table>-->
+      <!--          <el-button slot="reference">click 激活</el-button>-->
+      <!--      </el-popover>-->
+
+      <div class="sum">
+        <i class="el-icon-shopping-bag-1 cart-icon"></i>
+        ¥{{ totalMoney }}
       </div>
-      <div>
-        18元
-      </div>
-      <div>
+      <div class="settlement">
         选好了
       </div>
     </div>
@@ -91,7 +90,16 @@ export default {
     return {
       tableData: [],
       order_code: this.$route.query.order_code,
-      foodList: []
+      foodList: [],
+      orderList: [],
+    }
+  },
+  computed: {
+    totalMoney() {
+      if (this.orderList.length === 0) {
+        return 0
+      }
+      return this.orderList.map(value => value.price * value.num).reduce((a, b) => a + b)
     }
   },
   methods: {
@@ -351,7 +359,6 @@ export default {
             border-radius: 0.75rem;
           }
         }
-
         }
       }
     }
@@ -360,10 +367,33 @@ export default {
 
 .cart {
   width: 100%;
-  margin-top: 2rem;
+  height: 2rem;
   display: flex;
   flex: 0 0 auto;
-  height: 4rem;
-  background-color: #b8b5b5;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 2rem;
+
+  .sum {
+    width: 8rem;
+    flex-grow: 1;
+    background-color: #92b7ab;
+    border-top-left-radius: 2rem;
+
+    .cart-icon {
+      color: blue;
+      margin-left: 2rem;
+    }
+  }
+
+  .settlement {
+    width: 8rem;
+    margin-right: 2rem;
+    background-color: #f33b3b;
+    border-top-right-radius: 2rem;
+    display: flex;
+    justify-content: center;
+  }
 }
 </style>
