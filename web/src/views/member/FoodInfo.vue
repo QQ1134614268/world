@@ -56,27 +56,24 @@
         </div>
       </div>
     </div>
-    <div class="cart">
-      <!--      <el-popover-->
-      <!--          placement="right"-->
-      <!--          width="400"-->
-      <!--          trigger="click">-->
-      <!--          <el-table :data="gridData">-->
-      <!--            <el-table-column width="150" property="date" label="日期"></el-table-column>-->
-      <!--            <el-table-column width="100" property="name" label="姓名"></el-table-column>-->
-      <!--            <el-table-column width="300" property="address" label="地址"></el-table-column>-->
-      <!--          </el-table>-->
-      <!--          <el-button slot="reference">click 激活</el-button>-->
-      <!--      </el-popover>-->
+    <el-popover placement="top" trigger="click">
+      <el-table :data="tableData">
+        <el-table-column width="150" property="date" label="日期"></el-table-column>
+        <el-table-column width="100" property="name" label="姓名"></el-table-column>
+        <el-table-column width="300" property="address" label="地址"></el-table-column>
+      </el-table>
+      <!--        <el-button slot="reference">click 激活</el-button>-->
+      <div slot="reference" class="cart">
 
-      <div class="sum">
-        <i class="el-icon-shopping-bag-1 cart-icon"></i>
-        ¥{{ totalMoney }}
+        <div class="sum">
+          <i class="el-icon-shopping-bag-1 cart-icon"></i>
+          ¥{{ totalMoney }}
+        </div>
+        <div class="settlement">
+          选好了
+        </div>
       </div>
-      <div class="settlement">
-        选好了
-      </div>
-    </div>
+    </el-popover>
   </div>
 </template>
 
