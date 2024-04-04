@@ -47,7 +47,10 @@
                 <div class="priceBox">
                   <div class="foodPrice">¥{{ food.price }}</div>
                   <div class="iconAdd">
-                    <img class="iconAdd" src="@/assets/切图/点餐2/+.png">
+                    <img v-if="food.num>0" class="iconAdd" src="@/assets/切图/点餐2/+.png"
+                         @click="handleChange(food,-1)">
+                    <span v-if="food.num>0">{{ food.num }}</span>
+                    <img class="iconAdd" src="@/assets/切图/点餐2/+.png" @click="handleChange(food,1)">
                   </div>
                 </div>
               </div>
@@ -64,7 +67,6 @@
       </el-table>
       <!--        <el-button slot="reference">click 激活</el-button>-->
       <div slot="reference" class="cart">
-
         <div class="sum">
           <i class="el-icon-shopping-bag-1 cart-icon"></i>
           ¥{{ totalMoney }}
@@ -89,6 +91,7 @@ export default {
       order_code: this.$route.query.order_code,
       foodList: [],
       orderList: [],
+      visible: true
     }
   },
   computed: {
@@ -109,7 +112,17 @@ export default {
         this.$message.error('服务器异常');
         return
       }
+      res.data.data.forEach(value => value.num = 0)
       this.foodList = res.data.data
+    },
+    handleChange(item, value) {
+      item.num = item.num + value
+      if (item.num === 0) {
+        this.orderList.filter(v => v !== item)
+      }
+      if (item.num > 0 && this.orderList.indexOf(item) === -1) {
+        this.orderList.push(item)
+      }
     }
   },
   created() {
@@ -350,7 +363,8 @@ export default {
           }
 
           .iconAdd {
-            width: 2rem;
+            display: flex;
+            //width: 6rem;
             height: 2rem;
             background-color: #9ed710;
             border-radius: 0.75rem;
