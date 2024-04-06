@@ -15,15 +15,17 @@
           </span>
         </div>
         <div v-for="(item1,index2) in item.info_list" class="orderInfo">
-          <img :src="item1.image" style="width: 3rem;">
-          <span>{{ item1.name }}</span>
+          <span class="food">
+            <img :src="item1.image" style="width: 3rem;">
+            <span>{{ item1.name }}</span>
+          </span>
           <span>{{ item1.price }}</span>
-          <span>x {{ item1.num }}</span>
+          <span>x{{ item1.num }}</span>
         </div>
       </div>
     </div>
-    <el-pagination @size-change="init"
-                   @current-change="init"
+    <el-pagination @size-change="handleSizeChange"
+                   @current-change="handleCurrentChange"
                    :current-page="page.page"
                    :page-size="page.page_size"
                    :total="page.total"
@@ -50,6 +52,8 @@ export default {
   methods: {
     async init() {
       let data = {
+        currentPage: this.page.page,
+        pageSize: this.page.page_size,
         store_id: this.store_id
       }
       let res = await getJson3(orderPage, data);
@@ -62,6 +66,14 @@ export default {
     async info() {
     },
     async del() {
+    },
+    handleCurrentChange(val) {
+      this.page.page = val;
+      this.init();
+    },
+    handleSizeChange(val) {
+      this.page.page_size = val;
+      this.init();
     },
   },
   created() {
@@ -131,6 +143,11 @@ export default {
       }
 
       .orderInfo {
+        .food {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
         display: flex;
         justify-content: space-between;
         align-items: center;

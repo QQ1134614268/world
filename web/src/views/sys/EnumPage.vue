@@ -26,8 +26,8 @@
         </el-table-column>
       </el-table>
     </div>
-    <el-pagination @size-change="init"
-                   @current-change="init"
+    <el-pagination @size-change="handleSizeChange"
+                   @current-change="handleCurrentChange"
                    :current-page="page.page"
                    :page-size="page.page_size"
                    :total="page.total"
@@ -68,8 +68,8 @@ export default {
   methods: {
     async init() {
       let param = {
-        page: this.page.page,
-        page_size: this.page.page_size,
+        currentPage: this.page.page,
+        pageSize: this.page.page_size,
         parent_code: -1,
       }
       let res = await getJson3(enum_api_page, param)
@@ -88,6 +88,14 @@ export default {
     },
     async handleAdd() {
       this.dialogForm.dialogVisible = true
+    },
+    handleCurrentChange(val) {
+      this.page.page = val;
+      this.init();
+    },
+    handleSizeChange(val) {
+      this.page.page_size = val;
+      this.init();
     },
   },
   created() {

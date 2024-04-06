@@ -26,8 +26,8 @@
         </el-table-column>
       </el-table>
     </div>
-    <el-pagination @size-change="init"
-                   @current-change="init"
+    <el-pagination @size-change="handleSizeChange"
+                   @current-change="handleCurrentChange"
                    :current-page="page.page"
                    :page-size="page.page_size"
                    :total="page.total"
@@ -67,6 +67,8 @@ export default {
   methods: {
     async init() {
       let data = {
+        currentPage: this.page.page,
+        pageSize: this.page.page_size,
         store_id: this.store_id
       }
       let res = await getJson3(goodsPage, data)
@@ -85,6 +87,14 @@ export default {
     },
     async handleAdd() {
       this.dialogForm.dialogVisible = true
+    },
+    handleCurrentChange(val) {
+      this.page.page = val;
+      this.init();
+    },
+    handleSizeChange(val) {
+      this.page.page_size = val;
+      this.init();
     },
   },
   created() {
