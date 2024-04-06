@@ -11,11 +11,11 @@ from sqlalchemy import and_
 
 import service.user_service
 import util.unique_util
-from config.enum_conf import StoreMemberType, OrderStatus
+from config.enum_conf import OrderStatus
 from config.mysql_db import db
 from util import res_util
 from util.to_class_util import to_class
-from vo.member_model import StoreVO, StoreMemberTable, GoodsVO, OrderInfoVO, QrCodeVO, OrderVO
+from vo.member_model import StoreVO, GoodsVO, OrderInfoVO, QrCodeVO, OrderVO
 from vo.table_model import EnumConfig
 
 order_api = Blueprint("order", "order", url_prefix='/api/member/order_api')
@@ -109,44 +109,20 @@ class OrderApi(Resource):
         page = request.args.get("currentPage", 1, int)
         page_size = request.args.get("pageSize", 10, int)
         query = OrderVO.query
-        if req.get("user_id"):
+        # 根据角色查询, 如果是商家, 用户, 系统管理员 get_role()
+        # 数据来源 StoreMemberTable  StoreMemberType
+        if req.get("user_id"):  # 用户
             query.filter(OrderVO.user_id == req.get("user_id"))
+        if req.get('store_id'):  # 商家
+            query.filter(OrderVO.store_id == req.get("store_id"))
+        if req.get('table_id'):  # 桌号
+            query.filter(OrderVO.table_id == req.get("table_id"))
+        if req.get("is_admin"):  # 默认
+            pass
         page_data = query.order_by(OrderVO.create_time.desc()).paginate(page=page, per_page=page_size)
         for vo in page_data.items:
             vo.info_list = OrderInfoVO.query.filter(OrderInfoVO.order_id == vo.id).all()
         return res_util.success(page_data)
-
-    @staticmethod
-    @order_api.route('/get_order_by_type/<int:_id>', methods=['GET'])
-    def get_order_by_type(_id):
-        cur_id = service.user_service.get_id_by_token()
-        store_id = request.args.get("store_id")
-        user_type = StoreMemberTable.query.filter(
-            StoreMemberTable.store_id == store_id,
-            StoreMemberTable.user_id == cur_id
-        ).with_entities(StoreMemberTable.user_type).scalar()  # 登陆用户角色? 店长,普通用户
-        worker_list = [None, StoreMemberType.Kitchen.name, StoreMemberType.Admin.name,
-                       StoreMemberType.NormalEmp.name, StoreMemberType.StoreAdmin.name]
-        if user_type in worker_list:
-            query = OrderInfoVO.query.filter(OrderInfoVO.store_id == store_id)
-            user_id = request.args.get("user_id")
-            if user_id:
-                query.filter(OrderInfoVO.store_id == store_id)
-            vos = query.order_by(OrderInfoVO.create_time.desc()).all()
-            return res_util.success(vos)
-
-    @staticmethod
-    @order_api.route('/get_order_by_table_id/<int:_id>', methods=['GET'])
-    def get_order_by_table_id(_id):
-        store_id = request.args.get("store_id")
-        table_id = request.args.get("table_id")
-        if table_id:
-            order = OrderInfoVO.query.filter(
-                OrderInfoVO.table_id == table_id,
-                OrderInfoVO.store_id == store_id,
-                OrderInfoVO.status == OrderStatus.UN_PAYMENT.UN_PAYMENT,
-            ).order_by(OrderInfoVO.create_time.desc()).all()
-            return res_util.success(order)
 
 
 class StoreApi(Resource):

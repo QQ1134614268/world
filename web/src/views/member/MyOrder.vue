@@ -42,6 +42,8 @@ export default {
   name: "GoodsAdd",
   data() {
     return {
+      store_id: null,
+      user_id: null,
       page: {
         page: 1,
         page_size: 10,
@@ -54,7 +56,8 @@ export default {
       let data = {
         currentPage: this.page.page,
         pageSize: this.page.page_size,
-        store_id: this.store_id
+        store_id: this.store_id,
+        user_id: this.user_id,
       }
       let res = await getJson3(orderPage, data);
       if (res.data.code === 1) {
