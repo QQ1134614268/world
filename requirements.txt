@@ -1,39 +1,39 @@
-Flask==1.1.1
-Flask-Cors==3.0.10
-Flask-RESTful==0.3.7
-Flask-SQLAlchemy==2.5.1
-Flask-APScheduler==1.12.3
-Flask-Migrate==3.1.0
+Flask~=1.1.1
+Flask-Cors~=3.0.10
+Flask-RESTful~=0.3.7
+Flask-SQLAlchemy~=2.5.1
+Flask-APScheduler~=1.12.3
+Flask-Migrate~=3.1.0
 alembic~=1.6.5
-jinja2==3.0.3
-PyJWT==1.7.1
-pycryptodome==3.9.0
-concurrent-log-handler==0.9.16
+jinja2~=3.0.3
+PyJWT~=1.7.1
+pycryptodome~=3.9.0
+concurrent-log-handler~=0.9.16
 
 SQLAlchemy~=1.4.25
-Redis==3.3.1
-mysql-connector-python==8.0.18
-pymongo==3.10.1
+Redis~=3.3.1
+mysql-connector-python~=8.0.18
+pymongo~=3.10.1
 
-Itsdangerous==1.1.0
-pandas==1.2.0
-openpyxl==3.0.5
-jieba==0.42.1
-python-dateutil==2.8.2
-pillow==9.0.0
+Itsdangerous~=1.1.0
+pandas~=1.2.0
+openpyxl~=3.0.5
+jieba~=0.42.1
+python-dateutil~=2.8.2
+pillow~=9.0.0
 #docker 环境不安装
-# opencv-python==4.5.1.48
+# opencv-python~=4.5.1.48
 
-requests==2.23.0
+requests~=2.23.0
 
-qrcode==7.3.1
-PyYAML==6.0
+qrcode~=7.3.1
+PyYAML~=6.0
 
-gevent-websocket==0.10.1
+gevent-websocket~=0.10.1
 
-gunicorn==20.1.0
-werkzeug==0.16.1
+gunicorn~=20.1.0
+werkzeug~=0.16.1
 
 # 开发工具
-pylint==2.6.0
+pylint~=2.6.0
 # pipdeptree
