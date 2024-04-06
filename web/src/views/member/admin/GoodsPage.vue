@@ -9,9 +9,9 @@
     <div class="tableBox">
       <el-table :data="page.data">
         <el-table-column prop="name" label="商品名"></el-table-column>
-        <el-table-column prop="images" label="商品图片">
+        <el-table-column prop="image" label="商品图片">
           <template slot-scope="scope">
-            <el-image style="width: 5rem" :src="scope.row.images"/>
+            <el-image style="width: 5rem" :src="scope.row.image"/>
           </template>
         </el-table-column>
         <el-table-column prop="describe" label="商品描述"></el-table-column>

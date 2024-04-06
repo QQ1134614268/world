@@ -40,7 +40,7 @@
           <div class="foodTypeName">经典推荐</div>
           <div class="foodGroupList">
             <div class="foodBox" v-for="(food, index) in foodList">
-              <img class="foodImg" :src=food.images>
+              <img class="foodImg" :src=food.image>
               <div class="foodDescBox">
                 <div class="foodName">{{ food.name }}</div>
                 <div class="foodDesc">{{ food.describe }}</div>
@@ -59,35 +59,37 @@
         </div>
       </div>
     </div>
-    <el-popover placement="top" trigger="click">
-      <el-table :data="tableData">
-        <el-table-column width="150" property="date" label="日期"></el-table-column>
-        <el-table-column width="100" property="name" label="姓名"></el-table-column>
-        <el-table-column width="300" property="address" label="地址"></el-table-column>
-      </el-table>
-      <!--        <el-button slot="reference">click 激活</el-button>-->
-      <div slot="reference" class="cart">
-        <div class="sum">
-          <i class="el-icon-shopping-bag-1 cart-icon"></i>
-          ¥{{ totalMoney }}
+    <div class="cart">
+      <el-popover placement="top" trigger="click" style="width: 100%">
+        <el-table :data="orderList" style="width: 100%">
+          <el-table-column width="150" property="image" label="商品图片"></el-table-column>
+          <el-table-column width="100" property="name" label="名称"></el-table-column>
+          <el-table-column width="300" property="price" label="价格"></el-table-column>
+          <el-table-column width="300" property="num" label="数量"></el-table-column>
+        </el-table>
+        <div slot="reference" class="cart">
+          <div class="sum">
+            <i class="el-icon-shopping-bag-1 cart-icon"></i>
+            ¥{{ totalMoney }}
+          </div>
         </div>
-        <div class="settlement">
-          选好了
-        </div>
+      </el-popover>
+      <div class="settlement" @click="pickOver">
+        选好了
       </div>
-    </el-popover>
+    </div>
   </div>
 </template>
 
 <script>
-import {goodsPage} from "@/api/api";
-import {getJson3} from "@/api/http";
+import {goodsPage, OrderApi} from "@/api/api";
+import {getJson3, postJson} from "@/api/http";
+import {order} from "@/views/member/index";
 
 export default {
   name: "OrderInfo",
   data() {
     return {
-      tableData: [],
       order_code: this.$route.query.order_code,
       foodList: [],
       orderList: [],
@@ -123,7 +125,18 @@ export default {
       if (item.num > 0 && this.orderList.indexOf(item) === -1) {
         this.orderList.push(item)
       }
-    }
+    },
+    async orderFood() {
+      let data = {
+        info_list: this.orderList
+      }
+      let res = await postJson(OrderApi + "/0", {}, data)
+      console.log(res)
+    },
+    async pickOver() {
+      await this.orderFood()
+      await this.$router.push(order)
+    },
   },
   created() {
     this.init()
@@ -387,7 +400,6 @@ export default {
   font-size: 2rem;
 
   .sum {
-    width: 8rem;
     flex-grow: 1;
     background-color: #92b7ab;
     border-top-left-radius: 2rem;

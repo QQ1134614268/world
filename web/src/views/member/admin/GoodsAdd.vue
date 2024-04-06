@@ -8,7 +8,7 @@
             :show-file-list="false"
             :on-success="uploadFileSuccess"
             style="width:10rem;  height:10rem ">
-          <img :key="form.images" v-if="form.images" :src="form.images" style="width:10rem;
+          <img :key="form.image" v-if="form.image" :src="form.image" style="width:10rem;
                  height:10rem;object-fit: cover">
           <i v-else class="el-icon-plus avatar-uploader-icon" style="width:10rem;  height:10rem "></i>
         </el-upload>

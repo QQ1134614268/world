@@ -128,3 +128,20 @@ export const ppJson = (url, id, data) => {
     }
     return putJson2(url, id, data)
 };
+
+export async function baseReq(url, method, params, data, config) {
+    let res = await Axios({
+        method: method, url: url, params: params, data: data, config: config
+    })
+    console.log(res)
+    return res.data
+}
+
+
+export async function getJson(url, params) {
+    return await baseReq(url, "GET", params)
+}
+
+export async function postJson(url, params, data) {
+    return await baseReq(url, "POST", params, data)
+}

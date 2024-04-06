@@ -3,6 +3,8 @@
 @Time: 2020/7/5
 @Description: pass
 """
+from functools import reduce
+
 from flask import request, Blueprint
 from flask_restful import Resource
 from sqlalchemy import and_
@@ -12,6 +14,7 @@ import util.unique_util
 from config.enum_conf import StoreMemberType, OrderStatus
 from config.mysql_db import db
 from util import res_util
+from util.to_class_util import to_class
 from vo.member_model import StoreVO, StoreMemberTable, GoodsVO, OrderInfoVO, QrCodeVO, OrderVO
 from vo.table_model import EnumConfig
 
@@ -72,18 +75,22 @@ class OrderApi(Resource):
 
     def post(self, _id):
         data = request.get_json()
-        user_id = service.user_service.get_id_by_token()
-        data['user_id'] = user_id
-        order_code = util.unique_util.get_uuid()
-        info_list = data.pop("info_list")
-        order_vo = OrderVO(**data)
+        order_vo = to_class(data, OrderVO)
+        order_vo.user_id = service.user_service.get_id_by_token()
+        order_vo.order_code = util.unique_util.get_uuid()
+        order_vo.status = OrderStatus.UN_PAYMENT.name
+        # order_vo.store_id =
+        order_vo.total_price = reduce(lambda x, y: x + y,
+                                      map(lambda v: v.get("price") * v.get("num"), data["info_list"]))
         db.session.add(order_vo)
         db.session.flush()
-        for info in info_list:
+        for info in data["info_list"]:
+            del info["id"]
             info["order_id"] = order_vo.id
-            db.session.add(OrderInfoVO(**info))
+            order_info = to_class(info, OrderInfoVO)
+            db.session.add(order_info)
         db.session.commit()
-        return res_util.success(order_code)
+        return res_util.success(order_vo.id)
 
     def get(self, _id):
         req = request.args

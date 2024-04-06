@@ -8,12 +8,12 @@
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-table :data="props.row.info_list">
-              <el-table-column prop="goods_img" label="图片">
+              <el-table-column prop="image" label="图片">
                 <template slot-scope="scope">
-                  <image :src="scope.row.goods_img" alt="加载失败"></image>
+                  <image :src="scope.row.image" alt="加载失败"></image>
                 </template>
               </el-table-column>
-              <el-table-column prop="goods_name" label="商品名称"></el-table-column>
+              <el-table-column prop="name" label="商品名称"></el-table-column>
               <el-table-column prop="num" label="数量"></el-table-column>
               <el-table-column prop="price" label="单价"></el-table-column>
             </el-table>

@@ -74,9 +74,10 @@ app.json_encoder = MyJsonEncoder
 # }
 # app.config.from_object(DevelopmentConfig)
 
-# D:/workspace/pythonSpace/world/venv/Scripts/flask db init
-# D:/workspace/pythonSpace/world/venv/Scripts/flask db migrate
-# D:/workspace/pythonSpace/world/venv/Scripts/flask db upgrade
+# cd src
+# D:/workspace/world/venv/Scripts/flask db init
+# D:/workspace/world/venv/Scripts/flask db migrate
+# D:/workspace/world/venv/Scripts/flask db upgrade
 #
 # D:/workspace/world/venv/Scripts/flask db migrate
 # D:/workspace/world/venv/Scripts/flask db upgrade

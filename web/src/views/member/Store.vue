@@ -19,7 +19,7 @@
             <div class="type_class">{{ obj.label }}</div>
           </a>
           <BoxRow :key="index2" v-for="(obj2, index2) in obj.data" class="info">
-            <el-image class="img" :src="obj2.images"></el-image>
+            <el-image class="img" :src="obj2.image"></el-image>
             <BoxCol class="infoTxt p_c_flex_1 ">
               <div class="goodName ">
                 {{ obj2.name }}

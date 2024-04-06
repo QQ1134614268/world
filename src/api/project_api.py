@@ -68,7 +68,7 @@ def clear_path():
     data = [
         {"class": UserVO, "field": UserVO.avatar},
         {"class": UserCloudSpaceVO, "field": UserCloudSpaceVO.file_path},
-        {"class": GoodsVO, "field": GoodsVO.images},
+        {"class": GoodsVO, "field": GoodsVO.image},
         {"class": SuggestVO, "field": SuggestVO.image},
         {"class": WorksVO, "field": WorksVO.file},
         {"class": WorksVO, "field": WorksVO.thumbnail},
