@@ -61,7 +61,7 @@
       </div>
     </div>
     <div class="row5">
-      <div class="menu">
+      <div class="menu" @click="goto">
         <img src="@/assets/切图/我的/订单.png">
         <div>我的订单</div>
       </div>
@@ -99,11 +99,17 @@
 
 <script>
 
+import {order} from "@/views/member/index";
+
 export default {
   name: "UserSpace",
   data() {
-    return {
-    }
+    return {}
+  },
+  methods: {
+    async goto() {
+      await this.$router.push(order)
+    },
   }
 }
 </script>
