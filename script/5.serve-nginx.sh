@@ -29,8 +29,6 @@ http {
     include             /etc/nginx/mime.types;
     default_type        application/octet-stream;
 
-    include /etc/nginx/conf.d/*.conf;
-
     server {
         listen       80;
         server_name  renren.ggok.top;
