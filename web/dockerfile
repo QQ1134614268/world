@@ -20,4 +20,4 @@ EXPOSE 80
 # 运行nginx服务
 CMD ["nginx", "-g", "daemon off;"]
 # docker build -t world_web .
-# docker run -d --name world_web -p 18110:80 -v /app/jingxinWeb/data/log:/var/log/nginx --restart=always world_web
+# docker run -d --name world_web -p 19110:80 -v /app/jingxinWeb/data/log:/var/log/nginx --restart=always world_web
