@@ -1,5 +1,4 @@
 //人人影
-export const ROOT_URL = "/"
 export const RenrenRootUrl = "/video"
 export const UserInfoUrl = "/video/UserInfo"
 export const VideoRegisterUrl = "/video/register"
@@ -16,10 +15,6 @@ export const UserInfo2 = "/video/UserInfo2"
 export const Target = "/video/Target"
 
 export const routes = [
-    {
-        path: ROOT_URL,
-        redirect: VIDEO_MARKET,
-    },
     {
         path: RenrenRootUrl,
         component: () => import('@/views/video/videoHome'),

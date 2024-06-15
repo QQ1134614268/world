@@ -1,5 +1,6 @@
 <template>
   <div class="p_c_HolyGrail-body">
+    <link rel="icon" href="logo.jpg">
     <div id="header" class="p_c_box-flex_center">
       <div class="p_c_box-flex_center">
         <a href="/">

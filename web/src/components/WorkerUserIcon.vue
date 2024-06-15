@@ -21,7 +21,7 @@
 
 <script>
 import {userLogout} from "@/api/user";
-import {SYS_LOGIN_URL, SYS_REGISTER_URL} from "@/views/sys";
+import {USER_LOGIN_URL, USER_REGISTER_URL} from "@/views/user";
 
 export default {
   name: "WorkerUserIcon",
@@ -31,14 +31,14 @@ export default {
   methods: {
 
     async login() {
-      await this.$router.push({path: SYS_LOGIN_URL})
+      await this.$router.push({path: USER_LOGIN_URL})
     },
     async logout() {
       await userLogout()
       this.$message.success('退出登录');
     },
     async register() {
-      await this.$router.push({path: SYS_REGISTER_URL})
+      await this.$router.push({path: USER_REGISTER_URL})
     },
   },
   computed: {

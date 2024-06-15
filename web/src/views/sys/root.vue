@@ -21,12 +21,11 @@ import {userLogout} from "@/api/user";
 import {RenrenRootUrl} from "@/views/video";
 import {WorkerRootUrl} from "@/views/worker";
 import {MemberRootUrl} from "@/views/member";
-import {messageRootUrl} from "@/views/message";
 import {AdminUrl} from "@/views/videoAdmin";
 import {HelloRootUrl} from "@/views/hello";
 import {TreeRootUrl} from "@/views/tree";
-import {UserSpaceRootUrl} from "@/views/user";
-import {ENUM_ROOT, SYS_LOGIN_URL, SYS_REGISTER_URL} from "@/views/sys/index";
+import {USER_LOGIN_URL, USER_REGISTER_URL, UserSpaceRootUrl} from "@/views/user";
+import {ENUM_ROOT} from "@/views/sys/index";
 import {SystemLevel} from "@/views/level";
 
 export default {
@@ -41,10 +40,9 @@ export default {
         {url: MemberRootUrl, name: "店铺"},
         {url: AdminUrl, name: "后台系统"},
         {url: HelloRootUrl, name: "测试"},
-        {url: messageRootUrl, name: "消息"},
         {url: UserSpaceRootUrl, name: "用户空间"},
-        {url: SYS_REGISTER_URL, name: "注册"},
-        {url: SYS_LOGIN_URL, name: "登录"},
+        {url: USER_REGISTER_URL, name: "注册"},
+        {url: USER_LOGIN_URL, name: "登录"},
         {url: ENUM_ROOT, name: "枚举"},
       ],
     }

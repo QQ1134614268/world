@@ -9,17 +9,10 @@ export const worker = "/worker/worker"
 export const workTimeRecord = "/worker/workTimeRecord"
 
 export const routes = [
-    // {
-    //     path: '/worker/home',
-    //     name: '/worker/home',
-    //     component: () => import('@/views/worker/home'),
-    // },
     {
         path: WorkerRootUrl,
-        name: WorkerRootUrl,
         component: () => import('@/views/worker/home'),
         redirect: workTimeInfo,
-        // redirect: "/worker/home",
         children: [
             {
                 path: workTimeInfo,
@@ -31,7 +24,6 @@ export const routes = [
             },
             {
                 path: workLog,
-                name: workLog,
                 component: () => import('@/views/worker/log'),
             },
             {

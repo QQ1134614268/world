@@ -19,8 +19,9 @@
 
 <script>
 import errDialog from "@/components/err.vue"
-import {SYS_HOME, SYS_REGISTER_URL} from "@/views/sys";
 import {userLogin} from "@/api/user";
+import {SYS_HOME} from "@";
+import {USER_REGISTER_URL} from "@/views/user/index";
 
 export default {
   name: "login",
@@ -29,7 +30,7 @@ export default {
   },
   data() {
     return {
-      SYS_REGISTER_URL,
+      SYS_REGISTER_URL: USER_REGISTER_URL,
       from: this.$route.query.from || SYS_HOME,
       err_message: "",
       err_flag: false,

@@ -3,7 +3,7 @@ import {TOKEN} from "@/api/config";
 import Vue from "vue";
 import router from "@";
 import {VideoLoginUrl} from "@/views/video";
-import {SYS_LOGIN_URL} from "@/views/sys";
+import {USER_LOGIN_URL} from "@/views/user";
 
 // Axios.defaults.baseURL = process.env.VUE_APP_BASE_URL
 Axios.defaults.headers.common['Content-Type'] = 'application/json;';
@@ -44,7 +44,7 @@ Axios.interceptors.response.use(response => {
                 });
                 return Promise.reject(response);
             }
-            router.push({path: SYS_LOGIN_URL}).then(r => {
+            router.push({path: USER_LOGIN_URL}).then(r => {
                 return r;
             });
             return Promise.reject(response);
@@ -60,7 +60,7 @@ router.beforeEach((to, from, next) => {
     if (to.meta.login) {
         let token = localStorage.getItem(TOKEN);
         if (token === null || token === '') {
-            next(SYS_LOGIN_URL);
+            next(USER_LOGIN_URL);
         } else {
             //  if (to.meta.roles.length !== 0) {
             //                      //下一个页面的rules是否与当前token相等

@@ -22,7 +22,7 @@
 <script>
 import {userLogout} from "@/api/user";
 import {FoodInfo, HomeContent, MemberAdminHome, MemberRootUrl, Store, UserSpace} from "@/views/member/index";
-import {SYS_LOGIN_URL, SYS_REGISTER_URL} from "@/views/sys";
+import {USER_LOGIN_URL, USER_REGISTER_URL} from "@/views/user";
 
 export default {
   name: "Home",
@@ -31,8 +31,8 @@ export default {
       MemberRootUrl,
       Store,
       MemberAdminHome,
-      SYS_LOGIN_URL,
-      SYS_REGISTER_URL,
+      SYS_LOGIN_URL: USER_LOGIN_URL,
+      SYS_REGISTER_URL: USER_REGISTER_URL,
       OrderInfo: FoodInfo,
       UserSpace,
       HomeContent,
