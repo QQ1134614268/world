@@ -187,7 +187,6 @@ class MarketWorksListApi(Resource):
             UserVO.avatar,
             UserVO.username,
         ).paginate(page=page, per_page=page_size)
-        page_item.items = [dict(zip(item.keys(), item)) for item in page_item.items]
         return res_util.success(page_item)
 
 
@@ -269,7 +268,6 @@ class MarketTargetListApi(Resource):
             UserVO.avatar,
             UserVO.username,
         ).paginate(page=page, per_page=page_size)
-        page_item.items = [dict(zip(item.keys(), item)) for item in page_item.items]
         return res_util.success(page_item)
 
 
@@ -306,7 +304,6 @@ class ReviewTargetApi(Resource):
             UserVO.avatar,
             UserVO.username,
         ).paginate(page=page, per_page=page_size)
-        page_item.items = [dict(zip(item.keys(), item)) for item in page_item.items]
         return res_util.success(page_item)
 
     @permission_required(Permission.VIDEO_REVIEW.name)
@@ -349,7 +346,6 @@ class ReviewWorksApi(Resource):
             UserVO.username,
 
         ).paginate(page=page, per_page=page_size)
-        page_item.items = [dict(zip(item.keys(), item)) for item in page_item.items]
         return res_util.success(page_item)
 
     @permission_required(Permission.VIDEO_REVIEW.name)

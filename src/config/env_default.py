@@ -86,10 +86,5 @@ class WorldEnv:
         """获取用户名"""
         return path.join(self.data_dir, "upload_file")
 
-    @property
-    def upload_file_dir_name(self):  # todo 待删除
-        """获取用户名"""
-        return "/upload_file/"
-
 
 world_env = WorldEnv()

@@ -62,10 +62,9 @@
 </template>
 
 <script>
-import {GoodsApi} from "@/api/api";
+import {GoodsApi, OrderApi} from "@/api/api";
 import {toTree} from "@/api/util";
-import {postOrder} from "@/api/member_api";
-import {get2} from "@/api/http";
+import {get2, postJson2} from "@/api/http";
 
 export default {
   name: "Store",
@@ -89,7 +88,7 @@ export default {
       this.order_list = this.tableData2.filter((obj) => obj.num > 0)
     },
     async buy() {
-      let res = await postOrder(this.order_list)
+      let res = await postJson2(OrderApi, this.order_list.id, this.order_list)
       if (res.data.code === 1) {
         this.$message.success("下单成功")
         this.order_list = this.order_list.map((obj) => obj.num = 0)

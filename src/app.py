@@ -68,13 +68,6 @@ app.config.update(RESTFUL_JSON=dict(ensure_ascii=False))
 db.init_app(app)
 app.json_encoder = MyJsonEncoder
 
-# flask_env_mode = os.getenv('FLASK_ENV_MODE')
-# config = {
-#     'development': DevelopmentConfig,
-#     'production': ProductionConfig,
-# }
-# app.config.from_object(DevelopmentConfig)
-
 # cd src
 # D:/workspace/world/venv/Scripts/flask db init
 # D:/workspace/world/venv/Scripts/flask db migrate

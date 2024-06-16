@@ -21,4 +21,4 @@ def get_first_frame_loc(video_path):
     success, frame = video_capture.read()
     if success:
         cv2.imwrite(save_path, frame)
-        return world_env.upload_file_dir_name + file_name
+        return file_name

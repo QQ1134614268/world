@@ -8,7 +8,7 @@ import yaml
 from config.json_config import MyJsonEncoder
 
 
-def get_file_name_by_uuid(file_name):
+def get_uuid_file_name(file_name):
     return uuid.uuid1().hex + "." + file_name.split('.')[-1]
 
 

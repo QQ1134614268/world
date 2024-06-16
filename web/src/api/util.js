@@ -1,25 +1,29 @@
 import CryptoJS from "crypto-js";
 import Axios from "axios";
-import {IMG_TYPE, SALT_WORK_FACTOR, TOKEN, UPLOAD_FILE_SIZE_MAX, VIDEO_TYPE} from "@/api/config";
+import {IMG_TYPE, TOKEN, UPLOAD_FILE_SIZE_MAX, VIDEO_TYPE} from "@/api/config";
 import Vue from "vue";
 import jwt_decode from "jwt-decode";
 
 import {get2} from "@/api/http";
 
-export function get_salt_pwd(pwd) {
-    // todo 密码明文
-    let keyHex = CryptoJS.enc.Utf8.parse(SALT_WORK_FACTOR);
-    let encrypted = CryptoJS.DES.encrypt(pwd, keyHex, {
-        mode: CryptoJS.mode.ECB,
-        padding: CryptoJS.pad.Pkcs7
-    });
-    return encrypted.toString();
-
-    // console.log(window.btoa('china is so nb'))
-    // // 编码
-    // "Y2hpbmEgaXMgc28gbmI="
-    // window.atob("Y2hpbmEgaXMgc28gbmI=") // 解码
-    // "china is so nb"
+export function setHtmlTitleAndLogo(src, title) {
+    if (src) {
+        // 尝试获取现有的favicon链接
+        let linkElement = document.querySelector("link[rel~='icon']");
+        if (!linkElement) {
+            // 如果没有找到，则创建一个新的
+            linkElement = document.createElement('link');
+            linkElement.type = 'image/x-icon';
+            linkElement.rel = 'icon';
+            // 添加到<head>的末尾
+            document.head.appendChild(linkElement);
+        }
+        // 设置favicon的href
+        linkElement.href = src;
+    }
+    if (title) {
+        document.title = title;
+    }
 }
 
 export function detectOS() {

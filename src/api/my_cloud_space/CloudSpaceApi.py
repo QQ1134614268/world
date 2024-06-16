@@ -126,6 +126,7 @@ class CloudSpaceApi(Resource):
         return res_util.success(full_path)
 
     def delete(self):
-        path = request.get_json("path")
+        data = request.get_json()
+        path = data.get("path")
         shutil.rmtree(path)
         return res_util.success()

@@ -2,7 +2,7 @@
   <div class="p_c_HolyGrail-body">
     <div id="header" class="p_c_box-flex_center">
       <div class="p_c_box-flex_center">
-        <a href="/">
+        <a :href=RenrenRootUrl>
           <img src="@/assets/icon/favicon2.jpg" style="width: 2.5rem; border-radius: 28rem">
         </a>人人影
       </div>
@@ -60,6 +60,7 @@ import {hasPermission, userLogout} from "@/api/user";
 import {Permission} from "@/api/config";
 import {
   InvitationCode,
+  RenrenRootUrl,
   Target,
   VIDEO_MARKET,
   VIDEO_MARKET2,
@@ -69,6 +70,7 @@ import {
   WorksUrl
 } from "@/views/video/index";
 import {AdminUrl} from "@/views/videoAdmin";
+import {setHtmlTitleAndLogo} from "@/api/util";
 
 export default {
   name: "App",
@@ -77,6 +79,7 @@ export default {
       Target,
       AdminUrl,
       InvitationCode,
+      RenrenRootUrl,
       video_user,
       VIDEO_MARKET2,
       VIDEO_MARKET,
@@ -104,10 +107,11 @@ export default {
       if (this.user && this.user.id) {
         this.VIDEO_REVIEW = await hasPermission(this.user.id, Permission.VIDEO_REVIEW)
       }
-    }
+    },
   },
   created() {
     this.init()
+    setHtmlTitleAndLogo("/logo.jpg", "人人影")
   }
 }
 </script>

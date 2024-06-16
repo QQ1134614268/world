@@ -1,12 +1,13 @@
 from flask import jsonify
 from flask_sqlalchemy import Pagination
+from sqlalchemy.engine.row import Row
 
 from config.enum_conf import ResponseCode
 
 
 def success(data="success"):
     if isinstance(data, Pagination):
-        if data.items and isinstance(data.items, list) and str(data.items[0]) == 'sqlalchemy.util._collections.result':
+        if data.items and isinstance(data.items, list) and isinstance(data.items[0], Row):
             data.items = [item._asdict() for item in data.items]
         return jsonify({
             "code": ResponseCode.SUCCESS.value,
@@ -15,12 +16,6 @@ def success(data="success"):
             "page": data.page,
             "page_size": data.per_page,
         })
-    if str(type(data)) == 'sqlalchemy.util._collections.result':
-        return jsonify({
-            "code": ResponseCode.SUCCESS.value,
-            "data": data._asdict(),
-        })
-
     return jsonify({
         "code": ResponseCode.SUCCESS.value,
         "data": data,
