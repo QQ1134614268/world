@@ -5,8 +5,8 @@
 """
 from sqlalchemy import Column, String, Integer, Float, JSON
 
-from config.conf import world_env
 from config.enum_conf import StoreMemberType, OrderStatus
+from config.env_default import world_env
 from util import encrypt_util
 from util.dev_util import get_comment
 from vo.table_model import BaseTable

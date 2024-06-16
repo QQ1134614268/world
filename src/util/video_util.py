@@ -8,7 +8,8 @@ import os
 import cv2
 
 import util.unique_util
-from config.conf import JPG, world_env
+from config.conf import JPG
+from config.env_default import world_env
 
 
 def get_first_frame_loc(video_path):

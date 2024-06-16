@@ -36,7 +36,8 @@ from api.video.video_api import TargetApi, TargetListApi, MarketTargetListApi, W
 from api.worker.work_api import WorkerApi, WorkerTimeApi, WorkerExcelApi, WorkTimeAnalyseApi, \
     work_time_analyse_api
 from config.apscheduler_conf import scheduler
-from config.conf import VERSION, world_env
+from config.conf import VERSION
+from config.env_default import world_env
 from config.exception import WorldNoLoginException, WorldException
 from config.json_config import MyJsonEncoder
 from config.log_conf import logger
@@ -76,9 +77,6 @@ app.json_encoder = MyJsonEncoder
 
 # cd src
 # D:/workspace/world/venv/Scripts/flask db init
-# D:/workspace/world/venv/Scripts/flask db migrate
-# D:/workspace/world/venv/Scripts/flask db upgrade
-#
 # D:/workspace/world/venv/Scripts/flask db migrate
 # D:/workspace/world/venv/Scripts/flask db upgrade
 migrate = Migrate()

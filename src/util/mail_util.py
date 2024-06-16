@@ -3,7 +3,7 @@ import smtplib
 from email.header import Header
 from email.mime.text import MIMEText
 
-from config.conf import world_env
+from config.env_default import world_env
 from config.log_conf import logger
 
 

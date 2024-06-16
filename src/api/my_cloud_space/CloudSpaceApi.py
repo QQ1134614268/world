@@ -8,7 +8,7 @@ from flask import Blueprint, send_file, request
 from flask_restful import Resource
 
 import service.user_service
-from config.conf import world_env
+from config.env_default import world_env
 from config.mysql_db import db
 from util import res_util
 from vo.table_model import UserCloudSpaceVO

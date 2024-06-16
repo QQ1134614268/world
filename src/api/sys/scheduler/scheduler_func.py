@@ -4,8 +4,8 @@ import os
 from sqlalchemy.dialects.mysql import insert
 
 from config.apscheduler_conf import scheduler
-from config.conf import world_env
 from config.enum_conf import Permission, Role, ReviewEnum, SexEnum
+from config.env_default import world_env
 from config.log_conf import logger
 from config.mysql_db import db
 from util import time_util

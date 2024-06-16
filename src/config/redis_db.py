@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 import redis
 
-from config.conf import world_env
+from config.env_default import world_env
 
 
 def create_redis_db():

@@ -11,20 +11,26 @@ from urllib.parse import quote
 
 import yaml
 
+from config.conf import RESOURCE_DIR
+
 
 class WorldEnv:
-    #     todo flask db 命令报错，失效
     def __init__(self):
-        # parser = argparse.ArgumentParser()
-        # parser.add_argument('--worldConfig', '-c', help='配置文件位置')
-        # parser.add_argument('--worldMode', '-m', help='运行模式')
-        # parser.add_argument('--worldData', '-d', help='数据文件位置')
-        # cmd_args = parser.parse_args()
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--config', '-c', help='配置文件位置')
+        parser.add_argument('--active', '-m', help='运行模式')
+        parser.add_argument('--worldData', '-d', help='数据文件位置')
+        cmd_args, _ = parser.parse_known_args()
 
-        env_file_path = os.path.join(path.dirname(__file__), "env.yaml")  # 运行时指定
+        if cmd_args.config:
+            env_file_path = cmd_args.worldConfig  # 运行时指定
+        elif cmd_args.active:
+            env_file_path = os.path.join(RESOURCE_DIR, f"env.{cmd_args.active}.yaml")  # 运行时指定
+        else:
+            env_file_path = os.path.join(RESOURCE_DIR, "env.yaml")
 
         if not os.path.isfile(env_file_path):
-            raise Exception("配置文件不存在")
+            raise Exception(f"配置文件{env_file_path}不存在")
 
         with open(env_file_path, encoding="utf-8") as file:
             dict_value: dict = yaml.load(file, Loader=yaml.FullLoader)
@@ -63,8 +69,7 @@ class WorldEnv:
     @property
     def sqlalchemy_database_uri(self):
         """获取用户名"""
-        return f'mysql+mysqlconnector://' \
-               f'{quote(self.username)}:{quote(self.password)}@{self.host}:{self.port}/{self.world_db}?charset=utf8mb4'
+        return f'mysql+mysqlconnector://{quote(self.username)}:{quote(self.password)}@{self.host}:{self.port}/{self.world_db}?charset=utf8mb4'
 
     @property
     def log_dir(self):
@@ -74,7 +79,7 @@ class WorldEnv:
     @property
     def upload_file_path(self):
         """获取用户名"""
-        return path.join(self.data_dir, "upload")
+        return path.join(self.data_dir, "user_cloud_space")
 
     @property
     def upload_file_path2(self):
@@ -82,6 +87,9 @@ class WorldEnv:
         return path.join(self.data_dir, "upload_file")
 
     @property
-    def upload_file_dir_name(self):
+    def upload_file_dir_name(self):  # todo 待删除
         """获取用户名"""
         return "/upload_file/"
+
+
+world_env = WorldEnv()

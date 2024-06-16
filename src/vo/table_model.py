@@ -6,7 +6,7 @@
 
 from sqlalchemy import Column, Text, String, Integer, Boolean, DateTime, Sequence, UniqueConstraint, ForeignKey, text
 
-from config.conf import world_env
+from config.env_default import world_env
 from config.mysql_db import db
 from util import encrypt_util
 from util.unique_util import get_uuid

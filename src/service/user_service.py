@@ -4,7 +4,7 @@ import datetime
 import jwt
 from flask import request
 
-from config.conf import world_env
+from config.env_default import world_env
 from config.exception import WorldNoLoginException
 from util import time_util
 from util.time_util import get_now_str

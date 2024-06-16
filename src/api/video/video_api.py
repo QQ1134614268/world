@@ -13,8 +13,8 @@ from flask_restful import Resource
 from sqlalchemy import or_, insert
 from sqlalchemy.dialects.mysql import insert
 
-from config.conf import world_env
 from config.enum_conf import Permission, ReviewEnum
+from config.env_default import world_env
 from config.log_conf import logger
 from config.mysql_db import db
 from service.auth_service import set_model_user_id, permission_required

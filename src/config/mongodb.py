@@ -1,6 +1,6 @@
 import pymongo
 
-from config.conf import world_env
+from config.env_default import world_env
 
 
 def create_mongo_db():

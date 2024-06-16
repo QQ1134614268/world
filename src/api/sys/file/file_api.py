@@ -4,8 +4,8 @@ from flask import request
 from flask import send_file
 from flask_restful import Resource
 
-from config.conf import world_env
 from config.enum_conf import FileServeDirEnum
+from config.env_default import world_env
 from config.exception import WorldException
 from config.log_conf import logger
 from util import res_util
