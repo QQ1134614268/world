@@ -8,7 +8,7 @@ import argparse
 from PIL import Image
 
 
-def main(width_ratio=4, height_ratio=3):
+def transparent_img(width_ratio=4, height_ratio=3):
     width = 200
     height = width / width_ratio * height_ratio
     image = Image.new(mode='RGBA', size=(int(width), int(height)))
@@ -24,6 +24,6 @@ if __name__ == '__main__':
     parser.add_argument('--height_ratio', help='高比例', default=1, type=float)
     args = parser.parse_args()
 
-    main(args.width_ratio, args.height_ratio)
+    transparent_img(args.width_ratio, args.height_ratio)
     # main(4, 3)
     # main(16, 9)
