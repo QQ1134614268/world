@@ -290,7 +290,7 @@ app.register_blueprint(code_blueprint_api)
 if __name__ == '__main__':
     scheduler.init_app(app)
     scheduler.start()
-    app.run(host='0.0.0.0', port=9090, debug=True, threaded=True)
+    app.run(host='0.0.0.0', port=19100, debug=True, threaded=True)
     # http_server = WSGIServer(('0.0.0.0', 80), application=app, handler_class=WebSocketHandler )
     # http_server.serve_forever()
 
