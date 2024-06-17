@@ -15,7 +15,7 @@ class FileApi2(Resource):
     def get(self, path):
         full_path: str = os.path.join(world_env.upload_file_path2, path)
         if os.path.isfile(full_path):
-            return send_file(full_path, as_attachment=True, download_name=full_path.split('/')[-1])
+            return send_file(full_path, as_attachment=True, download_name=full_path.split('/')[-1], max_age=2592000)
         logger.info("文件不存在: " + full_path)
         return res_util.fail("参数异常")
 
