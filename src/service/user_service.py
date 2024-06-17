@@ -26,7 +26,7 @@ def get_token(user_vo):
         "role": user_vo.role,
         "start_time": get_now_str(),
     }
-    return str(jwt.encode(payload, world_env.secret, algorithm='HS256'), "utf_8")
+    return jwt.encode(payload, world_env.secret, algorithm='HS256')
 
 
 def get_payload():

@@ -22,7 +22,7 @@ from api.stone_game.StoneGameApi import stone_game_api
 from api.sys.SysApi import sys_api, AllApi, SuggestApi, AnnouncementApi
 from api.sys.config_api import ConfigApi, enum_api
 from api.sys.customize.customize_api import customize_api
-from api.sys.file.file_api import FileApi2, FileApi3
+from api.sys.file.file_api import FileApi2
 from api.sys.log_api import LogApi
 from api.sys.scheduler.scheduler_api import scheduler_api
 from api.sys.system_level_api import SystemLevelApi
@@ -231,9 +231,7 @@ app.register_blueprint(enum_api)
 
 api2.add_resource(CloudSpaceApi, "/api/file/CloudSpaceApi")
 
-api2.add_resource(FileApi2, "/api/file/FileApi2", "/api/file/FileApi2/upload_file/<string:path>")
-api2.add_resource(FileApi3, "/api/file/FileApi3/<string:file_dir>",
-                  "/api/file/FileApi3/FILE_SERVE/<string:file_dir>/<string:file_name>")
+api2.add_resource(FileApi2, "/api/file/FileApi2", "/api/file/FileApi2/<string:path>")
 
 api2.add_resource(LogApi, "/api/log_api/LogApi/<int:_id>")
 

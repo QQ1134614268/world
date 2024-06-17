@@ -57,10 +57,6 @@ class ReviewEnum(Enum):
     NEXT = "待评审"
 
 
-class FileServeDirEnum(Enum):
-    AVATAR = "头像"
-
-
 class SexEnum(Enum):
     MALE = "男性"
     FEMALE = "女性"

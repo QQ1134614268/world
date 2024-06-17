@@ -24,7 +24,7 @@ class MyJsonEncoder(json.JSONEncoder):
                 del dic["_sa_instance_state"]
             return dic
         if isinstance(o, Row):
-            return dict(o)
+            return o._asdict()
         if isinstance(o, Enum):
             return o.name
         if isinstance(o, datetime):
