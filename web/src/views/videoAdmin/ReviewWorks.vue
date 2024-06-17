@@ -50,7 +50,7 @@ import {ReviewWorksApi} from "@/api/api";
 import {getEnum} from "@/api/enum_api";
 import {DATE_FMT, REVIEW_ENUM} from "@/api/config";
 import {VideoUrl} from "@/views/video";
-import {getDateY_M_D} from "@/api/util";
+import {fmtDateY_M_D_H_M_S, getDateY_M_D} from "@/api/util";
 import {get2, putJson2} from "@/api/http";
 
 export default {
@@ -61,7 +61,7 @@ export default {
       ReviewEnum: [],
       VideoUrl,
       DATE_FMT,
-      dateRange: [getDateY_M_D(), getDateY_M_D()],
+      dateRange: [getDateY_M_D(), fmtDateY_M_D_H_M_S(new Date())],
       state: "NONE",
       user_name: ""
     }
