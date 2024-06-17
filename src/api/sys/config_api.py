@@ -19,14 +19,14 @@ class ConfigApi(Resource):
     def get(self, _id):
         if _id:
             return res_util.success(EnumConfig.query.filter(EnumConfig.id == _id).first())
-        parent_code = request.args.get("parent_code", '-1')
-        group_code = request.args.get("group_code", None)
-        create_by = request.args.get("create_by", service.user_service.get_id_by_token())
-        vos = EnumConfig.query.filter(
-            EnumConfig.create_by == create_by,
-            EnumConfig.parent_code == parent_code,
-            EnumConfig.group_code == group_code
-        ).all()
+        parent_code = request.args.get("parent_code")
+        group_code = request.args.get("group_code")
+        query = EnumConfig.query
+        if parent_code:
+            query.filter(EnumConfig.parent_code == parent_code)
+        if group_code:
+            query.filter(EnumConfig.group_code == group_code)
+        vos = query.all()
         return res_util.success(vos)
 
     def post(self, _id):
