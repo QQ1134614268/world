@@ -23,9 +23,9 @@ class ConfigApi(Resource):
         group_code = request.args.get("group_code")
         query = EnumConfig.query
         if parent_code:
-            query.filter(EnumConfig.parent_code == parent_code)
+            query = query.filter(EnumConfig.parent_code == parent_code)
         if group_code:
-            query.filter(EnumConfig.group_code == group_code)
+            query = query.filter(EnumConfig.group_code == group_code)
         vos = query.all()
         return res_util.success(vos)
 
