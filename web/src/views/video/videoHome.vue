@@ -46,9 +46,6 @@
     </div>
     <div id="footer">
       <div>
-        客服微信: i17601083308
-      </div>
-      <div>
         <span>备案号：</span>
         <a href="https://beian.miit.gov.cn" target="_blank" style="color: #e7e3e3">皖ICP备20002024号-1</a>
       </div>
