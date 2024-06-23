@@ -22,7 +22,6 @@ const routes = [
                 path: 'Catalogue',
                 name: 'Catalogue',
                 components: {
-                    //    todo test <router-view  name="tree"/>
                     tree: () => import('@/views/tree/Catalogue'),
                     default: () => import('@/views/tree/Catalogue')
                 }

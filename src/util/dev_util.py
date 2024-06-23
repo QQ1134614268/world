@@ -2,11 +2,12 @@ import random
 import string
 from datetime import datetime
 from enum import Enum
+from typing import Type
 
 from config.conf import DATE_TIME_FORMAT
 
 
-def get_comment(t_enum: Enum):
+def get_comment(t_enum: Type[Enum]):
     return "枚举值: " + " ".join(
         [f'{name}:{member.value};' for name, member in t_enum.__members__.items()])
 

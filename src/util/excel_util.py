@@ -5,16 +5,17 @@
 """
 import os
 from datetime import datetime
+from typing import Type
 
-from openpyxl import load_workbook, Workbook
+from openpyxl.reader.excel import load_workbook
+from openpyxl.workbook import Workbook
 
 from config.conf import DATE_FORMAT, RESOURCE_DIR
+from config.enum_conf import ResponseCode
 from config.env_default import world_env
 from config.exception import WorldException
+from config.log_conf import logger
 from config.mysql_db import db
-
-
-# todo 优化整体
 
 
 class Convert:
@@ -27,7 +28,7 @@ class Convert:
         self.default = default
 
     @staticmethod
-    def convert(value):
+    def convert(value, **kwargs):
         return value
 
 
@@ -48,7 +49,7 @@ class FloatConvert(Convert):
     def convert(value, **kwargs):
         if value is None:
             if not kwargs.get("nullable"):
-                raise WorldException("转换类型异常")
+                raise WorldExcelException("转换类型异常")
             return kwargs.get("default")
         if isinstance(value, float):
             return value
@@ -57,8 +58,7 @@ class FloatConvert(Convert):
 
 class StrConvert(Convert):
     # , nullable = True
-    @staticmethod
-    def convert(value, **kwargs):
+    def convert(self, value, **kwargs):
         # nullable = False, max_length = 20, comment = "姓名", index = None
         if value is None:
             return None
@@ -68,8 +68,8 @@ class StrConvert(Convert):
 
 
 class Field:
-    def __init__(self, convert_handle: Convert, nullable=False, min_length=0, max_length=20, comment=None, index=None,
-                 default=None):
+    def __init__(self, convert_handle: Type[Convert], nullable=False, min_length=0, max_length=20, comment=None,
+                 index=None, default=None):
         self.convert_handle = convert_handle
         self.comment = comment
         self.nullable = nullable
@@ -83,15 +83,11 @@ class Field:
                                            default=self.default)
 
 
-class ExcelExceptionMsg:
-    pass
-
-
 def check_excel_type(file_name):
     arr = file_name.split(".")
     file_type = arr and arr[-1]
     if file_type not in ["xlsx", "xls"]:
-        raise WorldException("上传文件格式不正确!")
+        raise WorldExcelException("上传文件格式不正确!")
 
 
 class ExcelHandler:
@@ -141,11 +137,11 @@ class ExcelHandler:
         sheet = cls.get_sheet(fp)
         rows = sheet.iter_rows()
         if sheet.max_row < 2:
-            raise WorldException("没有数据")
+            raise WorldExcelException("没有数据")
         excel_header = cls.get_excel_header(rows)
         obj_header = cls.get_cn(cla_type)
         if excel_header != obj_header:
-            raise WorldException(obj_header)  # todo
+            raise WorldExcelException(obj_header)
         attr_map = cls.get_attr_map(cla_type)
         for row_index, row in enumerate(rows):
             row_data = {}
@@ -156,15 +152,16 @@ class ExcelHandler:
                 try:
                     value = field.convert(cell.value)
                     row_data[attr_key] = value
-                except Exception as e:
+                except WorldExcelException as e:
                     errmsg.append(f"{row_index + 2}行{col_index + 1}列, 值有问题")
+                    logger.error(e)
             ret.append(row_data)
         if errmsg:
-            raise WorldException(errmsg)
+            raise WorldExcelException(message=errmsg)
         return ret
 
     @classmethod
-    def to_file(cls, data=[], cla_type=None, ):
+    def to_file(cls, data=Type[list], cla_type=None, ):
         wb = Workbook()
         ws = wb.active
         attr_map = cls.get_attr_map(cla_type)
@@ -179,17 +176,25 @@ class ExcelHandler:
         return wb
 
 
+class WorldExcelException(WorldException):
+
+    def __init__(self, message, code=ResponseCode.EXCEL_FAIL.value):
+        self.code = code
+        self.message = message
+
+    def __str__(self):
+        return "code: %(code)d      message: %(message)s " % {'code': self.code, 'message': self.message}
+
+
 if __name__ == '__main__':
     class User:
         name = Field(StrConvert, nullable=False, max_length=20, comment="姓名", index=1)
         sex = Field(StrConvert, nullable=False, max_length=20, comment="性别", index=2)
         birthday = Field(DateConvert, nullable=False, max_length=20, comment="生日", index=3)
-        # pay = Field(FloatConvert, nullable=False, max_length=20, comment="薪资", index=3)
-
-
+    # 读取Excel
     path = os.path.join(RESOURCE_DIR, "excel_download_test.xlsx")
     dic_list = ExcelHandler.from_file(fp=path, cla_type=User)
     print(dic_list)
-    # vos2 = [User(**dic) for dic in dic_list]
+    # 写入Excel
     wb2 = ExcelHandler.to_file(data=dic_list, cla_type=User)
     wb2.save(os.path.join(world_env.log_dir, "test_excel_output.xlsx"))

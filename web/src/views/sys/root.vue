@@ -27,12 +27,14 @@ import {TreeRootUrl} from "@/views/tree";
 import {USER_LOGIN_URL, USER_REGISTER_URL, UserSpaceRootUrl} from "@/views/user";
 import {ENUM_ROOT} from "@/views/sys/index";
 import {SystemLevel} from "@/views/level";
+import {CodeRootUrl} from "@/views/low_code";
 
 export default {
   name: "root",
   data() {
     return {
       sysUrls: [
+        {url: CodeRootUrl, name: "低代码"},
         {url: TreeRootUrl, name: "真实之树"},
         {url: SystemLevel, name: "等级系统"},
         {url: RenrenRootUrl, name: "人人影"},
