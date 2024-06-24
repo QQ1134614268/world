@@ -95,5 +95,5 @@ scheduler.add_job("clear_code", clear_code, trigger='cron', hour=23, minute=0)
 # scheduler.add_job("2",my_job, 'date', run_date='2009-11-06 16:30:05', args=['text'])
 # 2. interval 以固定的时间间隔运行作业时使用
 # scheduler.add_job("3",my_job, 'interval', hours=2, start_date='2018-10-10 09:30:00', end_date='2019-06-15 11:00:00')
-# 3. cron：在一天中的特定时间定期运行作业时使用
+# 3. cron: 在一天中的特定时间定期运行作业时使用
 # sched.add_job(job_function, 'cron', month='6-8,11-12', day='3rd fri', hour='0-3')
