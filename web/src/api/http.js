@@ -5,8 +5,27 @@ import router from "@";
 import {VideoLoginUrl} from "@/views/video";
 import {USER_LOGIN_URL} from "@/views/user";
 
-// Axios.defaults.baseURL = process.env.VUE_APP_BASE_URL
-Axios.defaults.headers.common['Content-Type'] = 'application/json;';
+export async function getJson(url, params) {
+    return await baseReq(url, "GET", params)
+}
+export async function postJson(url, params, data) {
+    return await baseReq(url, "POST", params, data)
+}
+export const postForm = (url, data = {}) => {
+    return Axios({
+        method: 'POST', url, data: data, headers: {
+            'Content-Type': 'multipart/form-data;'
+        }
+    })
+};
+
+export async function baseReq(url, method, params, data, config) {
+    let res = await Axios({
+        method: method, url: url, params: params, data: data, config: config
+    })
+    console.log(res)
+    return res.data
+}
 // 请求拦截器（在请求之前进行一些配置）
 Axios.interceptors.request.use(config => {
     if (localStorage.getItem(TOKEN)) {
@@ -16,24 +35,14 @@ Axios.interceptors.request.use(config => {
 }, error => {
     return Promise.reject(error);
 });
-/** **** response 拦截器==>对响应做处理 ******/
+// 请求返回拦截器
 Axios.interceptors.response.use(response => {
     if (response.status === 200 && response.data != null) {
         if (response.data.code === 1) {
-            // todo response.data
             return Promise.resolve(response);
         }
         if (response.data.code === 2) {
-            Vue.prototype.$message.error(response.data.data)
-            return Promise.resolve(response);
-        }
-        if (response.data.code === 4) {
-            // if (process.env.NODE_ENV === "development") {
-            //     Vue.prototype.$message.error(response.data.data)
-            // } else {
-            //     Vue.prototype.$message.error("服务器发生了错误! 请稍后再试!")
-            // }
-            Vue.prototype.$message.error("服务器发生了错误! 请稍后再试!");
+            Vue.prototype.$message.error(response.data.message)
             return Promise.resolve(response);
         }
         if (response.data.code === 8) {
@@ -55,27 +64,6 @@ Axios.interceptors.response.use(response => {
 }, error => {
     // 响应错误处理
     return Promise.reject(error);
-});
-router.beforeEach((to, from, next) => {
-    if (to.meta.login) {
-        let token = localStorage.getItem(TOKEN);
-        if (token === null || token === '') {
-            next(USER_LOGIN_URL);
-        } else {
-            //  if (to.meta.roles.length !== 0) {
-            //                      //下一个页面的rules是否与当前token相等
-            //   for (let i = 0; i < to.meta.roles.length; i++) {
-            //     if (role === to.meta.roles[i]) {
-            //       next()       //角色匹配已登录，正常进入to.meta.roles[i]的页面
-            //       break
-            //     } else if (i === to.meta.roles.length - 1) {
-            //       next({ path: '/Error' }) } }
-            // } else { next() }
-            next();
-        }
-    } else {
-        next();
-    }
 });
 
 export const getJson3 = (url, params) => {
@@ -115,33 +103,9 @@ export const deleteJson2 = (url, id, data = {}) => {
         method: 'DELETE', url: url + "/" + id, data: data
     })
 };
-export const postForm = (url, data = {}) => {
-    return Axios({
-        method: 'POST', url, data: data, headers: {
-            'Content-Type': 'multipart/form-data;'
-        }
-    })
-};
 export const ppJson = (url, id, data) => {
     if (typeof (id) === "undefined" || id === null) {
         return postJson2(url, 0, data)
     }
     return putJson2(url, id, data)
 };
-
-export async function baseReq(url, method, params, data, config) {
-    let res = await Axios({
-        method: method, url: url, params: params, data: data, config: config
-    })
-    console.log(res)
-    return res.data
-}
-
-
-export async function getJson(url, params) {
-    return await baseReq(url, "GET", params)
-}
-
-export async function postJson(url, params, data) {
-    return await baseReq(url, "POST", params, data)
-}

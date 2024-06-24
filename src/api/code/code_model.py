@@ -1,10 +1,7 @@
 from sqlalchemy import Column, String, PrimaryKeyConstraint, BINARY, Enum, TIMESTAMP, DateTime, Text
 from sqlalchemy.dialects.mysql import INTEGER, BIGINT, LONGTEXT, MEDIUMTEXT
-from sqlalchemy.orm import declarative_base
 
-from config.mysql_db import db
-
-Base = declarative_base()
+from config.mysql_db import db, Base
 
 
 class JsForm(db.Model):

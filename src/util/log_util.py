@@ -38,7 +38,7 @@ def create_logger(log_dir=None):
     # write log to console
     handler_console = logging.StreamHandler()
     handler_console.setLevel(logging.NOTSET)
-    # handler_console.setFormatter(JSONFormatter())
+    handler_console.setFormatter(JSONFormatter())
 
     log.addHandler(err_handler)
     log.addHandler(warn_handler)
@@ -77,9 +77,8 @@ if __name__ == '__main__':
     logger.debug({"aa": 1})
     logger.info({"bb": 1})
     logger.error("Do something")
-    logger.error(1, 1, 1)
-    logger.error(1, 1, 1, {"a": 1})
-    logger.error("Do something", "dd")
+    # logger.error(1, 1, 1)
+    # logger.error(1, 1, 1, {"a": 1})
     logger.warning("Something maybe fail.")
     logger.exception("Something maybe fail.")
 

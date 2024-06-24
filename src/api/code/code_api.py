@@ -45,9 +45,10 @@ class CodeApi:
     @staticmethod
     @code_blueprint_api.route('/get_table_tree', methods=['GET'])
     def get_table_tree():
-        vos = db.session.query(MysqlDb).all()
+        vos = db.session.query(MysqlTables).filter(MysqlTables.TABLE_SCHEMA == "world").all()
+        cols = db.session.query(MysqlColumns).filter(MysqlColumns.TABLE_SCHEMA == "world").all()
         for vo in vos:
-            vo.table_list = db.session.query(MysqlTables).filter(MysqlTables.TABLE_SCHEMA == vo.SCHEMA_NAME).all()
+            vo.children = [col for col in cols if col.TABLE_NAME == vo.TABLE_NAME]
         return res_util.success(vos)
 
     @staticmethod

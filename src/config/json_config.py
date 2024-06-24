@@ -13,12 +13,17 @@ from sqlalchemy.engine import Row
 
 from config.conf import DATE_FORMAT, DATE_TIME_FORMAT
 from config.log_conf import logger
-from config.mysql_db import db
+from config.mysql_db import db, Base
 
 
 class MyJsonEncoder(json.JSONEncoder):
     def default(self, o):
         if isinstance(o, db.Model):
+            dic = o.__dict__
+            if "_sa_instance_state" in dic:
+                del dic["_sa_instance_state"]
+            return dic
+        if isinstance(o, Base):
             dic = o.__dict__
             if "_sa_instance_state" in dic:
                 del dic["_sa_instance_state"]

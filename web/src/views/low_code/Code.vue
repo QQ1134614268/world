@@ -1,6 +1,9 @@
 <template>
-  <div style="display: flex;">
+  <div class="codePage">
     <div style="width: 20%;border-left: #0a53be">
+      <div v-for="db in dbs">
+        {{ db.SCHEMA_NAME }}
+      </div>
       <div>
         <div>最近操作</div>
         top,折叠
@@ -16,7 +19,6 @@
         </div>
       </div>
     </div>
-    <div style="display: flex">
       <div>
         <el-form :model="formData" ref="formData" label-width="100px">
           <el-form-item prop="name" label="表名">
@@ -78,12 +80,11 @@
         </div>
       </div>
       <!--      <el-table :data="resultData"></el-table>-->
-    </div>
   </div>
 </template>
 
 <script>
-import {getJson3} from "@/api/http";
+import {getJson, getJson3} from "@/api/http";
 import Fmt from "@/views/low_code/Fmt.vue";
 
 let get_dbs = "/api/code_api/get_dbs"
@@ -98,6 +99,7 @@ export default {
   },
   data() {
     return {
+      dbs: [],
       treeData: [],
       colData: [],
       javaColData: [],
@@ -110,8 +112,10 @@ export default {
   },
   methods: {
     async init() {
-      let res = await getJson3(get_table_tree)
-      this.treeData = res.data.data
+      let res = await getJson(get_dbs)
+      this.dbs = res.data
+      let res2 = await getJson(get_table_tree)
+      this.treeData = res2.data
     },
     async getTableCols(tableName) {
       this.formData.tableName = tableName
@@ -138,8 +142,13 @@ export default {
 }
 </script>
 
-<style scoped>
-.table{
+<style scoped lang="less">
+.codePage {
+  display: flex;
+  justify-content: space-around;
+}
+
+.table {
   margin-left: 2rem;
 }
 </style>
