@@ -1,3 +1,4 @@
+import jinja2
 from flask import Blueprint, request
 
 from api.code.code_model import JsForm, MysqlDb, MysqlTables, MysqlColumns
@@ -62,3 +63,12 @@ class CodeApi:
             JsForm.TABLE_NAME == table_name
         ).all()
         return res_util.success(vos)
+
+    @staticmethod
+    def to_file(data_dic, path, resource_dir, template_file):
+        template_loader = jinja2.FileSystemLoader(searchpath=resource_dir)
+        template_env = jinja2.Environment(loader=template_loader)
+        template = template_env.get_template(template_file)
+        output_text = template.render(data_dic)
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(output_text)

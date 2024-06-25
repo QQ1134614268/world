@@ -8,17 +8,30 @@
         </div>
       </div>
     </div>
-     <el-table :data="tableData" class="table">
+    <div class="table">
+      <div>
+        <el-button type="success">controller</el-button>
+        <el-button type="success">service</el-button>
+        <el-button type="success">mapper</el-button>
+        <el-button type="success">entity</el-button>
+        <el-button type="success">vue</el-button>
+        <el-button type="success">添加自定义模板</el-button>
+        <el-select :value="templateList" placeholder="请选择自定义模版">
+        </el-select>
+      </div>
+      <el-table :data="tableData">
         <el-table-column prop="COLUMN_NAME" label="COLUMN_NAME"></el-table-column>
         <el-table-column prop="COLUMN_TYPE" label="COLUMN_TYPE"></el-table-column>
         <el-table-column prop="IS_NULLABLE" label="IS_NULLABLE"></el-table-column>
         <el-table-column prop="COLUMN_COMMENT" label="COLUMN_COMMENT"></el-table-column>
+        <el-table-column prop="RE" label="正则约束"></el-table-column>
       </el-table>
+    </div>
   </div>
 </template>
 
 <script>
-import {getJson, getJson3} from "@/api/http";
+import {getJson} from "@/api/http";
 import Fmt from "@/views/low_code/Fmt.vue";
 
 let get_dbs = "/api/code_api/get_dbs"
@@ -37,7 +50,7 @@ export default {
       tableData: [],
       colData: [],
       javaColData: [],
-
+      templateList: [],
       multipleSelection: [],
       resultData: [],
 
@@ -62,14 +75,11 @@ export default {
 
   .nav {
     width: 20%;
-    border-left: #0a53be;
   }
-  .table{
 
+  .table {
+    flex-grow: 1;
   }
 }
 
-.table {
-  margin-left: 2rem;
-}
 </style>
