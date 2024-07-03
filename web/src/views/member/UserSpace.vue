@@ -120,6 +120,7 @@ export default {
   padding: 0 1rem;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   align-items: center;
   justify-content: center;
 

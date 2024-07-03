@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div style="overflow-y: auto">
+    <div class="body">
       <div class="storeName">深圳方大城店</div>
       <div class="row1">
         <div class="storeBox">
@@ -153,11 +153,14 @@ export default {
 
   display: flex;
   flex-direction: column;
-  flex: 0 0 auto;
+  flex-grow: 1;
   justify-content: center;
   align-items: center;
 }
-
+.body{
+  flex-grow: 1;
+  overflow-y: scroll;
+}
 .storeName {
   width: 100%;
   height: 4rem;
@@ -393,7 +396,6 @@ export default {
   width: 100%;
   height: 2rem;
   display: flex;
-  flex: 0 0 auto;
   justify-content: center;
   align-items: center;
 

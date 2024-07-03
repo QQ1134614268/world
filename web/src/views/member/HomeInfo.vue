@@ -109,7 +109,7 @@
   padding-bottom: 5rem;
   display: flex;
   flex-direction: column;
-  flex: 0 0 auto;
+  flex-grow: 1;
   align-items: center;
 }
 
