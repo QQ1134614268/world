@@ -2,17 +2,13 @@
   <div class="containerBox">
     <!--        订单(搜索) (商家, 后台, 用户)-->
     <div class="searchBox">
-      <el-button size="mini" @click="init">查询</el-button>
+      <el-button @click="init">查询</el-button>
     </div>
     <div class="tableBox">
       <div v-for="(item,index) in page.data" class="orderBox">
         <div class="order">
-          <span>
-            {{ item.create_time }}
-          </span>
-          <span>
-            {{ item.total_price }}
-          </span>
+          <span>{{ item.create_time }}</span>
+          <span>{{ item.total_price }}</span>
         </div>
         <div v-for="(item1,index2) in item.info_list" class="orderInfo">
           <span class="food">
@@ -24,7 +20,7 @@
         </div>
       </div>
     </div>
-    <el-pagination @size-change="handleSizeChange"
+    <el-pagination v-if="page.total" @size-change="handleSizeChange"
                    @current-change="handleCurrentChange"
                    :current-page="page.page"
                    :page-size="page.page_size"
@@ -65,10 +61,6 @@ export default {
       } else {
         this.$message.error('服务器异常');
       }
-    },
-    async info() {
-    },
-    async del() {
     },
     handleCurrentChange(val) {
       this.page.page = val;

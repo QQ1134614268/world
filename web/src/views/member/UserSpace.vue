@@ -158,7 +158,6 @@ export default {
         .avtarName {
           width: 100%;
           height: 3rem;
-          font-family: SourceHanSansCN-Medium;
           font-size: 2rem;
           font-weight: normal;
           font-stretch: normal;
@@ -170,7 +169,6 @@ export default {
         .avtarId {
           width: 100%;
           height: 1.5rem;
-          font-family: SourceHanSansCN-Regular;
           font-size: 1rem;
           font-weight: normal;
           font-stretch: normal;
@@ -203,7 +201,6 @@ export default {
     ._77 {
       width: 5rem;
       height: 1.6rem;
-      font-family: zihun54hao-xianhei;
       font-size: 2rem;
       font-weight: normal;
       font-style: italic;
@@ -240,7 +237,6 @@ export default {
       ._77Login {
         width: 8rem;
         height: 1.4rem;
-        font-family: SourceHanSansCN-Medium;
         font-size: 1.4rem;
         font-weight: normal;
         font-stretch: normal;
@@ -284,7 +280,6 @@ export default {
 
     .numName {
       height: 2rem;
-      font-family: SourceHanSansCN-Regular;
       font-size: 1.6rem;
       font-weight: normal;
       font-stretch: normal;
@@ -373,7 +368,6 @@ export default {
       .iconName {
         width: 6rem;
         height: 1.5rem;
-        font-family: SourceHanSansCN-Regular;
         font-size: 1.6rem;
         font-weight: normal;
         font-stretch: normal;

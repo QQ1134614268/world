@@ -71,10 +71,6 @@ export default {
         this.$message.error('服务器异常');
       }
     },
-    async info() {
-    },
-    async del() {
-    },
     handleCurrentChange(val) {
       this.page.page = val;
       this.init();

@@ -116,7 +116,6 @@ export default {
 
     .menuText {
       height: 2.4rem;
-      font-family: SourceHanSansCN-Medium;
       font-size: 2rem;
       font-weight: normal;
       font-stretch: normal;

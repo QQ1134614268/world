@@ -141,7 +141,6 @@
     .join {
       width: 23rem;
       height:  1.5rem;
-      font-family: zihun54hao-xianhei;
       font-size:  1.5rem;
       font-weight: normal;
       font-stretch: normal;
@@ -178,7 +177,6 @@
       justify-content: center;
       align-items: center;
 
-      font-family: SourceHanSansCN-Regular;
       font-size:  1.625rem;
       font-weight: normal;
       font-stretch: normal;
@@ -216,7 +214,6 @@
     .numName {
       height: 1.6rem;
       margin-top: 1rem;
-      font-family: SourceHanSansCN-Medium;
       font-size: 1.6rem;
       font-weight: normal;
       font-stretch: normal;
@@ -230,7 +227,6 @@
       width: 4rem;
       height: 1.25rem;
       margin-top: 1rem;
-      font-family: SourceHanSansCN-Regular;
       font-size: 1.6rem;
       font-weight: normal;
       font-stretch: normal;
@@ -268,7 +264,6 @@
       .orderName {
         height: 2.25rem;
         margin: 0 1rem;
-        font-family: SourceHanSansCN-Medium;
         font-size: 2.375rem;
         font-weight: normal;
         font-stretch: normal;
@@ -325,7 +320,6 @@
       .activityText {
         width: 11.75rem;
         height: 2rem;
-        font-family: SourceHanSansCN-Regular;
         font-size: 2rem;
         font-weight: normal;
         font-stretch: normal;
@@ -367,7 +361,6 @@
       .note {
         width: 7.5rem;
         height:  1.5rem;
-        font-family: SourceHanSansCN-Regular;
         font-size:  1.5rem;
         font-weight: normal;
         font-stretch: normal;
@@ -411,7 +404,6 @@
           .price {
             width: 2rem;
             height: 1.2rem;
-            font-family: SourceHanSansCN-Regular;
             font-size:  1.5rem;
             font-weight: normal;
             font-stretch: normal;

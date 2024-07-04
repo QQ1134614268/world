@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="row2">
-        <img src="@/assets/切图/点餐2/banner.png">
+        <img src="@/assets/切图/点餐2/banner.png" class="img">
       </div>
       <div class="row3">
         <div class="menuGroup">
@@ -147,17 +147,15 @@ export default {
 <style scoped lang="less">
 .container {
   width: 100%;
-  padding: 1rem 3rem;
-  height: 100%;
-  max-height: 100%;
-
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  justify-content: center;
   align-items: center;
+  overflow-y: hidden;
 }
-.body{
+
+.body {
+  width: 100%;
   flex-grow: 1;
   overflow-y: scroll;
 }
@@ -167,7 +165,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: SourceHanSansCN-Medium;
   font-size: 2rem;
   font-weight: bold;
   font-stretch: normal;
@@ -200,7 +197,6 @@ export default {
         width: 10rem;
         height: 1.625rem;
         margin: 0 1rem;
-        font-family: SourceHanSansCN-Medium;
         font-size: 1.625rem;
         font-weight: normal;
         font-stretch: normal;
@@ -219,7 +215,6 @@ export default {
     .address {
       width: 31.875rem;
       height: 1.5rem;
-      font-family: SourceHanSansCN-Regular;
       font-size: 1.5rem;
       font-weight: normal;
       font-stretch: normal;
@@ -246,7 +241,6 @@ export default {
       justify-content: center;
       align-items: center;
 
-      font-family: SourceHanSansCN-Regular;
       font-size: 1.5rem;
       font-weight: normal;
       font-stretch: normal;
@@ -258,7 +252,6 @@ export default {
     .out {
       width: 3rem;
       height:  1.5rem;
-      font-family: SourceHanSansCN-Regular;
       font-size:  1.5rem;
       font-weight: normal;
       font-stretch: normal;
@@ -275,6 +268,11 @@ export default {
   margin-top: 1rem;
   //background-color: #9ed710;
   border-radius: 0.75rem;
+
+  .img {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .row3 {
@@ -286,7 +284,6 @@ export default {
 
   .menuGroup {
     width: 8rem;
-    font-family: SourceHanSansCN-Bold;
     font-size: 1.6rem;
     font-weight: normal;
     font-stretch: normal;
@@ -313,7 +310,6 @@ export default {
     .foodTypeName {
       width: 10rem;
       height: 1.875rem;
-      font-family: SourceHanSansCN-Regular;
       font-size: 1.5rem;
       font-weight: normal;
       font-stretch: normal;
@@ -346,7 +342,6 @@ export default {
           .foodName {
             //height: 2.5rem;
             padding: 0.1rem 0.5rem;
-            font-family: SourceHanSansCN-Regular;
             font-size: 1.5rem;
             font-weight: normal;
             font-stretch: normal;
@@ -357,7 +352,6 @@ export default {
           .foodDesc {
           //height: 1rem;
           padding: 0.1rem 0.5rem;
-          font-family: SourceHanSansCN-Regular;
           font-weight: normal;
           font-stretch: normal;
           letter-spacing: 0;
@@ -371,7 +365,6 @@ export default {
           align-items: center;
 
           .foodPrice {
-            font-family: SourceHanSansCN-Bold;
             font-size: 1.8rem;
             font-weight: normal;
             font-stretch: normal;
@@ -394,11 +387,10 @@ export default {
 
 .cart {
   width: 100%;
-  height: 2rem;
+  height: 2.6rem;
   display: flex;
   justify-content: center;
-  align-items: center;
-
+  align-items: flex-start;
   font-size: 2rem;
 
   .sum {
@@ -413,8 +405,7 @@ export default {
   }
 
   .settlement {
-    width: 8rem;
-    margin-right: 2rem;
+    width: 12rem;
     background-color: #f33b3b;
     border-top-right-radius: 2rem;
     display: flex;
