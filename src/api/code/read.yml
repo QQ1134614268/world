@@ -1,0 +1,6 @@
+code低代码:
+    网页端 建表:
+        数据类型, 备注, 字段名, 校验正则, 
+        智能填充,引用填充
+        数据保存到库中
+    生成表: entity, service .controller, vue(save update 合并??)
