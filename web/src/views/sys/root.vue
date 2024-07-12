@@ -1,23 +1,30 @@
 <template>
-  <div>
+  <div class="rootPage">
     <h1 style="text-align: center">根节点</h1>
-    <div class="p_c_flexbox">
-      <div v-for="item in sysUrls ">
-        <a :href=item.url>
-          <div class="p_c_box-flex_col-center">
-            <div style="width: 8rem">
-              <img src="@/assets/route.webp">
-            </div>
-            <div>{{ item.name }}</div>
+    <div class="body">
+      <div v-for="item in sysUrls " class="imgItem">
+        <div class="imgBox">
+          <div class="parent">
+            <a :href=item.url>
+              <img src="@/assets/route.webp" class="child img1" alt="加载失败">
+            </a>
           </div>
-        </a>
+          <div class="desc">
+            {{ item.name }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="footer">
+      <div>
+        <span>备案号：</span>
+        <a href="https://beian.miit.gov.cn" target="_blank" style="color: #e7e3e3">皖ICP备20002024号-1</a>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import {userLogout} from "@/api/user";
 import {RenrenRootUrl} from "@/views/video";
 import {WorkerRootUrl} from "@/views/worker";
 import {MemberRootUrl} from "@/views/member";
@@ -48,16 +55,60 @@ export default {
         {url: ENUM_ROOT, name: "枚举"},
       ],
     }
-  },
-  methods: {
-    async logOut() {
-      await userLogout()
-      this.$message("退出")
-    }
   }
 }
 </script>
 
 <style scoped>
+#footer {
+  text-align: center;
+}
+
+.rootPage {
+  display: flex;
+  flex-direction: column;
+
+  .body {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    flex-grow: 1;
+
+    .imgItem {
+      width: 10rem;
+      padding: 1rem;
+
+
+      .imgBox {
+        width: 100%;
+
+        .img1 {
+          object-fit: fill;
+        }
+
+        .desc {
+          display: flex;
+          justify-content: center;
+        }
+      }
+    }
+  }
+}
+
+.parent {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+}
+
+.child {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 </style>

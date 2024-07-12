@@ -124,29 +124,4 @@ export default {
   text-align: center;
 }
 
-@keyframes blink {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 1;
-  }
-  50.01% {
-    opacity: 0;
-  }
-  /* 注意这里定义50.01%立刻透明度为０，可以设置闪烁效果 */
-  100% {
-    opacity: 0;
-  }
-}
-
-.blink {
-  animation: blink .75s linear infinite;
-  /* 其它浏览器兼容性前缀 */
-  -webkit-animation: blink .75s linear infinite;
-  -moz-animation: blink .75s linear infinite;
-  -ms-animation: blink .75s linear infinite;
-  -o-animation: blink .75s linear infinite;
-  color: #dd4814;
-}
 </style>

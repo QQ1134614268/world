@@ -1,8 +1,23 @@
 <template>
   <div class="p_c_HolyGrail-body">
     <BoxRow class="header">
-      <h2 class="title">真实之树</h2>
-      <TreeUserIcon class="icon"></TreeUserIcon>
+      <div class="title">真实之树</div>
+      <div class="avtar">
+        <div v-if="user">
+          <el-dropdown @command="handleCommand">
+        <span class="el-dropdown-link">
+          <el-avatar :src="user.avatar" :key="user.avatar"></el-avatar>
+        </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
+        <div v-else>
+          <el-button @click="login">登录</el-button>
+          <el-button @click="register">注册</el-button>
+        </div>
+      </div>
     </BoxRow>
     <div class="p_c_HolyGrail-body">
       <router-view/>
@@ -15,48 +30,45 @@
 </template>
 
 <script>
-import TreeUserIcon from "@/components/TreeUserIcon";
+import {userLogout} from "@/api/user";
 
 export default {
   name: "treeHome",
-  components: {
-    TreeUserIcon
+  methods: {
+    async logout() {
+      await userLogout()
+    },
+    handleCommand(command) {
+      this.$message('click on item ' + command);
+    }
+  },
+  computed: {
+    user() {
+      return this.$store.state.userInfo
+    }
   },
 }
 </script>
 <style scoped>
 
 .header {
+  display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.icon {
-  width: 10rem;
 }
 
 .title {
   text-align: center;
   flex: 1;
+  font-weight: bold;
+}
+
+.avtar {
+  width: 10rem;
 }
 
 #footer {
   text-align: center;
 }
 
-@keyframes blink {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 1;
-  }
-  50.01% {
-    opacity: 0;
-  }
-  /* 注意这里定义50.01%立刻透明度为０，可以设置闪烁效果 */
-  100% {
-    opacity: 0;
-  }
-}
 </style>
