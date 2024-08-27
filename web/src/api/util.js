@@ -1,4 +1,3 @@
-import CryptoJS from "crypto-js";
 import Axios from "axios";
 import {IMG_TYPE, TOKEN, UPLOAD_FILE_SIZE_MAX, VIDEO_TYPE} from "@/api/config";
 import Vue from "vue";

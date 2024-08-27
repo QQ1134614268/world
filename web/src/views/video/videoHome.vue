@@ -47,7 +47,7 @@
     <div id="footer">
       <div>
         <span>备案号：</span>
-        <a href="https://beian.miit.gov.cn" target="_blank" style="color: #e7e3e3">皖ICP备20002024号-1</a>
+        <a href="https://beian.miit.gov.cn" target="_blank" style="color: #e7e3e3">皖ICP备20002024号-2</a>
       </div>
     </div>
   </div>

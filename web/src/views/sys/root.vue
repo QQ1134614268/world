@@ -1,6 +1,6 @@
 <template>
   <div class="rootPage">
-    <h1 style="text-align: center">根节点</h1>
+    <h1 style="text-align: center">科技小栈</h1>
     <div class="body">
       <div v-for="item in sysUrls " class="imgItem">
         <div class="imgBox">
@@ -18,7 +18,7 @@
     <div id="footer">
       <div>
         <span>备案号：</span>
-        <a href="https://beian.miit.gov.cn" target="_blank" style="color: #e7e3e3">皖ICP备20002024号-1</a>
+        <a href="https://beian.miit.gov.cn" target="_blank" style="color: #e7e3e3">皖ICP备20002024号-2</a>
       </div>
     </div>
   </div>
