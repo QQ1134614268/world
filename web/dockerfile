@@ -1,5 +1,5 @@
 # 使用Node.js作为基础镜像
-FROM node:14 AS build-stage
+FROM node:20 AS build-stage
 WORKDIR /app
 # 将本地项目复制到容器的工作目录中
 COPY package*.json ./
