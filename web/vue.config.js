@@ -1,49 +1,24 @@
-// const CompressionWebpackPlugin = require('compression-webpack-plugin');
-const isProduction = process.env.NODE_ENV === 'production';
-
-module.exports = {
-    publicPath: "/",
+const {defineConfig} = require("@vue/cli-service");
+module.exports = defineConfig({
+    transpileDependencies: true,
+    lintOnSave: "warning", // eslint 告警级别
     devServer: {
-        hot: !isProduction,//浏览器重新刷新
-        // hotOnly: false,
-        open: true,
         host: "0.0.0.0",
         port: process.env.PORT,
-        https: false,
-        disableHostCheck: true,
+        open: true,
+        hot: true,//浏览器重新刷新
+        // hotOnly: false,
+        // allowedHosts: "all", // 允许访问的主机列表
+        // https: false,
+        // historyApiFallback: true, //拦截所有的404,并返回index.html文件（或你指定的其他文件）
         proxy: {
-            "/api/": {
+            "^/api/": {
                 target: process.env.VUE_APP_BASE_URL,
                 changeOrigin: true,
                 pathRewrite: { // 路径重写
                     '^/api/': '/api/'
                 }
             }
-        },
-    },
-    productionSourceMap: isProduction,
-    // 配置webpack
-    configureWebpack: config => {
-        config.optimization = {
-            runtimeChunk: 'single',
-            splitChunks: {
-                chunks: 'all',
-                maxInitialRequests: Infinity,
-                minSize: 20000,
-                cacheGroups: {
-                    vendor: {
-                        test: /[\\/]node_modules[\\/]/,
-                        name(module) {
-                            // get the name. E.g. node_modules/packageName/not/this/part.js
-                            // or node_modules/packageName
-                            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
-                            // npm package names are URL-safe, but some servers don't like @ symbols
-                            return `npm.${packageName.replace('@', '')}`
-                        }
-                    }
-                }
-            }
-        };
-    },
-
-};
+        }
+    }
+});
