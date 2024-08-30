@@ -3,6 +3,7 @@ FROM node:20 AS build-stage
 WORKDIR /app
 # 将本地项目复制到容器的工作目录中
 COPY package*.json ./
+RUN npm config set registry https://mirrors.cloud.tencent.com/npm/
 # 安装项目依赖
 RUN npm install
 # 复制项目的源代码
