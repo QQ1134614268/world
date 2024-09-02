@@ -20,7 +20,7 @@
           </a>
           <BoxRow :key="index2" v-for="(obj2, index2) in obj.data" class="info">
             <el-image class="img" :src="obj2.image"></el-image>
-            <BoxCol class="infoTxt p_c_flex_1 ">
+            <BoxCol class="infoTxt ">
               <div class="goodName ">
                 {{ obj2.name }}
               </div>
@@ -174,6 +174,7 @@ export default {
 }
 
 .infoTxt {
+  flex: 1 1 auto;
   justify-content: space-between;
 }
 
