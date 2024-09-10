@@ -2,7 +2,7 @@
   <div class="rootPage">
     <h1 style="text-align: center">科技小栈</h1>
     <div class="body">
-      <div v-for="item in sysUrls " class="imgItem">
+      <div :key=index v-for="(item, index) in sysUrls " class="imgItem">
         <div class="imgBox">
           <div class="parent">
             <a :href=item.url>
