@@ -16,7 +16,7 @@
     </div>
     <div class="col-11">
       <div class="p_c_flexbox">
-        <div v-for="o in tableData" class="ratio_box block">
+        <div v-for="(o, index) in tableData" class="ratio_box block" :key="index">
           <div class="ratio_box_img">
             <img :src="o.thumbnail">
           </div>

@@ -62,7 +62,7 @@
     <!--      </div>-->
     <!--    </div>-->
     <div id="box">
-      <div v-for="(item, index) in 20" :class="{p_c_test_border:show_border}"
+      <div v-for="(item, index) in 20" :class="{p_c_test_border:show_border}" :key="index"
            :style="{width:(index+1)+'rem', height:(index+1)+'rem','align-self':align_self_attr,'flex':flex}">
         {{ (index + 1) }}
         白日依山尽,黄河入海流.
@@ -103,7 +103,7 @@ export default {
   },
   watch: {
     box_val: {
-      handler: function (val, oldVal) {
+      handler: function () {
         let ele = document.getElementById("box")
         for (let attr in this.box_val) {
           ele.style[attr.replace("_", "-")] = this.box_val[attr]

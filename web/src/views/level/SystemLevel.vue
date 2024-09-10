@@ -75,7 +75,9 @@ export default {
   methods: {
     async onSubmit() {
       let response = await ppJson(SystemLevelApi, this.form.id, this.form);
-      this.$message("操作成功")
+      if (response.data.code !== 1) {
+        this.$message.error(response.data.data);
+      }
       this.dialogVisible = false
     },
     onCancel() {
@@ -87,6 +89,9 @@ export default {
     },
     async handleDelete() {
       let response = await deleteJson2(SystemLevelApi, this.form.id);
+      if (response.data.code !== 1) {
+        this.$message.error(response.data.data);
+      }
     },
     async init() {
       let data = {

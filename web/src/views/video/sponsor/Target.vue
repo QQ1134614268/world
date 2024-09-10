@@ -43,7 +43,7 @@ import {getUserIdByToken} from "@/api/util";
 import {deleteJson2, get2, postJson2, putJson2} from "@/api/http";
 
 export default {
-  name: "Target",
+  name: "TargetComponent",
   data() {
     return {
       dialogVisible: false,
@@ -52,7 +52,11 @@ export default {
       tableData: [],
       rules: {
         title: [
-          {required: true, message: '不能为空', trigger: 'blur'}
+          {
+            required: true,
+            message: '不能为空',
+            trigger: 'blur'
+          }
         ],
         content: [
           {required: true, message: '不能为空', trigger: 'blur'}

@@ -39,7 +39,7 @@
         <div class="foodList">
           <div class="foodTypeName">经典推荐</div>
           <div class="foodGroupList">
-            <div class="foodBox" v-for="(food, index) in foodList">
+            <div class="foodBox" v-for="(food, index) in foodList" :key="index">
               <img class="foodImg" :src=food.image>
               <div class="foodDescBox">
                 <div class="foodName">{{ food.name }}</div>

@@ -8,13 +8,13 @@
       <el-input v-model="obj.value"></el-input>
     </div>
     <div class="block">
-      <div v-for="(item , index) in prove">
+      <div v-for="(item, index) in prove" :key="index">
         <textarea v-model="item.value " class="p_c_para">
         </textarea>
       </div>
     </div>
     <div class="block">
-      <div v-for="(item , index) in story" class="p_c_flexbox_row">
+      <div v-for="(item, index) in story" :key="index" class="p_c_flexbox_row">
         <textarea v-model="item.value " class="p_c_para">
         </textarea>
       </div>
@@ -65,13 +65,25 @@ export default {
     },
     async del() {
       let res1 = await deleteJson2(ProveApi, this.id, {});
+      if (res1.data.code !== 1) {
+        this.$message.error(res1.data.data);
+      }
       this.$router.back()
       this.$router.back()
     },
     async save() {
       let res1 = await putJson2(ProveApi, this.obj.id, this.obj);
+      if (res1.data.code !== 1) {
+        this.$message.error(res1.data.data);
+      }
       let res2 = await putJson2(ProveApi, 0, this.prove);
+      if (res2.data.code !== 1) {
+        this.$message.error(res2.data.data);
+      }
       let res3 = await putJson2(StoryApi, 0, this.story);
+      if (res3.data.code !== 1) {
+        this.$message.error(res3.data.data);
+      }
       this.$router.back()
     },
   },

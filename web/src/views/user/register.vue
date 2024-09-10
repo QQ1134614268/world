@@ -34,7 +34,7 @@ import {UserApi_get_verify_code} from "@/api/api";
 import {userRegister} from "@/api/user";
 
 export default {
-  name: "register",
+  name: "RegisterComponent",
   data() {
     return {
       username: "",

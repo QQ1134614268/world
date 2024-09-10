@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <router-view class="view"/>
+  <div id="app" class="d-flex flex-column min-vh-100 ">
+    <router-view/>
   </div>
 </template>
 <script>
@@ -21,8 +21,6 @@ export default {
 </script>
 <style>
 #app {
-  width: 100%;
-  height: 100%;
   /*页面文字可复制*/
   -webkit-user-select: text;
 }

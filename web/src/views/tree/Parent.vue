@@ -4,8 +4,8 @@
       <el-button slot="suffix" class="el-icon-search" @click="proveParent(search)">搜索</el-button>
     </el-input>
 
-    <div v-for="(arr,index) in splitRules" class="p_c_para">
-      <div v-for="(model,index2) in reverse(arr)" class="">
+    <div v-for="(arr,index) in splitRules" :key="index" class="p_c_para">
+      <div v-for="(model,index2) in reverse(arr)" class="" :key="index2">
         <span>{{ space.substring(0, index2 * 4) }}</span>
         <span>{{ model.value }}</span>
       </div>
@@ -20,7 +20,7 @@ import {ProveBlueprintApi_prove_value_parent} from "@/api/api";
 import {get2} from "@/api/http";
 
 export default {
-  name: " Parent",
+  name: "ParentComponent",
   data() {
     return {
       space: "--------------------------------------------------------------------------------------------",

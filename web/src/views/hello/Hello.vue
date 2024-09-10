@@ -26,8 +26,7 @@ import Axios from "axios";
 import {TOKEN} from "@/api/config";
 
 export default {
-
-  name: 'hello',
+  name: 'HelloComponent',
   data() {
     return {
       message: 'default',

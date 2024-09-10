@@ -17,7 +17,7 @@ import {LogApi} from "@/api/api";
 import {get2} from "@/api/http";
 
 export default {
-  name: "log",
+  name: 'LogComponent',
   data() {
     return {
       url: "",

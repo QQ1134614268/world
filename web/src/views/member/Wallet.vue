@@ -40,7 +40,7 @@ export default {
         id: item.id
       }
       let response = await get2(WalletApi,data.id, data);
-      if (response.data.code != 1) {
+      if (response.data.code !== 1) {
         return
       }
       this.$set(item, "wallet", response.data.data)
@@ -51,7 +51,7 @@ export default {
         money: this.addMoneyNum,
       }
       let response = await putJson2(WalletApi,data.id, data);
-      if (response.data.code != 1) {
+      if (response.data.code !== 1) {
         return
       }
       item["money"] = response.data.data
@@ -62,7 +62,7 @@ export default {
         money: -this.payMoneyNum,
       }
       let response = await putJson2(WalletApi,data.id, data);
-      if (response.data.code != 1) {
+      if (response.data.code !== 1) {
         return
       }
       item["money"] = response.data.data

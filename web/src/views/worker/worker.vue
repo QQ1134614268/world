@@ -167,7 +167,7 @@ export default {
         endDate: this.dateRange && this.dateRange.length > 1 ? this.dateRange[1] : "",
       }
       let response = await get2(WorkerApi, 0, data);
-      if (response.data.code != 1) {
+      if (response.data.code !== 1) {
         this.$message.error(response.data.data);
         return
       }
@@ -187,7 +187,7 @@ export default {
         order: column.order
       }
       let response = await get2(WorkerApi, 0, data);
-      if (response.data.code != 1) {
+      if (response.data.code !== 1) {
         this.$message.error(response.data.data);
         return
       }
@@ -199,7 +199,7 @@ export default {
     },
     async save() {
       let response = await ppJson(WorkerApi, this.form.id, this.form);
-      if (response.data.code != 1) {
+      if (response.data.code !== 1) {
         this.$message.error(response.data.data);
         return
       }
@@ -220,6 +220,9 @@ export default {
     },
     async handleDelete(index, row) {
       let response = await deleteJson2(WorkerApi, row.id);
+      if (response.data.code !== 1) {
+        this.$message.error(response.data.data);
+      }
       await this.init();
     },
   },

@@ -5,12 +5,12 @@
       <el-button @click="init">查询</el-button>
     </div>
     <div class="tableBox">
-      <div v-for="(item,index) in page.data" class="orderBox">
+      <div v-for="(item,index) in page.data" :key="index" class="orderBox">
         <div class="order">
           <span>{{ item.create_time }}</span>
           <span>{{ item.total_price }}</span>
         </div>
-        <div v-for="(item1,index2) in item.info_list" class="orderInfo">
+        <div v-for="(item1,index2) in item.info_list" :key=index2 class="orderInfo">
           <span class="food">
             <img :src="item1.image" style="width: 3rem;">
             <span>{{ item1.name }}</span>

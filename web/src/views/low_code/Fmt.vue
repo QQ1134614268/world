@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  name: "Fmt",
+  name: "FmtComponent",
   data() {
     return {};
   },

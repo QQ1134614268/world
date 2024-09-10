@@ -15,7 +15,7 @@
 <script>
 
 export default {
-  name: 'err',
+  name: 'errComponent',
   props: {
     msg: String
   },

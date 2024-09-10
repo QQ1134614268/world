@@ -67,7 +67,7 @@ import {toTree} from "@/api/util";
 import {get2, postJson2} from "@/api/http";
 
 export default {
-  name: "Store",
+  name: "StoreComponent",
   data() {
     return {
       num: 0,

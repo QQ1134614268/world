@@ -18,7 +18,7 @@
 <script>
 
 export default {
-  name: 'Home',
+  name: 'HighLightComponent',
   data() {
     return {}
   },

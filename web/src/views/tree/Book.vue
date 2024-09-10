@@ -18,7 +18,7 @@
       {{ obj.value }}
     </div>
     <div class="block">
-      <div v-for="(item , index) in prove">
+      <div v-for="(item , index) in prove" :key="index">
         <span>{{ index + 1 }}</span>
         <a :href="'/tree/Book?id='+item.id">
           {{ item.value }}
@@ -26,7 +26,7 @@
       </div>
     </div>
     <div class="block">
-      <div v-for="(item , index) in story">
+      <div v-for="(item , index) in story" :key="index">
         <span>{{ index + 1 }}</span>
         <span>{{ item.value }}</span>
       </div>
@@ -40,7 +40,7 @@ import {ProveApi, StoryApi} from "@/api/api";
 import {get2} from "@/api/http";
 
 export default {
-  name: "Book",
+  name: "BookComponent",
   data() {
     return {
       ADD_STORY: ADD_STORY,

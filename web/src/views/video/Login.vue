@@ -18,7 +18,7 @@
 import {userLogin} from "@/api/user";
 
 export default {
-  name: "Home",
+  name: "HomeComponent",
   data() {
     return {
       form: {},

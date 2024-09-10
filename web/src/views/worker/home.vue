@@ -39,7 +39,7 @@ import {
 } from "@/views/worker/index";
 
 export default {
-  name: "home",
+  name: 'HomeComponent',
   data() {
     return {
       data: [],

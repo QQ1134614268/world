@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="col-11">
-      <div v-for="o in tableData">
+      <div v-for="(o, index) in tableData" :key=index>
         <div class="block">
           <div class="art_title">
             {{ o.title }}
@@ -100,7 +100,7 @@ export default {
     }
   },
   watch: {
-    search: function (val, oldVal) {
+    search: function () {
       this.init();
     }
   },

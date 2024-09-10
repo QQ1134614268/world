@@ -24,7 +24,7 @@ import {postJson2} from "@/api/http";
 import {VideoUserApi} from "@/api/api";
 
 export default {
-  name: "Register",
+  name: "RegisterComponent",
   data() {
     return {
       form: {}

@@ -13,7 +13,7 @@ import {UserApi, WorksApi} from "@/api/api";
 import {get2} from "@/api/http";
 
 export default {
-  name: "Video",
+  name: "VideoComponent",
   data() {
     return {
       video_id: this.$route.query.video_id,

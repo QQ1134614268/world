@@ -5,7 +5,7 @@
         回到目录
       </router-link>
     </div>
-    <div v-for="(item,k) in data" class="p_c_flexbox_row">
+    <div v-for="(item, index) in data" :key="index" class="p_c_flexbox_row">
       <div class="col-1">{{ item.wight }}</div>
       <div class="col-1">{{ item.id }}</div>
       <div>{{ item.value }}</div>
@@ -18,7 +18,7 @@ import {ProveBlueprintApi_popular_word} from "@/api/api";
 import {get2} from "@/api/http";
 
 export default {
-  name: "Attention",
+  name: "AttentionComponent",
 
   data() {
     return {
@@ -29,7 +29,7 @@ export default {
     async init() {
       let data = {}
       let res = await get2(ProveBlueprintApi_popular_word, 0, data)
-      if (res.data.code != 1) {
+      if (res.data.code !== 1) {
         this.$message.error('服务器异常');
         return
       }

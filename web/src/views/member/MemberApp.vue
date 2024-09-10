@@ -25,7 +25,7 @@ import {FoodInfo, HomeContent, MemberAdminHome, MemberRootUrl, Store, UserSpace}
 import {USER_LOGIN_URL, USER_REGISTER_URL} from "@/views/user";
 
 export default {
-  name: "Home",
+  name: "HomeComponent",
   data() {
     return {
       MemberRootUrl,

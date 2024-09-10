@@ -18,16 +18,12 @@
 </template>
 
 <script>
-import errDialog from "@/components/err.vue"
 import {userLogin} from "@/api/user";
 import {SYS_HOME} from "@";
 import {USER_REGISTER_URL} from "@/views/user/index";
 
 export default {
-  name: "login",
-  components: {
-    errDialog
-  },
+  name: "loginComponent",
   data() {
     return {
       SYS_REGISTER_URL: USER_REGISTER_URL,

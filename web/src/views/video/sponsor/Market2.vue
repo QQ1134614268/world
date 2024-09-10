@@ -53,7 +53,7 @@ import {TargetInfoUrl, UserInfo2} from "@/views/video";
 import {get2} from "@/api/http";
 
 export default {
-  name: "market",
+  name: "Market2Component",
   data() {
     return {
       TargetInfoUrl,
@@ -91,7 +91,7 @@ export default {
     },
   },
   watch: {
-    search: function (val, oldVal) {
+    search: function () {
       this.init();
     }
   },

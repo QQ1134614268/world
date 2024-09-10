@@ -33,14 +33,23 @@
 
 <script>
 export default {
-  name: "check", data() {
+  name: 'checkComponent',
+  data() {
     return {
       formData: {
         name: '',
         user: {tel: ''},
         phones: [
-          {brand: "华为", model: "", arr: [{data1: ""}]},
-          {brand: "小米", model: "", arr: [{data1: ""}]}
+          {
+            brand: "华为",
+            model: "",
+            arr: [{data1: ""}]
+          },
+          {
+            brand: "小米",
+            model: "",
+            arr: [{data1: ""}]
+          }
         ]
       },
       formRule: {

@@ -23,7 +23,7 @@
 import {GoodsList, Order, Qrcode} from "@/views/member";
 
 export default {
-  name: "Home",
+  name: "HomeComponent",
   data() {
     return {
       GoodsList,

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="title block">
-      <input v-model="title"> </input>
+      <input v-model="title">
     </div>
     <div class="block">
       <textarea v-model="content" style="width: 100%;" rows="10">
@@ -18,7 +18,7 @@ import {StoryApi} from "@/api/api";
 import {postJson2} from "@/api/http";
 
 export default {
-  name: "Edit",
+  name: "EditComponent",
   data() {
     return {
       id: this.$route.query.id,

@@ -54,7 +54,7 @@ import {fmtDateY_M_D_H_M_S, getDateY_M_D} from "@/api/util";
 import {get2, putJson2} from "@/api/http";
 
 export default {
-  name: "Approve",
+  name: "ApproveComponent",
   data() {
     return {
       tableData: [],

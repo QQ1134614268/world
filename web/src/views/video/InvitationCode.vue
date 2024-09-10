@@ -26,7 +26,7 @@ export default {
     async update() {
       let data = {}
       let res = await putJson2(InvitationCodeApi, 0, data)
-      if (res.data.code != 1) {
+      if (res.data.code !== 1) {
         this.$message.error('服务器异常');
         return
       }

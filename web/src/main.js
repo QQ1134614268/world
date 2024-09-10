@@ -5,6 +5,7 @@ import router from '@/index'
 import "@/assets/global_box.css"
 import "@/assets/global_article.css"
 import "@/assets/global_html.css"
+import "@/assets/bootstrap.min.css"
 import store from "@/store/store"
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'

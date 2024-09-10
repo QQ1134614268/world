@@ -9,7 +9,7 @@
       </span>
     </div>
     <div class="p_c_flexbox">
-      <div v-for="(o, index)  in tableData">
+      <div v-for="(o, index)  in tableData" :key="index" >
         <div class="block">
           <router-link :to="{path:VideoUrl,query: {video_id: o.id}}" class="p_c_space">
             <div>
@@ -60,7 +60,7 @@ import WrdImgUpload from "@/components/WrdImgUpload";
 import {deleteJson2, get2, ppJson} from "@/api/http";
 
 export default {
-  name: "works",
+  name: "worksComponent",
   components: {WrdImgUpload, WrdVideoUploadV2},
   data() {
     return {

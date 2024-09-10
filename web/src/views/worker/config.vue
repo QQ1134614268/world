@@ -57,7 +57,7 @@ import {ConfigApi} from "@/api/api";
 import {deleteJson2, get2, postJson2, putJson2} from "@/api/http";
 
 export default {
-  name: "config",
+  name: 'ConfigComponent',
   data() {
     return {
       options: [],

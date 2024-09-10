@@ -7,7 +7,7 @@
 </template>
 <script>
 export default {
-  // ...
+  name: 'ChildComponent',
   data() {
     return {
       // 默认

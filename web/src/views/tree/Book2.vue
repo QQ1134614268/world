@@ -8,6 +8,7 @@
 </template>
 <script>
 export default {
+  name: "Book2Component",
   data() {
     return {
       treeData1: [{

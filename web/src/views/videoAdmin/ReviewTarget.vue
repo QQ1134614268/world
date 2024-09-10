@@ -52,7 +52,7 @@ import {getEnum} from "@/api/enum_api";
 import {DATE_FMT, REVIEW_ENUM} from "@/api/config";
 import {TargetInfoUrl} from "@/views/video";
 import {getDateY_M_D} from "@/api/util";
-import {putJson2} from "@/api/http";
+import {get2, putJson2} from "@/api/http";
 
 export default {
   name: "ReviewTarget",

@@ -58,7 +58,7 @@ export default {
       }
       let res = await get2(WorkerTimeApi, 0, data)
 
-      if (res.data.code != 1) {
+      if (res.data.code !== 1) {
         this.$message.error('服务器异常');
         return
       }

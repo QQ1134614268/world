@@ -2,7 +2,7 @@
   <div class="codePage">
     <div class="nav">
       <div>最近操作|top,折叠|搜索</div>
-      <div v-for="(item,index) in treeData" :key="item.TABLE_NAME">
+      <div v-for="(item,index) in treeData" :key="index">
         <div @click="tableData=item.children">
           {{ item.TABLE_NAME }}
         </div>
@@ -32,7 +32,6 @@
 
 <script>
 import {getJson} from "@/api/http";
-import Fmt from "@/views/low_code/Fmt.vue";
 
 let get_dbs = "/api/code_api/get_dbs"
 let get_tables = "/api/code_api/get_tables"
@@ -40,10 +39,7 @@ let get_table_cols = "/api/code_api/get_table_cols"
 let get_table_tree = "/api/code_api/get_table_tree"
 let get_data = "/api/code_api/get_data"
 export default {
-  name: "Code",
-  components: {
-    Fmt
-  },
+  name: "CodeComponent",
   data() {
     return {
       treeData: [],

@@ -70,7 +70,7 @@ import {ProveApi, ProveBlueprintApi_contain_value} from "@/api/api";
 import {get2, putJson2} from "@/api/http";
 
 export default {
-  name: "Catalogue",
+  name: "CatalogueComponent",
   data() {
     return {
       searchFlag: true,
@@ -119,6 +119,9 @@ export default {
         draggingNode.data.parent_id = dropNode.data.parent_id
       }
       let res3 = await putJson2(ProveApi, draggingNode.data.id, draggingNode.data);
+      if(res3.data.code !== 1){
+        this.$message.error('服务异常')
+      }
     },
   },
 }

@@ -14,7 +14,7 @@ const routes = [
     },
     {
         path: SYS_ROOT,
-        component: () => import('@/views/sys/root.vue')
+        component: () => import('@/views/sys/RootHome.vue')
     },
     {
         path: ENUM_ROOT,

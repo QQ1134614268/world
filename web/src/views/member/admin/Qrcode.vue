@@ -6,7 +6,7 @@
       <el-table-column label="二维码" prop="qr_code"></el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button>编辑</el-button>
+          <el-button >编辑</el-button>
           <el-button>删除</el-button>
         </template>
       </el-table-column>
@@ -30,7 +30,7 @@ import {QrCodeApi} from "@/api/api";
 import {get2, ppJson} from "@/api/http";
 
 export default {
-  name: "Qrcode",
+  name: "QrcodeComponent",
   data() {
     return {
       tableDate: [],

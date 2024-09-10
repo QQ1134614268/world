@@ -11,7 +11,8 @@
 import Child from "@/views/hello/parent_child/Child";
 
 export default {
-  components: {Child},
+   name: 'ParentComponent',
+ components: {Child},
   data() {
     return {
       message: ''

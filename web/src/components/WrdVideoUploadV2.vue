@@ -18,12 +18,10 @@
 <script>
 import {FileApi} from "@/api/api";
 import {videoBeforeUpload} from "@/api/util";
-import Video from "@/views/video/expert/Video";
 import {VIDEO_TYPE_STR} from "@/api/config";
 
 export default {
   name: "WrdVideoUploadV2",
-  components: {Video},
   // props: {
   //   fileUrl: {
   //     type: String,

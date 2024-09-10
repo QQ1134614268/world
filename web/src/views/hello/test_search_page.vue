@@ -75,6 +75,7 @@ export default {
   watch: {
     watchSearch: {
       handler(newValue, oldValue) {
+        console.log(newValue, oldValue)
         let self = this
         if (newValue) {
           //这里要从暂存的所有数据中过滤 放到展示的数组中

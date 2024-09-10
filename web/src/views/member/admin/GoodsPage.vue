@@ -80,6 +80,9 @@ export default {
     },
     async handleDelete(index, row) {
       let res = await deleteJson2(GoodsApi, row.id, {})
+      if (res.data.code !== 1) {
+        this.$message.error('服务器异常');
+      }
     },
     async handleEdit(id, row) {
       this.form = row

@@ -9,7 +9,7 @@
         添加故事
       </router-link>
     </div>
-    <div v-for="(item , index) in story" class="block p_c_flexbox_row">
+    <div v-for="(item , index) in story" :key="index" class="block p_c_flexbox_row">
       <div class="col-1">{{ index + 1 }}</div>
       <div class="col-11">{{ item.value }}</div>
     </div>
@@ -21,7 +21,7 @@ import {StoryApi} from "@/api/api";
 import {get2} from "@/api/http";
 
 export default {
-  name: "Story",
+  name: "StoryComponent",
   data() {
     return {
       story: [],

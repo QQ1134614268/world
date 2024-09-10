@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: "test",
+  name: "testHeaderComponent",
   data() {
     return {
       input: "",
